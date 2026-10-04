@@ -17,12 +17,11 @@ invocation.
 
 ```ts
 import { Function } from "effect";
-import * as assert from "node:assert";
 
 const constNull = Function.constant(null);
 
-assert.deepStrictEqual(constNull(), null);
-assert.deepStrictEqual(constNull(), null);
+constNull(); // => null
+constNull(); // => null
 ```
 
 ## Type Parameters

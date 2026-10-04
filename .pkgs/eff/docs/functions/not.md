@@ -8,7 +8,25 @@
 function not<T, S>(predicate: (data: T) => data is S): (data: T) => data is Exclude<T, S>;
 ```
 
-A function that takes a guard function as predicate and returns a guard that negates it.
+Negates a predicate.
+
+**When to use**
+
+Use when you want the inverse of an existing predicate.
+
+**Details**
+
+Returns a new predicate that flips the boolean result.
+
+**Example** (Negating a predicate)
+
+```ts
+import { Predicate } from "effect";
+
+const isNotString = Predicate.not(Predicate.isString);
+
+isNotString(1); // => true
+```
 
 ### Type Parameters
 
@@ -19,15 +37,23 @@ A function that takes a guard function as predicate and returns a guard that neg
 
 ### Parameters
 
-| Parameter   | Type                         | Description                   |
-| ----------- | ---------------------------- | ----------------------------- |
-| `predicate` | (`data`: `T`) => `data is S` | The guard function to negate. |
+| Parameter   | Type                         |
+| ----------- | ---------------------------- |
+| `predicate` | (`data`: `T`) => `data is S` |
 
 ### Returns
 
-A guard function that negates the given predicate.
-
 (`data`: `T`) => `data is Exclude<T, S>`
+
+### See
+
+- [and](../variables/and.md)
+- [or](../variables/or.md)
+- [xor](../variables/xor.md)
+
+### Since
+
+2.0.0
 
 ## Call Signature
 
@@ -35,7 +61,25 @@ A guard function that negates the given predicate.
 function not<T>(predicate: (data: T) => boolean): (data: T) => boolean;
 ```
 
-A function that takes a guard function as predicate and returns a guard that negates it.
+Negates a predicate.
+
+**When to use**
+
+Use when you want the inverse of an existing predicate.
+
+**Details**
+
+Returns a new predicate that flips the boolean result.
+
+**Example** (Negating a predicate)
+
+```ts
+import { Predicate } from "effect";
+
+const isNotString = Predicate.not(Predicate.isString);
+
+isNotString(1); // => true
+```
 
 ### Type Parameters
 
@@ -45,12 +89,20 @@ A function that takes a guard function as predicate and returns a guard that neg
 
 ### Parameters
 
-| Parameter   | Type                       | Description                   |
-| ----------- | -------------------------- | ----------------------------- |
-| `predicate` | (`data`: `T`) => `boolean` | The guard function to negate. |
+| Parameter   | Type                       |
+| ----------- | -------------------------- |
+| `predicate` | (`data`: `T`) => `boolean` |
 
 ### Returns
 
-A guard function that negates the given predicate.
-
 (`data`: `T`) => `boolean`
+
+### See
+
+- [and](../variables/and.md)
+- [or](../variables/or.md)
+- [xor](../variables/xor.md)
+
+### Since
+
+2.0.0

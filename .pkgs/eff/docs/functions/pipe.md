@@ -34,26 +34,12 @@ the input for the next function.
 ```ts
 import { pipe } from "effect";
 
-const result = pipe(
+pipe(
   1,
   (n) => n + 1,
   (n) => n * 2,
   (n) => `result: ${n}`,
-);
-
-console.log(result); // "result: 4"
-```
-
-**Example** (Chaining methods before conversion)
-
-```ts
-const numbers = [1, 2, 3, 4];
-const double = (n: number) => n * 2;
-const greaterThanFour = (n: number) => n > 4;
-
-const result = numbers.map(double).filter(greaterThanFour);
-
-console.log(result); // [6, 8]
+); // => "result: 4"
 ```
 
 **Example** (Rewriting method chains with pipe)
@@ -67,46 +53,11 @@ const numbers = [1, 2, 3, 4];
 const double = (n: number) => n * 2;
 const greaterThanFour = (n: number) => n > 4;
 
-const result = pipe(
+pipe(
   numbers,
   Array.map(double),
   Array.filter(greaterThanFour),
-);
-
-console.log(result); // [6, 8]
-```
-
-**Example** (Chaining arithmetic operations)
-
-```ts
-import { pipe } from "effect";
-
-// Define simple arithmetic operations
-const increment = (x: number) => x + 1;
-const double = (x: number) => x * 2;
-const subtractTen = (x: number) => x - 10;
-
-// Sequentially apply these operations using `pipe`
-const result = pipe(5, increment, double, subtractTen);
-
-console.log(result);
-// Output: 2
-```
-
-**Example** (Building a simple transformation pipeline)
-
-```ts
-import { pipe } from "effect";
-
-// Simple transformation pipeline
-const result = pipe(
-  5,
-  (x) => x * 2, // 10
-  (x) => x + 1, // 11
-  (x) => x.toString(), // "11"
-);
-
-console.log(result); // "11"
+); // => [6, 8]
 ```
 
 ### Type Parameters
@@ -161,26 +112,12 @@ the input for the next function.
 ```ts
 import { pipe } from "effect";
 
-const result = pipe(
+pipe(
   1,
   (n) => n + 1,
   (n) => n * 2,
   (n) => `result: ${n}`,
-);
-
-console.log(result); // "result: 4"
-```
-
-**Example** (Chaining methods before conversion)
-
-```ts
-const numbers = [1, 2, 3, 4];
-const double = (n: number) => n * 2;
-const greaterThanFour = (n: number) => n > 4;
-
-const result = numbers.map(double).filter(greaterThanFour);
-
-console.log(result); // [6, 8]
+); // => "result: 4"
 ```
 
 **Example** (Rewriting method chains with pipe)
@@ -194,46 +131,11 @@ const numbers = [1, 2, 3, 4];
 const double = (n: number) => n * 2;
 const greaterThanFour = (n: number) => n > 4;
 
-const result = pipe(
+pipe(
   numbers,
   Array.map(double),
   Array.filter(greaterThanFour),
-);
-
-console.log(result); // [6, 8]
-```
-
-**Example** (Chaining arithmetic operations)
-
-```ts
-import { pipe } from "effect";
-
-// Define simple arithmetic operations
-const increment = (x: number) => x + 1;
-const double = (x: number) => x * 2;
-const subtractTen = (x: number) => x - 10;
-
-// Sequentially apply these operations using `pipe`
-const result = pipe(5, increment, double, subtractTen);
-
-console.log(result);
-// Output: 2
-```
-
-**Example** (Building a simple transformation pipeline)
-
-```ts
-import { pipe } from "effect";
-
-// Simple transformation pipeline
-const result = pipe(
-  5,
-  (x) => x * 2, // 10
-  (x) => x + 1, // 11
-  (x) => x.toString(), // "11"
-);
-
-console.log(result); // "11"
+); // => [6, 8]
 ```
 
 ### Type Parameters
@@ -290,26 +192,12 @@ the input for the next function.
 ```ts
 import { pipe } from "effect";
 
-const result = pipe(
+pipe(
   1,
   (n) => n + 1,
   (n) => n * 2,
   (n) => `result: ${n}`,
-);
-
-console.log(result); // "result: 4"
-```
-
-**Example** (Chaining methods before conversion)
-
-```ts
-const numbers = [1, 2, 3, 4];
-const double = (n: number) => n * 2;
-const greaterThanFour = (n: number) => n > 4;
-
-const result = numbers.map(double).filter(greaterThanFour);
-
-console.log(result); // [6, 8]
+); // => "result: 4"
 ```
 
 **Example** (Rewriting method chains with pipe)
@@ -323,46 +211,11 @@ const numbers = [1, 2, 3, 4];
 const double = (n: number) => n * 2;
 const greaterThanFour = (n: number) => n > 4;
 
-const result = pipe(
+pipe(
   numbers,
   Array.map(double),
   Array.filter(greaterThanFour),
-);
-
-console.log(result); // [6, 8]
-```
-
-**Example** (Chaining arithmetic operations)
-
-```ts
-import { pipe } from "effect";
-
-// Define simple arithmetic operations
-const increment = (x: number) => x + 1;
-const double = (x: number) => x * 2;
-const subtractTen = (x: number) => x - 10;
-
-// Sequentially apply these operations using `pipe`
-const result = pipe(5, increment, double, subtractTen);
-
-console.log(result);
-// Output: 2
-```
-
-**Example** (Building a simple transformation pipeline)
-
-```ts
-import { pipe } from "effect";
-
-// Simple transformation pipeline
-const result = pipe(
-  5,
-  (x) => x * 2, // 10
-  (x) => x + 1, // 11
-  (x) => x.toString(), // "11"
-);
-
-console.log(result); // "11"
+); // => [6, 8]
 ```
 
 ### Type Parameters
@@ -421,26 +274,12 @@ the input for the next function.
 ```ts
 import { pipe } from "effect";
 
-const result = pipe(
+pipe(
   1,
   (n) => n + 1,
   (n) => n * 2,
   (n) => `result: ${n}`,
-);
-
-console.log(result); // "result: 4"
-```
-
-**Example** (Chaining methods before conversion)
-
-```ts
-const numbers = [1, 2, 3, 4];
-const double = (n: number) => n * 2;
-const greaterThanFour = (n: number) => n > 4;
-
-const result = numbers.map(double).filter(greaterThanFour);
-
-console.log(result); // [6, 8]
+); // => "result: 4"
 ```
 
 **Example** (Rewriting method chains with pipe)
@@ -454,46 +293,11 @@ const numbers = [1, 2, 3, 4];
 const double = (n: number) => n * 2;
 const greaterThanFour = (n: number) => n > 4;
 
-const result = pipe(
+pipe(
   numbers,
   Array.map(double),
   Array.filter(greaterThanFour),
-);
-
-console.log(result); // [6, 8]
-```
-
-**Example** (Chaining arithmetic operations)
-
-```ts
-import { pipe } from "effect";
-
-// Define simple arithmetic operations
-const increment = (x: number) => x + 1;
-const double = (x: number) => x * 2;
-const subtractTen = (x: number) => x - 10;
-
-// Sequentially apply these operations using `pipe`
-const result = pipe(5, increment, double, subtractTen);
-
-console.log(result);
-// Output: 2
-```
-
-**Example** (Building a simple transformation pipeline)
-
-```ts
-import { pipe } from "effect";
-
-// Simple transformation pipeline
-const result = pipe(
-  5,
-  (x) => x * 2, // 10
-  (x) => x + 1, // 11
-  (x) => x.toString(), // "11"
-);
-
-console.log(result); // "11"
+); // => [6, 8]
 ```
 
 ### Type Parameters
@@ -554,26 +358,12 @@ the input for the next function.
 ```ts
 import { pipe } from "effect";
 
-const result = pipe(
+pipe(
   1,
   (n) => n + 1,
   (n) => n * 2,
   (n) => `result: ${n}`,
-);
-
-console.log(result); // "result: 4"
-```
-
-**Example** (Chaining methods before conversion)
-
-```ts
-const numbers = [1, 2, 3, 4];
-const double = (n: number) => n * 2;
-const greaterThanFour = (n: number) => n > 4;
-
-const result = numbers.map(double).filter(greaterThanFour);
-
-console.log(result); // [6, 8]
+); // => "result: 4"
 ```
 
 **Example** (Rewriting method chains with pipe)
@@ -587,46 +377,11 @@ const numbers = [1, 2, 3, 4];
 const double = (n: number) => n * 2;
 const greaterThanFour = (n: number) => n > 4;
 
-const result = pipe(
+pipe(
   numbers,
   Array.map(double),
   Array.filter(greaterThanFour),
-);
-
-console.log(result); // [6, 8]
-```
-
-**Example** (Chaining arithmetic operations)
-
-```ts
-import { pipe } from "effect";
-
-// Define simple arithmetic operations
-const increment = (x: number) => x + 1;
-const double = (x: number) => x * 2;
-const subtractTen = (x: number) => x - 10;
-
-// Sequentially apply these operations using `pipe`
-const result = pipe(5, increment, double, subtractTen);
-
-console.log(result);
-// Output: 2
-```
-
-**Example** (Building a simple transformation pipeline)
-
-```ts
-import { pipe } from "effect";
-
-// Simple transformation pipeline
-const result = pipe(
-  5,
-  (x) => x * 2, // 10
-  (x) => x + 1, // 11
-  (x) => x.toString(), // "11"
-);
-
-console.log(result); // "11"
+); // => [6, 8]
 ```
 
 ### Type Parameters
@@ -696,26 +451,12 @@ the input for the next function.
 ```ts
 import { pipe } from "effect";
 
-const result = pipe(
+pipe(
   1,
   (n) => n + 1,
   (n) => n * 2,
   (n) => `result: ${n}`,
-);
-
-console.log(result); // "result: 4"
-```
-
-**Example** (Chaining methods before conversion)
-
-```ts
-const numbers = [1, 2, 3, 4];
-const double = (n: number) => n * 2;
-const greaterThanFour = (n: number) => n > 4;
-
-const result = numbers.map(double).filter(greaterThanFour);
-
-console.log(result); // [6, 8]
+); // => "result: 4"
 ```
 
 **Example** (Rewriting method chains with pipe)
@@ -729,46 +470,11 @@ const numbers = [1, 2, 3, 4];
 const double = (n: number) => n * 2;
 const greaterThanFour = (n: number) => n > 4;
 
-const result = pipe(
+pipe(
   numbers,
   Array.map(double),
   Array.filter(greaterThanFour),
-);
-
-console.log(result); // [6, 8]
-```
-
-**Example** (Chaining arithmetic operations)
-
-```ts
-import { pipe } from "effect";
-
-// Define simple arithmetic operations
-const increment = (x: number) => x + 1;
-const double = (x: number) => x * 2;
-const subtractTen = (x: number) => x - 10;
-
-// Sequentially apply these operations using `pipe`
-const result = pipe(5, increment, double, subtractTen);
-
-console.log(result);
-// Output: 2
-```
-
-**Example** (Building a simple transformation pipeline)
-
-```ts
-import { pipe } from "effect";
-
-// Simple transformation pipeline
-const result = pipe(
-  5,
-  (x) => x * 2, // 10
-  (x) => x + 1, // 11
-  (x) => x.toString(), // "11"
-);
-
-console.log(result); // "11"
+); // => [6, 8]
 ```
 
 ### Type Parameters
@@ -841,26 +547,12 @@ the input for the next function.
 ```ts
 import { pipe } from "effect";
 
-const result = pipe(
+pipe(
   1,
   (n) => n + 1,
   (n) => n * 2,
   (n) => `result: ${n}`,
-);
-
-console.log(result); // "result: 4"
-```
-
-**Example** (Chaining methods before conversion)
-
-```ts
-const numbers = [1, 2, 3, 4];
-const double = (n: number) => n * 2;
-const greaterThanFour = (n: number) => n > 4;
-
-const result = numbers.map(double).filter(greaterThanFour);
-
-console.log(result); // [6, 8]
+); // => "result: 4"
 ```
 
 **Example** (Rewriting method chains with pipe)
@@ -874,46 +566,11 @@ const numbers = [1, 2, 3, 4];
 const double = (n: number) => n * 2;
 const greaterThanFour = (n: number) => n > 4;
 
-const result = pipe(
+pipe(
   numbers,
   Array.map(double),
   Array.filter(greaterThanFour),
-);
-
-console.log(result); // [6, 8]
-```
-
-**Example** (Chaining arithmetic operations)
-
-```ts
-import { pipe } from "effect";
-
-// Define simple arithmetic operations
-const increment = (x: number) => x + 1;
-const double = (x: number) => x * 2;
-const subtractTen = (x: number) => x - 10;
-
-// Sequentially apply these operations using `pipe`
-const result = pipe(5, increment, double, subtractTen);
-
-console.log(result);
-// Output: 2
-```
-
-**Example** (Building a simple transformation pipeline)
-
-```ts
-import { pipe } from "effect";
-
-// Simple transformation pipeline
-const result = pipe(
-  5,
-  (x) => x * 2, // 10
-  (x) => x + 1, // 11
-  (x) => x.toString(), // "11"
-);
-
-console.log(result); // "11"
+); // => [6, 8]
 ```
 
 ### Type Parameters
@@ -989,26 +646,12 @@ the input for the next function.
 ```ts
 import { pipe } from "effect";
 
-const result = pipe(
+pipe(
   1,
   (n) => n + 1,
   (n) => n * 2,
   (n) => `result: ${n}`,
-);
-
-console.log(result); // "result: 4"
-```
-
-**Example** (Chaining methods before conversion)
-
-```ts
-const numbers = [1, 2, 3, 4];
-const double = (n: number) => n * 2;
-const greaterThanFour = (n: number) => n > 4;
-
-const result = numbers.map(double).filter(greaterThanFour);
-
-console.log(result); // [6, 8]
+); // => "result: 4"
 ```
 
 **Example** (Rewriting method chains with pipe)
@@ -1022,46 +665,11 @@ const numbers = [1, 2, 3, 4];
 const double = (n: number) => n * 2;
 const greaterThanFour = (n: number) => n > 4;
 
-const result = pipe(
+pipe(
   numbers,
   Array.map(double),
   Array.filter(greaterThanFour),
-);
-
-console.log(result); // [6, 8]
-```
-
-**Example** (Chaining arithmetic operations)
-
-```ts
-import { pipe } from "effect";
-
-// Define simple arithmetic operations
-const increment = (x: number) => x + 1;
-const double = (x: number) => x * 2;
-const subtractTen = (x: number) => x - 10;
-
-// Sequentially apply these operations using `pipe`
-const result = pipe(5, increment, double, subtractTen);
-
-console.log(result);
-// Output: 2
-```
-
-**Example** (Building a simple transformation pipeline)
-
-```ts
-import { pipe } from "effect";
-
-// Simple transformation pipeline
-const result = pipe(
-  5,
-  (x) => x * 2, // 10
-  (x) => x + 1, // 11
-  (x) => x.toString(), // "11"
-);
-
-console.log(result); // "11"
+); // => [6, 8]
 ```
 
 ### Type Parameters
@@ -1140,26 +748,12 @@ the input for the next function.
 ```ts
 import { pipe } from "effect";
 
-const result = pipe(
+pipe(
   1,
   (n) => n + 1,
   (n) => n * 2,
   (n) => `result: ${n}`,
-);
-
-console.log(result); // "result: 4"
-```
-
-**Example** (Chaining methods before conversion)
-
-```ts
-const numbers = [1, 2, 3, 4];
-const double = (n: number) => n * 2;
-const greaterThanFour = (n: number) => n > 4;
-
-const result = numbers.map(double).filter(greaterThanFour);
-
-console.log(result); // [6, 8]
+); // => "result: 4"
 ```
 
 **Example** (Rewriting method chains with pipe)
@@ -1173,46 +767,11 @@ const numbers = [1, 2, 3, 4];
 const double = (n: number) => n * 2;
 const greaterThanFour = (n: number) => n > 4;
 
-const result = pipe(
+pipe(
   numbers,
   Array.map(double),
   Array.filter(greaterThanFour),
-);
-
-console.log(result); // [6, 8]
-```
-
-**Example** (Chaining arithmetic operations)
-
-```ts
-import { pipe } from "effect";
-
-// Define simple arithmetic operations
-const increment = (x: number) => x + 1;
-const double = (x: number) => x * 2;
-const subtractTen = (x: number) => x - 10;
-
-// Sequentially apply these operations using `pipe`
-const result = pipe(5, increment, double, subtractTen);
-
-console.log(result);
-// Output: 2
-```
-
-**Example** (Building a simple transformation pipeline)
-
-```ts
-import { pipe } from "effect";
-
-// Simple transformation pipeline
-const result = pipe(
-  5,
-  (x) => x * 2, // 10
-  (x) => x + 1, // 11
-  (x) => x.toString(), // "11"
-);
-
-console.log(result); // "11"
+); // => [6, 8]
 ```
 
 ### Type Parameters
@@ -1294,26 +853,12 @@ the input for the next function.
 ```ts
 import { pipe } from "effect";
 
-const result = pipe(
+pipe(
   1,
   (n) => n + 1,
   (n) => n * 2,
   (n) => `result: ${n}`,
-);
-
-console.log(result); // "result: 4"
-```
-
-**Example** (Chaining methods before conversion)
-
-```ts
-const numbers = [1, 2, 3, 4];
-const double = (n: number) => n * 2;
-const greaterThanFour = (n: number) => n > 4;
-
-const result = numbers.map(double).filter(greaterThanFour);
-
-console.log(result); // [6, 8]
+); // => "result: 4"
 ```
 
 **Example** (Rewriting method chains with pipe)
@@ -1327,46 +872,11 @@ const numbers = [1, 2, 3, 4];
 const double = (n: number) => n * 2;
 const greaterThanFour = (n: number) => n > 4;
 
-const result = pipe(
+pipe(
   numbers,
   Array.map(double),
   Array.filter(greaterThanFour),
-);
-
-console.log(result); // [6, 8]
-```
-
-**Example** (Chaining arithmetic operations)
-
-```ts
-import { pipe } from "effect";
-
-// Define simple arithmetic operations
-const increment = (x: number) => x + 1;
-const double = (x: number) => x * 2;
-const subtractTen = (x: number) => x - 10;
-
-// Sequentially apply these operations using `pipe`
-const result = pipe(5, increment, double, subtractTen);
-
-console.log(result);
-// Output: 2
-```
-
-**Example** (Building a simple transformation pipeline)
-
-```ts
-import { pipe } from "effect";
-
-// Simple transformation pipeline
-const result = pipe(
-  5,
-  (x) => x * 2, // 10
-  (x) => x + 1, // 11
-  (x) => x.toString(), // "11"
-);
-
-console.log(result); // "11"
+); // => [6, 8]
 ```
 
 ### Type Parameters
@@ -1451,26 +961,12 @@ the input for the next function.
 ```ts
 import { pipe } from "effect";
 
-const result = pipe(
+pipe(
   1,
   (n) => n + 1,
   (n) => n * 2,
   (n) => `result: ${n}`,
-);
-
-console.log(result); // "result: 4"
-```
-
-**Example** (Chaining methods before conversion)
-
-```ts
-const numbers = [1, 2, 3, 4];
-const double = (n: number) => n * 2;
-const greaterThanFour = (n: number) => n > 4;
-
-const result = numbers.map(double).filter(greaterThanFour);
-
-console.log(result); // [6, 8]
+); // => "result: 4"
 ```
 
 **Example** (Rewriting method chains with pipe)
@@ -1484,46 +980,11 @@ const numbers = [1, 2, 3, 4];
 const double = (n: number) => n * 2;
 const greaterThanFour = (n: number) => n > 4;
 
-const result = pipe(
+pipe(
   numbers,
   Array.map(double),
   Array.filter(greaterThanFour),
-);
-
-console.log(result); // [6, 8]
-```
-
-**Example** (Chaining arithmetic operations)
-
-```ts
-import { pipe } from "effect";
-
-// Define simple arithmetic operations
-const increment = (x: number) => x + 1;
-const double = (x: number) => x * 2;
-const subtractTen = (x: number) => x - 10;
-
-// Sequentially apply these operations using `pipe`
-const result = pipe(5, increment, double, subtractTen);
-
-console.log(result);
-// Output: 2
-```
-
-**Example** (Building a simple transformation pipeline)
-
-```ts
-import { pipe } from "effect";
-
-// Simple transformation pipeline
-const result = pipe(
-  5,
-  (x) => x * 2, // 10
-  (x) => x + 1, // 11
-  (x) => x.toString(), // "11"
-);
-
-console.log(result); // "11"
+); // => [6, 8]
 ```
 
 ### Type Parameters
@@ -1611,26 +1072,12 @@ the input for the next function.
 ```ts
 import { pipe } from "effect";
 
-const result = pipe(
+pipe(
   1,
   (n) => n + 1,
   (n) => n * 2,
   (n) => `result: ${n}`,
-);
-
-console.log(result); // "result: 4"
-```
-
-**Example** (Chaining methods before conversion)
-
-```ts
-const numbers = [1, 2, 3, 4];
-const double = (n: number) => n * 2;
-const greaterThanFour = (n: number) => n > 4;
-
-const result = numbers.map(double).filter(greaterThanFour);
-
-console.log(result); // [6, 8]
+); // => "result: 4"
 ```
 
 **Example** (Rewriting method chains with pipe)
@@ -1644,46 +1091,11 @@ const numbers = [1, 2, 3, 4];
 const double = (n: number) => n * 2;
 const greaterThanFour = (n: number) => n > 4;
 
-const result = pipe(
+pipe(
   numbers,
   Array.map(double),
   Array.filter(greaterThanFour),
-);
-
-console.log(result); // [6, 8]
-```
-
-**Example** (Chaining arithmetic operations)
-
-```ts
-import { pipe } from "effect";
-
-// Define simple arithmetic operations
-const increment = (x: number) => x + 1;
-const double = (x: number) => x * 2;
-const subtractTen = (x: number) => x - 10;
-
-// Sequentially apply these operations using `pipe`
-const result = pipe(5, increment, double, subtractTen);
-
-console.log(result);
-// Output: 2
-```
-
-**Example** (Building a simple transformation pipeline)
-
-```ts
-import { pipe } from "effect";
-
-// Simple transformation pipeline
-const result = pipe(
-  5,
-  (x) => x * 2, // 10
-  (x) => x + 1, // 11
-  (x) => x.toString(), // "11"
-);
-
-console.log(result); // "11"
+); // => [6, 8]
 ```
 
 ### Type Parameters
@@ -1774,26 +1186,12 @@ the input for the next function.
 ```ts
 import { pipe } from "effect";
 
-const result = pipe(
+pipe(
   1,
   (n) => n + 1,
   (n) => n * 2,
   (n) => `result: ${n}`,
-);
-
-console.log(result); // "result: 4"
-```
-
-**Example** (Chaining methods before conversion)
-
-```ts
-const numbers = [1, 2, 3, 4];
-const double = (n: number) => n * 2;
-const greaterThanFour = (n: number) => n > 4;
-
-const result = numbers.map(double).filter(greaterThanFour);
-
-console.log(result); // [6, 8]
+); // => "result: 4"
 ```
 
 **Example** (Rewriting method chains with pipe)
@@ -1807,46 +1205,11 @@ const numbers = [1, 2, 3, 4];
 const double = (n: number) => n * 2;
 const greaterThanFour = (n: number) => n > 4;
 
-const result = pipe(
+pipe(
   numbers,
   Array.map(double),
   Array.filter(greaterThanFour),
-);
-
-console.log(result); // [6, 8]
-```
-
-**Example** (Chaining arithmetic operations)
-
-```ts
-import { pipe } from "effect";
-
-// Define simple arithmetic operations
-const increment = (x: number) => x + 1;
-const double = (x: number) => x * 2;
-const subtractTen = (x: number) => x - 10;
-
-// Sequentially apply these operations using `pipe`
-const result = pipe(5, increment, double, subtractTen);
-
-console.log(result);
-// Output: 2
-```
-
-**Example** (Building a simple transformation pipeline)
-
-```ts
-import { pipe } from "effect";
-
-// Simple transformation pipeline
-const result = pipe(
-  5,
-  (x) => x * 2, // 10
-  (x) => x + 1, // 11
-  (x) => x.toString(), // "11"
-);
-
-console.log(result); // "11"
+); // => [6, 8]
 ```
 
 ### Type Parameters
@@ -1940,26 +1303,12 @@ the input for the next function.
 ```ts
 import { pipe } from "effect";
 
-const result = pipe(
+pipe(
   1,
   (n) => n + 1,
   (n) => n * 2,
   (n) => `result: ${n}`,
-);
-
-console.log(result); // "result: 4"
-```
-
-**Example** (Chaining methods before conversion)
-
-```ts
-const numbers = [1, 2, 3, 4];
-const double = (n: number) => n * 2;
-const greaterThanFour = (n: number) => n > 4;
-
-const result = numbers.map(double).filter(greaterThanFour);
-
-console.log(result); // [6, 8]
+); // => "result: 4"
 ```
 
 **Example** (Rewriting method chains with pipe)
@@ -1973,46 +1322,11 @@ const numbers = [1, 2, 3, 4];
 const double = (n: number) => n * 2;
 const greaterThanFour = (n: number) => n > 4;
 
-const result = pipe(
+pipe(
   numbers,
   Array.map(double),
   Array.filter(greaterThanFour),
-);
-
-console.log(result); // [6, 8]
-```
-
-**Example** (Chaining arithmetic operations)
-
-```ts
-import { pipe } from "effect";
-
-// Define simple arithmetic operations
-const increment = (x: number) => x + 1;
-const double = (x: number) => x * 2;
-const subtractTen = (x: number) => x - 10;
-
-// Sequentially apply these operations using `pipe`
-const result = pipe(5, increment, double, subtractTen);
-
-console.log(result);
-// Output: 2
-```
-
-**Example** (Building a simple transformation pipeline)
-
-```ts
-import { pipe } from "effect";
-
-// Simple transformation pipeline
-const result = pipe(
-  5,
-  (x) => x * 2, // 10
-  (x) => x + 1, // 11
-  (x) => x.toString(), // "11"
-);
-
-console.log(result); // "11"
+); // => [6, 8]
 ```
 
 ### Type Parameters
@@ -2125,26 +1439,12 @@ the input for the next function.
 ```ts
 import { pipe } from "effect";
 
-const result = pipe(
+pipe(
   1,
   (n) => n + 1,
   (n) => n * 2,
   (n) => `result: ${n}`,
-);
-
-console.log(result); // "result: 4"
-```
-
-**Example** (Chaining methods before conversion)
-
-```ts
-const numbers = [1, 2, 3, 4];
-const double = (n: number) => n * 2;
-const greaterThanFour = (n: number) => n > 4;
-
-const result = numbers.map(double).filter(greaterThanFour);
-
-console.log(result); // [6, 8]
+); // => "result: 4"
 ```
 
 **Example** (Rewriting method chains with pipe)
@@ -2158,46 +1458,11 @@ const numbers = [1, 2, 3, 4];
 const double = (n: number) => n * 2;
 const greaterThanFour = (n: number) => n > 4;
 
-const result = pipe(
+pipe(
   numbers,
   Array.map(double),
   Array.filter(greaterThanFour),
-);
-
-console.log(result); // [6, 8]
-```
-
-**Example** (Chaining arithmetic operations)
-
-```ts
-import { pipe } from "effect";
-
-// Define simple arithmetic operations
-const increment = (x: number) => x + 1;
-const double = (x: number) => x * 2;
-const subtractTen = (x: number) => x - 10;
-
-// Sequentially apply these operations using `pipe`
-const result = pipe(5, increment, double, subtractTen);
-
-console.log(result);
-// Output: 2
-```
-
-**Example** (Building a simple transformation pipeline)
-
-```ts
-import { pipe } from "effect";
-
-// Simple transformation pipeline
-const result = pipe(
-  5,
-  (x) => x * 2, // 10
-  (x) => x + 1, // 11
-  (x) => x.toString(), // "11"
-);
-
-console.log(result); // "11"
+); // => [6, 8]
 ```
 
 ### Type Parameters
@@ -2314,26 +1579,12 @@ the input for the next function.
 ```ts
 import { pipe } from "effect";
 
-const result = pipe(
+pipe(
   1,
   (n) => n + 1,
   (n) => n * 2,
   (n) => `result: ${n}`,
-);
-
-console.log(result); // "result: 4"
-```
-
-**Example** (Chaining methods before conversion)
-
-```ts
-const numbers = [1, 2, 3, 4];
-const double = (n: number) => n * 2;
-const greaterThanFour = (n: number) => n > 4;
-
-const result = numbers.map(double).filter(greaterThanFour);
-
-console.log(result); // [6, 8]
+); // => "result: 4"
 ```
 
 **Example** (Rewriting method chains with pipe)
@@ -2347,46 +1598,11 @@ const numbers = [1, 2, 3, 4];
 const double = (n: number) => n * 2;
 const greaterThanFour = (n: number) => n > 4;
 
-const result = pipe(
+pipe(
   numbers,
   Array.map(double),
   Array.filter(greaterThanFour),
-);
-
-console.log(result); // [6, 8]
-```
-
-**Example** (Chaining arithmetic operations)
-
-```ts
-import { pipe } from "effect";
-
-// Define simple arithmetic operations
-const increment = (x: number) => x + 1;
-const double = (x: number) => x * 2;
-const subtractTen = (x: number) => x - 10;
-
-// Sequentially apply these operations using `pipe`
-const result = pipe(5, increment, double, subtractTen);
-
-console.log(result);
-// Output: 2
-```
-
-**Example** (Building a simple transformation pipeline)
-
-```ts
-import { pipe } from "effect";
-
-// Simple transformation pipeline
-const result = pipe(
-  5,
-  (x) => x * 2, // 10
-  (x) => x + 1, // 11
-  (x) => x.toString(), // "11"
-);
-
-console.log(result); // "11"
+); // => [6, 8]
 ```
 
 ### Type Parameters
@@ -2507,26 +1723,12 @@ the input for the next function.
 ```ts
 import { pipe } from "effect";
 
-const result = pipe(
+pipe(
   1,
   (n) => n + 1,
   (n) => n * 2,
   (n) => `result: ${n}`,
-);
-
-console.log(result); // "result: 4"
-```
-
-**Example** (Chaining methods before conversion)
-
-```ts
-const numbers = [1, 2, 3, 4];
-const double = (n: number) => n * 2;
-const greaterThanFour = (n: number) => n > 4;
-
-const result = numbers.map(double).filter(greaterThanFour);
-
-console.log(result); // [6, 8]
+); // => "result: 4"
 ```
 
 **Example** (Rewriting method chains with pipe)
@@ -2540,46 +1742,11 @@ const numbers = [1, 2, 3, 4];
 const double = (n: number) => n * 2;
 const greaterThanFour = (n: number) => n > 4;
 
-const result = pipe(
+pipe(
   numbers,
   Array.map(double),
   Array.filter(greaterThanFour),
-);
-
-console.log(result); // [6, 8]
-```
-
-**Example** (Chaining arithmetic operations)
-
-```ts
-import { pipe } from "effect";
-
-// Define simple arithmetic operations
-const increment = (x: number) => x + 1;
-const double = (x: number) => x * 2;
-const subtractTen = (x: number) => x - 10;
-
-// Sequentially apply these operations using `pipe`
-const result = pipe(5, increment, double, subtractTen);
-
-console.log(result);
-// Output: 2
-```
-
-**Example** (Building a simple transformation pipeline)
-
-```ts
-import { pipe } from "effect";
-
-// Simple transformation pipeline
-const result = pipe(
-  5,
-  (x) => x * 2, // 10
-  (x) => x + 1, // 11
-  (x) => x.toString(), // "11"
-);
-
-console.log(result); // "11"
+); // => [6, 8]
 ```
 
 ### Type Parameters
@@ -2704,26 +1871,12 @@ the input for the next function.
 ```ts
 import { pipe } from "effect";
 
-const result = pipe(
+pipe(
   1,
   (n) => n + 1,
   (n) => n * 2,
   (n) => `result: ${n}`,
-);
-
-console.log(result); // "result: 4"
-```
-
-**Example** (Chaining methods before conversion)
-
-```ts
-const numbers = [1, 2, 3, 4];
-const double = (n: number) => n * 2;
-const greaterThanFour = (n: number) => n > 4;
-
-const result = numbers.map(double).filter(greaterThanFour);
-
-console.log(result); // [6, 8]
+); // => "result: 4"
 ```
 
 **Example** (Rewriting method chains with pipe)
@@ -2737,46 +1890,11 @@ const numbers = [1, 2, 3, 4];
 const double = (n: number) => n * 2;
 const greaterThanFour = (n: number) => n > 4;
 
-const result = pipe(
+pipe(
   numbers,
   Array.map(double),
   Array.filter(greaterThanFour),
-);
-
-console.log(result); // [6, 8]
-```
-
-**Example** (Chaining arithmetic operations)
-
-```ts
-import { pipe } from "effect";
-
-// Define simple arithmetic operations
-const increment = (x: number) => x + 1;
-const double = (x: number) => x * 2;
-const subtractTen = (x: number) => x - 10;
-
-// Sequentially apply these operations using `pipe`
-const result = pipe(5, increment, double, subtractTen);
-
-console.log(result);
-// Output: 2
-```
-
-**Example** (Building a simple transformation pipeline)
-
-```ts
-import { pipe } from "effect";
-
-// Simple transformation pipeline
-const result = pipe(
-  5,
-  (x) => x * 2, // 10
-  (x) => x + 1, // 11
-  (x) => x.toString(), // "11"
-);
-
-console.log(result); // "11"
+); // => [6, 8]
 ```
 
 ### Type Parameters
@@ -2905,26 +2023,12 @@ the input for the next function.
 ```ts
 import { pipe } from "effect";
 
-const result = pipe(
+pipe(
   1,
   (n) => n + 1,
   (n) => n * 2,
   (n) => `result: ${n}`,
-);
-
-console.log(result); // "result: 4"
-```
-
-**Example** (Chaining methods before conversion)
-
-```ts
-const numbers = [1, 2, 3, 4];
-const double = (n: number) => n * 2;
-const greaterThanFour = (n: number) => n > 4;
-
-const result = numbers.map(double).filter(greaterThanFour);
-
-console.log(result); // [6, 8]
+); // => "result: 4"
 ```
 
 **Example** (Rewriting method chains with pipe)
@@ -2938,46 +2042,11 @@ const numbers = [1, 2, 3, 4];
 const double = (n: number) => n * 2;
 const greaterThanFour = (n: number) => n > 4;
 
-const result = pipe(
+pipe(
   numbers,
   Array.map(double),
   Array.filter(greaterThanFour),
-);
-
-console.log(result); // [6, 8]
-```
-
-**Example** (Chaining arithmetic operations)
-
-```ts
-import { pipe } from "effect";
-
-// Define simple arithmetic operations
-const increment = (x: number) => x + 1;
-const double = (x: number) => x * 2;
-const subtractTen = (x: number) => x - 10;
-
-// Sequentially apply these operations using `pipe`
-const result = pipe(5, increment, double, subtractTen);
-
-console.log(result);
-// Output: 2
-```
-
-**Example** (Building a simple transformation pipeline)
-
-```ts
-import { pipe } from "effect";
-
-// Simple transformation pipeline
-const result = pipe(
-  5,
-  (x) => x * 2, // 10
-  (x) => x + 1, // 11
-  (x) => x.toString(), // "11"
-);
-
-console.log(result); // "11"
+); // => [6, 8]
 ```
 
 ### Type Parameters
@@ -3110,26 +2179,12 @@ the input for the next function.
 ```ts
 import { pipe } from "effect";
 
-const result = pipe(
+pipe(
   1,
   (n) => n + 1,
   (n) => n * 2,
   (n) => `result: ${n}`,
-);
-
-console.log(result); // "result: 4"
-```
-
-**Example** (Chaining methods before conversion)
-
-```ts
-const numbers = [1, 2, 3, 4];
-const double = (n: number) => n * 2;
-const greaterThanFour = (n: number) => n > 4;
-
-const result = numbers.map(double).filter(greaterThanFour);
-
-console.log(result); // [6, 8]
+); // => "result: 4"
 ```
 
 **Example** (Rewriting method chains with pipe)
@@ -3143,46 +2198,11 @@ const numbers = [1, 2, 3, 4];
 const double = (n: number) => n * 2;
 const greaterThanFour = (n: number) => n > 4;
 
-const result = pipe(
+pipe(
   numbers,
   Array.map(double),
   Array.filter(greaterThanFour),
-);
-
-console.log(result); // [6, 8]
-```
-
-**Example** (Chaining arithmetic operations)
-
-```ts
-import { pipe } from "effect";
-
-// Define simple arithmetic operations
-const increment = (x: number) => x + 1;
-const double = (x: number) => x * 2;
-const subtractTen = (x: number) => x - 10;
-
-// Sequentially apply these operations using `pipe`
-const result = pipe(5, increment, double, subtractTen);
-
-console.log(result);
-// Output: 2
-```
-
-**Example** (Building a simple transformation pipeline)
-
-```ts
-import { pipe } from "effect";
-
-// Simple transformation pipeline
-const result = pipe(
-  5,
-  (x) => x * 2, // 10
-  (x) => x + 1, // 11
-  (x) => x.toString(), // "11"
-);
-
-console.log(result); // "11"
+); // => [6, 8]
 ```
 
 ### Type Parameters

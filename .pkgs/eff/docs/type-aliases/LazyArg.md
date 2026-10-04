@@ -18,6 +18,7 @@ Use to type a lazy value provider that should not run until called.
 import { Function } from "effect";
 
 const constNull: Function.LazyArg<null> = Function.constant(null);
+constNull(); // => null
 ```
 
 ## Type Parameters

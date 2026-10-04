@@ -16,11 +16,10 @@ Use to adapt a multi-argument function so it accepts one tuple argument.
 
 ```ts
 import { Function } from "effect";
-import * as assert from "node:assert";
 
 const sumTupled = Function.tupled((x: number, y: number): number => x + y);
 
-assert.deepStrictEqual(sumTupled([1, 2]), 3);
+sumTupled([1, 2]); // => 3
 ```
 
 ## Type Parameters

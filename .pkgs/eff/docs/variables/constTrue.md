@@ -16,9 +16,8 @@ Use when you need a thunk that returns `true` on every invocation.
 
 ```ts
 import { Function } from "effect";
-import * as assert from "node:assert";
 
-assert.deepStrictEqual(Function.constTrue(), true);
+Function.constTrue(); // => true
 ```
 
 ## Since

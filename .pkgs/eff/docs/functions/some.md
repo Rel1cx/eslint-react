@@ -3,25 +3,51 @@
 # Function: some()
 
 ```ts
-function some<T>(collection: Iterable<(data: T) => boolean>): (data: T) => boolean;
+function some<A>(collection: Iterable<(a: A) => boolean>): (a: A) => boolean;
 ```
 
 Creates a predicate that returns `true` if any predicate in the collection returns `true`.
+
+**When to use**
+
+Use when you have a dynamic list of predicates and only need one to pass.
+
+**Details**
+
+Evaluation short-circuits on the first `true`. The collection is iterated
+each time the predicate is called.
+
+**Example** (Checking any predicate)
+
+```ts
+import { Predicate } from "effect";
+
+const anyCheck = Predicate.some([Predicate.isString, Predicate.isNumber]);
+
+anyCheck("ok"); // => true
+```
 
 ## Type Parameters
 
 | Type Parameter |
 | -------------- |
-| `T`            |
+| `A`            |
 
 ## Parameters
 
-| Parameter    | Type                                                                                                                                      | Description                            |
-| ------------ | ----------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------- |
-| `collection` | [`Iterable`](https://www.typescriptlang.org/docs/handbook/iterators-and-generators.html#iterable-interface)\<(`data`: `T`) => `boolean`\> | The collection of predicates to check. |
+| Parameter    | Type                                                                                                                                   |
+| ------------ | -------------------------------------------------------------------------------------------------------------------------------------- |
+| `collection` | [`Iterable`](https://www.typescriptlang.org/docs/handbook/iterators-and-generators.html#iterable-interface)\<(`a`: `A`) => `boolean`\> |
 
 ## Returns
 
-A predicate that short-circuits on the first `true`.
+(`a`: `A`) => `boolean`
 
-(`data`: `T`) => `boolean`
+## See
+
+- [every](every.md)
+- [or](../variables/or.md)
+
+## Since
+
+2.0.0

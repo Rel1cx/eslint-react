@@ -3,19 +3,43 @@
 # Function: isRegExp()
 
 ```ts
-function isRegExp(data: unknown): data is RegExp;
+function isRegExp(input: unknown): input is RegExp;
 ```
 
-A function that checks if the passed parameter is a `RegExp` and narrows its type accordingly.
+Checks whether a value is a `RegExp`.
+
+**When to use**
+
+Use when you need a `Predicate` runtime guard for regular expressions.
+
+**Details**
+
+Uses `instanceof RegExp`.
+
+**Example** (Guarding RegExp values)
+
+```ts
+import { Predicate } from "effect";
+
+const data: unknown = /abc/;
+
+Predicate.isRegExp(data); // => true
+```
 
 ## Parameters
 
-| Parameter | Type      | Description            |
-| --------- | --------- | ---------------------- |
-| `data`    | `unknown` | The variable to check. |
+| Parameter | Type      |
+| --------- | --------- |
+| `input`   | `unknown` |
 
 ## Returns
 
-`data is RegExp`
+`input is RegExp`
 
-True if the passed input is a `RegExp`, false otherwise.
+## See
+
+[isDate](isDate.md)
+
+## Since
+
+3.9.0

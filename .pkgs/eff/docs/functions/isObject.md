@@ -3,25 +3,46 @@
 # Function: isObject()
 
 ```ts
-function isObject<T>(data: object | T): data is NarrowedTo<T, object>;
+function isObject(input: unknown): input is { [x: string | number | symbol]: unknown };
 ```
 
-Checks if the given parameter is of type `"object"` via `typeof`, excluding `null`.
+Checks whether a value is a non-null object value that is not an array.
 
-## Type Parameters
+**When to use**
 
-| Type Parameter |
-| -------------- |
-| `T`            |
+Use to narrow unknown input to a non-null, non-array object with a
+`Predicate` guard.
+
+**Details**
+
+This is a structural runtime check using `typeof input === "object"`, so it
+also accepts object instances such as `Date`, `Map`, class instances, and
+typed arrays. It excludes `null` and arrays.
+
+**Example** (Guarding objects)
+
+```ts
+import { Predicate } from "effect";
+
+Predicate.isObject({ a: 1 }); // => true
+Predicate.isObject([1, 2]); // => false
+```
 
 ## Parameters
 
-| Parameter | Type            | Description                                          |
-| --------- | --------------- | ---------------------------------------------------- |
-| `data`    | `object` \| `T` | The variable to be checked for being an object type. |
+| Parameter | Type      |
+| --------- | --------- |
+| `input`   | `unknown` |
 
 ## Returns
 
-`data is NarrowedTo<T, object>`
+input is \{ \[x: string \| number \| symbol\]: unknown \}
 
-The input type, narrowed to only objects.
+## See
+
+- [isObjectOrArray](isObjectOrArray.md)
+- isReadonlyObject
+
+## Since
+
+2.0.0

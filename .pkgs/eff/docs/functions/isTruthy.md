@@ -3,25 +3,45 @@
 # Function: isTruthy()
 
 ```ts
-function isTruthy<T>(data: T): data is Exclude<T, false | "" | 0 | null | undefined>;
+function isTruthy(input: unknown): boolean;
 ```
 
-A function that checks if the passed parameter is truthy and narrows its type accordingly.
+Checks whether a value is truthy.
 
-## Type Parameters
+**When to use**
 
-| Type Parameter |
-| -------------- |
-| `T`            |
+Use when you want a predicate that mirrors JavaScript truthiness and filters
+out falsy values like `0`, `""`, and `false`.
+
+**Details**
+
+This uses `Boolean(input)` and treats `0`, `""`, `false`, `null`, and
+`undefined` as false.
+
+**Example** (Filtering truthy values)
+
+```ts
+import { Predicate } from "effect";
+
+const values = [0, 1, "", "ok", false];
+const truthy = values.filter(Predicate.isTruthy); // => [1, "ok"]
+```
 
 ## Parameters
 
-| Parameter | Type | Description            |
-| --------- | ---- | ---------------------- |
-| `data`    | `T`  | The variable to check. |
+| Parameter | Type      |
+| --------- | --------- |
+| `input`   | `unknown` |
 
 ## Returns
 
-data is Exclude\<T, false \| "" \| 0 \| null \| undefined\>
+`boolean`
 
-True if the passed input is truthy, false otherwise.
+## See
+
+- [isNullish](isNullish.md)
+- [isNotNullish](isNotNullish.md)
+
+## Since
+
+2.0.0

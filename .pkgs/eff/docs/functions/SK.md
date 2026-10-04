@@ -18,9 +18,8 @@ Use to discard the first argument and return the second argument.
 
 ```ts
 import { Function } from "effect";
-import * as assert from "node:assert";
 
-assert.deepStrictEqual(Function.SK(0, "hello"), "hello");
+Function.SK(0, "hello"); // => "hello"
 ```
 
 ## Type Parameters

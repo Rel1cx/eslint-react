@@ -3,19 +3,44 @@
 # Function: isUint8Array()
 
 ```ts
-function isUint8Array(data: unknown): data is Uint8Array<ArrayBufferLike>;
+function isUint8Array(input: unknown): input is Uint8Array<ArrayBufferLike>;
 ```
 
-A function that checks if the passed parameter is a `Uint8Array` and narrows its type accordingly.
+Checks whether a value is a `Uint8Array`.
+
+**When to use**
+
+Use when you need a `Predicate` runtime guard for binary data.
+
+**Details**
+
+Uses `instanceof Uint8Array`.
+
+**Example** (Guarding Uint8Array values)
+
+```ts
+import { Predicate } from "effect";
+
+const data: unknown = new Uint8Array([1, 2]);
+
+Predicate.isUint8Array(data); // => true
+```
 
 ## Parameters
 
-| Parameter | Type      | Description            |
-| --------- | --------- | ---------------------- |
-| `data`    | `unknown` | The variable to check. |
+| Parameter | Type      |
+| --------- | --------- |
+| `input`   | `unknown` |
 
 ## Returns
 
-`data is Uint8Array<ArrayBufferLike>`
+`input is Uint8Array<ArrayBufferLike>`
 
-True if the passed input is a `Uint8Array`, false otherwise.
+## See
+
+- [isIterable](isIterable.md)
+- [isSet](isSet.md)
+
+## Since
+
+2.0.0

@@ -16,9 +16,8 @@ Use to return a value unchanged where a function is required.
 
 ```ts
 import { identity } from "effect";
-import * as assert from "node:assert";
 
-assert.deepStrictEqual(identity(5), 5);
+identity(5); // => 5
 ```
 
 ## Type Parameters

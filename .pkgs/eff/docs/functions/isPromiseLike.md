@@ -3,19 +3,44 @@
 # Function: isPromiseLike()
 
 ```ts
-function isPromiseLike(data: unknown): data is PromiseLike<unknown>;
+function isPromiseLike(input: unknown): input is PromiseLike<unknown>;
 ```
 
-A function that checks if the passed parameter is `PromiseLike` (has a callable `then` method).
+Checks whether a value is `PromiseLike` (has a `then` method).
+
+**When to use**
+
+Use when you need a `Predicate` guard for promise-like values with a
+callable `then` method.
+
+**Details**
+
+Performs a structural check for a callable `then`.
+
+**Example** (Guarding promise-like values)
+
+```ts
+import { Predicate } from "effect";
+
+const data: unknown = { then: () => {} };
+
+Predicate.isPromiseLike(data); // => true
+```
 
 ## Parameters
 
-| Parameter | Type      | Description            |
-| --------- | --------- | ---------------------- |
-| `data`    | `unknown` | The variable to check. |
+| Parameter | Type      |
+| --------- | --------- |
+| `input`   | `unknown` |
 
 ## Returns
 
-`data is PromiseLike<unknown>`
+`input is PromiseLike<unknown>`
 
-True if the passed input is `PromiseLike`, false otherwise.
+## See
+
+[isPromise](isPromise.md)
+
+## Since
+
+2.0.0

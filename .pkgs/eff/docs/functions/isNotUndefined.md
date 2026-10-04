@@ -3,25 +3,50 @@
 # Function: isNotUndefined()
 
 ```ts
-function isNotUndefined<T>(data: T): data is Exclude<T, undefined>;
+function isNotUndefined<A>(input: A): input is Exclude<A, undefined>;
 ```
 
-A refinement that checks if the passed parameter is not `undefined`, preserving other falsy values.
+Checks whether a value is not `undefined`.
+
+**When to use**
+
+Use when you need a `Predicate` refinement that filters out `undefined`
+while preserving other falsy values.
+
+**Details**
+
+Returns a refinement that excludes `undefined`.
+
+**Example** (Filtering undefined values)
+
+```ts
+import { Predicate } from "effect";
+
+const values = [1, undefined, 2];
+const defined = values.filter(Predicate.isNotUndefined); // => [1, 2]
+```
 
 ## Type Parameters
 
 | Type Parameter |
 | -------------- |
-| `T`            |
+| `A`            |
 
 ## Parameters
 
-| Parameter | Type | Description            |
-| --------- | ---- | ---------------------- |
-| `data`    | `T`  | The variable to check. |
+| Parameter | Type |
+| --------- | ---- |
+| `input`   | `A`  |
 
 ## Returns
 
-`data is Exclude<T, undefined>`
+`input is Exclude<A, undefined>`
 
-True if the passed input is not `undefined`, false otherwise.
+## See
+
+- [isUndefined](isUndefined.md)
+- [isNotNullish](isNotNullish.md)
+
+## Since
+
+2.0.0

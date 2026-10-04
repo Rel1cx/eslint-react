@@ -3,7 +3,12 @@
 # Function: memoize()
 
 ```ts
-function memoize<A extends object, O>(f: (a: A) => O): (ast: A) => O;
+function memoize<
+  A extends object,
+  O extends
+    | {}
+    | null,
+>(f: (a: A) => O): (ast: A) => O;
 ```
 
 Creates a memoized function whose input is an object, caching results by
@@ -17,10 +22,11 @@ for a given object reference.
 **Details**
 
 Each memoized wrapper owns a private `WeakMap` keyed by object identity.
-Cached `undefined` results are still returned because the cache is checked
-with `WeakMap.has`.
 
 **Gotchas**
+
+`undefined` is reserved to represent a cache miss and is therefore not
+supported as a return value.
 
 Structurally equal objects do not share cache entries. If the same object is
 mutated after its first call, later calls still return the cached result for
@@ -28,10 +34,10 @@ that reference.
 
 ## Type Parameters
 
-| Type Parameter         |
-| ---------------------- |
-| `A` _extends_ `object` |
-| `O`                    |
+| Type Parameter                   |
+| -------------------------------- |
+| `A` _extends_ `object`           |
+| `O` _extends_ \| \{ \} \| `null` |
 
 ## Parameters
 

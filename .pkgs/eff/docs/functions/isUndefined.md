@@ -3,19 +3,45 @@
 # Function: isUndefined()
 
 ```ts
-function isUndefined(data: unknown): data is undefined;
+function isUndefined(input: unknown): input is undefined;
 ```
 
-A function that checks if the passed parameter is `undefined` and narrows its type accordingly.
+Checks whether a value is `undefined`.
+
+**When to use**
+
+Use when you need a `Predicate` guard for values that are exactly
+`undefined`.
+
+**Details**
+
+Uses `input === undefined`.
+
+**Example** (Guarding undefined values)
+
+```ts
+import { Predicate } from "effect";
+
+const data: unknown = undefined;
+
+Predicate.isUndefined(data); // => true
+```
 
 ## Parameters
 
-| Parameter | Type      | Description            |
-| --------- | --------- | ---------------------- |
-| `data`    | `unknown` | The variable to check. |
+| Parameter | Type      |
+| --------- | --------- |
+| `input`   | `unknown` |
 
 ## Returns
 
-`data is undefined`
+`input is undefined`
 
-True if the passed input is `undefined`, false otherwise.
+## See
+
+- [isNotUndefined](isNotUndefined.md)
+- [isNullish](isNullish.md)
+
+## Since
+
+2.0.0

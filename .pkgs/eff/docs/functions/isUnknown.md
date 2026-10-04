@@ -6,16 +6,34 @@
 function isUnknown(_: unknown): _ is unknown;
 ```
 
-A guard that always returns `true`.
+Type guard that always returns `true`.
+
+**When to use**
+
+Use when you need a `Predicate` that always accepts, e.g. as a placeholder.
+
+**Example** (Matching every value)
+
+```ts
+import { Predicate } from "effect";
+
+Predicate.isUnknown(123); // => true
+```
 
 ## Parameters
 
-| Parameter | Type      | Description            |
-| --------- | --------- | ---------------------- |
-| `_`       | `unknown` | The variable to check. |
+| Parameter | Type      |
+| --------- | --------- |
+| `_`       | `unknown` |
 
 ## Returns
 
 `_ is unknown`
 
-Always `true`.
+## See
+
+[isNever](isNever.md)
+
+## Since
+
+2.0.0

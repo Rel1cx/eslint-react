@@ -3,19 +3,49 @@
 # Function: isPropertyKey()
 
 ```ts
-function isPropertyKey(data: unknown): data is PropertyKey;
+function isPropertyKey(u: unknown): u is PropertyKey;
 ```
 
-A function that checks if the passed parameter is a valid property key (string, number, or symbol).
+Checks whether a value is a valid `PropertyKey` (string, number, or symbol).
+
+**When to use**
+
+Use when you need a `Predicate` guard for unknown property keys before
+indexing.
+
+**Details**
+
+Uses `isString`, `isNumber`, and `isSymbol`.
+
+**Example** (Guarding property keys)
+
+```ts
+import { Predicate } from "effect";
+
+const key: unknown = "name";
+const obj: Record<PropertyKey, unknown> = { name: "Ada" };
+
+if (Predicate.isPropertyKey(key) && key in obj) {
+  obj[key]; // => "Ada"
+}
+```
 
 ## Parameters
 
-| Parameter | Type      | Description            |
-| --------- | --------- | ---------------------- |
-| `data`    | `unknown` | The variable to check. |
+| Parameter | Type      |
+| --------- | --------- |
+| `u`       | `unknown` |
 
 ## Returns
 
-`data is PropertyKey`
+`u is PropertyKey`
 
-True if the passed input is a property key, false otherwise.
+## See
+
+- [isString](isString.md)
+- [isNumber](isNumber.md)
+- [isSymbol](isSymbol.md)
+
+## Since
+
+4.0.0

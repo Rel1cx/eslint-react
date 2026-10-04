@@ -3,19 +3,46 @@
 # Function: isBigInt()
 
 ```ts
-function isBigInt(data: unknown): data is bigint;
+function isBigInt(input: unknown): input is bigint;
 ```
 
-A function that checks if the passed parameter is a bigint and narrows its type accordingly.
+Checks whether a value is a `bigint`.
+
+**When to use**
+
+Use when you need a `Predicate` guard to narrow an `unknown` value to a
+bigint.
+
+**Details**
+
+Uses `typeof input === "bigint"`.
+
+**Example** (Guarding bigints)
+
+```ts
+import { Predicate } from "effect";
+
+const data: unknown = 1n;
+
+if (Predicate.isBigInt(data)) {
+  data + 2n; // => 3n
+}
+```
 
 ## Parameters
 
-| Parameter | Type      | Description            |
-| --------- | --------- | ---------------------- |
-| `data`    | `unknown` | The variable to check. |
+| Parameter | Type      |
+| --------- | --------- |
+| `input`   | `unknown` |
 
 ## Returns
 
-`data is bigint`
+`input is bigint`
 
-True if the passed input is a bigint, false otherwise.
+## See
+
+[isNumber](isNumber.md)
+
+## Since
+
+2.0.0
