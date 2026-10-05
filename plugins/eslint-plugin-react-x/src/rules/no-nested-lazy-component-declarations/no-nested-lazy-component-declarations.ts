@@ -38,7 +38,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
     hc.visitor,
     {
       ImportExpression(node) {
-        const lazyCall = Traverse.findParent(node, (n) => core.isLazyCall(context, n));
+        const lazyCall = Traverse.findParent(node, core.isLazyCall(context));
         if (lazyCall != null) {
           lazyCalls.add(lazyCall);
         }

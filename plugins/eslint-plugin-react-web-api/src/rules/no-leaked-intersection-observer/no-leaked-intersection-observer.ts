@@ -165,21 +165,20 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
     },
     ["Program:exit"]() {
       for (const { id, node, phaseNode } of observers) {
-        // A disconnect inside the observer's own callback (the observe-once pattern) is not a reliable
-        // cleanup: the callback may never run if the component unmounts before the element intersects
-        const isInsideObserverCallback = (e: DEntry) => Traverse.findParent(e.node, (n) => n === node) != null;
         // FIXME: disconnect/unobserve entries are matched by identity only, without requiring them
         // to happen in the cleanup phase - `observer.disconnect()` called right in the setup passes
         // the check. Record the `phase` on entries and require `phase === "cleanup"` when matching.
-        if (dEntries.some((e) => !isInsideObserverCallback(e) && isAssignmentTargetEqual(context, e.observer, id))) {
+
+        // A disconnect inside the observer's own callback (the observe-once pattern) is not a reliable
+        // cleanup: the callback may never run if the component unmounts before the element intersects
+        if (dEntries.some((e) => Traverse.findParent(e.node, (n) => n === node) == null && isAssignmentTargetEqual(context, e.observer, id))) {
           continue;
         }
         const matchedOEntries = oEntries.filter((e) => isAssignmentTargetEqual(context, e.observer, id));
         const matchedUEntries = uEntries.filter((e) => isAssignmentTargetEqual(context, e.observer, id));
-        const isDynamic = (node: TSESTree.Node | null) => node?.type === AST.CallExpression || Check.isConditional(node);
-        const isPhaseNode = (node: TSESTree.Node | null) => node === phaseNode;
-        const hasDynamicallyAdded = matchedOEntries
-          .some((e) => !isPhaseNode(Traverse.findParent(e.node, or(isDynamic, isPhaseNode))));
+        const isDynamic = or(Check.isCallExpression, Check.isConditional);
+        const isPhaseNode = (n: TSESTree.Node | null) => n === phaseNode;
+        const hasDynamicallyAdded = matchedOEntries.some((e) => !isPhaseNode(Traverse.findParent(e.node, or(isDynamic, isPhaseNode))));
         if (hasDynamicallyAdded) {
           context.report({ messageId: "expected-disconnect-in-control-flow", node });
           continue;

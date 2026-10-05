@@ -32,7 +32,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   const fc = core.getFunctionComponentCollector(context);
   const hc = core.getHookCollector(context);
 
-  const createRefCalls = new Set<TSESTree.CallExpression>();
+  const facts = new Set<TSESTree.CallExpression>();
 
   return merge(
     fc.visitor,
@@ -40,13 +40,13 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
     {
       CallExpression(node) {
         if (!core.isCreateRefCall(context, node)) return;
-        createRefCalls.add(node);
+        facts.add(node);
       },
       "Program:exit"(node) {
         const comps = fc.api.getAllComponents(node);
         const hooks = hc.api.getAllHooks(node);
         const funcs = [...comps, ...hooks];
-        for (const call of createRefCalls) {
+        for (const call of facts) {
           // Only report if the call is within a function component or Hook
           if (Traverse.findParent(call, (n) => funcs.some((f) => f.node === n)) == null) continue;
           context.report({ messageId: "default", node: call });
