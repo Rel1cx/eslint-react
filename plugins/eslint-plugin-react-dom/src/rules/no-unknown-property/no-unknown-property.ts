@@ -61,7 +61,7 @@ const messages = {
   "unknown-prop-with-standard-name": "Unknown property '{{name}}' found, use '{{standardName}}' instead",
 };
 
-export default createRule({
+export default createRule<Options[], MessageID>({
   meta: {
     type: "problem",
     defaultOptions: [DEFAULTS],
