@@ -63,6 +63,7 @@ const schema = [
 export default createRule<Options, MessageID>({
   meta: {
     type: "suggestion",
+    defaultOptions: [...defaultOptions],
     docs: {
       description:
         "Enforces correct usage of 'useState', including destructuring, symmetric naming of the value and setter, and wrapping expensive initializers in a lazy initializer function.",
@@ -77,7 +78,6 @@ export default createRule<Options, MessageID>({
   },
   name: RULE_NAME,
   create,
-  defaultOptions,
 });
 
 export function create(context: RuleContext<MessageID, Options>): RuleListener {

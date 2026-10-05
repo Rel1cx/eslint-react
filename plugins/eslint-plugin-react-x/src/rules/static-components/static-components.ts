@@ -65,14 +65,12 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         const reportedCreations = new Set<TSESTree.Node>();
         for (const effect of inferCreatedComponents(context, facts.facts.componentUsages, isInsideRender)) {
           context.report({
-            data: { name: effect.name },
             messageId: "default",
             node: effect.node,
           });
           if (effect.creationNode != null && !reportedCreations.has(effect.creationNode)) {
             reportedCreations.add(effect.creationNode);
             context.report({
-              data: { name: effect.name },
               messageId: "created-here",
               node: effect.creationNode,
             });

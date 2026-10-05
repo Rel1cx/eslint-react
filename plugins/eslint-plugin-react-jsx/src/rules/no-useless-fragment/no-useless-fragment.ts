@@ -48,6 +48,7 @@ const schema = [{
 export default createRule<Options, MessageID>({
   meta: {
     type: "suggestion",
+    defaultOptions: [...defaultOptions],
     docs: {
       description: "Disallows useless fragment elements.",
     },
@@ -59,7 +60,6 @@ export default createRule<Options, MessageID>({
   },
   name: RULE_NAME,
   create,
-  defaultOptions,
 });
 
 export function create(context: RuleContext<MessageID, Options>, [option]: Options): RuleListener {

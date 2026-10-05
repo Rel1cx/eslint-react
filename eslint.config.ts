@@ -9,6 +9,7 @@ import {
   disableTypeChecked,
   strictTypeChecked,
 } from "@local/configs/eslint";
+import eslintPlugin from "eslint-plugin-eslint-plugin";
 import packageJson from "eslint-plugin-package-json";
 import { defineConfig } from "eslint/config";
 import importIntegrityPlugin from "import-integrity-lint";
@@ -80,6 +81,13 @@ export default defineConfig(
         ],
       }],
     },
+  },
+  // ESLint Rule Authoring
+  {
+    extends: [
+      eslintPlugin.configs.recommended,
+    ],
+    files: ["plugins/*/src/rules/**/*.ts"],
   },
   // Scripts and Configs (Relaxed, No Type Checking)
   {

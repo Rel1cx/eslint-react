@@ -105,9 +105,6 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         // Report an error for each duplicate key found
         for (const key of keys) {
           context.report({
-            data: {
-              value: context.sourceCode.getText(key),
-            },
             messageId: "default",
             node: key,
           });
