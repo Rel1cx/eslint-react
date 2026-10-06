@@ -203,6 +203,27 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
     },
+    // Only the destructured property named `signal` is recognized: passing another binding
+    // destructured from the same `new AbortController()` as the signal option is not a signal
+    {
+      code: tsx`
+        import { useEffect } from "react";
+
+        function Example() {
+          useEffect(() => {
+            const handleResize = () => {};
+            const { signal, abort } = new AbortController();
+            window.addEventListener("resize", handleResize, { signal: abort });
+            return () => abort();
+          }, []);
+        }
+      `,
+      errors: [
+        {
+          messageId: "expected-remove-event-listener-in-cleanup",
+        },
+      ],
+    },
     // By design, listeners with a `signal` option are not reported, so these cases stay disabled (https://github.com/Rel1cx/eslint-react/issues/1282)
     // {
     //   code: tsx`
@@ -1632,19 +1653,37 @@ ruleTester.run(RULE_NAME, rule, {
         }, []);
       }
     `,
-    // TODO: This case is not supported yet.
-    // tsx`
-    //   function Example() {
-    //     const rHandleResize = useRef(() => {});
-    //     useEffect(() => {
-    //       const { signal, abort } = new AbortController();
-    //       window.addEventListener("focus", rHandleResize.current, { once: false, passive: true, capture: true, signal });
-    //       return () => {
-    //         abort();
-    //       };
-    //     }, []);
-    //   }
-    // `,
+    // A `signal` destructured from `new AbortController()` is recognized as a signal option,
+    // so the listener is not reported regardless of whether `abort()` is called
+    tsx`
+      import { useEffect, useRef } from "react";
+
+      function Example() {
+        const rHandleResize = useRef(() => {});
+        useEffect(() => {
+          const { signal, abort } = new AbortController();
+          window.addEventListener("focus", rHandleResize.current, { once: false, passive: true, capture: true, signal });
+          return () => {
+            abort();
+          };
+        }, []);
+      }
+    `,
+    // Same pattern with a renamed destructured binding
+    tsx`
+      import { useEffect, useRef } from "react";
+
+      function Example() {
+        const rHandleResize = useRef(() => {});
+        useEffect(() => {
+          const { signal: controllerSignal, abort } = new AbortController();
+          window.addEventListener("focus", rHandleResize.current, { signal: controllerSignal });
+          return () => {
+            abort();
+          };
+        }, []);
+      }
+    `,
     tsx`
       import { useEffect } from "react";
 
