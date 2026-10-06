@@ -24,7 +24,7 @@
     "@vitejs/plugin-react": "^6.1.2",
     "oxlint": "^1.87.0",
     "typescript": "6.0.3",
-    "vite": "^8.3.2"
+    "vite": "^8.3.3"
   },
   "engines": {
     "node": ">=22.15.0"

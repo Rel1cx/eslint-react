@@ -44,15 +44,15 @@ export function isFromObserver(context: RuleContext, node: TSESTree.Expression, 
  * @returns `true` if the node refers to the ref's instance.
  */
 export function isFromRefCurrent(context: RuleContext, node: TSESTree.Node, refId: TSESTree.Node): boolean {
-  let unwrapped: TSESTree.Node = Check.isTypeExpression(node) ? Extract.unwrap(node) : node;
-  if (Check.isIdentifier(unwrapped)) {
-    const initNode = resolve(context, unwrapped);
+  let expr: TSESTree.Node = Check.isTypeExpression(node) ? Extract.unwrap(node) : node;
+  if (Check.isIdentifier(expr)) {
+    const initNode = resolve(context, expr);
     if (initNode != null) {
-      unwrapped = Extract.unwrap(initNode);
+      expr = Extract.unwrap(initNode);
     }
   }
-  return unwrapped.type === AST.MemberExpression
-    && !unwrapped.computed
-    && Check.isIdentifier(Extract.unwrap(unwrapped.property), "current")
-    && isAssignmentTargetEqual(context, unwrapped.object, refId);
+  return expr.type === AST.MemberExpression
+    && !expr.computed
+    && Check.isIdentifier(Extract.unwrap(expr.property), "current")
+    && isAssignmentTargetEqual(context, expr.object, refId);
 }
