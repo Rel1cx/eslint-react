@@ -47,7 +47,7 @@ AST `ArrowFunctionExpression`, `ClassExpression`, `FunctionDeclaration`, and `Cl
 
 The SPEC pass receives one `HIRFunction` and only checks `JsxExpression` tags whose lowered tag kind is `Identifier`. The IMPL first requires an uppercase `JSXIdentifier`, then requires the candidate definition to be inside a function/class node recognized by the repository's component collectors. These different entry and boundary models can diverge, but source syntax alone does not show how a JSX member tag or class-field helper reaches the SPEC pass.
 
-Both implementations report the JSX use and the creation location. Their diagnostics are structurally aligned but not text-identical: React uses the reason/description plus a use-site detail (`This component is created during render`) and a creation-site detail; the IMPL emits its full `default` message at the JSX tag and `createdHere` at the creation node.
+Both implementations report the JSX use and the creation location. Their diagnostics are structurally aligned but not text-identical: React uses the reason/description plus a use-site detail (`This component is created during render`) and a creation-site detail; the IMPL emits its full `default` message at the JSX tag and `created-here` at the creation node.
 
 ## 4. Locally locked IMPL limitations
 

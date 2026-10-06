@@ -981,5 +981,21 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
         return <div>{props[0]}</div>;
       }
     `,
+    // Boundary: computed member access with an identifier key is dynamic
+    // (getKeyOfExpression returns null, rule bails out — 'foo' is actually used here)
+    tsx`
+      function Component(props: { foo: string }) {
+        const key = "foo";
+        return <div>{props[key]}</div>;
+      }
+    `,
+    // Boundary: computed destructuring key is dynamic, rule bails out
+    tsx`
+      function Component(props: { foo: string }) {
+        const key = "foo";
+        const { [key]: value } = props;
+        return <div>{value}</div>;
+      }
+    `,
   ],
 });

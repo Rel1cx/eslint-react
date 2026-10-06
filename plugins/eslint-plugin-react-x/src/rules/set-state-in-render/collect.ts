@@ -44,6 +44,11 @@ export function createFactCollector(additionalStateHooks: RegExpLike) {
   };
 
   const functionEntries: { kind: FunctionKind; node: TSESTreeFunction }[] = [];
+  // FIXME: `componentFnRef` is a single slot, not a stack — entering a nested
+  // component/hook declaration overwrites the outer component and its exit sets
+  // the slot to null, so setState calls in the outer component after the nested
+  // declaration are not attributed to any component and are missed. Restoring
+  // the outer function on exit (push/pop) would fix this.
   const componentFnRef: { current: TSESTreeFunction | null } = { current: null };
 
   function isUseStateCall(node: TSESTree.Node): boolean {

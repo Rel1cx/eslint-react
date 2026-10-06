@@ -29,7 +29,7 @@
 
 **Fixture.** React's `invalid-jsx-in-try-with-catch.js` assigns `<div />` to a variable inside a try body. This is an explicit compiler error case; it is not the return-value shape inspected by the IMPL.
 
-**Inference.** The IMPL's JSX candidate set is narrower than the pass's instruction-level JSX scan. The IMPL also adds `tryCatchWithUse`, which has no counterpart in this React pass.
+**Inference.** The IMPL's JSX candidate set is narrower than the pass's instruction-level JSX scan. The IMPL also adds `try-catch-with-use`, which has no counterpart in this React pass.
 
 ## 2. Try ancestry, catch, and finally
 
@@ -63,5 +63,5 @@ The IMPL's remaining `Traverse.findParent` use checks whether a matched `use()` 
 
 ## 4. Message mapping
 
-- `tryCatchWithJsx` corresponds in intent to the pass diagnostic, “Avoid constructing JSX within try/catch,” though the exact text differs.
-- `tryCatchWithUse` is IMPL-only and advises using an Error Boundary around `use()` rather than try/catch.
+- `try-catch-with-jsx` corresponds in intent to the pass diagnostic, “Avoid constructing JSX within try/catch,” though the exact text differs.
+- `try-catch-with-use` is IMPL-only and advises using an Error Boundary around `use()` rather than try/catch.

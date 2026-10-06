@@ -19,6 +19,11 @@ Use when you want to check equivalence of two `Predicate`s.
 
 Returns `true` when both results are equal.
 
+Results are compared with strict equality (`===`) on the predicates' raw
+return values, so both predicates must return strict booleans; non-boolean
+truthy/falsy returns (e.g. `s => s.length`) are not coerced and can violate
+equivalence semantics.
+
 **Example** (Defining equivalence)
 
 ```ts
