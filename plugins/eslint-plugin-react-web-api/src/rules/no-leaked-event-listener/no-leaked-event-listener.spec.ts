@@ -21,6 +21,156 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
     },
+    // A bare `addEventListener` targets the global object and still needs a matching cleanup
+    {
+      code: tsx`
+        import { useEffect } from "react";
+
+        function Example() {
+          useEffect(() => {
+            const handleResize = () => {};
+            addEventListener("resize", handleResize);
+          }, []);
+        }
+      `,
+      errors: [
+        {
+          messageId: "expected-remove-event-listener-in-cleanup",
+        },
+      ],
+    },
+    // A bare `addEventListener` does not pair with a `removeEventListener` on a non-global object
+    {
+      code: tsx`
+        import { useEffect } from "react";
+
+        function Example() {
+          useEffect(() => {
+            const handleResize = () => {};
+            addEventListener("resize", handleResize);
+            return () => {
+              document.removeEventListener("resize", handleResize);
+            };
+          }, []);
+        }
+      `,
+      errors: [
+        {
+          messageId: "expected-remove-event-listener-in-cleanup",
+        },
+      ],
+    },
+    // Bare calls with different event types do not pair
+    {
+      code: tsx`
+        import { useEffect } from "react";
+
+        function Example() {
+          useEffect(() => {
+            const handleResize = () => {};
+            addEventListener("resize", handleResize);
+            return () => {
+              removeEventListener("focus", handleResize);
+            };
+          }, []);
+        }
+      `,
+      errors: [
+        {
+          messageId: "expected-remove-event-listener-in-cleanup",
+        },
+      ],
+    },
+    // Bare calls with different listeners do not pair
+    {
+      code: tsx`
+        import { useEffect } from "react";
+
+        function Example() {
+          useEffect(() => {
+            const handleResize1 = () => {};
+            const handleResize2 = () => {};
+            addEventListener("resize", handleResize1);
+            return () => {
+              removeEventListener("resize", handleResize2);
+            };
+          }, []);
+        }
+      `,
+      errors: [
+        {
+          messageId: "expected-remove-event-listener-in-cleanup",
+        },
+      ],
+    },
+    // Bare calls with mismatched capture options do not pair
+    {
+      code: tsx`
+        import { useEffect } from "react";
+
+        function Example() {
+          useEffect(() => {
+            const handleResize = () => {};
+            addEventListener("resize", handleResize, { capture: true });
+            return () => {
+              removeEventListener("resize", handleResize, { capture: false });
+            };
+          }, []);
+        }
+      `,
+      errors: [
+        {
+          messageId: "expected-remove-event-listener-in-cleanup",
+        },
+      ],
+    },
+    // Multiple bare listeners in one effect pair independently: the one without a matching
+    // removal is still reported
+    {
+      code: tsx`
+        import { useEffect } from "react";
+
+        function Example() {
+          useEffect(() => {
+            const handleResize = () => {};
+            const handleFocus = () => {};
+            addEventListener("resize", handleResize);
+            addEventListener("focus", handleFocus);
+            return () => {
+              removeEventListener("resize", handleResize);
+            };
+          }, []);
+        }
+      `,
+      errors: [
+        {
+          messageId: "expected-remove-event-listener-in-cleanup",
+        },
+      ],
+    },
+    // Pins current behavior: different aliases of the global object (`window` vs `globalThis`)
+    // are compared structurally as member objects and do not pair with each other
+    // (known limitation, likely a false positive)
+    {
+      code: tsx`
+        import { useEffect } from "react";
+
+        function Example() {
+          useEffect(() => {
+            const handleResize = () => {};
+            window.addEventListener("resize", handleResize);
+            return () => {
+              globalThis.removeEventListener("resize", handleResize);
+            };
+          }, []);
+        }
+      `,
+      errors: [
+        {
+          messageId: "expected-remove-event-listener-in-cleanup",
+        },
+      ],
+    },
     { // Even if the event listener is added with an once, it may still be necessary to properly cancel untriggered listeners when the component is unmounted, so this case needs to be placed in invalid.
       code: tsx`
         import { useEffect } from "react";
@@ -155,6 +305,109 @@ ruleTester.run(RULE_NAME, rule, {
             const signal = "once";
             window.addEventListener("resize", handleResize, { [signal]: ac.signal });
             return () => ac.abort();
+          }, []);
+        }
+      `,
+      errors: [
+        {
+          messageId: "expected-remove-event-listener-in-cleanup",
+        },
+      ],
+    },
+    // Only the destructured property named `signal` is recognized: passing another binding
+    // destructured from the same `new AbortController()` as the signal option is not a signal
+    {
+      code: tsx`
+        import { useEffect } from "react";
+
+        function Example() {
+          useEffect(() => {
+            const handleResize = () => {};
+            const { signal, abort } = new AbortController();
+            window.addEventListener("resize", handleResize, { signal: abort });
+            return () => abort();
+          }, []);
+        }
+      `,
+      errors: [
+        {
+          messageId: "expected-remove-event-listener-in-cleanup",
+        },
+      ],
+    },
+    // A `signal` property destructured from a plain object is not an AbortSignal and is not recognized
+    {
+      code: tsx`
+        import { useEffect } from "react";
+
+        function Example() {
+          useEffect(() => {
+            const handleResize = () => {};
+            const options = { signal: null };
+            const { signal } = options;
+            window.addEventListener("resize", handleResize, { signal });
+          }, []);
+        }
+      `,
+      errors: [
+        {
+          messageId: "expected-remove-event-listener-in-cleanup",
+        },
+      ],
+    },
+    // A `signal` destructured from a non-AbortController NewExpression is not recognized
+    {
+      code: tsx`
+        import { useEffect } from "react";
+
+        function Example() {
+          useEffect(() => {
+            const handleResize = () => {};
+            const { signal } = new EventTarget();
+            window.addEventListener("resize", handleResize, { signal });
+          }, []);
+        }
+      `,
+      errors: [
+        {
+          messageId: "expected-remove-event-listener-in-cleanup",
+        },
+      ],
+    },
+    // Pins current behavior: destructuring from an AbortController held in a variable
+    // (`const { signal } = ac`) is not resolved back to the `new AbortController()` origin,
+    // so the signal is not recognized (known limitation, likely a false positive)
+    {
+      code: tsx`
+        import { useEffect } from "react";
+
+        function Example() {
+          useEffect(() => {
+            const handleResize = () => {};
+            const ac = new AbortController();
+            const { signal } = ac;
+            window.addEventListener("resize", handleResize, { signal });
+            return () => ac.abort();
+          }, []);
+        }
+      `,
+      errors: [
+        {
+          messageId: "expected-remove-event-listener-in-cleanup",
+        },
+      ],
+    },
+    // Pins current behavior: a default value in the destructuring pattern
+    // (`{ signal = fallback }`) is not recognized (known limitation)
+    {
+      code: tsx`
+        import { useEffect } from "react";
+
+        function Example() {
+          useEffect(() => {
+            const handleResize = () => {};
+            const { signal = AbortSignal.abort() } = new AbortController();
+            window.addEventListener("resize", handleResize, { signal });
           }, []);
         }
       `,
@@ -1154,6 +1407,148 @@ ruleTester.run(RULE_NAME, rule, {
         }, []);
       }
     `,
+    // Bare calls on both sides target the global object and pair up
+    tsx`
+      import { useEffect } from "react";
+
+      function Example() {
+        useEffect(() => {
+          const handleResize = () => {};
+          addEventListener("resize", handleResize);
+          return () => {
+            removeEventListener("resize", handleResize);
+          };
+        }, []);
+      }
+    `,
+    // A bare call pairs with an explicit call on the global object (both directions)
+    tsx`
+      import { useEffect } from "react";
+
+      function Example() {
+        useEffect(() => {
+          const handleResize = () => {};
+          addEventListener("resize", handleResize);
+          return () => {
+            window.removeEventListener("resize", handleResize);
+          };
+        }, []);
+      }
+    `,
+    tsx`
+      import { useEffect } from "react";
+
+      function Example() {
+        useEffect(() => {
+          const handleResize = () => {};
+          window.addEventListener("resize", handleResize);
+          return () => {
+            removeEventListener("resize", handleResize);
+          };
+        }, []);
+      }
+    `,
+    tsx`
+      import { useEffect } from "react";
+
+      function Example() {
+        useEffect(() => {
+          const handleResize = () => {};
+          globalThis.addEventListener("resize", handleResize);
+          return () => {
+            removeEventListener("resize", handleResize);
+          };
+        }, []);
+      }
+    `,
+    // `self` aliases the global object, so it pairs with a bare call
+    tsx`
+      import { useEffect } from "react";
+
+      function Example() {
+        useEffect(() => {
+          const handleResize = () => {};
+          self.addEventListener("resize", handleResize);
+          return () => {
+            removeEventListener("resize", handleResize);
+          };
+        }, []);
+      }
+    `,
+    // Bare calls pair when their capture options match
+    tsx`
+      import { useEffect } from "react";
+
+      function Example() {
+        useEffect(() => {
+          const handleResize = () => {};
+          addEventListener("resize", handleResize, { capture: true });
+          return () => {
+            removeEventListener("resize", handleResize, { capture: true });
+          };
+        }, []);
+      }
+    `,
+    // `once` is not part of the pairing: a bare once listener pairs with a bare removal
+    tsx`
+      import { useEffect } from "react";
+
+      function Example() {
+        useEffect(() => {
+          const handleResize = () => {};
+          addEventListener("resize", handleResize, { once: true });
+          return () => {
+            removeEventListener("resize", handleResize);
+          };
+        }, []);
+      }
+    `,
+    // Bare calls with a `signal` option are skipped like any other listener
+    tsx`
+      import { useEffect } from "react";
+
+      function Example() {
+        useEffect(() => {
+          const handleResize = () => {};
+          const ac = new AbortController();
+          addEventListener("resize", handleResize, { signal: ac.signal });
+        }, []);
+      }
+    `,
+    // Multiple bare listeners in one effect pair independently
+    tsx`
+      import { useEffect } from "react";
+
+      function Example() {
+        useEffect(() => {
+          const handleResize = () => {};
+          const handleFocus = () => {};
+          addEventListener("resize", handleResize);
+          addEventListener("focus", handleFocus);
+          return () => {
+            removeEventListener("resize", handleResize);
+            removeEventListener("focus", handleFocus);
+          };
+        }, []);
+      }
+    `,
+    // Pins current behavior: a locally shadowed `window` is still treated as the global
+    // object (the receiver is only compared by name), so it pairs with a bare call
+    // (known limitation, likely a false negative)
+    tsx`
+      import { useEffect } from "react";
+
+      function Example({ emitter }) {
+        useEffect(() => {
+          const window = emitter;
+          const handleResize = () => {};
+          window.addEventListener("resize", handleResize);
+          return () => {
+            removeEventListener("resize", handleResize);
+          };
+        }, []);
+      }
+    `,
     tsx`
       import { useCallback, useEffect } from "react";
 
@@ -1539,19 +1934,64 @@ ruleTester.run(RULE_NAME, rule, {
         }, []);
       }
     `,
-    // TODO: This case is not supported yet.
-    // tsx`
-    //   function Example() {
-    //     const rHandleResize = useRef(() => {});
-    //     useEffect(() => {
-    //       const { signal, abort } = new AbortController();
-    //       window.addEventListener("focus", rHandleResize.current, { once: false, passive: true, capture: true, signal });
-    //       return () => {
-    //         abort();
-    //       };
-    //     }, []);
-    //   }
-    // `,
+    // A `signal` destructured from `new AbortController()` is recognized as a signal option,
+    // so the listener is not reported regardless of whether `abort()` is called
+    tsx`
+      import { useEffect, useRef } from "react";
+
+      function Example() {
+        const rHandleResize = useRef(() => {});
+        useEffect(() => {
+          const { signal, abort } = new AbortController();
+          window.addEventListener("focus", rHandleResize.current, { once: false, passive: true, capture: true, signal });
+          return () => {
+            abort();
+          };
+        }, []);
+      }
+    `,
+    // Same pattern with a renamed destructured binding
+    tsx`
+      import { useEffect, useRef } from "react";
+
+      function Example() {
+        const rHandleResize = useRef(() => {});
+        useEffect(() => {
+          const { signal: controllerSignal, abort } = new AbortController();
+          window.addEventListener("focus", rHandleResize.current, { signal: controllerSignal });
+          return () => {
+            abort();
+          };
+        }, []);
+      }
+    `,
+    // A destructuring pattern with a rest element still recognizes the `signal` binding
+    tsx`
+      import { useEffect } from "react";
+
+      function Example() {
+        useEffect(() => {
+          const handleResize = () => {};
+          const { signal, ...rest } = new AbortController();
+          window.addEventListener("resize", handleResize, { signal });
+          return () => void rest;
+        }, []);
+      }
+    `,
+    // An alias of a destructured `signal` is still recognized
+    tsx`
+      import { useEffect } from "react";
+
+      function Example() {
+        useEffect(() => {
+          const handleResize = () => {};
+          const { signal, abort } = new AbortController();
+          const sig = signal;
+          window.addEventListener("resize", handleResize, { signal: sig });
+          return () => abort();
+        }, []);
+      }
+    `,
     tsx`
       import { useEffect } from "react";
 

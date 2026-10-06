@@ -5,6 +5,12 @@ All notable changes to the `react-web-api/no-leaked-fetch` rule will be document
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+### Fixed
+
+- Signal alias chains are now resolved recursively (e.g. `const s = controller.signal; const signal = s; fetch(url, { signal })`), so a fetch whose signal reaches its controller through multiple aliases correctly pairs with the cleanup's `abort` call, fixing false positives. Resolution is cycle-safe: self-referential alias loops (e.g. `let a = b; let b = a;`) no longer risk hanging and fall back to reporting. As a side effect, a parameter signal (e.g. from `useAbortableEffect`) passed through a local alias is now recognized as well. Closes #1997.
+
 ## [5.21.1] - 2026-09-28
 
 ### Fixed

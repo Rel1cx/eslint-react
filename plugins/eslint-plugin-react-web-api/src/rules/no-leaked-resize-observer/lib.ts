@@ -1,6 +1,7 @@
 import { Check, Extract } from "@eslint-react/ast";
+import { isUseRefLikeCall } from "@eslint-react/core";
 import { type RuleContext } from "@eslint-react/eslint";
-import { resolve } from "@eslint-react/var";
+import { isAssignmentTargetEqual, resolve } from "@eslint-react/var";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 
 export function isNewObserver(node: TSESTree.Node | null, name: string) {
@@ -14,11 +15,44 @@ export function isFromObserver(context: RuleContext, node: TSESTree.Expression, 
     case Check.isIdentifier(node): {
       const initNode = resolve(context, node);
       const unwrapped = initNode == null ? null : Extract.unwrap(initNode);
-      return isNewObserver(unwrapped, name);
+      if (unwrapped == null) return false;
+      if (isNewObserver(unwrapped, name)) return true;
+      // `useRef(new XObserver(...))`: the instance is held by the ref and accessed via `.current`
+      if (unwrapped.type === AST.CallExpression && isUseRefLikeCall(unwrapped)) {
+        const arg = unwrapped.arguments.at(0);
+        return arg != null && isNewObserver(Extract.unwrap(arg), name);
+      }
+      // A local alias of a member expression (ex: `const observer = observerRef.current`)
+      if (unwrapped.type === AST.MemberExpression) {
+        return isFromObserver(context, unwrapped, name);
+      }
+      return false;
     }
     case node.type === AST.MemberExpression:
       return isFromObserver(context, node.object, name);
     default:
       return false;
   }
+}
+
+/**
+ * Check if the node refers to the instance held by a ref: either a direct `ref.current` member
+ * access or a local alias initialized from it (`const observer = ref.current`).
+ * @param context The ESLint rule context.
+ * @param node The candidate node (the object of an observer method call).
+ * @param refId The assignment target of the `useRef(new XObserver(...))` declaration.
+ * @returns `true` if the node refers to the ref's instance.
+ */
+export function isFromRefCurrent(context: RuleContext, node: TSESTree.Node, refId: TSESTree.Node): boolean {
+  let unwrapped: TSESTree.Node = Check.isTypeExpression(node) ? Extract.unwrap(node) : node;
+  if (Check.isIdentifier(unwrapped)) {
+    const initNode = resolve(context, unwrapped);
+    if (initNode != null) {
+      unwrapped = Extract.unwrap(initNode);
+    }
+  }
+  return unwrapped.type === AST.MemberExpression
+    && !unwrapped.computed
+    && Check.isIdentifier(Extract.unwrap(unwrapped.property), "current")
+    && isAssignmentTargetEqual(context, unwrapped.object, refId);
 }

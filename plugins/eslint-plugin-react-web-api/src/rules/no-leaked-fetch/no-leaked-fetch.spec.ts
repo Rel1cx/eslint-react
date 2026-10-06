@@ -543,6 +543,121 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
     },
+    // A signal alias chain that does not resolve to an AbortController's signal
+    // member expression is reported, even when the chain is multiple levels deep
+    {
+      code: tsx`
+        function Example() {
+          useEffect(() => {
+            const s = getExternalSignal();
+            const signal = s;
+            fetch("/api/user", { signal });
+          }, []);
+        }
+      `,
+      errors: [
+        {
+          messageId: "expected-abort-controller",
+        },
+      ],
+    },
+    // An alias cycle cannot be resolved to a controller and must not crash the rule
+    {
+      code: tsx`
+        function Example() {
+          useEffect(() => {
+            let a = b;
+            let b = a;
+            fetch("/api/user", { signal: b });
+          }, []);
+        }
+      `,
+      errors: [
+        {
+          messageId: "expected-abort-controller",
+        },
+      ],
+    },
+    // A self-referencing alias is a degenerate cycle: the initializer resolves back
+    // to itself, so the cycle guard must kick in without hanging
+    {
+      code: tsx`
+        function Example() {
+          useEffect(() => {
+            const s = s as AbortSignal;
+            fetch("/api/user", { signal: s });
+          }, []);
+        }
+      `,
+      errors: [
+        {
+          messageId: "expected-abort-controller",
+        },
+      ],
+    },
+    // Aliases of two different controllers must not cross-pair: `b` resolves to
+    // `ctrl2`, which is never aborted, so only the second fetch is reported
+    {
+      code: tsx`
+        function Example() {
+          useEffect(() => {
+            const ctrl1 = new AbortController();
+            const ctrl2 = new AbortController();
+            const s1 = ctrl1.signal;
+            const s2 = ctrl2.signal;
+            const a = s1;
+            const b = s2;
+            fetch("/api/user/1", { signal: a });
+            fetch("/api/user/2", { signal: b });
+            return () => ctrl1.abort();
+          }, []);
+        }
+      `,
+      errors: [
+        {
+          messageId: "expected-abort-in-cleanup",
+        },
+      ],
+    },
+    // Pin the current heuristic: any member expression's object is treated as the
+    // abort target, so an alias to a non-controller object's property resolves to
+    // that object, and the missing `req.abort()` is reported as a missing cleanup
+    {
+      code: tsx`
+        function Example() {
+          useEffect(() => {
+            const req = { signal: getExternalSignal() };
+            const s = req.signal;
+            fetch("/api/user", { signal: s });
+          }, []);
+        }
+      `,
+      errors: [
+        {
+          messageId: "expected-abort-in-cleanup",
+        },
+      ],
+    },
+    // Pin a known limitation: a destructured signal resolves (via resolveOrigin) to
+    // the declarator's initializer (`ctrl`), not to `ctrl.signal`, so the controller
+    // is not recovered and the fetch is reported
+    {
+      code: tsx`
+        function Example() {
+          useEffect(() => {
+            const ctrl = new AbortController();
+            const { signal } = ctrl;
+            fetch("/api/user", { signal });
+            return () => ctrl.abort();
+          }, []);
+        }
+      `,
+      errors: [
+        {
+          messageId: "expected-abort-controller",
+        },
+      ],
+    },
   ],
   valid: [
     // Basic valid cases
@@ -602,6 +717,165 @@ ruleTester.run(RULE_NAME, rule, {
           const signal = ctrl.signal;
           fetch("/api/user", { signal });
           return () => ctrl.abort();
+        }, []);
+      }
+    `,
+    // signal aliased through a multi-level chain of variables
+    tsx`
+      import { useEffect } from "react";
+
+      function Example() {
+        useEffect(() => {
+          const ctrl = new AbortController();
+          const s = ctrl.signal;
+          const signal = s;
+          fetch("/api/user", { signal });
+          return () => ctrl.abort();
+        }, []);
+      }
+    `,
+    // signal aliased through a multi-level chain with type assertions in between
+    tsx`
+      import { useEffect } from "react";
+
+      function Example() {
+        useEffect(() => {
+          const ctrl = new AbortController();
+          const s = ctrl.signal as AbortSignal;
+          const signal = s;
+          fetch("/api/user", { signal });
+          return () => ctrl.abort();
+        }, []);
+      }
+    `,
+    // signal aliased through a three-level chain of variables
+    tsx`
+      import { useEffect } from "react";
+
+      function Example() {
+        useEffect(() => {
+          const ctrl = new AbortController();
+          const a = ctrl.signal;
+          const b = a;
+          const signal = b;
+          fetch("/api/user", { signal });
+          return () => ctrl.abort();
+        }, []);
+      }
+    `,
+    // signal aliased with a non-null assertion on the member expression
+    tsx`
+      import { useEffect } from "react";
+
+      function Example() {
+        useEffect(() => {
+          const ctrl = new AbortController();
+          const s = ctrl.signal!;
+          const signal = s;
+          fetch("/api/user", { signal });
+          return () => ctrl.abort();
+        }, []);
+      }
+    `,
+    // signal aliased through an optional chain
+    tsx`
+      import { useEffect } from "react";
+
+      function Example() {
+        useEffect(() => {
+          const ctrl = new AbortController();
+          const s = ctrl?.signal;
+          fetch("/api/user", { signal: s });
+          return () => ctrl.abort();
+        }, []);
+      }
+    `,
+    // signal passed directly through an optional chain
+    tsx`
+      import { useEffect } from "react";
+
+      function Example() {
+        useEffect(() => {
+          const ctrl = new AbortController();
+          fetch("/api/user", { signal: ctrl?.signal });
+          return () => ctrl.abort();
+        }, []);
+      }
+    `,
+    // signal alias combined with options passed via variable
+    tsx`
+      import { useEffect } from "react";
+
+      function Example() {
+        useEffect(() => {
+          const ctrl = new AbortController();
+          const s = ctrl.signal;
+          const opts = { signal: s };
+          fetch("/api/user", opts);
+          return () => ctrl.abort();
+        }, []);
+      }
+    `,
+    // signal alias declared in an outer scope (the alias chain resolution walks
+    // the scope chain upward via findVariable)
+    tsx`
+      import { useEffect } from "react";
+
+      function Example() {
+        const ctrl = new AbortController();
+        const s = ctrl.signal;
+
+        useEffect(() => {
+          const signal = s;
+          fetch("/api/user", { signal });
+          return () => ctrl.abort();
+        }, []);
+      }
+    `,
+    // A shadowed binding with the same name in a nested scope is a distinct AST
+    // node, so it neither confuses the alias resolution nor trips the cycle guard
+    tsx`
+      import { useEffect } from "react";
+
+      function Example() {
+        useEffect(() => {
+          const ctrl = new AbortController();
+          const signal = ctrl.signal;
+          {
+            const signal = otherCtrl.signal;
+            void signal;
+          }
+          fetch("/api/user", { signal });
+          return () => ctrl.abort();
+        }, []);
+      }
+    `,
+    // Pin a known limitation: reassignment is not tracked. Origin resolution always
+    // uses the declaration's initializer, so `s` resolves to `ctrl.signal` even
+    // though it is reassigned to `otherCtrl.signal` before the fetch
+    tsx`
+      import { useEffect } from "react";
+
+      function Example() {
+        useEffect(() => {
+          const ctrl = new AbortController();
+          const otherCtrl = new AbortController();
+          let s = ctrl.signal;
+          s = otherCtrl.signal;
+          fetch("/api/user", { signal: s });
+          return () => ctrl.abort();
+        }, []);
+      }
+    `,
+    // Parameter signal (e.g. foxact/use-abortable-effect) aliased through a local
+    // variable: the chain resolves back to the function parameter
+    tsx`
+      import { useEffect } from "foxact/use-abortable-effect";
+
+      function Example() {
+        useEffect(signal => {
+          const s = signal;
+          fetch("/api/user", { signal: s });
         }, []);
       }
     `,

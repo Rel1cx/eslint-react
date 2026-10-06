@@ -5,6 +5,13 @@ All notable changes to the `react-web-api/no-leaked-event-listener` rule will be
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+### Fixed
+
+- Bare global calls (`addEventListener(...)` without an explicit receiver) are now treated as calls on the global object, so they pair with a matching `removeEventListener(...)` in the cleanup whether that call is also bare or uses an explicit global receiver (`window.`/`globalThis.`/`self.`), fixing false positives for listeners that omit the `window` receiver. Closes #1996.
+- A `signal` destructured directly from `new AbortController()` (e.g. `const { signal, abort } = new AbortController()`, including renamed bindings like `{ signal: sig }`) is now recognized, so listeners using it are no longer reported. Closes #2001.
+
 ## [5.23.5] - 2026-10-03
 
 ### Fixed

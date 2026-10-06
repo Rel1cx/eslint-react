@@ -181,16 +181,26 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   const rEntries: REntry[] = [];
   // Functions called within each effect's cleanup, keyed by the effect call node.
   const cleanupCallees = new Map<TSESTree.Node, CleanupCallees>();
-  // FIXME: bare global calls (`addEventListener(...)` without a receiver, i.e. `window`) never pair up
-  // because only MemberExpression callees are compared - both sides bare should fall back to
-  // `Compare.isEqual(a, b)`.
+  // Whether the node references the global object. A bare call
+  // (`addEventListener(...)` without a receiver) targets the global object per DOM
+  // semantics, and `window`/`globalThis`/`self` alias that same global in the DOM.
+  function isGlobalObject(node: TSESTree.Node) {
+    return Check.isIdentifier(node)
+      && (node.name === "window" || node.name === "globalThis" || node.name === "self");
+  }
   function isSameObject(a: TSESTree.Node, b: TSESTree.Node) {
     switch (true) {
       case a.type === AST.MemberExpression
         && b.type === AST.MemberExpression:
         return Compare.isEqual(a.object, b.object);
+      // A bare call pairs with an explicit call on the global object
+      case a.type === AST.MemberExpression:
+        return isGlobalObject(a.object);
+      case b.type === AST.MemberExpression:
+        return isGlobalObject(b.object);
+      // Both sides are bare calls: both target the global object
       default:
-        return false;
+        return true;
     }
   }
   function isInverseEntry(aEntry: AEntry, rEntry: REntry) {

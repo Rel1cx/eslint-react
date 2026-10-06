@@ -5,6 +5,17 @@ All notable changes to the `react-web-api/no-leaked-resize-observer` rule will b
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+### Added
+
+- Observer instances held in a ref (e.g. `const ref = useRef(new ResizeObserver(callback))`) are now tracked: `ref.current.observe(...)` / `ref.current.unobserve(...)` / `ref.current.disconnect()` — including local aliases of `ref.current` — are checked for cleanup-phase disposal just like observers created inside the effect, and a `useRef(new ResizeObserver(...))` whose result is not assigned to a variable reports `unexpected-floating-instance`. Closes #2003.
+
+### Fixed
+
+- `disconnect()` / `unobserve(...)` now only count as cleanup when they run in the effect's cleanup phase — inside the returned cleanup function, a named cleanup function returned from the setup, or a local helper called from the cleanup. Calls made during the setup phase (e.g. a `disconnect()` right after `observe(...)` with no cleanup returned) no longer satisfy the check, fixing false negatives for genuinely leaked observers. Closes #2002.
+- `unobserve(...)` inside the observer's own callback no longer pairs with `observe(...)`, matching the existing `disconnect()` semantics: the observer callback may never run before unmount.
+
 ## [5.21.1] - 2026-09-28
 
 ### Fixed
