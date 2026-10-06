@@ -44,6 +44,7 @@ const schema = [
 export default createRule<Options, MessageID>({
   meta: {
     type: "problem",
+    defaultOptions: [...defaultOptions],
     docs: {
       description: "Prevents using referential-type values as default props in object destructuring.",
     },
@@ -54,7 +55,6 @@ export default createRule<Options, MessageID>({
   },
   name: RULE_NAME,
   create,
-  defaultOptions,
 });
 
 export function create(context: RuleContext<MessageID, Options>, [options]: Options): RuleListener {

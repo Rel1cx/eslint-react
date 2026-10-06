@@ -31,7 +31,6 @@ export default createRule<[], MessageID>({
   },
   name: RULE_NAME,
   create: create,
-  defaultOptions: [],
 });
 
 export function create(context: RuleContext<MessageID, []>): RuleListener {

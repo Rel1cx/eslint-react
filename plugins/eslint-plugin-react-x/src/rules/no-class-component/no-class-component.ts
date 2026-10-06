@@ -22,7 +22,6 @@ export default createRule<[], MessageID>({
   },
   name: RULE_NAME,
   create,
-  defaultOptions: [],
 });
 
 export function create(context: RuleContext<MessageID, []>): RuleListener {
@@ -33,15 +32,12 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
     visitor,
     {
       "Program:exit"(program) {
-        for (const { id, name = "anonymous", node: component } of api.getAllComponents(program)) {
+        for (const { id, node: component } of api.getAllComponents(program)) {
           if (component.body.body.some(or(core.isComponentDidCatch, core.isGetDerivedStateFromError))) {
             continue;
           }
           const classToken = context.sourceCode.getFirstToken(component, { filter: (token) => token.value === "class" });
           context.report({
-            data: {
-              name,
-            },
             loc: (id ?? classToken ?? component).loc,
             messageId: "default",
             node: component,

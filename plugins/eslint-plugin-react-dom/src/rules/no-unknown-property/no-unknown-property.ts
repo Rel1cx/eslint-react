@@ -61,9 +61,10 @@ const messages = {
   "unknown-prop-with-standard-name": "Unknown property '{{name}}' found, use '{{standardName}}' instead",
 };
 
-export default createRule({
+export default createRule<Options[], MessageID>({
   meta: {
     type: "problem",
+    defaultOptions: [DEFAULTS],
     docs: {
       description: "Disallows unknown 'DOM' properties.",
     },
@@ -75,20 +76,20 @@ export default createRule({
       properties: {
         ignore: {
           type: "array",
+          description: "Property names to ignore.",
           items: {
             type: "string",
           },
         },
         requireDataLowercase: {
           type: "boolean",
-          default: false,
+          description: "Require lowercase names for data-* attributes.",
         },
       },
     }],
   },
   name: RULE_NAME,
   create,
-  defaultOptions: [],
 });
 
 export function create(context: RuleContext<MessageID, Options[]>): RuleListener {

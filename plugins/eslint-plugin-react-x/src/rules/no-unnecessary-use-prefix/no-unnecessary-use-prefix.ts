@@ -22,7 +22,6 @@ export default createRule<[], MessageID>({
   },
   name: RULE_NAME,
   create,
-  defaultOptions: [],
 });
 
 export function create(context: RuleContext<MessageID, []>): RuleListener {
@@ -56,9 +55,6 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         }
         // If none of the above, it's a regular function with 'use' prefix. Report it
         context.report({
-          data: {
-            name,
-          },
           messageId: "default",
           node: id ?? node,
         });

@@ -24,7 +24,6 @@ export default createRule<[], MessageID>({
   },
   name: RULE_NAME,
   create,
-  defaultOptions: [],
 });
 
 export function create(context: RuleContext<MessageID, []>): RuleListener {
@@ -76,7 +75,6 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
           if (isInsideJSXAttributeValue(component)) {
             context.report({
               data: {
-                name,
                 suggestion: "Move it to the top level or pass it as a prop.",
               },
               messageId: "default",
@@ -88,7 +86,6 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
           if (core.isInsideCreateElementProps(context, component)) {
             context.report({
               data: {
-                name,
                 suggestion: "Move it to the top level or pass it as a prop.",
               },
               messageId: "default",
@@ -100,7 +97,6 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
           if (findEnclosingComponent(component) != null) {
             context.report({
               data: {
-                name,
                 suggestion: component.parent.type === AST.Property
                   ? "Move it to the top level or pass it as a prop."
                   : "Move it to the top level.",
@@ -114,7 +110,6 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
           if (isInsideRenderMethod(component)) {
             context.report({
               data: {
-                name,
                 suggestion: "Move it to the top level.",
               },
               messageId: "default",
@@ -123,12 +118,11 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
           }
         }
         // Iterate over class components to find nested definitions
-        for (const { name = "unknown", node: component } of cComponents) {
+        for (const { node: component } of cComponents) {
           // Find if the parent is another component
           if (findEnclosingComponent(component) == null) continue;
           context.report({
             data: {
-              name,
               suggestion: component.parent.type === AST.Property
                 ? "Move it to the top level or pass it as a prop."
                 : "Move it to the top level.",

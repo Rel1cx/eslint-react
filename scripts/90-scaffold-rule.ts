@@ -35,7 +35,6 @@ function generateRuleTs(ruleName: string): string {
     `  },`,
     `  name: RULE_NAME,`,
     `  create,`,
-    `  defaultOptions: [],`,
     `});`,
     ``,
     `export function create(context: RuleContext<MessageID, []>) {`,
