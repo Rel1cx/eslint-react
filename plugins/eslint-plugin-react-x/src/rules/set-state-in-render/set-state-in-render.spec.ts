@@ -566,6 +566,71 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [{ data: { name: "setA" }, messageId: "default" }],
     },
+    // setState directly in an inner nested component is attributed to the inner
+    // component (the top of the component stack), not the outer one
+    {
+      code: tsx`
+        import { useState } from "react";
+
+        function Outer() {
+          function Inner() {
+            const [a, setA] = useState(0);
+            setA(1);
+            return <div>{a}</div>;
+          }
+          return <Inner />;
+        }
+      `,
+      errors: [{ data: { name: "setA" }, messageId: "default" }],
+    },
+    // member-callee wrapper `React.memo` with an anonymous render function
+    {
+      code: tsx`
+        import React, { useState } from "react";
+
+        const Component = React.memo(() => {
+          const [count, setCount] = useState(0);
+          setCount(1);
+          return <div>{count}</div>;
+        });
+      `,
+      errors: [{ data: { name: "setCount" }, messageId: "default" }],
+    },
+    // anonymous memo component with a nested component declaration followed by a
+    // setState: the stack must restore the memo callback as the component
+    {
+      code: tsx`
+        import { memo, useState } from "react";
+
+        const Component = memo(() => {
+          const [a, setA] = useState(0);
+          const Inner = () => <div />;
+          setA(1);
+          return <div>{a}<Inner /></div>;
+        });
+      `,
+      errors: [{ data: { name: "setA" }, messageId: "default" }],
+    },
+    // a nested component declared inside a callback of the component does not
+    // disturb attribution of a later setState in the component body
+    {
+      code: tsx`
+        import { useState } from "react";
+
+        function Outer() {
+          const [a, setA] = useState(0);
+          const make = () => {
+            function Inner() {
+              return <div />;
+            }
+            return Inner;
+          };
+          setA(1);
+          return <div>{a}</div>;
+        }
+      `,
+      errors: [{ data: { name: "setA" }, messageId: "default" }],
+    },
   ],
   valid: [
     {
@@ -1053,6 +1118,48 @@ ruleTester.run(RULE_NAME, rule, {
           }, []);
           return <div>{a}{v}</div>;
         }
+      `,
+    },
+    // conditional setState inside an anonymous forwardRef render function
+    {
+      code: tsx`
+        import { forwardRef, useState } from "react";
+
+        const Component = forwardRef((props, ref) => {
+          const [a, setA] = useState(0);
+          if (props.x) {
+            setA(1);
+          }
+          return <div ref={ref}>{a}</div>;
+        });
+      `,
+    },
+    // event handler inside an anonymous forwardRef render function
+    {
+      code: tsx`
+        import { forwardRef, useState } from "react";
+
+        const Component = forwardRef((props, ref) => {
+          const [a, setA] = useState(0);
+          return <button ref={ref} onClick={() => setA(a + 1)}>{a}</button>;
+        });
+      `,
+    },
+    // a setState after a nested component inside an anonymous memo component
+    // stays valid when guarded by an early return
+    {
+      code: tsx`
+        import { memo, useState } from "react";
+
+        const Component = memo(({ items }) => {
+          const [a, setA] = useState(0);
+          const Inner = () => <div />;
+          if (items.length === 0) {
+            return null;
+          }
+          setA(1);
+          return <div>{a}<Inner /></div>;
+        });
       `,
     },
   ],

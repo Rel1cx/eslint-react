@@ -1825,6 +1825,128 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
     },
+    // An update expression on a binding destructured from props is a
+    // binding-kind mutation and stays reported (#1995).
+    {
+      code: tsx`
+        function Component({ error }) {
+          error++;
+          return <div />;
+        }
+      `,
+      errors: [
+        {
+          data: {
+            detail: "It is a prop of this component and must not be reassigned.",
+            name: "error",
+          },
+          messageId: "direct-mutation",
+        },
+      ],
+    },
+    // A `for...in` loop without a declaration rebinds a binding destructured
+    // from props, which is a binding-kind mutation (#1995).
+    {
+      code: tsx`
+        function Component({ error }) {
+          for (error in {}) {
+          }
+          return <div />;
+        }
+      `,
+      errors: [
+        {
+          data: {
+            detail: "It is a prop of this component and must not be reassigned.",
+            name: "error",
+          },
+          messageId: "direct-mutation",
+        },
+      ],
+    },
+    // A member write folds through a multi-level plain alias chain back to the
+    // prop origin (#1995).
+    {
+      code: tsx`
+        function Component({ error }) {
+          let a = error;
+          let b = a;
+          b.message = "x";
+          return <div />;
+        }
+      `,
+      errors: [
+        {
+          data: {
+            detail: "It is a prop of this component and must be treated as immutable.",
+            name: "error",
+          },
+          messageId: "direct-mutation",
+        },
+      ],
+    },
+    // A member write through a plain alias of the props object itself folds
+    // back to the props origin.
+    {
+      code: tsx`
+        function Component(props) {
+          const p = props;
+          p.x = 1;
+          return <div />;
+        }
+      `,
+      errors: [
+        {
+          data: {
+            detail: "It is a prop of this component and must be treated as immutable.",
+            name: "props",
+          },
+          messageId: "direct-mutation",
+        },
+      ],
+    },
+    // A delete through a plain alias of a prop is a value mutation and stays
+    // reported (#1995).
+    {
+      code: tsx`
+        function Component({ error }) {
+          const c = error;
+          delete c.message;
+          return <div />;
+        }
+      `,
+      errors: [
+        {
+          data: {
+            detail: "It is a prop of this component and must be treated as immutable.",
+            name: "error",
+          },
+          messageId: "direct-mutation",
+        },
+      ],
+    },
+    // Rebinding a binding destructured from a destructured prop folds through
+    // the identifier-initializer chain (`{ message } = error` where
+    // `{ error } = props`), so it is reported like the direct form (#1995).
+    {
+      code: tsx`
+        function Component(props) {
+          const { error } = props;
+          let { message } = error;
+          message = "x";
+          return <div />;
+        }
+      `,
+      errors: [
+        {
+          data: {
+            detail: "It is a prop of this component and must not be reassigned.",
+            name: "props",
+          },
+          messageId: "direct-mutation",
+        },
+      ],
+    },
   ],
   valid: [
     tsx`
@@ -2773,6 +2895,57 @@ ruleTester.run(RULE_NAME, rule, {
 
         return { handleVote$ };
       };
+    `,
+    // Rebinding a plain alias at any depth of the alias chain discards only the
+    // local alias (#1995).
+    tsx`
+      function Component({ error }) {
+        let a = error;
+        let b = a;
+        b = undefined;
+        return <div />;
+      }
+    `,
+    // Rebinding a plain alias of the props object itself is local-only (#1995).
+    tsx`
+      function Component(props) {
+        let p = props;
+        p = {};
+        return <div />;
+      }
+    `,
+    // Reassigning a `for...of` iterator binding is documented as not covered:
+    // the iterator is classified as an iterator origin, not a props/state
+    // binding, so binding-kind mutations through it stay allowed.
+    tsx`
+      function Component(props) {
+        for (let item of props.items) {
+          item = null;
+        }
+        return <div />;
+      }
+    `,
+    // Pins current behavior: origin resolution only folds identifier
+    // initializers, so a binding destructured from a member expression
+    // (`let { error } = props.nested`) is not traced back to props and its
+    // rebinding is not reported, unlike `let { error } = props` (known
+    // limitation, inconsistent with the direct form).
+    tsx`
+      function Component(props) {
+        let { error } = props.nested;
+        error = 1;
+        return <div />;
+      }
+    `,
+    // Pins current behavior: a member-expression initializer does not fold
+    // (`const p = props.nested`), so member writes through it escape detection
+    // (pre-existing alias limitation, same identifier-only folding as above).
+    tsx`
+      function Component(props) {
+        const p = props.nested;
+        p.x = 1;
+        return <div />;
+      }
     `,
   ],
 });

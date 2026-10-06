@@ -645,6 +645,36 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
     },
+    // Pins current behavior: a cleanup that delegates the `disconnect` to a
+    // method of a local object (`return () => handlers.stop()`) is not
+    // recognized — only bare identifier calls from the cleanup are resolved,
+    // so the `disconnect` inside `stop` is not treated as cleanup-phase
+    // (known limitation, likely a false positive)
+    {
+      code: tsx`
+        import { useEffect } from "react";
+
+        function Component() {
+          useEffect(() => {
+            const observer = new IntersectionObserver(() => {});
+            observer.observe(document.body);
+            const handlers = {
+              stop() {
+                observer.disconnect();
+              },
+            };
+            return () => handlers.stop();
+          }, []);
+
+          return <div />;
+        }
+      `,
+      errors: [
+        {
+          messageId: "expected-disconnect-or-unobserve-in-cleanup",
+        },
+      ],
+    },
   ],
   valid: [
     tsx`
@@ -1283,6 +1313,54 @@ ruleTester.run(RULE_NAME, rule, {
         useEffect(() => {
           observerRef.current = new IntersectionObserver(() => {});
           observerRef.current.observe(document.body);
+        }, []);
+
+        return <div />;
+      }
+    `,
+    // A ref-held instance observed through an optional-chained member call and
+    // disconnected in the cleanup
+    tsx`
+      import { useEffect, useRef } from "react";
+
+      function Component() {
+        const observerRef = useRef(new IntersectionObserver(() => {}));
+        useEffect(() => {
+          observerRef.current?.observe(document.body);
+          return () => observerRef.current.disconnect();
+        }, []);
+
+        return <div />;
+      }
+    `,
+    // A ref-held instance disconnected through an optional-chained member call
+    // in the cleanup
+    tsx`
+      import { useEffect, useRef } from "react";
+
+      function Component() {
+        const observerRef = useRef(new IntersectionObserver(() => {}));
+        useEffect(() => {
+          observerRef.current.observe(document.body);
+          return () => observerRef.current?.disconnect();
+        }, []);
+
+        return <div />;
+      }
+    `,
+    // Pins current behavior: a ref-held instance accessed through a destructured
+    // `current` alias (`const { current: observer } = ref`) is not recognized —
+    // destructured properties resolve to the declarator init (`ref`), not to
+    // `ref.current`, so the calls are not matched to the instance and the leak
+    // is not reported (known limitation, likely a false negative)
+    tsx`
+      import { useEffect, useRef } from "react";
+
+      function Component() {
+        const observerRef = useRef(new IntersectionObserver(() => {}));
+        useEffect(() => {
+          const { current: observer } = observerRef;
+          observer.observe(document.body);
         }, []);
 
         return <div />;

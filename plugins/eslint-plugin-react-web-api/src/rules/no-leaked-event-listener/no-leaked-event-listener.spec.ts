@@ -1306,6 +1306,28 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
     },
+    // A member-receiver add pairs with a bare remove only when the capture
+    // options match; a mismatch is still reported
+    {
+      code: tsx`
+        import { useEffect } from "react";
+
+        function Example() {
+          useEffect(() => {
+            const handleResize = () => {};
+            window.addEventListener("resize", handleResize, { capture: true });
+            return () => {
+              removeEventListener("resize", handleResize, { capture: false });
+            };
+          }, []);
+        }
+      `,
+      errors: [
+        {
+          messageId: "expected-remove-event-listener-in-cleanup",
+        },
+      ],
+    },
   ],
   valid: [
     // A self-removing listener whose remover is also called from the cleanup is not leaked
@@ -2341,6 +2363,41 @@ ruleTester.run(RULE_NAME, rule, {
         useEffectOnce(() => {
           window.addEventListener("resize", handleResize);
         });
+      }
+    `,
+    // An optional-chained receiver still resolves to the global object and
+    // pairs with a bare removal
+    tsx`
+      import { useEffect } from "react";
+
+      function Example() {
+        useEffect(() => {
+          const handleResize = () => {};
+          window?.addEventListener("resize", handleResize);
+          return () => {
+            removeEventListener("resize", handleResize);
+          };
+        }, []);
+      }
+    `,
+    // Pins current behavior: listeners are compared structurally by name
+    // (`Compare.isEqual`), without scope resolution, so two distinct bindings
+    // that happen to share a name pair across effects (pre-existing name-based
+    // matching, likely a false negative)
+    tsx`
+      import { useEffect } from "react";
+
+      function Example() {
+        useEffect(() => {
+          const handleResize = () => {};
+          addEventListener("resize", handleResize);
+        }, []);
+        useEffect(() => {
+          const handleResize = () => {};
+          return () => {
+            removeEventListener("resize", handleResize);
+          };
+        }, []);
       }
     `,
   ],
