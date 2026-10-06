@@ -21,6 +21,45 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
     },
+    // A bare `addEventListener` targets the global object and still needs a matching cleanup
+    {
+      code: tsx`
+        import { useEffect } from "react";
+
+        function Example() {
+          useEffect(() => {
+            const handleResize = () => {};
+            addEventListener("resize", handleResize);
+          }, []);
+        }
+      `,
+      errors: [
+        {
+          messageId: "expected-remove-event-listener-in-cleanup",
+        },
+      ],
+    },
+    // A bare `addEventListener` does not pair with a `removeEventListener` on a non-global object
+    {
+      code: tsx`
+        import { useEffect } from "react";
+
+        function Example() {
+          useEffect(() => {
+            const handleResize = () => {};
+            addEventListener("resize", handleResize);
+            return () => {
+              document.removeEventListener("resize", handleResize);
+            };
+          }, []);
+        }
+      `,
+      errors: [
+        {
+          messageId: "expected-remove-event-listener-in-cleanup",
+        },
+      ],
+    },
     { // Even if the event listener is added with an once, it may still be necessary to properly cancel untriggered listeners when the component is unmounted, so this case needs to be placed in invalid.
       code: tsx`
         import { useEffect } from "react";
@@ -1150,6 +1189,60 @@ ruleTester.run(RULE_NAME, rule, {
           window.addEventListener("resize", handleResize);
           return () => {
             window.removeEventListener("resize", handleResize);
+          };
+        }, []);
+      }
+    `,
+    // Bare calls on both sides target the global object and pair up
+    tsx`
+      import { useEffect } from "react";
+
+      function Example() {
+        useEffect(() => {
+          const handleResize = () => {};
+          addEventListener("resize", handleResize);
+          return () => {
+            removeEventListener("resize", handleResize);
+          };
+        }, []);
+      }
+    `,
+    // A bare call pairs with an explicit call on the global object (both directions)
+    tsx`
+      import { useEffect } from "react";
+
+      function Example() {
+        useEffect(() => {
+          const handleResize = () => {};
+          addEventListener("resize", handleResize);
+          return () => {
+            window.removeEventListener("resize", handleResize);
+          };
+        }, []);
+      }
+    `,
+    tsx`
+      import { useEffect } from "react";
+
+      function Example() {
+        useEffect(() => {
+          const handleResize = () => {};
+          window.addEventListener("resize", handleResize);
+          return () => {
+            removeEventListener("resize", handleResize);
+          };
+        }, []);
+      }
+    `,
+    tsx`
+      import { useEffect } from "react";
+
+      function Example() {
+        useEffect(() => {
+          const handleResize = () => {};
+          globalThis.addEventListener("resize", handleResize);
+          return () => {
+            removeEventListener("resize", handleResize);
           };
         }, []);
       }
