@@ -47,7 +47,6 @@ export default createRule<[], MessageID>({
   },
   name: RULE_NAME,
   create,
-  defaultOptions: [],
 });
 
 export function create(context: RuleContext<MessageID, []>): RuleListener {
@@ -72,7 +71,7 @@ Conventions:
 
 ## Options
 
-Only a handful of rules take options. Convention: an `Options` tuple type, a module-level `defaultOptions` constant, a JSON schema typed as `JSONSchema4`, and resolution at the top of `create`:
+Only a handful of rules take options. Convention: an `Options` tuple type, a module-level `defaultOptions` constant referenced from `meta.defaultOptions`, a JSON schema typed as `JSONSchema4`, and resolution at the top of `create`:
 
 ```ts
 type Options = readonly [
@@ -83,6 +82,16 @@ type Options = readonly [
 export const defaultOptions = [
   { enforceAssignment: true, enforceLazyInitialization: true },
 ] as const satisfies Options;
+
+export default createRule<Options, MessageID>({
+  meta: {
+    // ...
+    defaultOptions: [...defaultOptions],
+    schema,
+  },
+  name: RULE_NAME,
+  create,
+});
 // ...
 export function create(context: RuleContext<MessageID, Options>): RuleListener {
   const options = context.options[0] ?? defaultOptions[0];
@@ -90,7 +99,7 @@ export function create(context: RuleContext<MessageID, Options>): RuleListener {
 }
 ```
 
-Some rules resolve options from `create`'s second parameter and a `ResolvedOptions = Required<Options[0]>` type instead (`react-jsx/no-useless-fragment`). Any non-empty `schema`/`defaultOptions` earns the `CFG` feature flag (see [`rule-feature-system.md`](./rule-feature-system.md)).
+Some rules resolve options from `create`'s second parameter and a `ResolvedOptions = Required<Options[0]>` type instead (`react-jsx/no-useless-fragment`). Rules with a non-empty schema must declare `meta.defaultOptions` (`require-meta-default-options` is enforced by this repo's own lint config), while rules without options omit `defaultOptions` entirely. Any non-empty `schema`/`defaultOptions` earns the `CFG` feature flag (see [`rule-feature-system.md`](./rule-feature-system.md)).
 
 ## Reporting
 
