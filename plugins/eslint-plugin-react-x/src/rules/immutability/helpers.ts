@@ -74,15 +74,30 @@ export function resolveToFunctionNode(context: RuleContext, node: TSESTree.Node,
   return resolved == null ? null : resolveToFunctionNode(context, resolved, seen);
 }
 
-export function resolveVariableOrigin(context: RuleContext, variable: Scope.Variable, seen: Set<Scope.Variable> = new Set()): Scope.Variable {
+/**
+ * How far `resolveVariableOrigin` follows a variable's initializer.
+ * - `"alias"`: follow every identifier-initializer alias chain (value writes).
+ * - `"binding"`: follow only destructured bindings (`const { error } = props`);
+ *   a plain alias (`let current = error`) holds no shared binding of its own, so
+ *   rebinding it discards only the local alias and must not fold into its source.
+ */
+export type OriginResolveMode = "alias" | "binding";
+
+export function resolveVariableOrigin(
+  context: RuleContext,
+  variable: Scope.Variable,
+  mode: OriginResolveMode = "alias",
+  seen: Set<Scope.Variable> = new Set(),
+): Scope.Variable {
   if (seen.has(variable)) return variable;
   seen.add(variable);
   const def = variable.defs.length === 1 ? variable.defs[0] : null;
   if (def?.type !== DefinitionType.Variable || def.node.init == null) return variable;
+  if (mode === "binding" && def.node.id.type === AST.Identifier) return variable;
   const init = Extract.unwrap(def.node.init);
   if (!Check.isIdentifier(init)) return variable;
   const source = findVariable(context.sourceCode.getScope(init), init);
-  return source == null ? variable : resolveVariableOrigin(context, source, seen);
+  return source == null ? variable : resolveVariableOrigin(context, source, mode, seen);
 }
 
 export function isRefLikeName(name: string) {
