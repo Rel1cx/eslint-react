@@ -44,12 +44,10 @@ export function createFactCollector(additionalStateHooks: RegExpLike) {
   };
 
   const functionEntries: { kind: FunctionKind; node: TSESTreeFunction }[] = [];
-  // FIXME: `componentFnRef` is a single slot, not a stack — entering a nested
-  // component/hook declaration overwrites the outer component and its exit sets
-  // the slot to null, so setState calls in the outer component after the nested
-  // declaration are not attributed to any component and are missed. Restoring
-  // the outer function on exit (push/pop) would fix this.
-  const componentFnRef: { current: TSESTreeFunction | null } = { current: null };
+  // Stack of enclosing component/hook functions; entering a nested component
+  // pushes onto the stack and exiting pops it, restoring the outer component so
+  // setState calls after a nested declaration are still attributed to it.
+  const componentFnStack: TSESTreeFunction[] = [];
 
   function isUseStateCall(node: TSESTree.Node): boolean {
     return core.isUseStateLikeCall(node, additionalStateHooks);
@@ -71,13 +69,13 @@ export function createFactCollector(additionalStateHooks: RegExpLike) {
       const kind = getFunctionKind(node);
       functionEntries.push({ kind, node });
       if (kind === "component") {
-        componentFnRef.current = node;
+        componentFnStack.push(node);
       }
     },
     ":function:exit"(node: TSESTreeFunction) {
       const entry = functionEntries.at(-1);
-      if (entry?.kind === "component" && componentFnRef.current === node) {
-        componentFnRef.current = null;
+      if (entry?.kind === "component" && componentFnStack.at(-1) === node) {
+        componentFnStack.pop();
       }
       functionEntries.pop();
     },
@@ -90,14 +88,14 @@ export function createFactCollector(additionalStateHooks: RegExpLike) {
         return;
       }
       facts.calls.push({
-        componentFunction: componentFnRef.current,
+        componentFunction: componentFnStack.at(-1) ?? null,
         enclosingFunction: entry.node,
         enclosingFunctionKind: entry.kind,
         node,
       });
     },
     ReturnStatement(node: TSESTree.ReturnStatement) {
-      const componentFn = componentFnRef.current;
+      const componentFn = componentFnStack.at(-1);
       if (componentFn == null) return;
       // Only track early returns that belong directly to the component function
       const entry = functionEntries.at(-1);

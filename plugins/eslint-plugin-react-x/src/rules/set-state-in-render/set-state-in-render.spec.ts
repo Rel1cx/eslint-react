@@ -319,6 +319,56 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [{ data: { name: "setA" }, messageId: "default" }],
     },
+    // setState after a nested component declaration is still attributed to the
+    // outer component
+    {
+      code: tsx`
+        import { useState } from "react";
+
+        function Outer() {
+          const [a, setA] = useState(0);
+          function Inner() {
+            return <div />;
+          }
+          setA(1);
+          return <div>{a}<Inner /></div>;
+        }
+      `,
+      errors: [{ data: { name: "setA" }, messageId: "default" }],
+    },
+    // setState after a nested arrow component declaration
+    {
+      code: tsx`
+        import { useState } from "react";
+
+        function Outer() {
+          const [a, setA] = useState(0);
+          const Inner = () => <div />;
+          setA(1);
+          return <div>{a}<Inner /></div>;
+        }
+      `,
+      errors: [{ data: { name: "setA" }, messageId: "default" }],
+    },
+    // setState after multi-level nested component declarations
+    {
+      code: tsx`
+        import { useState } from "react";
+
+        function Outer() {
+          const [a, setA] = useState(0);
+          function Middle() {
+            function Inner() {
+              return <div />;
+            }
+            return <Inner />;
+          }
+          setA(1);
+          return <div>{a}<Middle /></div>;
+        }
+      `,
+      errors: [{ data: { name: "setA" }, messageId: "default" }],
+    },
     // setState inside a loop body is still unconditional render-time execution
     {
       code: tsx`
@@ -702,6 +752,24 @@ ruleTester.run(RULE_NAME, rule, {
       code: tsx`
         function notAComponent() {
           return null;
+        }
+      `,
+    },
+    // a nested non-component utility function does not disturb the outer
+    // component context; conditional setState after it stays valid
+    {
+      code: tsx`
+        import { useState } from "react";
+
+        function Component({ items }) {
+          const [a, setA] = useState(0);
+          function format(x) {
+            return x * 2;
+          }
+          if (items.length > 10) {
+            setA(1);
+          }
+          return <div>{format(a)}</div>;
         }
       `,
     },
