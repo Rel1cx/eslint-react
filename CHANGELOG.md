@@ -1,5 +1,15 @@
 # Changelog
 
+## v5.24.5 (2026-10-06)
+
+### 🏗️ Internal
+
+- Self-linted rule implementations with `eslint-plugin-eslint-plugin`, removing redundant empty `defaultOptions` declarations and enforcing `meta.defaultOptions` for rules with options. (#1993) Thanks to @rakleed and @Rel1cx!
+- Minor code cleanups in `react-web-api/no-leaked-intersection-observer`, `react-x/no-create-ref`, `react-x/no-nested-lazy-component-declarations`, and `react-x/use-state`. Thanks to @Rel1cx!
+- Bumped `effect` to `4.0.1`, `pnpm` to `12.9.1`, `fumadocs-core` and `fumadocs-ui` to `16.16.1`, `lucide-react` to `1.52.0`, `tsl-dx` to `0.14.0`, and `tinybench` to `6.2.0`. Thanks to @Rel1cx!
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.24.4...v5.24.5
+
 ## v5.24.4 (2026-10-05)
 
 ### 🏗️ Internal
