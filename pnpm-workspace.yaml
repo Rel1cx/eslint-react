@@ -21,22 +21,22 @@ overrides:
   "@types/react": "^19.3.0"
   "@types/react-dom": "^19.3.0"
   # Transitive dependency via typescript-eslint 8.67.0
-  "@typescript-eslint/eslint-plugin": "^8.71.0"
-  "@typescript-eslint/parser": "^8.71.0"
+  "@typescript-eslint/eslint-plugin": "^8.71.1"
+  "@typescript-eslint/parser": "^8.71.1"
   # Transitive dependency via @typescript-eslint/typescript-estree 8.67.0
-  "@typescript-eslint/project-service": "^8.71.0"
+  "@typescript-eslint/project-service": "^8.71.1"
   # Preventive pin, no installed package depends on it
-  "@typescript-eslint/rule-schema-to-typescript-types": "^8.71.0"
-  "@typescript-eslint/rule-tester": "^8.71.0"
-  "@typescript-eslint/scope-manager": "^8.71.0"
+  "@typescript-eslint/rule-schema-to-typescript-types": "^8.71.1"
+  "@typescript-eslint/rule-tester": "^8.71.1"
+  "@typescript-eslint/scope-manager": "^8.71.1"
   # Transitive dependency via @typescript-eslint/typescript-estree 8.67.0
-  "@typescript-eslint/tsconfig-utils": "^8.71.0"
-  "@typescript-eslint/type-utils": "^8.71.0"
-  "@typescript-eslint/types": "^8.71.0"
-  "@typescript-eslint/typescript-estree": "^8.71.0"
-  "@typescript-eslint/utils": "^8.71.0"
+  "@typescript-eslint/tsconfig-utils": "^8.71.1"
+  "@typescript-eslint/type-utils": "^8.71.1"
+  "@typescript-eslint/types": "^8.71.1"
+  "@typescript-eslint/typescript-estree": "^8.71.1"
+  "@typescript-eslint/utils": "^8.71.1"
   # Transitive dependency via @typescript-eslint/parser 8.67.0
-  "@typescript-eslint/visitor-keys": "^8.71.0"
+  "@typescript-eslint/visitor-keys": "^8.71.1"
   # Transitive dependency via nx 23.1.0
   axios: "^1.20.0"
   # Transitive dependency via nx 23.1.0 and minimatch 10.2.5
@@ -65,7 +65,7 @@ overrides:
   # Transitive dependency via eslint 10.8.0, @typescript-eslint/typescript-estree 8.67.0 and nx 23.1.0
   minimatch: "^10.2.6"
   next: "16.3.8"
-  postcss: "^8.5.28"
+  postcss: "^8.5.29"
   react-dom: "^19.3.0"
   react: "^19.3.0"
   # Transitive dependency via nx 23.1.0 and others
@@ -75,7 +75,7 @@ overrides:
   ts-api-utils: "^2.5.0"
   # Transitive dependency via nx 23.1.0 and others
   tslib: "^2.8.1"
-  typescript-eslint: "^8.71.0"
+  typescript-eslint: "^8.71.1"
   typescript: "6.0.3"
   # Keep a single vite copy in the tree (fumadocs-mdx's peer otherwise stays on an older resolution)
   vite: "^8.3.2"
