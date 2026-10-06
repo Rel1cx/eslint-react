@@ -23,7 +23,6 @@ export default createRule<[], MessageID>({
   },
   name: RULE_NAME,
   create,
-  defaultOptions: [],
 });
 
 function isConstructorFunction(node: TSESTree.Node): node is TSESTree.FunctionDeclaration | TSESTree.FunctionExpression {

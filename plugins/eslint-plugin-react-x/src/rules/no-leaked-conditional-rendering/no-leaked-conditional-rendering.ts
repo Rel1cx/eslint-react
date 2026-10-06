@@ -33,7 +33,6 @@ export default createRule<[], MessageID>({
   },
   name: RULE_NAME,
   create,
-  defaultOptions: [],
 });
 
 // TODO: Evaluate whether it's possible to directly inspect type variants of `node.expression` within a JSX expression container to improve coverage.
