@@ -42,6 +42,8 @@ This rule validates that values React treats as immutable are not mutated, in tw
 
 Mutations to `ref`-like values (an identifier named `ref` or ending in `Ref`) are exempted, since refs are mutable by design.
 
+Writes through values returned by navigation hooks (`useHistory`, `useNavigate`, `useNavigation`, `useRouter`) are exempted as well, since those values are external mutable stores rather than captured local values. Custom hooks that return such stores can be registered with the `additionalMutableHooks` setting.
+
 ## Examples
 
 ```tsx
@@ -137,6 +139,29 @@ Custom state hooks whose returned values should be treated as immutable state ca
       "additionalStateHooks": "(useMyState|useCustomState)"
     }
   }
+}
+```
+
+Custom hooks that return external mutable stores (like the values returned by navigation hooks) can be registered with `additionalMutableHooks`:
+
+```json
+{
+  "settings": {
+    "react-x": {
+      "additionalMutableHooks": "(useWorld|useMyStore)"
+    }
+  }
+}
+```
+
+```tsx
+// 🟢 Allowed: `world` is an external mutable store, not a captured local value
+function Component() {
+  const world = useWorld();
+  const onClose = useCallback(() => {
+    world.set({ open: false });
+  }, [world]);
+  return <AnotherComponent onClose={onClose} />;
 }
 ```
 

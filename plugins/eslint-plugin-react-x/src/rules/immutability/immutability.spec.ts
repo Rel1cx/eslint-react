@@ -1785,6 +1785,48 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
     },
+    // https://github.com/Rel1cx/eslint-react/issues/1924
+    // Without `additionalMutableHooks`, a custom store hook is still a captured
+    // local value.
+    {
+      code: tsx`
+        import { useCallback } from "react";
+
+        function Component() {
+          const world = useWorld();
+          const onClose = useCallback(() => {
+            world.set({ open: false });
+          }, [world]);
+          return <AnotherComponent onClose={onClose} />;
+        }
+      `,
+      errors: [
+        { data: { name: "world" }, messageId: "indirect-mutation" },
+        { data: { name: "world" }, messageId: "mutation-site" },
+      ],
+    },
+    // `additionalMutableHooks` exempts writes through the store, not
+    // reassignments of the binding itself.
+    {
+      code: tsx`
+        function Component() {
+          let world = useWorld();
+          const onClose = () => {
+            world = null;
+          };
+          return <AnotherComponent onClose={onClose} />;
+        }
+      `,
+      errors: [
+        { data: { name: "world" }, messageId: "mutation-site" },
+        { data: { name: "world" }, messageId: "indirect-mutation" },
+      ],
+      settings: {
+        "react-x": {
+          additionalMutableHooks: "/^useWorld$/u",
+        },
+      },
+    },
   ],
   valid: [
     tsx`
@@ -2693,5 +2735,77 @@ ruleTester.run(RULE_NAME, rule, {
         return { handleVote$ };
       };
     `,
+    // https://github.com/Rel1cx/eslint-react/issues/1924
+    // Custom hooks that return an external mutable store are exempted through
+    // the `additionalMutableHooks` setting.
+    {
+      code: tsx`
+        import { useCallback } from "react";
+
+        function Component() {
+          const world = useWorld();
+          const onClose = useCallback(() => {
+            world.set({ open: false });
+          }, [world]);
+          return <AnotherComponent onClose={onClose} />;
+        }
+      `,
+      settings: {
+        "react-x": {
+          additionalMutableHooks: "/^useWorld$/u",
+        },
+      },
+    },
+    // Property writes on an external mutable store are exempted too.
+    {
+      code: tsx`
+        function Component() {
+          const store = useMyStore();
+          return <button onClick={() => {
+            store.count = 1;
+            delete store.stale;
+          }} />;
+        }
+      `,
+      settings: {
+        "react-x": {
+          additionalMutableHooks: "/^use\\w*Store$/u",
+        },
+      },
+    },
+    // Provenance is per declaration, not per destructured element: every binding
+    // declared from a store hook call is exempt, including siblings of the one
+    // holding the store.
+    {
+      code: tsx`
+        function Component() {
+          const { store, actions } = useMyStore();
+          return <button onClick={() => {
+            store.set("open", false);
+            actions.push("open");
+          }} />;
+        }
+      `,
+      settings: {
+        "react-x": {
+          additionalMutableHooks: "/^use\\w*Store$/u",
+        },
+      },
+    },
+    // The store is still recognized through an intermediate alias.
+    {
+      code: tsx`
+        function Component() {
+          const world = useWorld();
+          const alias = world;
+          return <button onClick={() => alias.set({ open: false })} />;
+        }
+      `,
+      settings: {
+        "react-x": {
+          additionalMutableHooks: "/^useWorld$/u",
+        },
+      },
+    },
   ],
 });

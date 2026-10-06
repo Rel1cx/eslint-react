@@ -405,6 +405,7 @@ Exposes the normalized `react-x` settings from the ESLint shared configuration (
 | `additionalRefHooks`    | `RegExpLike`                                            | —           | Pattern matching custom hooks treated as ref hooks.       |
 | `additionalStateHooks`  | `RegExpLike`                                            | —           | Pattern matching custom hooks treated as state hooks.     |
 | `additionalEffectHooks` | `RegExpLike`                                            | —           | Pattern matching custom hooks treated as effect hooks.    |
+| `additionalMutableHooks` | `RegExpLike`                                           | —           | Pattern matching custom hooks returning mutable stores.   |
 
 `RegExpLike` is an object with a `test(s: string) => boolean` method (same interface as `RegExp`).
 

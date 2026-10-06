@@ -46,6 +46,14 @@ const properties = {
       </Link>
     ),
   },
+  additionalMutableHooks: {
+    type: "string",
+    description: (
+      <Link href="#additionalmutablehooks">
+        Regex pattern matching custom hooks that return external mutable stores
+      </Link>
+    ),
+  },
 };
 
 export function AnalyzerPropertyTypeTable() {

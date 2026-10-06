@@ -46,6 +46,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Added a direct-mutation detection pass: member assignments, updates, deletions, and mutating method calls are now reported when the mutated value resolves — through variable-declarator aliases — to a component's props, a `useState`/`useReducer` state value (or a custom hook matching the `additionalStateHooks` setting), independent of whether the mutation happens inside a function that reaches a freeze sink. Closes #1941. (#1948)
 - Added shallow-copy awareness: nested mutations through an object/array literal built by spreading a props or state value (`const copy = { ...state }` / `const copy = [...state]`) are reported, since the nested values are still shared with the original. Writes to the copy's own top-level slots are not reported.
 
+### Added
+
+- Added support for the `additionalMutableHooks` setting, which registers custom hooks that return external mutable stores. Writes through values initialized by such hooks are exempted like the values returned by navigation hooks.
+
+### Changed
+
+- Extended the navigation-hook exemption from mutating method calls to all writes through the returned value (e.g. `store.count = 1`, `delete store.stale`). Reassignments of the binding itself are still reported.
+
 ## [5.18.0] - 2026-07-23
 
 ### Changed
