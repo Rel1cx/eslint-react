@@ -1,18 +1,18 @@
 import { Check, type TSESTreeFunction } from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
+import type { RuleContext } from "@eslint-react/eslint";
 import { or } from "@local/eff";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 
 const isComponentOrHookName = or(core.isFunctionComponentName, core.isHookName);
 
-export function isComponentOrHookLikeFunction(node: TSESTreeFunction) {
+export function isComponentOrHookLikeFunction(context: RuleContext, node: TSESTreeFunction) {
   const id = core.getFunctionId(node);
-  // FIXME: anonymous callbacks passed to `memo()`/`forwardRef()` have no
-  // function id (`core.getFunctionId` returns null), so they are classified as
-  // "callback" and setState calls inside them are missed, while the named form
-  // (`memo(function Component() ...)`) is detected. The proper fix belongs in
-  // the component detection of `@eslint-react/core`.
-  if (id == null) return false;
+  if (id == null) {
+    // Anonymous callbacks passed directly to `memo()`/`forwardRef()` have no
+    // function id, but they are still component render functions.
+    return core.isFunctionComponentWrapperCallback(context, node);
+  }
   if (Check.isIdentifier(id)) {
     return isComponentOrHookName(id.name);
   }

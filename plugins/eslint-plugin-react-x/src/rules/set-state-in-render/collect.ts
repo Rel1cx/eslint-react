@@ -1,7 +1,7 @@
 import { Check, type TSESTreeFunction, Traverse } from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
-import type { RuleListener } from "@eslint-react/eslint";
-import type { RegExpLike } from "@eslint-react/shared";
+import type { RuleContext, RuleListener } from "@eslint-react/eslint";
+import { getSettingsFromContext } from "@eslint-react/shared";
 import { not } from "@local/eff";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import { isComponentOrHookLikeFunction } from "./helpers";
@@ -37,7 +37,8 @@ export type SetStateInRenderFacts = {
   earlyReturns: EarlyReturnFact[];
 };
 
-export function createFactCollector(additionalStateHooks: RegExpLike) {
+export function createFactCollector(context: RuleContext) {
+  const { additionalStateHooks } = getSettingsFromContext(context);
   const facts: SetStateInRenderFacts = {
     calls: [],
     earlyReturns: [],
@@ -54,7 +55,7 @@ export function createFactCollector(additionalStateHooks: RegExpLike) {
   }
 
   function getFunctionKind(node: TSESTreeFunction): FunctionKind {
-    if (isComponentOrHookLikeFunction(node)) {
+    if (isComponentOrHookLikeFunction(context, node)) {
       return "component";
     }
     const parent = Traverse.findParent(node, not(Check.isTypeExpression)) ?? node.parent;

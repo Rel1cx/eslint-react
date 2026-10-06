@@ -119,6 +119,86 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
     },
+    // anonymous arrow function passed to memo()
+    {
+      code: tsx`
+        import { useState, memo } from "react";
+
+        const Component = memo(() => {
+          const [count, setCount] = useState(0);
+          setCount(1);
+          return <div>{count}</div>;
+        });
+      `,
+      errors: [
+        {
+          data: {
+            name: "setCount",
+          },
+          messageId: "default",
+        },
+      ],
+    },
+    // anonymous function expression passed to memo()
+    {
+      code: tsx`
+        import { useState, memo } from "react";
+
+        const Component = memo(function() {
+          const [count, setCount] = useState(0);
+          setCount(1);
+          return <div>{count}</div>;
+        });
+      `,
+      errors: [
+        {
+          data: {
+            name: "setCount",
+          },
+          messageId: "default",
+        },
+      ],
+    },
+    // anonymous render function passed to forwardRef()
+    {
+      code: tsx`
+        import { useState, forwardRef } from "react";
+
+        const Component = forwardRef((props, ref) => {
+          const [count, setCount] = useState(0);
+          setCount(1);
+          return <div ref={ref}>{count}</div>;
+        });
+      `,
+      errors: [
+        {
+          data: {
+            name: "setCount",
+          },
+          messageId: "default",
+        },
+      ],
+    },
+    // anonymous render function nested in memo(forwardRef(...))
+    {
+      code: tsx`
+        import { useState, memo, forwardRef } from "react";
+
+        const Component = memo(forwardRef((props, ref) => {
+          const [count, setCount] = useState(0);
+          setCount(1);
+          return <div ref={ref}>{count}</div>;
+        }));
+      `,
+      errors: [
+        {
+          data: {
+            name: "setCount",
+          },
+          messageId: "default",
+        },
+      ],
+    },
     {
       code: tsx`
         import { useState } from "react";
@@ -566,6 +646,32 @@ ruleTester.run(RULE_NAME, rule, {
           }, []);
           return <button onClick={increment}>{count}</button>;
         }
+      `,
+    },
+    // anonymous callbacks inside an anonymous memo() component are not render-time calls
+    {
+      code: tsx`
+        import { useState, useCallback, memo } from "react";
+
+        const Component = memo(() => {
+          const [count, setCount] = useState(0);
+          const increment = useCallback(() => {
+            setCount(c => c + 1);
+          }, []);
+          return <button onClick={increment}>{count}</button>;
+        });
+      `,
+    },
+    // a second argument to memo() does not interfere with detecting the
+    // anonymous render function, and its event handler stays valid
+    {
+      code: tsx`
+        import { useState, memo } from "react";
+
+        const Component = memo(() => {
+          const [count, setCount] = useState(0);
+          return <button onClick={() => setCount(count + 1)}>{count}</button>;
+        }, []);
       `,
     },
     {
