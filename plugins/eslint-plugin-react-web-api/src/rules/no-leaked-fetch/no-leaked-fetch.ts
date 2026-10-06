@@ -49,15 +49,21 @@ function getCallKind(node: TSESTree.CallExpression): CallKind {
   return "other";
 }
 
-function getControllerFromSignal(context: RuleContext, node: TSESTree.Node): { controller: TSESTree.Node | null; isParamSignal: boolean } {
+function getControllerFromSignal(
+  context: RuleContext,
+  node: TSESTree.Node,
+  seen: Set<TSESTree.Node> = new Set(),
+): { controller: TSESTree.Node | null; isParamSignal: boolean } {
   node = Extract.unwrap(node);
   switch (node.type) {
     case AST.MemberExpression:
       return { controller: node.object, isParamSignal: false };
     case AST.Identifier: {
-      // FIXME: alias chains are not resolved recursively (e.g. `const s = ctrl.signal; const signal = s;`
-      // resolves to an Identifier and returns `controller: null`, causing a false positive). Recurse
-      // like `getSignalValueExpression` in no-leaked-event-listener/lib.ts.
+      // Guard against alias cycles (e.g. `let a = b; let b = a;`) causing infinite recursion
+      if (seen.has(node)) {
+        return { controller: null, isParamSignal: false };
+      }
+      seen.add(node);
       const resolved = resolveOrigin(context, node);
       const resolvedUnwrapped = resolved == null ? null : Extract.unwrap(resolved);
       if (resolvedUnwrapped?.type === AST.MemberExpression) {
@@ -67,6 +73,10 @@ function getControllerFromSignal(context: RuleContext, node: TSESTree.Node): { c
       // (e.g. `signal` from foxact/use-abortable-effect).
       if (resolved != null && Check.isFunction(resolved)) {
         return { controller: node, isParamSignal: true };
+      }
+      // Recurse through alias chains (e.g. `const s = ctrl.signal; const signal = s;`)
+      if (resolvedUnwrapped != null) {
+        return getControllerFromSignal(context, resolvedUnwrapped, seen);
       }
       return { controller: null, isParamSignal: false };
     }

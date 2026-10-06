@@ -543,6 +543,41 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
     },
+    // A signal alias chain that does not resolve to an AbortController's signal
+    // member expression is reported, even when the chain is multiple levels deep
+    {
+      code: tsx`
+        function Example() {
+          useEffect(() => {
+            const s = getExternalSignal();
+            const signal = s;
+            fetch("/api/user", { signal });
+          }, []);
+        }
+      `,
+      errors: [
+        {
+          messageId: "expected-abort-controller",
+        },
+      ],
+    },
+    // An alias cycle cannot be resolved to a controller and must not crash the rule
+    {
+      code: tsx`
+        function Example() {
+          useEffect(() => {
+            let a = b;
+            let b = a;
+            fetch("/api/user", { signal: b });
+          }, []);
+        }
+      `,
+      errors: [
+        {
+          messageId: "expected-abort-controller",
+        },
+      ],
+    },
   ],
   valid: [
     // Basic valid cases
@@ -600,6 +635,34 @@ ruleTester.run(RULE_NAME, rule, {
         useEffect(() => {
           const ctrl = new AbortController();
           const signal = ctrl.signal;
+          fetch("/api/user", { signal });
+          return () => ctrl.abort();
+        }, []);
+      }
+    `,
+    // signal aliased through a multi-level chain of variables
+    tsx`
+      import { useEffect } from "react";
+
+      function Example() {
+        useEffect(() => {
+          const ctrl = new AbortController();
+          const s = ctrl.signal;
+          const signal = s;
+          fetch("/api/user", { signal });
+          return () => ctrl.abort();
+        }, []);
+      }
+    `,
+    // signal aliased through a multi-level chain with type assertions in between
+    tsx`
+      import { useEffect } from "react";
+
+      function Example() {
+        useEffect(() => {
+          const ctrl = new AbortController();
+          const s = ctrl.signal as AbortSignal;
+          const signal = s;
           fetch("/api/user", { signal });
           return () => ctrl.abort();
         }, []);
