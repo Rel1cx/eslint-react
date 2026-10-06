@@ -1,5 +1,15 @@
 # Changelog
 
+## v5.24.6 (2026-10-06)
+
+### 🐞 Fixes
+
+- `react-x/no-unused-props`: computed member access and destructuring with an identifier key (ex: `props[key]`, `const { [key]: value } = props`) no longer count as usage of a prop named after the key; the rule now bails out on such dynamic keys instead of reporting actually-used props as unused. (#1994)
+- `react-x/set-state-in-effect`: object-pattern destructuring of the `useState` tuple is now resolved by numeric key: a name bound at key 0 (ex: `const { 0: value } = useState()`) is no longer mistaken for the setter, while key 1 (ex: `const { 1: setData } = useState()`) is still recognized. (#1994)
+- `react-x/set-state-in-render`: same `useState` object-pattern destructuring fix as `set-state-in-effect`. (#1994)
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.24.5...v5.24.6
+
 ## v5.24.5 (2026-10-06)
 
 ### 🏗️ Internal
