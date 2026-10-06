@@ -27,16 +27,18 @@ Label taxonomy for `Rel1cx/eslint-react` issues and pull requests.
 
 ### `area:` — Scope / affected package
 
-| Label             | Color     | Description                      |
-| ----------------- | --------- | -------------------------------- |
-| `area: react-x`   | `#5319E7` | Rules in eslint-plugin-react-x   |
-| `area: react-dom` | `#6E49CB` | Rules in eslint-plugin-react-dom |
-| `area: react-jsx` | `#1D76DB` | Rules in eslint-plugin-react-jsx |
-| `area: core`      | `#0052CC` | Core / shared utilities          |
-| `area: compiler`  | `#C5DEF5` | React Compiler SPEC alignment    |
-| `area: website`   | `#B4E9FF` | Documentation website            |
+| Label                           | Color     | Description                                    |
+| ------------------------------- | --------- | ---------------------------------------------- |
+| `area: react-x`                 | `#5319E7` | Rules in eslint-plugin-react-x                 |
+| `area: react-jsx`               | `#1D76DB` | Rules in eslint-plugin-react-jsx               |
+| `area: react-rsc`               | `#1F6FEB` | Rules in eslint-plugin-react-rsc               |
+| `area: react-dom`               | `#6E49CB` | Rules in eslint-plugin-react-dom               |
+| `area: react-web-api`           | `#0969DA` | Rules in eslint-plugin-react-web-api           |
+| `area: react-naming-convention` | `#0550AE` | Rules in eslint-plugin-react-naming-convention |
+| `area: react-debug`             | `#8250DF` | Rules in eslint-plugin-react-debug             |
+| `area: website`                 | `#B4E9FF` | Documentation website                          |
 
-Note: `area:` labels currently cover only a subset of the repo. There are no dedicated labels for `eslint-plugin-react-debug`, `eslint-plugin-react-naming-convention`, `eslint-plugin-react-rsc`, `eslint-plugin-react-web-api`, the meta `eslint-plugin`, or most `packages/*`; use `area: core` or the closest match until new labels are added. `area: compiler` is a cross-cutting concern (the compiler-SPEC rules live in `eslint-plugin-react-x`), not a package of its own.
+Note: `area:` labels currently cover only a subset of the repo. There are no dedicated labels for the meta `eslint-plugin` or any `packages/*`; use the closest match until new labels are added.
 
 ### `status:` — Maintainer workflow state
 
