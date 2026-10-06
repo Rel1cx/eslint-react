@@ -350,6 +350,74 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
     },
+    {
+      // A `disconnect` called right in the setup (no cleanup returned) does not satisfy the
+      // check: only cleanup-phase disconnects count
+      code: tsx`
+        import { useEffect } from "react";
+
+        function Component() {
+          useEffect(() => {
+            const observer = new IntersectionObserver(() => {});
+            observer.observe(document.body);
+            observer.disconnect();
+          }, []);
+
+          return <div />;
+        }
+      `,
+      errors: [
+        {
+          messageId: "expected-disconnect-or-unobserve-in-cleanup",
+        },
+      ],
+    },
+    {
+      // A `disconnect` inside a nested function of the setup body that is never returned as
+      // the cleanup has phase "setup", so it does not satisfy the check
+      code: tsx`
+        import { useEffect } from "react";
+
+        function Component() {
+          useEffect(() => {
+            const observer = new IntersectionObserver(() => {});
+            observer.observe(document.body);
+            const cleanup = () => {
+              observer.disconnect();
+            };
+          }, []);
+
+          return <div />;
+        }
+      `,
+      errors: [
+        {
+          messageId: "expected-disconnect-or-unobserve-in-cleanup",
+        },
+      ],
+    },
+    {
+      // An `unobserve` called right in the setup (no cleanup returned) does not pair with the
+      // `observe`: only cleanup-phase unobserves count
+      code: tsx`
+        import { useEffect } from "react";
+
+        function Component() {
+          useEffect(() => {
+            const observer = new IntersectionObserver(() => {});
+            observer.observe(document.body);
+            observer.unobserve(document.body);
+          }, []);
+
+          return <div />;
+        }
+      `,
+      errors: [
+        {
+          messageId: "expected-disconnect-or-unobserve-in-cleanup",
+        },
+      ],
+    },
   ],
   valid: [
     tsx`
@@ -635,24 +703,9 @@ ruleTester.run(RULE_NAME, rule, {
         return <div />;
       }
     `,
-    // FIXME behavior: a `disconnect` called right in the setup (no cleanup returned) satisfies
-    // the check - entries are matched by identity only, without requiring the cleanup phase
-    tsx`
-      import { useEffect } from "react";
-
-      function Component() {
-        useEffect(() => {
-          const observer = new IntersectionObserver(() => {});
-          observer.observe(document.body);
-          observer.disconnect();
-        }, []);
-
-        return <div />;
-      }
-    `,
     // A named function declaration returned as the cleanup is not recognized as a cleanup
-    // callback by the predicates, but its `disconnect` is still collected via the enclosing
-    // setup callback and matched by identity
+    // callback by the predicates, but it is resolved from the returned identifier and its
+    // `disconnect` counts as a cleanup-phase call
     tsx`
       import { useEffect } from "react";
 
@@ -663,6 +716,23 @@ ruleTester.run(RULE_NAME, rule, {
           function cleanup() {
             observer.disconnect();
           }
+          return cleanup;
+        }, []);
+
+        return <div />;
+      }
+    `,
+    // Same as above, but with the cleanup assigned to a variable before being returned
+    tsx`
+      import { useEffect } from "react";
+
+      function Component() {
+        useEffect(() => {
+          const observer = new IntersectionObserver(() => {});
+          observer.observe(document.body);
+          const cleanup = () => {
+            observer.disconnect();
+          };
           return cleanup;
         }, []);
 

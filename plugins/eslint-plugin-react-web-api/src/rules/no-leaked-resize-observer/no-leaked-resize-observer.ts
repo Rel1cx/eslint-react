@@ -5,6 +5,7 @@ import { type RuleContext, type RuleFeature, type RuleListener } from "@eslint-r
 import { isAssignmentTargetEqual, resolveEnclosingAssignmentTarget } from "@eslint-react/var";
 import { and, or } from "@local/eff";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
+import { findVariable } from "@typescript-eslint/utils/ast-utils";
 import { P, isMatching, match } from "ts-pattern";
 import { isFromObserver, isNewObserver } from "./lib";
 
@@ -95,6 +96,22 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   const oEntries: OEntry[] = [];
   const uEntries: UEntry[] = [];
   const dEntries: DEntry[] = [];
+  // Functions returned by an effect setup as its cleanup (`function cleanup() {...}; return cleanup;`),
+  // resolved from the returned identifier; the effect predicates only recognize inline cleanups
+  const returnedCleanups = new Set<TSESTree.Node>();
+  // A disconnect/unobserve only counts when it runs in the cleanup phase: inside the cleanup
+  // callback, or inside a named function the setup returns as its cleanup
+  function isInCleanupPhase(node: TSESTree.Node) {
+    if (Traverse.findParent(node, isUseEffectCleanupCallback) != null) {
+      return true;
+    }
+    for (const fn of returnedCleanups) {
+      if (Traverse.findParent(node, (n) => n === fn) != null) {
+        return true;
+      }
+    }
+    return false;
+  }
   return {
     ["CallExpression"](node) {
       if (Traverse.findParent(node, isUseEffectCallback) == null) {
@@ -161,15 +178,36 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         phaseNode: fn,
       });
     },
+    ["ReturnStatement"](node) {
+      const arg = node.argument == null ? null : Extract.unwrap(node.argument);
+      // `return () => {...}` is already recognized as a cleanup callback by the predicates;
+      // only an identifier reference (`return cleanup;`) needs resolving here
+      if (arg == null || arg.type !== AST.Identifier) {
+        return;
+      }
+      const setupFn = Traverse.findParent(node, Check.isFunction);
+      if (setupFn == null || !isUseEffectSetupCallback(setupFn)) {
+        return;
+      }
+      const variable = findVariable(context.sourceCode.getScope(node), arg);
+      const defNode = variable?.defs.at(-1)?.node;
+      const fn = defNode == null
+        ? null
+        : defNode.type === AST.FunctionDeclaration
+        ? defNode
+        : defNode.type === AST.VariableDeclarator && defNode.init != null
+        ? Extract.unwrap(defNode.init)
+        : null;
+      if (fn != null && Check.isFunction(fn)) {
+        returnedCleanups.add(fn);
+      }
+    },
     ["Program:exit"]() {
       for (const { id, node, phaseNode } of observers) {
         // A disconnect inside the observer's own callback is not a reliable cleanup:
         // the callback may never run if the component unmounts before the element resizes
         const isInsideObserverCallback = (e: DEntry) => Traverse.findParent(e.node, (n) => n === node) != null;
-        // FIXME: disconnect/unobserve entries are matched by identity only, without requiring them
-        // to happen in the cleanup phase - `observer.disconnect()` called right in the setup passes
-        // the check. Record the `phase` on entries and require `phase === "cleanup"` when matching.
-        if (dEntries.some((e) => !isInsideObserverCallback(e) && isAssignmentTargetEqual(context, e.observer, id))) {
+        if (dEntries.some((e) => !isInsideObserverCallback(e) && isInCleanupPhase(e.node) && isAssignmentTargetEqual(context, e.observer, id))) {
           continue;
         }
         const matchedOEntries = oEntries.filter((e) => isAssignmentTargetEqual(context, e.observer, id));
@@ -183,7 +221,9 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
           continue;
         }
         for (const oEntry of matchedOEntries) {
-          if (matchedUEntries.some((uEntry) => isAssignmentTargetEqual(context, uEntry.element, oEntry.element))) {
+          if (
+            matchedUEntries.some((uEntry) => isInCleanupPhase(uEntry.node) && isAssignmentTargetEqual(context, uEntry.element, oEntry.element))
+          ) {
             continue;
           }
           context.report({ messageId: "expected-disconnect-or-unobserve-in-cleanup", node: oEntry.node });
