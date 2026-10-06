@@ -466,6 +466,153 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
     },
+    {
+      // An `unobserve` inside the observer's own callback does not pair with the `observe`,
+      // for the same reason a `disconnect` there does not count: the callback may never run
+      // if the component unmounts before the element resizes
+      code: tsx`
+        import { useEffect } from "react";
+
+        function Component() {
+          useEffect(() => {
+            const observer = new ResizeObserver(() => {
+              observer.unobserve(document.body);
+            });
+            observer.observe(document.body);
+          }, []);
+
+          return <div />;
+        }
+      `,
+      errors: [
+        {
+          messageId: "expected-disconnect-or-unobserve-in-cleanup",
+        },
+      ],
+    },
+    {
+      // A local helper whose `disconnect` is only invoked from the setup (never from the
+      // cleanup) has phase "setup", so it does not satisfy the check
+      code: tsx`
+        import { useEffect } from "react";
+
+        function Component() {
+          useEffect(() => {
+            const observer = new ResizeObserver(() => {});
+            observer.observe(document.body);
+            function stop() {
+              observer.disconnect();
+            }
+            stop();
+          }, []);
+
+          return <div />;
+        }
+      `,
+      errors: [
+        {
+          messageId: "expected-disconnect-or-unobserve-in-cleanup",
+        },
+      ],
+    },
+    {
+      // Two ref-held instances: only the second one is disconnected in the cleanup, so the
+      // first one still leaks - entries are matched per instance, not per component
+      code: tsx`
+        import { useEffect, useRef } from "react";
+
+        function Component() {
+          const observerRefA = useRef<ResizeObserver>(new ResizeObserver(() => {}));
+          const observerRefB = useRef<ResizeObserver>(new ResizeObserver(() => {}));
+          useEffect(() => {
+            observerRefA.current.observe(document.body);
+            observerRefB.current.observe(document.body);
+            return () => {
+              observerRefB.current.disconnect();
+            };
+          }, []);
+
+          return <div />;
+        }
+      `,
+      errors: [
+        {
+          messageId: "expected-disconnect-or-unobserve-in-cleanup",
+        },
+      ],
+    },
+    {
+      // A ref-held instance whose cleanup `unobserve` targets a different element than the
+      // `observe` does not pair - elements are matched by identity
+      code: tsx`
+        import { useEffect, useRef } from "react";
+
+        function Component() {
+          const observerRef = useRef<ResizeObserver>(new ResizeObserver(() => {}));
+          useEffect(() => {
+            observerRef.current.observe(document.body);
+            return () => {
+              observerRef.current.unobserve(document.querySelector(".selector")!);
+            };
+          }, []);
+
+          return <div />;
+        }
+      `,
+      errors: [
+        {
+          messageId: "expected-disconnect-or-unobserve-in-cleanup",
+        },
+      ],
+    },
+    {
+      // A `disconnect` that only runs inside the ref-held observer's own callback is not a
+      // reliable cleanup: the callback may never run before the component unmounts
+      code: tsx`
+        import { useEffect, useRef } from "react";
+
+        function Component() {
+          const observerRef = useRef<ResizeObserver>(
+            new ResizeObserver(() => {
+              observerRef.current.disconnect();
+            }),
+          );
+          useEffect(() => {
+            observerRef.current.observe(document.body);
+          }, []);
+
+          return <div />;
+        }
+      `,
+      errors: [
+        {
+          messageId: "expected-disconnect-or-unobserve-in-cleanup",
+        },
+      ],
+    },
+    {
+      // A ref-held instance observed from a `setTimeout` callback is dynamically added and
+      // requires a `disconnect` in the cleanup, which is missing here
+      code: tsx`
+        import { useEffect, useRef } from "react";
+
+        function Component() {
+          const observerRef = useRef<ResizeObserver>(new ResizeObserver(() => {}));
+          useEffect(() => {
+            setTimeout(() => {
+              observerRef.current.observe(document.body);
+            }, 100);
+          }, []);
+
+          return <div />;
+        }
+      `,
+      errors: [
+        {
+          messageId: "expected-disconnect-in-control-flow",
+        },
+      ],
+    },
   ],
   valid: [
     tsx`
@@ -884,6 +1031,200 @@ ruleTester.run(RULE_NAME, rule, {
           return () => {
             observerRef.current.disconnect();
           }
+        }, []);
+
+        return <div />;
+      }
+    `,
+    // A `disconnect` delegated to a local function declared in the setup that the cleanup
+    // calls (`return () => stop();`) runs in the cleanup phase
+    tsx`
+      import { useEffect } from "react";
+
+      function Component() {
+        useEffect(() => {
+          const observer = new ResizeObserver(() => {});
+          observer.observe(document.body);
+          function stop() {
+            observer.disconnect();
+          }
+          return () => stop();
+        }, []);
+
+        return <div />;
+      }
+    `,
+    // Same as above, but with the helper declared inside the cleanup callback itself
+    tsx`
+      import { useEffect } from "react";
+
+      function Component() {
+        useEffect(() => {
+          const observer = new ResizeObserver(() => {});
+          observer.observe(document.body);
+          return () => {
+            function stop() {
+              observer.disconnect();
+            }
+            stop();
+          };
+        }, []);
+
+        return <div />;
+      }
+    `,
+    // A conditional `disconnect` inside the cleanup callback still counts as cleanup-phase
+    tsx`
+      import { useEffect } from "react";
+
+      function Component({ shouldDisconnect }: { shouldDisconnect: boolean }) {
+        useEffect(() => {
+          const observer = new ResizeObserver(() => {});
+          observer.observe(document.body);
+          return () => {
+            if (shouldDisconnect) {
+              observer.disconnect();
+            }
+          };
+        }, []);
+
+        return <div />;
+      }
+    `,
+    // A function expression returned as the cleanup is recognized by the cleanup predicates
+    tsx`
+      import { useEffect } from "react";
+
+      function Component() {
+        useEffect(() => {
+          const observer = new ResizeObserver(() => {});
+          observer.observe(document.body);
+          return function cleanup() {
+            observer.disconnect();
+          };
+        }, []);
+
+        return <div />;
+      }
+    `,
+    // `useLayoutEffect` matches the useEffect-like hook pattern and its cleanup counts
+    tsx`
+      import { useLayoutEffect } from "react";
+
+      function Component() {
+        useLayoutEffect(() => {
+          const observer = new ResizeObserver(() => {});
+          observer.observe(document.body);
+          return () => {
+            observer.disconnect();
+          };
+        }, []);
+
+        return <div />;
+      }
+    `,
+    // Cross-effect pairing: entries are matched by identity across the whole component, so an
+    // observer created in one effect's setup and unobserved in another effect's cleanup passes
+    tsx`
+      import { useEffect } from "react";
+
+      function Component() {
+        let observer: ResizeObserver;
+
+        useEffect(() => {
+          observer = new ResizeObserver(() => {});
+          observer.observe(document.body);
+        }, []);
+
+        useEffect(() => {
+          return () => observer.unobserve(document.body);
+        }, []);
+
+        return <div />;
+      }
+    `,
+    // A ref-held instance observed in one effect and disconnected in another effect's cleanup:
+    // entries are matched by identity across the whole component
+    tsx`
+      import { useEffect, useRef } from "react";
+
+      function Component() {
+        const observerRef = useRef<ResizeObserver>(new ResizeObserver(() => {}));
+
+        useEffect(() => {
+          observerRef.current.observe(document.body);
+        }, []);
+
+        useEffect(() => {
+          return () => observerRef.current.disconnect();
+        }, []);
+
+        return <div />;
+      }
+    `,
+    // A ref-held instance created without a type argument on `useRef`
+    tsx`
+      import { useEffect, useRef } from "react";
+
+      function Component() {
+        const observerRef = useRef(new ResizeObserver(() => {}));
+        useEffect(() => {
+          observerRef.current.observe(document.body);
+          return () => {
+            observerRef.current.disconnect();
+          }
+        }, []);
+
+        return <div />;
+      }
+    `,
+    // A ref-held instance created with observer options
+    tsx`
+      import { useEffect, useRef } from "react";
+
+      function Component() {
+        const observerRef = useRef(new ResizeObserver(() => {}, { box: "border-box" }));
+        useEffect(() => {
+          observerRef.current.observe(document.body);
+          return () => {
+            observerRef.current.disconnect();
+          }
+        }, []);
+
+        return <div />;
+      }
+    `,
+    // Two ref-held instances, each with its own cleanup-phase `disconnect`
+    tsx`
+      import { useEffect, useRef } from "react";
+
+      function Component() {
+        const observerRefA = useRef<ResizeObserver>(new ResizeObserver(() => {}));
+        const observerRefB = useRef<ResizeObserver>(new ResizeObserver(() => {}));
+        useEffect(() => {
+          observerRefA.current.observe(document.body);
+          observerRefB.current.observe(document.querySelector(".selector")!);
+          return () => {
+            observerRefA.current.disconnect();
+            observerRefB.current.disconnect();
+          };
+        }, []);
+
+        return <div />;
+      }
+    `,
+    // TODO: Add support for instances assigned to a ref inside an effect
+    // (`ref.current = new ResizeObserver(...)`): the instance is tracked, but method calls on
+    // `ref.current` are not recognized as observer calls when the `useRef` initializer does not
+    // hold an observer, so the leak is not detected
+    tsx`
+      import { useEffect, useRef } from "react";
+
+      function Component() {
+        const observerRef = useRef<ResizeObserver | null>(null);
+        useEffect(() => {
+          observerRef.current = new ResizeObserver(() => {});
+          observerRef.current.observe(document.body);
         }, []);
 
         return <div />;
