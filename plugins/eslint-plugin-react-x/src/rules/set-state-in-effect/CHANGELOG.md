@@ -5,6 +5,12 @@ All notable changes to the `react-x/set-state-in-effect` rule will be documented
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+### Fixed
+
+- Object-pattern destructuring of the `useState` tuple is now resolved by numeric key: a name bound at key 0 (ex: `const { 0: value } = useState()`) is no longer mistaken for the setter, while key 1 (ex: `const { 1: setData } = useState()`) is still recognized.
+
 ## [5.24.0] - 2026-10-04
 
 ### Fixed
