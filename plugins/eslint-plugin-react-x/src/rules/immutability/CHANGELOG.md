@@ -5,6 +5,12 @@ All notable changes to the `react-x/immutability` rule will be documented in thi
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+### Fixed
+
+- Rebinding a plain local alias initialized from a prop or state value (`let current = error; current = ...`, including `for`/`while` loop forms) is no longer reported as a prop/state mutation, since it discards only the local alias and no shared binding; rebinding a destructured props binding (`const { error } = props; error = ...`) and member writes through an alias (`current.message = ...`) remain reported, matching upstream `react-hooks/immutability`. Closes #1995.
+
 ## [5.23.3] - 2026-09-30
 
 ### Fixed
