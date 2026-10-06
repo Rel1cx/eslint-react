@@ -27,7 +27,19 @@ export function createSetStateResolver(context: RuleContext) {
     if (initNode.type !== AST.CallExpression) return false;
     if (!isUseStateCall(initNode)) return false;
     const variableNodeParent = initNode.parent;
-    if (!hasProperty(variableNodeParent, "id") || variableNodeParent.id?.type !== AST.ArrayPattern) {
+    if (!hasProperty(variableNodeParent, "id")) {
+      return true;
+    }
+    // `const { 1: setData } = useState()` destructures the tuple by numeric key
+    if (variableNodeParent.id?.type === AST.ObjectPattern) {
+      return variableNodeParent.id.properties.some((p) =>
+        p.type === AST.Property
+        && p.key.type === AST.Literal
+        && p.key.value === (at ?? 1)
+        && Check.isIdentifier(p.value, id.name)
+      );
+    }
+    if (variableNodeParent.id?.type !== AST.ArrayPattern) {
       return true;
     }
     return variableNodeParent

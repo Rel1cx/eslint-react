@@ -103,7 +103,7 @@ Some rules resolve options from `create`'s second parameter and a `ResolvedOptio
 
 ## Reporting
 
-- **Single-message rules use `messageId: "default"`** — the dominant convention. Multi-message rules use descriptive kebab-case IDs (`use-state`: `"invalid-assignment" | "invalid-setterName"`; `no-forward-ref`: `"default" | "replace"`).
+- **Single-message rules use `messageId: "default"`** — the dominant convention. Multi-message rules use descriptive kebab-case IDs (`use-state`: `"invalid-assignment" | "invalid-setter-name"`; `no-forward-ref`: `"default" | "replace"`).
 - **`data` interpolation** personalizes messages, e.g. `no-unstable-default-props` reports `"A/an '{{kind}}' as default prop..."` with `data: { kind: getHumanReadableKind(right) }`.
 - **Auto-fixable** rules set `meta.fixable: "code"` and pass `fix(fixer) => ...` to `context.report`; they get the `FIX` feature.
 - **Suggestions** (`meta.hasSuggestions: true` + a `suggest` array of `{ messageId, fix }`) are used when the transform needs user confirmation, e.g. `no-forward-ref` pairs the `"default"` report with a `"replace"` suggestion.

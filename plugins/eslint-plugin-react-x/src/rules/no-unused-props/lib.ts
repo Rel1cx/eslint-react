@@ -26,7 +26,7 @@ export function collectUsedPropKeysOfObjectPattern(context: RuleContext, usedPro
   for (const property of objectPattern.properties) {
     switch (property.type) {
       case AST.Property: {
-        const key = getKeyOfExpression(property.key);
+        const key = getKeyOfExpression(property.key, property.computed);
         if (key == null) return false;
         usedPropKeys.add(key);
         break;
@@ -87,7 +87,7 @@ export function collectUsedPropKeysOfReference(context: RuleContext, usedPropKey
     case AST.MemberExpression: {
       // Handle `props.foo` or `props["foo"]` (including wrapped variants)
       if (parent.object === valueNode) {
-        const key = getKeyOfExpression(parent.property);
+        const key = getKeyOfExpression(parent.property, parent.computed);
         if (key == null) return false;
         usedPropKeys.add(key);
         return true;
@@ -110,10 +110,11 @@ export function collectUsedPropKeysOfReference(context: RuleContext, usedPropKey
   return false;
 }
 
-export function getKeyOfExpression(expr: TSESTree.Expression | TSESTree.PrivateIdentifier): string | null {
+export function getKeyOfExpression(expr: TSESTree.Expression | TSESTree.PrivateIdentifier, computed = false): string | null {
   switch (expr.type) {
     case AST.Identifier: {
-      return expr.name;
+      // A computed identifier is a dynamic key (`props[key]`, `{ [key]: x }`), not a prop named after it
+      return computed ? null : expr.name;
     }
     case AST.Literal: {
       if (isString(expr.value)) {

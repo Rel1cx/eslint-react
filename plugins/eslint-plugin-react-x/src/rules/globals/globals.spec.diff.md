@@ -107,11 +107,11 @@ A nested function that is only stored, returned, passed to a Hook, passed to an 
 
 The SPEC uses one globals diagnostic category. The IMPL keeps three surface-specific messages:
 
-| IMPL message ID             | Use                                                      |
-| --------------------------- | -------------------------------------------------------- |
-| `mutatingGlobal`            | direct assignment/update of a global binding             |
-| `mutatingGlobalProperty`    | assignment/update/delete of a property on a global value |
-| `mutatingGlobalArrayMethod` | known mutating array method on a global value            |
+| IMPL message ID                | Use                                                      |
+| ------------------------------ | -------------------------------------------------------- |
+| `mutating-global`              | direct assignment/update of a global binding             |
+| `mutating-global-property`     | assignment/update/delete of a property on a global value |
+| `mutating-global-array-method` | known mutating array method on a global value            |
 
 Diagnostics are reported at the original mutation site, including when the effect reaches render through helper calls.
 

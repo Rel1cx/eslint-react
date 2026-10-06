@@ -81,7 +81,7 @@ branch proven non-null are allowed; writes there are still reported.
 Truthiness checks such as `if (!ref.current)` are not treated as null guards because valid initialized
 values can be falsy. Arbitrary comparison values are likewise rejected.
 
-A second allowed initialization of the same scoped ref identity is reported as `duplicateRefInit`,
+A second allowed initialization of the same scoped ref identity is reported as `duplicate-ref-init`,
 including initialization through an alias and initialization after an inverted early-return guard.
 
 The IMPL tests lock the exact operators listed above. React fixtures lock representative direct
@@ -111,7 +111,7 @@ from a reached function.
 
 **Remaining difference**: the IMPL does not propagate a caller's ref identity into an arbitrarily
 named local function parameter. Passing a ref to such a function is still reported with
-`refPassedToFunction`, but accesses through a non-ref-like parameter are not independently modeled.
+`ref-passed-to-function`, but accesses through a non-ref-like parameter are not independently modeled.
 
 ## 5. Passing refs to functions
 

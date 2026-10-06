@@ -7,6 +7,11 @@ const isComponentOrHookName = or(core.isFunctionComponentName, core.isHookName);
 
 export function isComponentOrHookLikeFunction(node: TSESTreeFunction) {
   const id = core.getFunctionId(node);
+  // FIXME: anonymous callbacks passed to `memo()`/`forwardRef()` have no
+  // function id (`core.getFunctionId` returns null), so they are classified as
+  // "callback" and setState calls inside them are missed, while the named form
+  // (`memo(function Component() ...)`) is detected. The proper fix belongs in
+  // the component detection of `@eslint-react/core`.
   if (id == null) return false;
   if (Check.isIdentifier(id)) {
     return isComponentOrHookName(id.name);

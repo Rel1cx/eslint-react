@@ -2,7 +2,7 @@
 
 ## Verification metadata
 
-- **IMPL**: `use-memo.ts` + `lib.ts` (ESLint rule)
+- **IMPL**: `use-memo.ts` + `collect.ts` + `origins.ts` + `effects.ts` + `helpers.ts` (ESLint rule)
 - **SPEC**: `use-memo.spec.md` (React Compiler `ValidateUseMemo`)
 - **Implementation commit**: `629632d3d4bf810db428b99b604c0a90ebe8a262`
 - **React commit**: `c0c39a6b3907eaab35f43074949e2957a2a734c1`
@@ -26,7 +26,7 @@
 
 The SPEC operates on the React Compiler's High-level IR (HIR), tracking `useMemo` and `React` identifier bindings through instructions such as `LoadGlobal`, `PropertyLoad`, and `CallExpression`. Its unused-result check is basic operand-reference tracking: an `unusedUseMemos` entry is deleted when the result identifier later appears in an instruction or terminal operand. This is not full SSA liveness analysis.
 
-The IMPL operates on the ESLint AST with scope analysis. It detects `useMemo` calls via `core.isUseMemoCall(context, node)` and classifies the result as used when the call's immediate parent, after type-expression unwrapping, belongs to a fixed allow-list. Callback return collection and callback-local declaration checks are implemented in `lib.ts`.
+The IMPL operates on the ESLint AST with scope analysis. It detects `useMemo` calls via `core.isUseMemoCall(context, node)` and classifies the result as used when the call's immediate parent, after type-expression unwrapping, belongs to a fixed allow-list. Callback return collection and callback-local declaration checks are implemented in `helpers.ts` and `collect.ts`.
 
 ## 2. Rule-by-rule comparison
 
@@ -57,7 +57,7 @@ Key IMPL differences:
 
 The SPEC enforces this only when `validateNoVoidUseMemo` is enabled. At the verified React commit, `hasNonVoidReturn` returns true for a HIR return terminal whose `returnVariant` is `Explicit` or `Implicit`; it does not inspect whether the source return has a value. Therefore `useMemo(() => { return; })` passes this check. This is source-verified and fixture-verified: `useMemo-empty-return.expect.md` contains successfully compiled output with no `VoidUseMemo` diagnostic.
 
-The IMPL always enforces this rule. It treats arrow-function concise bodies as valid and uses `getNestedReturnStatements` from `lib.ts` for block bodies, requiring at least one return whose `argument != null`. An empty `return;` is treated as not returning a value.
+The IMPL always enforces this rule. It treats arrow-function concise bodies as valid and uses `getNestedReturnStatements` from `helpers.ts` for block bodies, requiring at least one return whose `argument != null`. An empty `return;` is treated as not returning a value.
 
 **Verdict**: The IMPL lacks the `validateNoVoidUseMemo` toggle and intentionally differs from the verified React empty-return behavior.
 
@@ -73,18 +73,18 @@ The IMPL always enforces this rule. It uses a static immediate-parent allow-list
 
 The IMPL's `MessageID`s correspond one-to-one with the SPEC:
 
-- `noParameters` — Rule 1
-- `noAsyncOrGeneratorFunctions` — Rule 2
-- `noReassigningOuterVariables` — Rule 3
-- `mustReturnAValue` — Rule 4
-- `resultMustBeUsed` — Rule 5
+- `no-parameters` — Rule 1
+- `no-async-or-generator-functions` — Rule 2
+- `no-reassigning-outer-variables` — Rule 3
+- `must-return-a-value` — Rule 4
+- `result-must-be-used` — Rule 5
 
 Each ESLint message combines the corresponding React diagnostic reason and description, with punctuation differences. React also assigns diagnostic categories and detail messages that the ESLint rule does not model.
 
 ## 4. Key gaps and deviations
 
 1. **Missing Configuration Toggle**: The IMPL does not support `validateNoVoidUseMemo`; Rule 4 and Rule 5 are always enforced.
-2. **Verified Rule 4 Semantic Gap**: React accepts `useMemo(() => { return; })` at the verified commit, while the IMPL reports `mustReturnAValue`.
+2. **Verified Rule 4 Semantic Gap**: React accepts `useMemo(() => { return; })` at the verified commit, while the IMPL reports `must-return-a-value`.
 3. **Rule 3 Scope Difference**: The IMPL excludes property mutations and assignments inside nested functions; its AST check is narrower than React's `StoreContext` check.
 4. **Rule 5 Detection Difference**: React performs basic operand-reference tracking, while the IMPL uses an immediate-parent allow-list. The non-equivalent checks can produce false positives or false negatives.
 

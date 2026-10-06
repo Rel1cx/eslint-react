@@ -19,6 +19,11 @@ Use when you want to combine two `Predicate`s with exclusive-or semantics.
 
 Returns `true` when results differ.
 
+Results are compared with strict inequality (`!==`) on the predicates' raw
+return values, so both predicates must return strict booleans; non-boolean
+truthy/falsy returns (e.g. `s => s.length`) are not coerced and can violate
+exclusive-or semantics.
+
 **Example** (Checking exclusive-or conditions)
 
 ```ts

@@ -1651,6 +1651,25 @@ ruleTester.run(RULE_NAME, rule, {
         { data: { name: "setData" }, messageId: "default" },
       ],
     },
+    // `const { 1: setData } = useState()` destructures the tuple by numeric key,
+    // so the name is still recognized as the setter.
+    {
+      name: "setState via object-pattern destructuring with numeric key 1",
+      code: tsx`
+        import { useEffect, useState } from "react";
+
+        function Component() {
+          const { 1: setData } = useState(0);
+          useEffect(() => {
+            setData(1);
+          }, []);
+          return null;
+        }
+      `,
+      errors: [
+        { data: { name: "setData" }, messageId: "default" },
+      ],
+    },
   ],
   valid: [
     {
@@ -3051,6 +3070,22 @@ ruleTester.run(RULE_NAME, rule, {
           const s = setData;
           useEffect(() => {
             s(1);
+          }, []);
+          return null;
+        }
+      `,
+    },
+    // `const { 0: data } = useState()` binds the state value, not the setter:
+    // object-pattern destructuring only counts as a setter at numeric key 1.
+    {
+      name: "state value via object-pattern destructuring with numeric key 0",
+      code: tsx`
+        import { useEffect, useState } from "react";
+
+        function Component() {
+          const { 0: logData } = useState(() => () => 0);
+          useEffect(() => {
+            logData();
           }, []);
           return null;
         }
