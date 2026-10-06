@@ -164,7 +164,7 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
     },
-    // TODO: AbortController signal-based cleanup is not checked yet (https://github.com/Rel1cx/eslint-react/issues/1282)
+    // By design, listeners with a `signal` option are not reported, so these cases stay disabled (https://github.com/Rel1cx/eslint-react/issues/1282)
     // {
     //   code: tsx`
     //     function Example() {
@@ -428,7 +428,7 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
     },
-    // TODO: AbortController signal-based cleanup is not checked yet (https://github.com/Rel1cx/eslint-react/issues/1282)
+    // By design, listeners with a `signal` option are not reported, so these cases stay disabled (https://github.com/Rel1cx/eslint-react/issues/1282)
     // {
     //   code: tsx`
     //     const abortController = new AbortController();

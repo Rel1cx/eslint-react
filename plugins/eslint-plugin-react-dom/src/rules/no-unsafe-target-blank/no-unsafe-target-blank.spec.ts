@@ -211,7 +211,7 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
     },
-    // TODO: Restore Link component test when support for additionalComponents is implemented. See issue #<issue-number>.
+    // TODO: Restore Link component tests using the polymorphicPropName setting (additionalComponents was removed in 2.0.0).
     // },
     // {
     //   code: '<Link href="https://react.dev" target="_blank" rel="noopener"></Link>',
