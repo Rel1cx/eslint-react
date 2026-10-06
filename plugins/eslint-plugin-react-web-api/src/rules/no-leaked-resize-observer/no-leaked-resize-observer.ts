@@ -74,6 +74,21 @@ function isUseRefInitialValue(node: TSESTree.NewExpression) {
     && isUseRefLikeCall(parent);
 }
 
+// Resolve an identifier to the local function it refers to, or `null` when it is not a locally
+// declared function (ex: received via props or imported)
+function resolveLocalFunction(context: RuleContext, node: TSESTree.Node, id: TSESTree.Identifier) {
+  const variable = findVariable(context.sourceCode.getScope(node), id);
+  const defNode = variable?.defs.at(-1)?.node;
+  const fn = defNode == null
+    ? null
+    : defNode.type === AST.FunctionDeclaration
+    ? defNode
+    : defNode.type === AST.VariableDeclarator && defNode.init != null
+    ? Extract.unwrap(defNode.init)
+    : null;
+  return fn != null && Check.isFunction(fn) ? fn : null;
+}
+
 // #endregion
 
 // #region Rule Implementation
@@ -114,13 +129,17 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   // Functions returned by an effect setup as its cleanup (`function cleanup() {...}; return cleanup;`),
   // resolved from the returned identifier; the effect predicates only recognize inline cleanups
   const returnedCleanups = new Set<TSESTree.Node>();
+  // Local functions called from within an effect cleanup (`return () => stop();`);
+  // a disconnect/unobserve inside them runs in the cleanup phase as well
+  const cleanupCallees = new Set<TSESTree.Node>();
   // A disconnect/unobserve only counts when it runs in the cleanup phase: inside the cleanup
-  // callback, or inside a named function the setup returns as its cleanup
+  // callback, inside a named function the setup returns as its cleanup, or inside a local
+  // function the cleanup calls
   function isInCleanupPhase(node: TSESTree.Node) {
     if (Traverse.findParent(node, isUseEffectCleanupCallback) != null) {
       return true;
     }
-    for (const fn of returnedCleanups) {
+    for (const fn of [...returnedCleanups, ...cleanupCallees]) {
       if (Traverse.findParent(node, (n) => n === fn) != null) {
         return true;
       }
@@ -129,10 +148,22 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   }
   return {
     ["CallExpression"](node) {
-      if (Traverse.findParent(node, isUseEffectCallback) == null) {
+      const effectCallback = Traverse.findParent(node, isUseEffectCallback);
+      if (effectCallback == null) {
         return;
       }
       const callee = Extract.unwrap(node.callee);
+      // A bare call directly inside a cleanup callback (`stop()`) may delegate the
+      // disconnect/unobserve to a local function; record it for the phase check
+      if (callee.type === AST.Identifier) {
+        if (isUseEffectCleanupCallback(effectCallback)) {
+          const fn = resolveLocalFunction(context, node, callee);
+          if (fn != null) {
+            cleanupCallees.add(fn);
+          }
+        }
+        return;
+      }
       if (callee.type !== AST.MemberExpression) {
         return;
       }
@@ -206,16 +237,8 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       if (setupFn == null || !isUseEffectSetupCallback(setupFn)) {
         return;
       }
-      const variable = findVariable(context.sourceCode.getScope(node), arg);
-      const defNode = variable?.defs.at(-1)?.node;
-      const fn = defNode == null
-        ? null
-        : defNode.type === AST.FunctionDeclaration
-        ? defNode
-        : defNode.type === AST.VariableDeclarator && defNode.init != null
-        ? Extract.unwrap(defNode.init)
-        : null;
-      if (fn != null && Check.isFunction(fn)) {
+      const fn = resolveLocalFunction(context, node, arg);
+      if (fn != null) {
         returnedCleanups.add(fn);
       }
     },
@@ -226,10 +249,10 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         const isSameObserver = phaseNode == null
           ? (observer: TSESTree.Node) => isFromRefCurrent(context, observer, id)
           : (observer: TSESTree.Node) => isAssignmentTargetEqual(context, observer, id);
-        // A disconnect inside the observer's own callback is not a reliable cleanup:
+        // A disconnect/unobserve inside the observer's own callback is not a reliable cleanup:
         // the callback may never run if the component unmounts before the element resizes
-        const isInsideObserverCallback = (e: DEntry) => Traverse.findParent(e.node, (n) => n === node) != null;
-        if (dEntries.some((e) => !isInsideObserverCallback(e) && isInCleanupPhase(e.node) && isSameObserver(e.observer))) {
+        const isInsideObserverCallback = (entryNode: TSESTree.Node) => Traverse.findParent(entryNode, (n) => n === node) != null;
+        if (dEntries.some((e) => !isInsideObserverCallback(e.node) && isInCleanupPhase(e.node) && isSameObserver(e.observer))) {
           continue;
         }
         const matchedOEntries = oEntries.filter((e) => isSameObserver(e.observer));
@@ -247,7 +270,11 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         }
         for (const oEntry of matchedOEntries) {
           if (
-            matchedUEntries.some((uEntry) => isInCleanupPhase(uEntry.node) && isAssignmentTargetEqual(context, uEntry.element, oEntry.element))
+            matchedUEntries.some((uEntry) =>
+              !isInsideObserverCallback(uEntry.node)
+              && isInCleanupPhase(uEntry.node)
+              && isAssignmentTargetEqual(context, uEntry.element, oEntry.element)
+            )
           ) {
             continue;
           }
