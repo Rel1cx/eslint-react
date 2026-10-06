@@ -1,13 +1,13 @@
 import { createRule } from "@/utils/create-rule";
 import { Check, Extract, type TSESTreeFunction, Traverse } from "@eslint-react/ast";
-import { isUseEffectCleanupCallback, isUseEffectSetupCallback } from "@eslint-react/core";
+import { isUseEffectCleanupCallback, isUseEffectSetupCallback, isUseRefLikeCall } from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, type RuleListener } from "@eslint-react/eslint";
 import { isAssignmentTargetEqual, resolveEnclosingAssignmentTarget } from "@eslint-react/var";
 import { and, or } from "@local/eff";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import { findVariable } from "@typescript-eslint/utils/ast-utils";
 import { P, isMatching, match } from "ts-pattern";
-import { isFromObserver, isNewObserver } from "./lib";
+import { isFromObserver, isFromRefCurrent, isNewObserver } from "./lib";
 
 // #region Rule Metadata
 
@@ -61,6 +61,19 @@ function getCallKind(context: RuleContext, node: TSESTree.CallExpression): CallK
   return "other";
 }
 
+// Whether the new expression initializes a ref: `useRef(new IntersectionObserver(...))`
+function isUseRefInitialValue(node: TSESTree.NewExpression) {
+  let child: TSESTree.Node = node;
+  let parent: TSESTree.Node | undefined = node.parent;
+  while (parent != null && Check.isTypeExpression(parent)) {
+    child = parent;
+    parent = parent.parent;
+  }
+  return parent?.type === AST.CallExpression
+    && parent.arguments.at(0) === child
+    && isUseRefLikeCall(parent);
+}
+
 // #endregion
 
 // #region Rule Implementation
@@ -92,7 +105,9 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   const observers: {
     id: TSESTree.Node;
     node: TSESTree.NewExpression;
-    phaseNode: TSESTreeFunction;
+    // `null` for a ref-held instance (`useRef(new IntersectionObserver(...))`), which has no
+    // creation-phase callback; its entries are checked against their own enclosing effect callback
+    phaseNode: TSESTreeFunction | null;
   }[] = [];
   const oEntries: OEntry[] = [];
   const uEntries: UEntry[] = [];
@@ -158,11 +173,13 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         .otherwise(() => null);
     },
     ["NewExpression"](node) {
-      const fn = Traverse.findParent(node, and(Check.isFunction, isUseEffectCallback));
-      if (fn == null) {
+      if (!isNewObserver(node, "IntersectionObserver")) {
         return;
       }
-      if (!isNewObserver(node, "IntersectionObserver")) {
+      const fn = Traverse.findParent(node, and(Check.isFunction, isUseEffectCallback));
+      // Outside an effect callback, only a ref initializer (`useRef(new IntersectionObserver(...))`)
+      // is tracked: the instance is created eagerly during render and held by the ref
+      if (fn == null && !isUseRefInitialValue(node)) {
         return;
       }
       const id = resolveEnclosingAssignmentTarget(node);
@@ -205,22 +222,31 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
     },
     ["Program:exit"]() {
       for (const { id, node, phaseNode } of observers) {
+        // A ref-held instance is referenced through `ref.current` (or a local alias of it)
+        // instead of the assignment target of the creation site
+        const isSameObserver = phaseNode == null
+          ? (observer: TSESTree.Node) => isFromRefCurrent(context, observer, id)
+          : (observer: TSESTree.Node) => isAssignmentTargetEqual(context, observer, id);
         // A disconnect inside the observer's own callback (the observe-once pattern) is not a reliable
         // cleanup: the callback may never run if the component unmounts before the element intersects
         if (
           dEntries.some((e) =>
             Traverse.findParent(e.node, (n) => n === node) == null
             && isInCleanupPhase(e.node)
-            && isAssignmentTargetEqual(context, e.observer, id)
+            && isSameObserver(e.observer)
           )
         ) {
           continue;
         }
-        const matchedOEntries = oEntries.filter((e) => isAssignmentTargetEqual(context, e.observer, id));
-        const matchedUEntries = uEntries.filter((e) => isAssignmentTargetEqual(context, e.observer, id));
+        const matchedOEntries = oEntries.filter((e) => isSameObserver(e.observer));
+        const matchedUEntries = uEntries.filter((e) => isSameObserver(e.observer));
         const isDynamic = or(Check.isCallExpression, Check.isConditional);
-        const isPhaseNode = (n: TSESTree.Node | null) => n === phaseNode;
-        const hasDynamicallyAdded = matchedOEntries.some((e) => !isPhaseNode(Traverse.findParent(e.node, or(isDynamic, isPhaseNode))));
+        const hasDynamicallyAdded = matchedOEntries
+          .some((e) => {
+            const entryPhaseNode = phaseNode ?? Traverse.findParent(e.node, isUseEffectCallback);
+            const isPhaseNode = (n: TSESTree.Node | null) => n === entryPhaseNode;
+            return !isPhaseNode(Traverse.findParent(e.node, or(isDynamic, isPhaseNode)));
+          });
         if (hasDynamicallyAdded) {
           context.report({ messageId: "expected-disconnect-in-control-flow", node });
           continue;

@@ -418,6 +418,86 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
     },
+    {
+      // An `IntersectionObserver` instance held by a ref is observed in the effect but never
+      // disconnected or unobserved in the cleanup
+      code: tsx`
+        import { useEffect, useRef } from "react";
+
+        function Component() {
+          const observerRef = useRef<IntersectionObserver>(new IntersectionObserver(() => {}));
+          useEffect(() => {
+            observerRef.current.observe(document.body);
+          }, []);
+
+          return <div />;
+        }
+      `,
+      errors: [
+        {
+          messageId: "expected-disconnect-or-unobserve-in-cleanup",
+        },
+      ],
+    },
+    {
+      // Same as above, but accessed through a local alias of `ref.current`
+      code: tsx`
+        import { useEffect, useRef } from "react";
+
+        function Component() {
+          const observerRef = useRef<IntersectionObserver>(new IntersectionObserver(() => {}));
+          useEffect(() => {
+            const observer = observerRef.current;
+            observer.observe(document.body);
+          }, []);
+
+          return <div />;
+        }
+      `,
+      errors: [
+        {
+          messageId: "expected-disconnect-or-unobserve-in-cleanup",
+        },
+      ],
+    },
+    {
+      // A ref-held instance whose only `disconnect` runs in the setup (no cleanup returned)
+      code: tsx`
+        import { useEffect, useRef } from "react";
+
+        function Component() {
+          const observerRef = useRef<IntersectionObserver>(new IntersectionObserver(() => {}));
+          useEffect(() => {
+            observerRef.current.observe(document.body);
+            observerRef.current.disconnect();
+          }, []);
+
+          return <div />;
+        }
+      `,
+      errors: [
+        {
+          messageId: "expected-disconnect-or-unobserve-in-cleanup",
+        },
+      ],
+    },
+    {
+      // A `useRef(new IntersectionObserver(...))` not assigned to a variable is a floating instance
+      code: tsx`
+        import { useRef } from "react";
+
+        function Component() {
+          useRef(new IntersectionObserver(() => {}));
+
+          return <div />;
+        }
+      `,
+      errors: [
+        {
+          messageId: "unexpected-floating-instance",
+        },
+      ],
+    },
   ],
   valid: [
     tsx`
@@ -812,42 +892,60 @@ ruleTester.run(RULE_NAME, rule, {
         return <div />;
       }
     `,
-    // TODO: Add support for `IntersectionObserver` instance in `useRef`
-    // tsx`
-    //   import { useEffect, useRef } from "react";
+    // An `IntersectionObserver` instance held by a ref (`useRef(new IntersectionObserver(...))`),
+    // accessed through a local alias of `ref.current` inside the effect
+    tsx`
+      import { useEffect, useRef } from "react";
 
-    //   function Component() {
-    //     const observerRef = useRef<IntersectionObserver>(new IntersectionObserver(() => {}));
-    //     useEffect(() => {
-    //       const observer = observerRef.current;
-    //       if (!observer) return;
-    //       observer.observe(document.body);
-    //       observer.observe(document.querySelector(".selector")!);
-    //       return () => {
-    //         observer.unobserve(document.body);
-    //         observer.unobserve(document.querySelector(".selector")!);
-    //       }
-    //     }, []);
+      function Component() {
+        const observerRef = useRef<IntersectionObserver>(new IntersectionObserver(() => {}));
+        useEffect(() => {
+          const observer = observerRef.current;
+          if (!observer) return;
+          observer.observe(document.body);
+          observer.observe(document.querySelector(".selector")!);
+          return () => {
+            observer.unobserve(document.body);
+            observer.unobserve(document.querySelector(".selector")!);
+          }
+        }, []);
 
-    //     return <div />;
-    //   }
-    // `,
-    // tsx`
-    //   import { useEffect, useRef } from "react";
+        return <div />;
+      }
+    `,
+    // Same as above, but accessing `ref.current` directly for each call
+    tsx`
+      import { useEffect, useRef } from "react";
 
-    //   function Component() {
-    //     const observerRef = useRef<IntersectionObserver>(new IntersectionObserver(() => {}));
-    //     useEffect(() => {
-    //       observerRef.current.observe(document.body);
-    //       observerRef.current.observe(document.querySelector(".selector")!);
-    //       return () => {
-    //         observerRef.current.unobserve(document.body);
-    //         observerRef.current.unobserve(document.querySelector(".selector")!);
-    //       }
-    //     }, []);
+      function Component() {
+        const observerRef = useRef<IntersectionObserver>(new IntersectionObserver(() => {}));
+        useEffect(() => {
+          observerRef.current.observe(document.body);
+          observerRef.current.observe(document.querySelector(".selector")!);
+          return () => {
+            observerRef.current.unobserve(document.body);
+            observerRef.current.unobserve(document.querySelector(".selector")!);
+          }
+        }, []);
 
-    //     return <div />;
-    //   }
-    // `,
+        return <div />;
+      }
+    `,
+    // A ref-held instance disconnected in the cleanup through `ref.current`
+    tsx`
+      import { useEffect, useRef } from "react";
+
+      function Component() {
+        const observerRef = useRef<IntersectionObserver>(new IntersectionObserver(() => {}));
+        useEffect(() => {
+          observerRef.current.observe(document.body);
+          return () => {
+            observerRef.current.disconnect();
+          }
+        }, []);
+
+        return <div />;
+      }
+    `,
   ],
 });
