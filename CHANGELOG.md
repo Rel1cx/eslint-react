@@ -1,5 +1,23 @@
 # Changelog
 
+## v5.24.7 (2026-10-07)
+
+### 🐞 Fixes
+
+- `react-x/immutability`: no longer reports rebinding a plain local alias of props/state as a mutation; destructured props rebinding and member writes through aliases are still reported. (#1995)
+- `react-x/set-state-in-render`: `setState` calls after nested component or hook declarations are now attributed to the outer component again. (#2004)
+- `react-x/set-state-in-render`: anonymous callbacks passed directly to `memo()`/`forwardRef()` are now treated as component render functions. (#1998)
+- `react-web-api/no-leaked-fetch`: signal alias chains are now resolved recursively, so fetches with aliased signals correctly pair with their cleanup `abort` call. (#1997)
+- `react-web-api/no-leaked-event-listener`: bare global `addEventListener(...)` calls now pair with matching `removeEventListener(...)` cleanup calls. (#1996)
+- `react-web-api/no-leaked-event-listener`: a `signal` destructured from `new AbortController()` is now recognized. (#2001)
+- `react-web-api/no-leaked-resize-observer` / `react-web-api/no-leaked-intersection-observer`: `disconnect()` / `unobserve(...)` now only count as cleanup in the cleanup phase; `useRef`-held observer instances are tracked; `unobserve(...)` inside the observer callback no longer pairs with `observe(...)`. (#2002, #2003)
+
+### 🏗️ Internal
+
+- Bumped `typescript-eslint` to `8.71.1` and `postcss` to `8.5.29`.
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.24.6...v5.24.7
+
 ## v5.24.6 (2026-10-06)
 
 ### 🐞 Fixes

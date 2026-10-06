@@ -64,12 +64,12 @@ function getCallKind(context: RuleContext, node: TSESTree.CallExpression): CallK
 // Whether the new expression initializes a ref: `useRef(new IntersectionObserver(...))`
 function isUseRefInitialValue(node: TSESTree.NewExpression) {
   let child: TSESTree.Node = node;
-  let parent: TSESTree.Node | undefined = node.parent;
-  while (parent != null && Check.isTypeExpression(parent)) {
+  let parent = node.parent;
+  while (Check.isTypeExpression(parent)) {
     child = parent;
     parent = parent.parent;
   }
-  return parent?.type === AST.CallExpression
+  return parent.type === AST.CallExpression
     && parent.arguments.at(0) === child
     && isUseRefLikeCall(parent);
 }

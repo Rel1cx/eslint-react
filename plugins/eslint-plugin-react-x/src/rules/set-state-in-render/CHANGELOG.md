@@ -5,13 +5,18 @@ All notable changes to the `react-x/set-state-in-render` rule will be documented
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+## [5.24.7] - 2026-10-07
+
+### Fixed
+
+- Enclosing component tracking is now a stack instead of a single slot: setState calls in a component after a nested component or hook declaration are attributed to the outer component again instead of being missed. Closes #2004.
+- Anonymous callbacks passed directly to `memo()`/`forwardRef()` (ex: `memo(() => ...)`) are now treated as component render functions, so unconditional setState calls inside them are reported like the named form. Closes #1998.
+
+## [5.24.6] - 2026-10-06
 
 ### Fixed
 
 - Object-pattern destructuring of the `useState` tuple is now resolved by numeric key: a name bound at key 0 (ex: `const { 0: value } = useState()`) is no longer mistaken for the setter, while key 1 (ex: `const { 1: setData } = useState()`) is still recognized.
-- Enclosing component tracking is now a stack instead of a single slot: setState calls in a component after a nested component or hook declaration are attributed to the outer component again instead of being missed. Closes #2004.
-- Anonymous callbacks passed directly to `memo()`/`forwardRef()` (ex: `memo(() => ...)`) are now treated as component render functions, so unconditional setState calls inside them are reported like the named form. Closes #1998.
 
 ## [5.24.0] - 2026-10-04
 
