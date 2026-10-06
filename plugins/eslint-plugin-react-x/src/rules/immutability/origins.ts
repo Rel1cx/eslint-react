@@ -4,7 +4,7 @@ import { DefinitionType } from "@typescript-eslint/scope-manager";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import { findVariable } from "@typescript-eslint/utils/ast-utils";
 import type { Scope } from "@typescript-eslint/utils/ts-eslint";
-import { getStateHookName, isComponentPropsDefinition, isNodeWithin, resolveVariableOrigin } from "./helpers";
+import { type OriginResolveMode, getStateHookName, isComponentPropsDefinition, isNodeWithin, resolveVariableOrigin } from "./helpers";
 
 /**
  * An origin that must be treated as immutable, resolved from a mutated variable.
@@ -23,6 +23,7 @@ export type FrozenOrigin =
  * @param context The rule context.
  * @param variable The variable to classify.
  * @param components The confirmed function component nodes in the file.
+ * @param mode How far identifier-initializer aliases are followed; `"binding"` stops at plain aliases.
  * @param seen Variables already visited during spread/iterator recursion.
  * @returns The frozen origin, or `null` when the variable is not derived from one.
  */
@@ -30,11 +31,12 @@ export function classifyFrozenOrigin(
   context: RuleContext,
   variable: Scope.Variable,
   components: readonly TSESTreeFunction[],
+  mode: OriginResolveMode = "alias",
   seen: Set<Scope.Variable> = new Set(),
 ): FrozenOrigin | null {
   if (seen.has(variable)) return null;
   seen.add(variable);
-  const origin = resolveVariableOrigin(context, variable);
+  const origin = resolveVariableOrigin(context, variable, mode);
   const def = origin.defs.length === 1 ? origin.defs[0] : null;
   if (def == null) return null;
   if (isComponentPropsDefinition(def, components)) {
@@ -52,7 +54,7 @@ export function classifyFrozenOrigin(
     if (root == null || !Check.isIdentifier(root)) return null;
     const source = findVariable(context.sourceCode.getScope(root), root);
     if (source == null) return null;
-    const inner = classifyFrozenOrigin(context, source, components, seen);
+    const inner = classifyFrozenOrigin(context, source, components, mode, seen);
     return inner == null ? null : { kind: "iterator", name: origin.name, original: inner.name };
   }
   const init = Extract.unwrap(def.node.init);
@@ -77,7 +79,7 @@ export function classifyFrozenOrigin(
         if (!Check.isIdentifier(argument)) continue;
         const source = findVariable(context.sourceCode.getScope(argument), argument);
         if (source == null) continue;
-        const inner = classifyFrozenOrigin(context, source, components, seen);
+        const inner = classifyFrozenOrigin(context, source, components, mode, seen);
         if (inner != null) return { kind: "shallow-copy", name: origin.name, original: inner.name };
       }
       return null;

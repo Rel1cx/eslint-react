@@ -73,7 +73,7 @@ export function inferDirectMutations(context: RuleContext, mutations: readonly M
     if (isRefMutation(context, mutation)) continue;
     const variable = findVariable(context.sourceCode.getScope(mutation.root), mutation.root);
     if (variable == null) continue;
-    const origin = classifyFrozenOrigin(context, variable, components);
+    const origin = classifyFrozenOrigin(context, variable, components, mutation.kind === "binding" ? "binding" : "alias");
     if (origin == null) continue;
     if (mutation.kind === "binding") {
       // Rebinding a frozen binding (`props.x` destructured to `x`, then `x = ...`)

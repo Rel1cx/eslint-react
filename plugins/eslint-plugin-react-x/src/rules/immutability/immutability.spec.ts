@@ -1785,6 +1785,46 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
     },
+    // Reassigning a binding destructured from props is a direct mutation of the
+    // shared props binding, not just of a local alias (#1979 design, kept in #1995).
+    {
+      code: tsx`
+        function Component(props) {
+          let { error } = props;
+          error = undefined;
+          return <div />;
+        }
+      `,
+      errors: [
+        {
+          data: {
+            detail: "It is a prop of this component and must not be reassigned.",
+            name: "props",
+          },
+          messageId: "direct-mutation",
+        },
+      ],
+    },
+    // A member write through a plain alias of a prop is a value mutation: the
+    // alias folds back to the prop origin, so it stays reported (#1995).
+    {
+      code: tsx`
+        function Component({ error }) {
+          let current = error;
+          current.message = "x";
+          return <div />;
+        }
+      `,
+      errors: [
+        {
+          data: {
+            detail: "It is a prop of this component and must be treated as immutable.",
+            name: "error",
+          },
+          messageId: "direct-mutation",
+        },
+      ],
+    },
   ],
   valid: [
     tsx`
@@ -2527,6 +2567,47 @@ ruleTester.run(RULE_NAME, rule, {
         for (let item of items) {
           item = { done: true };
         }
+        return <div />;
+      }
+    `,
+    // Rebinding a plain alias initialized from a prop discards only the local
+    // alias, not a shared binding; matching upstream react-hooks/immutability
+    // (https://github.com/Rel1cx/eslint-react/issues/1995).
+    tsx`
+      export function ErrorCauses({ error }: Props) {
+        const messages: string[] = [];
+        for (let current: unknown = error; current instanceof Error; current = current.cause) {
+          messages.push(current.message);
+        }
+        return <ul>{messages.map((m) => <li key={m}>{m}</li>)}</ul>;
+      }
+    `,
+    // The while-loop form of the same alias rebinding is allowed too.
+    tsx`
+      export function ErrorCauses({ error }: Props) {
+        const messages: string[] = [];
+        let current: unknown = error;
+        while (current instanceof Error) {
+          messages.push(current.message);
+          current = current.cause;
+        }
+        return <ul>{messages.map((m) => <li key={m}>{m}</li>)}</ul>;
+      }
+    `,
+    // Minimal form: rebinding a plain alias of a prop is not a prop mutation.
+    tsx`
+      function Component({ error }) {
+        let current = error;
+        current = undefined;
+        return <div />;
+      }
+    `,
+    // Rebinding a plain alias of a state value is allowed for the same reason.
+    tsx`
+      function Component({ initial }) {
+        const [state] = useState(initial);
+        let s = state;
+        s = { updated: true };
         return <div />;
       }
     `,
