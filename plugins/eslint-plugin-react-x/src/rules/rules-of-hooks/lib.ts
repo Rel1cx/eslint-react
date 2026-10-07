@@ -466,7 +466,7 @@ class ForkContext {
   /**
    * Creates new unreachable segments from this context.
    */
-  makeUnreachable(begin: number, end: number): CodePathSegment[] {
+  makeUnreachable(begin: number = Number.NaN, end: number = Number.NaN): CodePathSegment[] {
     return makeSegments(this, begin, end, CodePathSegment.newUnreachable);
   }
 
@@ -1047,7 +1047,7 @@ class CodePathState {
       (getThrowContext(this) as HasForkContextAdd).thrownForkContext.add(leavingSegments);
     }
     this.forkContext.replaceHead(normalSegments);
-    if (!context.lastOfTryIsReachable && !context.lastOfCatchIsReachable) this.forkContext.makeUnreachable(-1, -1);
+    if (!context.lastOfTryIsReachable && !context.lastOfCatchIsReachable) this.forkContext.makeUnreachable();
   }
 
   /**
