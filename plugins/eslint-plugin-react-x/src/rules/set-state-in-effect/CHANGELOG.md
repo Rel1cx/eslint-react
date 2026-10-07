@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 
 - A DOM node held in `useState` and written only by callback refs (ex: `<div ref={setViewport} />`, `ref={(node) => setViewport(node)}`, or a `useCallback` callback ref) is now treated like a ref-held node, so `setState` calls derived from measuring it are no longer reported. (#2000)
+- Optional chaining in a `setState` argument (ex: `setData(ref.current?.value)`, `setWidth(el?.offsetWidth ?? 0)` where `el` is ref-derived) no longer defeats the ref-value exemption; the `ChainExpression` wrapper is now unwrapped during ref-source detection.
 
 ## [5.24.6] - 2026-10-06
 
