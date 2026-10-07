@@ -2,6 +2,19 @@
 title: Changelog
 ---
 
+## v5.24.8 (2026-10-07)
+
+### 🐞 Fixes
+
+- `react-x/rules-of-hooks`: removed the incorrect `FIX` feature declaration; the rule does not provide an auto-fix and is no longer advertised as fixable. (#2009)
+
+### 🏗️ Internal
+
+- Added edge-case test specs from the v5.24.7 change review covering `react-x/immutability`, `react-x/set-state-in-render`, `react-web-api/no-leaked-event-listener`, and the leaked-observer rules.
+- Bumped `next` to `16.4.0`, `vite` to `8.3.3`, and related dependencies.
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.24.7...v5.24.8
+
 ## v5.24.7 (2026-10-07)
 
 ### 🐞 Fixes
