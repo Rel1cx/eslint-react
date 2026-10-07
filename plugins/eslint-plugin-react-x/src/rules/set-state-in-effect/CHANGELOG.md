@@ -5,6 +5,12 @@ All notable changes to the `react-x/set-state-in-effect` rule will be documented
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+### Fixed
+
+- Optional chaining in a `setState` argument (ex: `setData(ref.current?.value)`, `setWidth(el?.offsetWidth ?? 0)` where `el` is ref-derived) no longer defeats the ref-value exemption; the `ChainExpression` wrapper is now unwrapped during ref-source detection.
+
 ## [5.24.6] - 2026-10-06
 
 ### Fixed

@@ -170,6 +170,9 @@ export function isArgumentUsingRefValue(context: RuleContext, node: TSESTree.Cal
         return isUsingRefValue(n.object);
       case AST.CallExpression:
         return isUsingRefValue(n.callee) || getNestedIdentifiers(n).some(isUsingRefValue);
+      // setState(ref.current?.scrollTop): optional chaining wraps the chain in a ChainExpression
+      case AST.ChainExpression:
+        return isUsingRefValue(n.expression);
       case AST.BinaryExpression:
       case AST.LogicalExpression:
         return isUsingRefValue(n.left) || isUsingRefValue(n.right);
