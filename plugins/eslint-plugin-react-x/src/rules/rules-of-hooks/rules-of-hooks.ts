@@ -35,7 +35,6 @@ export const RULE_NAME = "rules-of-hooks";
 
 export const RULE_FEATURES = [
   "CFG",
-  "FIX",
 ] as const satisfies RuleFeature[];
 
 /**
