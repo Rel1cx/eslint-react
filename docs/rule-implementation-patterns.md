@@ -15,9 +15,7 @@ plugins/eslint-plugin-react-<domain>/src/rules/<rule-name>/
 └── lib.ts               # Optional helpers for complex rules
 ```
 
-Many rules keep shared helpers in a `lib.ts` next to the rule file (e.g. `use-state`, `no-array-index-key`, `rules-of-hooks`). Fact-based rules go further and add pattern-specific layers (`collect.ts`, `origins.ts`, ...; see the fact-based doc). Rules ported from `eslint-plugin-react-hooks` may additionally carry `<rule-name>.spec.md` and `<rule-name>.spec.diff.md` files (and, for `exhaustive-deps` / `rules-of-hooks`, a `README.md` and `LICENSE`).
-
-`scripts/90-scaffold-rule.ts` generates the rule, spec, and mdx files and registers the rule in the plugin's `src/plugin.ts`; `scripts/20-check-rules.ts` (run via `node --run check:rules`) validates registration, presets, and docs badges against this layout.
+Complex rules keep shared helpers in `lib.ts`; fact-based rules add pattern-specific layers (`collect.ts`, `origins.ts`, ...). `scripts/90-scaffold-rule.ts` generates this layout and registers the rule; `scripts/20-check-rules.ts` (`node --run check:rules`) validates registration, presets, and docs badges against it.
 
 ## Rule File Skeleton
 
@@ -63,59 +61,29 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
 
 Conventions:
 
-- `createRule` comes from `@/utils/create-rule` inside each domain plugin (e.g. `plugins/eslint-plugin-react-x/src/utils/create-rule.ts`); it is `ESLintUtils.RuleCreator` bound to the docs URL `https://eslint-react.xyz/docs/rules/<rule-name>`. All plugins except `react-x` prefix the rule name in the URL (`debug-`, `dom-`, `jsx-`, `naming-convention-`, `rsc-`, `web-api-`).
-- `RULE_NAME`, `RULE_FEATURES`, and the `MessageID` union are top-level exports — `scripts/20-check-rules.ts` imports each rule module and reads them.
+- `createRule` comes from `@/utils/create-rule` in each domain plugin — `ESLintUtils.RuleCreator` bound to `https://eslint-react.xyz/docs/rules/<rule-name>` (all plugins except `react-x` prefix the rule name in the URL).
+- `RULE_NAME`, `RULE_FEATURES`, and the `MessageID` union are top-level exports — `check:rules` imports each rule module and reads them.
 - `meta.type` is `"suggestion"` for most rules; `"problem"` when the flagged code is likely a bug.
-- `RuleContext` and `RuleListener` are re-exports from `@eslint-react/eslint`; typed with `RuleContext<MessageID, Options>`.
-- Returning `{}` from `create` is the fast path: ESLint skips the file entirely with zero AST work. When to precheck and gate on React version is covered in the term-based doc.
+- Returning `{}` from `create` is the fast path: ESLint skips the file with zero AST work. Prechecks and version gating are covered in the term-based doc.
 
 ## Options
 
-Only a handful of rules take options. Convention: an `Options` tuple type, a module-level `defaultOptions` constant referenced from `meta.defaultOptions`, a JSON schema typed as `JSONSchema4`, and resolution at the top of `create`:
-
-```ts
-type Options = readonly [
-  | null
-  | { enforceAssignment?: boolean; enforceLazyInitialization?: boolean },
-];
-
-export const defaultOptions = [
-  { enforceAssignment: true, enforceLazyInitialization: true },
-] as const satisfies Options;
-
-export default createRule<Options, MessageID>({
-  meta: {
-    // ...
-    defaultOptions: [...defaultOptions],
-    schema,
-  },
-  name: RULE_NAME,
-  create,
-});
-// ...
-export function create(context: RuleContext<MessageID, Options>): RuleListener {
-  const options = context.options[0] ?? defaultOptions[0];
-  const { enforceAssignment = true } = options;
-}
-```
-
-Some rules resolve options from `create`'s second parameter and a `ResolvedOptions = Required<Options[0]>` type instead (`react-jsx/no-useless-fragment`). Rules with a non-empty schema must declare `meta.defaultOptions` (`require-meta-default-options` is enforced by this repo's own lint config), while rules without options omit `defaultOptions` entirely. Any non-empty `schema`/`defaultOptions` earns the `CFG` feature flag (see [`rule-feature-system.md`](./rule-feature-system.md)).
+Convention: an `Options` tuple type, a module-level `defaultOptions` constant referenced from `meta.defaultOptions`, a JSON schema typed as `JSONSchema4`, and resolution at the top of `create` via `context.options[0] ?? defaultOptions[0]`. Rules with a non-empty schema must declare `meta.defaultOptions`; rules without options omit it entirely. Any non-empty `schema`/`defaultOptions` earns the `CFG` feature (see [`rule-feature-system.md`](./rule-feature-system.md)).
 
 ## Reporting
 
-- **Single-message rules use `messageId: "default"`** — the dominant convention. Multi-message rules use descriptive kebab-case IDs (`use-state`: `"invalid-assignment" | "invalid-setter-name"`; `no-forward-ref`: `"default" | "replace"`).
-- **`data` interpolation** personalizes messages, e.g. `no-unstable-default-props` reports `"A/an '{{kind}}' as default prop..."` with `data: { kind: getHumanReadableKind(right) }`.
-- **Auto-fixable** rules set `meta.fixable: "code"` and pass `fix(fixer) => ...` to `context.report`; they get the `FIX` feature.
-- **Suggestions** (`meta.hasSuggestions: true` + a `suggest` array of `{ messageId, fix }`) are used when the transform needs user confirmation, e.g. `no-forward-ref` pairs the `"default"` report with a `"replace"` suggestion.
-- Prefer reporting on the smallest precise node (`node: id ?? node` in `no-forward-ref`).
+- Single-message rules use `messageId: "default"`; multi-message rules use descriptive kebab-case IDs.
+- Use `data` interpolation to personalize messages.
+- Auto-fixable rules set `meta.fixable: "code"` and pass `fix(fixer)` to `context.report` (`FIX` feature); transforms needing confirmation use `meta.hasSuggestions: true` + a `suggest` array.
+- Report on the smallest precise node.
 
 ## Visitor Strategies
 
 Ordered roughly from cheapest to heaviest:
 
-1. **Immediate single-node visitor** — inspect the node and report inline (`no-forward-ref` on `CallExpression`, `react-dom/no-dangerously-set-innerhtml` on `JSXElement`).
-2. **Ancestor lookup** — `Traverse.findParent(node, Check.isFunction)` from `@eslint-react/ast` walks up from a matched node (`use-state`, `no-unstable-default-props`).
-3. **Collector + `Program:exit`** — get a collector from `@eslint-react/core` (e.g. `core.getFunctionComponentCollector(context)`), compose visitors with `merge` from `@eslint-react/eslint`, and correlate in `Program:exit`:
+1. **Immediate single-node visitor** — inspect the node and report inline (`no-forward-ref`).
+2. **Ancestor lookup** — `Traverse.findParent(node, Check.isFunction)` from `@eslint-react/ast` (`use-state`).
+3. **Collector + `Program:exit`** — get a collector from `@eslint-react/core`, compose visitors with `merge` from `@eslint-react/eslint`, and correlate in `Program:exit`:
 
    ```ts
    const { api, visitor } = core.getFunctionComponentCollector(context);
@@ -128,9 +96,9 @@ Ordered roughly from cheapest to heaviest:
    });
    ```
 
-4. **Code-path analysis** — ESLint's CFG events (`onCodePathStart`, `onCodePathSegmentStart`, ...) track control flow across branches (`rules-of-hooks`).
-5. **Import-tracking** — `createImportLookup` from `@eslint-react/var` resolves imported names so rules match `hydrate(...)` and `ReactDOM.hydrate(...)` alike (all `react-dom/no-hydrate`-style rules).
-6. **Type-aware** — `ESLintUtils.getParserServices(context, false)` plus `getConstrainedTypeAtLocation` from `@eslint-react/eslint` (`react-x/no-leaked-conditional-rendering`); these carry the `TSC` feature and are disabled by the `disable-type-checked` preset.
+4. **Code-path analysis** — ESLint's CFG events (`onCodePathStart`, ...) for control flow (`rules-of-hooks`).
+5. **Import-tracking** — `createImportLookup` from `@eslint-react/var` to match `hydrate(...)` and `ReactDOM.hydrate(...)` alike.
+6. **Type-aware** — `ESLintUtils.getParserServices` (`TSC` feature, disabled by the `disable-type-checked` preset).
 
 When evidence must be correlated across distant sites (provenance, multi-site reports), escalate to the fact-based pipeline documented in [`rule-implementation-patterns-fact-based.md`](./rule-implementation-patterns-fact-based.md).
 
@@ -159,28 +127,14 @@ ruleTester.run(RULE_NAME, rule, {
 });
 ```
 
-- `tsx` is the `dedent` template tag; `#/*` resolves to the repo root via tsconfig paths.
-- React settings (`version`, `importSource`, ...) are passed per case through `settings: { "react-x": { ... } }`.
-- Type-aware rules use `ruleTesterWithTypes` instead; their fixtures carry `/// <reference types="react" />` directives.
-- JSX-emit-sensitive rules use `createRuleTesterForJsxEmit(jsxEmit)`.
+- `tsx` is the `dedent` template tag; React settings (`version`, `importSource`, ...) are passed per case through `settings: { "react-x": { ... } }`.
+- Type-aware rules use `ruleTesterWithTypes`; JSX-emit-sensitive rules use `createRuleTesterForJsxEmit(jsxEmit)`.
 
 ## Registration
 
-Each domain plugin hand-maintains a rules record in `src/plugin.ts`:
-
-```ts
-export const plugin = {
-  meta: { name, version },
-  rules: {
-    "no-hydrate": noHydrate,
-    // ...
-  },
-} as unknown as ESLint.Plugin;
-```
-
-The meta package `plugins/eslint-plugin/src/plugin.ts` composes all domain plugins, prefixing rule names (`jsx-`, `dom-`, ...) via `padKeysLeft` (`react-x` rules are registered both unprefixed and with the `x-` prefix). Presets are static `Linter.RulesRecord`s in `plugins/eslint-plugin/src/configs/`; `node --run check:rules` verifies that every registered rule is accounted for and that preset hierarchies hold.
+Each domain plugin hand-maintains a rules record in `src/plugin.ts`. The meta package `plugins/eslint-plugin/src/plugin.ts` composes all domain plugins, prefixing rule names (`jsx-`, `dom-`, ...) via `padKeysLeft` (`react-x` rules are registered both unprefixed and with the `x-` prefix). Presets are static `Linter.RulesRecord`s in `plugins/eslint-plugin/src/configs/`; `node --run check:rules` verifies that every registered rule is accounted for and that preset hierarchies hold.
 
 ## Documentation Files
 
-- `<rule-name>.mdx` — frontmatter (`title`, `description`), full rule name in both the domain plugin and the meta package, `Features` badges matching `RULE_FEATURES` (validated by `check:rules`), `Presets` list, `Rule Details`, `Examples` with `🔴 Problem` / `🟢 Recommended` / `🔵 OK` blocks, and a `Resources` section linking to source, tests, and changelog.
-- `CHANGELOG.md` — Keep-a-Changelog format scoped to the rule (`## [version] - date` with `### Added/Changed` entries); new rules end with an "Initial release of the `<rule>` rule" entry.
+- `<rule-name>.mdx` — frontmatter (`title`, `description`), full rule name, `Features` badges matching `RULE_FEATURES` (validated by `check:rules`), `Presets` list, `Rule Details`, `Examples` with `🔴 Problem` / `🟢 Recommended` / `🔵 OK` blocks, and a `Resources` section.
+- `CHANGELOG.md` — Keep-a-Changelog format scoped to the rule; new rules end with an "Initial release of the `<rule>` rule" entry.
