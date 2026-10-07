@@ -6,6 +6,22 @@ import rule, { RULE_NAME } from "./set-state-in-effect";
 ruleTester.run(RULE_NAME, rule, {
   invalid: [
     {
+      name: "setState with a plain state value accessed via optional chaining",
+      code: tsx`
+        import { useEffect, useState } from "react";
+
+        function Component() {
+          const [user, setUser] = useState(null);
+          const [label, setLabel] = useState("");
+          useEffect(() => {
+            setLabel(user?.name ?? "");
+          }, [user]);
+          return null;
+        }
+      `,
+      errors: [{ messageId: "default" }],
+    },
+    {
       name: "setState in useEffect",
       code: tsx`
         import { useEffect, useState } from "react";
@@ -2121,6 +2137,37 @@ ruleTester.run(RULE_NAME, rule, {
           useEffect(() => {
             const w = containerRef.current?.offsetWidth;
             setWidth(w);
+          }, []);
+          return null;
+        }
+      `,
+    },
+    {
+      name: "setState with ref.current via optional chaining in the argument",
+      code: tsx`
+        import { useEffect, useState, useRef } from "react";
+
+        function Component() {
+          const containerRef = useRef(null);
+          const [width, setWidth] = useState(0);
+          useEffect(() => {
+            setWidth(containerRef.current?.offsetWidth);
+          }, []);
+          return null;
+        }
+      `,
+    },
+    {
+      name: "setState with a ref-derived variable accessed via optional chaining and logical fallback",
+      code: tsx`
+        import { useEffect, useState, useRef } from "react";
+
+        function Component() {
+          const containerRef = useRef(null);
+          const [width, setWidth] = useState(0);
+          const el = containerRef.current;
+          useEffect(() => {
+            setWidth(el?.offsetWidth ?? 0);
           }, []);
           return null;
         }
