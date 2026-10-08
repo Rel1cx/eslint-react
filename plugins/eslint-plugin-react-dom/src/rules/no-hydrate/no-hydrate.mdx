@@ -31,13 +31,13 @@ react-dom/no-hydrate
 
 ## Rule Details
 
-`ReactDOM.hydrate()` is deprecated in React 18. This rule encourages migrating to the new `hydrateRoot()` API which provides better error handling and concurrent features support.
+`ReactDOM.hydrate()` was deprecated in React 18 and removed in React 19. This rule encourages migrating to the new `hydrateRoot()` API which provides better error handling and concurrent features support.
 
 ## Examples
 
 ### Using the deprecated `ReactDOM.hydrate()` API
 
-In React 18, `ReactDOM.hydrate()` is deprecated in favor of `hydrateRoot()`.
+In React 18, `ReactDOM.hydrate()` was deprecated in favor of `hydrateRoot()`, and it was removed in React 19.
 
 ```tsx
 // 🔴 Problem: ReactDOM.hydrate() is deprecated.
@@ -50,7 +50,6 @@ ReactDOM.hydrate(<Component />, document.getElementById("app"));
 ```tsx
 // 🟢 Recommended: use hydrateRoot() for better error handling and concurrent features.
 import Component from "Component";
-import ReactDOM from "react-dom";
 import { hydrateRoot } from "react-dom/client";
 
 hydrateRoot(document.getElementById("app"), <Component />);

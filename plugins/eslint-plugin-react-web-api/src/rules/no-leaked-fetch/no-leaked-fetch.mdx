@@ -125,15 +125,18 @@ function UserProfile({ id }: { id: string }) {
 
 An in-flight `fetch` does not know its caller has unmounted. When the response
 resolves, the `.then` chain runs regardless. If that chain writes state, React
-logs "Can't perform a state update on an unmounted component" (pre-18) or
-silently overwrites fresh data (post-18, once the component remounts with new
-props).
+logs "Can't perform a state update on an unmounted component" on React 17 and
+earlier. React 18 removed that warning, but the underlying problem remains:
+when a dependency change re-runs the effect, a response from the older request
+can arrive after the newer one and silently overwrite the fresh data with
+stale data.
 
 ### What are the alternatives?
 
-- **`AbortController`** (recommended, canonical React guidance).
+- **`AbortController`** (recommended by this rule): pass the signal to `fetch` and call `abort()` in cleanup. The official React tutorial presents this alongside the `ignore` flag as one of two accepted cleanup strategies ("the cleanup function should either abort the fetch or ignore its result").
+- **`ignore` flag** (also official guidance): the react.dev tutorial's canonical example uses a local `let ignore = false` flag, set to `true` in cleanup, so a stale response is dropped instead of written to state. **Note: this rule does not recognize the `ignore` flag pattern.** Code written exactly as shown in the official tutorial will be reported by this rule; if you follow that pattern, suppress the report or adopt `AbortController` instead.
 - **TanStack Query / SWR**: they manage this for you inside their API boundary; code using them exclusively does not need this rule.
-- **`isMounted` ref guard**: technically prevents UI corruption but wastes network and doesn't trigger on React's strict-mode double-invoke. Rule does not recognize this pattern as a cleanup.
+- **`isMounted` ref guard**: prevents writing to unmounted state, but wastes the in-flight request and breaks under Strict Mode's setup → cleanup → setup sequence: the first cleanup sets the flag to `false`, and the second setup never resets it, so the guard stays stuck off. The official React docs explicitly advise against using a ref to prevent an Effect from firing. Rule does not recognize this pattern as a cleanup.
 
 ## Resources
 

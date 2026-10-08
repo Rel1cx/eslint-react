@@ -29,7 +29,9 @@ react-jsx/no-key-after-spread
 
 When using the JSX automatic runtime, `key` is a special prop in the JSX transform. See the [Babel REPL](https://babeljs.io/repl#?browsers=last%202%20chrome%20versions\&build=\&builtIns=false\&corejs=3.21\&spec=false\&loose=false\&code_lz=DwEwlgbgBA1gpgTwLwCICMKoG8B0eAOATgPb4DOAvlAPQB8A3AFCiTZ45GmWyKoBMmOkxbR4yFAGZMAYwA2AQzJkAcvIC2cVIIbNw0OYpXrNKTGNRSaDIA\&forceAllTransforms=false\&modules=false\&shippedProposals=false\&evaluate=true\&fileSize=false\&timeTravel=false\&sourceType=module\&lineWrap=true\&presets=react\&prettier=false\&targets=\&version=7.27.0\&externalPlugins=\&assumptions=%7B%7D) and the [TypeScript Playground](https://www.typescriptlang.org/play/?target=99\&jsx=4#code/DwEwlgbgBA1gpgTwLwCICMKoG8B0eAOATgPb4DOAvlAPQB8A3ALABQok2eORplsiqAJkx0mrcNHjIUAZkwBjADYBDMmQBySgLZxUwhizbRFK9Vp0pMk1ABY99IA).
 
-If the `key` prop is before any spread props, it is passed as the `key` argument of the `_jsx` / `_jsxs` / `_jsxDev` function. But if the `key` prop is after spread props, the compiler uses `createElement` instead and passes `key` as a regular prop.
+If the `key` prop is before any spread props, it is passed as the `key` argument of the `_jsx` / `_jsxs` / `_jsxDev` function. But if the `key` prop is after spread props, the compiler falls back to `createElement` instead, which extracts `key` from the props object at runtime. The semantics stay the same — `key` is still not passed to the component as a regular prop — but the element loses the compile-time optimization of the automatic runtime.
+
+Note that spreading a `key` from an object is discouraged: [RFC #107: Deprecate spreading key from objects](https://github.com/reactjs/rfcs/pull/107) proposes deprecating this pattern, and React already warns about spread keys in development.
 
 ## Examples
 
@@ -61,6 +63,6 @@ If the `key` prop is before any spread props, it is passed as the `key` argument
 
 ## Further Reading
 
-- [React Docs: New JSX Transform](https://legacy.reactjs.org/blog/2020/09/22/introducing-the-new-jsx-transform.html)
+- [React Docs: New JSX Transform (archived)](https://legacy.reactjs.org/blog/2020/09/22/introducing-the-new-jsx-transform.html)
 - [Babel Preset React: runtime](https://babeljs.io/docs/babel-preset-react#runtime)
 - [TSConfig: jsx](https://www.typescriptlang.org/tsconfig/#jsx)

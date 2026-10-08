@@ -104,12 +104,12 @@ function App() {
 }
 ```
 
-### Using the React 19 `use memo` directive
+### Using the React Compiler
 
-In React 19, if a component uses the `"use memo"` directive, the compiler automatically keeps object references stable, so passing object literals directly is acceptable.
+With the React Compiler, components are automatically compiled and optimized for reference stability in the default `infer` compilation mode, so passing object literals directly is acceptable. The `"use memo"` directive explicitly opts a component into compilation when using the `annotation` compilation mode.
 
 ```tsx
-// 🔵 OK: With the use memo directive, the compiler automatically optimizes references
+// 🔵 OK: The React Compiler automatically optimizes references
 import React from "react";
 
 const MyContext = React.createContext({});

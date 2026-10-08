@@ -182,6 +182,38 @@ function RemoteContent() {
 }
 ```
 
+### Setting state from ref values is allowed
+
+The rule does not flag synchronous `setState` calls when the new state value is derived from a ref. Measuring a DOM node after render (for example with `getBoundingClientRect()`) is a legitimate use of an effect, because the measurement is only available once the DOM exists and cannot be computed during rendering.
+
+Ref-derived values are recognized in many shapes: direct `ref.current` reads, member and call chains (e.g. `ref.current.getBoundingClientRect().height`), optional chaining (e.g. `ref.current?.offsetWidth`), local variables initialized from a ref, updater functions (e.g. `setState(() => ref.current)`), and refs passed as parameters named `ref` or ending in `Ref`.
+
+```tsx
+// 🟢 Recommended: measure a DOM node in an effect and store the result in state
+function Tooltip() {
+  const ref = useRef(null);
+  const [tooltipHeight, setTooltipHeight] = useState(0);
+
+  useLayoutEffect(() => {
+    const { height } = ref.current.getBoundingClientRect();
+    setTooltipHeight(height);
+  }, []);
+}
+```
+
+```tsx
+// 🟢 Recommended: values derived from refs via locals or optional chaining are also allowed
+function Component() {
+  const containerRef = useRef(null);
+  const [width, setWidth] = useState(0);
+
+  useLayoutEffect(() => {
+    const el = containerRef.current;
+    setWidth(el?.offsetWidth ?? 0);
+  }, []);
+}
+```
+
 ## Known Limitations
 
 ### Cleanup functions

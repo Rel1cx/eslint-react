@@ -29,6 +29,8 @@ react-dom/no-dangerously-set-innerhtml
 
 This should be used with extreme caution! If the HTML inside isn't trusted (for example, if it's based on user data), you risk introducing an [XSS](https://en.wikipedia.org/wiki/Cross-site_scripting) vulnerability.
 
+Since React 19.3, `dangerouslySetInnerHTML` also accepts a `TrustedHTML` value as `__html`, which React passes to the browser without converting it to a string so that sites enforcing [Trusted Types](https://developer.mozilla.org/en-US/docs/Web/API/Trusted_Types_API) can validate it.
+
 Read more about using [dangerouslySetInnerHTML](https://react.dev/reference/react-dom/components/common#dangerously-setting-the-inner-html).
 
 ## Examples

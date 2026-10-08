@@ -30,7 +30,7 @@ react-x/no-children-map
 Using `Children.map` to transform children is a form of React child introspection. It creates fragile coupling between parent and child components:
 
 - Breaks when children are wrapped in HOCs, `forwardRef`, or `memo`.
-- Prevents React from optimizing rendering.
+- Operates on `children` as an opaque data structure that does not include the rendered output of child components.
 - Creates implicit contracts that types can't enforce.
 - Makes composition unpredictable with fragments, portals, and other React features.
 

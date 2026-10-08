@@ -27,7 +27,7 @@ react-jsx/no-namespace
 
 ## Rule Details
 
-React does not support XML namespaced tags (e.g. `<ns:Component />`). Although the JSX specification permits namespaces, React does not implement them. Using a namespaced element will cause a runtime error.
+React does not support XML namespaced tags (e.g. `<ns:Component />`). Although the JSX specification permits namespaces, React does not implement them. In standard toolchains, using a namespaced element fails at compile time (Babel's `throwIfNamespace` option is enabled by default); only if that check is explicitly disabled does the code reach runtime, where React DOM treats the tag as an unknown element.
 
 ## Examples
 

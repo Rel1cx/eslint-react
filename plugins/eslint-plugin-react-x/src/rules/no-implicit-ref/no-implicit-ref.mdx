@@ -25,7 +25,7 @@ react-x/no-implicit-ref
 
 ## Rule Details
 
-This makes it hard to see whether the ref was passed correctly to the element or where it came from.
+This rule warns about implicitly passing the `ref` prop when spreading an object onto a component with the spread operator (`{...props}`). Since React 19, `ref` is a regular prop ([ref as a prop](https://react.dev/blog/2024/12/05/react-19#ref-as-a-prop)), so it can be silently passed into or out of a component along with the rest of a spread object. This makes it hard to see whether the ref was passed correctly to the element or where it came from.
 
 The following cases are **allowed** and will not be reported:
 

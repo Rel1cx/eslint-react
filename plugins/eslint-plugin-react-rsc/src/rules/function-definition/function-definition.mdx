@@ -37,11 +37,11 @@ react-rsc/function-definition
 
 It includes the following checks:
 
-1. If a file has a top-level `'use server'` directive, exported functions must be async. Functions with their own `'use server'` directive must also be async.
+1. If a file has a top-level `'use server'` directive, exported functions must be async. Functions with their own `'use server'` directive must also be async. Note that this rule only checks exported functions; frameworks like Next.js additionally require that _all_ exports from a `'use server'` file be async functions, including non-function values.
 2. If a file has a top-level `'use client'` or `'use server'` directive, it must be placed at the very beginning of the file, before any imports or other code. Comments above the directive are allowed.
 3. If a function has a `'use server'` directive, it must be placed at the very beginning of the function body.
 4. `'use client'` and `'use server'` directives must be written with single or double quotes, not backticks.
-5. The `'use client'` directive must not be used inside a function body.
+5. The `'use client'` directive must not be used inside a function body. It marks an entire module as client code, so it is only meaningful at the top of a file.
 
 ## Examples
 
@@ -137,11 +137,11 @@ import { useState } from 'react';
 ```
 
 ```tsx
-// 🔴 Problem: Directive must be at the very beginning of the function body
+// 🔴 Problem: Directive must be at the very beginning of the function body, before any other statements
 export function Component() {
-  const x = 1;
+  async function serverFunction() {
+    const x = 1;
 
-  function serverFunction() {
     'use server';
     // ...
   }

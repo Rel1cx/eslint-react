@@ -30,7 +30,7 @@ react-x/no-children-to-array
 Using `Children.toArray` to materialize the children tree is a form of React child introspection. It creates fragile coupling between parent and child components:
 
 - Breaks when children are wrapped in HOCs, `forwardRef`, or `memo`.
-- Prevents React from optimizing rendering.
+- Operates on `children` as an opaque data structure that does not include the rendered output of child components.
 - Creates implicit contracts that types can't enforce.
 - Makes composition unpredictable with fragments, portals, and other React features.
 
@@ -47,7 +47,7 @@ Prefer these alternatives:
 
 ### Converting children to an array for manipulation
 
-Using `Children.toArray` to turn children into an array assumes internal React details that may change. If you need to reorder or filter items, accept structured data as props instead.
+`Children.toArray` is the official way to turn children into an array, but the `children` data structure it operates on is opaque and does not include the rendered output of child components, so logic based on the resulting array can silently misbehave. If you need to reorder or filter items, accept structured data as props instead.
 
 For example, if you need to reverse a list, let the parent pass an array prop and use standard array methods:
 

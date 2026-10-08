@@ -57,12 +57,13 @@ obj.nested.myRef = useRef(null);
 ```
 
 ```tsx
-// 🔵 OK: The result is immediately accessed via a member expression instead of being stored in a ref variable
+// 🔵 OK: Not reported by this rule — the result is immediately accessed via a member expression instead of being stored in a ref variable
+// (note: reading `.current` during rendering like this is discouraged by the React docs, except for initialization)
 const value = useRef(null).current.value;
 ```
 
 ```tsx
-// 🔵 OK: The result is immediately accessed via a member expression instead of being stored in a ref variable (same as above)
+// 🔵 OK: Not reported by this rule — same as above (the `??=` lazy-initialization write is the officially tolerated exception)
 const useOnce = <T,>(fn: () => T) => (useRef<{ value: T }>().current ??= { value: fn() }).value;
 ```
 

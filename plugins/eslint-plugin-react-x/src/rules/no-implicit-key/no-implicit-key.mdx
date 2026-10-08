@@ -25,7 +25,7 @@ react-x/no-implicit-key
 
 ## Rule Details
 
-This makes it hard to see whether the key was passed correctly to the element or where it came from.
+This rule warns about implicitly passing the `key` prop when spreading an object onto a component with the spread operator (`{...props}`). Although components never receive `key` as a prop — it is only used as a hint by React itself ([Rules of keys](https://react.dev/learn/rendering-lists#rules-of-keys)) — it can still be silently passed along with the rest of a spread object. This makes it hard to see whether the key was passed correctly to the element or where it came from.
 
 It is also proposed to be deprecated in this RFC: [Deprecate spreading key from objects](https://github.com/reactjs/rfcs/pull/107#issue-413235149).
 

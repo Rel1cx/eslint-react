@@ -39,7 +39,7 @@ react-dom/no-render
 import Component from "Component";
 import ReactDOM from "react-dom";
 
-// 🔴 Problem: ReactDOM.render() is the legacy API and will be removed in React 18+
+// 🔴 Problem: ReactDOM.render() is the legacy API; it was deprecated in React 18 and removed in React 19.
 ReactDOM.render(<Component />, document.getElementById("app"));
 ```
 
@@ -53,7 +53,7 @@ createRoot(document.getElementById("app")).render(<Component />);
 
 ### Using `render()` from `react-dom`
 
-Importing `render` directly from `react-dom` is also deprecated and should be migrated to `createRoot()`.
+Importing `render` directly from `react-dom` is no longer possible in React 19 (the export was removed) and should be migrated to `createRoot()`.
 
 ```tsx
 // 🔴 Problem: render() from react-dom is the legacy API.

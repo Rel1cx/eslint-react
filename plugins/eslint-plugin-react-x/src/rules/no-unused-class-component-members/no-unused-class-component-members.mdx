@@ -58,7 +58,7 @@ If a method is explicitly called in a lifecycle (such as componentDidMount) or b
 import React from "react";
 
 class MyComponent extends React.Component {
-  static getDerivedStateFromError(error: React.ErrorInfo) {
+  static getDerivedStateFromError(error: Error) {
     return { hasError: true };
   }
   action() {}

@@ -79,7 +79,7 @@ function StatefulForm({}) {
 
 ```tsx
 // 🟢 Recommended: Use useActionState to track pending state
-import { useActionState } from "react";
+import { startTransition, useActionState } from "react";
 
 async function addToCart(previousCount: number, formData: FormData) {
   // Simulate an async server action
@@ -97,7 +97,7 @@ function Checkout() {
         <span>Tickets</span>
         <span>Qty: {count}</span>
       </div>
-      <button onClick={() => dispatchAction()} disabled={isPending}>
+      <button onClick={() => startTransition(() => dispatchAction())} disabled={isPending}>
         Add Ticket{isPending ? " 🌀" : ""}
       </button>
     </div>

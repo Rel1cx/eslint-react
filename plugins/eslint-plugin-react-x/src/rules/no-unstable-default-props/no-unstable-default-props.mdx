@@ -162,12 +162,12 @@ function MyComponent(props: MyComponentProps) {
 }
 ```
 
-### Using the `use memo` directive
+### Using the React Compiler
 
-In React 19, if a component uses the `"use memo"` directive, the compiler automatically optimizes reference stability for default props, so literal default values are acceptable.
+With the React Compiler, components are automatically compiled and optimized for reference stability in the default `infer` compilation mode, so literal default values are acceptable. The `"use memo"` directive explicitly opts a component into compilation when using the `annotation` compilation mode.
 
 ```tsx
-// 🔵 OK: The use memo directive automatically optimizes references
+// 🔵 OK: The React Compiler automatically optimizes references
 interface MyComponentProps {
   items: string[];
 }

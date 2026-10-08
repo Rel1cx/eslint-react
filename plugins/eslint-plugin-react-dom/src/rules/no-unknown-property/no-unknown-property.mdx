@@ -21,7 +21,7 @@ react-dom/no-unknown-property
 
 ## Rule Details
 
-In JSX, most DOM properties and attributes should be camel-cased to be consistent with standard JavaScript style. This can be a source of error if you are used to writing plain HTML. Only `data-*` and `aria-*` attributes use hyphens and lowercase letters in JSX.
+In JSX, most DOM properties and attributes should be camel-cased to be consistent with standard JavaScript style. This can be a source of error if you are used to writing plain HTML. The exceptions are `data-*` and `aria-*` attributes, which keep their hyphenated lowercase form, and custom attributes: React also passes through any attribute whose name is lowercase and does not start with `on` (for example `mycustomprop="someValue"`).
 
 ## Examples
 
@@ -30,6 +30,9 @@ In JSX, most DOM properties and attributes should be camel-cased to be consisten
 ```tsx
 // 🔴 Problem: HTML attributes like `class` must be written as `className` in JSX
 const Hello = <div class="hello">Hello World</div>;
+// 🔴 Problem: React accepts lowercase custom attributes like `abc` and passes them
+// through to the DOM without a warning, but this rule reports them to catch typos
+// and enforce consistent style
 const Alphabet = <div abc="something">Alphabet</div>;
 ```
 
@@ -75,7 +78,7 @@ const AtomPanel = <atom-panel class="foo"></atom-panel>;
 
 - `enabled`: enables the rule. 0=off, 1=warn, 2=error. Defaults to 0.
 - `ignore`: optional array of property and attribute names to ignore during validation.
-- `requireDataLowercase`: optional (default: `false`), requires data-\* attributes to contain only lowercase characters. React will issue a warning when data-\* attributes contain uppercase characters. To catch such attributes, set the `requireDataLowercase` option to `true`.
+- `requireDataLowercase`: optional (default: `false`), requires data-\* attributes to contain only lowercase characters. React itself does not warn about uppercase characters in data-\* attributes; it passes them through to the DOM as-is. This is a stylistic check of the rule: keeping data-\* attributes all-lowercase matches the lowercase convention of HTML attribute names and `getAttribute` lookups. Set the `requireDataLowercase` option to `true` to enforce it.
 
 If you are using a library that passes something as a prop to JSX elements, add those props to the ignored properties.
 

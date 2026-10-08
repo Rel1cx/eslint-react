@@ -119,6 +119,8 @@ function Timer() {
 }
 ```
 
+Note that `Timer` passes an inline arrow function as `callback`, which creates a new function reference on every render and therefore resets the interval each time. See [React Docs: Removing unnecessary function dependencies](https://react.dev/reference/react/useEffect#removing-unnecessary-function-dependencies) for ways to avoid this.
+
 ## Resources
 
 - [Rule Source](https://github.com/Rel1cx/eslint-react/tree/main/plugins/eslint-plugin-react-web-api/src/rules/no-leaked-interval/no-leaked-interval.ts)
@@ -128,5 +130,6 @@ function Timer() {
 ## Further Reading
 
 - [React Docs: Synchronizing with effects](https://react.dev/learn/synchronizing-with-effects#putting-it-all-together)
+- [React Docs: Updating state based on previous state from an Effect](https://react.dev/reference/react/useEffect#updating-state-based-on-previous-state-from-an-effect)
 - [MDN: `setInterval`](https://developer.mozilla.org/en-US/docs/Web/API/setInterval)
 - [MDN: `clearInterval`](https://developer.mozilla.org/en-US/docs/Web/API/clearInterval)

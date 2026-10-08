@@ -30,7 +30,7 @@ react-x/no-children-only
 Using `Children.only` to assert the children tree shape is a form of React child introspection. It creates fragile coupling between parent and child components:
 
 - Breaks when children are wrapped in HOCs, `forwardRef`, or `memo`.
-- Prevents React from optimizing rendering.
+- Operates on `children` as an opaque data structure that does not include the rendered output of child components.
 - Creates implicit contracts that types can't enforce.
 - Makes composition unpredictable with fragments, portals, and other React features.
 
@@ -47,7 +47,7 @@ Prefer these alternatives:
 
 ### Enforcing a single child
 
-Using `Children.only` to assert that a component receives exactly one child is fragile. If you need to restrict children, consider documenting the prop type or using a different API design.
+Using `Children.only` asserts that `children` is a single React element — not just any single node: it throws when `children` is an array (even one with a single element), a string, or a number. If you need to restrict children, consider documenting the prop type or using a different API design.
 
 For example, if your component needs exactly one child element, you can type the prop as a single `ReactElement` instead of `React.ReactNode`:
 

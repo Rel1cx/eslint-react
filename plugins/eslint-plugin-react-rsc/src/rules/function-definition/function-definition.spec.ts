@@ -884,5 +884,21 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
     },
+    // TODO: Inverted case — React docs state 'use server' can only be used in server-side files,
+    // so this should error in a 'use client' file. Move to `invalid` once the rule reports it.
+    {
+      name: "Local 'use server' directive in a 'use client' file",
+      code: tsx`
+        'use client';
+        export function Component() {
+          async function serverFunction() {
+            'use server';
+            return 42;
+          }
+
+          return <div />;
+        }
+      `,
+    },
   ],
 });

@@ -49,6 +49,10 @@ Button.displayName = "Button";
 
 ### Wrapping an anonymous arrow function with React.forwardRef
 
+<Callout type="warn">
+  In React 19, `forwardRef` is no longer necessary and will be deprecated in a future release: you can pass `ref` as a prop to function components directly. The examples below still apply to legacy code, but for new code prefer passing `ref` as a prop instead.
+</Callout>
+
 ```tsx
 // 🔴 Problem: When forwardRef wraps an anonymous function, React cannot automatically infer the component name
 import React from "react";
