@@ -31,7 +31,9 @@ react-x/no-use-context
 
 ## Rule Details
 
-In React 19, `use` is preferred over `useContext` because it is more flexible.
+In React 19, this rule prefers `use` over `useContext` because `use` is more flexible — unlike `useContext`, it can be called within loops and conditional statements. Note that this is a convention of this rule, not an official React recommendation; `useContext` remains the standard way to read context.
+
+> **Note:** Reading context with `use` is not supported in Server Components. The auto-fix that replaces `useContext` with `use` does not apply there — review flagged code in Server Components manually instead of applying the fix.
 
 In addition, enable the [`react-naming-convention/context-name`](./naming-convention-context-name) rule to enforce consistent naming conventions for contexts.
 
@@ -39,10 +41,10 @@ In addition, enable the [`react-naming-convention/context-name`](./naming-conven
 
 ### Still using useContext in React 19
 
-React 19 introduced the more general `use` API, which can replace `useContext` and supports being called in conditional statements and loops. New code should prefer `use`.
+React 19 introduced the more general `use` API, which can replace `useContext` and, unlike `useContext`, can be called in conditional statements and loops. This rule prefers `use` in new code.
 
 ```tsx
-// 🔴 Problem: use should be preferred over useContext in React 19
+// 🔴 Problem: this rule prefers use over useContext in React 19
 import { useContext } from "react";
 
 function Button() {

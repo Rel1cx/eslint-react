@@ -27,7 +27,7 @@ react-jsx/no-useless-fragment
 
 ## Rule Details
 
-A fragment is redundant if it contains only one child or if it is the child of an host element and is not a [keyed fragment](https://react.dev/reference/react/Fragment#caveats).
+A fragment is redundant if it contains only one child or if it is the child of an host element and is not a [keyed or ref'd fragment](https://react.dev/reference/react/Fragment#caveats).
 
 ## Examples
 
@@ -122,6 +122,11 @@ const cat = <>meow</>
 ```tsx
 // 🔵 OK: Keyed fragment
 <Fragment key={item.id}>{item.value}</Fragment>
+```
+
+```tsx
+// 🔵 OK: Fragment with ref (React 19.3+)
+<Fragment ref={fragmentRef}>{item.value}</Fragment>
 ```
 
 ## Rule Options

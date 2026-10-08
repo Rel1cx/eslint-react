@@ -29,6 +29,8 @@ react-x/no-set-state-in-component-did-update
 
 Updating the state after a component updates will trigger an additional `render()` call and can lead to property/layout thrashing or infinite loops.
 
+The [official React documentation](https://react.dev/reference/react/Component#componentdidupdate) permits calling `setState` immediately in `componentDidUpdate` when it is wrapped in a condition (e.g., comparing `this.props` to `prevProps`), so it does not run on every update — otherwise an unconditional call causes an infinite loop. Even so, it's best to avoid it when possible; the main legitimate case is measuring a DOM node (e.g., for modals and tooltips) before rendering something that depends on its size or position. This rule still reports such calls, so you can disable it selectively for those cases.
+
 ## Examples
 
 ### Calling setState directly in componentDidUpdate

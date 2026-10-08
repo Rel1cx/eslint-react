@@ -27,6 +27,8 @@ react-x/use-memo
 
 ## Rule Details
 
+The React Compiler automatically memoizes values and functions, reducing the need to write `useMemo` by hand. However, existing `useMemo` callbacks must still follow React's requirements (e.g. purity), and this rule validates their correctness.
+
 This rule ensures that `useMemo()` callbacks follow React's requirements. It checks for several common mistakes:
 
 1. Callbacks should not accept parameters (useMemo callbacks are called with no arguments)

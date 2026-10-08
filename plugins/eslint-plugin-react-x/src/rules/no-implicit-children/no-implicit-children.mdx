@@ -25,7 +25,7 @@ react-x/no-implicit-children
 
 ## Rule Details
 
-This makes it hard to see whether the children was passed correctly to the element or where it came from.
+This rule warns about implicitly passing the `children` prop when spreading an object onto a component with the spread operator (`{...props}`). Like any other prop, `children` can be silently passed into or out of a component along with the rest of a spread object. This makes it hard to see whether the children was passed correctly to the element or where it came from.
 
 The following cases are **allowed** and will not be reported:
 

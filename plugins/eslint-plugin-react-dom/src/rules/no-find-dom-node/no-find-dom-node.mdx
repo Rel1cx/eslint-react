@@ -27,23 +27,23 @@ react-dom/no-find-dom-node
 
 ## Rule Details
 
-This API will be removed in a future major version of React. [See the alternatives](https://react.dev/reference/react-dom/findDOMNode#alternatives).
+This API was deprecated in React 16.6 and removed in React 19. [See the alternatives](https://18.react.dev/reference/react-dom/findDOMNode#alternatives).
 
 ## Examples
 
 ### Using `findDOMNode` to access a DOM node
 
-`findDOMNode` is a legacy API that will be removed. Use refs instead to reliably access DOM nodes.
+`findDOMNode` is a legacy API that was removed in React 19. Use refs instead to reliably access DOM nodes.
 
 ```tsx
-// 🔴 Problem: findDOMNode is deprecated and will be removed.
+// 🔴 Problem: findDOMNode is deprecated and was removed in React 19.
 import React, { Component } from "react";
 import { findDOMNode } from "react-dom";
 
 class AutoSelectingInput extends Component {
   componentDidMount() {
     const input = findDOMNode(this);
-    //            ^^^ 'findDOMNode' will be removed in a future version of React. Use the alternatives instead.
+    //            ^^^ 'findDOMNode' was removed in React 19. Use the alternatives instead.
     if (input instanceof HTMLInputElement) {
       input.select();
     }
@@ -113,4 +113,4 @@ function AutoSelectingInput() {
 
 ## Further Reading
 
-- [React Docs: `findDOMNode`](https://react.dev/reference/react-dom/findDOMNode)
+- [React Docs: `findDOMNode`](https://18.react.dev/reference/react-dom/findDOMNode)

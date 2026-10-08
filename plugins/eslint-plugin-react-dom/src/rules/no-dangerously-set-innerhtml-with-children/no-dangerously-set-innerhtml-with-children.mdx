@@ -27,17 +27,17 @@ react-dom/no-dangerously-set-innerhtml-with-children
 
 ## Rule Details
 
-When using `dangerouslySetInnerHTML`, the content of the DOM element is set from the `__html` property. The content of the DOM element is completely replaced, so the children will not be rendered as expected.
+When using `dangerouslySetInnerHTML`, the content of the DOM element is set from the `__html` property. React does not allow both `children` and `dangerouslySetInnerHTML` to be used on the same element; if both are passed, React throws an error — `Can only set one of 'children' or 'props.dangerouslySetInnerHTML'` — and the component fails to render.
 
 ## Examples
 
 ### Using `dangerouslySetInnerHTML` together with children
 
-When you set `dangerouslySetInnerHTML`, React replaces the element's contents entirely, so any children you provide are silently ignored.
+When you pass `dangerouslySetInnerHTML` and children together, React throws an error and the component does not render at all.
 
 ```tsx
 // 🔴 Problem: dangerouslySetInnerHTML and children are used together.
-// The <p> child will not be rendered.
+// React throws "Can only set one of 'children' or 'props.dangerouslySetInnerHTML'" and the component fails to render.
 function MyComponent() {
   return (
     <div dangerouslySetInnerHTML={{ __html: "Hello World" }}>

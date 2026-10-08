@@ -107,38 +107,37 @@ function MyComponent() {
 }
 ```
 
-### Duplicate keys when rendering multiple lists side by side
+### Combining multiple lists into one array
 
-When two or more lists are rendered as siblings under the same parent element, using array indices as keys can produce duplicate key values.
+Keys must be unique only among siblings within the same array — React explicitly allows the same keys in JSX nodes from different arrays rendered side by side. But when multiple lists are merged into a single array, keys that were unique within each list can collide among the new siblings.
 
 ```tsx
-// 🔴 Problem: Two lists rendered side by side both use index keys
+// 🔴 Problem: Merging two lists can produce duplicate keys if their ids overlap
 function App({ activeItems, archivedItems }) {
+  const items = [...activeItems, ...archivedItems];
   return (
-    <div>
-      {activeItems.map((item, index) => (
-        <div key={index}>{item.name}</div>
+    <ul>
+      {items.map((item) => (
+        <li key={item.id}>{item.name}</li>
       ))}
-      {archivedItems.map((item, index) => (
-        <div key={index}>{item.name}</div>
-      ))}
-    </div>
+    </ul>
   );
 }
 ```
 
 ```tsx
-// 🟢 Recommended: Use unique identifiers from the data
+// 🟢 Recommended: Prefix the key with the source list so keys stay unique in the merged array
 function App({ activeItems, archivedItems }) {
+  const items = [
+    ...activeItems.map((item) => ({ ...item, key: `active-${item.id}` })),
+    ...archivedItems.map((item) => ({ ...item, key: `archived-${item.id}` })),
+  ];
   return (
-    <div>
-      {activeItems.map((item) => (
-        <div key={item.id}>{item.name}</div>
+    <ul>
+      {items.map((item) => (
+        <li key={item.key}>{item.name}</li>
       ))}
-      {archivedItems.map((item) => (
-        <div key={item.id}>{item.name}</div>
-      ))}
-    </div>
+    </ul>
   );
 }
 ```
@@ -152,4 +151,5 @@ function App({ activeItems, archivedItems }) {
 ## Further Reading
 
 - [React Docs: Why does React need keys?](https://react.dev/learn/rendering-lists#why-does-react-need-keys)
+- [React Docs: Rules of keys](https://react.dev/learn/rendering-lists#rules-of-keys)
 - [React Docs: Rendering Lists](https://react.dev/learn/rendering-lists)

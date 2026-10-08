@@ -29,7 +29,7 @@ react-x/error-boundaries
 
 Try/catch blocks can't catch errors that happen during React's rendering process. Errors thrown in rendering methods or lifecycle hooks bubble up through the component tree. Only [Error Boundaries](https://react.dev/reference/react/Component#catching-rendering-errors-with-an-error-boundary) can catch these errors.
 
-Similarly, the `use` hook doesn't throw errors in the traditional sense — it suspends component execution. When `use` encounters a rejected promise, only Error Boundaries (and Suspense boundaries) can handle these cases. A catch block around `use` would never run.
+Similarly, the `use` hook doesn't throw errors in the traditional sense — it suspends component execution. When `use` encounters a pending promise, the nearest Suspense boundary shows its fallback; when the promise rejects, the fallback of the nearest Error Boundary is displayed. A catch block around `use` would never run.
 
 ## Examples
 
@@ -125,7 +125,7 @@ function Component() {
 
 ### Why is the linter telling me not to wrap `use` in `try`/`catch`?
 
-The `use` hook doesn't throw errors in the traditional sense — it suspends component execution. When `use` encounters a pending promise, it suspends the component and lets React show a fallback. Only Suspense and Error Boundaries can handle these cases. The linter warns against `try`/`catch` around `use` to prevent confusion as the `catch` block would never run.
+The `use` hook doesn't throw errors in the traditional sense — it suspends component execution. When `use` encounters a pending promise, it suspends the component and the nearest Suspense boundary shows a fallback; if the promise rejects, the nearest Error Boundary displays its fallback. The linter warns against `try`/`catch` around `use` to prevent confusion as the `catch` block would never run.
 
 ```tsx
 // 🔴 Problem: try/catch around `use` hook
