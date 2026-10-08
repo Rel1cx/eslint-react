@@ -78,7 +78,7 @@ overrides:
   typescript-eslint: "^8.71.1"
   typescript: "6.0.3"
   # Keep a single vite copy in the tree (fumadocs-mdx's peer otherwise stays on an older resolution)
-  vite: "^8.3.3"
+  vite: "^8.3.4"
   # Transitive dependency via @types/node 26.1.2
   undici-types: "^8.11.2"
   # Transitive dependency via @effect/platform-node 4.0.0
