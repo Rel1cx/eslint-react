@@ -5,13 +5,16 @@ import { DefinitionType } from "@typescript-eslint/scope-manager";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import { findVariable } from "@typescript-eslint/utils/ast-utils";
 
+/** Global functions that convert their first argument while preserving its identity as a key. */
+export const KNOWN_COERCION_FUNCTIONS = new Set(["Number", "String"]);
+
 /**
  * Iterator-like methods that pass the item's index to their callback,
  * mapped to the position of the index parameter in the callback's parameter list.
  * `map` and `forEach` also cover `Children.map` and `Children.forEach`,
  * whose callback is the second argument instead of the first.
  */
-const INDEX_PARAM_POSITIONS = new Map<string, number>([
+const KNOWN_INDEX_PARAM_POSITIONS = new Map<string, number>([
   ["every", 1],
   ["filter", 1],
   ["find", 1],
@@ -49,7 +52,7 @@ export function isArrayIndexReference(context: RuleContext, node: TSESTree.Ident
   const callee = Extract.unwrap(call.callee);
   if (callee.type !== AST.MemberExpression) return false;
   if (!Check.isIdentifier(callee.property)) return false;
-  const indexPosition = INDEX_PARAM_POSITIONS.get(callee.property.name);
+  const indexPosition = KNOWN_INDEX_PARAM_POSITIONS.get(callee.property.name);
   if (indexPosition == null) return false;
   // The callback is the first argument, or the second for `Children.map`/`Children.forEach`
   const callbackPosition = core.isChildrenMap(context, callee) || core.isChildrenForEach(context, callee)
@@ -60,8 +63,7 @@ export function isArrayIndexReference(context: RuleContext, node: TSESTree.Ident
   // possibly wrapped in a default value assignment (e.g. `(item, i = 0) => ...`)
   const param = callback.params[indexPosition];
   if (param == null) return false;
-  return param === def.name
-    || (param.type === AST.AssignmentPattern && param.left === def.name);
+  return param === def.name || (param.type === AST.AssignmentPattern && param.left === def.name);
 }
 
 /**
