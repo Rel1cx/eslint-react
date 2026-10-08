@@ -7,7 +7,7 @@ import { simpleTraverse } from "@typescript-eslint/typescript-estree";
  * mapped to the position of the callback in the call's argument list.
  * `from` covers `Array.from(iterable, mapFn)`.
  */
-export const INDEX_PARAM_POSITIONS = new Map<string, number>([
+export const KNOWN_CALLBACK_POSITIONS = new Map<string, number>([
   ["flatMap", 0],
   ["from", 1],
   ["map", 0],

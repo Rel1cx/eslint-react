@@ -5,7 +5,7 @@ import { type RuleContext, type RuleFeature, type RuleListener } from "@eslint-r
 import { hasAttribute } from "@eslint-react/jsx";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import type { ReportDescriptor } from "@typescript-eslint/utils/ts-eslint";
-import { INDEX_PARAM_POSITIONS, getNestedReturnStatements } from "./lib";
+import { KNOWN_CALLBACK_POSITIONS, getNestedReturnStatements } from "./lib";
 
 export const RULE_NAME = "no-missing-key";
 
@@ -40,7 +40,7 @@ function getIteratorCallback(node: TSESTree.CallExpression): TSESTreeFunction | 
   const callee = Extract.unwrap(node.callee);
   if (callee.type !== AST.MemberExpression) return null;
   if (!Check.isIdentifier(callee.property)) return null;
-  const position = INDEX_PARAM_POSITIONS.get(callee.property.name);
+  const position = KNOWN_CALLBACK_POSITIONS.get(callee.property.name);
   if (position == null) return null;
   const callback = node.arguments[position];
   if (callback == null || !Check.isFunction(callback)) return null;

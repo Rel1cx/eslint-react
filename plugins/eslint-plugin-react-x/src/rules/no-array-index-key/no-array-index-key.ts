@@ -4,16 +4,13 @@ import * as core from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, type RuleListener } from "@eslint-react/eslint";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import type { ReportDescriptor } from "@typescript-eslint/utils/ts-eslint";
-import { getIdentifiersFromBinaryExpression, isArrayIndexReference } from "./lib";
+import { KNOWN_COERCION_FUNCTIONS, getIdentifiersFromBinaryExpression, isArrayIndexReference } from "./lib";
 
 export const RULE_NAME = "no-array-index-key";
 
 export const RULE_FEATURES = [] as const satisfies RuleFeature[];
 
 export type MessageID = "default";
-
-/** Global functions that convert their first argument while preserving its identity as a key. */
-const COERCION_FUNCTIONS = new Set(["Number", "String"]);
 
 export default createRule<[], MessageID>({
   meta: {
@@ -31,11 +28,9 @@ export default createRule<[], MessageID>({
 });
 
 export function create(context: RuleContext<MessageID, []>): RuleListener {
-  type Descriptor = ReportDescriptor<MessageID> & { node: TSESTree.Node };
-
   // Checks if a given node is an identifier that resolves to an array index parameter
-  function isArrayIndex(node: TSESTree.Node): node is TSESTree.Identifier {
-    return Check.isIdentifier(node) && isArrayIndexReference(context, node);
+  function isArrayIndex(node: TSESTree.Node | null | undefined): node is TSESTree.Identifier {
+    return node != null && Check.isIdentifier(node) && isArrayIndexReference(context, node);
   }
 
   // Gets the props object of a `createElement` or `cloneElement` call
@@ -54,7 +49,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
    * @param node The key value expression to check.
    * @returns The report descriptors for the violations found.
    */
-  function visitKeyExpression(node: TSESTree.Node): Descriptor[] {
+  function visitKeyExpression(node: TSESTree.Node): ReportDescriptor<MessageID>[] {
     switch (node.type) {
       // Case: key={index}
       case AST.Identifier:
@@ -94,7 +89,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         }
         // Case: key={String(index)} or key={Number(index)}
         const argument = node.arguments.at(0);
-        if (callee.type === AST.Identifier && COERCION_FUNCTIONS.has(callee.name) && argument != null && isArrayIndex(argument)) {
+        if (callee.type === AST.Identifier && KNOWN_COERCION_FUNCTIONS.has(callee.name) && isArrayIndex(argument)) {
           return [{ messageId: "default", node: argument }];
         }
         return [];
