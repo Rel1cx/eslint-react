@@ -1,5 +1,17 @@
 # Changelog
 
+## v5.24.9 (2026-10-08)
+
+### 🐞 Fixes
+
+- `react-x/set-state-in-effect`: optional chaining in a `setState` argument (ex: `setData(ref.current?.value)`, `setWidth(el?.offsetWidth ?? 0)` where `el` is ref-derived) no longer defeats the ref-value exemption; the `ChainExpression` wrapper is now unwrapped during ref-source detection. (#2011)
+
+### 📝 Documentation
+
+- Aligned rule documentation with the current react.dev reference docs. (#2013)
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.24.8...v5.24.9
+
 ## v5.24.8 (2026-10-07)
 
 ### 🐞 Fixes

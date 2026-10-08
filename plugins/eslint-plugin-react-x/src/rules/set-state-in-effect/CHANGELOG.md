@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [5.24.9] - 2026-10-08
+
 ### Fixed
 
 - Optional chaining in a `setState` argument (ex: `setData(ref.current?.value)`, `setWidth(el?.offsetWidth ?? 0)` where `el` is ref-derived) no longer defeats the ref-value exemption; the `ChainExpression` wrapper is now unwrapped during ref-source detection.
