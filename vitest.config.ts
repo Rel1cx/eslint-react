@@ -5,6 +5,7 @@ export default defineConfig({
     tsconfigPaths: true,
   },
   test: {
+    isolate: false,
     exclude: ["**/node_modules/**", ".nx/**", ".zed/**", ".github/**"],
   },
 });
