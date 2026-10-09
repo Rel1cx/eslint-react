@@ -6,7 +6,9 @@ Helpers for traversing `TSESTree` nodes.
 
 ## Functions
 
-| Function                                                    | Description                                                                                        |
-| ----------------------------------------------------------- | -------------------------------------------------------------------------------------------------- |
-| [findEnclosingTryBlock](functions/findEnclosingTryBlock.md) | Find the nearest `TryStatement` whose `try` block (not `catch`/`finally`) encloses the given node. |
-| [findParent](functions/findParent.md)                       | Walk up the AST from `node` to find the nearest ancestor matching a predicate.                     |
+| Function                                                    | Description                                                                                              |
+| ----------------------------------------------------------- | -------------------------------------------------------------------------------------------------------- |
+| [findEnclosingTryBlock](functions/findEnclosingTryBlock.md) | Find the nearest `TryStatement` whose `try` block (not `catch`/`finally`) encloses the given node.       |
+| [findParent](functions/findParent.md)                       | Walk up the AST from `node` to find the nearest ancestor matching a predicate.                           |
+| [hasEnclosingTryBlock](functions/hasEnclosingTryBlock.md)   | Check whether the given node is enclosed by the `try` block (not `catch`/`finally`) of a `TryStatement`. |
+| [hasParent](functions/hasParent.md)                         | Check whether `node` has an ancestor matching a predicate.                                               |

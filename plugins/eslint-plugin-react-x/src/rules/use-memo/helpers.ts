@@ -52,7 +52,7 @@ export function getNestedReturnStatements(node: TSESTree.Node): readonly TSESTre
       if (node.type !== AST.ReturnStatement) {
         return;
       }
-      if (Traverse.findParent(node, Check.isFunction, (n) => n === boundary) != null) {
+      if (Traverse.hasParent(node, Check.isFunction, (n) => n === boundary)) {
         return;
       }
       statements.push(node);

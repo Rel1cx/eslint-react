@@ -21,5 +21,5 @@ export const KNOWN_DYNAMIC_EXPRESSION_TYPES: ReadonlySet<TSESTree.Node["type"]> 
  */
 export function createRenderBoundaryChecker(componentNodes: readonly TSESTree.Node[]): IsInsideRender {
   const components = new Set(componentNodes);
-  return (node) => Traverse.findParent(node, (n) => (Check.isFunction(n) || Check.isClass(n)) && components.has(n)) != null;
+  return (node) => Traverse.hasParent(node, (n) => (Check.isFunction(n) || Check.isClass(n)) && components.has(n));
 }

@@ -136,11 +136,11 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   // callback, inside a named function the setup returns as its cleanup, or inside a local
   // function the cleanup calls
   function isInCleanupPhase(node: TSESTree.Node) {
-    if (Traverse.findParent(node, isUseEffectCleanupCallback) != null) {
+    if (Traverse.hasParent(node, isUseEffectCleanupCallback)) {
       return true;
     }
     for (const fn of [...returnedCleanups, ...cleanupCallees]) {
-      if (Traverse.findParent(node, (n) => n === fn) != null) {
+      if (Traverse.hasParent(node, (n) => n === fn)) {
         return true;
       }
     }
@@ -252,7 +252,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
           : (observer: TSESTree.Node) => isAssignmentTargetEqual(context, observer, id);
         // A disconnect/unobserve inside the observer's own callback is not a reliable cleanup:
         // the callback may never run if the component unmounts before the element resizes
-        const isInsideObserverCallback = (entryNode: TSESTree.Node) => Traverse.findParent(entryNode, (n) => n === node) != null;
+        const isInsideObserverCallback = (entryNode: TSESTree.Node) => Traverse.hasParent(entryNode, (n) => n === node);
         if (dEntries.some((e) => !isInsideObserverCallback(e.node) && isInCleanupPhase(e.node) && isSameObserver(e.observer))) {
           continue;
         }

@@ -47,7 +47,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         const funcs = [...comps, ...hooks];
         for (const call of facts) {
           // Only report if the call is within a function component or Hook
-          if (Traverse.findParent(call, (n) => funcs.some((f) => f.node === n)) == null) continue;
+          if (!Traverse.hasParent(call, (n) => funcs.some((f) => f.node === n))) continue;
           context.report({ messageId: "default", node: call });
         }
       },

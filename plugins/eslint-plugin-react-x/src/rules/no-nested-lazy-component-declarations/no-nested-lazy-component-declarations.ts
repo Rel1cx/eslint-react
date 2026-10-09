@@ -49,7 +49,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
           ...cc.api.getAllComponents(program),
         ];
         for (const lazy of lazyCalls) {
-          if (Traverse.findParent(lazy, (n) => significantParents.some((p) => p.node === n)) != null) {
+          if (Traverse.hasParent(lazy, (n) => significantParents.some((p) => p.node === n))) {
             context.report({
               messageId: "default",
               node: lazy,

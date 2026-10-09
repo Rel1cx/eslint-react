@@ -51,7 +51,7 @@ export function createFactCollector(isUseMemoCall: (node: null | TSESTree.Node) 
       // Only flag direct variable reassignment (x = …), not property mutations (ref.current = …)
       // to match React Compiler's StoreContext semantics.
       if (!Check.isIdentifier(target)) return;
-      if (Traverse.findParent(node, Check.isFunction, (n) => n === callback) != null) return;
+      if (Traverse.hasParent(node, Check.isFunction, (n) => n === callback)) return;
       writes.push({ node, target });
     }
 
