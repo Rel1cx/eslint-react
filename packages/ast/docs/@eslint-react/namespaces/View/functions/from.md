@@ -5,7 +5,7 @@
 ## Call Signature
 
 ```ts
-function from(node: null | undefined, context?: ViewContext): AbsentView;
+function from(node: null | undefined): AbsentView;
 ```
 
 Create the most specific view for a node.
@@ -18,10 +18,9 @@ own view, so a `view.type` check narrows both the view and its `.node`.
 
 ### Parameters
 
-| Parameter  | Type                                          | Description                                              |
-| ---------- | --------------------------------------------- | -------------------------------------------------------- |
-| `node`     | `null` \| `undefined`                         | The node to wrap. The tree is never modified or copied.  |
-| `context?` | [`ViewContext`](../interfaces/ViewContext.md) | Optional rule context for getters that need source text. |
+| Parameter | Type                  | Description                                             |
+| --------- | --------------------- | ------------------------------------------------------- |
+| `node`    | `null` \| `undefined` | The node to wrap. The tree is never modified or copied. |
 
 ### Returns
 
@@ -32,7 +31,7 @@ A view whose getters return views over the node's children.
 ## Call Signature
 
 ```ts
-function from<N extends Node>(node: N, context?: ViewContext): ViewOf<N>;
+function from<N extends Node>(node: N): ViewOf<N>;
 ```
 
 Create the most specific view for a node.
@@ -51,10 +50,9 @@ own view, so a `view.type` check narrows both the view and its `.node`.
 
 ### Parameters
 
-| Parameter  | Type                                          | Description                                              |
-| ---------- | --------------------------------------------- | -------------------------------------------------------- |
-| `node`     | `N`                                           | The node to wrap. The tree is never modified or copied.  |
-| `context?` | [`ViewContext`](../interfaces/ViewContext.md) | Optional rule context for getters that need source text. |
+| Parameter | Type | Description                                             |
+| --------- | ---- | ------------------------------------------------------- |
+| `node`    | `N`  | The node to wrap. The tree is never modified or copied. |
 
 ### Returns
 
@@ -65,7 +63,7 @@ A view whose getters return views over the node's children.
 ## Call Signature
 
 ```ts
-function from<N extends Node>(node: N | null | undefined, context?: ViewContext):
+function from<N extends Node>(node: N | null | undefined):
   | AbsentView
   | ViewOf<N>;
 ```
@@ -86,10 +84,9 @@ own view, so a `view.type` check narrows both the view and its `.node`.
 
 ### Parameters
 
-| Parameter  | Type                                          | Description                                              |
-| ---------- | --------------------------------------------- | -------------------------------------------------------- |
-| `node`     | `N` \| `null` \| `undefined`                  | The node to wrap. The tree is never modified or copied.  |
-| `context?` | [`ViewContext`](../interfaces/ViewContext.md) | Optional rule context for getters that need source text. |
+| Parameter | Type                         | Description                                             |
+| --------- | ---------------------------- | ------------------------------------------------------- |
+| `node`    | `N` \| `null` \| `undefined` | The node to wrap. The tree is never modified or copied. |
 
 ### Returns
 

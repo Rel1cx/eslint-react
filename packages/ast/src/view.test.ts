@@ -1,10 +1,8 @@
 import { getFirstNodeOfType } from "@local/testkit";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
-import { inspect } from "node:util";
 import { describe, expect, expectTypeOf, it } from "vitest";
 
 import * as Extract from "./extract";
-import { NodeInspectSymbol } from "./inspect";
 import {
   AbsentView,
   AssignmentExpressionView,
@@ -52,46 +50,6 @@ describe("View", () => {
   it("should return undefined as the parent of the root node", () => {
     const program = getFirstNodeOfType<TSESTree.Program>("foo;", AST.Program);
     expect(new Class(program).parent).toBeUndefined();
-  });
-
-  it("should pass the context down to child views", () => {
-    const node = getFirstNodeOfType<TSESTree.CallExpression>("foo(bar);", AST.CallExpression);
-    const context = { sourceCode: { getText: () => "foo(bar)" } };
-    const view = new CallExpressionView(node, context);
-    expect(view.callee.context).toBe(context);
-    expect(view.arguments[0]?.context).toBe(context);
-    expect(view.callee.parent?.context).toBe(context);
-  });
-});
-
-describe("View inspection", () => {
-  it("should produce a structured, non-circular JSON representation", () => {
-    const node = getFirstNodeOfType<TSESTree.CallExpression>("foo(bar);", AST.CallExpression);
-    const view = new CallExpressionView(node);
-    expect(view.toJSON()).toEqual({
-      _tag: "CallExpressionView",
-      type: AST.CallExpression,
-      range: node.range,
-    });
-    expect(() => JSON.stringify(view)).not.toThrow();
-  });
-
-  it("should include source text when a context is provided", () => {
-    const node = getFirstNodeOfType<TSESTree.CallExpression>("foo(bar);", AST.CallExpression);
-    const context = { sourceCode: { getText: () => "foo(bar)" } };
-    expect(new CallExpressionView(node, context).toJSON().text).toBe("foo(bar)");
-  });
-
-  it("should format toString as JSON", () => {
-    const node = getFirstNodeOfType<TSESTree.Identifier>("foo;", AST.Identifier);
-    expect(JSON.parse(new Class(node).toString())).toMatchObject({ _tag: "Class", type: AST.Identifier });
-  });
-
-  it("should support Node.js custom inspection", () => {
-    const node = getFirstNodeOfType<TSESTree.CallExpression>("foo();", AST.CallExpression);
-    const view = new CallExpressionView(node);
-    expect(view[NodeInspectSymbol]()).toEqual(view.toJSON());
-    expect(inspect(view)).toContain("CallExpressionView");
   });
 });
 
@@ -285,20 +243,6 @@ describe("AbsentView", () => {
     expect(view.node).toBeUndefined();
     expect(view.type).toBeUndefined();
     expect(view.parent).toBeUndefined();
-    expect(view.context).toBeUndefined();
-  });
-
-  it("should produce a structured JSON representation with only the tag", () => {
-    const view = new AbsentView();
-    expect(view.toJSON()).toEqual({ _tag: "AbsentView" });
-    expect(() => JSON.stringify(view)).not.toThrow();
-  });
-
-  it("should format toString as JSON and support Node.js custom inspection", () => {
-    const view = new AbsentView();
-    expect(JSON.parse(view.toString())).toEqual({ _tag: "AbsentView" });
-    expect(view[NodeInspectSymbol]()).toEqual(view.toJSON());
-    expect(inspect(view)).toContain("AbsentView");
   });
 });
 
@@ -402,13 +346,5 @@ describe("from", () => {
   it("should return an absent view for null and undefined", () => {
     expect(from(null)).toBeInstanceOf(AbsentView);
     expect(from(undefined)).toBeInstanceOf(AbsentView);
-    const context = { sourceCode: { getText: () => "" } };
-    expect(from(null, context).context).toBe(context);
-  });
-
-  it("should pass the context through to the view", () => {
-    const node = getFirstNodeOfType<TSESTree.CallExpression>("foo();", AST.CallExpression);
-    const context = { sourceCode: { getText: () => "foo()" } };
-    expect(from(node, context).context).toBe(context);
   });
 });

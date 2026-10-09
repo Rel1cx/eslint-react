@@ -8,8 +8,8 @@ A null-object view returned by accessors whose child may be absent (ex: the
 argument of a bare `return`) and by `from()` when given `null` or `undefined`.
 It wraps no node: `node`, `type`, and `parent` are always `undefined`.
 Unlike node views, it is not created from the tree, so there is nothing to
-unwrap and no source text to read. Use `isAbsentView()` to narrow a
-`View | AbsentView` union, or compare `type` directly.
+unwrap. Use `isAbsentView()` to narrow a `View | AbsentView` union, or
+compare `type` directly.
 
 ## Extends
 
@@ -20,30 +20,18 @@ unwrap and no source text to read. Use `isAbsentView()` to narrow a
 ### Constructor
 
 ```ts
-new AbsentView(context?: ViewContext): AbsentView;
+new AbsentView(): AbsentView;
 ```
-
-#### Parameters
-
-| Parameter  | Type                                          |
-| ---------- | --------------------------------------------- |
-| `context?` | [`ViewContext`](../interfaces/ViewContext.md) |
 
 #### Returns
 
 `AbsentView`
 
-#### Overrides
+#### Inherited from
 
 ```ts
-InspectableClass.constructor;
+Inspectable.Class.constructor;
 ```
-
-## Properties
-
-| Property                                | Modifier   | Type                                                         | Description                                               |
-| --------------------------------------- | ---------- | ------------------------------------------------------------ | --------------------------------------------------------- |
-| <a id="property-context"></a> `context` | `readonly` | [`ViewContext`](../interfaces/ViewContext.md) \| `undefined` | Optional rule context, kept for symmetry with node views. |
 
 ## Accessors
 
@@ -114,7 +102,7 @@ Node.js custom inspection method.
 #### Inherited from
 
 ```ts
-InspectableClass.[NodeInspectSymbol]
+Inspectable.Class.[NodeInspectSymbol]
 ```
 
 ---
@@ -122,19 +110,32 @@ InspectableClass.[NodeInspectSymbol]
 ### toJSON()
 
 ```ts
-toJSON(): AbsentViewJSON;
+toJSON(): {
+};
 ```
 
-Return the structured representation of this absent view.
+Returns a JSON representation of this object.
+
+**Details**
+
+Subclasses must implement this method to define how the object
+should be serialized for debugging and inspection purposes.
 
 #### Returns
 
-[`AbsentViewJSON`](../interfaces/AbsentViewJSON.md)
+```ts
+{
+}
+```
+
+#### Since
+
+2.0.0
 
 #### Overrides
 
 ```ts
-InspectableClass.toJSON;
+Inspectable.Class.toJSON;
 ```
 
 ---
@@ -158,5 +159,5 @@ Returns a formatted string representation of this object.
 #### Inherited from
 
 ```ts
-InspectableClass.toString;
+Inspectable.Class.toString;
 ```

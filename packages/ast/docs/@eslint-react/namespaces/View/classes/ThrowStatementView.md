@@ -13,15 +13,14 @@ View over a throw statement.
 ### Constructor
 
 ```ts
-new ThrowStatementView(node: ThrowStatement, context?: ViewContext): ThrowStatementView;
+new ThrowStatementView(node: ThrowStatement): ThrowStatementView;
 ```
 
 #### Parameters
 
-| Parameter  | Type                                          |
-| ---------- | --------------------------------------------- |
-| `node`     | `ThrowStatement`                              |
-| `context?` | [`ViewContext`](../interfaces/ViewContext.md) |
+| Parameter | Type             |
+| --------- | ---------------- |
+| `node`    | `ThrowStatement` |
 
 #### Returns
 
@@ -33,10 +32,9 @@ new ThrowStatementView(node: ThrowStatement, context?: ViewContext): ThrowStatem
 
 ## Properties
 
-| Property                                | Modifier   | Type                                                         | Description                                              | Inherited from                                             |
-| --------------------------------------- | ---------- | ------------------------------------------------------------ | -------------------------------------------------------- | ---------------------------------------------------------- |
-| <a id="property-context"></a> `context` | `readonly` | [`ViewContext`](../interfaces/ViewContext.md) \| `undefined` | Optional rule context for getters that need source text. | [`Class`](Class.md).[`context`](Class.md#property-context) |
-| <a id="property-node"></a> `node`       | `readonly` | `ThrowStatement`                                             | The original node, as delivered by ESLint.               | [`Class`](Class.md).[`node`](Class.md#property-node)       |
+| Property                          | Modifier   | Type             | Description                                | Inherited from                                       |
+| --------------------------------- | ---------- | ---------------- | ------------------------------------------ | ---------------------------------------------------- |
+| <a id="property-node"></a> `node` | `readonly` | `ThrowStatement` | The original node, as delivered by ESLint. | [`Class`](Class.md).[`node`](Class.md#property-node) |
 
 ## Accessors
 
@@ -204,14 +202,27 @@ Node.js custom inspection method.
 ### toJSON()
 
 ```ts
-toJSON(): ViewJSON;
+toJSON(): {
+};
 ```
 
-Return the structured, non-circular representation of this view.
+Returns a JSON representation of this object.
+
+**Details**
+
+Subclasses must implement this method to define how the object
+should be serialized for debugging and inspection purposes.
 
 #### Returns
 
-[`ViewJSON`](../interfaces/ViewJSON.md)
+```ts
+{
+}
+```
+
+#### Since
+
+2.0.0
 
 #### Inherited from
 

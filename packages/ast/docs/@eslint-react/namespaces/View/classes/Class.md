@@ -10,13 +10,13 @@ fallback returned by `from()` for node types without a dedicated view.
 Experimental read-only facade over a `TSESTree` node.
 
 Views expose only getter accessors. Accessors that read a child node return
-a view over that node, created via `from()` with the view's context passed
-down, and with type and chain expressions unwrapped where the accessor's
-semantics call for it. Accessors whose child may be absent (ex: the argument
-of a bare `return`) return an `AbsentView` instead of `null`. Views never
-modify or copy the tree, so the underlying nodes keep their identity and
-remain usable with `===` comparisons, scope analysis, WeakMap caches, and
-`context.report`; the original node stays reachable via `.node`.
+a view over that node, created via `from()`, with type and chain expressions
+unwrapped where the accessor's semantics call for it. Accessors whose child
+may be absent (ex: the argument of a bare `return`) return an `AbsentView`
+instead of `null`. Views never modify or copy the tree, so the underlying
+nodes keep their identity and remain usable with `===` comparisons, scope
+analysis, WeakMap caches, and `context.report`; the original node stays
+reachable via `.node`.
 
 ## Extends
 
@@ -54,15 +54,14 @@ remain usable with `===` comparisons, scope analysis, WeakMap caches, and
 ### Constructor
 
 ```ts
-new Class<N extends Node = Node>(node: N, context?: ViewContext): Class<N>;
+new Class<N extends Node = Node>(node: N): Class<N>;
 ```
 
 #### Parameters
 
-| Parameter  | Type                                          |
-| ---------- | --------------------------------------------- |
-| `node`     | `N`                                           |
-| `context?` | [`ViewContext`](../interfaces/ViewContext.md) |
+| Parameter | Type |
+| --------- | ---- |
+| `node`    | `N`  |
 
 #### Returns
 
@@ -71,15 +70,14 @@ new Class<N extends Node = Node>(node: N, context?: ViewContext): Class<N>;
 #### Overrides
 
 ```ts
-InspectableClass.constructor;
+Inspectable.Class.constructor;
 ```
 
 ## Properties
 
-| Property                                | Modifier   | Type                                                         | Description                                              |
-| --------------------------------------- | ---------- | ------------------------------------------------------------ | -------------------------------------------------------- |
-| <a id="property-context"></a> `context` | `readonly` | [`ViewContext`](../interfaces/ViewContext.md) \| `undefined` | Optional rule context for getters that need source text. |
-| <a id="property-node"></a> `node`       | `readonly` | `N`                                                          | The original node, as delivered by ESLint.               |
+| Property                          | Modifier   | Type | Description                                |
+| --------------------------------- | ---------- | ---- | ------------------------------------------ |
+| <a id="property-node"></a> `node` | `readonly` | `N`  | The original node, as delivered by ESLint. |
 
 ## Accessors
 
@@ -151,14 +149,10 @@ Node.js custom inspection method.
 
 2.0.0
 
-#### Implementation of
-
-[`View`](../interfaces/View.md).[`[NodeInspectSymbol]`](../interfaces/View.md#nodeinspectsymbol)
-
 #### Inherited from
 
 ```ts
-InspectableClass.[NodeInspectSymbol]
+Inspectable.Class.[NodeInspectSymbol]
 ```
 
 ---
@@ -166,23 +160,32 @@ InspectableClass.[NodeInspectSymbol]
 ### toJSON()
 
 ```ts
-toJSON(): ViewJSON;
+toJSON(): {
+};
 ```
 
-Return the structured, non-circular representation of this view.
+Returns a JSON representation of this object.
+
+**Details**
+
+Subclasses must implement this method to define how the object
+should be serialized for debugging and inspection purposes.
 
 #### Returns
 
-[`ViewJSON`](../interfaces/ViewJSON.md)
+```ts
+{
+}
+```
 
-#### Implementation of
+#### Since
 
-[`View`](../interfaces/View.md).[`toJSON`](../interfaces/View.md#tojson)
+2.0.0
 
 #### Overrides
 
 ```ts
-InspectableClass.toJSON;
+Inspectable.Class.toJSON;
 ```
 
 ---
@@ -203,12 +206,8 @@ Returns a formatted string representation of this object.
 
 2.0.0
 
-#### Implementation of
-
-[`View`](../interfaces/View.md).[`toString`](../interfaces/View.md#tostring)
-
 #### Inherited from
 
 ```ts
-InspectableClass.toString;
+Inspectable.Class.toString;
 ```

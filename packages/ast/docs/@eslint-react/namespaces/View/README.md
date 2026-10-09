@@ -29,12 +29,9 @@ Experimental read-only node facades with unwrapping accessors.
 
 ## Interfaces
 
-| Interface                                      | Description                                                                                                                                                                                                               |
-| ---------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| [AbsentViewJSON](interfaces/AbsentViewJSON.md) | The structured representation of an absent view, consumed as `View.AbsentViewJSON`. It carries only the view tag: there is no node, hence no type, range, or text.                                                        |
-| [View](interfaces/View.md)                     | The contract shared by all node views, consumed as `View.View`.                                                                                                                                                           |
-| [ViewContext](interfaces/ViewContext.md)       | The minimal context a view needs, structurally compatible with `RuleContext`. Only required by getters that fall back to source text.                                                                                     |
-| [ViewJSON](interfaces/ViewJSON.md)             | The structured, non-circular representation of a view used for logging, serialization, and Node.js inspection. Unlike the wrapped node, it is always safe to `JSON.stringify` — TSESTree nodes are circular via `parent`. |
+| Interface                  | Description                                                     |
+| -------------------------- | --------------------------------------------------------------- |
+| [View](interfaces/View.md) | The contract shared by all node views, consumed as `View.View`. |
 
 ## Type Aliases
 

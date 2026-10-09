@@ -13,15 +13,14 @@ View over a binary expression.
 ### Constructor
 
 ```ts
-new BinaryExpressionView(node: BinaryExpression, context?: ViewContext): BinaryExpressionView;
+new BinaryExpressionView(node: BinaryExpression): BinaryExpressionView;
 ```
 
 #### Parameters
 
-| Parameter  | Type                                          |
-| ---------- | --------------------------------------------- |
-| `node`     | `BinaryExpression`                            |
-| `context?` | [`ViewContext`](../interfaces/ViewContext.md) |
+| Parameter | Type               |
+| --------- | ------------------ |
+| `node`    | `BinaryExpression` |
 
 #### Returns
 
@@ -33,10 +32,9 @@ new BinaryExpressionView(node: BinaryExpression, context?: ViewContext): BinaryE
 
 ## Properties
 
-| Property                                | Modifier   | Type                                                         | Description                                              | Inherited from                                                                        |
-| --------------------------------------- | ---------- | ------------------------------------------------------------ | -------------------------------------------------------- | ------------------------------------------------------------------------------------- |
-| <a id="property-context"></a> `context` | `readonly` | [`ViewContext`](../interfaces/ViewContext.md) \| `undefined` | Optional rule context for getters that need source text. | [`BinaryLikeView`](BinaryLikeView.md).[`context`](BinaryLikeView.md#property-context) |
-| <a id="property-node"></a> `node`       | `readonly` | `BinaryExpression`                                           | The original node, as delivered by ESLint.               | [`BinaryLikeView`](BinaryLikeView.md).[`node`](BinaryLikeView.md#property-node)       |
+| Property                          | Modifier   | Type               | Description                                | Inherited from                                                                  |
+| --------------------------------- | ---------- | ------------------ | ------------------------------------------ | ------------------------------------------------------------------------------- |
+| <a id="property-node"></a> `node` | `readonly` | `BinaryExpression` | The original node, as delivered by ESLint. | [`BinaryLikeView`](BinaryLikeView.md).[`node`](BinaryLikeView.md#property-node) |
 
 ## Accessors
 
@@ -301,14 +299,27 @@ Node.js custom inspection method.
 ### toJSON()
 
 ```ts
-toJSON(): ViewJSON;
+toJSON(): {
+};
 ```
 
-Return the structured, non-circular representation of this view.
+Returns a JSON representation of this object.
+
+**Details**
+
+Subclasses must implement this method to define how the object
+should be serialized for debugging and inspection purposes.
 
 #### Returns
 
-[`ViewJSON`](../interfaces/ViewJSON.md)
+```ts
+{
+}
+```
+
+#### Since
+
+2.0.0
 
 #### Inherited from
 
