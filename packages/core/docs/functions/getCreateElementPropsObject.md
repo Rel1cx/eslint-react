@@ -14,10 +14,10 @@ arguments yield `null`.
 
 ## Parameters
 
-| Parameter | Type             | Description              |
-| --------- | ---------------- | ------------------------ |
-| `context` | `RuleContext`    | The ESLint rule context. |
-| `node`    | `Node` \| `null` | The node to inspect.     |
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `context` | `RuleContext` | The ESLint rule context. |
+| `node` | `Node` \| `null` | The node to inspect. |
 
 ## Returns
 

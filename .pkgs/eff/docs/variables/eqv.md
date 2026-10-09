@@ -4,8 +4,8 @@
 
 ```ts
 const eqv: {
-  <T>(b: (data: T) => boolean): (a: (data: T) => boolean) => (data: T) => boolean;
-  <T>(a: (data: T) => boolean, b: (data: T) => boolean): (data: T) => boolean;
+<T>  (b: (data: T) => boolean): (a: (data: T) => boolean) => (data: T) => boolean;
+<T>  (a: (data: T) => boolean, b: (data: T) => boolean): (data: T) => boolean;
 };
 ```
 
@@ -27,12 +27,12 @@ equivalence semantics.
 **Example** (Defining equivalence)
 
 ```ts
-import { Predicate } from "effect";
+import { Predicate } from "effect"
 
-const isEven = (n: number) => n % 2 === 0;
-const same = Predicate.eqv(isEven, isEven);
+const isEven = (n: number) => n % 2 === 0
+const same = Predicate.eqv(isEven, isEven)
 
-same(3); // => true
+same(3) // => true
 ```
 
 ## Call Signature
@@ -44,14 +44,14 @@ same(3); // => true
 ### Type Parameters
 
 | Type Parameter |
-| -------------- |
-| `T`            |
+| ------ |
+| `T` |
 
 ### Parameters
 
-| Parameter | Type                       |
-| --------- | -------------------------- |
-| `b`       | (`data`: `T`) => `boolean` |
+| Parameter | Type |
+| ------ | ------ |
+| `b` | (`data`: `T`) => `boolean` |
 
 ### Returns
 
@@ -66,15 +66,15 @@ same(3); // => true
 ### Type Parameters
 
 | Type Parameter |
-| -------------- |
-| `T`            |
+| ------ |
+| `T` |
 
 ### Parameters
 
-| Parameter | Type                       |
-| --------- | -------------------------- |
-| `a`       | (`data`: `T`) => `boolean` |
-| `b`       | (`data`: `T`) => `boolean` |
+| Parameter | Type |
+| ------ | ------ |
+| `a` | (`data`: `T`) => `boolean` |
+| `b` | (`data`: `T`) => `boolean` |
 
 ### Returns
 

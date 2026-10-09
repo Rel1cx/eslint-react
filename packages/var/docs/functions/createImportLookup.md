@@ -16,10 +16,10 @@ handled naturally: the alias is the entry's local name.
 
 ## Parameters
 
-| Parameter | Type                                                          | Description                                              |
-| --------- | ------------------------------------------------------------- | -------------------------------------------------------- |
-| `program` | `Program`                                                     | The program whose top-level import declarations to scan. |
-| `options` | [`ImportLookupOptions`](../interfaces/ImportLookupOptions.md) | The source to track and optional builtin namespaces.     |
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `program` | `Program` | The program whose top-level import declarations to scan. |
+| `options` | [`ImportLookupOptions`](../interfaces/ImportLookupOptions.md) | The source to track and optional builtin namespaces. |
 
 ## Returns
 

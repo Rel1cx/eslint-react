@@ -12,6 +12,6 @@ Options for [forbidComponentProps](../functions/forbidComponentProps.md).
 
 ## Properties
 
-| Property                                    | Type       | Description                                          |
-| ------------------------------------------- | ---------- | ---------------------------------------------------- |
+| Property | Type | Description |
+| ------ | ------ | ------ |
 | <a id="property-forbidden"></a> `forbidden` | `string`[] | Prop names that are not allowed on React components. |

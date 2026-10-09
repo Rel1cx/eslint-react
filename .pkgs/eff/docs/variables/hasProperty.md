@@ -4,8 +4,8 @@
 
 ```ts
 const hasProperty: {
-  <P>(property: P): (data: unknown) => data is { [K in PropertyKey]: unknown };
-  <P>(data: unknown, property: P): data is { [K in PropertyKey]: unknown };
+<P>  (property: P): (data: unknown) => data is { [K in PropertyKey]: unknown };
+<P>  (data: unknown, property: P): data is { [K in PropertyKey]: unknown };
 };
 ```
 
@@ -24,13 +24,13 @@ value types.
 **Example** (Guarding object properties)
 
 ```ts
-import { Predicate } from "effect";
+import { Predicate } from "effect"
 
-const hasName = Predicate.hasProperty("name");
-const data: unknown = { name: "Ada" };
+const hasName = Predicate.hasProperty("name")
+const data: unknown = { name: "Ada" }
 
 if (hasName(data)) {
-  data.name; // => "Ada"
+  data.name // => "Ada"
 }
 ```
 
@@ -42,15 +42,15 @@ if (hasName(data)) {
 
 ### Type Parameters
 
-| Type Parameter              |
-| --------------------------- |
-| `P` _extends_ `PropertyKey` |
+| Type Parameter |
+| ------ |
+| `P` *extends* `PropertyKey` |
 
 ### Parameters
 
-| Parameter  | Type |
-| ---------- | ---- |
-| `property` | `P`  |
+| Parameter | Type |
+| ------ | ------ |
+| `property` | `P` |
 
 ### Returns
 
@@ -64,16 +64,16 @@ if (hasName(data)) {
 
 ### Type Parameters
 
-| Type Parameter              |
-| --------------------------- |
-| `P` _extends_ `PropertyKey` |
+| Type Parameter |
+| ------ |
+| `P` *extends* `PropertyKey` |
 
 ### Parameters
 
-| Parameter  | Type      |
-| ---------- | --------- |
-| `data`     | `unknown` |
-| `property` | `P`       |
+| Parameter | Type |
+| ------ | ------ |
+| `data` | `unknown` |
+| `property` | `P` |
 
 ### Returns
 
@@ -81,8 +81,8 @@ if (hasName(data)) {
 
 ## See
 
-- isTagged
-- [isObjectKeyword](../functions/isObjectKeyword.md)
+ - isTagged
+ - [isObjectKeyword](../functions/isObjectKeyword.md)
 
 ## Since
 

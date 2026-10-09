@@ -3,7 +3,11 @@
 # Function: isJsxLike()
 
 ```ts
-function isJsxLike(context: RuleContext, node: Node | null, hint?: bigint): boolean;
+function isJsxLike(
+   context: RuleContext, 
+   node: Node | null, 
+   hint?: bigint
+): boolean;
 ```
 
 Check if the node represents JSX-like content based on heuristics.
@@ -17,11 +21,11 @@ treated as not JSX-like instead of recursing indefinitely.
 
 ## Parameters
 
-| Parameter | Type             | Default value                | Description                                                                                                                               |
-| --------- | ---------------- | ---------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
-| `context` | `RuleContext`    | `undefined`                  | The ESLint rule context (needed for variable resolution).                                                                                 |
-| `node`    | `Node` \| `null` | `undefined`                  | The AST node to analyze.                                                                                                                  |
-| `hint`    | `bigint`         | `DEFAULT_JSX_DETECTION_HINT` | Optional bit-flags to adjust detection behavior. Defaults to [DEFAULT\_JSX\_DETECTION\_HINT](../variables/DEFAULT_JSX_DETECTION_HINT.md). |
+| Parameter | Type | Default value | Description |
+| ------ | ------ | ------ | ------ |
+| `context` | `RuleContext` | `undefined` | The ESLint rule context (needed for variable resolution). |
+| `node` | `Node` \| `null` | `undefined` | The AST node to analyze. |
+| `hint` | `bigint` | `DEFAULT_JSX_DETECTION_HINT` | Optional bit-flags to adjust detection behavior. Defaults to [DEFAULT\_JSX\_DETECTION\_HINT](../variables/DEFAULT_JSX_DETECTION_HINT.md). |
 
 ## Returns
 

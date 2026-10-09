@@ -10,8 +10,8 @@ Forbid certain props on React components (not DOM elements).
 
 ## Parameters
 
-| Parameter | Type                                                                            |
-| --------- | ------------------------------------------------------------------------------- |
+| Parameter | Type |
+| ------ | ------ |
 | `options` | [`ForbidComponentPropsOptions`](../type-aliases/ForbidComponentPropsOptions.md) |
 
 ## Returns

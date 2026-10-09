@@ -7,7 +7,7 @@ Only required by getters that fall back to source text.
 
 ## Properties
 
-| Property                                      | Type                       |
-| --------------------------------------------- | -------------------------- |
+| Property | Type |
+| ------ | ------ |
 | <a id="property-sourcecode"></a> `sourceCode` | \{ `getText`: `string`; \} |
-| `sourceCode.getText`                          | `string`                   |
+| `sourceCode.getText` | `string` |

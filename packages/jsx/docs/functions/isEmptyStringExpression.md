@@ -14,9 +14,9 @@ whitespace padding.
 
 ## Parameters
 
-| Parameter | Type       | Description                  |
-| --------- | ---------- | ---------------------------- |
-| `node`    | `JSXChild` | The JSX child node to check. |
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `node` | `JSXChild` | The JSX child node to check. |
 
 ## Returns
 

@@ -14,8 +14,8 @@ against the real scope manager; otherwise it returns an empty object.
 
 ## Parameters
 
-| Parameter | Type                                                        | Description               |
-| --------- | ----------------------------------------------------------- | ------------------------- |
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
 | `options` | [`MockContextOptions`](../interfaces/MockContextOptions.md) | The mock context options. |
 
 ## Returns

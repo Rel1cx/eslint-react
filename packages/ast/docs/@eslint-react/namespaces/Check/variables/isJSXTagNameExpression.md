@@ -10,9 +10,9 @@ Check if a node can appear as a JSX tag name.
 
 ## Parameters
 
-| Parameter | Type                            |
-| --------- | ------------------------------- |
-| `node`    | `Node` \| `null` \| `undefined` |
+| Parameter | Type |
+| ------ | ------ |
+| `node` | `Node` \| `null` \| `undefined` |
 
 ## Returns
 

@@ -10,6 +10,6 @@ type BooleanPropNamingOptions = {
 
 ## Properties
 
-| Property                           | Type     | Description                                              |
-| ---------------------------------- | -------- | -------------------------------------------------------- |
+| Property | Type | Description |
+| ------ | ------ | ------ |
 | <a id="property-rule"></a> `rule?` | `string` | A regular expression that boolean prop names must match. |

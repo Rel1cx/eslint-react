@@ -10,9 +10,9 @@ Merge multiple visitor objects into a single visitor object.
 
 ## Parameters
 
-| Parameter | Type                                                | Description                                            |
-| --------- | --------------------------------------------------- | ------------------------------------------------------ |
-| `base`    | [`RuleListener`](../type-aliases/RuleListener.md)   | The base visitor object (target of merge).             |
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `base` | [`RuleListener`](../type-aliases/RuleListener.md) | The base visitor object (target of merge). |
 | ...`rest` | [`RuleListener`](../type-aliases/RuleListener.md)[] | The additional visitor objects to merge (one or more). |
 
 ## Returns

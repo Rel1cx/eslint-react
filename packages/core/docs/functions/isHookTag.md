@@ -10,9 +10,9 @@ Checks if the given expression is a hook tag (callee / tagged template tag).
 
 ## Parameters
 
-| Parameter | Type             | Description                   |
-| --------- | ---------------- | ----------------------------- |
-| `tag`     | `Node` \| `null` | The expression node to check. |
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `tag` | `Node` \| `null` | The expression node to check. |
 
 ## Returns
 

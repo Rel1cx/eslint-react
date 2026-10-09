@@ -12,6 +12,6 @@ Options for [maxComponentPerFile](../functions/maxComponentPerFile.md).
 
 ## Properties
 
-| Property                        | Type     | Description                                        |
-| ------------------------------- | -------- | -------------------------------------------------- |
+| Property | Type | Description |
+| ------ | ------ | ------ |
 | <a id="property-max"></a> `max` | `number` | The maximum number of components allowed per file. |

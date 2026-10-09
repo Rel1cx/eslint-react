@@ -20,20 +20,21 @@ evaluated at runtime, it throws.
 **Example** (Creating a development placeholder)
 
 ```ts
-import { hole } from "effect";
+import { hole } from "effect"
 
 // Intentionally not called: `hole` throws if the placeholder is evaluated.
 const buildUser = (id: number): { readonly id: number; readonly name: string } => ({
   id,
-  name: hole<string>(),
-});
+  name: hole<string>()
+})
+
 ```
 
 ## Type Parameters
 
 | Type Parameter |
-| -------------- |
-| `T`            |
+| ------ |
+| `T` |
 
 ## Returns
 

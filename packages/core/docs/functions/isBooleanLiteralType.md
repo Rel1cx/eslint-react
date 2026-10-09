@@ -10,15 +10,15 @@ Check if the type is a boolean literal type.
 
 ## Type Parameters
 
-| Type Parameter           |
-| ------------------------ |
-| `TType` _extends_ `Type` |
+| Type Parameter |
+| ------ |
+| `TType` *extends* `Type` |
 
 ## Parameters
 
-| Parameter | Type    | Description        |
-| --------- | ------- | ------------------ |
-| `type`    | `TType` | The type to check. |
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `type` | `TType` | The type to check. |
 
 ## Returns
 

@@ -32,14 +32,14 @@ In this example, `1` is passed to the first function, and each result becomes
 the input for the next function.
 
 ```ts
-import { pipe } from "effect";
+import { pipe } from "effect"
 
 pipe(
   1,
   (n) => n + 1,
   (n) => n * 2,
-  (n) => `result: ${n}`,
-); // => "result: 4"
+  (n) => `result: ${n}`
+) // => "result: 4"
 ```
 
 **Example** (Rewriting method chains with pipe)
@@ -47,30 +47,30 @@ pipe(
 The same transformation can be written with data-last functions.
 
 ```ts
-import { Array, pipe } from "effect";
+import { Array, pipe } from "effect"
 
-const numbers = [1, 2, 3, 4];
-const double = (n: number) => n * 2;
-const greaterThanFour = (n: number) => n > 4;
+const numbers = [1, 2, 3, 4]
+const double = (n: number) => n * 2
+const greaterThanFour = (n: number) => n > 4
 
 pipe(
   numbers,
   Array.map(double),
-  Array.filter(greaterThanFour),
-); // => [6, 8]
+  Array.filter(greaterThanFour)
+) // => [6, 8]
 ```
 
 ### Type Parameters
 
 | Type Parameter |
-| -------------- |
-| `A`            |
+| ------ |
+| `A` |
 
 ### Parameters
 
 | Parameter | Type |
-| --------- | ---- |
-| `a`       | `A`  |
+| ------ | ------ |
+| `a` | `A` |
 
 ### Returns
 
@@ -110,14 +110,14 @@ In this example, `1` is passed to the first function, and each result becomes
 the input for the next function.
 
 ```ts
-import { pipe } from "effect";
+import { pipe } from "effect"
 
 pipe(
   1,
   (n) => n + 1,
   (n) => n * 2,
-  (n) => `result: ${n}`,
-); // => "result: 4"
+  (n) => `result: ${n}`
+) // => "result: 4"
 ```
 
 **Example** (Rewriting method chains with pipe)
@@ -125,32 +125,32 @@ pipe(
 The same transformation can be written with data-last functions.
 
 ```ts
-import { Array, pipe } from "effect";
+import { Array, pipe } from "effect"
 
-const numbers = [1, 2, 3, 4];
-const double = (n: number) => n * 2;
-const greaterThanFour = (n: number) => n > 4;
+const numbers = [1, 2, 3, 4]
+const double = (n: number) => n * 2
+const greaterThanFour = (n: number) => n > 4
 
 pipe(
   numbers,
   Array.map(double),
-  Array.filter(greaterThanFour),
-); // => [6, 8]
+  Array.filter(greaterThanFour)
+) // => [6, 8]
 ```
 
 ### Type Parameters
 
 | Type Parameter | Default type |
-| -------------- | ------------ |
-| `A`            | -            |
-| `B`            | `never`      |
+| ------ | ------ |
+| `A` | - |
+| `B` | `never` |
 
 ### Parameters
 
-| Parameter | Type              |
-| --------- | ----------------- |
-| `a`       | `A`               |
-| `ab`      | (`a`: `A`) => `B` |
+| Parameter | Type |
+| ------ | ------ |
+| `a` | `A` |
+| `ab` | (`a`: `A`) => `B` |
 
 ### Returns
 
@@ -163,7 +163,11 @@ pipe(
 ## Call Signature
 
 ```ts
-function pipe<A, B = never, C = never>(a: A, ab: (a: A) => B, bc: (b: B) => C): C;
+function pipe<A, B = never, C = never>(
+   a: A, 
+   ab: (a: A) => B, 
+   bc: (b: B) => C
+): C;
 ```
 
 Pipes the value of an expression through a left-to-right sequence of
@@ -190,14 +194,14 @@ In this example, `1` is passed to the first function, and each result becomes
 the input for the next function.
 
 ```ts
-import { pipe } from "effect";
+import { pipe } from "effect"
 
 pipe(
   1,
   (n) => n + 1,
   (n) => n * 2,
-  (n) => `result: ${n}`,
-); // => "result: 4"
+  (n) => `result: ${n}`
+) // => "result: 4"
 ```
 
 **Example** (Rewriting method chains with pipe)
@@ -205,34 +209,34 @@ pipe(
 The same transformation can be written with data-last functions.
 
 ```ts
-import { Array, pipe } from "effect";
+import { Array, pipe } from "effect"
 
-const numbers = [1, 2, 3, 4];
-const double = (n: number) => n * 2;
-const greaterThanFour = (n: number) => n > 4;
+const numbers = [1, 2, 3, 4]
+const double = (n: number) => n * 2
+const greaterThanFour = (n: number) => n > 4
 
 pipe(
   numbers,
   Array.map(double),
-  Array.filter(greaterThanFour),
-); // => [6, 8]
+  Array.filter(greaterThanFour)
+) // => [6, 8]
 ```
 
 ### Type Parameters
 
 | Type Parameter | Default type |
-| -------------- | ------------ |
-| `A`            | -            |
-| `B`            | `never`      |
-| `C`            | `never`      |
+| ------ | ------ |
+| `A` | - |
+| `B` | `never` |
+| `C` | `never` |
 
 ### Parameters
 
-| Parameter | Type              |
-| --------- | ----------------- |
-| `a`       | `A`               |
-| `ab`      | (`a`: `A`) => `B` |
-| `bc`      | (`b`: `B`) => `C` |
+| Parameter | Type |
+| ------ | ------ |
+| `a` | `A` |
+| `ab` | (`a`: `A`) => `B` |
+| `bc` | (`b`: `B`) => `C` |
 
 ### Returns
 
@@ -245,7 +249,12 @@ pipe(
 ## Call Signature
 
 ```ts
-function pipe<A, B = never, C = never, D = never>(a: A, ab: (a: A) => B, bc: (b: B) => C, cd: (c: C) => D): D;
+function pipe<A, B = never, C = never, D = never>(
+   a: A, 
+   ab: (a: A) => B, 
+   bc: (b: B) => C, 
+   cd: (c: C) => D
+): D;
 ```
 
 Pipes the value of an expression through a left-to-right sequence of
@@ -272,14 +281,14 @@ In this example, `1` is passed to the first function, and each result becomes
 the input for the next function.
 
 ```ts
-import { pipe } from "effect";
+import { pipe } from "effect"
 
 pipe(
   1,
   (n) => n + 1,
   (n) => n * 2,
-  (n) => `result: ${n}`,
-); // => "result: 4"
+  (n) => `result: ${n}`
+) // => "result: 4"
 ```
 
 **Example** (Rewriting method chains with pipe)
@@ -287,36 +296,36 @@ pipe(
 The same transformation can be written with data-last functions.
 
 ```ts
-import { Array, pipe } from "effect";
+import { Array, pipe } from "effect"
 
-const numbers = [1, 2, 3, 4];
-const double = (n: number) => n * 2;
-const greaterThanFour = (n: number) => n > 4;
+const numbers = [1, 2, 3, 4]
+const double = (n: number) => n * 2
+const greaterThanFour = (n: number) => n > 4
 
 pipe(
   numbers,
   Array.map(double),
-  Array.filter(greaterThanFour),
-); // => [6, 8]
+  Array.filter(greaterThanFour)
+) // => [6, 8]
 ```
 
 ### Type Parameters
 
 | Type Parameter | Default type |
-| -------------- | ------------ |
-| `A`            | -            |
-| `B`            | `never`      |
-| `C`            | `never`      |
-| `D`            | `never`      |
+| ------ | ------ |
+| `A` | - |
+| `B` | `never` |
+| `C` | `never` |
+| `D` | `never` |
 
 ### Parameters
 
-| Parameter | Type              |
-| --------- | ----------------- |
-| `a`       | `A`               |
-| `ab`      | (`a`: `A`) => `B` |
-| `bc`      | (`b`: `B`) => `C` |
-| `cd`      | (`c`: `C`) => `D` |
+| Parameter | Type |
+| ------ | ------ |
+| `a` | `A` |
+| `ab` | (`a`: `A`) => `B` |
+| `bc` | (`b`: `B`) => `C` |
+| `cd` | (`c`: `C`) => `D` |
 
 ### Returns
 
@@ -329,7 +338,13 @@ pipe(
 ## Call Signature
 
 ```ts
-function pipe<A, B = never, C = never, D = never, E = never>(a: A, ab: (a: A) => B, bc: (b: B) => C, cd: (c: C) => D, de: (d: D) => E): E;
+function pipe<A, B = never, C = never, D = never, E = never>(
+   a: A, 
+   ab: (a: A) => B, 
+   bc: (b: B) => C, 
+   cd: (c: C) => D, 
+   de: (d: D) => E
+): E;
 ```
 
 Pipes the value of an expression through a left-to-right sequence of
@@ -356,14 +371,14 @@ In this example, `1` is passed to the first function, and each result becomes
 the input for the next function.
 
 ```ts
-import { pipe } from "effect";
+import { pipe } from "effect"
 
 pipe(
   1,
   (n) => n + 1,
   (n) => n * 2,
-  (n) => `result: ${n}`,
-); // => "result: 4"
+  (n) => `result: ${n}`
+) // => "result: 4"
 ```
 
 **Example** (Rewriting method chains with pipe)
@@ -371,38 +386,38 @@ pipe(
 The same transformation can be written with data-last functions.
 
 ```ts
-import { Array, pipe } from "effect";
+import { Array, pipe } from "effect"
 
-const numbers = [1, 2, 3, 4];
-const double = (n: number) => n * 2;
-const greaterThanFour = (n: number) => n > 4;
+const numbers = [1, 2, 3, 4]
+const double = (n: number) => n * 2
+const greaterThanFour = (n: number) => n > 4
 
 pipe(
   numbers,
   Array.map(double),
-  Array.filter(greaterThanFour),
-); // => [6, 8]
+  Array.filter(greaterThanFour)
+) // => [6, 8]
 ```
 
 ### Type Parameters
 
 | Type Parameter | Default type |
-| -------------- | ------------ |
-| `A`            | -            |
-| `B`            | `never`      |
-| `C`            | `never`      |
-| `D`            | `never`      |
-| `E`            | `never`      |
+| ------ | ------ |
+| `A` | - |
+| `B` | `never` |
+| `C` | `never` |
+| `D` | `never` |
+| `E` | `never` |
 
 ### Parameters
 
-| Parameter | Type              |
-| --------- | ----------------- |
-| `a`       | `A`               |
-| `ab`      | (`a`: `A`) => `B` |
-| `bc`      | (`b`: `B`) => `C` |
-| `cd`      | (`c`: `C`) => `D` |
-| `de`      | (`d`: `D`) => `E` |
+| Parameter | Type |
+| ------ | ------ |
+| `a` | `A` |
+| `ab` | (`a`: `A`) => `B` |
+| `bc` | (`b`: `B`) => `C` |
+| `cd` | (`c`: `C`) => `D` |
+| `de` | (`d`: `D`) => `E` |
 
 ### Returns
 
@@ -416,12 +431,12 @@ pipe(
 
 ```ts
 function pipe<A, B = never, C = never, D = never, E = never, F = never>(
-  a: A,
-  ab: (a: A) => B,
-  bc: (b: B) => C,
-  cd: (c: C) => D,
-  de: (d: D) => E,
-  ef: (e: E) => F,
+   a: A, 
+   ab: (a: A) => B, 
+   bc: (b: B) => C, 
+   cd: (c: C) => D, 
+   de: (d: D) => E, 
+   ef: (e: E) => F
 ): F;
 ```
 
@@ -449,14 +464,14 @@ In this example, `1` is passed to the first function, and each result becomes
 the input for the next function.
 
 ```ts
-import { pipe } from "effect";
+import { pipe } from "effect"
 
 pipe(
   1,
   (n) => n + 1,
   (n) => n * 2,
-  (n) => `result: ${n}`,
-); // => "result: 4"
+  (n) => `result: ${n}`
+) // => "result: 4"
 ```
 
 **Example** (Rewriting method chains with pipe)
@@ -464,40 +479,40 @@ pipe(
 The same transformation can be written with data-last functions.
 
 ```ts
-import { Array, pipe } from "effect";
+import { Array, pipe } from "effect"
 
-const numbers = [1, 2, 3, 4];
-const double = (n: number) => n * 2;
-const greaterThanFour = (n: number) => n > 4;
+const numbers = [1, 2, 3, 4]
+const double = (n: number) => n * 2
+const greaterThanFour = (n: number) => n > 4
 
 pipe(
   numbers,
   Array.map(double),
-  Array.filter(greaterThanFour),
-); // => [6, 8]
+  Array.filter(greaterThanFour)
+) // => [6, 8]
 ```
 
 ### Type Parameters
 
 | Type Parameter | Default type |
-| -------------- | ------------ |
-| `A`            | -            |
-| `B`            | `never`      |
-| `C`            | `never`      |
-| `D`            | `never`      |
-| `E`            | `never`      |
-| `F`            | `never`      |
+| ------ | ------ |
+| `A` | - |
+| `B` | `never` |
+| `C` | `never` |
+| `D` | `never` |
+| `E` | `never` |
+| `F` | `never` |
 
 ### Parameters
 
-| Parameter | Type              |
-| --------- | ----------------- |
-| `a`       | `A`               |
-| `ab`      | (`a`: `A`) => `B` |
-| `bc`      | (`b`: `B`) => `C` |
-| `cd`      | (`c`: `C`) => `D` |
-| `de`      | (`d`: `D`) => `E` |
-| `ef`      | (`e`: `E`) => `F` |
+| Parameter | Type |
+| ------ | ------ |
+| `a` | `A` |
+| `ab` | (`a`: `A`) => `B` |
+| `bc` | (`b`: `B`) => `C` |
+| `cd` | (`c`: `C`) => `D` |
+| `de` | (`d`: `D`) => `E` |
+| `ef` | (`e`: `E`) => `F` |
 
 ### Returns
 
@@ -511,13 +526,13 @@ pipe(
 
 ```ts
 function pipe<A, B = never, C = never, D = never, E = never, F = never, G = never>(
-  a: A,
-  ab: (a: A) => B,
-  bc: (b: B) => C,
-  cd: (c: C) => D,
-  de: (d: D) => E,
-  ef: (e: E) => F,
-  fg: (f: F) => G,
+   a: A, 
+   ab: (a: A) => B, 
+   bc: (b: B) => C, 
+   cd: (c: C) => D, 
+   de: (d: D) => E, 
+   ef: (e: E) => F, 
+   fg: (f: F) => G
 ): G;
 ```
 
@@ -545,14 +560,14 @@ In this example, `1` is passed to the first function, and each result becomes
 the input for the next function.
 
 ```ts
-import { pipe } from "effect";
+import { pipe } from "effect"
 
 pipe(
   1,
   (n) => n + 1,
   (n) => n * 2,
-  (n) => `result: ${n}`,
-); // => "result: 4"
+  (n) => `result: ${n}`
+) // => "result: 4"
 ```
 
 **Example** (Rewriting method chains with pipe)
@@ -560,42 +575,42 @@ pipe(
 The same transformation can be written with data-last functions.
 
 ```ts
-import { Array, pipe } from "effect";
+import { Array, pipe } from "effect"
 
-const numbers = [1, 2, 3, 4];
-const double = (n: number) => n * 2;
-const greaterThanFour = (n: number) => n > 4;
+const numbers = [1, 2, 3, 4]
+const double = (n: number) => n * 2
+const greaterThanFour = (n: number) => n > 4
 
 pipe(
   numbers,
   Array.map(double),
-  Array.filter(greaterThanFour),
-); // => [6, 8]
+  Array.filter(greaterThanFour)
+) // => [6, 8]
 ```
 
 ### Type Parameters
 
 | Type Parameter | Default type |
-| -------------- | ------------ |
-| `A`            | -            |
-| `B`            | `never`      |
-| `C`            | `never`      |
-| `D`            | `never`      |
-| `E`            | `never`      |
-| `F`            | `never`      |
-| `G`            | `never`      |
+| ------ | ------ |
+| `A` | - |
+| `B` | `never` |
+| `C` | `never` |
+| `D` | `never` |
+| `E` | `never` |
+| `F` | `never` |
+| `G` | `never` |
 
 ### Parameters
 
-| Parameter | Type              |
-| --------- | ----------------- |
-| `a`       | `A`               |
-| `ab`      | (`a`: `A`) => `B` |
-| `bc`      | (`b`: `B`) => `C` |
-| `cd`      | (`c`: `C`) => `D` |
-| `de`      | (`d`: `D`) => `E` |
-| `ef`      | (`e`: `E`) => `F` |
-| `fg`      | (`f`: `F`) => `G` |
+| Parameter | Type |
+| ------ | ------ |
+| `a` | `A` |
+| `ab` | (`a`: `A`) => `B` |
+| `bc` | (`b`: `B`) => `C` |
+| `cd` | (`c`: `C`) => `D` |
+| `de` | (`d`: `D`) => `E` |
+| `ef` | (`e`: `E`) => `F` |
+| `fg` | (`f`: `F`) => `G` |
 
 ### Returns
 
@@ -609,14 +624,14 @@ pipe(
 
 ```ts
 function pipe<A, B = never, C = never, D = never, E = never, F = never, G = never, H = never>(
-  a: A,
-  ab: (a: A) => B,
-  bc: (b: B) => C,
-  cd: (c: C) => D,
-  de: (d: D) => E,
-  ef: (e: E) => F,
-  fg: (f: F) => G,
-  gh: (g: G) => H,
+   a: A, 
+   ab: (a: A) => B, 
+   bc: (b: B) => C, 
+   cd: (c: C) => D, 
+   de: (d: D) => E, 
+   ef: (e: E) => F, 
+   fg: (f: F) => G, 
+   gh: (g: G) => H
 ): H;
 ```
 
@@ -644,14 +659,14 @@ In this example, `1` is passed to the first function, and each result becomes
 the input for the next function.
 
 ```ts
-import { pipe } from "effect";
+import { pipe } from "effect"
 
 pipe(
   1,
   (n) => n + 1,
   (n) => n * 2,
-  (n) => `result: ${n}`,
-); // => "result: 4"
+  (n) => `result: ${n}`
+) // => "result: 4"
 ```
 
 **Example** (Rewriting method chains with pipe)
@@ -659,44 +674,44 @@ pipe(
 The same transformation can be written with data-last functions.
 
 ```ts
-import { Array, pipe } from "effect";
+import { Array, pipe } from "effect"
 
-const numbers = [1, 2, 3, 4];
-const double = (n: number) => n * 2;
-const greaterThanFour = (n: number) => n > 4;
+const numbers = [1, 2, 3, 4]
+const double = (n: number) => n * 2
+const greaterThanFour = (n: number) => n > 4
 
 pipe(
   numbers,
   Array.map(double),
-  Array.filter(greaterThanFour),
-); // => [6, 8]
+  Array.filter(greaterThanFour)
+) // => [6, 8]
 ```
 
 ### Type Parameters
 
 | Type Parameter | Default type |
-| -------------- | ------------ |
-| `A`            | -            |
-| `B`            | `never`      |
-| `C`            | `never`      |
-| `D`            | `never`      |
-| `E`            | `never`      |
-| `F`            | `never`      |
-| `G`            | `never`      |
-| `H`            | `never`      |
+| ------ | ------ |
+| `A` | - |
+| `B` | `never` |
+| `C` | `never` |
+| `D` | `never` |
+| `E` | `never` |
+| `F` | `never` |
+| `G` | `never` |
+| `H` | `never` |
 
 ### Parameters
 
-| Parameter | Type              |
-| --------- | ----------------- |
-| `a`       | `A`               |
-| `ab`      | (`a`: `A`) => `B` |
-| `bc`      | (`b`: `B`) => `C` |
-| `cd`      | (`c`: `C`) => `D` |
-| `de`      | (`d`: `D`) => `E` |
-| `ef`      | (`e`: `E`) => `F` |
-| `fg`      | (`f`: `F`) => `G` |
-| `gh`      | (`g`: `G`) => `H` |
+| Parameter | Type |
+| ------ | ------ |
+| `a` | `A` |
+| `ab` | (`a`: `A`) => `B` |
+| `bc` | (`b`: `B`) => `C` |
+| `cd` | (`c`: `C`) => `D` |
+| `de` | (`d`: `D`) => `E` |
+| `ef` | (`e`: `E`) => `F` |
+| `fg` | (`f`: `F`) => `G` |
+| `gh` | (`g`: `G`) => `H` |
 
 ### Returns
 
@@ -710,15 +725,15 @@ pipe(
 
 ```ts
 function pipe<A, B = never, C = never, D = never, E = never, F = never, G = never, H = never, I = never>(
-  a: A,
-  ab: (a: A) => B,
-  bc: (b: B) => C,
-  cd: (c: C) => D,
-  de: (d: D) => E,
-  ef: (e: E) => F,
-  fg: (f: F) => G,
-  gh: (g: G) => H,
-  hi: (h: H) => I,
+   a: A, 
+   ab: (a: A) => B, 
+   bc: (b: B) => C, 
+   cd: (c: C) => D, 
+   de: (d: D) => E, 
+   ef: (e: E) => F, 
+   fg: (f: F) => G, 
+   gh: (g: G) => H, 
+   hi: (h: H) => I
 ): I;
 ```
 
@@ -746,14 +761,14 @@ In this example, `1` is passed to the first function, and each result becomes
 the input for the next function.
 
 ```ts
-import { pipe } from "effect";
+import { pipe } from "effect"
 
 pipe(
   1,
   (n) => n + 1,
   (n) => n * 2,
-  (n) => `result: ${n}`,
-); // => "result: 4"
+  (n) => `result: ${n}`
+) // => "result: 4"
 ```
 
 **Example** (Rewriting method chains with pipe)
@@ -761,46 +776,46 @@ pipe(
 The same transformation can be written with data-last functions.
 
 ```ts
-import { Array, pipe } from "effect";
+import { Array, pipe } from "effect"
 
-const numbers = [1, 2, 3, 4];
-const double = (n: number) => n * 2;
-const greaterThanFour = (n: number) => n > 4;
+const numbers = [1, 2, 3, 4]
+const double = (n: number) => n * 2
+const greaterThanFour = (n: number) => n > 4
 
 pipe(
   numbers,
   Array.map(double),
-  Array.filter(greaterThanFour),
-); // => [6, 8]
+  Array.filter(greaterThanFour)
+) // => [6, 8]
 ```
 
 ### Type Parameters
 
 | Type Parameter | Default type |
-| -------------- | ------------ |
-| `A`            | -            |
-| `B`            | `never`      |
-| `C`            | `never`      |
-| `D`            | `never`      |
-| `E`            | `never`      |
-| `F`            | `never`      |
-| `G`            | `never`      |
-| `H`            | `never`      |
-| `I`            | `never`      |
+| ------ | ------ |
+| `A` | - |
+| `B` | `never` |
+| `C` | `never` |
+| `D` | `never` |
+| `E` | `never` |
+| `F` | `never` |
+| `G` | `never` |
+| `H` | `never` |
+| `I` | `never` |
 
 ### Parameters
 
-| Parameter | Type              |
-| --------- | ----------------- |
-| `a`       | `A`               |
-| `ab`      | (`a`: `A`) => `B` |
-| `bc`      | (`b`: `B`) => `C` |
-| `cd`      | (`c`: `C`) => `D` |
-| `de`      | (`d`: `D`) => `E` |
-| `ef`      | (`e`: `E`) => `F` |
-| `fg`      | (`f`: `F`) => `G` |
-| `gh`      | (`g`: `G`) => `H` |
-| `hi`      | (`h`: `H`) => `I` |
+| Parameter | Type |
+| ------ | ------ |
+| `a` | `A` |
+| `ab` | (`a`: `A`) => `B` |
+| `bc` | (`b`: `B`) => `C` |
+| `cd` | (`c`: `C`) => `D` |
+| `de` | (`d`: `D`) => `E` |
+| `ef` | (`e`: `E`) => `F` |
+| `fg` | (`f`: `F`) => `G` |
+| `gh` | (`g`: `G`) => `H` |
+| `hi` | (`h`: `H`) => `I` |
 
 ### Returns
 
@@ -814,16 +829,16 @@ pipe(
 
 ```ts
 function pipe<A, B = never, C = never, D = never, E = never, F = never, G = never, H = never, I = never, J = never>(
-  a: A,
-  ab: (a: A) => B,
-  bc: (b: B) => C,
-  cd: (c: C) => D,
-  de: (d: D) => E,
-  ef: (e: E) => F,
-  fg: (f: F) => G,
-  gh: (g: G) => H,
-  hi: (h: H) => I,
-  ij: (i: I) => J,
+   a: A, 
+   ab: (a: A) => B, 
+   bc: (b: B) => C, 
+   cd: (c: C) => D, 
+   de: (d: D) => E, 
+   ef: (e: E) => F, 
+   fg: (f: F) => G, 
+   gh: (g: G) => H, 
+   hi: (h: H) => I, 
+   ij: (i: I) => J
 ): J;
 ```
 
@@ -851,14 +866,14 @@ In this example, `1` is passed to the first function, and each result becomes
 the input for the next function.
 
 ```ts
-import { pipe } from "effect";
+import { pipe } from "effect"
 
 pipe(
   1,
   (n) => n + 1,
   (n) => n * 2,
-  (n) => `result: ${n}`,
-); // => "result: 4"
+  (n) => `result: ${n}`
+) // => "result: 4"
 ```
 
 **Example** (Rewriting method chains with pipe)
@@ -866,48 +881,48 @@ pipe(
 The same transformation can be written with data-last functions.
 
 ```ts
-import { Array, pipe } from "effect";
+import { Array, pipe } from "effect"
 
-const numbers = [1, 2, 3, 4];
-const double = (n: number) => n * 2;
-const greaterThanFour = (n: number) => n > 4;
+const numbers = [1, 2, 3, 4]
+const double = (n: number) => n * 2
+const greaterThanFour = (n: number) => n > 4
 
 pipe(
   numbers,
   Array.map(double),
-  Array.filter(greaterThanFour),
-); // => [6, 8]
+  Array.filter(greaterThanFour)
+) // => [6, 8]
 ```
 
 ### Type Parameters
 
 | Type Parameter | Default type |
-| -------------- | ------------ |
-| `A`            | -            |
-| `B`            | `never`      |
-| `C`            | `never`      |
-| `D`            | `never`      |
-| `E`            | `never`      |
-| `F`            | `never`      |
-| `G`            | `never`      |
-| `H`            | `never`      |
-| `I`            | `never`      |
-| `J`            | `never`      |
+| ------ | ------ |
+| `A` | - |
+| `B` | `never` |
+| `C` | `never` |
+| `D` | `never` |
+| `E` | `never` |
+| `F` | `never` |
+| `G` | `never` |
+| `H` | `never` |
+| `I` | `never` |
+| `J` | `never` |
 
 ### Parameters
 
-| Parameter | Type              |
-| --------- | ----------------- |
-| `a`       | `A`               |
-| `ab`      | (`a`: `A`) => `B` |
-| `bc`      | (`b`: `B`) => `C` |
-| `cd`      | (`c`: `C`) => `D` |
-| `de`      | (`d`: `D`) => `E` |
-| `ef`      | (`e`: `E`) => `F` |
-| `fg`      | (`f`: `F`) => `G` |
-| `gh`      | (`g`: `G`) => `H` |
-| `hi`      | (`h`: `H`) => `I` |
-| `ij`      | (`i`: `I`) => `J` |
+| Parameter | Type |
+| ------ | ------ |
+| `a` | `A` |
+| `ab` | (`a`: `A`) => `B` |
+| `bc` | (`b`: `B`) => `C` |
+| `cd` | (`c`: `C`) => `D` |
+| `de` | (`d`: `D`) => `E` |
+| `ef` | (`e`: `E`) => `F` |
+| `fg` | (`f`: `F`) => `G` |
+| `gh` | (`g`: `G`) => `H` |
+| `hi` | (`h`: `H`) => `I` |
+| `ij` | (`i`: `I`) => `J` |
 
 ### Returns
 
@@ -921,17 +936,17 @@ pipe(
 
 ```ts
 function pipe<A, B = never, C = never, D = never, E = never, F = never, G = never, H = never, I = never, J = never, K = never>(
-  a: A,
-  ab: (a: A) => B,
-  bc: (b: B) => C,
-  cd: (c: C) => D,
-  de: (d: D) => E,
-  ef: (e: E) => F,
-  fg: (f: F) => G,
-  gh: (g: G) => H,
-  hi: (h: H) => I,
-  ij: (i: I) => J,
-  jk: (j: J) => K,
+   a: A, 
+   ab: (a: A) => B, 
+   bc: (b: B) => C, 
+   cd: (c: C) => D, 
+   de: (d: D) => E, 
+   ef: (e: E) => F, 
+   fg: (f: F) => G, 
+   gh: (g: G) => H, 
+   hi: (h: H) => I, 
+   ij: (i: I) => J, 
+   jk: (j: J) => K
 ): K;
 ```
 
@@ -959,14 +974,14 @@ In this example, `1` is passed to the first function, and each result becomes
 the input for the next function.
 
 ```ts
-import { pipe } from "effect";
+import { pipe } from "effect"
 
 pipe(
   1,
   (n) => n + 1,
   (n) => n * 2,
-  (n) => `result: ${n}`,
-); // => "result: 4"
+  (n) => `result: ${n}`
+) // => "result: 4"
 ```
 
 **Example** (Rewriting method chains with pipe)
@@ -974,50 +989,50 @@ pipe(
 The same transformation can be written with data-last functions.
 
 ```ts
-import { Array, pipe } from "effect";
+import { Array, pipe } from "effect"
 
-const numbers = [1, 2, 3, 4];
-const double = (n: number) => n * 2;
-const greaterThanFour = (n: number) => n > 4;
+const numbers = [1, 2, 3, 4]
+const double = (n: number) => n * 2
+const greaterThanFour = (n: number) => n > 4
 
 pipe(
   numbers,
   Array.map(double),
-  Array.filter(greaterThanFour),
-); // => [6, 8]
+  Array.filter(greaterThanFour)
+) // => [6, 8]
 ```
 
 ### Type Parameters
 
 | Type Parameter | Default type |
-| -------------- | ------------ |
-| `A`            | -            |
-| `B`            | `never`      |
-| `C`            | `never`      |
-| `D`            | `never`      |
-| `E`            | `never`      |
-| `F`            | `never`      |
-| `G`            | `never`      |
-| `H`            | `never`      |
-| `I`            | `never`      |
-| `J`            | `never`      |
-| `K`            | `never`      |
+| ------ | ------ |
+| `A` | - |
+| `B` | `never` |
+| `C` | `never` |
+| `D` | `never` |
+| `E` | `never` |
+| `F` | `never` |
+| `G` | `never` |
+| `H` | `never` |
+| `I` | `never` |
+| `J` | `never` |
+| `K` | `never` |
 
 ### Parameters
 
-| Parameter | Type              |
-| --------- | ----------------- |
-| `a`       | `A`               |
-| `ab`      | (`a`: `A`) => `B` |
-| `bc`      | (`b`: `B`) => `C` |
-| `cd`      | (`c`: `C`) => `D` |
-| `de`      | (`d`: `D`) => `E` |
-| `ef`      | (`e`: `E`) => `F` |
-| `fg`      | (`f`: `F`) => `G` |
-| `gh`      | (`g`: `G`) => `H` |
-| `hi`      | (`h`: `H`) => `I` |
-| `ij`      | (`i`: `I`) => `J` |
-| `jk`      | (`j`: `J`) => `K` |
+| Parameter | Type |
+| ------ | ------ |
+| `a` | `A` |
+| `ab` | (`a`: `A`) => `B` |
+| `bc` | (`b`: `B`) => `C` |
+| `cd` | (`c`: `C`) => `D` |
+| `de` | (`d`: `D`) => `E` |
+| `ef` | (`e`: `E`) => `F` |
+| `fg` | (`f`: `F`) => `G` |
+| `gh` | (`g`: `G`) => `H` |
+| `hi` | (`h`: `H`) => `I` |
+| `ij` | (`i`: `I`) => `J` |
+| `jk` | (`j`: `J`) => `K` |
 
 ### Returns
 
@@ -1031,18 +1046,18 @@ pipe(
 
 ```ts
 function pipe<A, B = never, C = never, D = never, E = never, F = never, G = never, H = never, I = never, J = never, K = never, L = never>(
-  a: A,
-  ab: (a: A) => B,
-  bc: (b: B) => C,
-  cd: (c: C) => D,
-  de: (d: D) => E,
-  ef: (e: E) => F,
-  fg: (f: F) => G,
-  gh: (g: G) => H,
-  hi: (h: H) => I,
-  ij: (i: I) => J,
-  jk: (j: J) => K,
-  kl: (k: K) => L,
+   a: A, 
+   ab: (a: A) => B, 
+   bc: (b: B) => C, 
+   cd: (c: C) => D, 
+   de: (d: D) => E, 
+   ef: (e: E) => F, 
+   fg: (f: F) => G, 
+   gh: (g: G) => H, 
+   hi: (h: H) => I, 
+   ij: (i: I) => J, 
+   jk: (j: J) => K, 
+   kl: (k: K) => L
 ): L;
 ```
 
@@ -1070,14 +1085,14 @@ In this example, `1` is passed to the first function, and each result becomes
 the input for the next function.
 
 ```ts
-import { pipe } from "effect";
+import { pipe } from "effect"
 
 pipe(
   1,
   (n) => n + 1,
   (n) => n * 2,
-  (n) => `result: ${n}`,
-); // => "result: 4"
+  (n) => `result: ${n}`
+) // => "result: 4"
 ```
 
 **Example** (Rewriting method chains with pipe)
@@ -1085,52 +1100,52 @@ pipe(
 The same transformation can be written with data-last functions.
 
 ```ts
-import { Array, pipe } from "effect";
+import { Array, pipe } from "effect"
 
-const numbers = [1, 2, 3, 4];
-const double = (n: number) => n * 2;
-const greaterThanFour = (n: number) => n > 4;
+const numbers = [1, 2, 3, 4]
+const double = (n: number) => n * 2
+const greaterThanFour = (n: number) => n > 4
 
 pipe(
   numbers,
   Array.map(double),
-  Array.filter(greaterThanFour),
-); // => [6, 8]
+  Array.filter(greaterThanFour)
+) // => [6, 8]
 ```
 
 ### Type Parameters
 
 | Type Parameter | Default type |
-| -------------- | ------------ |
-| `A`            | -            |
-| `B`            | `never`      |
-| `C`            | `never`      |
-| `D`            | `never`      |
-| `E`            | `never`      |
-| `F`            | `never`      |
-| `G`            | `never`      |
-| `H`            | `never`      |
-| `I`            | `never`      |
-| `J`            | `never`      |
-| `K`            | `never`      |
-| `L`            | `never`      |
+| ------ | ------ |
+| `A` | - |
+| `B` | `never` |
+| `C` | `never` |
+| `D` | `never` |
+| `E` | `never` |
+| `F` | `never` |
+| `G` | `never` |
+| `H` | `never` |
+| `I` | `never` |
+| `J` | `never` |
+| `K` | `never` |
+| `L` | `never` |
 
 ### Parameters
 
-| Parameter | Type              |
-| --------- | ----------------- |
-| `a`       | `A`               |
-| `ab`      | (`a`: `A`) => `B` |
-| `bc`      | (`b`: `B`) => `C` |
-| `cd`      | (`c`: `C`) => `D` |
-| `de`      | (`d`: `D`) => `E` |
-| `ef`      | (`e`: `E`) => `F` |
-| `fg`      | (`f`: `F`) => `G` |
-| `gh`      | (`g`: `G`) => `H` |
-| `hi`      | (`h`: `H`) => `I` |
-| `ij`      | (`i`: `I`) => `J` |
-| `jk`      | (`j`: `J`) => `K` |
-| `kl`      | (`k`: `K`) => `L` |
+| Parameter | Type |
+| ------ | ------ |
+| `a` | `A` |
+| `ab` | (`a`: `A`) => `B` |
+| `bc` | (`b`: `B`) => `C` |
+| `cd` | (`c`: `C`) => `D` |
+| `de` | (`d`: `D`) => `E` |
+| `ef` | (`e`: `E`) => `F` |
+| `fg` | (`f`: `F`) => `G` |
+| `gh` | (`g`: `G`) => `H` |
+| `hi` | (`h`: `H`) => `I` |
+| `ij` | (`i`: `I`) => `J` |
+| `jk` | (`j`: `J`) => `K` |
+| `kl` | (`k`: `K`) => `L` |
 
 ### Returns
 
@@ -1144,19 +1159,19 @@ pipe(
 
 ```ts
 function pipe<A, B = never, C = never, D = never, E = never, F = never, G = never, H = never, I = never, J = never, K = never, L = never, M = never>(
-  a: A,
-  ab: (a: A) => B,
-  bc: (b: B) => C,
-  cd: (c: C) => D,
-  de: (d: D) => E,
-  ef: (e: E) => F,
-  fg: (f: F) => G,
-  gh: (g: G) => H,
-  hi: (h: H) => I,
-  ij: (i: I) => J,
-  jk: (j: J) => K,
-  kl: (k: K) => L,
-  lm: (l: L) => M,
+   a: A, 
+   ab: (a: A) => B, 
+   bc: (b: B) => C, 
+   cd: (c: C) => D, 
+   de: (d: D) => E, 
+   ef: (e: E) => F, 
+   fg: (f: F) => G, 
+   gh: (g: G) => H, 
+   hi: (h: H) => I, 
+   ij: (i: I) => J, 
+   jk: (j: J) => K, 
+   kl: (k: K) => L, 
+   lm: (l: L) => M
 ): M;
 ```
 
@@ -1184,14 +1199,14 @@ In this example, `1` is passed to the first function, and each result becomes
 the input for the next function.
 
 ```ts
-import { pipe } from "effect";
+import { pipe } from "effect"
 
 pipe(
   1,
   (n) => n + 1,
   (n) => n * 2,
-  (n) => `result: ${n}`,
-); // => "result: 4"
+  (n) => `result: ${n}`
+) // => "result: 4"
 ```
 
 **Example** (Rewriting method chains with pipe)
@@ -1199,54 +1214,54 @@ pipe(
 The same transformation can be written with data-last functions.
 
 ```ts
-import { Array, pipe } from "effect";
+import { Array, pipe } from "effect"
 
-const numbers = [1, 2, 3, 4];
-const double = (n: number) => n * 2;
-const greaterThanFour = (n: number) => n > 4;
+const numbers = [1, 2, 3, 4]
+const double = (n: number) => n * 2
+const greaterThanFour = (n: number) => n > 4
 
 pipe(
   numbers,
   Array.map(double),
-  Array.filter(greaterThanFour),
-); // => [6, 8]
+  Array.filter(greaterThanFour)
+) // => [6, 8]
 ```
 
 ### Type Parameters
 
 | Type Parameter | Default type |
-| -------------- | ------------ |
-| `A`            | -            |
-| `B`            | `never`      |
-| `C`            | `never`      |
-| `D`            | `never`      |
-| `E`            | `never`      |
-| `F`            | `never`      |
-| `G`            | `never`      |
-| `H`            | `never`      |
-| `I`            | `never`      |
-| `J`            | `never`      |
-| `K`            | `never`      |
-| `L`            | `never`      |
-| `M`            | `never`      |
+| ------ | ------ |
+| `A` | - |
+| `B` | `never` |
+| `C` | `never` |
+| `D` | `never` |
+| `E` | `never` |
+| `F` | `never` |
+| `G` | `never` |
+| `H` | `never` |
+| `I` | `never` |
+| `J` | `never` |
+| `K` | `never` |
+| `L` | `never` |
+| `M` | `never` |
 
 ### Parameters
 
-| Parameter | Type              |
-| --------- | ----------------- |
-| `a`       | `A`               |
-| `ab`      | (`a`: `A`) => `B` |
-| `bc`      | (`b`: `B`) => `C` |
-| `cd`      | (`c`: `C`) => `D` |
-| `de`      | (`d`: `D`) => `E` |
-| `ef`      | (`e`: `E`) => `F` |
-| `fg`      | (`f`: `F`) => `G` |
-| `gh`      | (`g`: `G`) => `H` |
-| `hi`      | (`h`: `H`) => `I` |
-| `ij`      | (`i`: `I`) => `J` |
-| `jk`      | (`j`: `J`) => `K` |
-| `kl`      | (`k`: `K`) => `L` |
-| `lm`      | (`l`: `L`) => `M` |
+| Parameter | Type |
+| ------ | ------ |
+| `a` | `A` |
+| `ab` | (`a`: `A`) => `B` |
+| `bc` | (`b`: `B`) => `C` |
+| `cd` | (`c`: `C`) => `D` |
+| `de` | (`d`: `D`) => `E` |
+| `ef` | (`e`: `E`) => `F` |
+| `fg` | (`f`: `F`) => `G` |
+| `gh` | (`g`: `G`) => `H` |
+| `hi` | (`h`: `H`) => `I` |
+| `ij` | (`i`: `I`) => `J` |
+| `jk` | (`j`: `J`) => `K` |
+| `kl` | (`k`: `K`) => `L` |
+| `lm` | (`l`: `L`) => `M` |
 
 ### Returns
 
@@ -1260,20 +1275,20 @@ pipe(
 
 ```ts
 function pipe<A, B = never, C = never, D = never, E = never, F = never, G = never, H = never, I = never, J = never, K = never, L = never, M = never, N = never>(
-  a: A,
-  ab: (a: A) => B,
-  bc: (b: B) => C,
-  cd: (c: C) => D,
-  de: (d: D) => E,
-  ef: (e: E) => F,
-  fg: (f: F) => G,
-  gh: (g: G) => H,
-  hi: (h: H) => I,
-  ij: (i: I) => J,
-  jk: (j: J) => K,
-  kl: (k: K) => L,
-  lm: (l: L) => M,
-  mn: (m: M) => N,
+   a: A, 
+   ab: (a: A) => B, 
+   bc: (b: B) => C, 
+   cd: (c: C) => D, 
+   de: (d: D) => E, 
+   ef: (e: E) => F, 
+   fg: (f: F) => G, 
+   gh: (g: G) => H, 
+   hi: (h: H) => I, 
+   ij: (i: I) => J, 
+   jk: (j: J) => K, 
+   kl: (k: K) => L, 
+   lm: (l: L) => M, 
+   mn: (m: M) => N
 ): N;
 ```
 
@@ -1301,14 +1316,14 @@ In this example, `1` is passed to the first function, and each result becomes
 the input for the next function.
 
 ```ts
-import { pipe } from "effect";
+import { pipe } from "effect"
 
 pipe(
   1,
   (n) => n + 1,
   (n) => n * 2,
-  (n) => `result: ${n}`,
-); // => "result: 4"
+  (n) => `result: ${n}`
+) // => "result: 4"
 ```
 
 **Example** (Rewriting method chains with pipe)
@@ -1316,56 +1331,56 @@ pipe(
 The same transformation can be written with data-last functions.
 
 ```ts
-import { Array, pipe } from "effect";
+import { Array, pipe } from "effect"
 
-const numbers = [1, 2, 3, 4];
-const double = (n: number) => n * 2;
-const greaterThanFour = (n: number) => n > 4;
+const numbers = [1, 2, 3, 4]
+const double = (n: number) => n * 2
+const greaterThanFour = (n: number) => n > 4
 
 pipe(
   numbers,
   Array.map(double),
-  Array.filter(greaterThanFour),
-); // => [6, 8]
+  Array.filter(greaterThanFour)
+) // => [6, 8]
 ```
 
 ### Type Parameters
 
 | Type Parameter | Default type |
-| -------------- | ------------ |
-| `A`            | -            |
-| `B`            | `never`      |
-| `C`            | `never`      |
-| `D`            | `never`      |
-| `E`            | `never`      |
-| `F`            | `never`      |
-| `G`            | `never`      |
-| `H`            | `never`      |
-| `I`            | `never`      |
-| `J`            | `never`      |
-| `K`            | `never`      |
-| `L`            | `never`      |
-| `M`            | `never`      |
-| `N`            | `never`      |
+| ------ | ------ |
+| `A` | - |
+| `B` | `never` |
+| `C` | `never` |
+| `D` | `never` |
+| `E` | `never` |
+| `F` | `never` |
+| `G` | `never` |
+| `H` | `never` |
+| `I` | `never` |
+| `J` | `never` |
+| `K` | `never` |
+| `L` | `never` |
+| `M` | `never` |
+| `N` | `never` |
 
 ### Parameters
 
-| Parameter | Type              |
-| --------- | ----------------- |
-| `a`       | `A`               |
-| `ab`      | (`a`: `A`) => `B` |
-| `bc`      | (`b`: `B`) => `C` |
-| `cd`      | (`c`: `C`) => `D` |
-| `de`      | (`d`: `D`) => `E` |
-| `ef`      | (`e`: `E`) => `F` |
-| `fg`      | (`f`: `F`) => `G` |
-| `gh`      | (`g`: `G`) => `H` |
-| `hi`      | (`h`: `H`) => `I` |
-| `ij`      | (`i`: `I`) => `J` |
-| `jk`      | (`j`: `J`) => `K` |
-| `kl`      | (`k`: `K`) => `L` |
-| `lm`      | (`l`: `L`) => `M` |
-| `mn`      | (`m`: `M`) => `N` |
+| Parameter | Type |
+| ------ | ------ |
+| `a` | `A` |
+| `ab` | (`a`: `A`) => `B` |
+| `bc` | (`b`: `B`) => `C` |
+| `cd` | (`c`: `C`) => `D` |
+| `de` | (`d`: `D`) => `E` |
+| `ef` | (`e`: `E`) => `F` |
+| `fg` | (`f`: `F`) => `G` |
+| `gh` | (`g`: `G`) => `H` |
+| `hi` | (`h`: `H`) => `I` |
+| `ij` | (`i`: `I`) => `J` |
+| `jk` | (`j`: `J`) => `K` |
+| `kl` | (`k`: `K`) => `L` |
+| `lm` | (`l`: `L`) => `M` |
+| `mn` | (`m`: `M`) => `N` |
 
 ### Returns
 
@@ -1378,38 +1393,22 @@ pipe(
 ## Call Signature
 
 ```ts
-function pipe<
-  A,
-  B = never,
-  C = never,
-  D = never,
-  E = never,
-  F = never,
-  G = never,
-  H = never,
-  I = never,
-  J = never,
-  K = never,
-  L = never,
-  M = never,
-  N = never,
-  O = never,
->(
-  a: A,
-  ab: (a: A) => B,
-  bc: (b: B) => C,
-  cd: (c: C) => D,
-  de: (d: D) => E,
-  ef: (e: E) => F,
-  fg: (f: F) => G,
-  gh: (g: G) => H,
-  hi: (h: H) => I,
-  ij: (i: I) => J,
-  jk: (j: J) => K,
-  kl: (k: K) => L,
-  lm: (l: L) => M,
-  mn: (m: M) => N,
-  no: (n: N) => O,
+function pipe<A, B = never, C = never, D = never, E = never, F = never, G = never, H = never, I = never, J = never, K = never, L = never, M = never, N = never, O = never>(
+   a: A, 
+   ab: (a: A) => B, 
+   bc: (b: B) => C, 
+   cd: (c: C) => D, 
+   de: (d: D) => E, 
+   ef: (e: E) => F, 
+   fg: (f: F) => G, 
+   gh: (g: G) => H, 
+   hi: (h: H) => I, 
+   ij: (i: I) => J, 
+   jk: (j: J) => K, 
+   kl: (k: K) => L, 
+   lm: (l: L) => M, 
+   mn: (m: M) => N, 
+   no: (n: N) => O
 ): O;
 ```
 
@@ -1437,14 +1436,14 @@ In this example, `1` is passed to the first function, and each result becomes
 the input for the next function.
 
 ```ts
-import { pipe } from "effect";
+import { pipe } from "effect"
 
 pipe(
   1,
   (n) => n + 1,
   (n) => n * 2,
-  (n) => `result: ${n}`,
-); // => "result: 4"
+  (n) => `result: ${n}`
+) // => "result: 4"
 ```
 
 **Example** (Rewriting method chains with pipe)
@@ -1452,58 +1451,58 @@ pipe(
 The same transformation can be written with data-last functions.
 
 ```ts
-import { Array, pipe } from "effect";
+import { Array, pipe } from "effect"
 
-const numbers = [1, 2, 3, 4];
-const double = (n: number) => n * 2;
-const greaterThanFour = (n: number) => n > 4;
+const numbers = [1, 2, 3, 4]
+const double = (n: number) => n * 2
+const greaterThanFour = (n: number) => n > 4
 
 pipe(
   numbers,
   Array.map(double),
-  Array.filter(greaterThanFour),
-); // => [6, 8]
+  Array.filter(greaterThanFour)
+) // => [6, 8]
 ```
 
 ### Type Parameters
 
 | Type Parameter | Default type |
-| -------------- | ------------ |
-| `A`            | -            |
-| `B`            | `never`      |
-| `C`            | `never`      |
-| `D`            | `never`      |
-| `E`            | `never`      |
-| `F`            | `never`      |
-| `G`            | `never`      |
-| `H`            | `never`      |
-| `I`            | `never`      |
-| `J`            | `never`      |
-| `K`            | `never`      |
-| `L`            | `never`      |
-| `M`            | `never`      |
-| `N`            | `never`      |
-| `O`            | `never`      |
+| ------ | ------ |
+| `A` | - |
+| `B` | `never` |
+| `C` | `never` |
+| `D` | `never` |
+| `E` | `never` |
+| `F` | `never` |
+| `G` | `never` |
+| `H` | `never` |
+| `I` | `never` |
+| `J` | `never` |
+| `K` | `never` |
+| `L` | `never` |
+| `M` | `never` |
+| `N` | `never` |
+| `O` | `never` |
 
 ### Parameters
 
-| Parameter | Type              |
-| --------- | ----------------- |
-| `a`       | `A`               |
-| `ab`      | (`a`: `A`) => `B` |
-| `bc`      | (`b`: `B`) => `C` |
-| `cd`      | (`c`: `C`) => `D` |
-| `de`      | (`d`: `D`) => `E` |
-| `ef`      | (`e`: `E`) => `F` |
-| `fg`      | (`f`: `F`) => `G` |
-| `gh`      | (`g`: `G`) => `H` |
-| `hi`      | (`h`: `H`) => `I` |
-| `ij`      | (`i`: `I`) => `J` |
-| `jk`      | (`j`: `J`) => `K` |
-| `kl`      | (`k`: `K`) => `L` |
-| `lm`      | (`l`: `L`) => `M` |
-| `mn`      | (`m`: `M`) => `N` |
-| `no`      | (`n`: `N`) => `O` |
+| Parameter | Type |
+| ------ | ------ |
+| `a` | `A` |
+| `ab` | (`a`: `A`) => `B` |
+| `bc` | (`b`: `B`) => `C` |
+| `cd` | (`c`: `C`) => `D` |
+| `de` | (`d`: `D`) => `E` |
+| `ef` | (`e`: `E`) => `F` |
+| `fg` | (`f`: `F`) => `G` |
+| `gh` | (`g`: `G`) => `H` |
+| `hi` | (`h`: `H`) => `I` |
+| `ij` | (`i`: `I`) => `J` |
+| `jk` | (`j`: `J`) => `K` |
+| `kl` | (`k`: `K`) => `L` |
+| `lm` | (`l`: `L`) => `M` |
+| `mn` | (`m`: `M`) => `N` |
+| `no` | (`n`: `N`) => `O` |
 
 ### Returns
 
@@ -1516,40 +1515,23 @@ pipe(
 ## Call Signature
 
 ```ts
-function pipe<
-  A,
-  B = never,
-  C = never,
-  D = never,
-  E = never,
-  F = never,
-  G = never,
-  H = never,
-  I = never,
-  J = never,
-  K = never,
-  L = never,
-  M = never,
-  N = never,
-  O = never,
-  P = never,
->(
-  a: A,
-  ab: (a: A) => B,
-  bc: (b: B) => C,
-  cd: (c: C) => D,
-  de: (d: D) => E,
-  ef: (e: E) => F,
-  fg: (f: F) => G,
-  gh: (g: G) => H,
-  hi: (h: H) => I,
-  ij: (i: I) => J,
-  jk: (j: J) => K,
-  kl: (k: K) => L,
-  lm: (l: L) => M,
-  mn: (m: M) => N,
-  no: (n: N) => O,
-  op: (o: O) => P,
+function pipe<A, B = never, C = never, D = never, E = never, F = never, G = never, H = never, I = never, J = never, K = never, L = never, M = never, N = never, O = never, P = never>(
+   a: A, 
+   ab: (a: A) => B, 
+   bc: (b: B) => C, 
+   cd: (c: C) => D, 
+   de: (d: D) => E, 
+   ef: (e: E) => F, 
+   fg: (f: F) => G, 
+   gh: (g: G) => H, 
+   hi: (h: H) => I, 
+   ij: (i: I) => J, 
+   jk: (j: J) => K, 
+   kl: (k: K) => L, 
+   lm: (l: L) => M, 
+   mn: (m: M) => N, 
+   no: (n: N) => O, 
+   op: (o: O) => P
 ): P;
 ```
 
@@ -1577,14 +1559,14 @@ In this example, `1` is passed to the first function, and each result becomes
 the input for the next function.
 
 ```ts
-import { pipe } from "effect";
+import { pipe } from "effect"
 
 pipe(
   1,
   (n) => n + 1,
   (n) => n * 2,
-  (n) => `result: ${n}`,
-); // => "result: 4"
+  (n) => `result: ${n}`
+) // => "result: 4"
 ```
 
 **Example** (Rewriting method chains with pipe)
@@ -1592,60 +1574,60 @@ pipe(
 The same transformation can be written with data-last functions.
 
 ```ts
-import { Array, pipe } from "effect";
+import { Array, pipe } from "effect"
 
-const numbers = [1, 2, 3, 4];
-const double = (n: number) => n * 2;
-const greaterThanFour = (n: number) => n > 4;
+const numbers = [1, 2, 3, 4]
+const double = (n: number) => n * 2
+const greaterThanFour = (n: number) => n > 4
 
 pipe(
   numbers,
   Array.map(double),
-  Array.filter(greaterThanFour),
-); // => [6, 8]
+  Array.filter(greaterThanFour)
+) // => [6, 8]
 ```
 
 ### Type Parameters
 
 | Type Parameter | Default type |
-| -------------- | ------------ |
-| `A`            | -            |
-| `B`            | `never`      |
-| `C`            | `never`      |
-| `D`            | `never`      |
-| `E`            | `never`      |
-| `F`            | `never`      |
-| `G`            | `never`      |
-| `H`            | `never`      |
-| `I`            | `never`      |
-| `J`            | `never`      |
-| `K`            | `never`      |
-| `L`            | `never`      |
-| `M`            | `never`      |
-| `N`            | `never`      |
-| `O`            | `never`      |
-| `P`            | `never`      |
+| ------ | ------ |
+| `A` | - |
+| `B` | `never` |
+| `C` | `never` |
+| `D` | `never` |
+| `E` | `never` |
+| `F` | `never` |
+| `G` | `never` |
+| `H` | `never` |
+| `I` | `never` |
+| `J` | `never` |
+| `K` | `never` |
+| `L` | `never` |
+| `M` | `never` |
+| `N` | `never` |
+| `O` | `never` |
+| `P` | `never` |
 
 ### Parameters
 
-| Parameter | Type              |
-| --------- | ----------------- |
-| `a`       | `A`               |
-| `ab`      | (`a`: `A`) => `B` |
-| `bc`      | (`b`: `B`) => `C` |
-| `cd`      | (`c`: `C`) => `D` |
-| `de`      | (`d`: `D`) => `E` |
-| `ef`      | (`e`: `E`) => `F` |
-| `fg`      | (`f`: `F`) => `G` |
-| `gh`      | (`g`: `G`) => `H` |
-| `hi`      | (`h`: `H`) => `I` |
-| `ij`      | (`i`: `I`) => `J` |
-| `jk`      | (`j`: `J`) => `K` |
-| `kl`      | (`k`: `K`) => `L` |
-| `lm`      | (`l`: `L`) => `M` |
-| `mn`      | (`m`: `M`) => `N` |
-| `no`      | (`n`: `N`) => `O` |
-| `op`      | (`o`: `O`) => `P` |
+| Parameter | Type |
+| ------ | ------ |
+| `a` | `A` |
+| `ab` | (`a`: `A`) => `B` |
+| `bc` | (`b`: `B`) => `C` |
+| `cd` | (`c`: `C`) => `D` |
+| `de` | (`d`: `D`) => `E` |
+| `ef` | (`e`: `E`) => `F` |
+| `fg` | (`f`: `F`) => `G` |
+| `gh` | (`g`: `G`) => `H` |
+| `hi` | (`h`: `H`) => `I` |
+| `ij` | (`i`: `I`) => `J` |
+| `jk` | (`j`: `J`) => `K` |
+| `kl` | (`k`: `K`) => `L` |
+| `lm` | (`l`: `L`) => `M` |
+| `mn` | (`m`: `M`) => `N` |
+| `no` | (`n`: `N`) => `O` |
+| `op` | (`o`: `O`) => `P` |
 
 ### Returns
 
@@ -1658,42 +1640,24 @@ pipe(
 ## Call Signature
 
 ```ts
-function pipe<
-  A,
-  B = never,
-  C = never,
-  D = never,
-  E = never,
-  F = never,
-  G = never,
-  H = never,
-  I = never,
-  J = never,
-  K = never,
-  L = never,
-  M = never,
-  N = never,
-  O = never,
-  P = never,
-  Q = never,
->(
-  a: A,
-  ab: (a: A) => B,
-  bc: (b: B) => C,
-  cd: (c: C) => D,
-  de: (d: D) => E,
-  ef: (e: E) => F,
-  fg: (f: F) => G,
-  gh: (g: G) => H,
-  hi: (h: H) => I,
-  ij: (i: I) => J,
-  jk: (j: J) => K,
-  kl: (k: K) => L,
-  lm: (l: L) => M,
-  mn: (m: M) => N,
-  no: (n: N) => O,
-  op: (o: O) => P,
-  pq: (p: P) => Q,
+function pipe<A, B = never, C = never, D = never, E = never, F = never, G = never, H = never, I = never, J = never, K = never, L = never, M = never, N = never, O = never, P = never, Q = never>(
+   a: A, 
+   ab: (a: A) => B, 
+   bc: (b: B) => C, 
+   cd: (c: C) => D, 
+   de: (d: D) => E, 
+   ef: (e: E) => F, 
+   fg: (f: F) => G, 
+   gh: (g: G) => H, 
+   hi: (h: H) => I, 
+   ij: (i: I) => J, 
+   jk: (j: J) => K, 
+   kl: (k: K) => L, 
+   lm: (l: L) => M, 
+   mn: (m: M) => N, 
+   no: (n: N) => O, 
+   op: (o: O) => P, 
+   pq: (p: P) => Q
 ): Q;
 ```
 
@@ -1721,14 +1685,14 @@ In this example, `1` is passed to the first function, and each result becomes
 the input for the next function.
 
 ```ts
-import { pipe } from "effect";
+import { pipe } from "effect"
 
 pipe(
   1,
   (n) => n + 1,
   (n) => n * 2,
-  (n) => `result: ${n}`,
-); // => "result: 4"
+  (n) => `result: ${n}`
+) // => "result: 4"
 ```
 
 **Example** (Rewriting method chains with pipe)
@@ -1736,62 +1700,62 @@ pipe(
 The same transformation can be written with data-last functions.
 
 ```ts
-import { Array, pipe } from "effect";
+import { Array, pipe } from "effect"
 
-const numbers = [1, 2, 3, 4];
-const double = (n: number) => n * 2;
-const greaterThanFour = (n: number) => n > 4;
+const numbers = [1, 2, 3, 4]
+const double = (n: number) => n * 2
+const greaterThanFour = (n: number) => n > 4
 
 pipe(
   numbers,
   Array.map(double),
-  Array.filter(greaterThanFour),
-); // => [6, 8]
+  Array.filter(greaterThanFour)
+) // => [6, 8]
 ```
 
 ### Type Parameters
 
 | Type Parameter | Default type |
-| -------------- | ------------ |
-| `A`            | -            |
-| `B`            | `never`      |
-| `C`            | `never`      |
-| `D`            | `never`      |
-| `E`            | `never`      |
-| `F`            | `never`      |
-| `G`            | `never`      |
-| `H`            | `never`      |
-| `I`            | `never`      |
-| `J`            | `never`      |
-| `K`            | `never`      |
-| `L`            | `never`      |
-| `M`            | `never`      |
-| `N`            | `never`      |
-| `O`            | `never`      |
-| `P`            | `never`      |
-| `Q`            | `never`      |
+| ------ | ------ |
+| `A` | - |
+| `B` | `never` |
+| `C` | `never` |
+| `D` | `never` |
+| `E` | `never` |
+| `F` | `never` |
+| `G` | `never` |
+| `H` | `never` |
+| `I` | `never` |
+| `J` | `never` |
+| `K` | `never` |
+| `L` | `never` |
+| `M` | `never` |
+| `N` | `never` |
+| `O` | `never` |
+| `P` | `never` |
+| `Q` | `never` |
 
 ### Parameters
 
-| Parameter | Type              |
-| --------- | ----------------- |
-| `a`       | `A`               |
-| `ab`      | (`a`: `A`) => `B` |
-| `bc`      | (`b`: `B`) => `C` |
-| `cd`      | (`c`: `C`) => `D` |
-| `de`      | (`d`: `D`) => `E` |
-| `ef`      | (`e`: `E`) => `F` |
-| `fg`      | (`f`: `F`) => `G` |
-| `gh`      | (`g`: `G`) => `H` |
-| `hi`      | (`h`: `H`) => `I` |
-| `ij`      | (`i`: `I`) => `J` |
-| `jk`      | (`j`: `J`) => `K` |
-| `kl`      | (`k`: `K`) => `L` |
-| `lm`      | (`l`: `L`) => `M` |
-| `mn`      | (`m`: `M`) => `N` |
-| `no`      | (`n`: `N`) => `O` |
-| `op`      | (`o`: `O`) => `P` |
-| `pq`      | (`p`: `P`) => `Q` |
+| Parameter | Type |
+| ------ | ------ |
+| `a` | `A` |
+| `ab` | (`a`: `A`) => `B` |
+| `bc` | (`b`: `B`) => `C` |
+| `cd` | (`c`: `C`) => `D` |
+| `de` | (`d`: `D`) => `E` |
+| `ef` | (`e`: `E`) => `F` |
+| `fg` | (`f`: `F`) => `G` |
+| `gh` | (`g`: `G`) => `H` |
+| `hi` | (`h`: `H`) => `I` |
+| `ij` | (`i`: `I`) => `J` |
+| `jk` | (`j`: `J`) => `K` |
+| `kl` | (`k`: `K`) => `L` |
+| `lm` | (`l`: `L`) => `M` |
+| `mn` | (`m`: `M`) => `N` |
+| `no` | (`n`: `N`) => `O` |
+| `op` | (`o`: `O`) => `P` |
+| `pq` | (`p`: `P`) => `Q` |
 
 ### Returns
 
@@ -1804,44 +1768,25 @@ pipe(
 ## Call Signature
 
 ```ts
-function pipe<
-  A,
-  B = never,
-  C = never,
-  D = never,
-  E = never,
-  F = never,
-  G = never,
-  H = never,
-  I = never,
-  J = never,
-  K = never,
-  L = never,
-  M = never,
-  N = never,
-  O = never,
-  P = never,
-  Q = never,
-  R = never,
->(
-  a: A,
-  ab: (a: A) => B,
-  bc: (b: B) => C,
-  cd: (c: C) => D,
-  de: (d: D) => E,
-  ef: (e: E) => F,
-  fg: (f: F) => G,
-  gh: (g: G) => H,
-  hi: (h: H) => I,
-  ij: (i: I) => J,
-  jk: (j: J) => K,
-  kl: (k: K) => L,
-  lm: (l: L) => M,
-  mn: (m: M) => N,
-  no: (n: N) => O,
-  op: (o: O) => P,
-  pq: (p: P) => Q,
-  qr: (q: Q) => R,
+function pipe<A, B = never, C = never, D = never, E = never, F = never, G = never, H = never, I = never, J = never, K = never, L = never, M = never, N = never, O = never, P = never, Q = never, R = never>(
+   a: A, 
+   ab: (a: A) => B, 
+   bc: (b: B) => C, 
+   cd: (c: C) => D, 
+   de: (d: D) => E, 
+   ef: (e: E) => F, 
+   fg: (f: F) => G, 
+   gh: (g: G) => H, 
+   hi: (h: H) => I, 
+   ij: (i: I) => J, 
+   jk: (j: J) => K, 
+   kl: (k: K) => L, 
+   lm: (l: L) => M, 
+   mn: (m: M) => N, 
+   no: (n: N) => O, 
+   op: (o: O) => P, 
+   pq: (p: P) => Q, 
+   qr: (q: Q) => R
 ): R;
 ```
 
@@ -1869,14 +1814,14 @@ In this example, `1` is passed to the first function, and each result becomes
 the input for the next function.
 
 ```ts
-import { pipe } from "effect";
+import { pipe } from "effect"
 
 pipe(
   1,
   (n) => n + 1,
   (n) => n * 2,
-  (n) => `result: ${n}`,
-); // => "result: 4"
+  (n) => `result: ${n}`
+) // => "result: 4"
 ```
 
 **Example** (Rewriting method chains with pipe)
@@ -1884,64 +1829,64 @@ pipe(
 The same transformation can be written with data-last functions.
 
 ```ts
-import { Array, pipe } from "effect";
+import { Array, pipe } from "effect"
 
-const numbers = [1, 2, 3, 4];
-const double = (n: number) => n * 2;
-const greaterThanFour = (n: number) => n > 4;
+const numbers = [1, 2, 3, 4]
+const double = (n: number) => n * 2
+const greaterThanFour = (n: number) => n > 4
 
 pipe(
   numbers,
   Array.map(double),
-  Array.filter(greaterThanFour),
-); // => [6, 8]
+  Array.filter(greaterThanFour)
+) // => [6, 8]
 ```
 
 ### Type Parameters
 
 | Type Parameter | Default type |
-| -------------- | ------------ |
-| `A`            | -            |
-| `B`            | `never`      |
-| `C`            | `never`      |
-| `D`            | `never`      |
-| `E`            | `never`      |
-| `F`            | `never`      |
-| `G`            | `never`      |
-| `H`            | `never`      |
-| `I`            | `never`      |
-| `J`            | `never`      |
-| `K`            | `never`      |
-| `L`            | `never`      |
-| `M`            | `never`      |
-| `N`            | `never`      |
-| `O`            | `never`      |
-| `P`            | `never`      |
-| `Q`            | `never`      |
-| `R`            | `never`      |
+| ------ | ------ |
+| `A` | - |
+| `B` | `never` |
+| `C` | `never` |
+| `D` | `never` |
+| `E` | `never` |
+| `F` | `never` |
+| `G` | `never` |
+| `H` | `never` |
+| `I` | `never` |
+| `J` | `never` |
+| `K` | `never` |
+| `L` | `never` |
+| `M` | `never` |
+| `N` | `never` |
+| `O` | `never` |
+| `P` | `never` |
+| `Q` | `never` |
+| `R` | `never` |
 
 ### Parameters
 
-| Parameter | Type              |
-| --------- | ----------------- |
-| `a`       | `A`               |
-| `ab`      | (`a`: `A`) => `B` |
-| `bc`      | (`b`: `B`) => `C` |
-| `cd`      | (`c`: `C`) => `D` |
-| `de`      | (`d`: `D`) => `E` |
-| `ef`      | (`e`: `E`) => `F` |
-| `fg`      | (`f`: `F`) => `G` |
-| `gh`      | (`g`: `G`) => `H` |
-| `hi`      | (`h`: `H`) => `I` |
-| `ij`      | (`i`: `I`) => `J` |
-| `jk`      | (`j`: `J`) => `K` |
-| `kl`      | (`k`: `K`) => `L` |
-| `lm`      | (`l`: `L`) => `M` |
-| `mn`      | (`m`: `M`) => `N` |
-| `no`      | (`n`: `N`) => `O` |
-| `op`      | (`o`: `O`) => `P` |
-| `pq`      | (`p`: `P`) => `Q` |
-| `qr`      | (`q`: `Q`) => `R` |
+| Parameter | Type |
+| ------ | ------ |
+| `a` | `A` |
+| `ab` | (`a`: `A`) => `B` |
+| `bc` | (`b`: `B`) => `C` |
+| `cd` | (`c`: `C`) => `D` |
+| `de` | (`d`: `D`) => `E` |
+| `ef` | (`e`: `E`) => `F` |
+| `fg` | (`f`: `F`) => `G` |
+| `gh` | (`g`: `G`) => `H` |
+| `hi` | (`h`: `H`) => `I` |
+| `ij` | (`i`: `I`) => `J` |
+| `jk` | (`j`: `J`) => `K` |
+| `kl` | (`k`: `K`) => `L` |
+| `lm` | (`l`: `L`) => `M` |
+| `mn` | (`m`: `M`) => `N` |
+| `no` | (`n`: `N`) => `O` |
+| `op` | (`o`: `O`) => `P` |
+| `pq` | (`p`: `P`) => `Q` |
+| `qr` | (`q`: `Q`) => `R` |
 
 ### Returns
 
@@ -1954,46 +1899,26 @@ pipe(
 ## Call Signature
 
 ```ts
-function pipe<
-  A,
-  B = never,
-  C = never,
-  D = never,
-  E = never,
-  F = never,
-  G = never,
-  H = never,
-  I = never,
-  J = never,
-  K = never,
-  L = never,
-  M = never,
-  N = never,
-  O = never,
-  P = never,
-  Q = never,
-  R = never,
-  S = never,
->(
-  a: A,
-  ab: (a: A) => B,
-  bc: (b: B) => C,
-  cd: (c: C) => D,
-  de: (d: D) => E,
-  ef: (e: E) => F,
-  fg: (f: F) => G,
-  gh: (g: G) => H,
-  hi: (h: H) => I,
-  ij: (i: I) => J,
-  jk: (j: J) => K,
-  kl: (k: K) => L,
-  lm: (l: L) => M,
-  mn: (m: M) => N,
-  no: (n: N) => O,
-  op: (o: O) => P,
-  pq: (p: P) => Q,
-  qr: (q: Q) => R,
-  rs: (r: R) => S,
+function pipe<A, B = never, C = never, D = never, E = never, F = never, G = never, H = never, I = never, J = never, K = never, L = never, M = never, N = never, O = never, P = never, Q = never, R = never, S = never>(
+   a: A, 
+   ab: (a: A) => B, 
+   bc: (b: B) => C, 
+   cd: (c: C) => D, 
+   de: (d: D) => E, 
+   ef: (e: E) => F, 
+   fg: (f: F) => G, 
+   gh: (g: G) => H, 
+   hi: (h: H) => I, 
+   ij: (i: I) => J, 
+   jk: (j: J) => K, 
+   kl: (k: K) => L, 
+   lm: (l: L) => M, 
+   mn: (m: M) => N, 
+   no: (n: N) => O, 
+   op: (o: O) => P, 
+   pq: (p: P) => Q, 
+   qr: (q: Q) => R, 
+   rs: (r: R) => S
 ): S;
 ```
 
@@ -2021,14 +1946,14 @@ In this example, `1` is passed to the first function, and each result becomes
 the input for the next function.
 
 ```ts
-import { pipe } from "effect";
+import { pipe } from "effect"
 
 pipe(
   1,
   (n) => n + 1,
   (n) => n * 2,
-  (n) => `result: ${n}`,
-); // => "result: 4"
+  (n) => `result: ${n}`
+) // => "result: 4"
 ```
 
 **Example** (Rewriting method chains with pipe)
@@ -2036,66 +1961,66 @@ pipe(
 The same transformation can be written with data-last functions.
 
 ```ts
-import { Array, pipe } from "effect";
+import { Array, pipe } from "effect"
 
-const numbers = [1, 2, 3, 4];
-const double = (n: number) => n * 2;
-const greaterThanFour = (n: number) => n > 4;
+const numbers = [1, 2, 3, 4]
+const double = (n: number) => n * 2
+const greaterThanFour = (n: number) => n > 4
 
 pipe(
   numbers,
   Array.map(double),
-  Array.filter(greaterThanFour),
-); // => [6, 8]
+  Array.filter(greaterThanFour)
+) // => [6, 8]
 ```
 
 ### Type Parameters
 
 | Type Parameter | Default type |
-| -------------- | ------------ |
-| `A`            | -            |
-| `B`            | `never`      |
-| `C`            | `never`      |
-| `D`            | `never`      |
-| `E`            | `never`      |
-| `F`            | `never`      |
-| `G`            | `never`      |
-| `H`            | `never`      |
-| `I`            | `never`      |
-| `J`            | `never`      |
-| `K`            | `never`      |
-| `L`            | `never`      |
-| `M`            | `never`      |
-| `N`            | `never`      |
-| `O`            | `never`      |
-| `P`            | `never`      |
-| `Q`            | `never`      |
-| `R`            | `never`      |
-| `S`            | `never`      |
+| ------ | ------ |
+| `A` | - |
+| `B` | `never` |
+| `C` | `never` |
+| `D` | `never` |
+| `E` | `never` |
+| `F` | `never` |
+| `G` | `never` |
+| `H` | `never` |
+| `I` | `never` |
+| `J` | `never` |
+| `K` | `never` |
+| `L` | `never` |
+| `M` | `never` |
+| `N` | `never` |
+| `O` | `never` |
+| `P` | `never` |
+| `Q` | `never` |
+| `R` | `never` |
+| `S` | `never` |
 
 ### Parameters
 
-| Parameter | Type              |
-| --------- | ----------------- |
-| `a`       | `A`               |
-| `ab`      | (`a`: `A`) => `B` |
-| `bc`      | (`b`: `B`) => `C` |
-| `cd`      | (`c`: `C`) => `D` |
-| `de`      | (`d`: `D`) => `E` |
-| `ef`      | (`e`: `E`) => `F` |
-| `fg`      | (`f`: `F`) => `G` |
-| `gh`      | (`g`: `G`) => `H` |
-| `hi`      | (`h`: `H`) => `I` |
-| `ij`      | (`i`: `I`) => `J` |
-| `jk`      | (`j`: `J`) => `K` |
-| `kl`      | (`k`: `K`) => `L` |
-| `lm`      | (`l`: `L`) => `M` |
-| `mn`      | (`m`: `M`) => `N` |
-| `no`      | (`n`: `N`) => `O` |
-| `op`      | (`o`: `O`) => `P` |
-| `pq`      | (`p`: `P`) => `Q` |
-| `qr`      | (`q`: `Q`) => `R` |
-| `rs`      | (`r`: `R`) => `S` |
+| Parameter | Type |
+| ------ | ------ |
+| `a` | `A` |
+| `ab` | (`a`: `A`) => `B` |
+| `bc` | (`b`: `B`) => `C` |
+| `cd` | (`c`: `C`) => `D` |
+| `de` | (`d`: `D`) => `E` |
+| `ef` | (`e`: `E`) => `F` |
+| `fg` | (`f`: `F`) => `G` |
+| `gh` | (`g`: `G`) => `H` |
+| `hi` | (`h`: `H`) => `I` |
+| `ij` | (`i`: `I`) => `J` |
+| `jk` | (`j`: `J`) => `K` |
+| `kl` | (`k`: `K`) => `L` |
+| `lm` | (`l`: `L`) => `M` |
+| `mn` | (`m`: `M`) => `N` |
+| `no` | (`n`: `N`) => `O` |
+| `op` | (`o`: `O`) => `P` |
+| `pq` | (`p`: `P`) => `Q` |
+| `qr` | (`q`: `Q`) => `R` |
+| `rs` | (`r`: `R`) => `S` |
 
 ### Returns
 
@@ -2108,48 +2033,27 @@ pipe(
 ## Call Signature
 
 ```ts
-function pipe<
-  A,
-  B = never,
-  C = never,
-  D = never,
-  E = never,
-  F = never,
-  G = never,
-  H = never,
-  I = never,
-  J = never,
-  K = never,
-  L = never,
-  M = never,
-  N = never,
-  O = never,
-  P = never,
-  Q = never,
-  R = never,
-  S = never,
-  T = never,
->(
-  a: A,
-  ab: (a: A) => B,
-  bc: (b: B) => C,
-  cd: (c: C) => D,
-  de: (d: D) => E,
-  ef: (e: E) => F,
-  fg: (f: F) => G,
-  gh: (g: G) => H,
-  hi: (h: H) => I,
-  ij: (i: I) => J,
-  jk: (j: J) => K,
-  kl: (k: K) => L,
-  lm: (l: L) => M,
-  mn: (m: M) => N,
-  no: (n: N) => O,
-  op: (o: O) => P,
-  pq: (p: P) => Q,
-  qr: (q: Q) => R,
-  rs: (r: R) => S,
-  st: (s: S) => T,
+function pipe<A, B = never, C = never, D = never, E = never, F = never, G = never, H = never, I = never, J = never, K = never, L = never, M = never, N = never, O = never, P = never, Q = never, R = never, S = never, T = never>(
+   a: A, 
+   ab: (a: A) => B, 
+   bc: (b: B) => C, 
+   cd: (c: C) => D, 
+   de: (d: D) => E, 
+   ef: (e: E) => F, 
+   fg: (f: F) => G, 
+   gh: (g: G) => H, 
+   hi: (h: H) => I, 
+   ij: (i: I) => J, 
+   jk: (j: J) => K, 
+   kl: (k: K) => L, 
+   lm: (l: L) => M, 
+   mn: (m: M) => N, 
+   no: (n: N) => O, 
+   op: (o: O) => P, 
+   pq: (p: P) => Q, 
+   qr: (q: Q) => R, 
+   rs: (r: R) => S, 
+   st: (s: S) => T
 ): T;
 ```
 
@@ -2177,14 +2081,14 @@ In this example, `1` is passed to the first function, and each result becomes
 the input for the next function.
 
 ```ts
-import { pipe } from "effect";
+import { pipe } from "effect"
 
 pipe(
   1,
   (n) => n + 1,
   (n) => n * 2,
-  (n) => `result: ${n}`,
-); // => "result: 4"
+  (n) => `result: ${n}`
+) // => "result: 4"
 ```
 
 **Example** (Rewriting method chains with pipe)
@@ -2192,68 +2096,68 @@ pipe(
 The same transformation can be written with data-last functions.
 
 ```ts
-import { Array, pipe } from "effect";
+import { Array, pipe } from "effect"
 
-const numbers = [1, 2, 3, 4];
-const double = (n: number) => n * 2;
-const greaterThanFour = (n: number) => n > 4;
+const numbers = [1, 2, 3, 4]
+const double = (n: number) => n * 2
+const greaterThanFour = (n: number) => n > 4
 
 pipe(
   numbers,
   Array.map(double),
-  Array.filter(greaterThanFour),
-); // => [6, 8]
+  Array.filter(greaterThanFour)
+) // => [6, 8]
 ```
 
 ### Type Parameters
 
 | Type Parameter | Default type |
-| -------------- | ------------ |
-| `A`            | -            |
-| `B`            | `never`      |
-| `C`            | `never`      |
-| `D`            | `never`      |
-| `E`            | `never`      |
-| `F`            | `never`      |
-| `G`            | `never`      |
-| `H`            | `never`      |
-| `I`            | `never`      |
-| `J`            | `never`      |
-| `K`            | `never`      |
-| `L`            | `never`      |
-| `M`            | `never`      |
-| `N`            | `never`      |
-| `O`            | `never`      |
-| `P`            | `never`      |
-| `Q`            | `never`      |
-| `R`            | `never`      |
-| `S`            | `never`      |
-| `T`            | `never`      |
+| ------ | ------ |
+| `A` | - |
+| `B` | `never` |
+| `C` | `never` |
+| `D` | `never` |
+| `E` | `never` |
+| `F` | `never` |
+| `G` | `never` |
+| `H` | `never` |
+| `I` | `never` |
+| `J` | `never` |
+| `K` | `never` |
+| `L` | `never` |
+| `M` | `never` |
+| `N` | `never` |
+| `O` | `never` |
+| `P` | `never` |
+| `Q` | `never` |
+| `R` | `never` |
+| `S` | `never` |
+| `T` | `never` |
 
 ### Parameters
 
-| Parameter | Type              |
-| --------- | ----------------- |
-| `a`       | `A`               |
-| `ab`      | (`a`: `A`) => `B` |
-| `bc`      | (`b`: `B`) => `C` |
-| `cd`      | (`c`: `C`) => `D` |
-| `de`      | (`d`: `D`) => `E` |
-| `ef`      | (`e`: `E`) => `F` |
-| `fg`      | (`f`: `F`) => `G` |
-| `gh`      | (`g`: `G`) => `H` |
-| `hi`      | (`h`: `H`) => `I` |
-| `ij`      | (`i`: `I`) => `J` |
-| `jk`      | (`j`: `J`) => `K` |
-| `kl`      | (`k`: `K`) => `L` |
-| `lm`      | (`l`: `L`) => `M` |
-| `mn`      | (`m`: `M`) => `N` |
-| `no`      | (`n`: `N`) => `O` |
-| `op`      | (`o`: `O`) => `P` |
-| `pq`      | (`p`: `P`) => `Q` |
-| `qr`      | (`q`: `Q`) => `R` |
-| `rs`      | (`r`: `R`) => `S` |
-| `st`      | (`s`: `S`) => `T` |
+| Parameter | Type |
+| ------ | ------ |
+| `a` | `A` |
+| `ab` | (`a`: `A`) => `B` |
+| `bc` | (`b`: `B`) => `C` |
+| `cd` | (`c`: `C`) => `D` |
+| `de` | (`d`: `D`) => `E` |
+| `ef` | (`e`: `E`) => `F` |
+| `fg` | (`f`: `F`) => `G` |
+| `gh` | (`g`: `G`) => `H` |
+| `hi` | (`h`: `H`) => `I` |
+| `ij` | (`i`: `I`) => `J` |
+| `jk` | (`j`: `J`) => `K` |
+| `kl` | (`k`: `K`) => `L` |
+| `lm` | (`l`: `L`) => `M` |
+| `mn` | (`m`: `M`) => `N` |
+| `no` | (`n`: `N`) => `O` |
+| `op` | (`o`: `O`) => `P` |
+| `pq` | (`p`: `P`) => `Q` |
+| `qr` | (`q`: `Q`) => `R` |
+| `rs` | (`r`: `R`) => `S` |
+| `st` | (`s`: `S`) => `T` |
 
 ### Returns
 

@@ -12,10 +12,10 @@ against the real scope manager of a parsed program. When `code` is given,
 
 ## Parameters
 
-| Parameter | Type                   |
-| --------- | ---------------------- |
-| `parsed`  | `ParseForESLintResult` |
-| `code?`   | `string`               |
+| Parameter | Type |
+| ------ | ------ |
+| `parsed` | `ParseForESLintResult` |
+| `code?` | `string` |
 
 ## Returns
 

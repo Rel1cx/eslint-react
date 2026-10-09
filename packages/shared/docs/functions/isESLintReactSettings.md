@@ -3,23 +3,15 @@
 # Function: isESLintReactSettings()
 
 ```ts
-function isESLintReactSettings(settings: unknown): settings is {
-  additionalEffectHooks?: string;
-  additionalRefHooks?: string;
-  additionalStateHooks?: string;
-  compilationMode?: "infer" | "annotation" | "syntax" | "all";
-  importSource?: string;
-  polymorphicPropName?: string;
-  version?: string;
-};
+function isESLintReactSettings(settings: unknown): settings is { additionalEffectHooks?: string; additionalRefHooks?: string; additionalStateHooks?: string; compilationMode?: "infer" | "annotation" | "syntax" | "all"; importSource?: string; polymorphicPropName?: string; version?: string };
 ```
 
 Check if the value is valid ESLint React settings.
 
 ## Parameters
 
-| Parameter  | Type      | Description         |
-| ---------- | --------- | ------------------- |
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
 | `settings` | `unknown` | The value to check. |
 
 ## Returns

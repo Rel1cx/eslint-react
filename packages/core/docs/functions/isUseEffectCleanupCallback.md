@@ -10,9 +10,9 @@ Check if the node is the cleanup callback returned by a useEffect-like setup cal
 
 ## Parameters
 
-| Parameter | Type             | Description            |
-| --------- | ---------------- | ---------------------- |
-| `node`    | `Node` \| `null` | The AST node to check. |
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `node` | `Node` \| `null` | The AST node to check. |
 
 ## Returns
 

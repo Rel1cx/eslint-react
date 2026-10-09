@@ -13,9 +13,9 @@ RegExp strings (ex: `"/^foo/i"`) are converted to `/^foo/i`.
 
 ## Parameters
 
-| Parameter | Type                              | Description            |
-| --------- | --------------------------------- | ---------------------- |
-| `string`  | `string` \| `null` \| `undefined` | The string to convert. |
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `string` | `string` \| `null` \| `undefined` | The string to convert. |
 
 ## Returns
 

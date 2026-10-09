@@ -10,10 +10,10 @@ Check if a node is an identifier, optionally matching a specific name.
 
 ## Parameters
 
-| Parameter | Type     | Description                                                         |
-| --------- | -------- | ------------------------------------------------------------------- |
-| `node`    | `Node`   | The node to check.                                                  |
-| `name?`   | `string` | The identifier name to match. When omitted, any identifier matches. |
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `node` | `Node` | The node to check. |
+| `name?` | `string` | The identifier name to match. When omitted, any identifier matches. |
 
 ## Returns
 

@@ -3,7 +3,12 @@
 # Function: findSpreadProperty()
 
 ```ts
-function findSpreadProperty(context: RuleContext, argument: Expression, name: string, seen?: Set<Node>): Property | undefined;
+function findSpreadProperty(
+   context: RuleContext, 
+   argument: Expression, 
+   name: string, 
+   seen?: Set<Node>
+): Property | undefined;
 ```
 
 Find the `Property` node that provides a given key inside a spread argument.
@@ -24,12 +29,12 @@ checks) and the `spreadProps` variant of `resolveAttributeValue` (value extracti
 
 ## Parameters
 
-| Parameter  | Type                                                                                              | Description                                               |
-| ---------- | ------------------------------------------------------------------------------------------------- | --------------------------------------------------------- |
-| `context`  | `RuleContext`                                                                                     | The ESLint rule context (needed for variable resolution). |
-| `argument` | `Expression`                                                                                      | The spread argument expression to search.                 |
-| `name`     | `string`                                                                                          | The property name to look for.                            |
-| `seen`     | [`Set`](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Set)\<`Node`\> | Internal set of already-visited nodes (cycle guard).      |
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `context` | `RuleContext` | The ESLint rule context (needed for variable resolution). |
+| `argument` | `Expression` | The spread argument expression to search. |
+| `name` | `string` | The property name to look for. |
+| `seen` | [`Set`](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Set)\<`Node`\> | Internal set of already-visited nodes (cycle guard). |
 
 ## Returns
 

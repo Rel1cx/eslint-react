@@ -5,7 +5,7 @@
 ```ts
 type ReturnType = {
   api: {
-    getAllComponents: (node: TSESTree.Program) => FunctionComponentSemanticNode[];
+     getAllComponents: (node: TSESTree.Program) => FunctionComponentSemanticNode[];
   };
   visitor: ESLintUtils.RuleListener;
 };
@@ -15,8 +15,8 @@ The api and visitor pair returned by [getFunctionComponentCollector](../../../..
 
 ## Properties
 
-| Property                                | Type                                                                                                                                                    |
-| --------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| <a id="property-api"></a> `api`         | \{ `getAllComponents`: (`node`: `TSESTree.Program`) => [`FunctionComponentSemanticNode`](../../../../interfaces/FunctionComponentSemanticNode.md)[]; \} |
-| `api.getAllComponents`                  | (`node`: `TSESTree.Program`) => [`FunctionComponentSemanticNode`](../../../../interfaces/FunctionComponentSemanticNode.md)[]                            |
-| <a id="property-visitor"></a> `visitor` | `ESLintUtils.RuleListener`                                                                                                                              |
+| Property | Type |
+| ------ | ------ |
+| <a id="property-api"></a> `api` | \{ `getAllComponents`: (`node`: `TSESTree.Program`) => [`FunctionComponentSemanticNode`](../../../../interfaces/FunctionComponentSemanticNode.md)[]; \} |
+| `api.getAllComponents` | (`node`: `TSESTree.Program`) => [`FunctionComponentSemanticNode`](../../../../interfaces/FunctionComponentSemanticNode.md)[] |
+| <a id="property-visitor"></a> `visitor` | `ESLintUtils.RuleListener` |

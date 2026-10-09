@@ -15,16 +15,16 @@ Use when you need a `Predicate` that never accepts, e.g. in default branches.
 **Example** (Matching no values)
 
 ```ts
-import { Predicate } from "effect";
+import { Predicate } from "effect"
 
-Predicate.isNever("anything"); // => false
+Predicate.isNever("anything") // => false
 ```
 
 ## Parameters
 
-| Parameter | Type      |
-| --------- | --------- |
-| `_`       | `unknown` |
+| Parameter | Type |
+| ------ | ------ |
+| `_` | `unknown` |
 
 ## Returns
 

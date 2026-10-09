@@ -19,18 +19,18 @@ Uses `instanceof Error`.
 **Example** (Guarding errors)
 
 ```ts
-import { Predicate } from "effect";
+import { Predicate } from "effect"
 
-const data: unknown = new Error("boom");
+const data: unknown = new Error("boom")
 
-Predicate.isError(data); // => true
+Predicate.isError(data) // => true
 ```
 
 ## Parameters
 
-| Parameter | Type      |
-| --------- | --------- |
-| `input`   | `unknown` |
+| Parameter | Type |
+| ------ | ------ |
+| `input` | `unknown` |
 
 ## Returns
 

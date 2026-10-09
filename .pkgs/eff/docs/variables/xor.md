@@ -4,8 +4,8 @@
 
 ```ts
 const xor: {
-  <T>(b: (data: T) => boolean): (a: (data: T) => boolean) => (data: T) => boolean;
-  <T>(a: (data: T) => boolean, b: (data: T) => boolean): (data: T) => boolean;
+<T>  (b: (data: T) => boolean): (a: (data: T) => boolean) => (data: T) => boolean;
+<T>  (a: (data: T) => boolean, b: (data: T) => boolean): (data: T) => boolean;
 };
 ```
 
@@ -27,13 +27,13 @@ exclusive-or semantics.
 **Example** (Checking exclusive-or conditions)
 
 ```ts
-import { Predicate } from "effect";
+import { Predicate } from "effect"
 
-const isEven = (n: number) => n % 2 === 0;
-const isPositive = (n: number) => n > 0;
-const either = Predicate.xor(isEven, isPositive);
+const isEven = (n: number) => n % 2 === 0
+const isPositive = (n: number) => n > 0
+const either = Predicate.xor(isEven, isPositive)
 
-either(-2); // => true
+either(-2) // => true
 ```
 
 ## Call Signature
@@ -45,14 +45,14 @@ either(-2); // => true
 ### Type Parameters
 
 | Type Parameter |
-| -------------- |
-| `T`            |
+| ------ |
+| `T` |
 
 ### Parameters
 
-| Parameter | Type                       |
-| --------- | -------------------------- |
-| `b`       | (`data`: `T`) => `boolean` |
+| Parameter | Type |
+| ------ | ------ |
+| `b` | (`data`: `T`) => `boolean` |
 
 ### Returns
 
@@ -67,15 +67,15 @@ either(-2); // => true
 ### Type Parameters
 
 | Type Parameter |
-| -------------- |
-| `T`            |
+| ------ |
+| `T` |
 
 ### Parameters
 
-| Parameter | Type                       |
-| --------- | -------------------------- |
-| `a`       | (`data`: `T`) => `boolean` |
-| `b`       | (`data`: `T`) => `boolean` |
+| Parameter | Type |
+| ------ | ------ |
+| `a` | (`data`: `T`) => `boolean` |
+| `b` | (`data`: `T`) => `boolean` |
 
 ### Returns
 
@@ -83,8 +83,8 @@ either(-2); // => true
 
 ## See
 
-- [or](or.md)
-- [and](and.md)
+ - [or](or.md)
+ - [and](and.md)
 
 ## Since
 

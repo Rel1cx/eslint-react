@@ -14,9 +14,9 @@ Get the stringified name of a `JSXAttribute` node.
 
 ## Parameters
 
-| Parameter | Type           | Description                                   |
-| --------- | -------------- | --------------------------------------------- |
-| `node`    | `JSXAttribute` | The `JSXAttribute` node to get the name from. |
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `node` | `JSXAttribute` | The `JSXAttribute` node to get the name from. |
 
 ## Returns
 

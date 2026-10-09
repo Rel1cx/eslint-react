@@ -3,7 +3,11 @@
 # Function: resolveAttributeValue()
 
 ```ts
-function resolveAttributeValue(context: RuleContext, attribute: TSESTreeJSXAttributeLike, name?: string): AttributeValue;
+function resolveAttributeValue(
+   context: RuleContext, 
+   attribute: TSESTreeJSXAttributeLike, 
+   name?: string
+): AttributeValue;
 ```
 
 Resolve the value of a JSX attribute (or spread attribute) into an [AttributeValue](../type-aliases/AttributeValue.md) descriptor.
@@ -14,11 +18,11 @@ named property. For the higher-level "find by name and resolve" combo, see [getA
 
 ## Parameters
 
-| Parameter   | Type                       | Description                                                                |
-| ----------- | -------------------------- | -------------------------------------------------------------------------- |
-| `context`   | `RuleContext`              | The ESLint rule context (needed for scope look-ups).                       |
-| `attribute` | `TSESTreeJSXAttributeLike` | A `JSXAttribute` or `JSXSpreadAttribute` node.                             |
-| `name?`     | `string`                   | Optional property name used to resolve `toStatic()` for spread attributes. |
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `context` | `RuleContext` | The ESLint rule context (needed for scope look-ups). |
+| `attribute` | `TSESTreeJSXAttributeLike` | A `JSXAttribute` or `JSXSpreadAttribute` node. |
+| `name?` | `string` | Optional property name used to resolve `toStatic()` for spread attributes. |
 
 ## Returns
 

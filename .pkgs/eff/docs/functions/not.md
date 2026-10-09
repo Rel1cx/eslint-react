@@ -21,24 +21,24 @@ Returns a new predicate that flips the boolean result.
 **Example** (Negating a predicate)
 
 ```ts
-import { Predicate } from "effect";
+import { Predicate } from "effect"
 
-const isNotString = Predicate.not(Predicate.isString);
+const isNotString = Predicate.not(Predicate.isString)
 
-isNotString(1); // => true
+isNotString(1) // => true
 ```
 
 ### Type Parameters
 
 | Type Parameter |
-| -------------- |
-| `T`            |
-| `S`            |
+| ------ |
+| `T` |
+| `S` |
 
 ### Parameters
 
-| Parameter   | Type                         |
-| ----------- | ---------------------------- |
+| Parameter | Type |
+| ------ | ------ |
 | `predicate` | (`data`: `T`) => `data is S` |
 
 ### Returns
@@ -47,9 +47,9 @@ isNotString(1); // => true
 
 ### See
 
-- [and](../variables/and.md)
-- [or](../variables/or.md)
-- [xor](../variables/xor.md)
+ - [and](../variables/and.md)
+ - [or](../variables/or.md)
+ - [xor](../variables/xor.md)
 
 ### Since
 
@@ -74,23 +74,23 @@ Returns a new predicate that flips the boolean result.
 **Example** (Negating a predicate)
 
 ```ts
-import { Predicate } from "effect";
+import { Predicate } from "effect"
 
-const isNotString = Predicate.not(Predicate.isString);
+const isNotString = Predicate.not(Predicate.isString)
 
-isNotString(1); // => true
+isNotString(1) // => true
 ```
 
 ### Type Parameters
 
 | Type Parameter |
-| -------------- |
-| `T`            |
+| ------ |
+| `T` |
 
 ### Parameters
 
-| Parameter   | Type                       |
-| ----------- | -------------------------- |
+| Parameter | Type |
+| ------ | ------ |
 | `predicate` | (`data`: `T`) => `boolean` |
 
 ### Returns
@@ -99,9 +99,9 @@ isNotString(1); // => true
 
 ### See
 
-- [and](../variables/and.md)
-- [or](../variables/or.md)
-- [xor](../variables/xor.md)
+ - [and](../variables/and.md)
+ - [or](../variables/or.md)
+ - [xor](../variables/xor.md)
 
 ### Since
 

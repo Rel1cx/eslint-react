@@ -10,9 +10,9 @@ Check if a node is a JSX expression container.
 
 ## Parameters
 
-| Parameter | Type                            |
-| --------- | ------------------------------- |
-| `node`    | `Node` \| `null` \| `undefined` |
+| Parameter | Type |
+| ------ | ------ |
+| `node` | `Node` \| `null` \| `undefined` |
 
 ## Returns
 

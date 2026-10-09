@@ -10,9 +10,9 @@ Check if the node is the setup callback passed to a useEffect-like call.
 
 ## Parameters
 
-| Parameter | Type             | Description            |
-| --------- | ---------------- | ---------------------- |
-| `node`    | `Node` \| `null` | The AST node to check. |
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `node` | `Node` \| `null` | The AST node to check. |
 
 ## Returns
 

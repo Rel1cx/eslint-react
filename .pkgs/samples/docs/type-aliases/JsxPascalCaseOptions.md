@@ -13,7 +13,7 @@ Options for [jsxPascalCase](../functions/jsxPascalCase.md).
 
 ## Properties
 
-| Property                                                               | Type      | Description                                                         |
-| ---------------------------------------------------------------------- | --------- | ------------------------------------------------------------------- |
-| <a id="property-allowallcaps"></a> `allowAllCaps?`                     | `boolean` | Allow all-uppercase component names like `<XML />`.                 |
+| Property | Type | Description |
+| ------ | ------ | ------ |
+| <a id="property-allowallcaps"></a> `allowAllCaps?` | `boolean` | Allow all-uppercase component names like `<XML />`. |
 | <a id="property-allowleadingunderscore"></a> `allowLeadingUnderscore?` | `boolean` | Allow leading underscores in component names like `<_Component />`. |

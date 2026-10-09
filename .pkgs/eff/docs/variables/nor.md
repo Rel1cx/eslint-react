@@ -4,8 +4,8 @@
 
 ```ts
 const nor: {
-  <T>(b: (data: T) => boolean): (a: (data: T) => boolean) => (data: T) => boolean;
-  <T>(a: (data: T) => boolean, b: (data: T) => boolean): (data: T) => boolean;
+<T>  (b: (data: T) => boolean): (a: (data: T) => boolean) => (data: T) => boolean;
+<T>  (a: (data: T) => boolean, b: (data: T) => boolean): (data: T) => boolean;
 };
 ```
 
@@ -22,11 +22,11 @@ Returns the negation of `or`.
 **Example** (Checking NOR conditions)
 
 ```ts
-import { Predicate } from "effect";
+import { Predicate } from "effect"
 
-const neither = Predicate.nor(Predicate.isString, Predicate.isNumber);
+const neither = Predicate.nor(Predicate.isString, Predicate.isNumber)
 
-neither(true); // => true
+neither(true) // => true
 ```
 
 ## Call Signature
@@ -38,14 +38,14 @@ neither(true); // => true
 ### Type Parameters
 
 | Type Parameter |
-| -------------- |
-| `T`            |
+| ------ |
+| `T` |
 
 ### Parameters
 
-| Parameter | Type                       |
-| --------- | -------------------------- |
-| `b`       | (`data`: `T`) => `boolean` |
+| Parameter | Type |
+| ------ | ------ |
+| `b` | (`data`: `T`) => `boolean` |
 
 ### Returns
 
@@ -60,15 +60,15 @@ neither(true); // => true
 ### Type Parameters
 
 | Type Parameter |
-| -------------- |
-| `T`            |
+| ------ |
+| `T` |
 
 ### Parameters
 
-| Parameter | Type                       |
-| --------- | -------------------------- |
-| `a`       | (`data`: `T`) => `boolean` |
-| `b`       | (`data`: `T`) => `boolean` |
+| Parameter | Type |
+| ------ | ------ |
+| `a` | (`data`: `T`) => `boolean` |
+| `b` | (`data`: `T`) => `boolean` |
 
 ### Returns
 
@@ -76,8 +76,8 @@ neither(true); // => true
 
 ## See
 
-- [or](or.md)
-- [not](../functions/not.md)
+ - [or](or.md)
+ - [not](../functions/not.md)
 
 ## Since
 

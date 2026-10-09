@@ -10,9 +10,9 @@ Get the name of the callee of a call expression.
 
 ## Parameters
 
-| Parameter | Type             | Description                     |
-| --------- | ---------------- | ------------------------------- |
-| `node`    | `CallExpression` | The call expression to inspect. |
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `node` | `CallExpression` | The call expression to inspect. |
 
 ## Returns
 

@@ -15,9 +15,9 @@ Use when you need a thunk that returns `true` on every invocation.
 **Example** (Returning true from a thunk)
 
 ```ts
-import { Function } from "effect";
+import { Function } from "effect"
 
-Function.constTrue(); // => true
+Function.constTrue() // => true
 ```
 
 ## Since

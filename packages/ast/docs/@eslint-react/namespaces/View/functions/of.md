@@ -13,9 +13,9 @@ Node types without a dedicated view get an instance of the base `Class`.
 
 ### Parameters
 
-| Parameter  | Type                                          | Description                                              |
-| ---------- | --------------------------------------------- | -------------------------------------------------------- |
-| `node`     | `AssignmentExpression`                        | The node to wrap. The tree is never modified or copied.  |
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `node` | `AssignmentExpression` | The node to wrap. The tree is never modified or copied. |
 | `context?` | [`ViewContext`](../interfaces/ViewContext.md) | Optional rule context for getters that need source text. |
 
 ### Returns
@@ -35,9 +35,9 @@ Node types without a dedicated view get an instance of the base `Class`.
 
 ### Parameters
 
-| Parameter  | Type                                          | Description                                              |
-| ---------- | --------------------------------------------- | -------------------------------------------------------- |
-| `node`     | `AwaitExpression`                             | The node to wrap. The tree is never modified or copied.  |
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `node` | `AwaitExpression` | The node to wrap. The tree is never modified or copied. |
 | `context?` | [`ViewContext`](../interfaces/ViewContext.md) | Optional rule context for getters that need source text. |
 
 ### Returns
@@ -57,9 +57,9 @@ Node types without a dedicated view get an instance of the base `Class`.
 
 ### Parameters
 
-| Parameter  | Type                                          | Description                                              |
-| ---------- | --------------------------------------------- | -------------------------------------------------------- |
-| `node`     | `BinaryExpression`                            | The node to wrap. The tree is never modified or copied.  |
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `node` | `BinaryExpression` | The node to wrap. The tree is never modified or copied. |
 | `context?` | [`ViewContext`](../interfaces/ViewContext.md) | Optional rule context for getters that need source text. |
 
 ### Returns
@@ -79,9 +79,9 @@ Node types without a dedicated view get an instance of the base `Class`.
 
 ### Parameters
 
-| Parameter  | Type                                          | Description                                              |
-| ---------- | --------------------------------------------- | -------------------------------------------------------- |
-| `node`     | `CallExpression`                              | The node to wrap. The tree is never modified or copied.  |
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `node` | `CallExpression` | The node to wrap. The tree is never modified or copied. |
 | `context?` | [`ViewContext`](../interfaces/ViewContext.md) | Optional rule context for getters that need source text. |
 
 ### Returns
@@ -101,9 +101,9 @@ Node types without a dedicated view get an instance of the base `Class`.
 
 ### Parameters
 
-| Parameter  | Type                                          | Description                                              |
-| ---------- | --------------------------------------------- | -------------------------------------------------------- |
-| `node`     | `ConditionalExpression`                       | The node to wrap. The tree is never modified or copied.  |
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `node` | `ConditionalExpression` | The node to wrap. The tree is never modified or copied. |
 | `context?` | [`ViewContext`](../interfaces/ViewContext.md) | Optional rule context for getters that need source text. |
 
 ### Returns
@@ -123,9 +123,9 @@ Node types without a dedicated view get an instance of the base `Class`.
 
 ### Parameters
 
-| Parameter  | Type                                          | Description                                              |
-| ---------- | --------------------------------------------- | -------------------------------------------------------- |
-| `node`     | `ExpressionStatement`                         | The node to wrap. The tree is never modified or copied.  |
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `node` | `ExpressionStatement` | The node to wrap. The tree is never modified or copied. |
 | `context?` | [`ViewContext`](../interfaces/ViewContext.md) | Optional rule context for getters that need source text. |
 
 ### Returns
@@ -145,9 +145,9 @@ Node types without a dedicated view get an instance of the base `Class`.
 
 ### Parameters
 
-| Parameter  | Type                                          | Description                                              |
-| ---------- | --------------------------------------------- | -------------------------------------------------------- |
-| `node`     | `JSXExpressionContainer`                      | The node to wrap. The tree is never modified or copied.  |
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `node` | `JSXExpressionContainer` | The node to wrap. The tree is never modified or copied. |
 | `context?` | [`ViewContext`](../interfaces/ViewContext.md) | Optional rule context for getters that need source text. |
 
 ### Returns
@@ -167,9 +167,9 @@ Node types without a dedicated view get an instance of the base `Class`.
 
 ### Parameters
 
-| Parameter  | Type                                          | Description                                              |
-| ---------- | --------------------------------------------- | -------------------------------------------------------- |
-| `node`     | `LogicalExpression`                           | The node to wrap. The tree is never modified or copied.  |
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `node` | `LogicalExpression` | The node to wrap. The tree is never modified or copied. |
 | `context?` | [`ViewContext`](../interfaces/ViewContext.md) | Optional rule context for getters that need source text. |
 
 ### Returns
@@ -189,9 +189,9 @@ Node types without a dedicated view get an instance of the base `Class`.
 
 ### Parameters
 
-| Parameter  | Type                                          | Description                                              |
-| ---------- | --------------------------------------------- | -------------------------------------------------------- |
-| `node`     | `MemberExpression`                            | The node to wrap. The tree is never modified or copied.  |
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `node` | `MemberExpression` | The node to wrap. The tree is never modified or copied. |
 | `context?` | [`ViewContext`](../interfaces/ViewContext.md) | Optional rule context for getters that need source text. |
 
 ### Returns
@@ -211,9 +211,9 @@ Node types without a dedicated view get an instance of the base `Class`.
 
 ### Parameters
 
-| Parameter  | Type                                          | Description                                              |
-| ---------- | --------------------------------------------- | -------------------------------------------------------- |
-| `node`     | `NewExpression`                               | The node to wrap. The tree is never modified or copied.  |
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `node` | `NewExpression` | The node to wrap. The tree is never modified or copied. |
 | `context?` | [`ViewContext`](../interfaces/ViewContext.md) | Optional rule context for getters that need source text. |
 
 ### Returns
@@ -233,9 +233,9 @@ Node types without a dedicated view get an instance of the base `Class`.
 
 ### Parameters
 
-| Parameter  | Type                                          | Description                                              |
-| ---------- | --------------------------------------------- | -------------------------------------------------------- |
-| `node`     | `Property`                                    | The node to wrap. The tree is never modified or copied.  |
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `node` | `Property` | The node to wrap. The tree is never modified or copied. |
 | `context?` | [`ViewContext`](../interfaces/ViewContext.md) | Optional rule context for getters that need source text. |
 
 ### Returns
@@ -255,9 +255,9 @@ Node types without a dedicated view get an instance of the base `Class`.
 
 ### Parameters
 
-| Parameter  | Type                                          | Description                                              |
-| ---------- | --------------------------------------------- | -------------------------------------------------------- |
-| `node`     | `ReturnStatement`                             | The node to wrap. The tree is never modified or copied.  |
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `node` | `ReturnStatement` | The node to wrap. The tree is never modified or copied. |
 | `context?` | [`ViewContext`](../interfaces/ViewContext.md) | Optional rule context for getters that need source text. |
 
 ### Returns
@@ -277,9 +277,9 @@ Node types without a dedicated view get an instance of the base `Class`.
 
 ### Parameters
 
-| Parameter  | Type                                          | Description                                              |
-| ---------- | --------------------------------------------- | -------------------------------------------------------- |
-| `node`     | `ThrowStatement`                              | The node to wrap. The tree is never modified or copied.  |
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `node` | `ThrowStatement` | The node to wrap. The tree is never modified or copied. |
 | `context?` | [`ViewContext`](../interfaces/ViewContext.md) | Optional rule context for getters that need source text. |
 
 ### Returns
@@ -299,9 +299,9 @@ Node types without a dedicated view get an instance of the base `Class`.
 
 ### Parameters
 
-| Parameter  | Type                                          | Description                                              |
-| ---------- | --------------------------------------------- | -------------------------------------------------------- |
-| `node`     | `UnaryExpression`                             | The node to wrap. The tree is never modified or copied.  |
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `node` | `UnaryExpression` | The node to wrap. The tree is never modified or copied. |
 | `context?` | [`ViewContext`](../interfaces/ViewContext.md) | Optional rule context for getters that need source text. |
 
 ### Returns
@@ -321,9 +321,9 @@ Node types without a dedicated view get an instance of the base `Class`.
 
 ### Parameters
 
-| Parameter  | Type                                          | Description                                              |
-| ---------- | --------------------------------------------- | -------------------------------------------------------- |
-| `node`     | `VariableDeclarator`                          | The node to wrap. The tree is never modified or copied.  |
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `node` | `VariableDeclarator` | The node to wrap. The tree is never modified or copied. |
 | `context?` | [`ViewContext`](../interfaces/ViewContext.md) | Optional rule context for getters that need source text. |
 
 ### Returns
@@ -343,9 +343,9 @@ Node types without a dedicated view get an instance of the base `Class`.
 
 ### Parameters
 
-| Parameter  | Type                                          | Description                                              |
-| ---------- | --------------------------------------------- | -------------------------------------------------------- |
-| `node`     | `Node`                                        | The node to wrap. The tree is never modified or copied.  |
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `node` | `Node` | The node to wrap. The tree is never modified or copied. |
 | `context?` | [`ViewContext`](../interfaces/ViewContext.md) | Optional rule context for getters that need source text. |
 
 ### Returns

@@ -4,8 +4,8 @@
 
 ```ts
 const compose: {
-  <B, C>(bc: (b: B) => C): <A>(self: (a: A) => B) => (a: A) => C;
-  <A, B, C>(self: (a: A) => B, bc: (b: B) => C): (a: A) => C;
+<B, C>  (bc: (b: B) => C): <A>(self: (a: A) => B) => (a: A) => C;
+<A, B, C>  (self: (a: A) => B, bc: (b: B) => C): (a: A) => C;
 };
 ```
 
@@ -19,12 +19,12 @@ Use to compose exactly two unary functions into a reusable unary function.
 **Example** (Composing two functions)
 
 ```ts
-import { Function } from "effect";
+import { Function } from "effect"
 
-const increment = (n: number) => n + 1;
-const square = (n: number) => n * n;
+const increment = (n: number) => n + 1
+const square = (n: number) => n * n
 
-Function.compose(increment, square)(2); // => 9
+Function.compose(increment, square)(2) // => 9
 ```
 
 ## Call Signature
@@ -43,26 +43,26 @@ Use to compose exactly two unary functions into a reusable unary function.
 **Example** (Composing two functions)
 
 ```ts
-import { Function } from "effect";
+import { Function } from "effect"
 
-const increment = (n: number) => n + 1;
-const square = (n: number) => n * n;
+const increment = (n: number) => n + 1
+const square = (n: number) => n * n
 
-Function.compose(increment, square)(2); // => 9
+Function.compose(increment, square)(2) // => 9
 ```
 
 ### Type Parameters
 
 | Type Parameter |
-| -------------- |
-| `B`            |
-| `C`            |
+| ------ |
+| `B` |
+| `C` |
 
 ### Parameters
 
-| Parameter | Type              |
-| --------- | ----------------- |
-| `bc`      | (`b`: `B`) => `C` |
+| Parameter | Type |
+| ------ | ------ |
+| `bc` | (`b`: `B`) => `C` |
 
 ### Returns
 
@@ -70,8 +70,8 @@ Function.compose(increment, square)(2); // => 9
 
 ### See
 
-- [flow](../functions/flow.md) for composing a left-to-right sequence of functions
-- [pipe](../functions/pipe.md) for applying a value through a left-to-right sequence immediately
+ - [flow](../functions/flow.md) for composing a left-to-right sequence of functions
+ - [pipe](../functions/pipe.md) for applying a value through a left-to-right sequence immediately
 
 ### Since
 
@@ -93,28 +93,28 @@ Use to compose exactly two unary functions into a reusable unary function.
 **Example** (Composing two functions)
 
 ```ts
-import { Function } from "effect";
+import { Function } from "effect"
 
-const increment = (n: number) => n + 1;
-const square = (n: number) => n * n;
+const increment = (n: number) => n + 1
+const square = (n: number) => n * n
 
-Function.compose(increment, square)(2); // => 9
+Function.compose(increment, square)(2) // => 9
 ```
 
 ### Type Parameters
 
 | Type Parameter |
-| -------------- |
-| `A`            |
-| `B`            |
-| `C`            |
+| ------ |
+| `A` |
+| `B` |
+| `C` |
 
 ### Parameters
 
-| Parameter | Type              |
-| --------- | ----------------- |
-| `self`    | (`a`: `A`) => `B` |
-| `bc`      | (`b`: `B`) => `C` |
+| Parameter | Type |
+| ------ | ------ |
+| `self` | (`a`: `A`) => `B` |
+| `bc` | (`b`: `B`) => `C` |
 
 ### Returns
 
@@ -122,8 +122,8 @@ Function.compose(increment, square)(2); // => 9
 
 ### See
 
-- [flow](../functions/flow.md) for composing a left-to-right sequence of functions
-- [pipe](../functions/pipe.md) for applying a value through a left-to-right sequence immediately
+ - [flow](../functions/flow.md) for composing a left-to-right sequence of functions
+ - [pipe](../functions/pipe.md) for applying a value through a left-to-right sequence immediately
 
 ### Since
 
@@ -131,8 +131,8 @@ Function.compose(increment, square)(2); // => 9
 
 ## See
 
-- [flow](../functions/flow.md) for composing a left-to-right sequence of functions
-- [pipe](../functions/pipe.md) for applying a value through a left-to-right sequence immediately
+ - [flow](../functions/flow.md) for composing a left-to-right sequence of functions
+ - [pipe](../functions/pipe.md) for applying a value through a left-to-right sequence immediately
 
 ## Since
 

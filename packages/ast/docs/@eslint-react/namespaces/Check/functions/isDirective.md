@@ -10,10 +10,10 @@ Check if a node is a directive statement (ex: `"use client"`), optionally matchi
 
 ## Parameters
 
-| Parameter | Type     | Description                                                       |
-| --------- | -------- | ----------------------------------------------------------------- |
-| `node`    | `Node`   | The node to check.                                                |
-| `name?`   | `string` | The directive name to match. When omitted, any directive matches. |
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `node` | `Node` | The node to check. |
+| `name?` | `string` | The directive name to match. When omitted, any directive matches. |
 
 ## Returns
 

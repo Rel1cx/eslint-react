@@ -10,9 +10,9 @@ Check if a node is a JSX element or JSX fragment.
 
 ## Parameters
 
-| Parameter | Type                            |
-| --------- | ------------------------------- |
-| `node`    | `Node` \| `null` \| `undefined` |
+| Parameter | Type |
+| ------ | ------ |
+| `node` | `Node` \| `null` \| `undefined` |
 
 ## Returns
 

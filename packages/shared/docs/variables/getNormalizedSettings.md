@@ -18,9 +18,9 @@ Get the normalized ESLint React settings, memoized by the input settings value.
 
 ## Parameters
 
-| Parameter | Type      |
-| --------- | --------- |
-| `a`       | `unknown` |
+| Parameter | Type |
+| ------ | ------ |
+| `a` | `unknown` |
 
 ## Returns
 
@@ -38,12 +38,12 @@ Get the normalized ESLint React settings, memoized by the input settings value.
 
 The normalized ESLint React settings.
 
-| Name                    | Type                                                            |
-| ----------------------- | --------------------------------------------------------------- |
-| `additionalEffectHooks` | [`RegExpLike`](../type-aliases/RegExpLike.md)                   |
-| `additionalRefHooks`    | [`RegExpLike`](../type-aliases/RegExpLike.md)                   |
-| `additionalStateHooks`  | [`RegExpLike`](../type-aliases/RegExpLike.md)                   |
-| `compilationMode`       | `"infer"` \| `"annotation"` \| `"syntax"` \| `"all"` \| `"off"` |
-| `importSource`          | `string`                                                        |
-| `polymorphicPropName`   | `string`                                                        |
-| `version`               | `string`                                                        |
+| Name | Type |
+| ------ | ------ |
+| `additionalEffectHooks` | [`RegExpLike`](../type-aliases/RegExpLike.md) |
+| `additionalRefHooks` | [`RegExpLike`](../type-aliases/RegExpLike.md) |
+| `additionalStateHooks` | [`RegExpLike`](../type-aliases/RegExpLike.md) |
+| `compilationMode` | `"infer"` \| `"annotation"` \| `"syntax"` \| `"all"` \| `"off"` |
+| `importSource` | `string` |
+| `polymorphicPropName` | `string` |
+| `version` | `string` |

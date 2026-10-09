@@ -22,9 +22,9 @@ JSX runtime (ex: Preact). Note the self-name comparison is a heuristic: any
 
 ## Parameters
 
-| Parameter            | Type     | Description                                                    |
-| -------------------- | -------- | -------------------------------------------------------------- |
-| `node`               | `Node`   | The node to check.                                             |
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `node` | `Node` | The node to check. |
 | `jsxFragmentFactory` | `string` | The configured fragment factory string (ex: "React.Fragment"). |
 
 ## Returns

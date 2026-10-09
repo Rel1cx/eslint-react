@@ -10,9 +10,9 @@ Check if the node is a render-like method of a class component.
 
 ## Parameters
 
-| Parameter | Type   | Description            |
-| --------- | ------ | ---------------------- |
-| `node`    | `Node` | The AST node to check. |
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `node` | `Node` | The AST node to check. |
 
 ## Returns
 

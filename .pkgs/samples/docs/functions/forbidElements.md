@@ -10,8 +10,8 @@ Forbid specific JSX elements.
 
 ## Parameters
 
-| Parameter | Type                                                                |
-| --------- | ------------------------------------------------------------------- |
+| Parameter | Type |
+| ------ | ------ |
 | `options` | [`ForbidElementsOptions`](../type-aliases/ForbidElementsOptions.md) |
 
 ## Returns

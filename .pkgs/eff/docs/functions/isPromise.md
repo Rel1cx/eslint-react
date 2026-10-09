@@ -19,18 +19,18 @@ Performs a structural check for `then` and `catch` functions.
 **Example** (Guarding promises)
 
 ```ts
-import { Predicate } from "effect";
+import { Predicate } from "effect"
 
-const data: unknown = Promise.resolve(1);
+const data: unknown = Promise.resolve(1)
 
-Predicate.isPromise(data); // => true
+Predicate.isPromise(data) // => true
 ```
 
 ## Parameters
 
-| Parameter | Type      |
-| --------- | --------- |
-| `input`   | `unknown` |
+| Parameter | Type |
+| ------ | ------ |
+| `input` | `unknown` |
 
 ## Returns
 

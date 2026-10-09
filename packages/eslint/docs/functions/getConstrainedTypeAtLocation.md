@@ -20,10 +20,10 @@ the `eslint` package.
 
 ## Parameters
 
-| Parameter  | Type                                |
-| ---------- | ----------------------------------- |
+| Parameter | Type |
+| ------ | ------ |
 | `services` | `ParserServicesWithTypeInformation` |
-| `node`     | `Node`                              |
+| `node` | `Node` |
 
 ## Returns
 

@@ -20,20 +20,20 @@ Uses `typeof input === "function"`.
 **Example** (Guarding functions)
 
 ```ts
-import { Predicate } from "effect";
+import { Predicate } from "effect"
 
-const data: unknown = () => 1;
+const data: unknown = () => 1
 
 if (Predicate.isFunction(data)) {
-  data(); // => 1
+  data() // => 1
 }
 ```
 
 ## Parameters
 
-| Parameter | Type      |
-| --------- | --------- |
-| `input`   | `unknown` |
+| Parameter | Type |
+| ------ | ------ |
+| `input` | `unknown` |
 
 ## Returns
 

@@ -15,22 +15,22 @@ Use to return a value unchanged where a function is required.
 **Example** (Returning the same value)
 
 ```ts
-import { identity } from "effect";
+import { identity } from "effect"
 
-identity(5); // => 5
+identity(5) // => 5
 ```
 
 ## Type Parameters
 
 | Type Parameter |
-| -------------- |
-| `A`            |
+| ------ |
+| `A` |
 
 ## Parameters
 
 | Parameter | Type |
-| --------- | ---- |
-| `a`       | `A`  |
+| ------ | ------ |
+| `a` | `A` |
 
 ## Returns
 

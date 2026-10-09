@@ -11,10 +11,10 @@ ExpressionStatement.
 
 ## Parameters
 
-| Parameter | Type                                                    | Description                                                  |
-| --------- | ------------------------------------------------------- | ------------------------------------------------------------ |
-| `code`    | `string`                                                | Source code whose last statement is an expression statement. |
-| `options` | [`ParseCodeOptions`](../interfaces/ParseCodeOptions.md) | Parser options passed to `parseCode`.                        |
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `code` | `string` | Source code whose last statement is an expression statement. |
+| `options` | [`ParseCodeOptions`](../interfaces/ParseCodeOptions.md) | Parser options passed to `parseCode`. |
 
 ## Returns
 

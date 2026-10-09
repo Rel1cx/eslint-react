@@ -21,15 +21,15 @@ conversion.
 ## Type Parameters
 
 | Type Parameter |
-| -------------- |
-| `A`            |
-| `B`            |
+| ------ |
+| `A` |
+| `B` |
 
 ## Parameters
 
 | Parameter | Type |
-| --------- | ---- |
-| `a`       | `A`  |
+| ------ | ------ |
+| `a` | `A` |
 
 ## Returns
 

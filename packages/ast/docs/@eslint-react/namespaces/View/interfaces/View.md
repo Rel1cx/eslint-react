@@ -1,6 +1,6 @@
 [@eslint-react/ast](../../../../README.md) / [View](../README.md) / View
 
-# Interface: View\<N _extends_ `TSESTree.Node` = `TSESTree.Node`\>
+# Interface: View\<N *extends* `TSESTree.Node` = `TSESTree.Node`\>
 
 The contract shared by all node views, consumed as `View.View`.
 
@@ -16,16 +16,16 @@ implementations, without extending the class. Inspection behavior
 
 ## Type Parameters
 
-| Type Parameter                | Default type    |
-| ----------------------------- | --------------- |
-| `N` _extends_ `TSESTree.Node` | `TSESTree.Node` |
+| Type Parameter | Default type |
+| ------ | ------ |
+| `N` *extends* `TSESTree.Node` | `TSESTree.Node` |
 
 ## Properties
 
-| Property                                | Modifier   | Type                                           | Description                                              |
-| --------------------------------------- | ---------- | ---------------------------------------------- | -------------------------------------------------------- |
+| Property | Modifier | Type | Description |
+| ------ | ------ | ------ | ------ |
 | <a id="property-context"></a> `context` | `readonly` | [`ViewContext`](ViewContext.md) \| `undefined` | Optional rule context for getters that need source text. |
-| <a id="property-node"></a> `node`       | `readonly` | `N`                                            | The original node, as delivered by ESLint.               |
+| <a id="property-node"></a> `node` | `readonly` | `N` | The original node, as delivered by ESLint. |
 
 ## Methods
 
@@ -45,7 +45,7 @@ NodeInspectSymbol: unknown;
 Inspectable.[NodeInspectSymbol]
 ```
 
----
+***
 
 ### getParent()
 
@@ -61,7 +61,7 @@ including any type expression wrappers enclosing this node.
 
 `Node` \| `undefined`
 
----
+***
 
 ### toJSON()
 
@@ -78,10 +78,10 @@ Return the structured, non-circular representation of this view.
 #### Overrides
 
 ```ts
-Inspectable.toJSON;
+Inspectable.toJSON
 ```
 
----
+***
 
 ### toString()
 
@@ -96,5 +96,5 @@ toString(): string;
 #### Inherited from
 
 ```ts
-Inspectable.toString;
+Inspectable.toString
 ```

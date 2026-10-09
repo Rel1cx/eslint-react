@@ -10,10 +10,10 @@ Get the children arguments (the arguments after the props object) of a `createEl
 
 ## Parameters
 
-| Parameter | Type             | Description              |
-| --------- | ---------------- | ------------------------ |
-| `context` | `RuleContext`    | The ESLint rule context. |
-| `node`    | `Node` \| `null` | The node to inspect.     |
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `context` | `RuleContext` | The ESLint rule context. |
+| `node` | `Node` \| `null` | The node to inspect. |
 
 ## Returns
 

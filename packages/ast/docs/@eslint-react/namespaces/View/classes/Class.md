@@ -1,6 +1,6 @@
 [@eslint-react/ast](../../../../README.md) / [View](../README.md) / Class
 
-# Class: Class\<N _extends_ `TSESTree.Node` = `TSESTree.Node`\>
+# Class: Class\<N *extends* `TSESTree.Node` = `TSESTree.Node`\>
 
 Base class of all node views, consumed as `View.Class`.
 
@@ -41,9 +41,9 @@ not a replacement; the original node stays reachable via `.node`.
 
 ## Type Parameters
 
-| Type Parameter                | Default type    |
-| ----------------------------- | --------------- |
-| `N` _extends_ `TSESTree.Node` | `TSESTree.Node` |
+| Type Parameter | Default type |
+| ------ | ------ |
+| `N` *extends* `TSESTree.Node` | `TSESTree.Node` |
 
 ## Implements
 
@@ -59,9 +59,9 @@ new Class<N extends Node = Node>(node: N, context?: ViewContext): Class<N>;
 
 #### Parameters
 
-| Parameter  | Type                                          |
-| ---------- | --------------------------------------------- |
-| `node`     | `N`                                           |
+| Parameter | Type |
+| ------ | ------ |
+| `node` | `N` |
 | `context?` | [`ViewContext`](../interfaces/ViewContext.md) |
 
 #### Returns
@@ -71,15 +71,15 @@ new Class<N extends Node = Node>(node: N, context?: ViewContext): Class<N>;
 #### Overrides
 
 ```ts
-InspectableClass.constructor;
+InspectableClass.constructor
 ```
 
 ## Properties
 
-| Property                                | Modifier   | Type                                                         | Description                                              |
-| --------------------------------------- | ---------- | ------------------------------------------------------------ | -------------------------------------------------------- |
+| Property | Modifier | Type | Description |
+| ------ | ------ | ------ | ------ |
 | <a id="property-context"></a> `context` | `readonly` | [`ViewContext`](../interfaces/ViewContext.md) \| `undefined` | Optional rule context for getters that need source text. |
-| <a id="property-node"></a> `node`       | `readonly` | `N`                                                          | The original node, as delivered by ESLint.               |
+| <a id="property-node"></a> `node` | `readonly` | `N` | The original node, as delivered by ESLint. |
 
 ## Methods
 
@@ -109,7 +109,7 @@ Node.js custom inspection method.
 InspectableClass.[NodeInspectSymbol]
 ```
 
----
+***
 
 ### getParent()
 
@@ -129,7 +129,7 @@ including any type expression wrappers enclosing this node.
 
 [`View`](../interfaces/View.md).[`getParent`](../interfaces/View.md#getparent)
 
----
+***
 
 ### toJSON()
 
@@ -150,10 +150,10 @@ Return the structured, non-circular representation of this view.
 #### Overrides
 
 ```ts
-InspectableClass.toJSON;
+InspectableClass.toJSON
 ```
 
----
+***
 
 ### toString()
 
@@ -178,5 +178,5 @@ Returns a formatted string representation of this object.
 #### Inherited from
 
 ```ts
-InspectableClass.toString;
+InspectableClass.toString
 ```

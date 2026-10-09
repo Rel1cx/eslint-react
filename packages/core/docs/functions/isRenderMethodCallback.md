@@ -10,9 +10,9 @@ Check if the function is a callback passed to a class component's render method.
 
 ## Parameters
 
-| Parameter | Type               | Description                 |
-| --------- | ------------------ | --------------------------- |
-| `node`    | `TSESTreeFunction` | The function node to check. |
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `node` | `TSESTreeFunction` | The function node to check. |
 
 ## Returns
 

@@ -4,8 +4,8 @@
 
 ```ts
 const implies: {
-  <T>(consequent: (data: T) => boolean): (antecedent: (data: T) => boolean) => (data: T) => boolean;
-  <T>(antecedent: (data: T) => boolean, consequent: (data: T) => boolean): (data: T) => boolean;
+<T>  (consequent: (data: T) => boolean): (antecedent: (data: T) => boolean) => (data: T) => boolean;
+<T>  (antecedent: (data: T) => boolean, consequent: (data: T) => boolean): (data: T) => boolean;
 };
 ```
 
@@ -24,13 +24,13 @@ is `false`.
 **Example** (Checking implication)
 
 ```ts
-import { Predicate } from "effect";
+import { Predicate } from "effect"
 
-const isAdult = (age: number) => age >= 18;
-const canVote = (age: number) => age >= 18;
-const implies = Predicate.implies(isAdult, canVote);
+const isAdult = (age: number) => age >= 18
+const canVote = (age: number) => age >= 18
+const implies = Predicate.implies(isAdult, canVote)
 
-implies(16); // => true
+implies(16) // => true
 ```
 
 ## Call Signature
@@ -42,13 +42,13 @@ implies(16); // => true
 ### Type Parameters
 
 | Type Parameter |
-| -------------- |
-| `T`            |
+| ------ |
+| `T` |
 
 ### Parameters
 
-| Parameter    | Type                       |
-| ------------ | -------------------------- |
+| Parameter | Type |
+| ------ | ------ |
 | `consequent` | (`data`: `T`) => `boolean` |
 
 ### Returns
@@ -64,13 +64,13 @@ implies(16); // => true
 ### Type Parameters
 
 | Type Parameter |
-| -------------- |
-| `T`            |
+| ------ |
+| `T` |
 
 ### Parameters
 
-| Parameter    | Type                       |
-| ------------ | -------------------------- |
+| Parameter | Type |
+| ------ | ------ |
 | `antecedent` | (`data`: `T`) => `boolean` |
 | `consequent` | (`data`: `T`) => `boolean` |
 
@@ -80,8 +80,8 @@ implies(16); // => true
 
 ## See
 
-- [and](and.md)
-- [or](or.md)
+ - [and](and.md)
+ - [or](or.md)
 
 ## Since
 

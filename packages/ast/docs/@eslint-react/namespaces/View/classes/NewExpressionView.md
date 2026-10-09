@@ -18,9 +18,9 @@ new NewExpressionView(node: NewExpression, context?: ViewContext): NewExpression
 
 #### Parameters
 
-| Parameter  | Type                                          |
-| ---------- | --------------------------------------------- |
-| `node`     | `NewExpression`                               |
+| Parameter | Type |
+| ------ | ------ |
+| `node` | `NewExpression` |
 | `context?` | [`ViewContext`](../interfaces/ViewContext.md) |
 
 #### Returns
@@ -33,10 +33,10 @@ new NewExpressionView(node: NewExpression, context?: ViewContext): NewExpression
 
 ## Properties
 
-| Property                                | Modifier   | Type                                                         | Description                                              | Inherited from                                             |
-| --------------------------------------- | ---------- | ------------------------------------------------------------ | -------------------------------------------------------- | ---------------------------------------------------------- |
+| Property | Modifier | Type | Description | Inherited from |
+| ------ | ------ | ------ | ------ | ------ |
 | <a id="property-context"></a> `context` | `readonly` | [`ViewContext`](../interfaces/ViewContext.md) \| `undefined` | Optional rule context for getters that need source text. | [`Class`](Class.md).[`context`](Class.md#property-context) |
-| <a id="property-node"></a> `node`       | `readonly` | `NewExpression`                                              | The original node, as delivered by ESLint.               | [`Class`](Class.md).[`node`](Class.md#property-node)       |
+| <a id="property-node"></a> `node` | `readonly` | `NewExpression` | The original node, as delivered by ESLint. | [`Class`](Class.md).[`node`](Class.md#property-node) |
 
 ## Methods
 
@@ -60,7 +60,7 @@ Node.js custom inspection method.
 
 [`Class`](Class.md).[`[NodeInspectSymbol]`](Class.md#nodeinspectsymbol)
 
----
+***
 
 ### getArguments()
 
@@ -74,7 +74,7 @@ Get the arguments with type and chain expressions unwrapped.
 
 [`TSESTreeUnwrapped`](../../../../type-aliases/TSESTreeUnwrapped.md)\<`CallExpressionArgument`\>[]
 
----
+***
 
 ### getCallee()
 
@@ -88,7 +88,7 @@ Get the callee with type and chain expressions unwrapped.
 
 [`TSESTreeUnwrapped`](../../../../type-aliases/TSESTreeUnwrapped.md)\<`Expression`\>
 
----
+***
 
 ### getParent()
 
@@ -108,7 +108,7 @@ including any type expression wrappers enclosing this node.
 
 [`Class`](Class.md).[`getParent`](Class.md#getparent)
 
----
+***
 
 ### toJSON()
 
@@ -126,7 +126,7 @@ Return the structured, non-circular representation of this view.
 
 [`Class`](Class.md).[`toJSON`](Class.md#tojson)
 
----
+***
 
 ### toString()
 

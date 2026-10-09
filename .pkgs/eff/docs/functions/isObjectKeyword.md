@@ -20,17 +20,17 @@ Returns `true` for arrays and functions, and `false` for `null`.
 **Example** (Checking object keywords)
 
 ```ts
-import { Predicate } from "effect";
+import { Predicate } from "effect"
 
-Predicate.isObjectKeyword(() => 1); // => true
-Predicate.isObjectKeyword(null); // => false
+Predicate.isObjectKeyword(() => 1) // => true
+Predicate.isObjectKeyword(null) // => false
 ```
 
 ## Parameters
 
-| Parameter | Type      |
-| --------- | --------- |
-| `input`   | `unknown` |
+| Parameter | Type |
+| ------ | ------ |
+| `input` | `unknown` |
 
 ## Returns
 
@@ -38,8 +38,8 @@ Predicate.isObjectKeyword(null); // => false
 
 ## See
 
-- [isObject](isObject.md)
-- [isObjectOrArray](isObjectOrArray.md)
+ - [isObject](isObject.md)
+ - [isObjectOrArray](isObjectOrArray.md)
 
 ## Since
 

@@ -10,10 +10,10 @@ Get the type argument (the first argument) of a `createElement` call.
 
 ## Parameters
 
-| Parameter | Type             | Description              |
-| --------- | ---------------- | ------------------------ |
-| `context` | `RuleContext`    | The ESLint rule context. |
-| `node`    | `Node` \| `null` | The node to inspect.     |
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `context` | `RuleContext` | The ESLint rule context. |
+| `node` | `Node` \| `null` | The node to inspect. |
 
 ## Returns
 

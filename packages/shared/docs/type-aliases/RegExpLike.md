@@ -12,6 +12,6 @@ Represents a RegExp-like object with a `test` method.
 
 ## Properties
 
-| Property                          | Type                         |
-| --------------------------------- | ---------------------------- |
+| Property | Type |
+| ------ | ------ |
 | <a id="property-test"></a> `test` | (`s`: `string`) => `boolean` |

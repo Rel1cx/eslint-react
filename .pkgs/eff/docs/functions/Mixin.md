@@ -21,15 +21,15 @@ method delegates to `pipeArguments`.
 
 ## Type Parameters
 
-| Type Parameter                                           |
-| -------------------------------------------------------- |
-| `TBase` _extends_ (...`args`: readonly `any`[]) => `any` |
+| Type Parameter |
+| ------ |
+| `TBase` *extends* (...`args`: readonly `any`[]) => `any` |
 
 ## Parameters
 
-| Parameter | Type    |
-| --------- | ------- |
-| `klass`   | `TBase` |
+| Parameter | Type |
+| ------ | ------ |
+| `klass` | `TBase` |
 
 ## Returns
 
@@ -37,8 +37,8 @@ method delegates to `pipeArguments`.
 
 ## See
 
-- [Prototype](../variables/Prototype.md) for a reusable prototype object
-- [Class](../variables/Class.md) for a base constructor to extend
+ - [Prototype](../variables/Prototype.md) for a reusable prototype object
+ - [Class](../variables/Class.md) for a base constructor to extend
 
 ## Since
 

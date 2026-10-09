@@ -4,8 +4,8 @@
 
 ```ts
 const nand: {
-  <T>(b: (data: T) => boolean): (a: (data: T) => boolean) => (data: T) => boolean;
-  <T>(a: (data: T) => boolean, b: (data: T) => boolean): (data: T) => boolean;
+<T>  (b: (data: T) => boolean): (a: (data: T) => boolean) => (data: T) => boolean;
+<T>  (a: (data: T) => boolean, b: (data: T) => boolean): (data: T) => boolean;
 };
 ```
 
@@ -22,11 +22,11 @@ Returns the negation of `and`.
 **Example** (Checking NAND conditions)
 
 ```ts
-import { Predicate } from "effect";
+import { Predicate } from "effect"
 
-const notBoth = Predicate.nand(Predicate.isString, Predicate.isNumber);
+const notBoth = Predicate.nand(Predicate.isString, Predicate.isNumber)
 
-notBoth("a"); // => true
+notBoth("a") // => true
 ```
 
 ## Call Signature
@@ -38,14 +38,14 @@ notBoth("a"); // => true
 ### Type Parameters
 
 | Type Parameter |
-| -------------- |
-| `T`            |
+| ------ |
+| `T` |
 
 ### Parameters
 
-| Parameter | Type                       |
-| --------- | -------------------------- |
-| `b`       | (`data`: `T`) => `boolean` |
+| Parameter | Type |
+| ------ | ------ |
+| `b` | (`data`: `T`) => `boolean` |
 
 ### Returns
 
@@ -60,15 +60,15 @@ notBoth("a"); // => true
 ### Type Parameters
 
 | Type Parameter |
-| -------------- |
-| `T`            |
+| ------ |
+| `T` |
 
 ### Parameters
 
-| Parameter | Type                       |
-| --------- | -------------------------- |
-| `a`       | (`data`: `T`) => `boolean` |
-| `b`       | (`data`: `T`) => `boolean` |
+| Parameter | Type |
+| ------ | ------ |
+| `a` | (`data`: `T`) => `boolean` |
+| `b` | (`data`: `T`) => `boolean` |
 
 ### Returns
 
@@ -76,8 +76,8 @@ notBoth("a"); // => true
 
 ## See
 
-- [and](and.md)
-- [not](../functions/not.md)
+ - [and](and.md)
+ - [not](../functions/not.md)
 
 ## Since
 

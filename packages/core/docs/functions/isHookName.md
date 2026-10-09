@@ -10,9 +10,9 @@ Check if the name is a hook name (starts with `use` followed by an uppercase let
 
 ## Parameters
 
-| Parameter | Type     | Description                          |
-| --------- | -------- | ------------------------------------ |
-| `name`    | `string` | The name of the identifier to check. |
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `name` | `string` | The name of the identifier to check. |
 
 ## Returns
 

@@ -10,9 +10,9 @@ Find the nearest `TryStatement` whose `try` block (not `catch`/`finally`) enclos
 
 ## Parameters
 
-| Parameter | Type   | Description        |
-| --------- | ------ | ------------------ |
-| `node`    | `Node` | The node to check. |
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `node` | `Node` | The node to check. |
 
 ## Returns
 

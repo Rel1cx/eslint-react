@@ -22,17 +22,17 @@ typed arrays. It excludes `null` and arrays.
 **Example** (Guarding objects)
 
 ```ts
-import { Predicate } from "effect";
+import { Predicate } from "effect"
 
-Predicate.isObject({ a: 1 }); // => true
-Predicate.isObject([1, 2]); // => false
+Predicate.isObject({ a: 1 }) // => true
+Predicate.isObject([1, 2]) // => false
 ```
 
 ## Parameters
 
-| Parameter | Type      |
-| --------- | --------- |
-| `input`   | `unknown` |
+| Parameter | Type |
+| ------ | ------ |
+| `input` | `unknown` |
 
 ## Returns
 
@@ -40,8 +40,8 @@ input is \{ \[x: string \| number \| symbol\]: unknown \}
 
 ## See
 
-- [isObjectOrArray](isObjectOrArray.md)
-- isReadonlyObject
+ - [isObjectOrArray](isObjectOrArray.md)
+ - isReadonlyObject
 
 ## Since
 

@@ -20,23 +20,23 @@ each time the predicate is called.
 **Example** (Checking all predicates)
 
 ```ts
-import { Predicate } from "effect";
+import { Predicate } from "effect"
 
-const allChecks = Predicate.every([Predicate.isNumber, (n: number) => n > 0]);
+const allChecks = Predicate.every([Predicate.isNumber, (n: number) => n > 0])
 
-allChecks(2); // => true
+allChecks(2) // => true
 ```
 
 ## Type Parameters
 
 | Type Parameter |
-| -------------- |
-| `A`            |
+| ------ |
+| `A` |
 
 ## Parameters
 
-| Parameter    | Type                                                                                                                                   |
-| ------------ | -------------------------------------------------------------------------------------------------------------------------------------- |
+| Parameter | Type |
+| ------ | ------ |
 | `collection` | [`Iterable`](https://www.typescriptlang.org/docs/handbook/iterators-and-generators.html#iterable-interface)\<(`a`: `A`) => `boolean`\> |
 
 ## Returns
@@ -45,8 +45,8 @@ allChecks(2); // => true
 
 ## See
 
-- [some](some.md)
-- [and](../variables/and.md)
+ - [some](some.md)
+ - [and](../variables/and.md)
 
 ## Since
 

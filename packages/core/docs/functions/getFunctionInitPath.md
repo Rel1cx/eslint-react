@@ -10,9 +10,9 @@ Get the initialization path of a function node in the AST.
 
 ## Parameters
 
-| Parameter | Type               | Description                   |
-| --------- | ------------------ | ----------------------------- |
-| `node`    | `TSESTreeFunction` | The function node to analyze. |
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `node` | `TSESTreeFunction` | The function node to analyze. |
 
 ## Returns
 

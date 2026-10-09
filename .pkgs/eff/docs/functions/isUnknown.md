@@ -15,16 +15,16 @@ Use when you need a `Predicate` that always accepts, e.g. as a placeholder.
 **Example** (Matching every value)
 
 ```ts
-import { Predicate } from "effect";
+import { Predicate } from "effect"
 
-Predicate.isUnknown(123); // => true
+Predicate.isUnknown(123) // => true
 ```
 
 ## Parameters
 
-| Parameter | Type      |
-| --------- | --------- |
-| `_`       | `unknown` |
+| Parameter | Type |
+| ------ | ------ |
+| `_` | `unknown` |
 
 ## Returns
 

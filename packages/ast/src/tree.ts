@@ -55,4 +55,4 @@ export type TSESTreeTypeExpression =
   | TSESTree.TSInstantiationExpression;
 
 /** Node type `T` with TypeScript type expressions excluded — the static result shape of `Extract.unwrap`. */
-export type TSESTreeUnwrapped<T extends TSESTree.Node> = Exclude<T, TSESTreeTypeExpression>;
+export type TSESTreeUnwrapped<T extends TSESTree.Node> = Exclude<T, TSESTreeTypeExpression | TSESTree.ChainExpression>;

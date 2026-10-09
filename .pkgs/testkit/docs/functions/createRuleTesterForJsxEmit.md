@@ -11,8 +11,8 @@ replacing per-spec hand-rolled `new RuleTester({...})` instances.
 
 ## Parameters
 
-| Parameter | Type      |
-| --------- | --------- |
+| Parameter | Type |
+| ------ | ------ |
 | `jsxEmit` | `JsxEmit` |
 
 ## Returns

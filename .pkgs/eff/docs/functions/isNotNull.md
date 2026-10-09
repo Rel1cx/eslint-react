@@ -20,23 +20,23 @@ Returns a refinement that excludes `null`.
 **Example** (Filtering null values)
 
 ```ts
-import { Predicate } from "effect";
+import { Predicate } from "effect"
 
-const values = [1, null, 2];
-const nonNull = values.filter(Predicate.isNotNull); // => [1, 2]
+const values = [1, null, 2]
+const nonNull = values.filter(Predicate.isNotNull) // => [1, 2]
 ```
 
 ## Type Parameters
 
 | Type Parameter |
-| -------------- |
-| `A`            |
+| ------ |
+| `A` |
 
 ## Parameters
 
 | Parameter | Type |
-| --------- | ---- |
-| `input`   | `A`  |
+| ------ | ------ |
+| `input` | `A` |
 
 ## Returns
 
@@ -44,8 +44,8 @@ const nonNull = values.filter(Predicate.isNotNull); // => [1, 2]
 
 ## See
 
-- [isNull](isNull.md)
-- [isNotNullish](isNotNullish.md)
+ - [isNull](isNull.md)
+ - [isNotNullish](isNotNullish.md)
 
 ## Since
 

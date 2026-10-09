@@ -12,6 +12,6 @@ Options for [jsxNoDuplicateProps](../functions/jsxNoDuplicateProps.md).
 
 ## Properties
 
-| Property                                       | Type      | Description                                               |
-| ---------------------------------------------- | --------- | --------------------------------------------------------- |
+| Property | Type | Description |
+| ------ | ------ | ------ |
 | <a id="property-ignorecase"></a> `ignoreCase?` | `boolean` | Whether to ignore case when checking for duplicate props. |

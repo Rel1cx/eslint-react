@@ -20,20 +20,20 @@ Uses `typeof input === "symbol"`.
 **Example** (Guarding symbols)
 
 ```ts
-import { Predicate } from "effect";
+import { Predicate } from "effect"
 
-const data: unknown = Symbol.for("id");
+const data: unknown = Symbol.for("id")
 
 if (Predicate.isSymbol(data)) {
-  data.description; // => "id"
+  data.description // => "id"
 }
 ```
 
 ## Parameters
 
-| Parameter | Type      |
-| --------- | --------- |
-| `input`   | `unknown` |
+| Parameter | Type |
+| ------ | ------ |
+| `input` | `unknown` |
 
 ## Returns
 

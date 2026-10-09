@@ -20,22 +20,22 @@ is the value flowing through `pipe`.
 **Example** (Applying an argument to a function)
 
 ```ts
-import { Function, String, pipe } from "effect";
+import { Function, pipe, String } from "effect"
 
-pipe(String.length, Function.apply("hello")); // => 5
+pipe(String.length, Function.apply("hello")) // => 5
 ```
 
 ## Type Parameters
 
 | Type Parameter |
-| -------------- |
-| `A`            |
+| ------ |
+| `A` |
 
 ## Parameters
 
 | Parameter | Type |
-| --------- | ---- |
-| `a`       | `A`  |
+| ------ | ------ |
+| `a` | `A` |
 
 ## Returns
 

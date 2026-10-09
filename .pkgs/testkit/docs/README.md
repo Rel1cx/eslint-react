@@ -2,45 +2,45 @@
 
 ## Interfaces
 
-| Interface                                              | Description |
-| ------------------------------------------------------ | ----------- |
-| [MockContextOptions](interfaces/MockContextOptions.md) | -           |
-| [ParseCodeOptions](interfaces/ParseCodeOptions.md)     | -           |
+| Interface | Description |
+| ------ | ------ |
+| [MockContextOptions](interfaces/MockContextOptions.md) | - |
+| [ParseCodeOptions](interfaces/ParseCodeOptions.md) | - |
 
 ## Type Aliases
 
-| Type Alias                                         | Description                                                                                                                                                                                                                                                                                                                                                                                                   |
-| -------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| [RuleRunOptions](type-aliases/RuleRunOptions.md)   | Parser-facing options for the rule-channel helpers. `filePath` is passed to `Linter#verify` as the filename (a `.ts` name disables TSX parsing), `jsx` toggles JSX in `parserOptions`, and `sourceType` maps to `parserOptions.sourceType`.                                                                                                                                                                   |
+| Type Alias | Description |
+| ------ | ------ |
+| [RuleRunOptions](type-aliases/RuleRunOptions.md) | Parser-facing options for the rule-channel helpers. `filePath` is passed to `Linter#verify` as the filename (a `.ts` name disables TSX parsing), `jsx` toggles JSX in `parserOptions`, and `sourceType` maps to `parserOptions.sourceType`. |
 | [TestRuleContext](type-aliases/TestRuleContext.md) | The rule context surface handed to unit-test harness callbacks. Structurally identical to `@eslint-react/eslint`'s `RuleContext` (both are `tseslint.RuleContext<string, readonly unknown[]>` and the whole workspace resolves a single `@typescript-eslint/utils` instance), so values of this type are assignable in both directions; any `context as never` casts at call sites are unnecessary leftovers. |
 
 ## Variables
 
-| Variable                                                                        | Description |
-| ------------------------------------------------------------------------------- | ----------- |
-| [defaultLanguageOptions](variables/defaultLanguageOptions.md)                   | -           |
-| [defaultLanguageOptionsWithTypes](variables/defaultLanguageOptionsWithTypes.md) | -           |
-| [ruleTester](variables/ruleTester.md)                                           | -           |
-| [ruleTesterWithTypes](variables/ruleTesterWithTypes.md)                         | -           |
+| Variable | Description |
+| ------ | ------ |
+| [defaultLanguageOptions](variables/defaultLanguageOptions.md) | - |
+| [defaultLanguageOptionsWithTypes](variables/defaultLanguageOptionsWithTypes.md) | - |
+| [ruleTester](variables/ruleTester.md) | - |
+| [ruleTesterWithTypes](variables/ruleTesterWithTypes.md) | - |
 
 ## Functions
 
-| Function                                                              | Description                                                                                                                                                                                                                                                                                                                                                                               |
-| --------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| [collectNodes](functions/collectNodes.md)                             | Collects every node of the given `type` under `input`. When `input` is a string it is parsed with `parseCode` (`options` apply); when it is a node its subtree is traversed as-is (`options` are ignored) and existing parent pointers are left untouched.                                                                                                                                |
-| [createMockContext](functions/createMockContext.md)                   | Builds a rule-context-like object. When `options.code` is given, `sourceCode.getText` slices the source text; otherwise it returns the identifier's name for Identifier nodes and an empty string for other nodes. When `options.parsed` is given, `sourceCode.getScope` resolves against the real scope manager; otherwise it returns an empty object.                                   |
-| [createRuleTesterForJsxEmit](functions/createRuleTesterForJsxEmit.md) | Creates a `RuleTester` pinned to the tsconfig for the given JSX emit mode, replacing per-spec hand-rolled `new RuleTester({...})` instances.                                                                                                                                                                                                                                              |
-| [createScopeContext](functions/createScopeContext.md)                 | Builds a rule-context-like object whose `sourceCode.getScope` resolves against the real scope manager of a parsed program. When `code` is given, `sourceCode.getText` is also implemented by slicing the source text.                                                                                                                                                                     |
-| [findIdentifierReferences](functions/findIdentifierReferences.md)     | Finds every Identifier named `name` that is a reference rather than a declaration. Excluded declaration sites are: variable declarator ids, function/class declaration ids, import specifier bindings, enum/member/ module/type-alias declaration ids, function parameters, and non-computed property keys. Requires parent pointers (as attached by `parseCode`) when `input` is a node. |
-| [fixturePath](functions/fixturePath.md)                               | Resolve a named fixture file under the fixtures root directory. The file's name drives parser inference (e.g. a `.ts` name disables JSX); its content is irrelevant and never read.                                                                                                                                                                                                       |
-| [getFirstExpression](functions/getFirstExpression.md)                 | Parses `code` and returns the expression of the first top-level ExpressionStatement.                                                                                                                                                                                                                                                                                                      |
-| [getFirstNodeOfType](functions/getFirstNodeOfType.md)                 | Returns the first node of the given `type` under `input`.                                                                                                                                                                                                                                                                                                                                 |
-| [getFixturesRootDir](functions/getFixturesRootDir.md)                 | -                                                                                                                                                                                                                                                                                                                                                                                         |
-| [getLastExpression](functions/getLastExpression.md)                   | Parses `code` and returns the expression of the last top-level ExpressionStatement.                                                                                                                                                                                                                                                                                                       |
-| [getNodeInRule](functions/getNodeInRule.md)                           | Runs `code` through a real `Linter` and captures the first node visited by `visitorKey` (e.g. `"JSXElement"`) together with the rule context.                                                                                                                                                                                                                                             |
-| [getProjectForJsxEmit](functions/getProjectForJsxEmit.md)             | -                                                                                                                                                                                                                                                                                                                                                                                         |
-| [getTextOf](functions/getTextOf.md)                                   | Returns the source text covered by `node`'s range.                                                                                                                                                                                                                                                                                                                                        |
-| [lintWithConfig](functions/lintWithConfig.md)                         | -                                                                                                                                                                                                                                                                                                                                                                                         |
-| [parseCode](functions/parseCode.md)                                   | -                                                                                                                                                                                                                                                                                                                                                                                         |
-| [runCollector](functions/runCollector.md)                             | Runs `code` through a real `Linter`, spreads the collector's own `visitor` into the rule, and harvests the result via the collector's `api` on `Program:exit`.                                                                                                                                                                                                                            |
-| [runInRule](functions/runInRule.md)                                   | Runs `code` through a real `Linter` with an inline test rule and calls `fn` from its `Program` listener, giving the callback a real rule context (scope manager, static evaluation, ...).                                                                                                                                                                                                 |
+| Function | Description |
+| ------ | ------ |
+| [collectNodes](functions/collectNodes.md) | Collects every node of the given `type` under `input`. When `input` is a string it is parsed with `parseCode` (`options` apply); when it is a node its subtree is traversed as-is (`options` are ignored) and existing parent pointers are left untouched. |
+| [createMockContext](functions/createMockContext.md) | Builds a rule-context-like object. When `options.code` is given, `sourceCode.getText` slices the source text; otherwise it returns the identifier's name for Identifier nodes and an empty string for other nodes. When `options.parsed` is given, `sourceCode.getScope` resolves against the real scope manager; otherwise it returns an empty object. |
+| [createRuleTesterForJsxEmit](functions/createRuleTesterForJsxEmit.md) | Creates a `RuleTester` pinned to the tsconfig for the given JSX emit mode, replacing per-spec hand-rolled `new RuleTester({...})` instances. |
+| [createScopeContext](functions/createScopeContext.md) | Builds a rule-context-like object whose `sourceCode.getScope` resolves against the real scope manager of a parsed program. When `code` is given, `sourceCode.getText` is also implemented by slicing the source text. |
+| [findIdentifierReferences](functions/findIdentifierReferences.md) | Finds every Identifier named `name` that is a reference rather than a declaration. Excluded declaration sites are: variable declarator ids, function/class declaration ids, import specifier bindings, enum/member/ module/type-alias declaration ids, function parameters, and non-computed property keys. Requires parent pointers (as attached by `parseCode`) when `input` is a node. |
+| [fixturePath](functions/fixturePath.md) | Resolve a named fixture file under the fixtures root directory. The file's name drives parser inference (e.g. a `.ts` name disables JSX); its content is irrelevant and never read. |
+| [getFirstExpression](functions/getFirstExpression.md) | Parses `code` and returns the expression of the first top-level ExpressionStatement. |
+| [getFirstNodeOfType](functions/getFirstNodeOfType.md) | Returns the first node of the given `type` under `input`. |
+| [getFixturesRootDir](functions/getFixturesRootDir.md) | - |
+| [getLastExpression](functions/getLastExpression.md) | Parses `code` and returns the expression of the last top-level ExpressionStatement. |
+| [getNodeInRule](functions/getNodeInRule.md) | Runs `code` through a real `Linter` and captures the first node visited by `visitorKey` (e.g. `"JSXElement"`) together with the rule context. |
+| [getProjectForJsxEmit](functions/getProjectForJsxEmit.md) | - |
+| [getTextOf](functions/getTextOf.md) | Returns the source text covered by `node`'s range. |
+| [lintWithConfig](functions/lintWithConfig.md) | - |
+| [parseCode](functions/parseCode.md) | - |
+| [runCollector](functions/runCollector.md) | Runs `code` through a real `Linter`, spreads the collector's own `visitor` into the rule, and harvests the result via the collector's `api` on `Program:exit`. |
+| [runInRule](functions/runInRule.md) | Runs `code` through a real `Linter` with an inline test rule and calls `fn` from its `Program` listener, giving the callback a real rule context (scope manager, static evaluation, ...). |

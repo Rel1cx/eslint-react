@@ -10,8 +10,8 @@ Prevent defining more than one component per file.
 
 ## Parameters
 
-| Parameter | Type                                                                          |
-| --------- | ----------------------------------------------------------------------------- |
+| Parameter | Type |
+| ------ | ------ |
 | `options` | [`MaxComponentPerFileOptions`](../type-aliases/MaxComponentPerFileOptions.md) |
 
 ## Returns

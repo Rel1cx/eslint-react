@@ -15,8 +15,8 @@ This is the main entry‑point most consumers should use.
 
 ## Parameters
 
-| Parameter | Type          | Description              |
-| --------- | ------------- | ------------------------ |
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
 | `context` | `RuleContext` | The ESLint rule context. |
 
 ## Returns

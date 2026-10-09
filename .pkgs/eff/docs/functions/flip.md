@@ -16,26 +16,26 @@ in the opposite order.
 **Example** (Flipping curried arguments)
 
 ```ts
-import { Function } from "effect";
+import { Function } from "effect"
 
-const f = (a: number) => (b: string) => a - b.length;
+const f = (a: number) => (b: string) => a - b.length
 
-Function.flip(f)("aaa")(2); // => -1
+Function.flip(f)("aaa")(2) // => -1
 ```
 
 ## Type Parameters
 
-| Type Parameter            |
-| ------------------------- |
-| `A` _extends_ `unknown`[] |
-| `B` _extends_ `unknown`[] |
-| `C`                       |
+| Type Parameter |
+| ------ |
+| `A` *extends* `unknown`[] |
+| `B` *extends* `unknown`[] |
+| `C` |
 
 ## Parameters
 
-| Parameter | Type                                  |
-| --------- | ------------------------------------- |
-| `f`       | (...`a`: `A`) => (...`b`: `B`) => `C` |
+| Parameter | Type |
+| ------ | ------ |
+| `f` | (...`a`: `A`) => (...`b`: `B`) => `C` |
 
 ## Returns
 

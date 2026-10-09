@@ -20,18 +20,18 @@ Performs a structural check for a callable `then`.
 **Example** (Guarding promise-like values)
 
 ```ts
-import { Predicate } from "effect";
+import { Predicate } from "effect"
 
-const data: unknown = { then: () => {} };
+const data: unknown = { then: () => {} }
 
-Predicate.isPromiseLike(data); // => true
+Predicate.isPromiseLike(data) // => true
 ```
 
 ## Parameters
 
-| Parameter | Type      |
-| --------- | --------- |
-| `input`   | `unknown` |
+| Parameter | Type |
+| ------ | ------ |
+| `input` | `unknown` |
 
 ## Returns
 

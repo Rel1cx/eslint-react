@@ -10,9 +10,9 @@ Get the fully qualified name of a node (ex: `React.useState`), falling back to s
 
 ## Parameters
 
-| Parameter | Type                         | Description                                     |
-| --------- | ---------------------------- | ----------------------------------------------- |
-| `node`    | `Node`                       | The node to inspect.                            |
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `node` | `Node` | The node to inspect. |
 | `getText` | (`node`: `Node`) => `string` | A function returning the source text of a node. |
 
 ## Returns

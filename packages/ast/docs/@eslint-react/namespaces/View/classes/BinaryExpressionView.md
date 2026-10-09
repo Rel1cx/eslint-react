@@ -18,9 +18,9 @@ new BinaryExpressionView(node: BinaryExpression, context?: ViewContext): BinaryE
 
 #### Parameters
 
-| Parameter  | Type                                          |
-| ---------- | --------------------------------------------- |
-| `node`     | `BinaryExpression`                            |
+| Parameter | Type |
+| ------ | ------ |
+| `node` | `BinaryExpression` |
 | `context?` | [`ViewContext`](../interfaces/ViewContext.md) |
 
 #### Returns
@@ -33,10 +33,10 @@ new BinaryExpressionView(node: BinaryExpression, context?: ViewContext): BinaryE
 
 ## Properties
 
-| Property                                | Modifier   | Type                                                         | Description                                              | Inherited from                                                                        |
-| --------------------------------------- | ---------- | ------------------------------------------------------------ | -------------------------------------------------------- | ------------------------------------------------------------------------------------- |
+| Property | Modifier | Type | Description | Inherited from |
+| ------ | ------ | ------ | ------ | ------ |
 | <a id="property-context"></a> `context` | `readonly` | [`ViewContext`](../interfaces/ViewContext.md) \| `undefined` | Optional rule context for getters that need source text. | [`BinaryLikeView`](BinaryLikeView.md).[`context`](BinaryLikeView.md#property-context) |
-| <a id="property-node"></a> `node`       | `readonly` | `BinaryExpression`                                           | The original node, as delivered by ESLint.               | [`BinaryLikeView`](BinaryLikeView.md).[`node`](BinaryLikeView.md#property-node)       |
+| <a id="property-node"></a> `node` | `readonly` | `BinaryExpression` | The original node, as delivered by ESLint. | [`BinaryLikeView`](BinaryLikeView.md).[`node`](BinaryLikeView.md#property-node) |
 
 ## Methods
 
@@ -60,7 +60,7 @@ Node.js custom inspection method.
 
 [`BinaryLikeView`](BinaryLikeView.md).[`[NodeInspectSymbol]`](BinaryLikeView.md#nodeinspectsymbol)
 
----
+***
 
 ### getLeft()
 
@@ -78,7 +78,7 @@ Get the left operand with type and chain expressions unwrapped.
 
 [`BinaryLikeView`](BinaryLikeView.md).[`getLeft`](BinaryLikeView.md#getleft)
 
----
+***
 
 ### getParent()
 
@@ -98,7 +98,7 @@ including any type expression wrappers enclosing this node.
 
 [`BinaryLikeView`](BinaryLikeView.md).[`getParent`](BinaryLikeView.md#getparent)
 
----
+***
 
 ### getRight()
 
@@ -116,7 +116,7 @@ Get the right operand with type and chain expressions unwrapped.
 
 [`BinaryLikeView`](BinaryLikeView.md).[`getRight`](BinaryLikeView.md#getright)
 
----
+***
 
 ### toJSON()
 
@@ -134,7 +134,7 @@ Return the structured, non-circular representation of this view.
 
 [`BinaryLikeView`](BinaryLikeView.md).[`toJSON`](BinaryLikeView.md#tojson)
 
----
+***
 
 ### toString()
 

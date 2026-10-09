@@ -10,9 +10,9 @@ Check whether the given node is enclosed by the `try` block (not `catch`/`finall
 
 ## Parameters
 
-| Parameter | Type   | Description        |
-| --------- | ------ | ------------------ |
-| `node`    | `Node` | The node to check. |
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `node` | `Node` | The node to check. |
 
 ## Returns
 

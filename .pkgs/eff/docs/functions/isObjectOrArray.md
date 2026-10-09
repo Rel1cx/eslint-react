@@ -20,16 +20,16 @@ Uses `typeof input === "object" && input !== null` and includes arrays.
 **Example** (Checking objects or arrays)
 
 ```ts
-import { Predicate } from "effect";
+import { Predicate } from "effect"
 
-Predicate.isObjectOrArray([]); // => true
+Predicate.isObjectOrArray([]) // => true
 ```
 
 ## Parameters
 
-| Parameter | Type      |
-| --------- | --------- |
-| `input`   | `unknown` |
+| Parameter | Type |
+| ------ | ------ |
+| `input` | `unknown` |
 
 ## Returns
 
@@ -37,8 +37,8 @@ input is unknown\[\] \| \{ \[x: string \| number \| symbol\]: unknown \}
 
 ## See
 
-- [isObject](isObject.md)
-- [isObjectKeyword](isObjectKeyword.md)
+ - [isObject](isObject.md)
+ - [isObjectKeyword](isObjectKeyword.md)
 
 ## Since
 

@@ -10,9 +10,9 @@ Require the project to use a specific React version.
 
 ## Parameters
 
-| Parameter | Type     | Default value |
-| --------- | -------- | ------------- |
-| `major`   | `string` | `"19"`        |
+| Parameter | Type | Default value |
+| ------ | ------ | ------ |
+| `major` | `string` | `"19"` |
 
 ## Returns
 

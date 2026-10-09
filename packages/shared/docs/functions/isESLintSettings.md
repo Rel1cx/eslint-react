@@ -10,8 +10,8 @@ Check if the value is valid ESLint settings.
 
 ## Parameters
 
-| Parameter  | Type      | Description         |
-| ---------- | --------- | ------------------- |
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
 | `settings` | `unknown` | The value to check. |
 
 ## Returns

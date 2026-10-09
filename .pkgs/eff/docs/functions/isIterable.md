@@ -19,18 +19,18 @@ Accepts strings as iterable and uses `hasProperty` for `Symbol.iterator`.
 **Example** (Guarding iterables)
 
 ```ts
-import { Predicate } from "effect";
+import { Predicate } from "effect"
 
-const data: unknown = [1, 2, 3];
+const data: unknown = [1, 2, 3]
 
-Predicate.isIterable(data); // => true
+Predicate.isIterable(data) // => true
 ```
 
 ## Parameters
 
-| Parameter | Type      |
-| --------- | --------- |
-| `input`   | `unknown` |
+| Parameter | Type |
+| ------ | ------ |
+| `input` | `unknown` |
 
 ## Returns
 
@@ -38,8 +38,8 @@ Predicate.isIterable(data); // => true
 
 ## See
 
-- [isSet](isSet.md)
-- [isMap](isMap.md)
+ - [isSet](isSet.md)
+ - [isMap](isMap.md)
 
 ## Since
 
