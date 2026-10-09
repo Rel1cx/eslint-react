@@ -2,345 +2,52 @@
 
 # Function: unwrap()
 
+## Call Signature
+
 ```ts
-function unwrap(node: Node):
-  | AccessorProperty
-  | ArrayExpression
-  | ArrayPattern
-  | ArrowFunctionExpression
-  | AssignmentExpression
-  | AssignmentPattern
-  | AwaitExpression
-  | BinaryExpression
-  | BlockStatement
-  | BreakStatement
-  | CallExpression
-  | CatchClause
-  | ChainExpression
-  | ClassBody
-  | ClassDeclaration
-  | ClassExpression
-  | ConditionalExpression
-  | ContinueStatement
-  | DebuggerStatement
-  | Decorator
-  | DoWhileStatement
-  | EmptyStatement
-  | ExportAllDeclaration
-  | ExportDefaultDeclaration
-  | ExportNamedDeclaration
-  | ExportSpecifier
-  | ExpressionStatement
-  | ForInStatement
-  | ForOfStatement
-  | ForStatement
-  | FunctionDeclaration
-  | FunctionExpression
-  | Identifier
-  | IfStatement
-  | ImportAttribute
-  | ImportDeclaration
-  | ImportDefaultSpecifier
-  | ImportExpression
-  | ImportNamespaceSpecifier
-  | ImportSpecifier
-  | JSXAttribute
-  | JSXClosingElement
-  | JSXClosingFragment
-  | JSXElement
-  | JSXEmptyExpression
-  | JSXExpressionContainer
-  | JSXFragment
-  | JSXIdentifier
-  | JSXMemberExpression
-  | JSXNamespacedName
-  | JSXOpeningElement
-  | JSXOpeningFragment
-  | JSXSpreadAttribute
-  | JSXSpreadChild
-  | JSXText
-  | LabeledStatement
-  | Literal
-  | LogicalExpression
-  | MemberExpression
-  | MetaProperty
-  | MethodDefinition
-  | NewExpression
-  | ObjectExpression
-  | ObjectPattern
-  | PrivateIdentifier
-  | Program
-  | Property
-  | PropertyDefinition
-  | RestElement
-  | ReturnStatement
-  | SequenceExpression
-  | SpreadElement
-  | StaticBlock
-  | Super
-  | SwitchCase
-  | SwitchStatement
-  | TaggedTemplateExpression
-  | TemplateElement
-  | TemplateLiteral
-  | ThisExpression
-  | ThrowStatement
-  | TryStatement
-  | TSAbstractAccessorProperty
-  | TSAbstractKeyword
-  | TSAbstractMethodDefinition
-  | TSAbstractPropertyDefinition
-  | TSAnyKeyword
-  | TSArrayType
-  | TSAsyncKeyword
-  | TSBigIntKeyword
-  | TSBooleanKeyword
-  | TSCallSignatureDeclaration
-  | TSClassImplements
-  | TSConditionalType
-  | TSConstructorType
-  | TSConstructSignatureDeclaration
-  | TSDeclareFunction
-  | TSDeclareKeyword
-  | TSEmptyBodyFunctionExpression
-  | TSEnumBody
-  | TSEnumDeclaration
-  | TSEnumMember
-  | TSExportAssignment
-  | TSExportKeyword
-  | TSExternalModuleReference
-  | TSFunctionType
-  | TSImportEqualsDeclaration
-  | TSImportType
-  | TSIndexedAccessType
-  | TSIndexSignature
-  | TSInferType
-  | TSInterfaceBody
-  | TSInterfaceDeclaration
-  | TSInterfaceHeritage
-  | TSIntersectionType
-  | TSIntrinsicKeyword
-  | TSLiteralType
-  | TSMappedType
-  | TSMethodSignature
-  | TSModuleBlock
-  | TSModuleDeclaration
-  | TSNamedTupleMember
-  | TSNamespaceExportDeclaration
-  | TSNeverKeyword
-  | TSNullKeyword
-  | TSNumberKeyword
-  | TSObjectKeyword
-  | TSOptionalType
-  | TSParameterProperty
-  | TSPrivateKeyword
-  | TSPropertySignature
-  | TSProtectedKeyword
-  | TSPublicKeyword
-  | TSQualifiedName
-  | TSReadonlyKeyword
-  | TSRestType
-  | TSStaticKeyword
-  | TSStringKeyword
-  | TSSymbolKeyword
-  | TSTemplateLiteralType
-  | TSThisType
-  | TSTupleType
-  | TSTypeAliasDeclaration
-  | TSTypeAnnotation
-  | TSTypeLiteral
-  | TSTypeOperator
-  | TSTypeParameter
-  | TSTypeParameterDeclaration
-  | TSTypeParameterInstantiation
-  | TSTypePredicate
-  | TSTypeQuery
-  | TSTypeReference
-  | TSUndefinedKeyword
-  | TSUnionType
-  | TSUnknownKeyword
-  | TSVoidKeyword
-  | UnaryExpression
-  | UpdateExpression
-  | VariableDeclaration
-  | VariableDeclarator
-  | WhileStatement
-  | WithStatement
-  | YieldExpression;
+function unwrap(
+  node:
+    | ChainExpression
+    | TSESTreeTypeExpression,
+): TSESTreeUnwrapped<Expression>;
 ```
 
 Recursively unwrap TypeScript type expressions and chain expressions to get the underlying expression.
 
-## Parameters
+### Parameters
 
-| Parameter | Type   | Description         |
-| --------- | ------ | ------------------- |
-| `node`    | `Node` | The node to unwrap. |
+| Parameter | Type                                                                                                   | Description         |
+| --------- | ------------------------------------------------------------------------------------------------------ | ------------------- |
+| `node`    | \| `ChainExpression` \| [`TSESTreeTypeExpression`](../../../../type-aliases/TSESTreeTypeExpression.md) | The node to unwrap. |
 
-## Returns
+### Returns
 
-\| `AccessorProperty`
-\| `ArrayExpression`
-\| `ArrayPattern`
-\| `ArrowFunctionExpression`
-\| `AssignmentExpression`
-\| `AssignmentPattern`
-\| `AwaitExpression`
-\| `BinaryExpression`
-\| `BlockStatement`
-\| `BreakStatement`
-\| `CallExpression`
-\| `CatchClause`
-\| `ChainExpression`
-\| `ClassBody`
-\| `ClassDeclaration`
-\| `ClassExpression`
-\| `ConditionalExpression`
-\| `ContinueStatement`
-\| `DebuggerStatement`
-\| `Decorator`
-\| `DoWhileStatement`
-\| `EmptyStatement`
-\| `ExportAllDeclaration`
-\| `ExportDefaultDeclaration`
-\| `ExportNamedDeclaration`
-\| `ExportSpecifier`
-\| `ExpressionStatement`
-\| `ForInStatement`
-\| `ForOfStatement`
-\| `ForStatement`
-\| `FunctionDeclaration`
-\| `FunctionExpression`
-\| `Identifier`
-\| `IfStatement`
-\| `ImportAttribute`
-\| `ImportDeclaration`
-\| `ImportDefaultSpecifier`
-\| `ImportExpression`
-\| `ImportNamespaceSpecifier`
-\| `ImportSpecifier`
-\| `JSXAttribute`
-\| `JSXClosingElement`
-\| `JSXClosingFragment`
-\| `JSXElement`
-\| `JSXEmptyExpression`
-\| `JSXExpressionContainer`
-\| `JSXFragment`
-\| `JSXIdentifier`
-\| `JSXMemberExpression`
-\| `JSXNamespacedName`
-\| `JSXOpeningElement`
-\| `JSXOpeningFragment`
-\| `JSXSpreadAttribute`
-\| `JSXSpreadChild`
-\| `JSXText`
-\| `LabeledStatement`
-\| `Literal`
-\| `LogicalExpression`
-\| `MemberExpression`
-\| `MetaProperty`
-\| `MethodDefinition`
-\| `NewExpression`
-\| `ObjectExpression`
-\| `ObjectPattern`
-\| `PrivateIdentifier`
-\| `Program`
-\| `Property`
-\| `PropertyDefinition`
-\| `RestElement`
-\| `ReturnStatement`
-\| `SequenceExpression`
-\| `SpreadElement`
-\| `StaticBlock`
-\| `Super`
-\| `SwitchCase`
-\| `SwitchStatement`
-\| `TaggedTemplateExpression`
-\| `TemplateElement`
-\| `TemplateLiteral`
-\| `ThisExpression`
-\| `ThrowStatement`
-\| `TryStatement`
-\| `TSAbstractAccessorProperty`
-\| `TSAbstractKeyword`
-\| `TSAbstractMethodDefinition`
-\| `TSAbstractPropertyDefinition`
-\| `TSAnyKeyword`
-\| `TSArrayType`
-\| `TSAsyncKeyword`
-\| `TSBigIntKeyword`
-\| `TSBooleanKeyword`
-\| `TSCallSignatureDeclaration`
-\| `TSClassImplements`
-\| `TSConditionalType`
-\| `TSConstructorType`
-\| `TSConstructSignatureDeclaration`
-\| `TSDeclareFunction`
-\| `TSDeclareKeyword`
-\| `TSEmptyBodyFunctionExpression`
-\| `TSEnumBody`
-\| `TSEnumDeclaration`
-\| `TSEnumMember`
-\| `TSExportAssignment`
-\| `TSExportKeyword`
-\| `TSExternalModuleReference`
-\| `TSFunctionType`
-\| `TSImportEqualsDeclaration`
-\| `TSImportType`
-\| `TSIndexedAccessType`
-\| `TSIndexSignature`
-\| `TSInferType`
-\| `TSInterfaceBody`
-\| `TSInterfaceDeclaration`
-\| `TSInterfaceHeritage`
-\| `TSIntersectionType`
-\| `TSIntrinsicKeyword`
-\| `TSLiteralType`
-\| `TSMappedType`
-\| `TSMethodSignature`
-\| `TSModuleBlock`
-\| `TSModuleDeclaration`
-\| `TSNamedTupleMember`
-\| `TSNamespaceExportDeclaration`
-\| `TSNeverKeyword`
-\| `TSNullKeyword`
-\| `TSNumberKeyword`
-\| `TSObjectKeyword`
-\| `TSOptionalType`
-\| `TSParameterProperty`
-\| `TSPrivateKeyword`
-\| `TSPropertySignature`
-\| `TSProtectedKeyword`
-\| `TSPublicKeyword`
-\| `TSQualifiedName`
-\| `TSReadonlyKeyword`
-\| `TSRestType`
-\| `TSStaticKeyword`
-\| `TSStringKeyword`
-\| `TSSymbolKeyword`
-\| `TSTemplateLiteralType`
-\| `TSThisType`
-\| `TSTupleType`
-\| `TSTypeAliasDeclaration`
-\| `TSTypeAnnotation`
-\| `TSTypeLiteral`
-\| `TSTypeOperator`
-\| `TSTypeParameter`
-\| `TSTypeParameterDeclaration`
-\| `TSTypeParameterInstantiation`
-\| `TSTypePredicate`
-\| `TSTypeQuery`
-\| `TSTypeReference`
-\| `TSUndefinedKeyword`
-\| `TSUnionType`
-\| `TSUnknownKeyword`
-\| `TSVoidKeyword`
-\| `UnaryExpression`
-\| `UpdateExpression`
-\| `VariableDeclaration`
-\| `VariableDeclarator`
-\| `WhileStatement`
-\| `WithStatement`
-\| `YieldExpression`
+[`TSESTreeUnwrapped`](../../../../type-aliases/TSESTreeUnwrapped.md)\<`Expression`\>
 
-The innermost non-type-expression node.
+The innermost non-type-expression node — a reference into the original tree, never a copy.
+
+## Call Signature
+
+```ts
+function unwrap<T extends Node>(node: T): TSESTreeUnwrapped<T>;
+```
+
+Recursively unwrap TypeScript type expressions and chain expressions to get the underlying expression.
+
+### Type Parameters
+
+| Type Parameter       |
+| -------------------- |
+| `T` _extends_ `Node` |
+
+### Parameters
+
+| Parameter | Type | Description         |
+| --------- | ---- | ------------------- |
+| `node`    | `T`  | The node to unwrap. |
+
+### Returns
+
+[`TSESTreeUnwrapped`](../../../../type-aliases/TSESTreeUnwrapped.md)\<`T`\>
+
+The innermost non-type-expression node — a reference into the original tree, never a copy.
