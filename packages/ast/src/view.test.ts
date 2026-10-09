@@ -1,7 +1,7 @@
 import { getFirstNodeOfType } from "@local/testkit";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import { inspect } from "node:util";
-import { describe, expect, it } from "vitest";
+import { describe, expect, expectTypeOf, it } from "vitest";
 
 import * as Extract from "./extract";
 import { NodeInspectSymbol } from "./inspect";
@@ -12,6 +12,7 @@ import {
   CallExpressionView,
   Class,
   ConditionalExpressionView,
+  EmptyView,
   ExpressionStatementView,
   JSXExpressionContainerView,
   LogicalExpressionView,
@@ -22,7 +23,8 @@ import {
   ThrowStatementView,
   UnaryExpressionView,
   VariableDeclaratorView,
-  of,
+  from,
+  isEmptyView,
 } from "./view";
 
 describe("View", () => {
@@ -30,6 +32,13 @@ describe("View", () => {
     const node = getFirstNodeOfType<TSESTree.Identifier>("foo;", AST.Identifier);
     const view = new Class(node);
     expect(view.node).toBe(node);
+  });
+
+  it("should expose the node type on the view itself", () => {
+    const node = getFirstNodeOfType<TSESTree.Identifier>("foo;", AST.Identifier);
+    const view = new Class(node);
+    expect(view.type).toBe(AST.Identifier);
+    expect(view.type).toBe(view.node.type);
   });
 
   it("should return a view of the parent without unwrapping", () => {
@@ -194,12 +203,15 @@ describe("ExpressionStatementView", () => {
 describe("ReturnStatementView", () => {
   it("should return a view of the argument, unwrapped", () => {
     const node = getFirstNodeOfType<TSESTree.ReturnStatement>("function f() { return (x as any); }", AST.ReturnStatement);
-    expect(new ReturnStatementView(node).argument?.node).toMatchObject({ name: "x", type: AST.Identifier });
+    expect(new ReturnStatementView(node).argument.node).toMatchObject({ name: "x", type: AST.Identifier });
   });
 
-  it("should return null for a bare return", () => {
+  it("should return an empty view for a bare return", () => {
     const node = getFirstNodeOfType<TSESTree.ReturnStatement>("function f() { return; }", AST.ReturnStatement);
-    expect(new ReturnStatementView(node).argument).toBeNull();
+    const argument = new ReturnStatementView(node).argument;
+    expect(argument).toBeInstanceOf(EmptyView);
+    expect(isEmptyView(argument)).toBe(true);
+    expect(argument.node).toBeUndefined();
   });
 });
 
@@ -255,16 +267,97 @@ describe("JSXExpressionContainerView", () => {
 describe("VariableDeclaratorView", () => {
   it("should return a view of the initializer, unwrapped", () => {
     const node = getFirstNodeOfType<TSESTree.VariableDeclarator>("const x = foo as string;", AST.VariableDeclarator);
-    expect(new VariableDeclaratorView(node).init?.node).toMatchObject({ name: "foo", type: AST.Identifier });
+    expect(new VariableDeclaratorView(node).init.node).toMatchObject({ name: "foo", type: AST.Identifier });
   });
 
-  it("should return null when there is no initializer", () => {
+  it("should return an empty view when there is no initializer", () => {
     const node = getFirstNodeOfType<TSESTree.VariableDeclarator>("let x;", AST.VariableDeclarator);
-    expect(new VariableDeclaratorView(node).init).toBeNull();
+    const init = new VariableDeclaratorView(node).init;
+    expect(init).toBeInstanceOf(EmptyView);
+    expect(isEmptyView(init)).toBe(true);
+    expect(init.node).toBeUndefined();
   });
 });
 
-describe("of", () => {
+describe("EmptyView", () => {
+  it("should wrap no node and have no parent", () => {
+    const view = new EmptyView();
+    expect(view.node).toBeUndefined();
+    expect(view.type).toBeUndefined();
+    expect(view.parent).toBeUndefined();
+    expect(view.context).toBeUndefined();
+  });
+
+  it("should produce a structured JSON representation with only the tag", () => {
+    const view = new EmptyView();
+    expect(view.toJSON()).toEqual({ _tag: "EmptyView" });
+    expect(() => JSON.stringify(view)).not.toThrow();
+  });
+
+  it("should format toString as JSON and support Node.js custom inspection", () => {
+    const view = new EmptyView();
+    expect(JSON.parse(view.toString())).toEqual({ _tag: "EmptyView" });
+    expect(view[NodeInspectSymbol]()).toEqual(view.toJSON());
+    expect(inspect(view)).toContain("EmptyView");
+  });
+});
+
+describe("isEmptyView", () => {
+  it("should return true for an empty view", () => {
+    expect(isEmptyView(from(null))).toBe(true);
+    expect(isEmptyView(from(undefined))).toBe(true);
+  });
+
+  it("should return false for a node view", () => {
+    const node = getFirstNodeOfType<TSESTree.Identifier>("foo;", AST.Identifier);
+    expect(isEmptyView(from(node))).toBe(false);
+  });
+});
+
+describe("View type narrowing", () => {
+  it("should narrow a view over a broad node type to the dedicated view by type", () => {
+    const node = getFirstNodeOfType<TSESTree.Node>("foo();", AST.CallExpression);
+    const view = from(node);
+    if (view.type === AST.CallExpression) {
+      expectTypeOf(view).toEqualTypeOf<CallExpressionView>();
+      expectTypeOf(view.node).toEqualTypeOf<TSESTree.CallExpression>();
+    }
+  });
+
+  it("should narrow to the base class with a precise node for types without a dedicated view", () => {
+    const node = getFirstNodeOfType<TSESTree.Node>("foo;", AST.Identifier);
+    const view = from(node);
+    if (view.type === AST.Identifier) {
+      expectTypeOf(view).toEqualTypeOf<Class<TSESTree.Identifier>>();
+      expectTypeOf(view.node).toEqualTypeOf<TSESTree.Identifier>();
+    }
+  });
+
+  it("should narrow a getter result union by type, including the empty view branch", () => {
+    const node = getFirstNodeOfType<TSESTree.VariableDeclarator>("const x = {};", AST.VariableDeclarator);
+    const init = from(node).init;
+    if (init.type === AST.ObjectExpression) {
+      expectTypeOf(init).toEqualTypeOf<Class<TSESTree.ObjectExpression>>();
+      expectTypeOf(init.node).toEqualTypeOf<TSESTree.ObjectExpression>();
+    }
+    if (init.type == null) {
+      expectTypeOf(init).toEqualTypeOf<EmptyView>();
+    }
+  });
+
+  it("should narrow a view over a nullable node by type", () => {
+    const node = getFirstNodeOfType<TSESTree.ReturnStatement>("function f() { return 1; }", AST.ReturnStatement);
+    const view = from(node.argument);
+    if (view.type === AST.Literal) {
+      expectTypeOf(view.node).toEqualTypeOf<TSESTree.Literal>();
+    }
+    if (view.type == null) {
+      expectTypeOf(view).toEqualTypeOf<EmptyView>();
+    }
+  });
+});
+
+describe("from", () => {
   const dispatchCases = [
     ["foo = bar;", AST.AssignmentExpression, AssignmentExpressionView],
     ["async function f() { await p; }", AST.AwaitExpression, AwaitExpressionView],
@@ -285,29 +378,37 @@ describe("of", () => {
 
   it.each(dispatchCases)("should dispatch %s to the dedicated view", (code, type, ViewClass) => {
     const node = getFirstNodeOfType<TSESTree.Node>(code, type);
-    const view = of(node);
+    const view = from(node);
     expect(view).toBeInstanceOf(ViewClass);
     expect(view.node).toBe(node);
+    expect(view.type).toBe(type);
   });
 
   it("should return the specialized view for known node types", () => {
     const call = getFirstNodeOfType<TSESTree.CallExpression>("foo();", AST.CallExpression);
-    expect(of(call)).toBeInstanceOf(CallExpressionView);
+    expect(from(call)).toBeInstanceOf(CallExpressionView);
     const member = getFirstNodeOfType<TSESTree.MemberExpression>("a.b;", AST.MemberExpression);
-    expect(of(member)).toBeInstanceOf(MemberExpressionView);
+    expect(from(member)).toBeInstanceOf(MemberExpressionView);
   });
 
   it("should return the base view for node types without a dedicated view", () => {
     const node = getFirstNodeOfType<TSESTree.Identifier>("foo;", AST.Identifier);
-    const view = of(node);
+    const view = from(node);
     expect(view).toBeInstanceOf(Class);
     expect(view).not.toBeInstanceOf(CallExpressionView);
     expect(view.node).toBe(node);
   });
 
+  it("should return an empty view for null and undefined", () => {
+    expect(from(null)).toBeInstanceOf(EmptyView);
+    expect(from(undefined)).toBeInstanceOf(EmptyView);
+    const context = { sourceCode: { getText: () => "" } };
+    expect(from(null, context).context).toBe(context);
+  });
+
   it("should pass the context through to the view", () => {
     const node = getFirstNodeOfType<TSESTree.CallExpression>("foo();", AST.CallExpression);
     const context = { sourceCode: { getText: () => "foo()" } };
-    expect(of(node, context).context).toBe(context);
+    expect(from(node, context).context).toBe(context);
   });
 });

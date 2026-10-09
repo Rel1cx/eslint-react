@@ -45,114 +45,85 @@ new PropertyView(node: Property, context?: ViewContext): PropertyView;
 #### Get Signature
 
 ```ts
-get key(): View<TSESTreeUnwrapped<
-  | ArrayExpression
-  | ArrayPattern
-  | ArrowFunctionExpressionWithBlockBody
-  | ArrowFunctionExpressionWithExpressionBody
-  | AssignmentExpression
-  | AwaitExpression
-  | PrivateInExpression
-  | SymmetricBinaryExpression
-  | CallExpression
-  | ChainExpression
-  | ClassExpression
-  | ConditionalExpression
-  | FunctionExpression
-  | Identifier
-  | ImportExpression
-  | JSXElement
-  | JSXFragment
-  | BigIntLiteral
-  | BooleanLiteral
-  | NullLiteral
-  | NumberLiteral
-  | RegExpLiteral
-  | StringLiteral
-  | LogicalExpression
-  | MemberExpressionComputedName
-  | MemberExpressionNonComputedName
-  | MetaProperty
-  | NewExpression
-  | ObjectExpression
-  | ObjectPattern
-  | SequenceExpression
-  | Super
-  | TaggedTemplateExpression
-  | TemplateLiteral
-  | ThisExpression
-  | TSAsExpression
-  | TSInstantiationExpression
-  | TSNonNullExpression
-  | TSSatisfiesExpression
-  | TSTypeAssertion
-  | UnaryExpressionBitwiseNot
-  | UnaryExpressionDelete
-  | UnaryExpressionMinus
-  | UnaryExpressionNot
-  | UnaryExpressionPlus
-  | UnaryExpressionTypeof
-  | UnaryExpressionVoid
-  | UpdateExpression
-  | YieldNoStarExpression
-| YieldStarExpression>>;
+get key(): 
+  | AssignmentExpressionView
+  | AwaitExpressionView
+  | BinaryExpressionView
+  | CallExpressionView
+  | ConditionalExpressionView
+  | LogicalExpressionView
+  | MemberExpressionView
+  | NewExpressionView
+  | UnaryExpressionView
+  | Class<ArrayExpression>
+  | Class<ArrayPattern>
+  | Class<ArrowFunctionExpressionWithBlockBody>
+  | Class<ArrowFunctionExpressionWithExpressionBody>
+  | Class<ClassExpression>
+  | Class<FunctionExpression>
+  | Class<Identifier>
+  | Class<ImportExpression>
+  | Class<JSXElement>
+  | Class<JSXFragment>
+  | Class<BigIntLiteral>
+  | Class<BooleanLiteral>
+  | Class<NullLiteral>
+  | Class<NumberLiteral>
+  | Class<RegExpLiteral>
+  | Class<StringLiteral>
+  | Class<MetaProperty>
+  | Class<ObjectExpression>
+  | Class<ObjectPattern>
+  | Class<SequenceExpression>
+  | Class<Super>
+  | Class<TaggedTemplateExpression>
+  | Class<TemplateLiteral>
+  | Class<ThisExpression>
+  | Class<UpdateExpression>
+  | Class<YieldNoStarExpression>
+| Class<YieldStarExpression>;
 ```
 
 A view over the key with type and chain expressions unwrapped.
 
 ##### Returns
 
-[`View`](../interfaces/View.md)\<[`TSESTreeUnwrapped`](../../../../type-aliases/TSESTreeUnwrapped.md)\<
-\| `ArrayExpression`
-\| `ArrayPattern`
-\| `ArrowFunctionExpressionWithBlockBody`
-\| `ArrowFunctionExpressionWithExpressionBody`
-\| `AssignmentExpression`
-\| `AwaitExpression`
-\| `PrivateInExpression`
-\| `SymmetricBinaryExpression`
-\| `CallExpression`
-\| `ChainExpression`
-\| `ClassExpression`
-\| `ConditionalExpression`
-\| `FunctionExpression`
-\| `Identifier`
-\| `ImportExpression`
-\| `JSXElement`
-\| `JSXFragment`
-\| `BigIntLiteral`
-\| `BooleanLiteral`
-\| `NullLiteral`
-\| `NumberLiteral`
-\| `RegExpLiteral`
-\| `StringLiteral`
-\| `LogicalExpression`
-\| `MemberExpressionComputedName`
-\| `MemberExpressionNonComputedName`
-\| `MetaProperty`
-\| `NewExpression`
-\| `ObjectExpression`
-\| `ObjectPattern`
-\| `SequenceExpression`
-\| `Super`
-\| `TaggedTemplateExpression`
-\| `TemplateLiteral`
-\| `ThisExpression`
-\| `TSAsExpression`
-\| `TSInstantiationExpression`
-\| `TSNonNullExpression`
-\| `TSSatisfiesExpression`
-\| `TSTypeAssertion`
-\| `UnaryExpressionBitwiseNot`
-\| `UnaryExpressionDelete`
-\| `UnaryExpressionMinus`
-\| `UnaryExpressionNot`
-\| `UnaryExpressionPlus`
-\| `UnaryExpressionTypeof`
-\| `UnaryExpressionVoid`
-\| `UpdateExpression`
-\| `YieldNoStarExpression`
-\| `YieldStarExpression`\>\>
+\| [`AssignmentExpressionView`](AssignmentExpressionView.md)
+\| [`AwaitExpressionView`](AwaitExpressionView.md)
+\| [`BinaryExpressionView`](BinaryExpressionView.md)
+\| [`CallExpressionView`](CallExpressionView.md)
+\| [`ConditionalExpressionView`](ConditionalExpressionView.md)
+\| [`LogicalExpressionView`](LogicalExpressionView.md)
+\| [`MemberExpressionView`](MemberExpressionView.md)
+\| [`NewExpressionView`](NewExpressionView.md)
+\| [`UnaryExpressionView`](UnaryExpressionView.md)
+\| [`Class`](Class.md)\<`ArrayExpression`\>
+\| [`Class`](Class.md)\<`ArrayPattern`\>
+\| [`Class`](Class.md)\<`ArrowFunctionExpressionWithBlockBody`\>
+\| [`Class`](Class.md)\<`ArrowFunctionExpressionWithExpressionBody`\>
+\| [`Class`](Class.md)\<`ClassExpression`\>
+\| [`Class`](Class.md)\<`FunctionExpression`\>
+\| [`Class`](Class.md)\<`Identifier`\>
+\| [`Class`](Class.md)\<`ImportExpression`\>
+\| [`Class`](Class.md)\<`JSXElement`\>
+\| [`Class`](Class.md)\<`JSXFragment`\>
+\| [`Class`](Class.md)\<`BigIntLiteral`\>
+\| [`Class`](Class.md)\<`BooleanLiteral`\>
+\| [`Class`](Class.md)\<`NullLiteral`\>
+\| [`Class`](Class.md)\<`NumberLiteral`\>
+\| [`Class`](Class.md)\<`RegExpLiteral`\>
+\| [`Class`](Class.md)\<`StringLiteral`\>
+\| [`Class`](Class.md)\<`MetaProperty`\>
+\| [`Class`](Class.md)\<`ObjectExpression`\>
+\| [`Class`](Class.md)\<`ObjectPattern`\>
+\| [`Class`](Class.md)\<`SequenceExpression`\>
+\| [`Class`](Class.md)\<`Super`\>
+\| [`Class`](Class.md)\<`TaggedTemplateExpression`\>
+\| [`Class`](Class.md)\<`TemplateLiteral`\>
+\| [`Class`](Class.md)\<`ThisExpression`\>
+\| [`Class`](Class.md)\<`UpdateExpression`\>
+\| [`Class`](Class.md)\<`YieldNoStarExpression`\>
+\| [`Class`](Class.md)\<`YieldStarExpression`\>
 
 ---
 
@@ -214,123 +185,120 @@ including any type expression wrappers enclosing this node.
 
 ---
 
+### type
+
+#### Get Signature
+
+```ts
+get type(): N["type"];
+```
+
+The node type, identical to `node.type` (ex: `"CallExpression"`).
+Exposed on the view itself so it reads like the wrapped node and can
+discriminate a `View | EmptyView` union without touching `.node`.
+
+##### Returns
+
+`N`\[`"type"`\]
+
+The node type, identical to `node.type` (ex: `"CallExpression"`).
+Exposed on the view itself so it reads like the wrapped node and can
+discriminate a `View | EmptyView` union without touching `.node`.
+
+#### Inherited from
+
+[`Class`](Class.md).[`type`](Class.md#type)
+
+---
+
 ### value
 
 #### Get Signature
 
 ```ts
-get value(): View<TSESTreeUnwrapped<
-  | ArrayExpression
-  | ArrayPattern
-  | ArrowFunctionExpressionWithBlockBody
-  | ArrowFunctionExpressionWithExpressionBody
-  | AssignmentExpression
-  | AssignmentPattern
-  | AwaitExpression
-  | PrivateInExpression
-  | SymmetricBinaryExpression
-  | CallExpression
-  | ChainExpression
-  | ClassExpression
-  | ConditionalExpression
-  | FunctionExpression
-  | Identifier
-  | ImportExpression
-  | JSXElement
-  | JSXFragment
-  | BigIntLiteral
-  | BooleanLiteral
-  | NullLiteral
-  | NumberLiteral
-  | RegExpLiteral
-  | StringLiteral
-  | LogicalExpression
-  | MemberExpressionComputedName
-  | MemberExpressionNonComputedName
-  | MetaProperty
-  | NewExpression
-  | ObjectExpression
-  | ObjectPattern
-  | SequenceExpression
-  | Super
-  | TaggedTemplateExpression
-  | TemplateLiteral
-  | ThisExpression
-  | TSAsExpression
-  | TSEmptyBodyFunctionExpression
-  | TSInstantiationExpression
-  | TSNonNullExpression
-  | TSSatisfiesExpression
-  | TSTypeAssertion
-  | UnaryExpressionBitwiseNot
-  | UnaryExpressionDelete
-  | UnaryExpressionMinus
-  | UnaryExpressionNot
-  | UnaryExpressionPlus
-  | UnaryExpressionTypeof
-  | UnaryExpressionVoid
-  | UpdateExpression
-  | YieldNoStarExpression
-| YieldStarExpression>>;
+get value(): 
+  | AssignmentExpressionView
+  | AwaitExpressionView
+  | BinaryExpressionView
+  | CallExpressionView
+  | ConditionalExpressionView
+  | LogicalExpressionView
+  | MemberExpressionView
+  | NewExpressionView
+  | UnaryExpressionView
+  | Class<ArrayExpression>
+  | Class<ArrayPattern>
+  | Class<ArrowFunctionExpressionWithBlockBody>
+  | Class<ArrowFunctionExpressionWithExpressionBody>
+  | Class<AssignmentPattern>
+  | Class<ClassExpression>
+  | Class<FunctionExpression>
+  | Class<Identifier>
+  | Class<ImportExpression>
+  | Class<JSXElement>
+  | Class<JSXFragment>
+  | Class<BigIntLiteral>
+  | Class<BooleanLiteral>
+  | Class<NullLiteral>
+  | Class<NumberLiteral>
+  | Class<RegExpLiteral>
+  | Class<StringLiteral>
+  | Class<MetaProperty>
+  | Class<ObjectExpression>
+  | Class<ObjectPattern>
+  | Class<SequenceExpression>
+  | Class<Super>
+  | Class<TaggedTemplateExpression>
+  | Class<TemplateLiteral>
+  | Class<ThisExpression>
+  | Class<TSEmptyBodyFunctionExpression>
+  | Class<UpdateExpression>
+  | Class<YieldNoStarExpression>
+| Class<YieldStarExpression>;
 ```
 
 A view over the value with type and chain expressions unwrapped.
 
 ##### Returns
 
-[`View`](../interfaces/View.md)\<[`TSESTreeUnwrapped`](../../../../type-aliases/TSESTreeUnwrapped.md)\<
-\| `ArrayExpression`
-\| `ArrayPattern`
-\| `ArrowFunctionExpressionWithBlockBody`
-\| `ArrowFunctionExpressionWithExpressionBody`
-\| `AssignmentExpression`
-\| `AssignmentPattern`
-\| `AwaitExpression`
-\| `PrivateInExpression`
-\| `SymmetricBinaryExpression`
-\| `CallExpression`
-\| `ChainExpression`
-\| `ClassExpression`
-\| `ConditionalExpression`
-\| `FunctionExpression`
-\| `Identifier`
-\| `ImportExpression`
-\| `JSXElement`
-\| `JSXFragment`
-\| `BigIntLiteral`
-\| `BooleanLiteral`
-\| `NullLiteral`
-\| `NumberLiteral`
-\| `RegExpLiteral`
-\| `StringLiteral`
-\| `LogicalExpression`
-\| `MemberExpressionComputedName`
-\| `MemberExpressionNonComputedName`
-\| `MetaProperty`
-\| `NewExpression`
-\| `ObjectExpression`
-\| `ObjectPattern`
-\| `SequenceExpression`
-\| `Super`
-\| `TaggedTemplateExpression`
-\| `TemplateLiteral`
-\| `ThisExpression`
-\| `TSAsExpression`
-\| `TSEmptyBodyFunctionExpression`
-\| `TSInstantiationExpression`
-\| `TSNonNullExpression`
-\| `TSSatisfiesExpression`
-\| `TSTypeAssertion`
-\| `UnaryExpressionBitwiseNot`
-\| `UnaryExpressionDelete`
-\| `UnaryExpressionMinus`
-\| `UnaryExpressionNot`
-\| `UnaryExpressionPlus`
-\| `UnaryExpressionTypeof`
-\| `UnaryExpressionVoid`
-\| `UpdateExpression`
-\| `YieldNoStarExpression`
-\| `YieldStarExpression`\>\>
+\| [`AssignmentExpressionView`](AssignmentExpressionView.md)
+\| [`AwaitExpressionView`](AwaitExpressionView.md)
+\| [`BinaryExpressionView`](BinaryExpressionView.md)
+\| [`CallExpressionView`](CallExpressionView.md)
+\| [`ConditionalExpressionView`](ConditionalExpressionView.md)
+\| [`LogicalExpressionView`](LogicalExpressionView.md)
+\| [`MemberExpressionView`](MemberExpressionView.md)
+\| [`NewExpressionView`](NewExpressionView.md)
+\| [`UnaryExpressionView`](UnaryExpressionView.md)
+\| [`Class`](Class.md)\<`ArrayExpression`\>
+\| [`Class`](Class.md)\<`ArrayPattern`\>
+\| [`Class`](Class.md)\<`ArrowFunctionExpressionWithBlockBody`\>
+\| [`Class`](Class.md)\<`ArrowFunctionExpressionWithExpressionBody`\>
+\| [`Class`](Class.md)\<`AssignmentPattern`\>
+\| [`Class`](Class.md)\<`ClassExpression`\>
+\| [`Class`](Class.md)\<`FunctionExpression`\>
+\| [`Class`](Class.md)\<`Identifier`\>
+\| [`Class`](Class.md)\<`ImportExpression`\>
+\| [`Class`](Class.md)\<`JSXElement`\>
+\| [`Class`](Class.md)\<`JSXFragment`\>
+\| [`Class`](Class.md)\<`BigIntLiteral`\>
+\| [`Class`](Class.md)\<`BooleanLiteral`\>
+\| [`Class`](Class.md)\<`NullLiteral`\>
+\| [`Class`](Class.md)\<`NumberLiteral`\>
+\| [`Class`](Class.md)\<`RegExpLiteral`\>
+\| [`Class`](Class.md)\<`StringLiteral`\>
+\| [`Class`](Class.md)\<`MetaProperty`\>
+\| [`Class`](Class.md)\<`ObjectExpression`\>
+\| [`Class`](Class.md)\<`ObjectPattern`\>
+\| [`Class`](Class.md)\<`SequenceExpression`\>
+\| [`Class`](Class.md)\<`Super`\>
+\| [`Class`](Class.md)\<`TaggedTemplateExpression`\>
+\| [`Class`](Class.md)\<`TemplateLiteral`\>
+\| [`Class`](Class.md)\<`ThisExpression`\>
+\| [`Class`](Class.md)\<`TSEmptyBodyFunctionExpression`\>
+\| [`Class`](Class.md)\<`UpdateExpression`\>
+\| [`Class`](Class.md)\<`YieldNoStarExpression`\>
+\| [`Class`](Class.md)\<`YieldStarExpression`\>
 
 ## Methods
 
