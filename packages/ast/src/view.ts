@@ -81,10 +81,9 @@ export interface View<N extends TSESTree.Node = TSESTree.Node> extends Inspectab
  * down, and with type and chain expressions unwrapped where the accessor's
  * semantics call for it. Accessors whose child may be absent (ex: the argument
  * of a bare `return`) return an `AbsentView` instead of `null`. Views never
- * modify or copy the tree, so the
- * underlying nodes keep their identity and remain usable with `===`
- * comparisons, scope analysis, WeakMap caches, and `context.report`; the
- * original node stays reachable via `.node`.
+ * modify or copy the tree, so the underlying nodes keep their identity and
+ * remain usable with `===` comparisons, scope analysis, WeakMap caches, and
+ * `context.report`; the original node stays reachable via `.node`.
  */
 export class Class<N extends TSESTree.Node = TSESTree.Node> extends InspectableClass implements View<N> {
   /** Optional rule context for getters that need source text. */
@@ -92,20 +91,12 @@ export class Class<N extends TSESTree.Node = TSESTree.Node> extends InspectableC
   /** The original node, as delivered by ESLint. */
   readonly node: N;
 
-  /**
-   * A view over the parent node.
-   * Deliberately NOT unwrapped: upward walks must see the tree as it is,
-   * including any type expression wrappers enclosing this node.
-   */
+  /** {@inheritDoc View.parent} */
   get parent(): View | undefined {
     return this.node.parent == null ? undefined : from(this.node.parent, this.context);
   }
 
-  /**
-   * The node type, identical to `node.type` (ex: `"CallExpression"`).
-   * Exposed on the view itself so it reads like the wrapped node and can
-   * discriminate a `View | AbsentView` union without touching `.node`.
-   */
+  /** {@inheritDoc View.type} */
   get type(): N["type"] {
     return this.node.type;
   }
@@ -116,7 +107,7 @@ export class Class<N extends TSESTree.Node = TSESTree.Node> extends InspectableC
     this.context = context;
   }
 
-  /** Return the structured, non-circular representation of this view. */
+  /** {@inheritDoc View.toJSON} */
   toJSON(): ViewJSON {
     const text = this.context?.sourceCode.getText(this.node);
     return {
@@ -177,16 +168,26 @@ export function isAbsentView(view: View | AbsentView): view is AbsentView {
   return view instanceof AbsentView;
 }
 
+/**
+ * Create a view over a child node with type and chain expressions unwrapped.
+ * `null` and `undefined` get an `AbsentView`.
+ */
+function child<N extends TSESTree.Node>(node: N, context?: ViewContext): ViewOf<TSESTreeUnwrapped<N>>;
+function child<N extends TSESTree.Node>(node: N | null | undefined, context?: ViewContext): AbsentView | ViewOf<TSESTreeUnwrapped<N>>;
+function child(node: TSESTree.Node | null | undefined, context?: ViewContext): AbsentView | View {
+  return node == null ? new AbsentView(context) : from(Extract.unwrap(node), context);
+}
+
 /** View over a call expression. */
 export class CallExpressionView extends Class<TSESTree.CallExpression> {
   /** Views over the arguments, each with type and chain expressions unwrapped. */
   get arguments(): ViewOf<TSESTreeUnwrapped<TSESTree.CallExpressionArgument>>[] {
-    return this.node.arguments.map((argument) => from(Extract.unwrap(argument), this.context));
+    return this.node.arguments.map((argument) => child(argument, this.context));
   }
 
   /** A view over the callee with type and chain expressions unwrapped. */
   get callee(): ViewOf<TSESTreeUnwrapped<TSESTree.CallExpression["callee"]>> {
-    return from(Extract.unwrap(this.node.callee), this.context);
+    return child(this.node.callee, this.context);
   }
 
   /** The statically determinable callee name (ex: `"useState"`), or `null`. */
@@ -199,12 +200,12 @@ export class CallExpressionView extends Class<TSESTree.CallExpression> {
 export class NewExpressionView extends Class<TSESTree.NewExpression> {
   /** Views over the arguments, each with type and chain expressions unwrapped. */
   get arguments(): ViewOf<TSESTreeUnwrapped<TSESTree.CallExpressionArgument>>[] {
-    return this.node.arguments.map((argument) => from(Extract.unwrap(argument), this.context));
+    return this.node.arguments.map((argument) => child(argument, this.context));
   }
 
   /** A view over the callee with type and chain expressions unwrapped. */
   get callee(): ViewOf<TSESTreeUnwrapped<TSESTree.NewExpression["callee"]>> {
-    return from(Extract.unwrap(this.node.callee), this.context);
+    return child(this.node.callee, this.context);
   }
 }
 
@@ -220,12 +221,12 @@ export class MemberExpressionView extends Class<TSESTree.MemberExpression> {
 
   /** A view over the object with type and chain expressions unwrapped. */
   get object(): ViewOf<TSESTreeUnwrapped<TSESTree.Expression>> {
-    return from(Extract.unwrap(this.node.object), this.context);
+    return child(this.node.object, this.context);
   }
 
   /** A view over the property with type and chain expressions unwrapped. */
   get property(): ViewOf<TSESTreeUnwrapped<TSESTree.MemberExpression["property"]>> {
-    return from(Extract.unwrap(this.node.property), this.context);
+    return child(this.node.property, this.context);
   }
 }
 
@@ -233,12 +234,12 @@ export class MemberExpressionView extends Class<TSESTree.MemberExpression> {
 export class AssignmentExpressionView extends Class<TSESTree.AssignmentExpression> {
   /** A view over the assignment target with type and chain expressions unwrapped. */
   get left(): ViewOf<TSESTreeUnwrapped<TSESTree.Expression>> {
-    return from(Extract.unwrap(this.node.left), this.context);
+    return child(this.node.left, this.context);
   }
 
   /** A view over the assigned value with type and chain expressions unwrapped. */
   get right(): ViewOf<TSESTreeUnwrapped<TSESTree.Expression>> {
-    return from(Extract.unwrap(this.node.right), this.context);
+    return child(this.node.right, this.context);
   }
 }
 
@@ -246,12 +247,12 @@ export class AssignmentExpressionView extends Class<TSESTree.AssignmentExpressio
 export class BinaryLikeView<N extends TSESTree.BinaryExpression | TSESTree.LogicalExpression> extends Class<N> {
   /** A view over the left operand with type and chain expressions unwrapped. */
   get left(): ViewOf<TSESTreeUnwrapped<(TSESTree.BinaryExpression | TSESTree.LogicalExpression)["left"]>> {
-    return from(Extract.unwrap(this.node.left), this.context);
+    return child(this.node.left, this.context);
   }
 
   /** A view over the right operand with type and chain expressions unwrapped. */
   get right(): ViewOf<TSESTreeUnwrapped<(TSESTree.BinaryExpression | TSESTree.LogicalExpression)["right"]>> {
-    return from(Extract.unwrap(this.node.right), this.context);
+    return child(this.node.right, this.context);
   }
 }
 
@@ -265,17 +266,17 @@ export class LogicalExpressionView extends BinaryLikeView<TSESTree.LogicalExpres
 export class ConditionalExpressionView extends Class<TSESTree.ConditionalExpression> {
   /** A view over the alternate with type and chain expressions unwrapped. */
   get alternate(): ViewOf<TSESTreeUnwrapped<TSESTree.Expression>> {
-    return from(Extract.unwrap(this.node.alternate), this.context);
+    return child(this.node.alternate, this.context);
   }
 
   /** A view over the consequent with type and chain expressions unwrapped. */
   get consequent(): ViewOf<TSESTreeUnwrapped<TSESTree.Expression>> {
-    return from(Extract.unwrap(this.node.consequent), this.context);
+    return child(this.node.consequent, this.context);
   }
 
   /** A view over the test with type and chain expressions unwrapped. */
   get test(): ViewOf<TSESTreeUnwrapped<TSESTree.Expression>> {
-    return from(Extract.unwrap(this.node.test), this.context);
+    return child(this.node.test, this.context);
   }
 }
 
@@ -283,7 +284,7 @@ export class ConditionalExpressionView extends Class<TSESTree.ConditionalExpress
 export class ExpressionStatementView extends Class<TSESTree.ExpressionStatement> {
   /** A view over the expression with type and chain expressions unwrapped. */
   get expression(): ViewOf<TSESTreeUnwrapped<TSESTree.Expression>> {
-    return from(Extract.unwrap(this.node.expression), this.context);
+    return child(this.node.expression, this.context);
   }
 }
 
@@ -291,7 +292,7 @@ export class ExpressionStatementView extends Class<TSESTree.ExpressionStatement>
 export class ReturnStatementView extends Class<TSESTree.ReturnStatement> {
   /** A view over the argument with type and chain expressions unwrapped, or an absent view for a bare `return`. */
   get argument(): ViewOf<TSESTreeUnwrapped<TSESTree.Expression>> | AbsentView {
-    return this.node.argument == null ? new AbsentView(this.context) : from(Extract.unwrap(this.node.argument), this.context);
+    return child(this.node.argument, this.context);
   }
 }
 
@@ -299,7 +300,7 @@ export class ReturnStatementView extends Class<TSESTree.ReturnStatement> {
 export class ThrowStatementView extends Class<TSESTree.ThrowStatement> {
   /** A view over the argument with type and chain expressions unwrapped. */
   get argument(): ViewOf<TSESTreeUnwrapped<TSESTree.Expression>> {
-    return from(Extract.unwrap(this.node.argument), this.context);
+    return child(this.node.argument, this.context);
   }
 }
 
@@ -307,7 +308,7 @@ export class ThrowStatementView extends Class<TSESTree.ThrowStatement> {
 export class UnaryExpressionView extends Class<TSESTree.UnaryExpression> {
   /** A view over the argument with type and chain expressions unwrapped. */
   get argument(): ViewOf<TSESTreeUnwrapped<TSESTree.Expression>> {
-    return from(Extract.unwrap(this.node.argument), this.context);
+    return child(this.node.argument, this.context);
   }
 }
 
@@ -315,7 +316,7 @@ export class UnaryExpressionView extends Class<TSESTree.UnaryExpression> {
 export class AwaitExpressionView extends Class<TSESTree.AwaitExpression> {
   /** A view over the argument with type and chain expressions unwrapped. */
   get argument(): ViewOf<TSESTreeUnwrapped<TSESTree.Expression>> {
-    return from(Extract.unwrap(this.node.argument), this.context);
+    return child(this.node.argument, this.context);
   }
 }
 
@@ -323,7 +324,7 @@ export class AwaitExpressionView extends Class<TSESTree.AwaitExpression> {
 export class VariableDeclaratorView extends Class<TSESTree.VariableDeclarator> {
   /** A view over the initializer with type and chain expressions unwrapped, or an absent view when absent. */
   get init(): ViewOf<TSESTreeUnwrapped<TSESTree.Expression>> | AbsentView {
-    return this.node.init == null ? new AbsentView(this.context) : from(Extract.unwrap(this.node.init), this.context);
+    return child(this.node.init, this.context);
   }
 }
 
@@ -331,7 +332,7 @@ export class VariableDeclaratorView extends Class<TSESTree.VariableDeclarator> {
 export class PropertyView extends Class<TSESTree.Property> {
   /** A view over the key with type and chain expressions unwrapped. */
   get key(): ViewOf<TSESTreeUnwrapped<TSESTree.Property["key"]>> {
-    return from(Extract.unwrap(this.node.key), this.context);
+    return child(this.node.key, this.context);
   }
 
   /** The static property name (plain identifier keys only), or `null` when it cannot be statically determined. */
@@ -346,7 +347,7 @@ export class PropertyView extends Class<TSESTree.Property> {
 
   /** A view over the value with type and chain expressions unwrapped. */
   get value(): ViewOf<TSESTreeUnwrapped<TSESTree.Property["value"]>> {
-    return from(Extract.unwrap(this.node.value), this.context);
+    return child(this.node.value, this.context);
   }
 }
 
@@ -354,7 +355,7 @@ export class PropertyView extends Class<TSESTree.Property> {
 export class JSXExpressionContainerView extends Class<TSESTree.JSXExpressionContainer> {
   /** A view over the expression with type and chain expressions unwrapped. */
   get expression(): ViewOf<TSESTreeUnwrapped<TSESTree.JSXExpressionContainer["expression"]>> {
-    return from(Extract.unwrap(this.node.expression), this.context);
+    return child(this.node.expression, this.context);
   }
 }
 
