@@ -128,7 +128,6 @@
 | [isUseTransition](variables/isUseTransition.md)                                               | Check if the node is a React `useTransition` API identifier or member expression.        |
 | [isUseTransitionCall](variables/isUseTransitionCall.md)                                       | Check if the node is a call expression to the React `useTransition` API.                 |
 | [JsxDetectionHint](variables/JsxDetectionHint.md)                                             | Hints for JSX detection.                                                                 |
-| [REACT\_BUILTIN\_HOOK\_NAMES](variables/REACT_BUILTIN_HOOK_NAMES.md)                          | The names of React's built-in hooks.                                                     |
 | [SEL\_FUNCTION\_DISPLAY\_NAME\_ASSIGNMENT](variables/SEL_FUNCTION_DISPLAY_NAME_ASSIGNMENT.md) | The esquery selector matching `displayName` assignment expressions.                      |
 
 ## Functions

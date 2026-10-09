@@ -38,29 +38,6 @@ export type HookCall = TSESTree.CallExpression | TSESTree.TaggedTemplateExpressi
 
 // #region Hook Name
 
-/** The names of React's built-in hooks. */
-export const REACT_BUILTIN_HOOK_NAMES = [
-  "use",
-  "useActionState",
-  "useCallback",
-  "useContext",
-  "useDebugValue",
-  "useDeferredValue",
-  "useEffect",
-  "useFormStatus",
-  "useId",
-  "useImperativeHandle",
-  "useInsertionEffect",
-  "useLayoutEffect",
-  "useMemo",
-  "useOptimistic",
-  "useReducer",
-  "useRef",
-  "useState",
-  "useSyncExternalStore",
-  "useTransition",
-] as const;
-
 /**
  * Check if the name is a hook name (starts with `use` followed by an uppercase letter or digit).
  * @param name The name of the identifier to check.
