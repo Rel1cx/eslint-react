@@ -6,7 +6,7 @@ View over a `new` expression.
 
 ## Extends
 
-- [`NodeView`](NodeView.md)\<`TSESTree.NewExpression`\>
+- [`NodeViewBase`](NodeViewBase.md)\<`TSESTree.NewExpression`\>
 
 ## Constructors
 
@@ -29,16 +29,38 @@ new NewExpressionView(node: NewExpression, context?: NodeViewContext): NewExpres
 
 #### Inherited from
 
-[`NodeView`](NodeView.md).[`constructor`](NodeView.md#constructor)
+[`NodeViewBase`](NodeViewBase.md).[`constructor`](NodeViewBase.md#constructor)
 
 ## Properties
 
-| Property                                | Modifier   | Type                                                                 | Description                                              | Inherited from                                                      |
-| --------------------------------------- | ---------- | -------------------------------------------------------------------- | -------------------------------------------------------- | ------------------------------------------------------------------- |
-| <a id="property-context"></a> `context` | `readonly` | [`NodeViewContext`](../interfaces/NodeViewContext.md) \| `undefined` | Optional rule context for getters that need source text. | [`NodeView`](NodeView.md).[`context`](NodeView.md#property-context) |
-| <a id="property-node"></a> `node`       | `readonly` | `NewExpression`                                                      | The original node, as delivered by ESLint.               | [`NodeView`](NodeView.md).[`node`](NodeView.md#property-node)       |
+| Property                                | Modifier   | Type                                                                 | Description                                              | Inherited from                                                                  |
+| --------------------------------------- | ---------- | -------------------------------------------------------------------- | -------------------------------------------------------- | ------------------------------------------------------------------------------- |
+| <a id="property-context"></a> `context` | `readonly` | [`NodeViewContext`](../interfaces/NodeViewContext.md) \| `undefined` | Optional rule context for getters that need source text. | [`NodeViewBase`](NodeViewBase.md).[`context`](NodeViewBase.md#property-context) |
+| <a id="property-node"></a> `node`       | `readonly` | `NewExpression`                                                      | The original node, as delivered by ESLint.               | [`NodeViewBase`](NodeViewBase.md).[`node`](NodeViewBase.md#property-node)       |
 
 ## Methods
+
+### \[NodeInspectSymbol\]()
+
+```ts
+NodeInspectSymbol: unknown;
+```
+
+Node.js custom inspection method.
+
+#### Returns
+
+`unknown`
+
+#### Since
+
+2.0.0
+
+#### Inherited from
+
+[`NodeViewBase`](NodeViewBase.md).[`[NodeInspectSymbol]`](NodeViewBase.md#nodeinspectsymbol)
+
+---
 
 ### getArguments()
 
@@ -84,4 +106,44 @@ including any type expression wrappers enclosing this node.
 
 #### Inherited from
 
-[`NodeView`](NodeView.md).[`getParent`](NodeView.md#getparent)
+[`NodeViewBase`](NodeViewBase.md).[`getParent`](NodeViewBase.md#getparent)
+
+---
+
+### toJSON()
+
+```ts
+toJSON(): NodeViewJSON;
+```
+
+Return the structured, non-circular representation of this view.
+
+#### Returns
+
+[`NodeViewJSON`](../interfaces/NodeViewJSON.md)
+
+#### Inherited from
+
+[`NodeViewBase`](NodeViewBase.md).[`toJSON`](NodeViewBase.md#tojson)
+
+---
+
+### toString()
+
+```ts
+toString(): string;
+```
+
+Returns a formatted string representation of this object.
+
+#### Returns
+
+`string`
+
+#### Since
+
+2.0.0
+
+#### Inherited from
+
+[`NodeViewBase`](NodeViewBase.md).[`toString`](NodeViewBase.md#tostring)

@@ -1,6 +1,6 @@
-[@eslint-react/ast](../../../../README.md) / [View](../README.md) / NodeView
+[@eslint-react/ast](../../../../README.md) / [View](../README.md) / NodeViewBase
 
-# Class: NodeView\<N _extends_ `TSESTree.Node` = `TSESTree.Node`\>
+# Class: NodeViewBase\<N _extends_ `TSESTree.Node` = `TSESTree.Node`\>
 
 Experimental read-only facade over a `TSESTree` node.
 
@@ -12,6 +12,10 @@ caches, and `context.report`.
 
 Views are an alternative to calling `Extract.unwrap` at each analysis site,
 not a replacement; the original node stays reachable via `.node`.
+
+## Extends
+
+- `InspectableClass`
 
 ## Extended by
 
@@ -36,12 +40,16 @@ not a replacement; the original node stays reachable via `.node`.
 | ----------------------------- | --------------- |
 | `N` _extends_ `TSESTree.Node` | `TSESTree.Node` |
 
+## Implements
+
+- [`NodeView`](../interfaces/NodeView.md)\<`N`\>
+
 ## Constructors
 
 ### Constructor
 
 ```ts
-new NodeView<N extends Node = Node>(node: N, context?: NodeViewContext): NodeView<N>;
+new NodeViewBase<N extends Node = Node>(node: N, context?: NodeViewContext): NodeViewBase<N>;
 ```
 
 #### Parameters
@@ -53,7 +61,13 @@ new NodeView<N extends Node = Node>(node: N, context?: NodeViewContext): NodeVie
 
 #### Returns
 
-`NodeView`\<`N`\>
+`NodeViewBase`\<`N`\>
+
+#### Overrides
+
+```ts
+InspectableClass.constructor;
+```
 
 ## Properties
 
@@ -63,6 +77,34 @@ new NodeView<N extends Node = Node>(node: N, context?: NodeViewContext): NodeVie
 | <a id="property-node"></a> `node`       | `readonly` | `N`                                                                  | The original node, as delivered by ESLint.               |
 
 ## Methods
+
+### \[NodeInspectSymbol\]()
+
+```ts
+NodeInspectSymbol: unknown;
+```
+
+Node.js custom inspection method.
+
+#### Returns
+
+`unknown`
+
+#### Since
+
+2.0.0
+
+#### Implementation of
+
+[`NodeView`](../interfaces/NodeView.md).[`[NodeInspectSymbol]`](../interfaces/NodeView.md#nodeinspectsymbol)
+
+#### Inherited from
+
+```ts
+InspectableClass.[NodeInspectSymbol]
+```
+
+---
 
 ### getParent()
 
@@ -77,3 +119,59 @@ including any type expression wrappers enclosing this node.
 #### Returns
 
 `Node` \| `undefined`
+
+#### Implementation of
+
+[`NodeView`](../interfaces/NodeView.md).[`getParent`](../interfaces/NodeView.md#getparent)
+
+---
+
+### toJSON()
+
+```ts
+toJSON(): NodeViewJSON;
+```
+
+Return the structured, non-circular representation of this view.
+
+#### Returns
+
+[`NodeViewJSON`](../interfaces/NodeViewJSON.md)
+
+#### Implementation of
+
+[`NodeView`](../interfaces/NodeView.md).[`toJSON`](../interfaces/NodeView.md#tojson)
+
+#### Overrides
+
+```ts
+InspectableClass.toJSON;
+```
+
+---
+
+### toString()
+
+```ts
+toString(): string;
+```
+
+Returns a formatted string representation of this object.
+
+#### Returns
+
+`string`
+
+#### Since
+
+2.0.0
+
+#### Implementation of
+
+[`NodeView`](../interfaces/NodeView.md).[`toString`](../interfaces/NodeView.md#tostring)
+
+#### Inherited from
+
+```ts
+InspectableClass.toString;
+```

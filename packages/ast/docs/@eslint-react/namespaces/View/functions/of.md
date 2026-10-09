@@ -350,6 +350,6 @@ Node types without a dedicated view get the base `NodeView`.
 
 ### Returns
 
-[`NodeView`](../classes/NodeView.md)
+[`NodeView`](../interfaces/NodeView.md)
 
 A view exposing unwrapping `get*` accessors for the node.

@@ -1,22 +1,63 @@
+import { NodeInspectSymbol } from "@local/eff";
 import { getFirstNodeOfType } from "@local/testkit";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
+import { inspect } from "node:util";
 import { describe, expect, it } from "vitest";
 
 import * as Extract from "./extract";
-import { AssignmentExpressionView, CallExpressionView, ConditionalExpressionView, MemberExpressionView, NodeView, VariableDeclaratorView, of } from "./view";
+import {
+  AssignmentExpressionView,
+  CallExpressionView,
+  ConditionalExpressionView,
+  MemberExpressionView,
+  NodeViewBase,
+  VariableDeclaratorView,
+  of,
+} from "./view";
 
 describe("NodeView", () => {
   it("should expose the original node unchanged", () => {
     const node = getFirstNodeOfType<TSESTree.Identifier>("foo;", AST.Identifier);
-    const view = new NodeView(node);
+    const view = new NodeViewBase(node);
     expect(view.node).toBe(node);
   });
 
   it("should return the parent without unwrapping", () => {
     const node = getFirstNodeOfType<TSESTree.Identifier>("(foo as string);", AST.Identifier);
-    const view = new NodeView(node);
+    const view = new NodeViewBase(node);
     expect(view.getParent()).toBe(node.parent);
     expect(view.getParent()?.type).toBe(AST.TSAsExpression);
+  });
+});
+
+describe("NodeView inspection", () => {
+  it("should produce a structured, non-circular JSON representation", () => {
+    const node = getFirstNodeOfType<TSESTree.CallExpression>("foo(bar);", AST.CallExpression);
+    const view = new CallExpressionView(node);
+    expect(view.toJSON()).toEqual({
+      _tag: "CallExpressionView",
+      type: AST.CallExpression,
+      range: node.range,
+    });
+    expect(() => JSON.stringify(view)).not.toThrow();
+  });
+
+  it("should include source text when a context is provided", () => {
+    const node = getFirstNodeOfType<TSESTree.CallExpression>("foo(bar);", AST.CallExpression);
+    const context = { sourceCode: { getText: () => "foo(bar)" } };
+    expect(new CallExpressionView(node, context).toJSON().text).toBe("foo(bar)");
+  });
+
+  it("should format toString as JSON", () => {
+    const node = getFirstNodeOfType<TSESTree.Identifier>("foo;", AST.Identifier);
+    expect(JSON.parse(new NodeViewBase(node).toString())).toMatchObject({ _tag: "NodeViewBase", type: AST.Identifier });
+  });
+
+  it("should support Node.js custom inspection", () => {
+    const node = getFirstNodeOfType<TSESTree.CallExpression>("foo();", AST.CallExpression);
+    const view = new CallExpressionView(node);
+    expect(view[NodeInspectSymbol]()).toEqual(view.toJSON());
+    expect(inspect(view)).toContain("CallExpressionView");
   });
 });
 
@@ -101,7 +142,7 @@ describe("of", () => {
   it("should return the base view for node types without a dedicated view", () => {
     const node = getFirstNodeOfType<TSESTree.Identifier>("foo;", AST.Identifier);
     const view = of(node);
-    expect(view).toBeInstanceOf(NodeView);
+    expect(view).toBeInstanceOf(NodeViewBase);
     expect(view).not.toBeInstanceOf(CallExpressionView);
     expect(view.node).toBe(node);
   });

@@ -40,6 +40,28 @@ new LogicalExpressionView(node: LogicalExpression, context?: NodeViewContext): L
 
 ## Methods
 
+### \[NodeInspectSymbol\]()
+
+```ts
+NodeInspectSymbol: unknown;
+```
+
+Node.js custom inspection method.
+
+#### Returns
+
+`unknown`
+
+#### Since
+
+2.0.0
+
+#### Inherited from
+
+[`BinaryLikeView`](BinaryLikeView.md).[`[NodeInspectSymbol]`](BinaryLikeView.md#nodeinspectsymbol)
+
+---
+
 ### getLeft()
 
 ```ts
@@ -93,3 +115,43 @@ Get the right operand with type and chain expressions unwrapped.
 #### Inherited from
 
 [`BinaryLikeView`](BinaryLikeView.md).[`getRight`](BinaryLikeView.md#getright)
+
+---
+
+### toJSON()
+
+```ts
+toJSON(): NodeViewJSON;
+```
+
+Return the structured, non-circular representation of this view.
+
+#### Returns
+
+[`NodeViewJSON`](../interfaces/NodeViewJSON.md)
+
+#### Inherited from
+
+[`BinaryLikeView`](BinaryLikeView.md).[`toJSON`](BinaryLikeView.md#tojson)
+
+---
+
+### toString()
+
+```ts
+toString(): string;
+```
+
+Returns a formatted string representation of this object.
+
+#### Returns
+
+`string`
+
+#### Since
+
+2.0.0
+
+#### Inherited from
+
+[`BinaryLikeView`](BinaryLikeView.md).[`toString`](BinaryLikeView.md#tostring)

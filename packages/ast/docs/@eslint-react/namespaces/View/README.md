@@ -19,7 +19,7 @@ Experimental read-only node facades with unwrapping accessors.
 | [LogicalExpressionView](classes/LogicalExpressionView.md)           | View over a logical expression.                                         |
 | [MemberExpressionView](classes/MemberExpressionView.md)             | View over a member expression.                                          |
 | [NewExpressionView](classes/NewExpressionView.md)                   | View over a `new` expression.                                           |
-| [NodeView](classes/NodeView.md)                                     | Experimental read-only facade over a `TSESTree` node.                   |
+| [NodeViewBase](classes/NodeViewBase.md)                             | Experimental read-only facade over a `TSESTree` node.                   |
 | [PropertyView](classes/PropertyView.md)                             | View over an object literal property.                                   |
 | [ReturnStatementView](classes/ReturnStatementView.md)               | View over a return statement.                                           |
 | [ThrowStatementView](classes/ThrowStatementView.md)                 | View over a throw statement.                                            |
@@ -28,9 +28,11 @@ Experimental read-only node facades with unwrapping accessors.
 
 ## Interfaces
 
-| Interface                                        | Description                                                                                                                           |
-| ------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------- |
-| [NodeViewContext](interfaces/NodeViewContext.md) | The minimal context a view needs, structurally compatible with `RuleContext`. Only required by getters that fall back to source text. |
+| Interface                                        | Description                                                                                                                                                                                                               |
+| ------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| [NodeView](interfaces/NodeView.md)               | The contract shared by all node views.                                                                                                                                                                                    |
+| [NodeViewContext](interfaces/NodeViewContext.md) | The minimal context a view needs, structurally compatible with `RuleContext`. Only required by getters that fall back to source text.                                                                                     |
+| [NodeViewJSON](interfaces/NodeViewJSON.md)       | The structured, non-circular representation of a view used for logging, serialization, and Node.js inspection. Unlike the wrapped node, it is always safe to `JSON.stringify` — TSESTree nodes are circular via `parent`. |
 
 ## Functions
 
