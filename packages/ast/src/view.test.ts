@@ -1,36 +1,28 @@
-import { NodeInspectSymbol } from "@local/eff";
 import { getFirstNodeOfType } from "@local/testkit";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import { inspect } from "node:util";
 import { describe, expect, it } from "vitest";
 
 import * as Extract from "./extract";
-import {
-  AssignmentExpressionView,
-  CallExpressionView,
-  ConditionalExpressionView,
-  MemberExpressionView,
-  NodeViewBase,
-  VariableDeclaratorView,
-  of,
-} from "./view";
+import { NodeInspectSymbol } from "./inspect";
+import { AssignmentExpressionView, CallExpressionView, Class, ConditionalExpressionView, MemberExpressionView, VariableDeclaratorView, of } from "./view";
 
-describe("NodeView", () => {
+describe("View", () => {
   it("should expose the original node unchanged", () => {
     const node = getFirstNodeOfType<TSESTree.Identifier>("foo;", AST.Identifier);
-    const view = new NodeViewBase(node);
+    const view = new Class(node);
     expect(view.node).toBe(node);
   });
 
   it("should return the parent without unwrapping", () => {
     const node = getFirstNodeOfType<TSESTree.Identifier>("(foo as string);", AST.Identifier);
-    const view = new NodeViewBase(node);
+    const view = new Class(node);
     expect(view.getParent()).toBe(node.parent);
     expect(view.getParent()?.type).toBe(AST.TSAsExpression);
   });
 });
 
-describe("NodeView inspection", () => {
+describe("View inspection", () => {
   it("should produce a structured, non-circular JSON representation", () => {
     const node = getFirstNodeOfType<TSESTree.CallExpression>("foo(bar);", AST.CallExpression);
     const view = new CallExpressionView(node);
@@ -50,7 +42,7 @@ describe("NodeView inspection", () => {
 
   it("should format toString as JSON", () => {
     const node = getFirstNodeOfType<TSESTree.Identifier>("foo;", AST.Identifier);
-    expect(JSON.parse(new NodeViewBase(node).toString())).toMatchObject({ _tag: "NodeViewBase", type: AST.Identifier });
+    expect(JSON.parse(new Class(node).toString())).toMatchObject({ _tag: "Class", type: AST.Identifier });
   });
 
   it("should support Node.js custom inspection", () => {
@@ -142,7 +134,7 @@ describe("of", () => {
   it("should return the base view for node types without a dedicated view", () => {
     const node = getFirstNodeOfType<TSESTree.Identifier>("foo;", AST.Identifier);
     const view = of(node);
-    expect(view).toBeInstanceOf(NodeViewBase);
+    expect(view).toBeInstanceOf(Class);
     expect(view).not.toBeInstanceOf(CallExpressionView);
     expect(view.node).toBe(node);
   });

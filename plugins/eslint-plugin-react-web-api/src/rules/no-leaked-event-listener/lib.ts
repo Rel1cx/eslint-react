@@ -1,4 +1,4 @@
-import { Check, Extract } from "@eslint-react/ast";
+import { Check, Extract, View } from "@eslint-react/ast";
 import { type RuleContext } from "@eslint-react/eslint";
 import { resolve, resolveOrigin } from "@eslint-react/var";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
@@ -17,11 +17,12 @@ function isSignalPropertyBinding(context: RuleContext, node: TSESTree.Identifier
     if (prop.type !== AST.Property || prop.computed) {
       continue;
     }
-    const key = Extract.unwrap(prop.key);
+    const propView = View.of(prop);
+    const key = propView.getKey();
     if (key.type !== AST.Identifier || key.name !== "signal") {
       continue;
     }
-    const value = Extract.unwrap(prop.value);
+    const value = propView.getValue();
     return value.type === AST.Identifier && value.name === node.name;
   }
   return false;
@@ -41,7 +42,7 @@ export function getSignalValueExpression(context: RuleContext, node: TSESTree.No
       // A `signal` destructured from `new AbortController()` is a valid signal expression
       // (e.g. `const { signal, abort } = new AbortController()`).
       if (unwrapped != null && unwrapped.type === AST.NewExpression && isSignalPropertyBinding(context, node)) {
-        const newCallee = Extract.unwrap(unwrapped.callee);
+        const newCallee = View.of(unwrapped).getCallee();
         if (newCallee.type === AST.Identifier && newCallee.name === "AbortController") {
           return node;
         }

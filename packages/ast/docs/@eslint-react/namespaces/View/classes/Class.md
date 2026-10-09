@@ -1,6 +1,11 @@
-[@eslint-react/ast](../../../../README.md) / [View](../README.md) / NodeViewBase
+[@eslint-react/ast](../../../../README.md) / [View](../README.md) / Class
 
-# Class: NodeViewBase\<N _extends_ `TSESTree.Node` = `TSESTree.Node`\>
+# Class: Class\<N _extends_ `TSESTree.Node` = `TSESTree.Node`\>
+
+Base class of all node views, consumed as `View.Class`.
+
+Serves both as the base class of the specialized views and as the concrete
+fallback returned by `of()` for node types without a dedicated view.
 
 Experimental read-only facade over a `TSESTree` node.
 
@@ -15,7 +20,7 @@ not a replacement; the original node stays reachable via `.node`.
 
 ## Extends
 
-- `InspectableClass`
+- `Class`
 
 ## Extended by
 
@@ -42,26 +47,26 @@ not a replacement; the original node stays reachable via `.node`.
 
 ## Implements
 
-- [`NodeView`](../interfaces/NodeView.md)\<`N`\>
+- [`View`](../interfaces/View.md)\<`N`\>
 
 ## Constructors
 
 ### Constructor
 
 ```ts
-new NodeViewBase<N extends Node = Node>(node: N, context?: NodeViewContext): NodeViewBase<N>;
+new Class<N extends Node = Node>(node: N, context?: ViewContext): Class<N>;
 ```
 
 #### Parameters
 
-| Parameter  | Type                                                  |
-| ---------- | ----------------------------------------------------- |
-| `node`     | `N`                                                   |
-| `context?` | [`NodeViewContext`](../interfaces/NodeViewContext.md) |
+| Parameter  | Type                                          |
+| ---------- | --------------------------------------------- |
+| `node`     | `N`                                           |
+| `context?` | [`ViewContext`](../interfaces/ViewContext.md) |
 
 #### Returns
 
-`NodeViewBase`\<`N`\>
+`Class`\<`N`\>
 
 #### Overrides
 
@@ -71,10 +76,10 @@ InspectableClass.constructor;
 
 ## Properties
 
-| Property                                | Modifier   | Type                                                                 | Description                                              |
-| --------------------------------------- | ---------- | -------------------------------------------------------------------- | -------------------------------------------------------- |
-| <a id="property-context"></a> `context` | `readonly` | [`NodeViewContext`](../interfaces/NodeViewContext.md) \| `undefined` | Optional rule context for getters that need source text. |
-| <a id="property-node"></a> `node`       | `readonly` | `N`                                                                  | The original node, as delivered by ESLint.               |
+| Property                                | Modifier   | Type                                                         | Description                                              |
+| --------------------------------------- | ---------- | ------------------------------------------------------------ | -------------------------------------------------------- |
+| <a id="property-context"></a> `context` | `readonly` | [`ViewContext`](../interfaces/ViewContext.md) \| `undefined` | Optional rule context for getters that need source text. |
+| <a id="property-node"></a> `node`       | `readonly` | `N`                                                          | The original node, as delivered by ESLint.               |
 
 ## Methods
 
@@ -96,7 +101,7 @@ Node.js custom inspection method.
 
 #### Implementation of
 
-[`NodeView`](../interfaces/NodeView.md).[`[NodeInspectSymbol]`](../interfaces/NodeView.md#nodeinspectsymbol)
+[`View`](../interfaces/View.md).[`[NodeInspectSymbol]`](../interfaces/View.md#nodeinspectsymbol)
 
 #### Inherited from
 
@@ -122,25 +127,25 @@ including any type expression wrappers enclosing this node.
 
 #### Implementation of
 
-[`NodeView`](../interfaces/NodeView.md).[`getParent`](../interfaces/NodeView.md#getparent)
+[`View`](../interfaces/View.md).[`getParent`](../interfaces/View.md#getparent)
 
 ---
 
 ### toJSON()
 
 ```ts
-toJSON(): NodeViewJSON;
+toJSON(): ViewJSON;
 ```
 
 Return the structured, non-circular representation of this view.
 
 #### Returns
 
-[`NodeViewJSON`](../interfaces/NodeViewJSON.md)
+[`ViewJSON`](../interfaces/ViewJSON.md)
 
 #### Implementation of
 
-[`NodeView`](../interfaces/NodeView.md).[`toJSON`](../interfaces/NodeView.md#tojson)
+[`View`](../interfaces/View.md).[`toJSON`](../interfaces/View.md#tojson)
 
 #### Overrides
 
@@ -168,7 +173,7 @@ Returns a formatted string representation of this object.
 
 #### Implementation of
 
-[`NodeView`](../interfaces/NodeView.md).[`toString`](../interfaces/NodeView.md#tostring)
+[`View`](../interfaces/View.md).[`toString`](../interfaces/View.md#tostring)
 
 #### Inherited from
 

@@ -123,7 +123,7 @@ export function isInitializedFromRef(context: RuleContext, name: string, initial
         // as read from a ref (ex: `popover.contentRef.current`)
         while (current.type === AST.MemberExpression) {
           const property = Extract.unwrap(current.property);
-          const object = Extract.unwrap(current.object);
+          const object: TSESTree.Node = Extract.unwrap(current.object);
           if (!current.computed && Check.isIdentifier(property, "current")) {
             const sourceName = getRefSourceName(object);
             if (sourceName === "ref" || sourceName?.endsWith("Ref") === true) {

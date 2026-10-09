@@ -1,6 +1,6 @@
-[@eslint-react/ast](../../../../README.md) / [View](../README.md) / NodeViewContext
+[@eslint-react/ast](../../../../README.md) / [View](../README.md) / ViewContext
 
-# Interface: NodeViewContext
+# Interface: ViewContext
 
 The minimal context a view needs, structurally compatible with `RuleContext`.
 Only required by getters that fall back to source text.

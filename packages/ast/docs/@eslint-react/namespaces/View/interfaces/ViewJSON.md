@@ -1,6 +1,6 @@
-[@eslint-react/ast](../../../../README.md) / [View](../README.md) / NodeViewJSON
+[@eslint-react/ast](../../../../README.md) / [View](../README.md) / ViewJSON
 
-# Interface: NodeViewJSON
+# Interface: ViewJSON
 
 The structured, non-circular representation of a view used for logging,
 serialization, and Node.js inspection. Unlike the wrapped node, it is always

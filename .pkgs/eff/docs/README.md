@@ -55,26 +55,6 @@
 | [constant](functions/constant.md) | Creates a zero-argument function that always returns the provided value.                   |
 | [Mixin](functions/Mixin.md)       | Returns a subclass of the provided class that adds the standard `pipe` method.             |
 
-## converting
-
-| Function                                        | Description                                                   |
-| ----------------------------------------------- | ------------------------------------------------------------- |
-| [toJson](functions/toJson.md)                   | Converts a value to its structured inspection representation. |
-| [toStringUnknown](functions/toStringUnknown.md) | Converts an unknown value to a string for diagnostics.        |
-
-## destructors
-
-| Function                                | Description                                                                                                                       |
-| --------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------- |
-| [getRedacted](functions/getRedacted.md) | Returns the result of calling `[symbolRedactable]` on a value that is already known to be [Redactable](interfaces/Redactable.md). |
-| [redact](functions/redact.md)           | Returns a redacted value if it implements [Redactable](interfaces/Redactable.md), otherwise returns it unchanged.                 |
-
-## formatting
-
-| Function                      | Description                                                 |
-| ----------------------------- | ----------------------------------------------------------- |
-| [format](functions/format.md) | Converts any JavaScript value into a human-readable string. |
-
 ## getters
 
 | Variable                            | Description                                                                                        |
@@ -84,38 +64,37 @@
 
 ## guards
 
-| Name                                            | Description                                                                                             |
-| ----------------------------------------------- | ------------------------------------------------------------------------------------------------------- |
-| [hasProperty](variables/hasProperty.md)         | Checks whether a value has a given property key.                                                        |
-| [isArray](functions/isArray.md)                 | A function that checks if the passed parameter is an Array and narrows its type accordingly.            |
-| [isBigInt](functions/isBigInt.md)               | Checks whether a value is a `bigint`.                                                                   |
-| [isBoolean](functions/isBoolean.md)             | Checks whether a value is a `boolean`.                                                                  |
-| [isDate](functions/isDate.md)                   | Checks whether a value is a `Date`.                                                                     |
-| [isError](functions/isError.md)                 | Checks whether a value is an `Error`.                                                                   |
-| [isFunction](functions/isFunction.md)           | Checks whether a value is a `function`.                                                                 |
-| [isIterable](functions/isIterable.md)           | Checks whether a value is iterable.                                                                     |
-| [isMap](functions/isMap.md)                     | Checks whether a value is a `Map`.                                                                      |
-| [isNever](functions/isNever.md)                 | Type guard that always returns `false`.                                                                 |
-| [isNotNull](functions/isNotNull.md)             | Checks whether a value is not `null`.                                                                   |
-| [isNotNullish](functions/isNotNullish.md)       | Checks whether a value is not `null` and not `undefined`.                                               |
-| [isNotUndefined](functions/isNotUndefined.md)   | Checks whether a value is not `undefined`.                                                              |
-| [isNull](functions/isNull.md)                   | Checks whether a value is `null`.                                                                       |
-| [isNullish](functions/isNullish.md)             | Checks whether a value is `null` or `undefined`.                                                        |
-| [isNumber](functions/isNumber.md)               | Checks whether a value is a `number`.                                                                   |
-| [isObject](functions/isObject.md)               | Checks whether a value is a non-null object value that is not an array.                                 |
-| [isObjectKeyword](functions/isObjectKeyword.md) | Checks whether a value is an `object` in the JavaScript sense (objects, arrays, functions).             |
-| [isObjectOrArray](functions/isObjectOrArray.md) | Checks whether a value is an object or an array (non-null object).                                      |
-| [isPromise](functions/isPromise.md)             | Checks whether a value is a `Promise`-like object with `then` and `catch`.                              |
-| [isPromiseLike](functions/isPromiseLike.md)     | Checks whether a value is `PromiseLike` (has a `then` method).                                          |
-| [isPropertyKey](functions/isPropertyKey.md)     | Checks whether a value is a valid `PropertyKey` (string, number, or symbol).                            |
-| [isRedactable](functions/isRedactable.md)       | Type guard that checks whether a value implements the [Redactable](interfaces/Redactable.md) interface. |
-| [isRegExp](functions/isRegExp.md)               | Checks whether a value is a `RegExp`.                                                                   |
-| [isSet](functions/isSet.md)                     | Checks whether a value is a `Set`.                                                                      |
-| [isString](functions/isString.md)               | Checks whether a value is a `string`.                                                                   |
-| [isSymbol](functions/isSymbol.md)               | Checks whether a value is a `symbol`.                                                                   |
-| [isUint8Array](functions/isUint8Array.md)       | Checks whether a value is a `Uint8Array`.                                                               |
-| [isUndefined](functions/isUndefined.md)         | Checks whether a value is `undefined`.                                                                  |
-| [isUnknown](functions/isUnknown.md)             | Type guard that always returns `true`.                                                                  |
+| Name                                            | Description                                                                                  |
+| ----------------------------------------------- | -------------------------------------------------------------------------------------------- |
+| [hasProperty](variables/hasProperty.md)         | Checks whether a value has a given property key.                                             |
+| [isArray](functions/isArray.md)                 | A function that checks if the passed parameter is an Array and narrows its type accordingly. |
+| [isBigInt](functions/isBigInt.md)               | Checks whether a value is a `bigint`.                                                        |
+| [isBoolean](functions/isBoolean.md)             | Checks whether a value is a `boolean`.                                                       |
+| [isDate](functions/isDate.md)                   | Checks whether a value is a `Date`.                                                          |
+| [isError](functions/isError.md)                 | Checks whether a value is an `Error`.                                                        |
+| [isFunction](functions/isFunction.md)           | Checks whether a value is a `function`.                                                      |
+| [isIterable](functions/isIterable.md)           | Checks whether a value is iterable.                                                          |
+| [isMap](functions/isMap.md)                     | Checks whether a value is a `Map`.                                                           |
+| [isNever](functions/isNever.md)                 | Type guard that always returns `false`.                                                      |
+| [isNotNull](functions/isNotNull.md)             | Checks whether a value is not `null`.                                                        |
+| [isNotNullish](functions/isNotNullish.md)       | Checks whether a value is not `null` and not `undefined`.                                    |
+| [isNotUndefined](functions/isNotUndefined.md)   | Checks whether a value is not `undefined`.                                                   |
+| [isNull](functions/isNull.md)                   | Checks whether a value is `null`.                                                            |
+| [isNullish](functions/isNullish.md)             | Checks whether a value is `null` or `undefined`.                                             |
+| [isNumber](functions/isNumber.md)               | Checks whether a value is a `number`.                                                        |
+| [isObject](functions/isObject.md)               | Checks whether a value is a non-null object value that is not an array.                      |
+| [isObjectKeyword](functions/isObjectKeyword.md) | Checks whether a value is an `object` in the JavaScript sense (objects, arrays, functions).  |
+| [isObjectOrArray](functions/isObjectOrArray.md) | Checks whether a value is an object or an array (non-null object).                           |
+| [isPromise](functions/isPromise.md)             | Checks whether a value is a `Promise`-like object with `then` and `catch`.                   |
+| [isPromiseLike](functions/isPromiseLike.md)     | Checks whether a value is `PromiseLike` (has a `then` method).                               |
+| [isPropertyKey](functions/isPropertyKey.md)     | Checks whether a value is a valid `PropertyKey` (string, number, or symbol).                 |
+| [isRegExp](functions/isRegExp.md)               | Checks whether a value is a `RegExp`.                                                        |
+| [isSet](functions/isSet.md)                     | Checks whether a value is a `Set`.                                                           |
+| [isString](functions/isString.md)               | Checks whether a value is a `string`.                                                        |
+| [isSymbol](functions/isSymbol.md)               | Checks whether a value is a `symbol`.                                                        |
+| [isUint8Array](functions/isUint8Array.md)       | Checks whether a value is a `Uint8Array`.                                                    |
+| [isUndefined](functions/isUndefined.md)         | Checks whether a value is `undefined`.                                                       |
+| [isUnknown](functions/isUnknown.md)             | Type guard that always returns `true`.                                                       |
 
 ## map & set
 
@@ -126,15 +105,12 @@
 
 ## models
 
-| Name                                                     | Description                                                                                                                                                                                                                                       |
-| -------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| [InspectableClass](classes/InspectableClass.md)          | Provides an abstract base class that implements the Inspectable interface. Named `InspectableClass` instead of `Class` (its name in the upstream `Inspectable` module) to avoid colliding with the `Pipeable` base class exported from this file. |
-| [Inspectable](interfaces/Inspectable.md)                 | Interface for objects that can be inspected and provide custom string representations.                                                                                                                                                            |
-| [Pipeable](interfaces/Pipeable.md)                       | Interface for values that support method-style `pipe` composition.                                                                                                                                                                                |
-| [PipeableConstructor](interfaces/PipeableConstructor.md) | Constructor type for classes whose instances implement `Pipeable`.                                                                                                                                                                                |
-| [Redactable](interfaces/Redactable.md)                   | Interface for objects that provide context-aware redacted representations.                                                                                                                                                                        |
-| [FunctionN](type-aliases/FunctionN.md)                   | Represents a function with multiple arguments.                                                                                                                                                                                                    |
-| [LazyArg](type-aliases/LazyArg.md)                       | A zero-argument function that produces a value when invoked.                                                                                                                                                                                      |
+| Name                                                     | Description                                                        |
+| -------------------------------------------------------- | ------------------------------------------------------------------ |
+| [Pipeable](interfaces/Pipeable.md)                       | Interface for values that support method-style `pipe` composition. |
+| [PipeableConstructor](interfaces/PipeableConstructor.md) | Constructor type for classes whose instances implement `Pipeable`. |
+| [FunctionN](type-aliases/FunctionN.md)                   | Represents a function with multiple arguments.                     |
+| [LazyArg](type-aliases/LazyArg.md)                       | A zero-argument function that produces a value when invoked.       |
 
 ## predicates
 
@@ -144,31 +120,15 @@
 
 ## prototypes
 
-| Variable                            | Description                                                                                     |
-| ----------------------------------- | ----------------------------------------------------------------------------------------------- |
-| [BaseProto](variables/BaseProto.md) | A base prototype object that implements the [Inspectable](interfaces/Inspectable.md) interface. |
-| [Prototype](variables/Prototype.md) | Reusable prototype that implements `Pipeable.pipe`.                                             |
-
-## serialization
-
-| Function                              | Description                                                                |
-| ------------------------------------- | -------------------------------------------------------------------------- |
-| [formatJson](functions/formatJson.md) | Stringifies a value to JSON safely, silently dropping circular references. |
-
-## symbols
-
-| Name                                                   | Description                                                                                                     |
-| ------------------------------------------------------ | --------------------------------------------------------------------------------------------------------------- |
-| [NodeInspectSymbol](type-aliases/NodeInspectSymbol.md) | The type of the Node.js inspection symbol used for custom object inspection.                                    |
-| [NodeInspectSymbol](variables/NodeInspectSymbol.md)    | Defines the symbol used by Node.js for custom object inspection.                                                |
-| [symbolRedactable](variables/symbolRedactable.md)      | Defines the symbol used to identify objects that implement the [Redactable](interfaces/Redactable.md) protocol. |
+| Variable                            | Description                                         |
+| ----------------------------------- | --------------------------------------------------- |
+| [Prototype](variables/Prototype.md) | Reusable prototype that implements `Pipeable.pipe`. |
 
 ## utility types
 
-| Name                                | Description                                                                                                               |
-| ----------------------------------- | ------------------------------------------------------------------------------------------------------------------------- |
-| [Pretty](type-aliases/Pretty.md)    | Simplifies a complex type intersection into a flat object type for better readability in IDE tooltips and error messages. |
-| [cast](variables/cast.md)           | Returns the input value with a different static type.                                                                     |
-| [hole](variables/hole.md)           | Creates a compile-time placeholder for a value of any type.                                                               |
-| [absurd](functions/absurd.md)       | Marks an impossible branch by accepting a `never` value and returning any type.                                           |
-| [satisfies](functions/satisfies.md) | Ensures that the type of an expression matches some type, without changing the resulting type of that expression.         |
+| Name                                | Description                                                                                                       |
+| ----------------------------------- | ----------------------------------------------------------------------------------------------------------------- |
+| [cast](variables/cast.md)           | Returns the input value with a different static type.                                                             |
+| [hole](variables/hole.md)           | Creates a compile-time placeholder for a value of any type.                                                       |
+| [absurd](functions/absurd.md)       | Marks an impossible branch by accepting a `never` value and returning any type.                                   |
+| [satisfies](functions/satisfies.md) | Ensures that the type of an expression matches some type, without changing the resulting type of that expression. |

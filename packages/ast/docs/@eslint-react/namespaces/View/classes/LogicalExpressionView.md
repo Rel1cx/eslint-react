@@ -13,15 +13,15 @@ View over a logical expression.
 ### Constructor
 
 ```ts
-new LogicalExpressionView(node: LogicalExpression, context?: NodeViewContext): LogicalExpressionView;
+new LogicalExpressionView(node: LogicalExpression, context?: ViewContext): LogicalExpressionView;
 ```
 
 #### Parameters
 
-| Parameter  | Type                                                  |
-| ---------- | ----------------------------------------------------- |
-| `node`     | `LogicalExpression`                                   |
-| `context?` | [`NodeViewContext`](../interfaces/NodeViewContext.md) |
+| Parameter  | Type                                          |
+| ---------- | --------------------------------------------- |
+| `node`     | `LogicalExpression`                           |
+| `context?` | [`ViewContext`](../interfaces/ViewContext.md) |
 
 #### Returns
 
@@ -33,10 +33,10 @@ new LogicalExpressionView(node: LogicalExpression, context?: NodeViewContext): L
 
 ## Properties
 
-| Property                                | Modifier   | Type                                                                 | Description                                              | Inherited from                                                                        |
-| --------------------------------------- | ---------- | -------------------------------------------------------------------- | -------------------------------------------------------- | ------------------------------------------------------------------------------------- |
-| <a id="property-context"></a> `context` | `readonly` | [`NodeViewContext`](../interfaces/NodeViewContext.md) \| `undefined` | Optional rule context for getters that need source text. | [`BinaryLikeView`](BinaryLikeView.md).[`context`](BinaryLikeView.md#property-context) |
-| <a id="property-node"></a> `node`       | `readonly` | `LogicalExpression`                                                  | The original node, as delivered by ESLint.               | [`BinaryLikeView`](BinaryLikeView.md).[`node`](BinaryLikeView.md#property-node)       |
+| Property                                | Modifier   | Type                                                         | Description                                              | Inherited from                                                                        |
+| --------------------------------------- | ---------- | ------------------------------------------------------------ | -------------------------------------------------------- | ------------------------------------------------------------------------------------- |
+| <a id="property-context"></a> `context` | `readonly` | [`ViewContext`](../interfaces/ViewContext.md) \| `undefined` | Optional rule context for getters that need source text. | [`BinaryLikeView`](BinaryLikeView.md).[`context`](BinaryLikeView.md#property-context) |
+| <a id="property-node"></a> `node`       | `readonly` | `LogicalExpression`                                          | The original node, as delivered by ESLint.               | [`BinaryLikeView`](BinaryLikeView.md).[`node`](BinaryLikeView.md#property-node)       |
 
 ## Methods
 
@@ -121,14 +121,14 @@ Get the right operand with type and chain expressions unwrapped.
 ### toJSON()
 
 ```ts
-toJSON(): NodeViewJSON;
+toJSON(): ViewJSON;
 ```
 
 Return the structured, non-circular representation of this view.
 
 #### Returns
 
-[`NodeViewJSON`](../interfaces/NodeViewJSON.md)
+[`ViewJSON`](../interfaces/ViewJSON.md)
 
 #### Inherited from
 

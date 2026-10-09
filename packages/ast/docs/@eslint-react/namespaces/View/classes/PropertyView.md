@@ -6,22 +6,22 @@ View over an object literal property.
 
 ## Extends
 
-- [`NodeViewBase`](NodeViewBase.md)\<`TSESTree.Property`\>
+- [`Class`](Class.md)\<`TSESTree.Property`\>
 
 ## Constructors
 
 ### Constructor
 
 ```ts
-new PropertyView(node: Property, context?: NodeViewContext): PropertyView;
+new PropertyView(node: Property, context?: ViewContext): PropertyView;
 ```
 
 #### Parameters
 
-| Parameter  | Type                                                  |
-| ---------- | ----------------------------------------------------- |
-| `node`     | `Property`                                            |
-| `context?` | [`NodeViewContext`](../interfaces/NodeViewContext.md) |
+| Parameter  | Type                                          |
+| ---------- | --------------------------------------------- |
+| `node`     | `Property`                                    |
+| `context?` | [`ViewContext`](../interfaces/ViewContext.md) |
 
 #### Returns
 
@@ -29,14 +29,14 @@ new PropertyView(node: Property, context?: NodeViewContext): PropertyView;
 
 #### Inherited from
 
-[`NodeViewBase`](NodeViewBase.md).[`constructor`](NodeViewBase.md#constructor)
+[`Class`](Class.md).[`constructor`](Class.md#constructor)
 
 ## Properties
 
-| Property                                | Modifier   | Type                                                                 | Description                                              | Inherited from                                                                  |
-| --------------------------------------- | ---------- | -------------------------------------------------------------------- | -------------------------------------------------------- | ------------------------------------------------------------------------------- |
-| <a id="property-context"></a> `context` | `readonly` | [`NodeViewContext`](../interfaces/NodeViewContext.md) \| `undefined` | Optional rule context for getters that need source text. | [`NodeViewBase`](NodeViewBase.md).[`context`](NodeViewBase.md#property-context) |
-| <a id="property-node"></a> `node`       | `readonly` | `Property`                                                           | The original node, as delivered by ESLint.               | [`NodeViewBase`](NodeViewBase.md).[`node`](NodeViewBase.md#property-node)       |
+| Property                                | Modifier   | Type                                                         | Description                                              | Inherited from                                             |
+| --------------------------------------- | ---------- | ------------------------------------------------------------ | -------------------------------------------------------- | ---------------------------------------------------------- |
+| <a id="property-context"></a> `context` | `readonly` | [`ViewContext`](../interfaces/ViewContext.md) \| `undefined` | Optional rule context for getters that need source text. | [`Class`](Class.md).[`context`](Class.md#property-context) |
+| <a id="property-node"></a> `node`       | `readonly` | `Property`                                                   | The original node, as delivered by ESLint.               | [`Class`](Class.md).[`node`](Class.md#property-node)       |
 
 ## Methods
 
@@ -58,7 +58,7 @@ Node.js custom inspection method.
 
 #### Inherited from
 
-[`NodeViewBase`](NodeViewBase.md).[`[NodeInspectSymbol]`](NodeViewBase.md#nodeinspectsymbol)
+[`Class`](Class.md).[`[NodeInspectSymbol]`](Class.md#nodeinspectsymbol)
 
 ---
 
@@ -212,7 +212,7 @@ including any type expression wrappers enclosing this node.
 
 #### Inherited from
 
-[`NodeViewBase`](NodeViewBase.md).[`getParent`](NodeViewBase.md#getparent)
+[`Class`](Class.md).[`getParent`](Class.md#getparent)
 
 ---
 
@@ -337,18 +337,18 @@ Get the value with type and chain expressions unwrapped.
 ### toJSON()
 
 ```ts
-toJSON(): NodeViewJSON;
+toJSON(): ViewJSON;
 ```
 
 Return the structured, non-circular representation of this view.
 
 #### Returns
 
-[`NodeViewJSON`](../interfaces/NodeViewJSON.md)
+[`ViewJSON`](../interfaces/ViewJSON.md)
 
 #### Inherited from
 
-[`NodeViewBase`](NodeViewBase.md).[`toJSON`](NodeViewBase.md#tojson)
+[`Class`](Class.md).[`toJSON`](Class.md#tojson)
 
 ---
 
@@ -370,4 +370,4 @@ Returns a formatted string representation of this object.
 
 #### Inherited from
 
-[`NodeViewBase`](NodeViewBase.md).[`toString`](NodeViewBase.md#tostring)
+[`Class`](Class.md).[`toString`](Class.md#tostring)

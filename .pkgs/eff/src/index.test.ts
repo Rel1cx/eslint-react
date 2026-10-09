@@ -1,15 +1,9 @@
-import { inspect } from "node:util";
 import { describe, expect, expectTypeOf, it } from "vitest";
 
 import {
-  BaseProto,
-  InspectableClass,
-  NodeInspectSymbol,
   and,
   eqv,
   every,
-  format,
-  formatJson,
   hasProperty,
   implies,
   isBigInt,
@@ -42,9 +36,6 @@ import {
   not,
   or,
   some,
-  symbolRedactable,
-  toJson,
-  toStringUnknown,
   xor,
 } from "./index";
 
@@ -421,95 +412,5 @@ describe("type narrowing", () => {
     if (isNotNullish(value)) expectTypeOf(value).toEqualTypeOf<string | number>();
     if (isNotNull(value)) expectTypeOf(value).toEqualTypeOf<string | number | undefined>();
     if (isNotUndefined(value)) expectTypeOf(value).toEqualTypeOf<string | number | null>();
-  });
-});
-
-describe("Inspectable", () => {
-  class Result extends InspectableClass {
-    readonly tag: "Success" | "Failure";
-    readonly value: unknown;
-
-    constructor(tag: "Success" | "Failure", value: unknown) {
-      super();
-      this.tag = tag;
-      this.value = value;
-    }
-
-    toJSON() {
-      return { _tag: this.tag, value: this.value };
-    }
-  }
-
-  it("NodeInspectSymbol is the well-known Node.js inspection symbol", () => {
-    const obj = {
-      [NodeInspectSymbol]() {
-        return "custom";
-      },
-    };
-    expect(inspect(obj)).toBe("custom");
-  });
-
-  it("InspectableClass delegates toString and Node inspection to toJSON", () => {
-    const success = new Result("Success", 42);
-    expect(success.toString()).toBe(`{"_tag":"Success","value":42}`);
-    expect(success[NodeInspectSymbol]()).toEqual({ _tag: "Success", value: 42 });
-    expect(inspect(success)).toContain("Success");
-  });
-
-  it("toJson returns plain values unchanged and unwraps toJSON", () => {
-    expect(toJson(1)).toBe(1);
-    expect(toJson({ a: 1 })).toEqual({ a: 1 });
-    expect(toJson(new Result("Failure", "boom"))).toEqual({ _tag: "Failure", value: "boom" });
-    expect(toJson([new Result("Success", 1)])).toEqual([{ _tag: "Success", value: 1 }]);
-  });
-
-  it("toJson recovers when toJSON throws", () => {
-    const bad = {
-      toJSON() {
-        throw new Error("nope");
-      },
-    };
-    expect(toJson(bad)).toBe("[toJSON threw]");
-  });
-
-  it("toJson redacts Redactable values", () => {
-    const secret = {
-      [symbolRedactable]() {
-        return "<redacted>";
-      },
-    };
-    expect(toJson(secret)).toBe("<redacted>");
-  });
-
-  it("toStringUnknown keeps strings and formats objects as JSON", () => {
-    expect(toStringUnknown("hi")).toBe("hi");
-    expect(toStringUnknown({ a: 1 }, 0)).toBe(`{"a":1}`);
-    expect(toStringUnknown(1)).toBe("1");
-  });
-
-  it("BaseProto provides toString and Node inspection to objects with their own toJSON", () => {
-    const obj = Object.create(BaseProto);
-    obj.toJSON = () => ({ name: "example", value: 42 });
-    expect(obj.toString()).toBe(`{"name":"example","value":42}`);
-    expect(inspect(obj)).toContain("example");
-  });
-
-  it("BaseProto.toJSON alone recurses and degrades to a diagnostic placeholder", () => {
-    // Matches upstream behavior: toJson(this) re-discovers the inherited toJSON
-    // and recurses until the guarded catch returns "[toJSON threw]".
-    const obj = Object.create(BaseProto);
-    expect(obj.toString()).toBe(`"[toJSON threw]"`);
-  });
-
-  it("format renders circular references as [Circular]", () => {
-    const obj: any = { name: "loop" };
-    obj.self = obj;
-    expect(format(obj)).toBe(`{"name":"loop","self":[Circular]}`);
-  });
-
-  it("formatJson silently drops circular references", () => {
-    const obj: any = { name: "test" };
-    obj.self = obj;
-    expect(formatJson(obj)).toBe(`{"name":"test"}`);
   });
 });

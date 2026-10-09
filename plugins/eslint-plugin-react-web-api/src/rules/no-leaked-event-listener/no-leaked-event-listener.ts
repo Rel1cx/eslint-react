@@ -1,5 +1,5 @@
 import { createRule } from "@/utils/create-rule";
-import { Check, Compare, Extract, Traverse } from "@eslint-react/ast";
+import { Check, Compare, Extract, Traverse, View } from "@eslint-react/ast";
 import { getFunctionId, isUseEffectCleanupCallback, isUseEffectSetupCallback } from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, type RuleListener } from "@eslint-react/eslint";
 import { isInitializedFromReactNative, isValueEqual } from "@eslint-react/var";
@@ -87,7 +87,7 @@ function getCallKind(node: TSESTree.CallExpression): CallKind {
  * @returns The resolved function or the callee name, or null when neither applies
  */
 function resolveCleanupCallee(context: RuleContext<MessageID, []>, node: TSESTree.CallExpression): CleanupCallee | null {
-  const callee = Extract.unwrap(node.callee);
+  const callee = View.of(node).getCallee();
   switch (callee.type) {
     // stop()
     case AST.Identifier: {
@@ -97,8 +97,8 @@ function resolveCleanupCallee(context: RuleContext<MessageID, []>, node: TSESTre
         ? null
         : defNode.type === AST.FunctionDeclaration
         ? defNode
-        : defNode.type === AST.VariableDeclarator && defNode.init != null
-        ? Extract.unwrap(defNode.init)
+        : defNode.type === AST.VariableDeclarator
+        ? View.of(defNode).getInit()
         : null;
       return fn != null && Check.isFunction(fn)
         ? { kind: "function", node: fn }
@@ -109,25 +109,27 @@ function resolveCleanupCallee(context: RuleContext<MessageID, []>, node: TSESTre
       if (callee.computed) {
         return null;
       }
-      const property = Extract.unwrap(callee.property);
-      const object = Extract.unwrap(callee.object);
+      const calleeView = View.of(callee);
+      const property = calleeView.getProperty();
+      const object = calleeView.getObject();
       if (property.type !== AST.Identifier || object.type !== AST.Identifier) {
         return null;
       }
       const variable = findVariable(context.sourceCode.getScope(node), object);
       const defNode = variable?.defs.at(-1)?.node;
-      if (defNode?.type !== AST.VariableDeclarator || defNode.init == null) {
+      if (defNode?.type !== AST.VariableDeclarator) {
         return null;
       }
-      const init = Extract.unwrap(defNode.init);
-      if (init.type !== AST.ObjectExpression) {
+      const init = View.of(defNode).getInit();
+      if (init?.type !== AST.ObjectExpression) {
         return null;
       }
       for (const prop of init.properties) {
         if (prop.type !== AST.Property || prop.computed) {
           continue;
         }
-        const key = Extract.unwrap(prop.key);
+        const propView = View.of(prop);
+        const key = propView.getKey();
         const keyName = key.type === AST.Identifier
           ? key.name
           : key.type === AST.Literal && isString(key.value)
@@ -136,7 +138,7 @@ function resolveCleanupCallee(context: RuleContext<MessageID, []>, node: TSESTre
         if (keyName !== property.name) {
           continue;
         }
-        const value = Extract.unwrap(prop.value);
+        const value = propView.getValue();
         if (Check.isFunction(value)) {
           return { kind: "function", node: value };
         }
@@ -258,7 +260,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       const fKind = isUseEffectSetupCallback(fn) ? "setup" : "cleanup";
       const setupFn = fKind === "setup" ? fn : Traverse.findParent(fn, Check.isFunction);
       const effect = setupFn == null ? null : Extract.unwrap(setupFn).parent ?? null;
-      const callee = Extract.unwrap(node.callee);
+      const callee = View.of(node).getCallee();
       match(getCallKind(node))
         .with("addEventListener", (callKind) => {
           // https://github.com/Rel1cx/eslint-react/issues/1323

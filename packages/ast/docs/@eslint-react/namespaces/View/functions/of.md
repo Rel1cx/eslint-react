@@ -5,18 +5,18 @@
 ## Call Signature
 
 ```ts
-function of(node: AssignmentExpression, context?: NodeViewContext): AssignmentExpressionView;
+function of(node: AssignmentExpression, context?: ViewContext): AssignmentExpressionView;
 ```
 
 Create the most specific view for a node.
-Node types without a dedicated view get the base `NodeView`.
+Node types without a dedicated view get an instance of the base `Class`.
 
 ### Parameters
 
-| Parameter  | Type                                                  | Description                                              |
-| ---------- | ----------------------------------------------------- | -------------------------------------------------------- |
-| `node`     | `AssignmentExpression`                                | The node to wrap. The tree is never modified or copied.  |
-| `context?` | [`NodeViewContext`](../interfaces/NodeViewContext.md) | Optional rule context for getters that need source text. |
+| Parameter  | Type                                          | Description                                              |
+| ---------- | --------------------------------------------- | -------------------------------------------------------- |
+| `node`     | `AssignmentExpression`                        | The node to wrap. The tree is never modified or copied.  |
+| `context?` | [`ViewContext`](../interfaces/ViewContext.md) | Optional rule context for getters that need source text. |
 
 ### Returns
 
@@ -27,18 +27,18 @@ A view exposing unwrapping `get*` accessors for the node.
 ## Call Signature
 
 ```ts
-function of(node: AwaitExpression, context?: NodeViewContext): AwaitExpressionView;
+function of(node: AwaitExpression, context?: ViewContext): AwaitExpressionView;
 ```
 
 Create the most specific view for a node.
-Node types without a dedicated view get the base `NodeView`.
+Node types without a dedicated view get an instance of the base `Class`.
 
 ### Parameters
 
-| Parameter  | Type                                                  | Description                                              |
-| ---------- | ----------------------------------------------------- | -------------------------------------------------------- |
-| `node`     | `AwaitExpression`                                     | The node to wrap. The tree is never modified or copied.  |
-| `context?` | [`NodeViewContext`](../interfaces/NodeViewContext.md) | Optional rule context for getters that need source text. |
+| Parameter  | Type                                          | Description                                              |
+| ---------- | --------------------------------------------- | -------------------------------------------------------- |
+| `node`     | `AwaitExpression`                             | The node to wrap. The tree is never modified or copied.  |
+| `context?` | [`ViewContext`](../interfaces/ViewContext.md) | Optional rule context for getters that need source text. |
 
 ### Returns
 
@@ -49,18 +49,18 @@ A view exposing unwrapping `get*` accessors for the node.
 ## Call Signature
 
 ```ts
-function of(node: BinaryExpression, context?: NodeViewContext): BinaryExpressionView;
+function of(node: BinaryExpression, context?: ViewContext): BinaryExpressionView;
 ```
 
 Create the most specific view for a node.
-Node types without a dedicated view get the base `NodeView`.
+Node types without a dedicated view get an instance of the base `Class`.
 
 ### Parameters
 
-| Parameter  | Type                                                  | Description                                              |
-| ---------- | ----------------------------------------------------- | -------------------------------------------------------- |
-| `node`     | `BinaryExpression`                                    | The node to wrap. The tree is never modified or copied.  |
-| `context?` | [`NodeViewContext`](../interfaces/NodeViewContext.md) | Optional rule context for getters that need source text. |
+| Parameter  | Type                                          | Description                                              |
+| ---------- | --------------------------------------------- | -------------------------------------------------------- |
+| `node`     | `BinaryExpression`                            | The node to wrap. The tree is never modified or copied.  |
+| `context?` | [`ViewContext`](../interfaces/ViewContext.md) | Optional rule context for getters that need source text. |
 
 ### Returns
 
@@ -71,18 +71,18 @@ A view exposing unwrapping `get*` accessors for the node.
 ## Call Signature
 
 ```ts
-function of(node: CallExpression, context?: NodeViewContext): CallExpressionView;
+function of(node: CallExpression, context?: ViewContext): CallExpressionView;
 ```
 
 Create the most specific view for a node.
-Node types without a dedicated view get the base `NodeView`.
+Node types without a dedicated view get an instance of the base `Class`.
 
 ### Parameters
 
-| Parameter  | Type                                                  | Description                                              |
-| ---------- | ----------------------------------------------------- | -------------------------------------------------------- |
-| `node`     | `CallExpression`                                      | The node to wrap. The tree is never modified or copied.  |
-| `context?` | [`NodeViewContext`](../interfaces/NodeViewContext.md) | Optional rule context for getters that need source text. |
+| Parameter  | Type                                          | Description                                              |
+| ---------- | --------------------------------------------- | -------------------------------------------------------- |
+| `node`     | `CallExpression`                              | The node to wrap. The tree is never modified or copied.  |
+| `context?` | [`ViewContext`](../interfaces/ViewContext.md) | Optional rule context for getters that need source text. |
 
 ### Returns
 
@@ -93,18 +93,18 @@ A view exposing unwrapping `get*` accessors for the node.
 ## Call Signature
 
 ```ts
-function of(node: ConditionalExpression, context?: NodeViewContext): ConditionalExpressionView;
+function of(node: ConditionalExpression, context?: ViewContext): ConditionalExpressionView;
 ```
 
 Create the most specific view for a node.
-Node types without a dedicated view get the base `NodeView`.
+Node types without a dedicated view get an instance of the base `Class`.
 
 ### Parameters
 
-| Parameter  | Type                                                  | Description                                              |
-| ---------- | ----------------------------------------------------- | -------------------------------------------------------- |
-| `node`     | `ConditionalExpression`                               | The node to wrap. The tree is never modified or copied.  |
-| `context?` | [`NodeViewContext`](../interfaces/NodeViewContext.md) | Optional rule context for getters that need source text. |
+| Parameter  | Type                                          | Description                                              |
+| ---------- | --------------------------------------------- | -------------------------------------------------------- |
+| `node`     | `ConditionalExpression`                       | The node to wrap. The tree is never modified or copied.  |
+| `context?` | [`ViewContext`](../interfaces/ViewContext.md) | Optional rule context for getters that need source text. |
 
 ### Returns
 
@@ -115,18 +115,18 @@ A view exposing unwrapping `get*` accessors for the node.
 ## Call Signature
 
 ```ts
-function of(node: ExpressionStatement, context?: NodeViewContext): ExpressionStatementView;
+function of(node: ExpressionStatement, context?: ViewContext): ExpressionStatementView;
 ```
 
 Create the most specific view for a node.
-Node types without a dedicated view get the base `NodeView`.
+Node types without a dedicated view get an instance of the base `Class`.
 
 ### Parameters
 
-| Parameter  | Type                                                  | Description                                              |
-| ---------- | ----------------------------------------------------- | -------------------------------------------------------- |
-| `node`     | `ExpressionStatement`                                 | The node to wrap. The tree is never modified or copied.  |
-| `context?` | [`NodeViewContext`](../interfaces/NodeViewContext.md) | Optional rule context for getters that need source text. |
+| Parameter  | Type                                          | Description                                              |
+| ---------- | --------------------------------------------- | -------------------------------------------------------- |
+| `node`     | `ExpressionStatement`                         | The node to wrap. The tree is never modified or copied.  |
+| `context?` | [`ViewContext`](../interfaces/ViewContext.md) | Optional rule context for getters that need source text. |
 
 ### Returns
 
@@ -137,18 +137,18 @@ A view exposing unwrapping `get*` accessors for the node.
 ## Call Signature
 
 ```ts
-function of(node: JSXExpressionContainer, context?: NodeViewContext): JSXExpressionContainerView;
+function of(node: JSXExpressionContainer, context?: ViewContext): JSXExpressionContainerView;
 ```
 
 Create the most specific view for a node.
-Node types without a dedicated view get the base `NodeView`.
+Node types without a dedicated view get an instance of the base `Class`.
 
 ### Parameters
 
-| Parameter  | Type                                                  | Description                                              |
-| ---------- | ----------------------------------------------------- | -------------------------------------------------------- |
-| `node`     | `JSXExpressionContainer`                              | The node to wrap. The tree is never modified or copied.  |
-| `context?` | [`NodeViewContext`](../interfaces/NodeViewContext.md) | Optional rule context for getters that need source text. |
+| Parameter  | Type                                          | Description                                              |
+| ---------- | --------------------------------------------- | -------------------------------------------------------- |
+| `node`     | `JSXExpressionContainer`                      | The node to wrap. The tree is never modified or copied.  |
+| `context?` | [`ViewContext`](../interfaces/ViewContext.md) | Optional rule context for getters that need source text. |
 
 ### Returns
 
@@ -159,18 +159,18 @@ A view exposing unwrapping `get*` accessors for the node.
 ## Call Signature
 
 ```ts
-function of(node: LogicalExpression, context?: NodeViewContext): LogicalExpressionView;
+function of(node: LogicalExpression, context?: ViewContext): LogicalExpressionView;
 ```
 
 Create the most specific view for a node.
-Node types without a dedicated view get the base `NodeView`.
+Node types without a dedicated view get an instance of the base `Class`.
 
 ### Parameters
 
-| Parameter  | Type                                                  | Description                                              |
-| ---------- | ----------------------------------------------------- | -------------------------------------------------------- |
-| `node`     | `LogicalExpression`                                   | The node to wrap. The tree is never modified or copied.  |
-| `context?` | [`NodeViewContext`](../interfaces/NodeViewContext.md) | Optional rule context for getters that need source text. |
+| Parameter  | Type                                          | Description                                              |
+| ---------- | --------------------------------------------- | -------------------------------------------------------- |
+| `node`     | `LogicalExpression`                           | The node to wrap. The tree is never modified or copied.  |
+| `context?` | [`ViewContext`](../interfaces/ViewContext.md) | Optional rule context for getters that need source text. |
 
 ### Returns
 
@@ -181,18 +181,18 @@ A view exposing unwrapping `get*` accessors for the node.
 ## Call Signature
 
 ```ts
-function of(node: MemberExpression, context?: NodeViewContext): MemberExpressionView;
+function of(node: MemberExpression, context?: ViewContext): MemberExpressionView;
 ```
 
 Create the most specific view for a node.
-Node types without a dedicated view get the base `NodeView`.
+Node types without a dedicated view get an instance of the base `Class`.
 
 ### Parameters
 
-| Parameter  | Type                                                  | Description                                              |
-| ---------- | ----------------------------------------------------- | -------------------------------------------------------- |
-| `node`     | `MemberExpression`                                    | The node to wrap. The tree is never modified or copied.  |
-| `context?` | [`NodeViewContext`](../interfaces/NodeViewContext.md) | Optional rule context for getters that need source text. |
+| Parameter  | Type                                          | Description                                              |
+| ---------- | --------------------------------------------- | -------------------------------------------------------- |
+| `node`     | `MemberExpression`                            | The node to wrap. The tree is never modified or copied.  |
+| `context?` | [`ViewContext`](../interfaces/ViewContext.md) | Optional rule context for getters that need source text. |
 
 ### Returns
 
@@ -203,18 +203,18 @@ A view exposing unwrapping `get*` accessors for the node.
 ## Call Signature
 
 ```ts
-function of(node: NewExpression, context?: NodeViewContext): NewExpressionView;
+function of(node: NewExpression, context?: ViewContext): NewExpressionView;
 ```
 
 Create the most specific view for a node.
-Node types without a dedicated view get the base `NodeView`.
+Node types without a dedicated view get an instance of the base `Class`.
 
 ### Parameters
 
-| Parameter  | Type                                                  | Description                                              |
-| ---------- | ----------------------------------------------------- | -------------------------------------------------------- |
-| `node`     | `NewExpression`                                       | The node to wrap. The tree is never modified or copied.  |
-| `context?` | [`NodeViewContext`](../interfaces/NodeViewContext.md) | Optional rule context for getters that need source text. |
+| Parameter  | Type                                          | Description                                              |
+| ---------- | --------------------------------------------- | -------------------------------------------------------- |
+| `node`     | `NewExpression`                               | The node to wrap. The tree is never modified or copied.  |
+| `context?` | [`ViewContext`](../interfaces/ViewContext.md) | Optional rule context for getters that need source text. |
 
 ### Returns
 
@@ -225,18 +225,18 @@ A view exposing unwrapping `get*` accessors for the node.
 ## Call Signature
 
 ```ts
-function of(node: Property, context?: NodeViewContext): PropertyView;
+function of(node: Property, context?: ViewContext): PropertyView;
 ```
 
 Create the most specific view for a node.
-Node types without a dedicated view get the base `NodeView`.
+Node types without a dedicated view get an instance of the base `Class`.
 
 ### Parameters
 
-| Parameter  | Type                                                  | Description                                              |
-| ---------- | ----------------------------------------------------- | -------------------------------------------------------- |
-| `node`     | `Property`                                            | The node to wrap. The tree is never modified or copied.  |
-| `context?` | [`NodeViewContext`](../interfaces/NodeViewContext.md) | Optional rule context for getters that need source text. |
+| Parameter  | Type                                          | Description                                              |
+| ---------- | --------------------------------------------- | -------------------------------------------------------- |
+| `node`     | `Property`                                    | The node to wrap. The tree is never modified or copied.  |
+| `context?` | [`ViewContext`](../interfaces/ViewContext.md) | Optional rule context for getters that need source text. |
 
 ### Returns
 
@@ -247,18 +247,18 @@ A view exposing unwrapping `get*` accessors for the node.
 ## Call Signature
 
 ```ts
-function of(node: ReturnStatement, context?: NodeViewContext): ReturnStatementView;
+function of(node: ReturnStatement, context?: ViewContext): ReturnStatementView;
 ```
 
 Create the most specific view for a node.
-Node types without a dedicated view get the base `NodeView`.
+Node types without a dedicated view get an instance of the base `Class`.
 
 ### Parameters
 
-| Parameter  | Type                                                  | Description                                              |
-| ---------- | ----------------------------------------------------- | -------------------------------------------------------- |
-| `node`     | `ReturnStatement`                                     | The node to wrap. The tree is never modified or copied.  |
-| `context?` | [`NodeViewContext`](../interfaces/NodeViewContext.md) | Optional rule context for getters that need source text. |
+| Parameter  | Type                                          | Description                                              |
+| ---------- | --------------------------------------------- | -------------------------------------------------------- |
+| `node`     | `ReturnStatement`                             | The node to wrap. The tree is never modified or copied.  |
+| `context?` | [`ViewContext`](../interfaces/ViewContext.md) | Optional rule context for getters that need source text. |
 
 ### Returns
 
@@ -269,18 +269,18 @@ A view exposing unwrapping `get*` accessors for the node.
 ## Call Signature
 
 ```ts
-function of(node: ThrowStatement, context?: NodeViewContext): ThrowStatementView;
+function of(node: ThrowStatement, context?: ViewContext): ThrowStatementView;
 ```
 
 Create the most specific view for a node.
-Node types without a dedicated view get the base `NodeView`.
+Node types without a dedicated view get an instance of the base `Class`.
 
 ### Parameters
 
-| Parameter  | Type                                                  | Description                                              |
-| ---------- | ----------------------------------------------------- | -------------------------------------------------------- |
-| `node`     | `ThrowStatement`                                      | The node to wrap. The tree is never modified or copied.  |
-| `context?` | [`NodeViewContext`](../interfaces/NodeViewContext.md) | Optional rule context for getters that need source text. |
+| Parameter  | Type                                          | Description                                              |
+| ---------- | --------------------------------------------- | -------------------------------------------------------- |
+| `node`     | `ThrowStatement`                              | The node to wrap. The tree is never modified or copied.  |
+| `context?` | [`ViewContext`](../interfaces/ViewContext.md) | Optional rule context for getters that need source text. |
 
 ### Returns
 
@@ -291,18 +291,18 @@ A view exposing unwrapping `get*` accessors for the node.
 ## Call Signature
 
 ```ts
-function of(node: UnaryExpression, context?: NodeViewContext): UnaryExpressionView;
+function of(node: UnaryExpression, context?: ViewContext): UnaryExpressionView;
 ```
 
 Create the most specific view for a node.
-Node types without a dedicated view get the base `NodeView`.
+Node types without a dedicated view get an instance of the base `Class`.
 
 ### Parameters
 
-| Parameter  | Type                                                  | Description                                              |
-| ---------- | ----------------------------------------------------- | -------------------------------------------------------- |
-| `node`     | `UnaryExpression`                                     | The node to wrap. The tree is never modified or copied.  |
-| `context?` | [`NodeViewContext`](../interfaces/NodeViewContext.md) | Optional rule context for getters that need source text. |
+| Parameter  | Type                                          | Description                                              |
+| ---------- | --------------------------------------------- | -------------------------------------------------------- |
+| `node`     | `UnaryExpression`                             | The node to wrap. The tree is never modified or copied.  |
+| `context?` | [`ViewContext`](../interfaces/ViewContext.md) | Optional rule context for getters that need source text. |
 
 ### Returns
 
@@ -313,18 +313,18 @@ A view exposing unwrapping `get*` accessors for the node.
 ## Call Signature
 
 ```ts
-function of(node: VariableDeclarator, context?: NodeViewContext): VariableDeclaratorView;
+function of(node: VariableDeclarator, context?: ViewContext): VariableDeclaratorView;
 ```
 
 Create the most specific view for a node.
-Node types without a dedicated view get the base `NodeView`.
+Node types without a dedicated view get an instance of the base `Class`.
 
 ### Parameters
 
-| Parameter  | Type                                                  | Description                                              |
-| ---------- | ----------------------------------------------------- | -------------------------------------------------------- |
-| `node`     | `VariableDeclarator`                                  | The node to wrap. The tree is never modified or copied.  |
-| `context?` | [`NodeViewContext`](../interfaces/NodeViewContext.md) | Optional rule context for getters that need source text. |
+| Parameter  | Type                                          | Description                                              |
+| ---------- | --------------------------------------------- | -------------------------------------------------------- |
+| `node`     | `VariableDeclarator`                          | The node to wrap. The tree is never modified or copied.  |
+| `context?` | [`ViewContext`](../interfaces/ViewContext.md) | Optional rule context for getters that need source text. |
 
 ### Returns
 
@@ -335,21 +335,21 @@ A view exposing unwrapping `get*` accessors for the node.
 ## Call Signature
 
 ```ts
-function of(node: Node, context?: NodeViewContext): NodeView;
+function of(node: Node, context?: ViewContext): View;
 ```
 
 Create the most specific view for a node.
-Node types without a dedicated view get the base `NodeView`.
+Node types without a dedicated view get an instance of the base `Class`.
 
 ### Parameters
 
-| Parameter  | Type                                                  | Description                                              |
-| ---------- | ----------------------------------------------------- | -------------------------------------------------------- |
-| `node`     | `Node`                                                | The node to wrap. The tree is never modified or copied.  |
-| `context?` | [`NodeViewContext`](../interfaces/NodeViewContext.md) | Optional rule context for getters that need source text. |
+| Parameter  | Type                                          | Description                                              |
+| ---------- | --------------------------------------------- | -------------------------------------------------------- |
+| `node`     | `Node`                                        | The node to wrap. The tree is never modified or copied.  |
+| `context?` | [`ViewContext`](../interfaces/ViewContext.md) | Optional rule context for getters that need source text. |
 
 ### Returns
 
-[`NodeView`](../interfaces/NodeView.md)
+[`View`](../interfaces/View.md)
 
 A view exposing unwrapping `get*` accessors for the node.
