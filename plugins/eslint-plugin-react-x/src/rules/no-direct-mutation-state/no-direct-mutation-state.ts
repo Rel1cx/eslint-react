@@ -35,7 +35,7 @@ function isAssignmentToThisState(node: TSESTree.AssignmentExpression) {
   const { left } = node;
   let current: TSESTree.Node = Extract.unwrap(left);
   while (current.type === AST.MemberExpression) {
-    const object = Extract.unwrap(current.object);
+    const object: TSESTree.Node = Extract.unwrap(current.object);
     const property = current.property;
     if (object.type === AST.ThisExpression && Check.isIdentifier(property, "state")) {
       return true;

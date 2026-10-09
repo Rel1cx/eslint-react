@@ -7,4 +7,4 @@ export * as Extract from "./extract";
 /** Helpers for traversing `TSESTree` nodes. */
 export * as Traverse from "./traverse";
 /** Helpers for typing `TSESTree` nodes. */
-export type * from "./types";
+export type * from "./tree";

@@ -11,13 +11,14 @@
 
 ## Type Aliases
 
-| Type Alias                                                                               | Description                                                             |
-| ---------------------------------------------------------------------------------------- | ----------------------------------------------------------------------- |
-| [TSESTreeClass](type-aliases/TSESTreeClass.md)                                           | Union of class-like node types.                                         |
-| [TSESTreeDirective](type-aliases/TSESTreeDirective.md)                                   | An expression statement that is a directive (ex: `"use strict"`).       |
-| [TSESTreeFunction](type-aliases/TSESTreeFunction.md)                                     | Union of function-like node types.                                      |
-| [TSESTreeJSX](type-aliases/TSESTreeJSX.md)                                               | Union of all JSX-related node types.                                    |
-| [TSESTreeJSXAttributeLike](type-aliases/TSESTreeJSXAttributeLike.md)                     | Union of JSX attribute-like node types (attribute or spread attribute). |
-| [TSESTreeJSXElementLike](type-aliases/TSESTreeJSXElementLike.md)                         | Union of JSX element-like node types (element or fragment).             |
-| [TSESTreeMethodOrPropertyDefinition](type-aliases/TSESTreeMethodOrPropertyDefinition.md) | Union of method and property definition node types.                     |
-| [TSESTreeTypeExpression](type-aliases/TSESTreeTypeExpression.md)                         | Union of TypeScript type expression node types.                         |
+| Type Alias                                                                               | Description                                                                                            |
+| ---------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------ |
+| [TSESTreeClass](type-aliases/TSESTreeClass.md)                                           | Union of class-like node types.                                                                        |
+| [TSESTreeDirective](type-aliases/TSESTreeDirective.md)                                   | An expression statement that is a directive (ex: `"use strict"`).                                      |
+| [TSESTreeFunction](type-aliases/TSESTreeFunction.md)                                     | Union of function-like node types.                                                                     |
+| [TSESTreeJSX](type-aliases/TSESTreeJSX.md)                                               | Union of all JSX-related node types.                                                                   |
+| [TSESTreeJSXAttributeLike](type-aliases/TSESTreeJSXAttributeLike.md)                     | Union of JSX attribute-like node types (attribute or spread attribute).                                |
+| [TSESTreeJSXElementLike](type-aliases/TSESTreeJSXElementLike.md)                         | Union of JSX element-like node types (element or fragment).                                            |
+| [TSESTreeMethodOrPropertyDefinition](type-aliases/TSESTreeMethodOrPropertyDefinition.md) | Union of method and property definition node types.                                                    |
+| [TSESTreeTypeExpression](type-aliases/TSESTreeTypeExpression.md)                         | Union of TypeScript type expression node types.                                                        |
+| [TSESTreeUnwrapped](type-aliases/TSESTreeUnwrapped.md)                                   | Node type `T` with TypeScript type expressions excluded — the static result shape of `Extract.unwrap`. |

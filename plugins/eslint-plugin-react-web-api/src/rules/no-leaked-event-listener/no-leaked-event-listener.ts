@@ -130,7 +130,7 @@ function resolveCleanupCallee(context: RuleContext<MessageID, []>, node: TSESTre
         const key = Extract.unwrap(prop.key);
         const keyName = key.type === AST.Identifier
           ? key.name
-          : key.type === AST.Literal && isString(key.value)
+          : isString(key.value)
           ? key.value
           : null;
         if (keyName !== property.name) {

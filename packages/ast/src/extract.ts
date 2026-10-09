@@ -1,14 +1,16 @@
 import { isString } from "@local/eff";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import * as Check from "./check";
-import type { TSESTreeTypeExpression } from "./types";
+import type { TSESTreeTypeExpression, TSESTreeUnwrapped } from "./tree";
 
 /**
  * Recursively unwrap TypeScript type expressions and chain expressions to get the underlying expression.
  * @param node The node to unwrap.
- * @returns The innermost non-type-expression node.
+ * @returns The innermost non-type-expression node — a reference into the original tree, never a copy.
  */
-export function unwrap(node: TSESTree.Node): Exclude<TSESTree.Node, TSESTreeTypeExpression> {
+export function unwrap(node: TSESTreeTypeExpression | TSESTree.ChainExpression): TSESTreeUnwrapped<TSESTree.Expression>;
+export function unwrap<T extends TSESTree.Node>(node: T): TSESTreeUnwrapped<T>;
+export function unwrap(node: TSESTree.Node): TSESTree.Node {
   if (Check.isTypeExpression(node) || node.type === AST.ChainExpression) {
     return unwrap(node.expression);
   }
