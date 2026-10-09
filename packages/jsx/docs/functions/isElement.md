@@ -14,10 +14,10 @@ the function acts as a simple type guard for `JSXElement | JSXFragment`.
 
 ## Parameters
 
-| Parameter | Type | Description |
-| ------ | ------ | ------ |
-| `node` | `Node` \| `null` \| `undefined` | The node to check. |
-| `test?` | [`ElementTest`](../type-aliases/ElementTest.md) | Optional test to match the element type against. |
+| Parameter | Type                                            | Description                                      |
+| --------- | ----------------------------------------------- | ------------------------------------------------ |
+| `node`    | `Node` \| `null` \| `undefined`                 | The node to check.                               |
+| `test?`   | [`ElementTest`](../type-aliases/ElementTest.md) | Optional test to match the element type against. |
 
 ## Returns
 

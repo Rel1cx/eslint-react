@@ -12,16 +12,16 @@ insertTextAfter(nodeOrToken: Node | Token, text: string): RuleFix;
 
 #### Parameters
 
-| Parameter | Type |
-| ------ | ------ |
+| Parameter     | Type              |
+| ------------- | ----------------- |
 | `nodeOrToken` | `Node` \| `Token` |
-| `text` | `string` |
+| `text`        | `string`          |
 
 #### Returns
 
 [`RuleFix`](RuleFix.md)
 
-***
+---
 
 ### insertTextAfterRange()
 
@@ -31,16 +31,16 @@ insertTextAfterRange(range: readonly [number, number], text: string): RuleFix;
 
 #### Parameters
 
-| Parameter | Type |
-| ------ | ------ |
-| `range` | readonly \[`number`, `number`\] |
-| `text` | `string` |
+| Parameter | Type                            |
+| --------- | ------------------------------- |
+| `range`   | readonly \[`number`, `number`\] |
+| `text`    | `string`                        |
 
 #### Returns
 
 [`RuleFix`](RuleFix.md)
 
-***
+---
 
 ### insertTextBefore()
 
@@ -50,16 +50,16 @@ insertTextBefore(nodeOrToken: Node | Token, text: string): RuleFix;
 
 #### Parameters
 
-| Parameter | Type |
-| ------ | ------ |
+| Parameter     | Type              |
+| ------------- | ----------------- |
 | `nodeOrToken` | `Node` \| `Token` |
-| `text` | `string` |
+| `text`        | `string`          |
 
 #### Returns
 
 [`RuleFix`](RuleFix.md)
 
-***
+---
 
 ### insertTextBeforeRange()
 
@@ -69,16 +69,16 @@ insertTextBeforeRange(range: readonly [number, number], text: string): RuleFix;
 
 #### Parameters
 
-| Parameter | Type |
-| ------ | ------ |
-| `range` | readonly \[`number`, `number`\] |
-| `text` | `string` |
+| Parameter | Type                            |
+| --------- | ------------------------------- |
+| `range`   | readonly \[`number`, `number`\] |
+| `text`    | `string`                        |
 
 #### Returns
 
 [`RuleFix`](RuleFix.md)
 
-***
+---
 
 ### remove()
 
@@ -88,15 +88,15 @@ remove(nodeOrToken: Node | Token): RuleFix;
 
 #### Parameters
 
-| Parameter | Type |
-| ------ | ------ |
+| Parameter     | Type              |
+| ------------- | ----------------- |
 | `nodeOrToken` | `Node` \| `Token` |
 
 #### Returns
 
 [`RuleFix`](RuleFix.md)
 
-***
+---
 
 ### removeRange()
 
@@ -106,15 +106,15 @@ removeRange(range: readonly [number, number]): RuleFix;
 
 #### Parameters
 
-| Parameter | Type |
-| ------ | ------ |
-| `range` | readonly \[`number`, `number`\] |
+| Parameter | Type                            |
+| --------- | ------------------------------- |
+| `range`   | readonly \[`number`, `number`\] |
 
 #### Returns
 
 [`RuleFix`](RuleFix.md)
 
-***
+---
 
 ### replaceText()
 
@@ -124,16 +124,16 @@ replaceText(nodeOrToken: Node | Token, text: string): RuleFix;
 
 #### Parameters
 
-| Parameter | Type |
-| ------ | ------ |
+| Parameter     | Type              |
+| ------------- | ----------------- |
 | `nodeOrToken` | `Node` \| `Token` |
-| `text` | `string` |
+| `text`        | `string`          |
 
 #### Returns
 
 [`RuleFix`](RuleFix.md)
 
-***
+---
 
 ### replaceTextRange()
 
@@ -143,10 +143,10 @@ replaceTextRange(range: readonly [number, number], text: string): RuleFix;
 
 #### Parameters
 
-| Parameter | Type |
-| ------ | ------ |
-| `range` | readonly \[`number`, `number`\] |
-| `text` | `string` |
+| Parameter | Type                            |
+| --------- | ------------------------------- |
+| `range`   | readonly \[`number`, `number`\] |
+| `text`    | `string`                        |
 
 #### Returns
 

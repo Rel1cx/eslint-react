@@ -16,25 +16,25 @@ invocation.
 **Example** (Creating a constant thunk)
 
 ```ts
-import { Function } from "effect"
+import { Function } from "effect";
 
-const constNull = Function.constant(null)
+const constNull = Function.constant(null);
 
-constNull() // => null
-constNull() // => null
+constNull(); // => null
+constNull(); // => null
 ```
 
 ## Type Parameters
 
 | Type Parameter |
-| ------ |
-| `A` |
+| -------------- |
+| `A`            |
 
 ## Parameters
 
 | Parameter | Type |
-| ------ | ------ |
-| `value` | `A` |
+| --------- | ---- |
+| `value`   | `A`  |
 
 ## Returns
 

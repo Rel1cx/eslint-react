@@ -20,20 +20,20 @@ Uses `typeof input === "number"` and does not exclude `NaN` or `Infinity`.
 **Example** (Guarding numbers)
 
 ```ts
-import { Predicate } from "effect"
+import { Predicate } from "effect";
 
-const data: unknown = 42
+const data: unknown = 42;
 
 if (Predicate.isNumber(data)) {
-  data + 1 // => 43
+  data + 1; // => 43
 }
 ```
 
 ## Parameters
 
-| Parameter | Type |
-| ------ | ------ |
-| `input` | `unknown` |
+| Parameter | Type      |
+| --------- | --------- |
+| `input`   | `unknown` |
 
 ## Returns
 
@@ -41,8 +41,8 @@ if (Predicate.isNumber(data)) {
 
 ## See
 
- - [isBigInt](isBigInt.md)
- - [isString](isString.md)
+- [isBigInt](isBigInt.md)
+- [isString](isString.md)
 
 ## Since
 

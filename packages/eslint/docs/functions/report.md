@@ -10,8 +10,8 @@ Creates a report function for the given rule context.
 
 ## Parameters
 
-| Parameter | Type | Description |
-| ------ | ------ | ------ |
+| Parameter | Type                                            | Description              |
+| --------- | ----------------------------------------------- | ------------------------ |
 | `context` | [`RuleContext`](../type-aliases/RuleContext.md) | The ESLint rule context. |
 
 ## Returns

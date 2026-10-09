@@ -19,20 +19,20 @@ Uses `instanceof Map`.
 **Example** (Guarding a Map)
 
 ```ts
-import { Predicate } from "effect"
+import { Predicate } from "effect";
 
-const data: unknown = new Map([["a", 1]])
+const data: unknown = new Map([["a", 1]]);
 
 if (Predicate.isMap(data)) {
-  data.size // => 1
+  data.size; // => 1
 }
 ```
 
 ## Parameters
 
-| Parameter | Type |
-| ------ | ------ |
-| `input` | `unknown` |
+| Parameter | Type      |
+| --------- | --------- |
+| `input`   | `unknown` |
 
 ## Returns
 
@@ -40,8 +40,8 @@ if (Predicate.isMap(data)) {
 
 ## See
 
- - [isSet](isSet.md)
- - [isIterable](isIterable.md)
+- [isSet](isSet.md)
+- [isIterable](isIterable.md)
 
 ## Since
 

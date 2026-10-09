@@ -3,7 +3,7 @@
 # Type Alias: TypeVariant
 
 ```ts
-type TypeVariant = 
+type TypeVariant =
   | "any"
   | "bigint"
   | "boolean"

@@ -10,8 +10,8 @@ Enforce JSX maximum depth.
 
 ## Parameters
 
-| Parameter | Type |
-| ------ | ------ |
+| Parameter | Type                                                          |
+| --------- | ------------------------------------------------------------- |
 | `options` | [`JsxMaxDepthOptions`](../type-aliases/JsxMaxDepthOptions.md) |
 
 ## Returns

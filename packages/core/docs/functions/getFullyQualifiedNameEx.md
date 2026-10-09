@@ -10,10 +10,10 @@ Get the fully qualified name of a symbol, handling cases that `ts.TypeChecker.ge
 
 ## Parameters
 
-| Parameter | Type | Description |
-| ------ | ------ | ------ |
-| `checker` | `TypeChecker` | The TypeScript type checker. |
-| `symbol` | `Symbol` | The symbol to get fully qualified name for. |
+| Parameter | Type          | Description                                 |
+| --------- | ------------- | ------------------------------------------- |
+| `checker` | `TypeChecker` | The TypeScript type checker.                |
+| `symbol`  | `Symbol`      | The symbol to get fully qualified name for. |
 
 ## Returns
 

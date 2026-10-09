@@ -19,18 +19,18 @@ Uses `input === null`.
 **Example** (Guarding null values)
 
 ```ts
-import { Predicate } from "effect"
+import { Predicate } from "effect";
 
-const data: unknown = null
+const data: unknown = null;
 
-Predicate.isNull(data) // => true
+Predicate.isNull(data); // => true
 ```
 
 ## Parameters
 
-| Parameter | Type |
-| ------ | ------ |
-| `input` | `unknown` |
+| Parameter | Type      |
+| --------- | --------- |
+| `input`   | `unknown` |
 
 ## Returns
 
@@ -38,8 +38,8 @@ Predicate.isNull(data) // => true
 
 ## See
 
- - [isNotNull](isNotNull.md)
- - [isNullish](isNullish.md)
+- [isNotNull](isNotNull.md)
+- [isNullish](isNullish.md)
 
 ## Since
 

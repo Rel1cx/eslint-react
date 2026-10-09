@@ -10,10 +10,10 @@ Check if the node is a useEffect-like call (ex: `useEffect`, `useLayoutEffect`, 
 
 ## Parameters
 
-| Parameter | Type | Description |
-| ------ | ------ | ------ |
-| `node` | `Node` \| `null` | The AST node to check. |
-| `additionalEffectHooks` | `RegExpLike` | Regex pattern matching custom hooks that should be treated as effect hooks. |
+| Parameter               | Type             | Description                                                                 |
+| ----------------------- | ---------------- | --------------------------------------------------------------------------- |
+| `node`                  | `Node` \| `null` | The AST node to check.                                                      |
+| `additionalEffectHooks` | `RegExpLike`     | Regex pattern matching custom hooks that should be treated as effect hooks. |
 
 ## Returns
 

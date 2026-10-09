@@ -17,20 +17,20 @@ type.
 **Example** (Checking an expression against a type)
 
 ```ts
-import { Function } from "effect"
+import { Function } from "effect";
 
-const test1 = Function.satisfies<number>()(5 as const) // => 5
+const test1 = Function.satisfies<number>()(5 as const); // => 5
 // ^? const test: 5
 // @ts-expect-error
-const test2 = Function.satisfies<string>()(5)
+const test2 = Function.satisfies<string>()(5);
 // ^? Argument of type 'number' is not assignable to parameter of type 'string'
 ```
 
 ## Type Parameters
 
 | Type Parameter |
-| ------ |
-| `A` |
+| -------------- |
+| `A`            |
 
 ## Returns
 

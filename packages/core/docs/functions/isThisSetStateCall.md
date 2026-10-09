@@ -10,9 +10,9 @@ Check if the call expression is a `this.setState(...)` call.
 
 ## Parameters
 
-| Parameter | Type | Description |
-| ------ | ------ | ------ |
-| `node` | `CallExpression` | The call expression node to check. |
+| Parameter | Type             | Description                        |
+| --------- | ---------------- | ---------------------------------- |
+| `node`    | `CallExpression` | The call expression node to check. |
 
 ## Returns
 

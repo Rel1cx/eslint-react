@@ -15,25 +15,25 @@ Use to adapt a multi-argument function so it accepts one tuple argument.
 **Example** (Converting arguments to a tuple)
 
 ```ts
-import { Function } from "effect"
+import { Function } from "effect";
 
-const sumTupled = Function.tupled((x: number, y: number): number => x + y)
+const sumTupled = Function.tupled((x: number, y: number): number => x + y);
 
-sumTupled([1, 2]) // => 3
+sumTupled([1, 2]); // => 3
 ```
 
 ## Type Parameters
 
-| Type Parameter |
-| ------ |
-| `A` *extends* readonly `unknown`[] |
-| `B` |
+| Type Parameter                     |
+| ---------------------------------- |
+| `A` _extends_ readonly `unknown`[] |
+| `B`                                |
 
 ## Parameters
 
-| Parameter | Type |
-| ------ | ------ |
-| `f` | (...`a`: `A`) => `B` |
+| Parameter | Type                 |
+| --------- | -------------------- |
+| `f`       | (...`a`: `A`) => `B` |
 
 ## Returns
 

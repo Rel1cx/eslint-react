@@ -4,10 +4,10 @@
 
 ```ts
 const takeWhile: {
-<A, B>  (refinement: (a: NoInfer<A>, i: number) => a is B): (self: Iterable<A>) => B[];
-<A>  (predicate: (a: NoInfer<A>, i: number) => boolean): (self: Iterable<A>) => A[];
-<A, B>  (self: Iterable<A>, refinement: (a: A, i: number) => a is B): B[];
-<A>  (self: Iterable<A>, predicate: (a: A, i: number) => boolean): A[];
+  <A, B>(refinement: (a: NoInfer<A>, i: number) => a is B): (self: Iterable<A>) => B[];
+  <A>(predicate: (a: NoInfer<A>, i: number) => boolean): (self: Iterable<A>) => A[];
+  <A, B>(self: Iterable<A>, refinement: (a: A, i: number) => a is B): B[];
+  <A>(self: Iterable<A>, predicate: (a: A, i: number) => boolean): A[];
 };
 ```
 
@@ -27,9 +27,9 @@ Supports refinements for type narrowing. The predicate receives
 **Example** (Taking while condition holds)
 
 ```ts
-import { Array } from "effect"
+import { Array } from "effect";
 
-Array.takeWhile([1, 3, 2, 4, 1, 2], (x) => x < 4) // => [1, 3, 2]
+Array.takeWhile([1, 3, 2, 4, 1, 2], (x) => x < 4); // => [1, 3, 2]
 ```
 
 ## Call Signature
@@ -41,14 +41,14 @@ Array.takeWhile([1, 3, 2, 4, 1, 2], (x) => x < 4) // => [1, 3, 2]
 ### Type Parameters
 
 | Type Parameter |
-| ------ |
-| `A` |
-| `B` |
+| -------------- |
+| `A`            |
+| `B`            |
 
 ### Parameters
 
-| Parameter | Type |
-| ------ | ------ |
+| Parameter    | Type                                                                                                                              |
+| ------------ | --------------------------------------------------------------------------------------------------------------------------------- |
 | `refinement` | (`a`: [`NoInfer`](https://www.typescriptlang.org/docs/handbook/utility-types.html#noinfertype)\<`A`\>, `i`: `number`) => `a is B` |
 
 ### Returns
@@ -64,13 +64,13 @@ Array.takeWhile([1, 3, 2, 4, 1, 2], (x) => x < 4) // => [1, 3, 2]
 ### Type Parameters
 
 | Type Parameter |
-| ------ |
-| `A` |
+| -------------- |
+| `A`            |
 
 ### Parameters
 
-| Parameter | Type |
-| ------ | ------ |
+| Parameter   | Type                                                                                                                               |
+| ----------- | ---------------------------------------------------------------------------------------------------------------------------------- |
 | `predicate` | (`a`: [`NoInfer`](https://www.typescriptlang.org/docs/handbook/utility-types.html#noinfertype)\<`A`\>, `i`: `number`) => `boolean` |
 
 ### Returns
@@ -86,16 +86,16 @@ Array.takeWhile([1, 3, 2, 4, 1, 2], (x) => x < 4) // => [1, 3, 2]
 ### Type Parameters
 
 | Type Parameter |
-| ------ |
-| `A` |
-| `B` |
+| -------------- |
+| `A`            |
+| `B`            |
 
 ### Parameters
 
-| Parameter | Type |
-| ------ | ------ |
-| `self` | [`Iterable`](https://www.typescriptlang.org/docs/handbook/iterators-and-generators.html#iterable-interface)\<`A`\> |
-| `refinement` | (`a`: `A`, `i`: `number`) => `a is B` |
+| Parameter    | Type                                                                                                               |
+| ------------ | ------------------------------------------------------------------------------------------------------------------ |
+| `self`       | [`Iterable`](https://www.typescriptlang.org/docs/handbook/iterators-and-generators.html#iterable-interface)\<`A`\> |
+| `refinement` | (`a`: `A`, `i`: `number`) => `a is B`                                                                              |
 
 ### Returns
 
@@ -110,15 +110,15 @@ Array.takeWhile([1, 3, 2, 4, 1, 2], (x) => x < 4) // => [1, 3, 2]
 ### Type Parameters
 
 | Type Parameter |
-| ------ |
-| `A` |
+| -------------- |
+| `A`            |
 
 ### Parameters
 
-| Parameter | Type |
-| ------ | ------ |
-| `self` | [`Iterable`](https://www.typescriptlang.org/docs/handbook/iterators-and-generators.html#iterable-interface)\<`A`\> |
-| `predicate` | (`a`: `A`, `i`: `number`) => `boolean` |
+| Parameter   | Type                                                                                                               |
+| ----------- | ------------------------------------------------------------------------------------------------------------------ |
+| `self`      | [`Iterable`](https://www.typescriptlang.org/docs/handbook/iterators-and-generators.html#iterable-interface)\<`A`\> |
+| `predicate` | (`a`: `A`, `i`: `number`) => `boolean`                                                                             |
 
 ### Returns
 
@@ -126,9 +126,9 @@ Array.takeWhile([1, 3, 2, 4, 1, 2], (x) => x < 4) // => [1, 3, 2]
 
 ## See
 
- - take for keeping a fixed number of leading elements
- - [dropWhile](dropWhile.md) for removing the matching prefix and keeping the rest
- - span for splitting the matching prefix from the remaining elements
+- take for keeping a fixed number of leading elements
+- [dropWhile](dropWhile.md) for removing the matching prefix and keeping the rest
+- span for splitting the matching prefix from the remaining elements
 
 ## Since
 

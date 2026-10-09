@@ -20,23 +20,23 @@ Returns a refinement that excludes `undefined`.
 **Example** (Filtering undefined values)
 
 ```ts
-import { Predicate } from "effect"
+import { Predicate } from "effect";
 
-const values = [1, undefined, 2]
-const defined = values.filter(Predicate.isNotUndefined) // => [1, 2]
+const values = [1, undefined, 2];
+const defined = values.filter(Predicate.isNotUndefined); // => [1, 2]
 ```
 
 ## Type Parameters
 
 | Type Parameter |
-| ------ |
-| `A` |
+| -------------- |
+| `A`            |
 
 ## Parameters
 
 | Parameter | Type |
-| ------ | ------ |
-| `input` | `A` |
+| --------- | ---- |
+| `input`   | `A`  |
 
 ## Returns
 
@@ -44,8 +44,8 @@ const defined = values.filter(Predicate.isNotUndefined) // => [1, 2]
 
 ## See
 
- - [isUndefined](isUndefined.md)
- - [isNotNullish](isNotNullish.md)
+- [isUndefined](isUndefined.md)
+- [isNotNullish](isNotNullish.md)
 
 ## Since
 

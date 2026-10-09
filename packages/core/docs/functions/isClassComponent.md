@@ -10,9 +10,9 @@ Check if the node is a class component (extends `Component` or `PureComponent`).
 
 ## Parameters
 
-| Parameter | Type | Description |
-| ------ | ------ | ------ |
-| `node` | `Node` | The node to check. |
+| Parameter | Type   | Description        |
+| --------- | ------ | ------------------ |
+| `node`    | `Node` | The node to check. |
 
 ## Returns
 

@@ -13,9 +13,9 @@ whose raw content is empty after trimming, regardless of newlines.
 
 ## Parameters
 
-| Parameter | Type | Description |
-| ------ | ------ | ------ |
-| `node` | `JSXChild` | The JSX child node to check. |
+| Parameter | Type       | Description                  |
+| --------- | ---------- | ---------------------------- |
+| `node`    | `JSXChild` | The JSX child node to check. |
 
 ## Returns
 

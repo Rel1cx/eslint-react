@@ -20,23 +20,23 @@ Uses `input != null`.
 **Example** (Filtering non-nullish values)
 
 ```ts
-import { Predicate } from "effect"
+import { Predicate } from "effect";
 
-const values = [0, null, "", undefined]
-const present = values.filter(Predicate.isNotNullish) // => [0, ""]
+const values = [0, null, "", undefined];
+const present = values.filter(Predicate.isNotNullish); // => [0, ""]
 ```
 
 ## Type Parameters
 
 | Type Parameter |
-| ------ |
-| `A` |
+| -------------- |
+| `A`            |
 
 ## Parameters
 
 | Parameter | Type |
-| ------ | ------ |
-| `input` | `A` |
+| --------- | ---- |
+| `input`   | `A`  |
 
 ## Returns
 
@@ -44,9 +44,9 @@ const present = values.filter(Predicate.isNotNullish) // => [0, ""]
 
 ## See
 
- - [isNullish](isNullish.md)
- - [isNotNull](isNotNull.md)
- - [isNotUndefined](isNotUndefined.md)
+- [isNullish](isNullish.md)
+- [isNotNull](isNotNull.md)
+- [isNotUndefined](isNotUndefined.md)
 
 ## Since
 

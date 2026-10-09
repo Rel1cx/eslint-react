@@ -3,7 +3,7 @@
 # Type Alias: ReportFixFunction
 
 ```ts
-type ReportFixFunction = (fixer: RuleFixer) => 
+type ReportFixFunction = (fixer: RuleFixer) =>
   | IterableIterator<RuleFix>
   | readonly RuleFix[]
   | RuleFix
@@ -12,13 +12,13 @@ type ReportFixFunction = (fixer: RuleFixer) =>
 
 ## Parameters
 
-| Parameter | Type |
-| ------ | ------ |
-| `fixer` | [`RuleFixer`](../interfaces/RuleFixer.md) |
+| Parameter | Type                                      |
+| --------- | ----------------------------------------- |
+| `fixer`   | [`RuleFixer`](../interfaces/RuleFixer.md) |
 
 ## Returns
 
-  \| `IterableIterator`\<[`RuleFix`](../interfaces/RuleFix.md)\>
-  \| readonly [`RuleFix`](../interfaces/RuleFix.md)[]
-  \| [`RuleFix`](../interfaces/RuleFix.md)
-  \| `null`
+\| `IterableIterator`\<[`RuleFix`](../interfaces/RuleFix.md)\>
+\| readonly [`RuleFix`](../interfaces/RuleFix.md)[]
+\| [`RuleFix`](../interfaces/RuleFix.md)
+\| `null`

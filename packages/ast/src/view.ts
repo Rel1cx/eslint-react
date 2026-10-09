@@ -41,14 +41,14 @@ export interface ViewJSON {
 export interface View<N extends TSESTree.Node = TSESTree.Node> extends Inspectable {
   /** Optional rule context for getters that need source text. */
   readonly context: ViewContext | undefined;
+  /** The original node, as delivered by ESLint. */
+  readonly node: N;
   /**
-   * Get the parent node.
+   * A view over the parent node.
    * Deliberately NOT unwrapped: upward walks must see the tree as it is,
    * including any type expression wrappers enclosing this node.
    */
-  getParent(): TSESTree.Node | undefined;
-  /** The original node, as delivered by ESLint. */
-  readonly node: N;
+  readonly parent: View | undefined;
   /** Return the structured, non-circular representation of this view. */
   toJSON(): ViewJSON;
 }
@@ -61,14 +61,13 @@ export interface View<N extends TSESTree.Node = TSESTree.Node> extends Inspectab
  *
  * Experimental read-only facade over a `TSESTree` node.
  *
- * Views expose only `get*` accessors that return references into the original
- * tree with type and chain expressions unwrapped where the accessor's semantics
- * call for it. They never modify or copy the tree, so returned nodes keep their
- * identity and remain usable with `===` comparisons, scope analysis, WeakMap
- * caches, and `context.report`.
- *
- * Views are an alternative to calling `Extract.unwrap` at each analysis site,
- * not a replacement; the original node stays reachable via `.node`.
+ * Views expose only getter accessors. Accessors that read a child node return
+ * a view over that node, created via `of()` with the view's context passed
+ * down, and with type and chain expressions unwrapped where the accessor's
+ * semantics call for it. Views never modify or copy the tree, so the
+ * underlying nodes keep their identity and remain usable with `===`
+ * comparisons, scope analysis, WeakMap caches, and `context.report`; the
+ * original node stays reachable via `.node`.
  */
 export class Class<N extends TSESTree.Node = TSESTree.Node> extends InspectableClass implements View<N> {
   /** Optional rule context for getters that need source text. */
@@ -76,19 +75,19 @@ export class Class<N extends TSESTree.Node = TSESTree.Node> extends InspectableC
   /** The original node, as delivered by ESLint. */
   readonly node: N;
 
+  /**
+   * A view over the parent node.
+   * Deliberately NOT unwrapped: upward walks must see the tree as it is,
+   * including any type expression wrappers enclosing this node.
+   */
+  get parent(): View | undefined {
+    return this.node.parent == null ? undefined : of(this.node.parent, this.context);
+  }
+
   constructor(node: N, context?: ViewContext) {
     super();
     this.node = node;
     this.context = context;
-  }
-
-  /**
-   * Get the parent node.
-   * Deliberately NOT unwrapped: upward walks must see the tree as it is,
-   * including any type expression wrappers enclosing this node.
-   */
-  getParent(): TSESTree.Node | undefined {
-    return this.node.parent;
   }
 
   /** Return the structured, non-circular representation of this view. */
@@ -105,76 +104,79 @@ export class Class<N extends TSESTree.Node = TSESTree.Node> extends InspectableC
 
 /** View over a call expression. */
 export class CallExpressionView extends Class<TSESTree.CallExpression> {
-  /** Get the arguments with type and chain expressions unwrapped. */
-  getArguments(): TSESTreeUnwrapped<TSESTree.CallExpressionArgument>[] {
-    return this.node.arguments.map((argument) => Extract.unwrap(argument));
+  /** Views over the arguments, each with type and chain expressions unwrapped. */
+  get arguments(): View<TSESTreeUnwrapped<TSESTree.CallExpressionArgument>>[] {
+    return this.node.arguments.map((argument) => of(Extract.unwrap(argument), this.context));
   }
 
-  /** Get the callee with type and chain expressions unwrapped. */
-  getCallee(): TSESTreeUnwrapped<TSESTree.CallExpression["callee"]> {
-    return Extract.unwrap(this.node.callee);
+  /** A view over the callee with type and chain expressions unwrapped. */
+  get callee(): View<TSESTreeUnwrapped<TSESTree.CallExpression["callee"]>> {
+    return of(Extract.unwrap(this.node.callee), this.context);
   }
 
-  /** Get the statically determinable callee name (ex: `"useState"`), or `null`. */
-  getCalleeName(): string | null {
+  /** The statically determinable callee name (ex: `"useState"`), or `null`. */
+  get calleeName(): string | null {
     return Extract.getCalleeName(this.node);
   }
 }
 
 /** View over a `new` expression. */
 export class NewExpressionView extends Class<TSESTree.NewExpression> {
-  /** Get the arguments with type and chain expressions unwrapped. */
-  getArguments(): TSESTreeUnwrapped<TSESTree.CallExpressionArgument>[] {
-    return this.node.arguments.map((argument) => Extract.unwrap(argument));
+  /** Views over the arguments, each with type and chain expressions unwrapped. */
+  get arguments(): View<TSESTreeUnwrapped<TSESTree.CallExpressionArgument>>[] {
+    return this.node.arguments.map((argument) => of(Extract.unwrap(argument), this.context));
   }
 
-  /** Get the callee with type and chain expressions unwrapped. */
-  getCallee(): TSESTreeUnwrapped<TSESTree.NewExpression["callee"]> {
-    return Extract.unwrap(this.node.callee);
+  /** A view over the callee with type and chain expressions unwrapped. */
+  get callee(): View<TSESTreeUnwrapped<TSESTree.NewExpression["callee"]>> {
+    return of(Extract.unwrap(this.node.callee), this.context);
   }
 }
 
 /** View over a member expression. */
 export class MemberExpressionView extends Class<TSESTree.MemberExpression> {
-  /** Get the member chain from the base object (ex: `[a, b, c]` for `a.b.c`). */
-  getMemberChain() {
+  /**
+   * The member chain from the base object (ex: `[a, b, c]` for `a.b.c`).
+   * Returns bare nodes, not views: the chain is a derived list, not a child node.
+   */
+  get memberChain() {
     return Extract.getMemberChain(this.node);
   }
 
-  /** Get the object with type and chain expressions unwrapped. */
-  getObject(): TSESTreeUnwrapped<TSESTree.Expression> {
-    return Extract.unwrap(this.node.object);
+  /** A view over the object with type and chain expressions unwrapped. */
+  get object(): View<TSESTreeUnwrapped<TSESTree.Expression>> {
+    return of(Extract.unwrap(this.node.object), this.context);
   }
 
-  /** Get the property with type and chain expressions unwrapped. */
-  getProperty(): TSESTreeUnwrapped<TSESTree.MemberExpression["property"]> {
-    return Extract.unwrap(this.node.property);
+  /** A view over the property with type and chain expressions unwrapped. */
+  get property(): View<TSESTreeUnwrapped<TSESTree.MemberExpression["property"]>> {
+    return of(Extract.unwrap(this.node.property), this.context);
   }
 }
 
 /** View over an assignment expression. */
 export class AssignmentExpressionView extends Class<TSESTree.AssignmentExpression> {
-  /** Get the assignment target with type and chain expressions unwrapped. */
-  getLeft(): TSESTreeUnwrapped<TSESTree.Expression> {
-    return Extract.unwrap(this.node.left);
+  /** A view over the assignment target with type and chain expressions unwrapped. */
+  get left(): View<TSESTreeUnwrapped<TSESTree.Expression>> {
+    return of(Extract.unwrap(this.node.left), this.context);
   }
 
-  /** Get the assigned value with type and chain expressions unwrapped. */
-  getRight(): TSESTreeUnwrapped<TSESTree.Expression> {
-    return Extract.unwrap(this.node.right);
+  /** A view over the assigned value with type and chain expressions unwrapped. */
+  get right(): View<TSESTreeUnwrapped<TSESTree.Expression>> {
+    return of(Extract.unwrap(this.node.right), this.context);
   }
 }
 
 /** Base view over binary-like expressions sharing `left`/`right` operands. */
 export class BinaryLikeView<N extends TSESTree.BinaryExpression | TSESTree.LogicalExpression> extends Class<N> {
-  /** Get the left operand with type and chain expressions unwrapped. */
-  getLeft(): TSESTreeUnwrapped<(TSESTree.BinaryExpression | TSESTree.LogicalExpression)["left"]> {
-    return Extract.unwrap(this.node.left);
+  /** A view over the left operand with type and chain expressions unwrapped. */
+  get left(): View<TSESTreeUnwrapped<(TSESTree.BinaryExpression | TSESTree.LogicalExpression)["left"]>> {
+    return of(Extract.unwrap(this.node.left), this.context);
   }
 
-  /** Get the right operand with type and chain expressions unwrapped. */
-  getRight(): TSESTreeUnwrapped<(TSESTree.BinaryExpression | TSESTree.LogicalExpression)["right"]> {
-    return Extract.unwrap(this.node.right);
+  /** A view over the right operand with type and chain expressions unwrapped. */
+  get right(): View<TSESTreeUnwrapped<(TSESTree.BinaryExpression | TSESTree.LogicalExpression)["right"]>> {
+    return of(Extract.unwrap(this.node.right), this.context);
   }
 }
 
@@ -186,93 +188,98 @@ export class LogicalExpressionView extends BinaryLikeView<TSESTree.LogicalExpres
 
 /** View over a conditional expression. */
 export class ConditionalExpressionView extends Class<TSESTree.ConditionalExpression> {
-  /** Get the alternate with type and chain expressions unwrapped. */
-  getAlternate(): TSESTreeUnwrapped<TSESTree.Expression> {
-    return Extract.unwrap(this.node.alternate);
+  /** A view over the alternate with type and chain expressions unwrapped. */
+  get alternate(): View<TSESTreeUnwrapped<TSESTree.Expression>> {
+    return of(Extract.unwrap(this.node.alternate), this.context);
   }
 
-  /** Get the consequent with type and chain expressions unwrapped. */
-  getConsequent(): TSESTreeUnwrapped<TSESTree.Expression> {
-    return Extract.unwrap(this.node.consequent);
+  /** A view over the consequent with type and chain expressions unwrapped. */
+  get consequent(): View<TSESTreeUnwrapped<TSESTree.Expression>> {
+    return of(Extract.unwrap(this.node.consequent), this.context);
   }
 
-  /** Get the test with type and chain expressions unwrapped. */
-  getTest(): TSESTreeUnwrapped<TSESTree.Expression> {
-    return Extract.unwrap(this.node.test);
+  /** A view over the test with type and chain expressions unwrapped. */
+  get test(): View<TSESTreeUnwrapped<TSESTree.Expression>> {
+    return of(Extract.unwrap(this.node.test), this.context);
   }
 }
 
 /** View over an expression statement. */
 export class ExpressionStatementView extends Class<TSESTree.ExpressionStatement> {
-  /** Get the expression with type and chain expressions unwrapped. */
-  getExpression(): TSESTreeUnwrapped<TSESTree.Expression> {
-    return Extract.unwrap(this.node.expression);
+  /** A view over the expression with type and chain expressions unwrapped. */
+  get expression(): View<TSESTreeUnwrapped<TSESTree.Expression>> {
+    return of(Extract.unwrap(this.node.expression), this.context);
   }
 }
 
 /** View over a return statement. */
 export class ReturnStatementView extends Class<TSESTree.ReturnStatement> {
-  /** Get the argument with type and chain expressions unwrapped, or `null` for bare `return`. */
-  getArgument(): TSESTreeUnwrapped<TSESTree.Expression> | null {
-    return this.node.argument == null ? null : Extract.unwrap(this.node.argument);
+  /** A view over the argument with type and chain expressions unwrapped, or `null` for bare `return`. */
+  get argument(): View<TSESTreeUnwrapped<TSESTree.Expression>> | null {
+    return this.node.argument == null ? null : of(Extract.unwrap(this.node.argument), this.context);
   }
 }
 
 /** View over a throw statement. */
 export class ThrowStatementView extends Class<TSESTree.ThrowStatement> {
-  /** Get the argument with type and chain expressions unwrapped. */
-  getArgument(): TSESTreeUnwrapped<TSESTree.Expression> {
-    return Extract.unwrap(this.node.argument);
+  /** A view over the argument with type and chain expressions unwrapped. */
+  get argument(): View<TSESTreeUnwrapped<TSESTree.Expression>> {
+    return of(Extract.unwrap(this.node.argument), this.context);
   }
 }
 
 /** View over a unary expression. */
 export class UnaryExpressionView extends Class<TSESTree.UnaryExpression> {
-  /** Get the argument with type and chain expressions unwrapped. */
-  getArgument(): TSESTreeUnwrapped<TSESTree.Expression> {
-    return Extract.unwrap(this.node.argument);
+  /** A view over the argument with type and chain expressions unwrapped. */
+  get argument(): View<TSESTreeUnwrapped<TSESTree.Expression>> {
+    return of(Extract.unwrap(this.node.argument), this.context);
   }
 }
 
 /** View over an await expression. */
 export class AwaitExpressionView extends Class<TSESTree.AwaitExpression> {
-  /** Get the argument with type and chain expressions unwrapped. */
-  getArgument(): TSESTreeUnwrapped<TSESTree.Expression> {
-    return Extract.unwrap(this.node.argument);
+  /** A view over the argument with type and chain expressions unwrapped. */
+  get argument(): View<TSESTreeUnwrapped<TSESTree.Expression>> {
+    return of(Extract.unwrap(this.node.argument), this.context);
   }
 }
 
 /** View over a variable declarator. */
 export class VariableDeclaratorView extends Class<TSESTree.VariableDeclarator> {
-  /** Get the initializer with type and chain expressions unwrapped, or `null` when absent. */
-  getInit(): TSESTreeUnwrapped<TSESTree.Expression> | null {
-    return this.node.init == null ? null : Extract.unwrap(this.node.init);
+  /** A view over the initializer with type and chain expressions unwrapped, or `null` when absent. */
+  get init(): View<TSESTreeUnwrapped<TSESTree.Expression>> | null {
+    return this.node.init == null ? null : of(Extract.unwrap(this.node.init), this.context);
   }
 }
 
 /** View over an object literal property. */
 export class PropertyView extends Class<TSESTree.Property> {
-  /** Get the key with type and chain expressions unwrapped. */
-  getKey(): TSESTreeUnwrapped<TSESTree.Property["key"]> {
-    return Extract.unwrap(this.node.key);
+  /** A view over the key with type and chain expressions unwrapped. */
+  get key(): View<TSESTreeUnwrapped<TSESTree.Property["key"]>> {
+    return of(Extract.unwrap(this.node.key), this.context);
   }
 
-  /** Get the static property name, or `null` when it cannot be statically determined. */
-  getName(effort: "min" | "max" = "min"): string | null {
-    return Extract.getPropertyName(this.node, effort);
+  /** The static property name (plain identifier keys only), or `null` when it cannot be statically determined. */
+  get name(): string | null {
+    return Extract.getPropertyName(this.node);
   }
 
-  /** Get the value with type and chain expressions unwrapped. */
-  getValue(): TSESTreeUnwrapped<TSESTree.Property["value"]> {
-    return Extract.unwrap(this.node.value);
+  /** The static property name, also resolving string literals and simple template literals, or `null`. */
+  get nameMax(): string | null {
+    return Extract.getPropertyName(this.node, "max");
+  }
+
+  /** A view over the value with type and chain expressions unwrapped. */
+  get value(): View<TSESTreeUnwrapped<TSESTree.Property["value"]>> {
+    return of(Extract.unwrap(this.node.value), this.context);
   }
 }
 
 /** View over a JSX expression container. */
 export class JSXExpressionContainerView extends Class<TSESTree.JSXExpressionContainer> {
-  /** Get the expression with type and chain expressions unwrapped. */
-  getExpression(): TSESTreeUnwrapped<TSESTree.JSXExpressionContainer["expression"]> {
-    return Extract.unwrap(this.node.expression);
+  /** A view over the expression with type and chain expressions unwrapped. */
+  get expression(): View<TSESTreeUnwrapped<TSESTree.JSXExpressionContainer["expression"]>> {
+    return of(Extract.unwrap(this.node.expression), this.context);
   }
 }
 
@@ -281,7 +288,7 @@ export class JSXExpressionContainerView extends Class<TSESTree.JSXExpressionCont
  * Node types without a dedicated view get an instance of the base `Class`.
  * @param node The node to wrap. The tree is never modified or copied.
  * @param context Optional rule context for getters that need source text.
- * @returns A view exposing unwrapping `get*` accessors for the node.
+ * @returns A view whose getters return views over the node's children.
  */
 export function of(node: TSESTree.AssignmentExpression, context?: ViewContext): AssignmentExpressionView;
 export function of(node: TSESTree.AwaitExpression, context?: ViewContext): AwaitExpressionView;
@@ -298,7 +305,7 @@ export function of(node: TSESTree.ReturnStatement, context?: ViewContext): Retur
 export function of(node: TSESTree.ThrowStatement, context?: ViewContext): ThrowStatementView;
 export function of(node: TSESTree.UnaryExpression, context?: ViewContext): UnaryExpressionView;
 export function of(node: TSESTree.VariableDeclarator, context?: ViewContext): VariableDeclaratorView;
-export function of(node: TSESTree.Node, context?: ViewContext): View;
+export function of<N extends TSESTree.Node>(node: N, context?: ViewContext): View<N>;
 export function of(node: TSESTree.Node, context?: ViewContext): View {
   switch (node.type) {
     case AST.AssignmentExpression:

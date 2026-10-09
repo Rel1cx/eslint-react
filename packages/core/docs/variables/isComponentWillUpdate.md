@@ -8,9 +8,9 @@ const isComponentWillUpdate: (node: Node) => node is TSESTreeMethodOrPropertyDef
 
 ## Parameters
 
-| Parameter | Type |
-| ------ | ------ |
-| `node` | `Node` |
+| Parameter | Type   |
+| --------- | ------ |
+| `node`    | `Node` |
 
 ## Returns
 

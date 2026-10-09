@@ -9,13 +9,13 @@
 ## Type Parameters
 
 | Type Parameter |
-| ------ |
-| `T` |
+| -------------- |
+| `T`            |
 
 ## Properties
 
-| Property | Type |
-| ------ | ------ |
-| <a id="property-query"></a> `query` | \{ `all`: `T`[]; \} |
-| `query.all` | `T`[] |
+| Property                                | Type                                              |
+| --------------------------------------- | ------------------------------------------------- |
+| <a id="property-query"></a> `query`     | \{ `all`: `T`[]; \}                               |
+| `query.all`                             | `T`[]                                             |
 | <a id="property-visitor"></a> `visitor` | [`RuleListener`](../type-aliases/RuleListener.md) |

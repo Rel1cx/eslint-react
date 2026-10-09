@@ -10,8 +10,8 @@ Get the normalized ESLint React settings from the rule context.
 
 ## Parameters
 
-| Parameter | Type | Description |
-| ------ | ------ | ------ |
+| Parameter | Type          | Description       |
+| --------- | ------------- | ----------------- |
 | `context` | `RuleContext` | The rule context. |
 
 ## Returns

@@ -8,9 +8,9 @@ const isUnsafeComponentWillReceiveProps: (node: Node) => node is TSESTreeMethodO
 
 ## Parameters
 
-| Parameter | Type |
-| ------ | ------ |
-| `node` | `Node` |
+| Parameter | Type   |
+| --------- | ------ |
+| `node`    | `Node` |
 
 ## Returns
 

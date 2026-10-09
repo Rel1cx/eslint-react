@@ -17,24 +17,24 @@ Use to discard the first argument and return the second argument.
 **Example** (Discarding the first argument)
 
 ```ts
-import { Function } from "effect"
+import { Function } from "effect";
 
-Function.SK(0, "hello") // => "hello"
+Function.SK(0, "hello"); // => "hello"
 ```
 
 ## Type Parameters
 
 | Type Parameter |
-| ------ |
-| `A` |
-| `B` |
+| -------------- |
+| `A`            |
+| `B`            |
 
 ## Parameters
 
 | Parameter | Type |
-| ------ | ------ |
-| `_` | `A` |
-| `b` | `B` |
+| --------- | ---- |
+| `_`       | `A`  |
+| `b`       | `B`  |
 
 ## Returns
 

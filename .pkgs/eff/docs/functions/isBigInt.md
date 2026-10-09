@@ -20,20 +20,20 @@ Uses `typeof input === "bigint"`.
 **Example** (Guarding bigints)
 
 ```ts
-import { Predicate } from "effect"
+import { Predicate } from "effect";
 
-const data: unknown = 1n
+const data: unknown = 1n;
 
 if (Predicate.isBigInt(data)) {
-  data + 2n // => 3n
+  data + 2n; // => 3n
 }
 ```
 
 ## Parameters
 
-| Parameter | Type |
-| ------ | ------ |
-| `input` | `unknown` |
+| Parameter | Type      |
+| --------- | --------- |
+| `input`   | `unknown` |
 
 ## Returns
 

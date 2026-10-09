@@ -1,17 +1,19 @@
 [@eslint-react/ast](../README.md) / TSESTreeUnwrapped
 
-# Type Alias: TSESTreeUnwrapped\<T *extends* `TSESTree.Node`\>
+# Type Alias: TSESTreeUnwrapped\<T _extends_ `TSESTree.Node`\>
 
 ```ts
-type TSESTreeUnwrapped<T extends TSESTree.Node> = Exclude<T, 
+type TSESTreeUnwrapped<T extends TSESTree.Node> = Exclude<
+  T,
   | TSESTreeTypeExpression
-| TSESTree.ChainExpression>;
+  | TSESTree.ChainExpression
+>;
 ```
 
 Node type `T` with TypeScript type expressions excluded — the static result shape of `Extract.unwrap`.
 
 ## Type Parameters
 
-| Type Parameter |
-| ------ |
-| `T` *extends* `TSESTree.Node` |
+| Type Parameter                |
+| ----------------------------- |
+| `T` _extends_ `TSESTree.Node` |

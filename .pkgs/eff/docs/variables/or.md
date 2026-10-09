@@ -4,12 +4,12 @@
 
 ```ts
 const or: {
-<T, U>  (b: (data: T) => data is U): <S>(a: (data: T) => data is S) => (data: T) => data is U | S;
-<T>  (b: (data: T) => boolean): (a: (data: T) => boolean) => (data: T) => boolean;
-<T, S, U>  (a: (data: T) => data is S, b: (data: T) => data is U): (data: T) => data is S | U;
-<T, S>  (a: (data: T) => data is S, b: (data: T) => boolean): (data: T) => data is S;
-<T, U>  (a: (data: T) => boolean, b: (data: T) => data is U): (data: T) => data is U;
-<T>  (a: (data: T) => boolean, b: (data: T) => boolean): (data: T) => boolean;
+  <T, U>(b: (data: T) => data is U): <S>(a: (data: T) => data is S) => (data: T) => data is U | S;
+  <T>(b: (data: T) => boolean): (a: (data: T) => boolean) => (data: T) => boolean;
+  <T, S, U>(a: (data: T) => data is S, b: (data: T) => data is U): (data: T) => data is S | U;
+  <T, S>(a: (data: T) => data is S, b: (data: T) => boolean): (data: T) => data is S;
+  <T, U>(a: (data: T) => boolean, b: (data: T) => data is U): (data: T) => data is U;
+  <T>(a: (data: T) => boolean, b: (data: T) => boolean): (data: T) => boolean;
 };
 ```
 
@@ -28,11 +28,11 @@ type is a union.
 **Example** (Checking either condition)
 
 ```ts
-import { Predicate } from "effect"
+import { Predicate } from "effect";
 
-const isStringOrNumber = Predicate.or(Predicate.isString, Predicate.isNumber)
+const isStringOrNumber = Predicate.or(Predicate.isString, Predicate.isNumber);
 
-isStringOrNumber("a") // => true
+isStringOrNumber("a"); // => true
 ```
 
 ## Call Signature
@@ -44,15 +44,15 @@ isStringOrNumber("a") // => true
 ### Type Parameters
 
 | Type Parameter |
-| ------ |
-| `T` |
-| `U` |
+| -------------- |
+| `T`            |
+| `U`            |
 
 ### Parameters
 
-| Parameter | Type |
-| ------ | ------ |
-| `b` | (`data`: `T`) => `data is U` |
+| Parameter | Type                         |
+| --------- | ---------------------------- |
+| `b`       | (`data`: `T`) => `data is U` |
 
 ### Returns
 
@@ -67,14 +67,14 @@ isStringOrNumber("a") // => true
 ### Type Parameters
 
 | Type Parameter |
-| ------ |
-| `T` |
+| -------------- |
+| `T`            |
 
 ### Parameters
 
-| Parameter | Type |
-| ------ | ------ |
-| `b` | (`data`: `T`) => `boolean` |
+| Parameter | Type                       |
+| --------- | -------------------------- |
+| `b`       | (`data`: `T`) => `boolean` |
 
 ### Returns
 
@@ -89,17 +89,17 @@ isStringOrNumber("a") // => true
 ### Type Parameters
 
 | Type Parameter |
-| ------ |
-| `T` |
-| `S` |
-| `U` |
+| -------------- |
+| `T`            |
+| `S`            |
+| `U`            |
 
 ### Parameters
 
-| Parameter | Type |
-| ------ | ------ |
-| `a` | (`data`: `T`) => `data is S` |
-| `b` | (`data`: `T`) => `data is U` |
+| Parameter | Type                         |
+| --------- | ---------------------------- |
+| `a`       | (`data`: `T`) => `data is S` |
+| `b`       | (`data`: `T`) => `data is U` |
 
 ### Returns
 
@@ -114,16 +114,16 @@ isStringOrNumber("a") // => true
 ### Type Parameters
 
 | Type Parameter |
-| ------ |
-| `T` |
-| `S` |
+| -------------- |
+| `T`            |
+| `S`            |
 
 ### Parameters
 
-| Parameter | Type |
-| ------ | ------ |
-| `a` | (`data`: `T`) => `data is S` |
-| `b` | (`data`: `T`) => `boolean` |
+| Parameter | Type                         |
+| --------- | ---------------------------- |
+| `a`       | (`data`: `T`) => `data is S` |
+| `b`       | (`data`: `T`) => `boolean`   |
 
 ### Returns
 
@@ -138,16 +138,16 @@ isStringOrNumber("a") // => true
 ### Type Parameters
 
 | Type Parameter |
-| ------ |
-| `T` |
-| `U` |
+| -------------- |
+| `T`            |
+| `U`            |
 
 ### Parameters
 
-| Parameter | Type |
-| ------ | ------ |
-| `a` | (`data`: `T`) => `boolean` |
-| `b` | (`data`: `T`) => `data is U` |
+| Parameter | Type                         |
+| --------- | ---------------------------- |
+| `a`       | (`data`: `T`) => `boolean`   |
+| `b`       | (`data`: `T`) => `data is U` |
 
 ### Returns
 
@@ -162,15 +162,15 @@ isStringOrNumber("a") // => true
 ### Type Parameters
 
 | Type Parameter |
-| ------ |
-| `T` |
+| -------------- |
+| `T`            |
 
 ### Parameters
 
-| Parameter | Type |
-| ------ | ------ |
-| `a` | (`data`: `T`) => `boolean` |
-| `b` | (`data`: `T`) => `boolean` |
+| Parameter | Type                       |
+| --------- | -------------------------- |
+| `a`       | (`data`: `T`) => `boolean` |
+| `b`       | (`data`: `T`) => `boolean` |
 
 ### Returns
 
@@ -178,8 +178,8 @@ isStringOrNumber("a") // => true
 
 ## See
 
- - [and](and.md)
- - [xor](xor.md)
+- [and](and.md)
+- [xor](xor.md)
 
 ## Since
 

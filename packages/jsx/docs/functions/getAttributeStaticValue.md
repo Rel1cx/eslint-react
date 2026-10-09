@@ -3,11 +3,7 @@
 # Function: getAttributeStaticValue()
 
 ```ts
-function getAttributeStaticValue(
-   context: RuleContext, 
-   element: JSXElement, 
-   name: string
-): unknown;
+function getAttributeStaticValue(context: RuleContext, element: JSXElement, name: string): unknown;
 ```
 
 Find an attribute by name on a JSX element and collapse its value to a plain JavaScript value.
@@ -17,11 +13,11 @@ be statically determined; use [hasAttribute](hasAttribute.md) when presence itse
 
 ## Parameters
 
-| Parameter | Type | Description |
-| ------ | ------ | ------ |
-| `context` | `RuleContext` | The ESLint rule context. |
-| `element` | `JSXElement` | The `JSXElement` node to check. |
-| `name` | `string` | The attribute name to look up (ex: "className"). |
+| Parameter | Type          | Description                                      |
+| --------- | ------------- | ------------------------------------------------ |
+| `context` | `RuleContext` | The ESLint rule context.                         |
+| `element` | `JSXElement`  | The `JSXElement` node to check.                  |
+| `name`    | `string`      | The attribute name to look up (ex: "className"). |
 
 ## Returns
 

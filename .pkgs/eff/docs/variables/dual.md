@@ -4,8 +4,8 @@
 
 ```ts
 const dual: {
-<DataLast, DataFirst>  (arity: Parameters<DataFirst>["length"], body: DataFirst): DataLast & DataFirst;
-<DataLast, DataFirst>  (isDataFirst: (args: IArguments) => boolean, body: DataFirst): DataLast & DataFirst;
+  <DataLast, DataFirst>(arity: Parameters<DataFirst>["length"], body: DataFirst): DataLast & DataFirst;
+  <DataLast, DataFirst>(isDataFirst: (args: IArguments) => boolean, body: DataFirst): DataLast & DataFirst;
 };
 ```
 
@@ -26,46 +26,46 @@ predicate when optional arguments make arity ambiguous.
 **Example** (Selecting data-first or data-last style by arity)
 
 ```ts
-import { Function, pipe } from "effect"
+import { Function, pipe } from "effect";
 
 const sum = Function.dual<
   (that: number) => (self: number) => number,
   (self: number, that: number) => number
->(2, (self, that) => self + that)
+>(2, (self, that) => self + that);
 
-sum(2, 3) // => 5
-pipe(2, sum(3)) // => 5
+sum(2, 3); // => 5
+pipe(2, sum(3)); // => 5
 ```
 
 **Example** (Defining overloads with call signatures)
 
 ```ts
-import { Function, pipe } from "effect"
+import { Function, pipe } from "effect";
 
 const sum: {
-  (that: number): (self: number) => number
-  (self: number, that: number): number
-} = Function.dual(2, (self: number, that: number): number => self + that)
+  (that: number): (self: number) => number;
+  (self: number, that: number): number;
+} = Function.dual(2, (self: number, that: number): number => self + that);
 
-sum(2, 3) // => 5
-pipe(2, sum(3)) // => 5
+sum(2, 3); // => 5
+pipe(2, sum(3)); // => 5
 ```
 
 **Example** (Selecting data-first or data-last style with a predicate)
 
 ```ts
-import { Function, pipe } from "effect"
+import { Function, pipe } from "effect";
 
 const sum = Function.dual<
   (that: number) => (self: number) => number,
   (self: number, that: number) => number
 >(
   (args) => args.length === 2,
-  (self, that) => self + that
-)
+  (self, that) => self + that,
+);
 
-sum(2, 3) // => 5
-pipe(2, sum(3)) // => 5
+sum(2, 3); // => 5
+pipe(2, sum(3)); // => 5
 ```
 
 ## Call Signature
@@ -91,61 +91,61 @@ predicate when optional arguments make arity ambiguous.
 **Example** (Selecting data-first or data-last style by arity)
 
 ```ts
-import { Function, pipe } from "effect"
+import { Function, pipe } from "effect";
 
 const sum = Function.dual<
   (that: number) => (self: number) => number,
   (self: number, that: number) => number
->(2, (self, that) => self + that)
+>(2, (self, that) => self + that);
 
-sum(2, 3) // => 5
-pipe(2, sum(3)) // => 5
+sum(2, 3); // => 5
+pipe(2, sum(3)); // => 5
 ```
 
 **Example** (Defining overloads with call signatures)
 
 ```ts
-import { Function, pipe } from "effect"
+import { Function, pipe } from "effect";
 
 const sum: {
-  (that: number): (self: number) => number
-  (self: number, that: number): number
-} = Function.dual(2, (self: number, that: number): number => self + that)
+  (that: number): (self: number) => number;
+  (self: number, that: number): number;
+} = Function.dual(2, (self: number, that: number): number => self + that);
 
-sum(2, 3) // => 5
-pipe(2, sum(3)) // => 5
+sum(2, 3); // => 5
+pipe(2, sum(3)); // => 5
 ```
 
 **Example** (Selecting data-first or data-last style with a predicate)
 
 ```ts
-import { Function, pipe } from "effect"
+import { Function, pipe } from "effect";
 
 const sum = Function.dual<
   (that: number) => (self: number) => number,
   (self: number, that: number) => number
 >(
   (args) => args.length === 2,
-  (self, that) => self + that
-)
+  (self, that) => self + that,
+);
 
-sum(2, 3) // => 5
-pipe(2, sum(3)) // => 5
+sum(2, 3); // => 5
+pipe(2, sum(3)); // => 5
 ```
 
 ### Type Parameters
 
-| Type Parameter |
-| ------ |
-| `DataLast` *extends* (...`args`: `any`[]) => `any` |
-| `DataFirst` *extends* (...`args`: `any`[]) => `any` |
+| Type Parameter                                      |
+| --------------------------------------------------- |
+| `DataLast` _extends_ (...`args`: `any`[]) => `any`  |
+| `DataFirst` _extends_ (...`args`: `any`[]) => `any` |
 
 ### Parameters
 
-| Parameter | Type |
-| ------ | ------ |
-| `arity` | [`Parameters`](https://www.typescriptlang.org/docs/handbook/utility-types.html#parameterstype)\<`DataFirst`\>\[`"length"`\] |
-| `body` | `DataFirst` |
+| Parameter | Type                                                                                                                        |
+| --------- | --------------------------------------------------------------------------------------------------------------------------- |
+| `arity`   | [`Parameters`](https://www.typescriptlang.org/docs/handbook/utility-types.html#parameterstype)\<`DataFirst`\>\[`"length"`\] |
+| `body`    | `DataFirst`                                                                                                                 |
 
 ### Returns
 
@@ -178,61 +178,61 @@ predicate when optional arguments make arity ambiguous.
 **Example** (Selecting data-first or data-last style by arity)
 
 ```ts
-import { Function, pipe } from "effect"
+import { Function, pipe } from "effect";
 
 const sum = Function.dual<
   (that: number) => (self: number) => number,
   (self: number, that: number) => number
->(2, (self, that) => self + that)
+>(2, (self, that) => self + that);
 
-sum(2, 3) // => 5
-pipe(2, sum(3)) // => 5
+sum(2, 3); // => 5
+pipe(2, sum(3)); // => 5
 ```
 
 **Example** (Defining overloads with call signatures)
 
 ```ts
-import { Function, pipe } from "effect"
+import { Function, pipe } from "effect";
 
 const sum: {
-  (that: number): (self: number) => number
-  (self: number, that: number): number
-} = Function.dual(2, (self: number, that: number): number => self + that)
+  (that: number): (self: number) => number;
+  (self: number, that: number): number;
+} = Function.dual(2, (self: number, that: number): number => self + that);
 
-sum(2, 3) // => 5
-pipe(2, sum(3)) // => 5
+sum(2, 3); // => 5
+pipe(2, sum(3)); // => 5
 ```
 
 **Example** (Selecting data-first or data-last style with a predicate)
 
 ```ts
-import { Function, pipe } from "effect"
+import { Function, pipe } from "effect";
 
 const sum = Function.dual<
   (that: number) => (self: number) => number,
   (self: number, that: number) => number
 >(
   (args) => args.length === 2,
-  (self, that) => self + that
-)
+  (self, that) => self + that,
+);
 
-sum(2, 3) // => 5
-pipe(2, sum(3)) // => 5
+sum(2, 3); // => 5
+pipe(2, sum(3)); // => 5
 ```
 
 ### Type Parameters
 
-| Type Parameter |
-| ------ |
-| `DataLast` *extends* (...`args`: `any`[]) => `any` |
-| `DataFirst` *extends* (...`args`: `any`[]) => `any` |
+| Type Parameter                                      |
+| --------------------------------------------------- |
+| `DataLast` _extends_ (...`args`: `any`[]) => `any`  |
+| `DataFirst` _extends_ (...`args`: `any`[]) => `any` |
 
 ### Parameters
 
-| Parameter | Type |
-| ------ | ------ |
+| Parameter     | Type                                |
+| ------------- | ----------------------------------- |
 | `isDataFirst` | (`args`: `IArguments`) => `boolean` |
-| `body` | `DataFirst` |
+| `body`        | `DataFirst`                         |
 
 ### Returns
 

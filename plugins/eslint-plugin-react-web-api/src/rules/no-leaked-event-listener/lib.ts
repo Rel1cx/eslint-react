@@ -18,12 +18,12 @@ function isSignalPropertyBinding(context: RuleContext, node: TSESTree.Identifier
       continue;
     }
     const propView = View.of(prop);
-    const key = propView.getKey();
-    if (key.type !== AST.Identifier || key.name !== "signal") {
+    const key = propView.key;
+    if (key.node.type !== AST.Identifier || key.node.name !== "signal") {
       continue;
     }
-    const value = propView.getValue();
-    return value.type === AST.Identifier && value.name === node.name;
+    const value = propView.value;
+    return value.node.type === AST.Identifier && value.node.name === node.name;
   }
   return false;
 }
@@ -42,8 +42,8 @@ export function getSignalValueExpression(context: RuleContext, node: TSESTree.No
       // A `signal` destructured from `new AbortController()` is a valid signal expression
       // (e.g. `const { signal, abort } = new AbortController()`).
       if (unwrapped != null && unwrapped.type === AST.NewExpression && isSignalPropertyBinding(context, node)) {
-        const newCallee = View.of(unwrapped).getCallee();
-        if (newCallee.type === AST.Identifier && newCallee.name === "AbortController") {
+        const newCallee = View.of(unwrapped).callee;
+        if (newCallee.node.type === AST.Identifier && newCallee.node.name === "AbortController") {
           return node;
         }
       }

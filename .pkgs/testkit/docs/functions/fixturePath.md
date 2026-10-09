@@ -12,9 +12,9 @@ its content is irrelevant and never read.
 
 ## Parameters
 
-| Parameter | Type | Description |
-| ------ | ------ | ------ |
-| `name` | `string` | The fixture file name, e.g. `"file.ts"` or `"estree.tsx"` |
+| Parameter | Type     | Description                                               |
+| --------- | -------- | --------------------------------------------------------- |
+| `name`    | `string` | The fixture file name, e.g. `"file.ts"` or `"estree.tsx"` |
 
 ## Returns
 

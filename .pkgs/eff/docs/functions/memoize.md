@@ -3,10 +3,12 @@
 # Function: memoize()
 
 ```ts
-function memoize<A, O extends 
-  | {
-}
-  | null>(f: (a: A) => O): (a: A) => O;
+function memoize<
+  A,
+  O extends
+    | {}
+    | null,
+>(f: (a: A) => O): (a: A) => O;
 ```
 
 Creates a memoized function that caches the result of a synchronous,
@@ -28,16 +30,16 @@ be garbage collected; primitive keys are cached by value in a private
 
 ## Type Parameters
 
-| Type Parameter |
-| ------ |
-| `A` |
-| `O` *extends* \| \{ \} \| `null` |
+| Type Parameter                   |
+| -------------------------------- |
+| `A`                              |
+| `O` _extends_ \| \{ \} \| `null` |
 
 ## Parameters
 
-| Parameter | Type |
-| ------ | ------ |
-| `f` | (`a`: `A`) => `O` |
+| Parameter | Type              |
+| --------- | ----------------- |
+| `f`       | (`a`: `A`) => `O` |
 
 ## Returns
 

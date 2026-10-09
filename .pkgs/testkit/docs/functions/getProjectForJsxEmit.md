@@ -3,7 +3,7 @@
 # Function: getProjectForJsxEmit()
 
 ```ts
-function getProjectForJsxEmit(jsxEmit: JsxEmit): 
+function getProjectForJsxEmit(jsxEmit: JsxEmit):
   | "tsconfig.json"
   | "tsconfig.jsx-react.json"
   | "tsconfig.jsx-react-native.json"
@@ -12,13 +12,13 @@ function getProjectForJsxEmit(jsxEmit: JsxEmit):
 
 ## Parameters
 
-| Parameter | Type |
-| ------ | ------ |
+| Parameter | Type      |
+| --------- | --------- |
 | `jsxEmit` | `JsxEmit` |
 
 ## Returns
 
-  \| `"tsconfig.json"`
-  \| `"tsconfig.jsx-react.json"`
-  \| `"tsconfig.jsx-react-native.json"`
-  \| `"tsconfig.jsx-preserve.json"`
+\| `"tsconfig.json"`
+\| `"tsconfig.jsx-react.json"`
+\| `"tsconfig.jsx-react-native.json"`
+\| `"tsconfig.jsx-preserve.json"`

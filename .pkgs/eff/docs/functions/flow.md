@@ -23,28 +23,28 @@ unary.
 **Example** (Composing functions left to right)
 
 ```ts
-import { flow } from "effect"
+import { flow } from "effect";
 
-const len = (s: string): number => s.length
-const double = (n: number): number => n * 2
+const len = (s: string): number => s.length;
+const double = (n: number): number => n * 2;
 
-const f = flow(len, double)
+const f = flow(len, double);
 
-f("aaa") // => 6
+f("aaa"); // => 6
 ```
 
 ### Type Parameters
 
-| Type Parameter | Default type |
-| ------ | ------ |
-| `A` *extends* readonly `unknown`[] | - |
-| `B` | `never` |
+| Type Parameter                     | Default type |
+| ---------------------------------- | ------------ |
+| `A` _extends_ readonly `unknown`[] | -            |
+| `B`                                | `never`      |
 
 ### Parameters
 
-| Parameter | Type |
-| ------ | ------ |
-| `ab` | (...`a`: `A`) => `B` |
+| Parameter | Type                 |
+| --------- | -------------------- |
+| `ab`      | (...`a`: `A`) => `B` |
 
 ### Returns
 
@@ -52,8 +52,8 @@ f("aaa") // => 6
 
 ### See
 
- - [pipe](pipe.md) for applying a value through a left-to-right sequence immediately
- - [compose](../variables/compose.md) for composing exactly two functions
+- [pipe](pipe.md) for applying a value through a left-to-right sequence immediately
+- [compose](../variables/compose.md) for composing exactly two functions
 
 ### Since
 
@@ -80,30 +80,30 @@ unary.
 **Example** (Composing functions left to right)
 
 ```ts
-import { flow } from "effect"
+import { flow } from "effect";
 
-const len = (s: string): number => s.length
-const double = (n: number): number => n * 2
+const len = (s: string): number => s.length;
+const double = (n: number): number => n * 2;
 
-const f = flow(len, double)
+const f = flow(len, double);
 
-f("aaa") // => 6
+f("aaa"); // => 6
 ```
 
 ### Type Parameters
 
-| Type Parameter | Default type |
-| ------ | ------ |
-| `A` *extends* readonly `unknown`[] | - |
-| `B` | `never` |
-| `C` | `never` |
+| Type Parameter                     | Default type |
+| ---------------------------------- | ------------ |
+| `A` _extends_ readonly `unknown`[] | -            |
+| `B`                                | `never`      |
+| `C`                                | `never`      |
 
 ### Parameters
 
-| Parameter | Type |
-| ------ | ------ |
-| `ab` | (...`a`: `A`) => `B` |
-| `bc` | (`b`: `B`) => `C` |
+| Parameter | Type                 |
+| --------- | -------------------- |
+| `ab`      | (...`a`: `A`) => `B` |
+| `bc`      | (`b`: `B`) => `C`    |
 
 ### Returns
 
@@ -111,8 +111,8 @@ f("aaa") // => 6
 
 ### See
 
- - [pipe](pipe.md) for applying a value through a left-to-right sequence immediately
- - [compose](../variables/compose.md) for composing exactly two functions
+- [pipe](pipe.md) for applying a value through a left-to-right sequence immediately
+- [compose](../variables/compose.md) for composing exactly two functions
 
 ### Since
 
@@ -121,11 +121,7 @@ f("aaa") // => 6
 ## Call Signature
 
 ```ts
-function flow<A extends readonly unknown[], B = never, C = never, D = never>(
-   ab: (...a: A) => B, 
-   bc: (b: B) => C, 
-   cd: (c: C) => D
-): (...a: A) => D;
+function flow<A extends readonly unknown[], B = never, C = never, D = never>(ab: (...a: A) => B, bc: (b: B) => C, cd: (c: C) => D): (...a: A) => D;
 ```
 
 Performs left-to-right function composition.
@@ -143,32 +139,32 @@ unary.
 **Example** (Composing functions left to right)
 
 ```ts
-import { flow } from "effect"
+import { flow } from "effect";
 
-const len = (s: string): number => s.length
-const double = (n: number): number => n * 2
+const len = (s: string): number => s.length;
+const double = (n: number): number => n * 2;
 
-const f = flow(len, double)
+const f = flow(len, double);
 
-f("aaa") // => 6
+f("aaa"); // => 6
 ```
 
 ### Type Parameters
 
-| Type Parameter | Default type |
-| ------ | ------ |
-| `A` *extends* readonly `unknown`[] | - |
-| `B` | `never` |
-| `C` | `never` |
-| `D` | `never` |
+| Type Parameter                     | Default type |
+| ---------------------------------- | ------------ |
+| `A` _extends_ readonly `unknown`[] | -            |
+| `B`                                | `never`      |
+| `C`                                | `never`      |
+| `D`                                | `never`      |
 
 ### Parameters
 
-| Parameter | Type |
-| ------ | ------ |
-| `ab` | (...`a`: `A`) => `B` |
-| `bc` | (`b`: `B`) => `C` |
-| `cd` | (`c`: `C`) => `D` |
+| Parameter | Type                 |
+| --------- | -------------------- |
+| `ab`      | (...`a`: `A`) => `B` |
+| `bc`      | (`b`: `B`) => `C`    |
+| `cd`      | (`c`: `C`) => `D`    |
 
 ### Returns
 
@@ -176,8 +172,8 @@ f("aaa") // => 6
 
 ### See
 
- - [pipe](pipe.md) for applying a value through a left-to-right sequence immediately
- - [compose](../variables/compose.md) for composing exactly two functions
+- [pipe](pipe.md) for applying a value through a left-to-right sequence immediately
+- [compose](../variables/compose.md) for composing exactly two functions
 
 ### Since
 
@@ -187,10 +183,10 @@ f("aaa") // => 6
 
 ```ts
 function flow<A extends readonly unknown[], B = never, C = never, D = never, E = never>(
-   ab: (...a: A) => B, 
-   bc: (b: B) => C, 
-   cd: (c: C) => D, 
-   de: (d: D) => E
+  ab: (...a: A) => B,
+  bc: (b: B) => C,
+  cd: (c: C) => D,
+  de: (d: D) => E,
 ): (...a: A) => E;
 ```
 
@@ -209,34 +205,34 @@ unary.
 **Example** (Composing functions left to right)
 
 ```ts
-import { flow } from "effect"
+import { flow } from "effect";
 
-const len = (s: string): number => s.length
-const double = (n: number): number => n * 2
+const len = (s: string): number => s.length;
+const double = (n: number): number => n * 2;
 
-const f = flow(len, double)
+const f = flow(len, double);
 
-f("aaa") // => 6
+f("aaa"); // => 6
 ```
 
 ### Type Parameters
 
-| Type Parameter | Default type |
-| ------ | ------ |
-| `A` *extends* readonly `unknown`[] | - |
-| `B` | `never` |
-| `C` | `never` |
-| `D` | `never` |
-| `E` | `never` |
+| Type Parameter                     | Default type |
+| ---------------------------------- | ------------ |
+| `A` _extends_ readonly `unknown`[] | -            |
+| `B`                                | `never`      |
+| `C`                                | `never`      |
+| `D`                                | `never`      |
+| `E`                                | `never`      |
 
 ### Parameters
 
-| Parameter | Type |
-| ------ | ------ |
-| `ab` | (...`a`: `A`) => `B` |
-| `bc` | (`b`: `B`) => `C` |
-| `cd` | (`c`: `C`) => `D` |
-| `de` | (`d`: `D`) => `E` |
+| Parameter | Type                 |
+| --------- | -------------------- |
+| `ab`      | (...`a`: `A`) => `B` |
+| `bc`      | (`b`: `B`) => `C`    |
+| `cd`      | (`c`: `C`) => `D`    |
+| `de`      | (`d`: `D`) => `E`    |
 
 ### Returns
 
@@ -244,8 +240,8 @@ f("aaa") // => 6
 
 ### See
 
- - [pipe](pipe.md) for applying a value through a left-to-right sequence immediately
- - [compose](../variables/compose.md) for composing exactly two functions
+- [pipe](pipe.md) for applying a value through a left-to-right sequence immediately
+- [compose](../variables/compose.md) for composing exactly two functions
 
 ### Since
 
@@ -255,11 +251,11 @@ f("aaa") // => 6
 
 ```ts
 function flow<A extends readonly unknown[], B = never, C = never, D = never, E = never, F = never>(
-   ab: (...a: A) => B, 
-   bc: (b: B) => C, 
-   cd: (c: C) => D, 
-   de: (d: D) => E, 
-   ef: (e: E) => F
+  ab: (...a: A) => B,
+  bc: (b: B) => C,
+  cd: (c: C) => D,
+  de: (d: D) => E,
+  ef: (e: E) => F,
 ): (...a: A) => F;
 ```
 
@@ -278,36 +274,36 @@ unary.
 **Example** (Composing functions left to right)
 
 ```ts
-import { flow } from "effect"
+import { flow } from "effect";
 
-const len = (s: string): number => s.length
-const double = (n: number): number => n * 2
+const len = (s: string): number => s.length;
+const double = (n: number): number => n * 2;
 
-const f = flow(len, double)
+const f = flow(len, double);
 
-f("aaa") // => 6
+f("aaa"); // => 6
 ```
 
 ### Type Parameters
 
-| Type Parameter | Default type |
-| ------ | ------ |
-| `A` *extends* readonly `unknown`[] | - |
-| `B` | `never` |
-| `C` | `never` |
-| `D` | `never` |
-| `E` | `never` |
-| `F` | `never` |
+| Type Parameter                     | Default type |
+| ---------------------------------- | ------------ |
+| `A` _extends_ readonly `unknown`[] | -            |
+| `B`                                | `never`      |
+| `C`                                | `never`      |
+| `D`                                | `never`      |
+| `E`                                | `never`      |
+| `F`                                | `never`      |
 
 ### Parameters
 
-| Parameter | Type |
-| ------ | ------ |
-| `ab` | (...`a`: `A`) => `B` |
-| `bc` | (`b`: `B`) => `C` |
-| `cd` | (`c`: `C`) => `D` |
-| `de` | (`d`: `D`) => `E` |
-| `ef` | (`e`: `E`) => `F` |
+| Parameter | Type                 |
+| --------- | -------------------- |
+| `ab`      | (...`a`: `A`) => `B` |
+| `bc`      | (`b`: `B`) => `C`    |
+| `cd`      | (`c`: `C`) => `D`    |
+| `de`      | (`d`: `D`) => `E`    |
+| `ef`      | (`e`: `E`) => `F`    |
 
 ### Returns
 
@@ -315,8 +311,8 @@ f("aaa") // => 6
 
 ### See
 
- - [pipe](pipe.md) for applying a value through a left-to-right sequence immediately
- - [compose](../variables/compose.md) for composing exactly two functions
+- [pipe](pipe.md) for applying a value through a left-to-right sequence immediately
+- [compose](../variables/compose.md) for composing exactly two functions
 
 ### Since
 
@@ -326,12 +322,12 @@ f("aaa") // => 6
 
 ```ts
 function flow<A extends readonly unknown[], B = never, C = never, D = never, E = never, F = never, G = never>(
-   ab: (...a: A) => B, 
-   bc: (b: B) => C, 
-   cd: (c: C) => D, 
-   de: (d: D) => E, 
-   ef: (e: E) => F, 
-   fg: (f: F) => G
+  ab: (...a: A) => B,
+  bc: (b: B) => C,
+  cd: (c: C) => D,
+  de: (d: D) => E,
+  ef: (e: E) => F,
+  fg: (f: F) => G,
 ): (...a: A) => G;
 ```
 
@@ -350,38 +346,38 @@ unary.
 **Example** (Composing functions left to right)
 
 ```ts
-import { flow } from "effect"
+import { flow } from "effect";
 
-const len = (s: string): number => s.length
-const double = (n: number): number => n * 2
+const len = (s: string): number => s.length;
+const double = (n: number): number => n * 2;
 
-const f = flow(len, double)
+const f = flow(len, double);
 
-f("aaa") // => 6
+f("aaa"); // => 6
 ```
 
 ### Type Parameters
 
-| Type Parameter | Default type |
-| ------ | ------ |
-| `A` *extends* readonly `unknown`[] | - |
-| `B` | `never` |
-| `C` | `never` |
-| `D` | `never` |
-| `E` | `never` |
-| `F` | `never` |
-| `G` | `never` |
+| Type Parameter                     | Default type |
+| ---------------------------------- | ------------ |
+| `A` _extends_ readonly `unknown`[] | -            |
+| `B`                                | `never`      |
+| `C`                                | `never`      |
+| `D`                                | `never`      |
+| `E`                                | `never`      |
+| `F`                                | `never`      |
+| `G`                                | `never`      |
 
 ### Parameters
 
-| Parameter | Type |
-| ------ | ------ |
-| `ab` | (...`a`: `A`) => `B` |
-| `bc` | (`b`: `B`) => `C` |
-| `cd` | (`c`: `C`) => `D` |
-| `de` | (`d`: `D`) => `E` |
-| `ef` | (`e`: `E`) => `F` |
-| `fg` | (`f`: `F`) => `G` |
+| Parameter | Type                 |
+| --------- | -------------------- |
+| `ab`      | (...`a`: `A`) => `B` |
+| `bc`      | (`b`: `B`) => `C`    |
+| `cd`      | (`c`: `C`) => `D`    |
+| `de`      | (`d`: `D`) => `E`    |
+| `ef`      | (`e`: `E`) => `F`    |
+| `fg`      | (`f`: `F`) => `G`    |
 
 ### Returns
 
@@ -389,8 +385,8 @@ f("aaa") // => 6
 
 ### See
 
- - [pipe](pipe.md) for applying a value through a left-to-right sequence immediately
- - [compose](../variables/compose.md) for composing exactly two functions
+- [pipe](pipe.md) for applying a value through a left-to-right sequence immediately
+- [compose](../variables/compose.md) for composing exactly two functions
 
 ### Since
 
@@ -400,13 +396,13 @@ f("aaa") // => 6
 
 ```ts
 function flow<A extends readonly unknown[], B = never, C = never, D = never, E = never, F = never, G = never, H = never>(
-   ab: (...a: A) => B, 
-   bc: (b: B) => C, 
-   cd: (c: C) => D, 
-   de: (d: D) => E, 
-   ef: (e: E) => F, 
-   fg: (f: F) => G, 
-   gh: (g: G) => H
+  ab: (...a: A) => B,
+  bc: (b: B) => C,
+  cd: (c: C) => D,
+  de: (d: D) => E,
+  ef: (e: E) => F,
+  fg: (f: F) => G,
+  gh: (g: G) => H,
 ): (...a: A) => H;
 ```
 
@@ -425,40 +421,40 @@ unary.
 **Example** (Composing functions left to right)
 
 ```ts
-import { flow } from "effect"
+import { flow } from "effect";
 
-const len = (s: string): number => s.length
-const double = (n: number): number => n * 2
+const len = (s: string): number => s.length;
+const double = (n: number): number => n * 2;
 
-const f = flow(len, double)
+const f = flow(len, double);
 
-f("aaa") // => 6
+f("aaa"); // => 6
 ```
 
 ### Type Parameters
 
-| Type Parameter | Default type |
-| ------ | ------ |
-| `A` *extends* readonly `unknown`[] | - |
-| `B` | `never` |
-| `C` | `never` |
-| `D` | `never` |
-| `E` | `never` |
-| `F` | `never` |
-| `G` | `never` |
-| `H` | `never` |
+| Type Parameter                     | Default type |
+| ---------------------------------- | ------------ |
+| `A` _extends_ readonly `unknown`[] | -            |
+| `B`                                | `never`      |
+| `C`                                | `never`      |
+| `D`                                | `never`      |
+| `E`                                | `never`      |
+| `F`                                | `never`      |
+| `G`                                | `never`      |
+| `H`                                | `never`      |
 
 ### Parameters
 
-| Parameter | Type |
-| ------ | ------ |
-| `ab` | (...`a`: `A`) => `B` |
-| `bc` | (`b`: `B`) => `C` |
-| `cd` | (`c`: `C`) => `D` |
-| `de` | (`d`: `D`) => `E` |
-| `ef` | (`e`: `E`) => `F` |
-| `fg` | (`f`: `F`) => `G` |
-| `gh` | (`g`: `G`) => `H` |
+| Parameter | Type                 |
+| --------- | -------------------- |
+| `ab`      | (...`a`: `A`) => `B` |
+| `bc`      | (`b`: `B`) => `C`    |
+| `cd`      | (`c`: `C`) => `D`    |
+| `de`      | (`d`: `D`) => `E`    |
+| `ef`      | (`e`: `E`) => `F`    |
+| `fg`      | (`f`: `F`) => `G`    |
+| `gh`      | (`g`: `G`) => `H`    |
 
 ### Returns
 
@@ -466,8 +462,8 @@ f("aaa") // => 6
 
 ### See
 
- - [pipe](pipe.md) for applying a value through a left-to-right sequence immediately
- - [compose](../variables/compose.md) for composing exactly two functions
+- [pipe](pipe.md) for applying a value through a left-to-right sequence immediately
+- [compose](../variables/compose.md) for composing exactly two functions
 
 ### Since
 
@@ -477,14 +473,14 @@ f("aaa") // => 6
 
 ```ts
 function flow<A extends readonly unknown[], B = never, C = never, D = never, E = never, F = never, G = never, H = never, I = never>(
-   ab: (...a: A) => B, 
-   bc: (b: B) => C, 
-   cd: (c: C) => D, 
-   de: (d: D) => E, 
-   ef: (e: E) => F, 
-   fg: (f: F) => G, 
-   gh: (g: G) => H, 
-   hi: (h: H) => I
+  ab: (...a: A) => B,
+  bc: (b: B) => C,
+  cd: (c: C) => D,
+  de: (d: D) => E,
+  ef: (e: E) => F,
+  fg: (f: F) => G,
+  gh: (g: G) => H,
+  hi: (h: H) => I,
 ): (...a: A) => I;
 ```
 
@@ -503,42 +499,42 @@ unary.
 **Example** (Composing functions left to right)
 
 ```ts
-import { flow } from "effect"
+import { flow } from "effect";
 
-const len = (s: string): number => s.length
-const double = (n: number): number => n * 2
+const len = (s: string): number => s.length;
+const double = (n: number): number => n * 2;
 
-const f = flow(len, double)
+const f = flow(len, double);
 
-f("aaa") // => 6
+f("aaa"); // => 6
 ```
 
 ### Type Parameters
 
-| Type Parameter | Default type |
-| ------ | ------ |
-| `A` *extends* readonly `unknown`[] | - |
-| `B` | `never` |
-| `C` | `never` |
-| `D` | `never` |
-| `E` | `never` |
-| `F` | `never` |
-| `G` | `never` |
-| `H` | `never` |
-| `I` | `never` |
+| Type Parameter                     | Default type |
+| ---------------------------------- | ------------ |
+| `A` _extends_ readonly `unknown`[] | -            |
+| `B`                                | `never`      |
+| `C`                                | `never`      |
+| `D`                                | `never`      |
+| `E`                                | `never`      |
+| `F`                                | `never`      |
+| `G`                                | `never`      |
+| `H`                                | `never`      |
+| `I`                                | `never`      |
 
 ### Parameters
 
-| Parameter | Type |
-| ------ | ------ |
-| `ab` | (...`a`: `A`) => `B` |
-| `bc` | (`b`: `B`) => `C` |
-| `cd` | (`c`: `C`) => `D` |
-| `de` | (`d`: `D`) => `E` |
-| `ef` | (`e`: `E`) => `F` |
-| `fg` | (`f`: `F`) => `G` |
-| `gh` | (`g`: `G`) => `H` |
-| `hi` | (`h`: `H`) => `I` |
+| Parameter | Type                 |
+| --------- | -------------------- |
+| `ab`      | (...`a`: `A`) => `B` |
+| `bc`      | (`b`: `B`) => `C`    |
+| `cd`      | (`c`: `C`) => `D`    |
+| `de`      | (`d`: `D`) => `E`    |
+| `ef`      | (`e`: `E`) => `F`    |
+| `fg`      | (`f`: `F`) => `G`    |
+| `gh`      | (`g`: `G`) => `H`    |
+| `hi`      | (`h`: `H`) => `I`    |
 
 ### Returns
 
@@ -546,8 +542,8 @@ f("aaa") // => 6
 
 ### See
 
- - [pipe](pipe.md) for applying a value through a left-to-right sequence immediately
- - [compose](../variables/compose.md) for composing exactly two functions
+- [pipe](pipe.md) for applying a value through a left-to-right sequence immediately
+- [compose](../variables/compose.md) for composing exactly two functions
 
 ### Since
 
@@ -557,15 +553,15 @@ f("aaa") // => 6
 
 ```ts
 function flow<A extends readonly unknown[], B = never, C = never, D = never, E = never, F = never, G = never, H = never, I = never, J = never>(
-   ab: (...a: A) => B, 
-   bc: (b: B) => C, 
-   cd: (c: C) => D, 
-   de: (d: D) => E, 
-   ef: (e: E) => F, 
-   fg: (f: F) => G, 
-   gh: (g: G) => H, 
-   hi: (h: H) => I, 
-   ij: (i: I) => J
+  ab: (...a: A) => B,
+  bc: (b: B) => C,
+  cd: (c: C) => D,
+  de: (d: D) => E,
+  ef: (e: E) => F,
+  fg: (f: F) => G,
+  gh: (g: G) => H,
+  hi: (h: H) => I,
+  ij: (i: I) => J,
 ): (...a: A) => J;
 ```
 
@@ -584,44 +580,44 @@ unary.
 **Example** (Composing functions left to right)
 
 ```ts
-import { flow } from "effect"
+import { flow } from "effect";
 
-const len = (s: string): number => s.length
-const double = (n: number): number => n * 2
+const len = (s: string): number => s.length;
+const double = (n: number): number => n * 2;
 
-const f = flow(len, double)
+const f = flow(len, double);
 
-f("aaa") // => 6
+f("aaa"); // => 6
 ```
 
 ### Type Parameters
 
-| Type Parameter | Default type |
-| ------ | ------ |
-| `A` *extends* readonly `unknown`[] | - |
-| `B` | `never` |
-| `C` | `never` |
-| `D` | `never` |
-| `E` | `never` |
-| `F` | `never` |
-| `G` | `never` |
-| `H` | `never` |
-| `I` | `never` |
-| `J` | `never` |
+| Type Parameter                     | Default type |
+| ---------------------------------- | ------------ |
+| `A` _extends_ readonly `unknown`[] | -            |
+| `B`                                | `never`      |
+| `C`                                | `never`      |
+| `D`                                | `never`      |
+| `E`                                | `never`      |
+| `F`                                | `never`      |
+| `G`                                | `never`      |
+| `H`                                | `never`      |
+| `I`                                | `never`      |
+| `J`                                | `never`      |
 
 ### Parameters
 
-| Parameter | Type |
-| ------ | ------ |
-| `ab` | (...`a`: `A`) => `B` |
-| `bc` | (`b`: `B`) => `C` |
-| `cd` | (`c`: `C`) => `D` |
-| `de` | (`d`: `D`) => `E` |
-| `ef` | (`e`: `E`) => `F` |
-| `fg` | (`f`: `F`) => `G` |
-| `gh` | (`g`: `G`) => `H` |
-| `hi` | (`h`: `H`) => `I` |
-| `ij` | (`i`: `I`) => `J` |
+| Parameter | Type                 |
+| --------- | -------------------- |
+| `ab`      | (...`a`: `A`) => `B` |
+| `bc`      | (`b`: `B`) => `C`    |
+| `cd`      | (`c`: `C`) => `D`    |
+| `de`      | (`d`: `D`) => `E`    |
+| `ef`      | (`e`: `E`) => `F`    |
+| `fg`      | (`f`: `F`) => `G`    |
+| `gh`      | (`g`: `G`) => `H`    |
+| `hi`      | (`h`: `H`) => `I`    |
+| `ij`      | (`i`: `I`) => `J`    |
 
 ### Returns
 
@@ -629,8 +625,8 @@ f("aaa") // => 6
 
 ### See
 
- - [pipe](pipe.md) for applying a value through a left-to-right sequence immediately
- - [compose](../variables/compose.md) for composing exactly two functions
+- [pipe](pipe.md) for applying a value through a left-to-right sequence immediately
+- [compose](../variables/compose.md) for composing exactly two functions
 
 ### Since
 

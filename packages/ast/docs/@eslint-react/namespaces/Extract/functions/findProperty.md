@@ -10,10 +10,10 @@ Find a property by name in a list of object literal properties, recursing into s
 
 ## Parameters
 
-| Parameter | Type | Description |
-| ------ | ------ | ------ |
+| Parameter    | Type                     | Description                              |
+| ------------ | ------------------------ | ---------------------------------------- |
 | `properties` | `ObjectLiteralElement`[] | The object literal properties to search. |
-| `name` | `string` | The property name to look for. |
+| `name`       | `string`                 | The property name to look for.           |
 
 ## Returns
 

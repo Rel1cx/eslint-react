@@ -14,9 +14,9 @@ For the looser "any whitespace-only text" check, see [isWhitespaceText](isWhites
 
 ## Parameters
 
-| Parameter | Type | Description |
-| ------ | ------ | ------ |
-| `node` | `JSXChild` | The JSX child node to check. |
+| Parameter | Type       | Description                  |
+| --------- | ---------- | ---------------------------- |
+| `node`    | `JSXChild` | The JSX child node to check. |
 
 ## Returns
 

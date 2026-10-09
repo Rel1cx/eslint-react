@@ -10,8 +10,8 @@ Enforce boolean prop naming convention.
 
 ## Parameters
 
-| Parameter | Type |
-| ------ | ------ |
+| Parameter  | Type                                                                      |
+| ---------- | ------------------------------------------------------------------------- |
 | `options?` | [`BooleanPropNamingOptions`](../type-aliases/BooleanPropNamingOptions.md) |
 
 ## Returns

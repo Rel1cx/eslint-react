@@ -13,7 +13,7 @@ An expression statement that is a directive (ex: `"use strict"`).
 
 ## Type Declaration
 
-| Name | Type |
-| ------ | ------ |
-| `directive` | `string` |
+| Name         | Type                     |
+| ------------ | ------------------------ |
+| `directive`  | `string`                 |
 | `expression` | `TSESTree.StringLiteral` |

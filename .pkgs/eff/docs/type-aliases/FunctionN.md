@@ -1,6 +1,6 @@
 [@local/eff](../README.md) / FunctionN
 
-# Type Alias: FunctionN\<A *extends* `ReadonlyArray`\<`unknown`\>, B\>
+# Type Alias: FunctionN\<A _extends_ `ReadonlyArray`\<`unknown`\>, B\>
 
 ```ts
 type FunctionN<A extends ReadonlyArray<unknown>, B> = (...args: A) => B;
@@ -16,24 +16,24 @@ type.
 **Example** (Typing a variadic function)
 
 ```ts
-import type { Function } from "effect"
+import type { Function } from "effect";
 
-const sum: Function.FunctionN<[number, number], number> = (a, b) => a + b
-sum(2, 3) // => 5
+const sum: Function.FunctionN<[number, number], number> = (a, b) => a + b;
+sum(2, 3); // => 5
 ```
 
 ## Type Parameters
 
-| Type Parameter |
-| ------ |
-| `A` *extends* `ReadonlyArray`\<`unknown`\> |
-| `B` |
+| Type Parameter                             |
+| ------------------------------------------ |
+| `A` _extends_ `ReadonlyArray`\<`unknown`\> |
+| `B`                                        |
 
 ## Parameters
 
 | Parameter | Type |
-| ------ | ------ |
-| ...`args` | `A` |
+| --------- | ---- |
+| ...`args` | `A`  |
 
 ## Returns
 

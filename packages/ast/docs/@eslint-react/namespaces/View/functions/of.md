@@ -13,16 +13,16 @@ Node types without a dedicated view get an instance of the base `Class`.
 
 ### Parameters
 
-| Parameter | Type | Description |
-| ------ | ------ | ------ |
-| `node` | `AssignmentExpression` | The node to wrap. The tree is never modified or copied. |
+| Parameter  | Type                                          | Description                                              |
+| ---------- | --------------------------------------------- | -------------------------------------------------------- |
+| `node`     | `AssignmentExpression`                        | The node to wrap. The tree is never modified or copied.  |
 | `context?` | [`ViewContext`](../interfaces/ViewContext.md) | Optional rule context for getters that need source text. |
 
 ### Returns
 
 [`AssignmentExpressionView`](../classes/AssignmentExpressionView.md)
 
-A view exposing unwrapping `get*` accessors for the node.
+A view whose getters return views over the node's children.
 
 ## Call Signature
 
@@ -35,16 +35,16 @@ Node types without a dedicated view get an instance of the base `Class`.
 
 ### Parameters
 
-| Parameter | Type | Description |
-| ------ | ------ | ------ |
-| `node` | `AwaitExpression` | The node to wrap. The tree is never modified or copied. |
+| Parameter  | Type                                          | Description                                              |
+| ---------- | --------------------------------------------- | -------------------------------------------------------- |
+| `node`     | `AwaitExpression`                             | The node to wrap. The tree is never modified or copied.  |
 | `context?` | [`ViewContext`](../interfaces/ViewContext.md) | Optional rule context for getters that need source text. |
 
 ### Returns
 
 [`AwaitExpressionView`](../classes/AwaitExpressionView.md)
 
-A view exposing unwrapping `get*` accessors for the node.
+A view whose getters return views over the node's children.
 
 ## Call Signature
 
@@ -57,16 +57,16 @@ Node types without a dedicated view get an instance of the base `Class`.
 
 ### Parameters
 
-| Parameter | Type | Description |
-| ------ | ------ | ------ |
-| `node` | `BinaryExpression` | The node to wrap. The tree is never modified or copied. |
+| Parameter  | Type                                          | Description                                              |
+| ---------- | --------------------------------------------- | -------------------------------------------------------- |
+| `node`     | `BinaryExpression`                            | The node to wrap. The tree is never modified or copied.  |
 | `context?` | [`ViewContext`](../interfaces/ViewContext.md) | Optional rule context for getters that need source text. |
 
 ### Returns
 
 [`BinaryExpressionView`](../classes/BinaryExpressionView.md)
 
-A view exposing unwrapping `get*` accessors for the node.
+A view whose getters return views over the node's children.
 
 ## Call Signature
 
@@ -79,16 +79,16 @@ Node types without a dedicated view get an instance of the base `Class`.
 
 ### Parameters
 
-| Parameter | Type | Description |
-| ------ | ------ | ------ |
-| `node` | `CallExpression` | The node to wrap. The tree is never modified or copied. |
+| Parameter  | Type                                          | Description                                              |
+| ---------- | --------------------------------------------- | -------------------------------------------------------- |
+| `node`     | `CallExpression`                              | The node to wrap. The tree is never modified or copied.  |
 | `context?` | [`ViewContext`](../interfaces/ViewContext.md) | Optional rule context for getters that need source text. |
 
 ### Returns
 
 [`CallExpressionView`](../classes/CallExpressionView.md)
 
-A view exposing unwrapping `get*` accessors for the node.
+A view whose getters return views over the node's children.
 
 ## Call Signature
 
@@ -101,16 +101,16 @@ Node types without a dedicated view get an instance of the base `Class`.
 
 ### Parameters
 
-| Parameter | Type | Description |
-| ------ | ------ | ------ |
-| `node` | `ConditionalExpression` | The node to wrap. The tree is never modified or copied. |
+| Parameter  | Type                                          | Description                                              |
+| ---------- | --------------------------------------------- | -------------------------------------------------------- |
+| `node`     | `ConditionalExpression`                       | The node to wrap. The tree is never modified or copied.  |
 | `context?` | [`ViewContext`](../interfaces/ViewContext.md) | Optional rule context for getters that need source text. |
 
 ### Returns
 
 [`ConditionalExpressionView`](../classes/ConditionalExpressionView.md)
 
-A view exposing unwrapping `get*` accessors for the node.
+A view whose getters return views over the node's children.
 
 ## Call Signature
 
@@ -123,16 +123,16 @@ Node types without a dedicated view get an instance of the base `Class`.
 
 ### Parameters
 
-| Parameter | Type | Description |
-| ------ | ------ | ------ |
-| `node` | `ExpressionStatement` | The node to wrap. The tree is never modified or copied. |
+| Parameter  | Type                                          | Description                                              |
+| ---------- | --------------------------------------------- | -------------------------------------------------------- |
+| `node`     | `ExpressionStatement`                         | The node to wrap. The tree is never modified or copied.  |
 | `context?` | [`ViewContext`](../interfaces/ViewContext.md) | Optional rule context for getters that need source text. |
 
 ### Returns
 
 [`ExpressionStatementView`](../classes/ExpressionStatementView.md)
 
-A view exposing unwrapping `get*` accessors for the node.
+A view whose getters return views over the node's children.
 
 ## Call Signature
 
@@ -145,16 +145,16 @@ Node types without a dedicated view get an instance of the base `Class`.
 
 ### Parameters
 
-| Parameter | Type | Description |
-| ------ | ------ | ------ |
-| `node` | `JSXExpressionContainer` | The node to wrap. The tree is never modified or copied. |
+| Parameter  | Type                                          | Description                                              |
+| ---------- | --------------------------------------------- | -------------------------------------------------------- |
+| `node`     | `JSXExpressionContainer`                      | The node to wrap. The tree is never modified or copied.  |
 | `context?` | [`ViewContext`](../interfaces/ViewContext.md) | Optional rule context for getters that need source text. |
 
 ### Returns
 
 [`JSXExpressionContainerView`](../classes/JSXExpressionContainerView.md)
 
-A view exposing unwrapping `get*` accessors for the node.
+A view whose getters return views over the node's children.
 
 ## Call Signature
 
@@ -167,16 +167,16 @@ Node types without a dedicated view get an instance of the base `Class`.
 
 ### Parameters
 
-| Parameter | Type | Description |
-| ------ | ------ | ------ |
-| `node` | `LogicalExpression` | The node to wrap. The tree is never modified or copied. |
+| Parameter  | Type                                          | Description                                              |
+| ---------- | --------------------------------------------- | -------------------------------------------------------- |
+| `node`     | `LogicalExpression`                           | The node to wrap. The tree is never modified or copied.  |
 | `context?` | [`ViewContext`](../interfaces/ViewContext.md) | Optional rule context for getters that need source text. |
 
 ### Returns
 
 [`LogicalExpressionView`](../classes/LogicalExpressionView.md)
 
-A view exposing unwrapping `get*` accessors for the node.
+A view whose getters return views over the node's children.
 
 ## Call Signature
 
@@ -189,16 +189,16 @@ Node types without a dedicated view get an instance of the base `Class`.
 
 ### Parameters
 
-| Parameter | Type | Description |
-| ------ | ------ | ------ |
-| `node` | `MemberExpression` | The node to wrap. The tree is never modified or copied. |
+| Parameter  | Type                                          | Description                                              |
+| ---------- | --------------------------------------------- | -------------------------------------------------------- |
+| `node`     | `MemberExpression`                            | The node to wrap. The tree is never modified or copied.  |
 | `context?` | [`ViewContext`](../interfaces/ViewContext.md) | Optional rule context for getters that need source text. |
 
 ### Returns
 
 [`MemberExpressionView`](../classes/MemberExpressionView.md)
 
-A view exposing unwrapping `get*` accessors for the node.
+A view whose getters return views over the node's children.
 
 ## Call Signature
 
@@ -211,16 +211,16 @@ Node types without a dedicated view get an instance of the base `Class`.
 
 ### Parameters
 
-| Parameter | Type | Description |
-| ------ | ------ | ------ |
-| `node` | `NewExpression` | The node to wrap. The tree is never modified or copied. |
+| Parameter  | Type                                          | Description                                              |
+| ---------- | --------------------------------------------- | -------------------------------------------------------- |
+| `node`     | `NewExpression`                               | The node to wrap. The tree is never modified or copied.  |
 | `context?` | [`ViewContext`](../interfaces/ViewContext.md) | Optional rule context for getters that need source text. |
 
 ### Returns
 
 [`NewExpressionView`](../classes/NewExpressionView.md)
 
-A view exposing unwrapping `get*` accessors for the node.
+A view whose getters return views over the node's children.
 
 ## Call Signature
 
@@ -233,16 +233,16 @@ Node types without a dedicated view get an instance of the base `Class`.
 
 ### Parameters
 
-| Parameter | Type | Description |
-| ------ | ------ | ------ |
-| `node` | `Property` | The node to wrap. The tree is never modified or copied. |
+| Parameter  | Type                                          | Description                                              |
+| ---------- | --------------------------------------------- | -------------------------------------------------------- |
+| `node`     | `Property`                                    | The node to wrap. The tree is never modified or copied.  |
 | `context?` | [`ViewContext`](../interfaces/ViewContext.md) | Optional rule context for getters that need source text. |
 
 ### Returns
 
 [`PropertyView`](../classes/PropertyView.md)
 
-A view exposing unwrapping `get*` accessors for the node.
+A view whose getters return views over the node's children.
 
 ## Call Signature
 
@@ -255,16 +255,16 @@ Node types without a dedicated view get an instance of the base `Class`.
 
 ### Parameters
 
-| Parameter | Type | Description |
-| ------ | ------ | ------ |
-| `node` | `ReturnStatement` | The node to wrap. The tree is never modified or copied. |
+| Parameter  | Type                                          | Description                                              |
+| ---------- | --------------------------------------------- | -------------------------------------------------------- |
+| `node`     | `ReturnStatement`                             | The node to wrap. The tree is never modified or copied.  |
 | `context?` | [`ViewContext`](../interfaces/ViewContext.md) | Optional rule context for getters that need source text. |
 
 ### Returns
 
 [`ReturnStatementView`](../classes/ReturnStatementView.md)
 
-A view exposing unwrapping `get*` accessors for the node.
+A view whose getters return views over the node's children.
 
 ## Call Signature
 
@@ -277,16 +277,16 @@ Node types without a dedicated view get an instance of the base `Class`.
 
 ### Parameters
 
-| Parameter | Type | Description |
-| ------ | ------ | ------ |
-| `node` | `ThrowStatement` | The node to wrap. The tree is never modified or copied. |
+| Parameter  | Type                                          | Description                                              |
+| ---------- | --------------------------------------------- | -------------------------------------------------------- |
+| `node`     | `ThrowStatement`                              | The node to wrap. The tree is never modified or copied.  |
 | `context?` | [`ViewContext`](../interfaces/ViewContext.md) | Optional rule context for getters that need source text. |
 
 ### Returns
 
 [`ThrowStatementView`](../classes/ThrowStatementView.md)
 
-A view exposing unwrapping `get*` accessors for the node.
+A view whose getters return views over the node's children.
 
 ## Call Signature
 
@@ -299,16 +299,16 @@ Node types without a dedicated view get an instance of the base `Class`.
 
 ### Parameters
 
-| Parameter | Type | Description |
-| ------ | ------ | ------ |
-| `node` | `UnaryExpression` | The node to wrap. The tree is never modified or copied. |
+| Parameter  | Type                                          | Description                                              |
+| ---------- | --------------------------------------------- | -------------------------------------------------------- |
+| `node`     | `UnaryExpression`                             | The node to wrap. The tree is never modified or copied.  |
 | `context?` | [`ViewContext`](../interfaces/ViewContext.md) | Optional rule context for getters that need source text. |
 
 ### Returns
 
 [`UnaryExpressionView`](../classes/UnaryExpressionView.md)
 
-A view exposing unwrapping `get*` accessors for the node.
+A view whose getters return views over the node's children.
 
 ## Call Signature
 
@@ -321,35 +321,41 @@ Node types without a dedicated view get an instance of the base `Class`.
 
 ### Parameters
 
-| Parameter | Type | Description |
-| ------ | ------ | ------ |
-| `node` | `VariableDeclarator` | The node to wrap. The tree is never modified or copied. |
+| Parameter  | Type                                          | Description                                              |
+| ---------- | --------------------------------------------- | -------------------------------------------------------- |
+| `node`     | `VariableDeclarator`                          | The node to wrap. The tree is never modified or copied.  |
 | `context?` | [`ViewContext`](../interfaces/ViewContext.md) | Optional rule context for getters that need source text. |
 
 ### Returns
 
 [`VariableDeclaratorView`](../classes/VariableDeclaratorView.md)
 
-A view exposing unwrapping `get*` accessors for the node.
+A view whose getters return views over the node's children.
 
 ## Call Signature
 
 ```ts
-function of(node: Node, context?: ViewContext): View;
+function of<N extends Node>(node: N, context?: ViewContext): View<N>;
 ```
 
 Create the most specific view for a node.
 Node types without a dedicated view get an instance of the base `Class`.
 
+### Type Parameters
+
+| Type Parameter       |
+| -------------------- |
+| `N` _extends_ `Node` |
+
 ### Parameters
 
-| Parameter | Type | Description |
-| ------ | ------ | ------ |
-| `node` | `Node` | The node to wrap. The tree is never modified or copied. |
+| Parameter  | Type                                          | Description                                              |
+| ---------- | --------------------------------------------- | -------------------------------------------------------- |
+| `node`     | `N`                                           | The node to wrap. The tree is never modified or copied.  |
 | `context?` | [`ViewContext`](../interfaces/ViewContext.md) | Optional rule context for getters that need source text. |
 
 ### Returns
 
-[`View`](../interfaces/View.md)
+[`View`](../interfaces/View.md)\<`N`\>
 
-A view exposing unwrapping `get*` accessors for the node.
+A view whose getters return views over the node's children.

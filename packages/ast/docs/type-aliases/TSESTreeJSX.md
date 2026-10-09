@@ -3,7 +3,7 @@
 # Type Alias: TSESTreeJSX
 
 ```ts
-type TSESTreeJSX = 
+type TSESTreeJSX =
   | TSESTree.JSXAttribute
   | TSESTree.JSXClosingElement
   | TSESTree.JSXClosingFragment

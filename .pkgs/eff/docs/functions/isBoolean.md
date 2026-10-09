@@ -20,20 +20,20 @@ Uses `typeof input === "boolean"`.
 **Example** (Guarding booleans)
 
 ```ts
-import { Predicate } from "effect"
+import { Predicate } from "effect";
 
-const data: unknown = true
+const data: unknown = true;
 
 if (Predicate.isBoolean(data)) {
-  data ? "yes" : "no" // => "yes"
+  data ? "yes" : "no"; // => "yes"
 }
 ```
 
 ## Parameters
 
-| Parameter | Type |
-| ------ | ------ |
-| `input` | `unknown` |
+| Parameter | Type      |
+| --------- | --------- |
+| `input`   | `unknown` |
 
 ## Returns
 
@@ -41,8 +41,8 @@ if (Predicate.isBoolean(data)) {
 
 ## See
 
- - [isString](isString.md)
- - [isNumber](isNumber.md)
+- [isString](isString.md)
+- [isNumber](isNumber.md)
 
 ## Since
 

@@ -1,6 +1,6 @@
 [@eslint-react/ast](../../../../README.md) / [View](../README.md) / Class
 
-# Class: Class\<N *extends* `TSESTree.Node` = `TSESTree.Node`\>
+# Class: Class\<N _extends_ `TSESTree.Node` = `TSESTree.Node`\>
 
 Base class of all node views, consumed as `View.Class`.
 
@@ -9,14 +9,13 @@ fallback returned by `of()` for node types without a dedicated view.
 
 Experimental read-only facade over a `TSESTree` node.
 
-Views expose only `get*` accessors that return references into the original
-tree with type and chain expressions unwrapped where the accessor's semantics
-call for it. They never modify or copy the tree, so returned nodes keep their
-identity and remain usable with `===` comparisons, scope analysis, WeakMap
-caches, and `context.report`.
-
-Views are an alternative to calling `Extract.unwrap` at each analysis site,
-not a replacement; the original node stays reachable via `.node`.
+Views expose only getter accessors. Accessors that read a child node return
+a view over that node, created via `of()` with the view's context passed
+down, and with type and chain expressions unwrapped where the accessor's
+semantics call for it. Views never modify or copy the tree, so the
+underlying nodes keep their identity and remain usable with `===`
+comparisons, scope analysis, WeakMap caches, and `context.report`; the
+original node stays reachable via `.node`.
 
 ## Extends
 
@@ -41,9 +40,9 @@ not a replacement; the original node stays reachable via `.node`.
 
 ## Type Parameters
 
-| Type Parameter | Default type |
-| ------ | ------ |
-| `N` *extends* `TSESTree.Node` | `TSESTree.Node` |
+| Type Parameter                | Default type    |
+| ----------------------------- | --------------- |
+| `N` _extends_ `TSESTree.Node` | `TSESTree.Node` |
 
 ## Implements
 
@@ -59,9 +58,9 @@ new Class<N extends Node = Node>(node: N, context?: ViewContext): Class<N>;
 
 #### Parameters
 
-| Parameter | Type |
-| ------ | ------ |
-| `node` | `N` |
+| Parameter  | Type                                          |
+| ---------- | --------------------------------------------- |
+| `node`     | `N`                                           |
 | `context?` | [`ViewContext`](../interfaces/ViewContext.md) |
 
 #### Returns
@@ -71,15 +70,41 @@ new Class<N extends Node = Node>(node: N, context?: ViewContext): Class<N>;
 #### Overrides
 
 ```ts
-InspectableClass.constructor
+InspectableClass.constructor;
 ```
 
 ## Properties
 
-| Property | Modifier | Type | Description |
-| ------ | ------ | ------ | ------ |
+| Property                                | Modifier   | Type                                                         | Description                                              |
+| --------------------------------------- | ---------- | ------------------------------------------------------------ | -------------------------------------------------------- |
 | <a id="property-context"></a> `context` | `readonly` | [`ViewContext`](../interfaces/ViewContext.md) \| `undefined` | Optional rule context for getters that need source text. |
-| <a id="property-node"></a> `node` | `readonly` | `N` | The original node, as delivered by ESLint. |
+| <a id="property-node"></a> `node`       | `readonly` | `N`                                                          | The original node, as delivered by ESLint.               |
+
+## Accessors
+
+### parent
+
+#### Get Signature
+
+```ts
+get parent(): View<Node> | undefined;
+```
+
+A view over the parent node.
+Deliberately NOT unwrapped: upward walks must see the tree as it is,
+including any type expression wrappers enclosing this node.
+
+##### Returns
+
+[`View`](../interfaces/View.md)\<`Node`\> \| `undefined`
+
+A view over the parent node.
+Deliberately NOT unwrapped: upward walks must see the tree as it is,
+including any type expression wrappers enclosing this node.
+
+#### Implementation of
+
+[`View`](../interfaces/View.md).[`parent`](../interfaces/View.md#property-parent)
 
 ## Methods
 
@@ -109,27 +134,7 @@ Node.js custom inspection method.
 InspectableClass.[NodeInspectSymbol]
 ```
 
-***
-
-### getParent()
-
-```ts
-getParent(): Node | undefined;
-```
-
-Get the parent node.
-Deliberately NOT unwrapped: upward walks must see the tree as it is,
-including any type expression wrappers enclosing this node.
-
-#### Returns
-
-`Node` \| `undefined`
-
-#### Implementation of
-
-[`View`](../interfaces/View.md).[`getParent`](../interfaces/View.md#getparent)
-
-***
+---
 
 ### toJSON()
 
@@ -150,10 +155,10 @@ Return the structured, non-circular representation of this view.
 #### Overrides
 
 ```ts
-InspectableClass.toJSON
+InspectableClass.toJSON;
 ```
 
-***
+---
 
 ### toString()
 
@@ -178,5 +183,5 @@ Returns a formatted string representation of this object.
 #### Inherited from
 
 ```ts
-InspectableClass.toString
+InspectableClass.toString;
 ```

@@ -19,10 +19,10 @@ The dual-signature predicate type returned by [isAPICall](../../../../functions/
 
 ### Parameters
 
-| Parameter | Type |
-| ------ | ------ |
-| `context` | `RuleContext` |
-| `node` | `Node` \| `null` |
+| Parameter | Type             |
+| --------- | ---------------- |
+| `context` | `RuleContext`    |
+| `node`    | `Node` \| `null` |
 
 ### Returns
 
@@ -36,8 +36,8 @@ The dual-signature predicate type returned by [isAPICall](../../../../functions/
 
 ### Parameters
 
-| Parameter | Type |
-| ------ | ------ |
+| Parameter | Type          |
+| --------- | ------------- |
 | `context` | `RuleContext` |
 
 ### Returns

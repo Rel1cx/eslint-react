@@ -18,9 +18,9 @@ new ExpressionStatementView(node: ExpressionStatement, context?: ViewContext): E
 
 #### Parameters
 
-| Parameter | Type |
-| ------ | ------ |
-| `node` | `ExpressionStatement` |
+| Parameter  | Type                                          |
+| ---------- | --------------------------------------------- |
+| `node`     | `ExpressionStatement`                         |
 | `context?` | [`ViewContext`](../interfaces/ViewContext.md) |
 
 #### Returns
@@ -33,10 +33,52 @@ new ExpressionStatementView(node: ExpressionStatement, context?: ViewContext): E
 
 ## Properties
 
-| Property | Modifier | Type | Description | Inherited from |
-| ------ | ------ | ------ | ------ | ------ |
+| Property                                | Modifier   | Type                                                         | Description                                              | Inherited from                                             |
+| --------------------------------------- | ---------- | ------------------------------------------------------------ | -------------------------------------------------------- | ---------------------------------------------------------- |
 | <a id="property-context"></a> `context` | `readonly` | [`ViewContext`](../interfaces/ViewContext.md) \| `undefined` | Optional rule context for getters that need source text. | [`Class`](Class.md).[`context`](Class.md#property-context) |
-| <a id="property-node"></a> `node` | `readonly` | `ExpressionStatement` | The original node, as delivered by ESLint. | [`Class`](Class.md).[`node`](Class.md#property-node) |
+| <a id="property-node"></a> `node`       | `readonly` | `ExpressionStatement`                                        | The original node, as delivered by ESLint.               | [`Class`](Class.md).[`node`](Class.md#property-node)       |
+
+## Accessors
+
+### expression
+
+#### Get Signature
+
+```ts
+get expression(): View<TSESTreeUnwrapped<Expression>>;
+```
+
+A view over the expression with type and chain expressions unwrapped.
+
+##### Returns
+
+[`View`](../interfaces/View.md)\<[`TSESTreeUnwrapped`](../../../../type-aliases/TSESTreeUnwrapped.md)\<`Expression`\>\>
+
+---
+
+### parent
+
+#### Get Signature
+
+```ts
+get parent(): View<Node> | undefined;
+```
+
+A view over the parent node.
+Deliberately NOT unwrapped: upward walks must see the tree as it is,
+including any type expression wrappers enclosing this node.
+
+##### Returns
+
+[`View`](../interfaces/View.md)\<`Node`\> \| `undefined`
+
+A view over the parent node.
+Deliberately NOT unwrapped: upward walks must see the tree as it is,
+including any type expression wrappers enclosing this node.
+
+#### Inherited from
+
+[`Class`](Class.md).[`parent`](Class.md#parent)
 
 ## Methods
 
@@ -60,41 +102,7 @@ Node.js custom inspection method.
 
 [`Class`](Class.md).[`[NodeInspectSymbol]`](Class.md#nodeinspectsymbol)
 
-***
-
-### getExpression()
-
-```ts
-getExpression(): TSESTreeUnwrapped<Expression>;
-```
-
-Get the expression with type and chain expressions unwrapped.
-
-#### Returns
-
-[`TSESTreeUnwrapped`](../../../../type-aliases/TSESTreeUnwrapped.md)\<`Expression`\>
-
-***
-
-### getParent()
-
-```ts
-getParent(): Node | undefined;
-```
-
-Get the parent node.
-Deliberately NOT unwrapped: upward walks must see the tree as it is,
-including any type expression wrappers enclosing this node.
-
-#### Returns
-
-`Node` \| `undefined`
-
-#### Inherited from
-
-[`Class`](Class.md).[`getParent`](Class.md#getparent)
-
-***
+---
 
 ### toJSON()
 
@@ -112,7 +120,7 @@ Return the structured, non-circular representation of this view.
 
 [`Class`](Class.md).[`toJSON`](Class.md#tojson)
 
-***
+---
 
 ### toString()
 

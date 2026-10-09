@@ -3,11 +3,7 @@
 # Function: getCreateElementProp()
 
 ```ts
-function getCreateElementProp(
-   context: RuleContext, 
-   node: Node | null, 
-   name: string
-): Property | null;
+function getCreateElementProp(context: RuleContext, node: Node | null, name: string): Property | null;
 ```
 
 Find a statically named property in the props object of a `createElement` call.
@@ -17,11 +13,11 @@ string-literal and simple template-literal keys (computed or not).
 
 ## Parameters
 
-| Parameter | Type | Description |
-| ------ | ------ | ------ |
-| `context` | `RuleContext` | The ESLint rule context. |
-| `node` | `Node` \| `null` | The node to inspect. |
-| `name` | `string` | The property name to look for (ex: `"children"`, `"key"`). |
+| Parameter | Type             | Description                                                |
+| --------- | ---------------- | ---------------------------------------------------------- |
+| `context` | `RuleContext`    | The ESLint rule context.                                   |
+| `node`    | `Node` \| `null` | The node to inspect.                                       |
+| `name`    | `string`         | The property name to look for (ex: `"children"`, `"key"`). |
 
 ## Returns
 

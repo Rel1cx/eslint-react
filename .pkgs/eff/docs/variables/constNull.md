@@ -15,9 +15,9 @@ Use when you need a thunk that returns `null` on every invocation.
 **Example** (Returning null from a thunk)
 
 ```ts
-import { Function } from "effect"
+import { Function } from "effect";
 
-Function.constNull() // => null
+Function.constNull(); // => null
 ```
 
 ## Since

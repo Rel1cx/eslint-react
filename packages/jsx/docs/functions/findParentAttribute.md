@@ -10,10 +10,10 @@ Walk up the AST from `node` to find the nearest `JSXAttribute` ancestor, optiona
 
 ## Parameters
 
-| Parameter | Type | Description |
-| ------ | ------ | ------ |
-| `node` | `Node` | The starting node for the upward search. |
-| `test` | (`node`: `JSXAttribute`) => `boolean` | Optional predicate to filter candidate `JSXAttribute` nodes. |
+| Parameter | Type                                  | Description                                                  |
+| --------- | ------------------------------------- | ------------------------------------------------------------ |
+| `node`    | `Node`                                | The starting node for the upward search.                     |
+| `test`    | (`node`: `JSXAttribute`) => `boolean` | Optional predicate to filter candidate `JSXAttribute` nodes. |
 
 ## Returns
 

@@ -32,11 +32,26 @@ describe("View", () => {
     expect(view.node).toBe(node);
   });
 
-  it("should return the parent without unwrapping", () => {
+  it("should return a view of the parent without unwrapping", () => {
     const node = getFirstNodeOfType<TSESTree.Identifier>("(foo as string);", AST.Identifier);
     const view = new Class(node);
-    expect(view.getParent()).toBe(node.parent);
-    expect(view.getParent()?.type).toBe(AST.TSAsExpression);
+    expect(view.parent).toBeInstanceOf(Class);
+    expect(view.parent?.node).toBe(node.parent);
+    expect(view.parent?.node.type).toBe(AST.TSAsExpression);
+  });
+
+  it("should return undefined as the parent of the root node", () => {
+    const program = getFirstNodeOfType<TSESTree.Program>("foo;", AST.Program);
+    expect(new Class(program).parent).toBeUndefined();
+  });
+
+  it("should pass the context down to child views", () => {
+    const node = getFirstNodeOfType<TSESTree.CallExpression>("foo(bar);", AST.CallExpression);
+    const context = { sourceCode: { getText: () => "foo(bar)" } };
+    const view = new CallExpressionView(node, context);
+    expect(view.callee.context).toBe(context);
+    expect(view.arguments[0]?.context).toBe(context);
+    expect(view.callee.parent?.context).toBe(context);
   });
 });
 
@@ -72,172 +87,180 @@ describe("View inspection", () => {
 });
 
 describe("CallExpressionView", () => {
-  it("should return the callee by reference, unwrapped", () => {
+  it("should return a view of the callee, unwrapped", () => {
     const node = getFirstNodeOfType<TSESTree.CallExpression>("(foo as any)(bar!);", AST.CallExpression);
     const view = new CallExpressionView(node);
-    const callee = view.getCallee();
-    expect(callee).toBe(Extract.unwrap(node.callee));
-    expect(callee).toMatchObject({ name: "foo", type: AST.Identifier });
+    const callee = view.callee;
+    expect(callee).toBeInstanceOf(Class);
+    expect(callee.node).toBe(Extract.unwrap(node.callee));
+    expect(callee.node).toMatchObject({ name: "foo", type: AST.Identifier });
   });
 
-  it("should return the arguments unwrapped", () => {
+  it("should return views of the arguments, unwrapped", () => {
     const node = getFirstNodeOfType<TSESTree.CallExpression>("foo(bar as string, baz!, ...qux);", AST.CallExpression);
     const view = new CallExpressionView(node);
-    const args = view.getArguments();
+    const args = view.arguments;
     expect(args).toHaveLength(3);
-    expect(args[0]).toMatchObject({ name: "bar", type: AST.Identifier });
-    expect(args[1]).toMatchObject({ name: "baz", type: AST.Identifier });
-    expect(args[2]).toMatchObject({ type: AST.SpreadElement });
-    expect(args[2]).toBe(node.arguments[2]);
+    expect(args[0]?.node).toMatchObject({ name: "bar", type: AST.Identifier });
+    expect(args[1]?.node).toMatchObject({ name: "baz", type: AST.Identifier });
+    expect(args[2]?.node).toMatchObject({ type: AST.SpreadElement });
+    expect(args[2]?.node).toBe(node.arguments[2]);
   });
 
-  it("should delegate to getCalleeName", () => {
+  it("should delegate to Extract.getCalleeName", () => {
     const node = getFirstNodeOfType<TSESTree.CallExpression>("(React.useState as any)();", AST.CallExpression);
-    expect(new CallExpressionView(node).getCalleeName()).toBe("useState");
+    expect(new CallExpressionView(node).calleeName).toBe("useState");
   });
 });
 
 describe("MemberExpressionView", () => {
-  it("should unwrap the object and property", () => {
+  it("should return views of the object and property, unwrapped", () => {
     const node = getFirstNodeOfType<TSESTree.MemberExpression>("(foo as any).bar;", AST.MemberExpression);
     const view = new MemberExpressionView(node);
-    expect(view.getObject()).toMatchObject({ name: "foo", type: AST.Identifier });
-    expect(view.getProperty()).toMatchObject({ name: "bar", type: AST.Identifier });
-    expect(view.getProperty()).toBe(node.property);
+    expect(view.object.node).toMatchObject({ name: "foo", type: AST.Identifier });
+    expect(view.property.node).toMatchObject({ name: "bar", type: AST.Identifier });
+    expect(view.property.node).toBe(node.property);
   });
 
-  it("should delegate to getMemberChain", () => {
+  it("should delegate to Extract.getMemberChain", () => {
     const node = getFirstNodeOfType<TSESTree.MemberExpression>("(a as any).b.c;", AST.MemberExpression);
-    const chain = new MemberExpressionView(node).getMemberChain();
+    const chain = new MemberExpressionView(node).memberChain;
     expect(chain.map((member) => member.type === AST.Identifier ? member.name : member.type)).toEqual(["a", "b", "c"]);
   });
 });
 
 describe("AssignmentExpressionView", () => {
-  it("should unwrap both sides", () => {
+  it("should return views of both sides, unwrapped", () => {
     const node = getFirstNodeOfType<TSESTree.AssignmentExpression>("(foo as any) = (bar as any)!;", AST.AssignmentExpression);
     const view = new AssignmentExpressionView(node);
-    expect(view.getLeft()).toMatchObject({ name: "foo", type: AST.Identifier });
-    expect(view.getRight()).toMatchObject({ name: "bar", type: AST.Identifier });
+    expect(view.left.node).toMatchObject({ name: "foo", type: AST.Identifier });
+    expect(view.right.node).toMatchObject({ name: "bar", type: AST.Identifier });
   });
 });
 
 describe("ConditionalExpressionView", () => {
-  it("should unwrap the test", () => {
+  it("should return a view of the test, unwrapped", () => {
     const node = getFirstNodeOfType<TSESTree.ConditionalExpression>("(foo!) ? a : b;", AST.ConditionalExpression);
-    expect(new ConditionalExpressionView(node).getTest()).toMatchObject({ name: "foo", type: AST.Identifier });
+    expect(new ConditionalExpressionView(node).test.node).toMatchObject({ name: "foo", type: AST.Identifier });
   });
 
-  it("should unwrap the consequent and alternate", () => {
+  it("should return views of the consequent and alternate, unwrapped", () => {
     const node = getFirstNodeOfType<TSESTree.ConditionalExpression>("t ? (a as any) : b!;", AST.ConditionalExpression);
     const view = new ConditionalExpressionView(node);
-    expect(view.getConsequent()).toMatchObject({ name: "a", type: AST.Identifier });
-    expect(view.getAlternate()).toMatchObject({ name: "b", type: AST.Identifier });
+    expect(view.consequent.node).toMatchObject({ name: "a", type: AST.Identifier });
+    expect(view.alternate.node).toMatchObject({ name: "b", type: AST.Identifier });
   });
 });
 
 describe("NewExpressionView", () => {
-  it("should unwrap the callee and arguments", () => {
+  it("should return views of the callee and arguments, unwrapped", () => {
     const node = getFirstNodeOfType<TSESTree.NewExpression>("new (Foo as any)(bar!);", AST.NewExpression);
     const view = new NewExpressionView(node);
-    expect(view.getCallee()).toMatchObject({ name: "Foo", type: AST.Identifier });
-    const args = view.getArguments();
+    expect(view.callee.node).toMatchObject({ name: "Foo", type: AST.Identifier });
+    const args = view.arguments;
     expect(args).toHaveLength(1);
-    expect(args[0]).toMatchObject({ name: "bar", type: AST.Identifier });
+    expect(args[0]?.node).toMatchObject({ name: "bar", type: AST.Identifier });
   });
 
   it("should return an empty argument list for a paren-less `new`", () => {
     const node = getFirstNodeOfType<TSESTree.NewExpression>("new Foo;", AST.NewExpression);
-    expect(new NewExpressionView(node).getArguments()).toEqual([]);
+    expect(new NewExpressionView(node).arguments).toEqual([]);
   });
 });
 
 describe("BinaryLikeView", () => {
-  it("should unwrap both operands of a binary expression", () => {
+  it("should return views of both operands of a binary expression, unwrapped", () => {
     const node = getFirstNodeOfType<TSESTree.BinaryExpression>("(a as any) + b!;", AST.BinaryExpression);
     const view = new BinaryExpressionView(node);
-    expect(view.getLeft()).toMatchObject({ name: "a", type: AST.Identifier });
-    expect(view.getRight()).toMatchObject({ name: "b", type: AST.Identifier });
+    expect(view.left.node).toMatchObject({ name: "a", type: AST.Identifier });
+    expect(view.right.node).toMatchObject({ name: "b", type: AST.Identifier });
   });
 
-  it("should unwrap both operands of a logical expression", () => {
+  it("should return views of both operands of a logical expression, unwrapped", () => {
     const node = getFirstNodeOfType<TSESTree.LogicalExpression>("(a as any) && b!;", AST.LogicalExpression);
     const view = new LogicalExpressionView(node);
-    expect(view.getLeft()).toMatchObject({ name: "a", type: AST.Identifier });
-    expect(view.getRight()).toMatchObject({ name: "b", type: AST.Identifier });
+    expect(view.left.node).toMatchObject({ name: "a", type: AST.Identifier });
+    expect(view.right.node).toMatchObject({ name: "b", type: AST.Identifier });
   });
 });
 
 describe("ExpressionStatementView", () => {
-  it("should unwrap the expression", () => {
+  it("should return a view of the expression, unwrapped", () => {
     const node = getFirstNodeOfType<TSESTree.ExpressionStatement>("(foo as any);", AST.ExpressionStatement);
-    expect(new ExpressionStatementView(node).getExpression()).toMatchObject({ name: "foo", type: AST.Identifier });
+    expect(new ExpressionStatementView(node).expression.node).toMatchObject({ name: "foo", type: AST.Identifier });
   });
 });
 
 describe("ReturnStatementView", () => {
-  it("should return the unwrapped argument", () => {
+  it("should return a view of the argument, unwrapped", () => {
     const node = getFirstNodeOfType<TSESTree.ReturnStatement>("function f() { return (x as any); }", AST.ReturnStatement);
-    expect(new ReturnStatementView(node).getArgument()).toMatchObject({ name: "x", type: AST.Identifier });
+    expect(new ReturnStatementView(node).argument?.node).toMatchObject({ name: "x", type: AST.Identifier });
   });
 
   it("should return null for a bare return", () => {
     const node = getFirstNodeOfType<TSESTree.ReturnStatement>("function f() { return; }", AST.ReturnStatement);
-    expect(new ReturnStatementView(node).getArgument()).toBeNull();
+    expect(new ReturnStatementView(node).argument).toBeNull();
   });
 });
 
 describe("ThrowStatementView", () => {
-  it("should unwrap the argument", () => {
+  it("should return a view of the argument, unwrapped", () => {
     const node = getFirstNodeOfType<TSESTree.ThrowStatement>("throw (err as any);", AST.ThrowStatement);
-    expect(new ThrowStatementView(node).getArgument()).toMatchObject({ name: "err", type: AST.Identifier });
+    expect(new ThrowStatementView(node).argument.node).toMatchObject({ name: "err", type: AST.Identifier });
   });
 });
 
 describe("UnaryExpressionView", () => {
-  it("should unwrap the argument", () => {
+  it("should return a view of the argument, unwrapped", () => {
     const node = getFirstNodeOfType<TSESTree.UnaryExpression>("!(x as any);", AST.UnaryExpression);
-    expect(new UnaryExpressionView(node).getArgument()).toMatchObject({ name: "x", type: AST.Identifier });
+    expect(new UnaryExpressionView(node).argument.node).toMatchObject({ name: "x", type: AST.Identifier });
   });
 });
 
 describe("AwaitExpressionView", () => {
-  it("should unwrap the argument", () => {
+  it("should return a view of the argument, unwrapped", () => {
     const node = getFirstNodeOfType<TSESTree.AwaitExpression>("async function f() { await (p as any); }", AST.AwaitExpression);
-    expect(new AwaitExpressionView(node).getArgument()).toMatchObject({ name: "p", type: AST.Identifier });
+    expect(new AwaitExpressionView(node).argument.node).toMatchObject({ name: "p", type: AST.Identifier });
   });
 });
 
 describe("PropertyView", () => {
-  it("should unwrap the key and value and expose the static name", () => {
+  it("should return views of the key and value and expose the static name", () => {
     const node = getFirstNodeOfType<TSESTree.Property>("const o = { signal: (fn as any) };", AST.Property);
     const view = new PropertyView(node);
-    expect(view.getKey()).toMatchObject({ name: "signal", type: AST.Identifier });
-    expect(view.getKey()).toBe(node.key);
-    expect(view.getValue()).toMatchObject({ name: "fn", type: AST.Identifier });
-    expect(view.getName()).toBe("signal");
+    expect(view.key.node).toMatchObject({ name: "signal", type: AST.Identifier });
+    expect(view.key.node).toBe(node.key);
+    expect(view.value.node).toMatchObject({ name: "fn", type: AST.Identifier });
+    expect(view.name).toBe("signal");
+  });
+
+  it("should expose the max-effort static name", () => {
+    const node = getFirstNodeOfType<TSESTree.Property>("const o = { 'signal': fn };", AST.Property);
+    const view = new PropertyView(node);
+    expect(view.name).toBeNull();
+    expect(view.nameMax).toBe("signal");
   });
 });
 
 describe("JSXExpressionContainerView", () => {
-  it("should unwrap the expression", () => {
+  it("should return a view of the expression, unwrapped", () => {
     const node = getFirstNodeOfType<TSESTree.JSXExpressionContainer>(
       "const el = <div>{(x as any)}</div>;",
       AST.JSXExpressionContainer,
     );
-    expect(new JSXExpressionContainerView(node).getExpression()).toMatchObject({ name: "x", type: AST.Identifier });
+    expect(new JSXExpressionContainerView(node).expression.node).toMatchObject({ name: "x", type: AST.Identifier });
   });
 });
 
 describe("VariableDeclaratorView", () => {
-  it("should return the unwrapped initializer", () => {
+  it("should return a view of the initializer, unwrapped", () => {
     const node = getFirstNodeOfType<TSESTree.VariableDeclarator>("const x = foo as string;", AST.VariableDeclarator);
-    expect(new VariableDeclaratorView(node).getInit()).toMatchObject({ name: "foo", type: AST.Identifier });
+    expect(new VariableDeclaratorView(node).init?.node).toMatchObject({ name: "foo", type: AST.Identifier });
   });
 
   it("should return null when there is no initializer", () => {
     const node = getFirstNodeOfType<TSESTree.VariableDeclarator>("let x;", AST.VariableDeclarator);
-    expect(new VariableDeclaratorView(node).getInit()).toBeNull();
+    expect(new VariableDeclaratorView(node).init).toBeNull();
   });
 });
 

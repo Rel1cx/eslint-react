@@ -18,9 +18,9 @@ new NewExpressionView(node: NewExpression, context?: ViewContext): NewExpression
 
 #### Parameters
 
-| Parameter | Type |
-| ------ | ------ |
-| `node` | `NewExpression` |
+| Parameter  | Type                                          |
+| ---------- | --------------------------------------------- |
+| `node`     | `NewExpression`                               |
 | `context?` | [`ViewContext`](../interfaces/ViewContext.md) |
 
 #### Returns
@@ -33,10 +33,68 @@ new NewExpressionView(node: NewExpression, context?: ViewContext): NewExpression
 
 ## Properties
 
-| Property | Modifier | Type | Description | Inherited from |
-| ------ | ------ | ------ | ------ | ------ |
+| Property                                | Modifier   | Type                                                         | Description                                              | Inherited from                                             |
+| --------------------------------------- | ---------- | ------------------------------------------------------------ | -------------------------------------------------------- | ---------------------------------------------------------- |
 | <a id="property-context"></a> `context` | `readonly` | [`ViewContext`](../interfaces/ViewContext.md) \| `undefined` | Optional rule context for getters that need source text. | [`Class`](Class.md).[`context`](Class.md#property-context) |
-| <a id="property-node"></a> `node` | `readonly` | `NewExpression` | The original node, as delivered by ESLint. | [`Class`](Class.md).[`node`](Class.md#property-node) |
+| <a id="property-node"></a> `node`       | `readonly` | `NewExpression`                                              | The original node, as delivered by ESLint.               | [`Class`](Class.md).[`node`](Class.md#property-node)       |
+
+## Accessors
+
+### arguments
+
+#### Get Signature
+
+```ts
+get arguments(): View<TSESTreeUnwrapped<CallExpressionArgument>>[];
+```
+
+Views over the arguments, each with type and chain expressions unwrapped.
+
+##### Returns
+
+[`View`](../interfaces/View.md)\<[`TSESTreeUnwrapped`](../../../../type-aliases/TSESTreeUnwrapped.md)\<`CallExpressionArgument`\>\>[]
+
+---
+
+### callee
+
+#### Get Signature
+
+```ts
+get callee(): View<TSESTreeUnwrapped<Expression>>;
+```
+
+A view over the callee with type and chain expressions unwrapped.
+
+##### Returns
+
+[`View`](../interfaces/View.md)\<[`TSESTreeUnwrapped`](../../../../type-aliases/TSESTreeUnwrapped.md)\<`Expression`\>\>
+
+---
+
+### parent
+
+#### Get Signature
+
+```ts
+get parent(): View<Node> | undefined;
+```
+
+A view over the parent node.
+Deliberately NOT unwrapped: upward walks must see the tree as it is,
+including any type expression wrappers enclosing this node.
+
+##### Returns
+
+[`View`](../interfaces/View.md)\<`Node`\> \| `undefined`
+
+A view over the parent node.
+Deliberately NOT unwrapped: upward walks must see the tree as it is,
+including any type expression wrappers enclosing this node.
+
+#### Inherited from
+
+[`Class`](Class.md).[`parent`](Class.md#parent)
 
 ## Methods
 
@@ -60,55 +118,7 @@ Node.js custom inspection method.
 
 [`Class`](Class.md).[`[NodeInspectSymbol]`](Class.md#nodeinspectsymbol)
 
-***
-
-### getArguments()
-
-```ts
-getArguments(): TSESTreeUnwrapped<CallExpressionArgument>[];
-```
-
-Get the arguments with type and chain expressions unwrapped.
-
-#### Returns
-
-[`TSESTreeUnwrapped`](../../../../type-aliases/TSESTreeUnwrapped.md)\<`CallExpressionArgument`\>[]
-
-***
-
-### getCallee()
-
-```ts
-getCallee(): TSESTreeUnwrapped<Expression>;
-```
-
-Get the callee with type and chain expressions unwrapped.
-
-#### Returns
-
-[`TSESTreeUnwrapped`](../../../../type-aliases/TSESTreeUnwrapped.md)\<`Expression`\>
-
-***
-
-### getParent()
-
-```ts
-getParent(): Node | undefined;
-```
-
-Get the parent node.
-Deliberately NOT unwrapped: upward walks must see the tree as it is,
-including any type expression wrappers enclosing this node.
-
-#### Returns
-
-`Node` \| `undefined`
-
-#### Inherited from
-
-[`Class`](Class.md).[`getParent`](Class.md#getparent)
-
-***
+---
 
 ### toJSON()
 
@@ -126,7 +136,7 @@ Return the structured, non-circular representation of this view.
 
 [`Class`](Class.md).[`toJSON`](Class.md#tojson)
 
-***
+---
 
 ### toString()
 

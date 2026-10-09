@@ -8,9 +8,9 @@ const isComponentWillUnmount: (node: Node) => node is TSESTreeMethodOrPropertyDe
 
 ## Parameters
 
-| Parameter | Type |
-| ------ | ------ |
-| `node` | `Node` |
+| Parameter | Type   |
+| --------- | ------ |
+| `node`    | `Node` |
 
 ## Returns
 

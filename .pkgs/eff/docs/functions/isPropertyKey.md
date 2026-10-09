@@ -20,21 +20,21 @@ Uses `isString`, `isNumber`, and `isSymbol`.
 **Example** (Guarding property keys)
 
 ```ts
-import { Predicate } from "effect"
+import { Predicate } from "effect";
 
-const key: unknown = "name"
-const obj: Record<PropertyKey, unknown> = { name: "Ada" }
+const key: unknown = "name";
+const obj: Record<PropertyKey, unknown> = { name: "Ada" };
 
 if (Predicate.isPropertyKey(key) && key in obj) {
-  obj[key] // => "Ada"
+  obj[key]; // => "Ada"
 }
 ```
 
 ## Parameters
 
-| Parameter | Type |
-| ------ | ------ |
-| `u` | `unknown` |
+| Parameter | Type      |
+| --------- | --------- |
+| `u`       | `unknown` |
 
 ## Returns
 
@@ -42,9 +42,9 @@ if (Predicate.isPropertyKey(key) && key in obj) {
 
 ## See
 
- - [isString](isString.md)
- - [isNumber](isNumber.md)
- - [isSymbol](isSymbol.md)
+- [isString](isString.md)
+- [isNumber](isNumber.md)
+- [isSymbol](isSymbol.md)
 
 ## Since
 

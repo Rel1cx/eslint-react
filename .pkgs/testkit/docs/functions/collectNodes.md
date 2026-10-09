@@ -3,11 +3,7 @@
 # Function: collectNodes()
 
 ```ts
-function collectNodes<T extends Node>(
-   input: string | Node, 
-   type: T["type"], 
-   options?: ParseCodeOptions
-): T[];
+function collectNodes<T extends Node>(input: string | Node, type: T["type"], options?: ParseCodeOptions): T[];
 ```
 
 Collects every node of the given `type` under `input`.
@@ -17,16 +13,16 @@ and existing parent pointers are left untouched.
 
 ## Type Parameters
 
-| Type Parameter |
-| ------ |
-| `T` *extends* `Node` |
+| Type Parameter       |
+| -------------------- |
+| `T` _extends_ `Node` |
 
 ## Parameters
 
-| Parameter | Type | Description |
-| ------ | ------ | ------ |
-| `input` | `string` \| `Node` | Source code or an AST node to search. |
-| `type` | `T`\[`"type"`\] | The node type to collect. |
+| Parameter | Type                                                    | Description                                         |
+| --------- | ------------------------------------------------------- | --------------------------------------------------- |
+| `input`   | `string` \| `Node`                                      | Source code or an AST node to search.               |
+| `type`    | `T`\[`"type"`\]                                         | The node type to collect.                           |
 | `options` | [`ParseCodeOptions`](../interfaces/ParseCodeOptions.md) | Parser options, only used when `input` is a string. |
 
 ## Returns

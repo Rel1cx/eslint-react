@@ -15,8 +15,8 @@ is not always equal to `getChildren(node).length > 0` (ex: `<div> </div>`).
 
 ## Parameters
 
-| Parameter | Type | Description |
-| ------ | ------ | ------ |
+| Parameter | Type                     | Description                           |
+| --------- | ------------------------ | ------------------------------------- |
 | `element` | `TSESTreeJSXElementLike` | A `JSXElement` or `JSXFragment` node. |
 
 ## Returns

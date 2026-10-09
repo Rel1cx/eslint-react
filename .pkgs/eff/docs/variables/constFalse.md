@@ -15,9 +15,9 @@ Use when you need a thunk that returns `false` on every invocation.
 **Example** (Returning false from a thunk)
 
 ```ts
-import { Function } from "effect"
+import { Function } from "effect";
 
-Function.constFalse() // => false
+Function.constFalse(); // => false
 ```
 
 ## Since

@@ -3,7 +3,7 @@
 # Type Alias: FunctionSemanticNode
 
 ```ts
-type FunctionSemanticNode = 
+type FunctionSemanticNode =
   | ClientFunctionSemanticNode
   | ServerFunctionSemanticNode;
 ```

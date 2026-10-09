@@ -8,9 +8,9 @@ type RuleFunction = (context: RuleContext, toolkit: RuleToolkit) => RuleListener
 
 ## Parameters
 
-| Parameter | Type |
-| ------ | ------ |
-| `context` | `RuleContext` |
+| Parameter | Type                                          |
+| --------- | --------------------------------------------- |
+| `context` | `RuleContext`                                 |
 | `toolkit` | [`RuleToolkit`](../interfaces/RuleToolkit.md) |
 
 ## Returns

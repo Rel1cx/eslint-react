@@ -10,9 +10,9 @@ Check if a node is a class declaration or class expression.
 
 ## Parameters
 
-| Parameter | Type |
-| ------ | ------ |
-| `node` | `Node` \| `null` \| `undefined` |
+| Parameter | Type                            |
+| --------- | ------------------------------- |
+| `node`    | `Node` \| `null` \| `undefined` |
 
 ## Returns
 

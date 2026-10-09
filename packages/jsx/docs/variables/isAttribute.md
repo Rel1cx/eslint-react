@@ -15,6 +15,7 @@ Only plain identifier names are matched (ex: `className`); namespaced
 attributes (ex: `xml:space`) do not match.
 
 Supports both data-first and data-last (curried) call styles:
+
 - `isAttribute(node, "className")`
 - `isAttribute("className")(node)`.
 
@@ -26,9 +27,9 @@ Supports both data-first and data-last (curried) call styles:
 
 ### Parameters
 
-| Parameter | Type |
-| ------ | ------ |
-| `name` | `string` |
+| Parameter | Type     |
+| --------- | -------- |
+| `name`    | `string` |
 
 ### Returns
 
@@ -42,10 +43,10 @@ Supports both data-first and data-last (curried) call styles:
 
 ### Parameters
 
-| Parameter | Type |
-| ------ | ------ |
-| `node` | `Node` |
-| `name` | `string` |
+| Parameter | Type     |
+| --------- | -------- |
+| `node`    | `Node`   |
+| `name`    | `string` |
 
 ### Returns
 

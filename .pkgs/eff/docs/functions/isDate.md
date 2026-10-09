@@ -19,18 +19,18 @@ Uses `instanceof Date`.
 **Example** (Guarding Date values)
 
 ```ts
-import { Predicate } from "effect"
+import { Predicate } from "effect";
 
-const data: unknown = new Date()
+const data: unknown = new Date();
 
-Predicate.isDate(data) // => true
+Predicate.isDate(data); // => true
 ```
 
 ## Parameters
 
-| Parameter | Type |
-| ------ | ------ |
-| `input` | `unknown` |
+| Parameter | Type      |
+| --------- | --------- |
+| `input`   | `unknown` |
 
 ## Returns
 

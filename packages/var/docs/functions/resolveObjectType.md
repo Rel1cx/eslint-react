@@ -10,10 +10,10 @@ Resolve the object type of the node.
 
 ## Parameters
 
-| Parameter | Type | Description |
-| ------ | ------ | ------ |
-| `context` | `RuleContext` | The ESLint rule context. |
-| `node` | `Node` \| `null` \| `undefined` | The node to resolve. |
+| Parameter | Type                            | Description              |
+| --------- | ------------------------------- | ------------------------ |
+| `context` | `RuleContext`                   | The ESLint rule context. |
+| `node`    | `Node` \| `null` \| `undefined` | The node to resolve.     |
 
 ## Returns
 

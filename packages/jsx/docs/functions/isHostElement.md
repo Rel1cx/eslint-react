@@ -11,9 +11,9 @@ whose tag name starts with a lowercase letter (ex: `<div>` vs `<MyComponent>`).
 
 ## Parameters
 
-| Parameter | Type | Description |
-| ------ | ------ | ------ |
-| `node` | `Node` | The node to check. |
+| Parameter | Type   | Description        |
+| --------- | ------ | ------------------ |
+| `node`    | `Node` | The node to check. |
 
 ## Returns
 

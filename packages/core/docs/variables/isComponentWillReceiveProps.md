@@ -8,9 +8,9 @@ const isComponentWillReceiveProps: (node: Node) => node is TSESTreeMethodOrPrope
 
 ## Parameters
 
-| Parameter | Type |
-| ------ | ------ |
-| `node` | `Node` |
+| Parameter | Type   |
+| --------- | ------ |
+| `node`    | `Node` |
 
 ## Returns
 

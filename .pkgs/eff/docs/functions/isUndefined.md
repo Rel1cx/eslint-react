@@ -20,18 +20,18 @@ Uses `input === undefined`.
 **Example** (Guarding undefined values)
 
 ```ts
-import { Predicate } from "effect"
+import { Predicate } from "effect";
 
-const data: unknown = undefined
+const data: unknown = undefined;
 
-Predicate.isUndefined(data) // => true
+Predicate.isUndefined(data); // => true
 ```
 
 ## Parameters
 
-| Parameter | Type |
-| ------ | ------ |
-| `input` | `unknown` |
+| Parameter | Type      |
+| --------- | --------- |
+| `input`   | `unknown` |
 
 ## Returns
 
@@ -39,8 +39,8 @@ Predicate.isUndefined(data) // => true
 
 ## See
 
- - [isNotUndefined](isNotUndefined.md)
- - [isNullish](isNullish.md)
+- [isNotUndefined](isNotUndefined.md)
+- [isNullish](isNullish.md)
 
 ## Since
 

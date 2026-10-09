@@ -5,18 +5,20 @@
 ## Call Signature
 
 ```ts
-function unwrap(node: 
-  | ChainExpression
-| TSESTreeTypeExpression): TSESTreeUnwrapped<Expression>;
+function unwrap(
+  node:
+    | ChainExpression
+    | TSESTreeTypeExpression,
+): TSESTreeUnwrapped<Expression>;
 ```
 
 Recursively unwrap TypeScript type expressions and chain expressions to get the underlying expression.
 
 ### Parameters
 
-| Parameter | Type | Description |
-| ------ | ------ | ------ |
-| `node` | \| `ChainExpression` \| [`TSESTreeTypeExpression`](../../../../type-aliases/TSESTreeTypeExpression.md) | The node to unwrap. |
+| Parameter | Type                                                                                                   | Description         |
+| --------- | ------------------------------------------------------------------------------------------------------ | ------------------- |
+| `node`    | \| `ChainExpression` \| [`TSESTreeTypeExpression`](../../../../type-aliases/TSESTreeTypeExpression.md) | The node to unwrap. |
 
 ### Returns
 
@@ -34,15 +36,15 @@ Recursively unwrap TypeScript type expressions and chain expressions to get the 
 
 ### Type Parameters
 
-| Type Parameter |
-| ------ |
-| `T` *extends* `Node` |
+| Type Parameter       |
+| -------------------- |
+| `T` _extends_ `Node` |
 
 ### Parameters
 
-| Parameter | Type | Description |
-| ------ | ------ | ------ |
-| `node` | `T` | The node to unwrap. |
+| Parameter | Type | Description         |
+| --------- | ---- | ------------------- |
+| `node`    | `T`  | The node to unwrap. |
 
 ### Returns
 

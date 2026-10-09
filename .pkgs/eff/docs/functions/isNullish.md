@@ -19,23 +19,23 @@ Uses `input === null || input === undefined`.
 **Example** (Guarding nullish values)
 
 ```ts
-import { Predicate } from "effect"
+import { Predicate } from "effect";
 
-const values = [0, null, "", undefined]
-const nullish = values.filter(Predicate.isNullish) // => [null, undefined]
+const values = [0, null, "", undefined];
+const nullish = values.filter(Predicate.isNullish); // => [null, undefined]
 ```
 
 ## Type Parameters
 
 | Type Parameter |
-| ------ |
-| `A` |
+| -------------- |
+| `A`            |
 
 ## Parameters
 
 | Parameter | Type |
-| ------ | ------ |
-| `input` | `A` |
+| --------- | ---- |
+| `input`   | `A`  |
 
 ## Returns
 
@@ -43,9 +43,9 @@ input is A & (null \| undefined)
 
 ## See
 
- - [isNotNullish](isNotNullish.md)
- - [isUndefined](isUndefined.md)
- - [isNull](isNull.md)
+- [isNotNullish](isNotNullish.md)
+- [isUndefined](isUndefined.md)
+- [isNull](isNull.md)
 
 ## Since
 

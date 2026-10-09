@@ -8,9 +8,9 @@ function parseCode(code: string, options?: ParseCodeOptions): ParseForESLintResu
 
 ## Parameters
 
-| Parameter | Type |
-| ------ | ------ |
-| `code` | `string` |
+| Parameter | Type                                                    |
+| --------- | ------------------------------------------------------- |
+| `code`    | `string`                                                |
 | `options` | [`ParseCodeOptions`](../interfaces/ParseCodeOptions.md) |
 
 ## Returns

@@ -20,20 +20,20 @@ Uses `typeof input === "string"`.
 **Example** (Guarding strings)
 
 ```ts
-import { Predicate } from "effect"
+import { Predicate } from "effect";
 
-const data: unknown = "hi"
+const data: unknown = "hi";
 
 if (Predicate.isString(data)) {
-  data.toUpperCase() // => "HI"
+  data.toUpperCase(); // => "HI"
 }
 ```
 
 ## Parameters
 
-| Parameter | Type |
-| ------ | ------ |
-| `input` | `unknown` |
+| Parameter | Type      |
+| --------- | --------- |
+| `input`   | `unknown` |
 
 ## Returns
 
@@ -41,9 +41,9 @@ if (Predicate.isString(data)) {
 
 ## See
 
- - [isNumber](isNumber.md)
- - [isBoolean](isBoolean.md)
- - Refinement
+- [isNumber](isNumber.md)
+- [isBoolean](isBoolean.md)
+- Refinement
 
 ## Since
 

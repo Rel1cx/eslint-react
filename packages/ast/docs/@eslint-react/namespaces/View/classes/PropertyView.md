@@ -18,9 +18,9 @@ new PropertyView(node: Property, context?: ViewContext): PropertyView;
 
 #### Parameters
 
-| Parameter | Type |
-| ------ | ------ |
-| `node` | `Property` |
+| Parameter  | Type                                          |
+| ---------- | --------------------------------------------- |
+| `node`     | `Property`                                    |
 | `context?` | [`ViewContext`](../interfaces/ViewContext.md) |
 
 #### Returns
@@ -33,39 +33,19 @@ new PropertyView(node: Property, context?: ViewContext): PropertyView;
 
 ## Properties
 
-| Property | Modifier | Type | Description | Inherited from |
-| ------ | ------ | ------ | ------ | ------ |
+| Property                                | Modifier   | Type                                                         | Description                                              | Inherited from                                             |
+| --------------------------------------- | ---------- | ------------------------------------------------------------ | -------------------------------------------------------- | ---------------------------------------------------------- |
 | <a id="property-context"></a> `context` | `readonly` | [`ViewContext`](../interfaces/ViewContext.md) \| `undefined` | Optional rule context for getters that need source text. | [`Class`](Class.md).[`context`](Class.md#property-context) |
-| <a id="property-node"></a> `node` | `readonly` | `Property` | The original node, as delivered by ESLint. | [`Class`](Class.md).[`node`](Class.md#property-node) |
+| <a id="property-node"></a> `node`       | `readonly` | `Property`                                                   | The original node, as delivered by ESLint.               | [`Class`](Class.md).[`node`](Class.md#property-node)       |
 
-## Methods
+## Accessors
 
-### \[NodeInspectSymbol\]()
+### key
 
-```ts
-NodeInspectSymbol: unknown;
-```
-
-Node.js custom inspection method.
-
-#### Returns
-
-`unknown`
-
-#### Since
-
-2.0.0
-
-#### Inherited from
-
-[`Class`](Class.md).[`[NodeInspectSymbol]`](Class.md#nodeinspectsymbol)
-
-***
-
-### getKey()
+#### Get Signature
 
 ```ts
-getKey(): TSESTreeUnwrapped<
+get key(): View<TSESTreeUnwrapped<
   | ArrayExpression
   | ArrayPattern
   | ArrowFunctionExpressionWithBlockBody
@@ -115,111 +95,131 @@ getKey(): TSESTreeUnwrapped<
   | UnaryExpressionVoid
   | UpdateExpression
   | YieldNoStarExpression
-| YieldStarExpression>;
+| YieldStarExpression>>;
 ```
 
-Get the key with type and chain expressions unwrapped.
+A view over the key with type and chain expressions unwrapped.
 
-#### Returns
+##### Returns
 
-[`TSESTreeUnwrapped`](../../../../type-aliases/TSESTreeUnwrapped.md)\<
-  \| `ArrayExpression`
-  \| `ArrayPattern`
-  \| `ArrowFunctionExpressionWithBlockBody`
-  \| `ArrowFunctionExpressionWithExpressionBody`
-  \| `AssignmentExpression`
-  \| `AwaitExpression`
-  \| `PrivateInExpression`
-  \| `SymmetricBinaryExpression`
-  \| `CallExpression`
-  \| `ChainExpression`
-  \| `ClassExpression`
-  \| `ConditionalExpression`
-  \| `FunctionExpression`
-  \| `Identifier`
-  \| `ImportExpression`
-  \| `JSXElement`
-  \| `JSXFragment`
-  \| `BigIntLiteral`
-  \| `BooleanLiteral`
-  \| `NullLiteral`
-  \| `NumberLiteral`
-  \| `RegExpLiteral`
-  \| `StringLiteral`
-  \| `LogicalExpression`
-  \| `MemberExpressionComputedName`
-  \| `MemberExpressionNonComputedName`
-  \| `MetaProperty`
-  \| `NewExpression`
-  \| `ObjectExpression`
-  \| `ObjectPattern`
-  \| `SequenceExpression`
-  \| `Super`
-  \| `TaggedTemplateExpression`
-  \| `TemplateLiteral`
-  \| `ThisExpression`
-  \| `TSAsExpression`
-  \| `TSInstantiationExpression`
-  \| `TSNonNullExpression`
-  \| `TSSatisfiesExpression`
-  \| `TSTypeAssertion`
-  \| `UnaryExpressionBitwiseNot`
-  \| `UnaryExpressionDelete`
-  \| `UnaryExpressionMinus`
-  \| `UnaryExpressionNot`
-  \| `UnaryExpressionPlus`
-  \| `UnaryExpressionTypeof`
-  \| `UnaryExpressionVoid`
-  \| `UpdateExpression`
-  \| `YieldNoStarExpression`
-  \| `YieldStarExpression`\>
+[`View`](../interfaces/View.md)\<[`TSESTreeUnwrapped`](../../../../type-aliases/TSESTreeUnwrapped.md)\<
+\| `ArrayExpression`
+\| `ArrayPattern`
+\| `ArrowFunctionExpressionWithBlockBody`
+\| `ArrowFunctionExpressionWithExpressionBody`
+\| `AssignmentExpression`
+\| `AwaitExpression`
+\| `PrivateInExpression`
+\| `SymmetricBinaryExpression`
+\| `CallExpression`
+\| `ChainExpression`
+\| `ClassExpression`
+\| `ConditionalExpression`
+\| `FunctionExpression`
+\| `Identifier`
+\| `ImportExpression`
+\| `JSXElement`
+\| `JSXFragment`
+\| `BigIntLiteral`
+\| `BooleanLiteral`
+\| `NullLiteral`
+\| `NumberLiteral`
+\| `RegExpLiteral`
+\| `StringLiteral`
+\| `LogicalExpression`
+\| `MemberExpressionComputedName`
+\| `MemberExpressionNonComputedName`
+\| `MetaProperty`
+\| `NewExpression`
+\| `ObjectExpression`
+\| `ObjectPattern`
+\| `SequenceExpression`
+\| `Super`
+\| `TaggedTemplateExpression`
+\| `TemplateLiteral`
+\| `ThisExpression`
+\| `TSAsExpression`
+\| `TSInstantiationExpression`
+\| `TSNonNullExpression`
+\| `TSSatisfiesExpression`
+\| `TSTypeAssertion`
+\| `UnaryExpressionBitwiseNot`
+\| `UnaryExpressionDelete`
+\| `UnaryExpressionMinus`
+\| `UnaryExpressionNot`
+\| `UnaryExpressionPlus`
+\| `UnaryExpressionTypeof`
+\| `UnaryExpressionVoid`
+\| `UpdateExpression`
+\| `YieldNoStarExpression`
+\| `YieldStarExpression`\>\>
 
-***
+---
 
-### getName()
+### name
+
+#### Get Signature
 
 ```ts
-getName(effort?: "min" | "max"): string | null;
+get name(): string | null;
 ```
 
-Get the static property name, or `null` when it cannot be statically determined.
+The static property name (plain identifier keys only), or `null` when it cannot be statically determined.
 
-#### Parameters
-
-| Parameter | Type | Default value |
-| ------ | ------ | ------ |
-| `effort` | `"min"` \| `"max"` | `"min"` |
-
-#### Returns
+##### Returns
 
 `string` \| `null`
 
-***
+---
 
-### getParent()
+### nameMax
+
+#### Get Signature
 
 ```ts
-getParent(): Node | undefined;
+get nameMax(): string | null;
 ```
 
-Get the parent node.
+The static property name, also resolving string literals and simple template literals, or `null`.
+
+##### Returns
+
+`string` \| `null`
+
+---
+
+### parent
+
+#### Get Signature
+
+```ts
+get parent(): View<Node> | undefined;
+```
+
+A view over the parent node.
 Deliberately NOT unwrapped: upward walks must see the tree as it is,
 including any type expression wrappers enclosing this node.
 
-#### Returns
+##### Returns
 
-`Node` \| `undefined`
+[`View`](../interfaces/View.md)\<`Node`\> \| `undefined`
+
+A view over the parent node.
+Deliberately NOT unwrapped: upward walks must see the tree as it is,
+including any type expression wrappers enclosing this node.
 
 #### Inherited from
 
-[`Class`](Class.md).[`getParent`](Class.md#getparent)
+[`Class`](Class.md).[`parent`](Class.md#parent)
 
-***
+---
 
-### getValue()
+### value
+
+#### Get Signature
 
 ```ts
-getValue(): TSESTreeUnwrapped<
+get value(): View<TSESTreeUnwrapped<
   | ArrayExpression
   | ArrayPattern
   | ArrowFunctionExpressionWithBlockBody
@@ -271,68 +271,90 @@ getValue(): TSESTreeUnwrapped<
   | UnaryExpressionVoid
   | UpdateExpression
   | YieldNoStarExpression
-| YieldStarExpression>;
+| YieldStarExpression>>;
 ```
 
-Get the value with type and chain expressions unwrapped.
+A view over the value with type and chain expressions unwrapped.
+
+##### Returns
+
+[`View`](../interfaces/View.md)\<[`TSESTreeUnwrapped`](../../../../type-aliases/TSESTreeUnwrapped.md)\<
+\| `ArrayExpression`
+\| `ArrayPattern`
+\| `ArrowFunctionExpressionWithBlockBody`
+\| `ArrowFunctionExpressionWithExpressionBody`
+\| `AssignmentExpression`
+\| `AssignmentPattern`
+\| `AwaitExpression`
+\| `PrivateInExpression`
+\| `SymmetricBinaryExpression`
+\| `CallExpression`
+\| `ChainExpression`
+\| `ClassExpression`
+\| `ConditionalExpression`
+\| `FunctionExpression`
+\| `Identifier`
+\| `ImportExpression`
+\| `JSXElement`
+\| `JSXFragment`
+\| `BigIntLiteral`
+\| `BooleanLiteral`
+\| `NullLiteral`
+\| `NumberLiteral`
+\| `RegExpLiteral`
+\| `StringLiteral`
+\| `LogicalExpression`
+\| `MemberExpressionComputedName`
+\| `MemberExpressionNonComputedName`
+\| `MetaProperty`
+\| `NewExpression`
+\| `ObjectExpression`
+\| `ObjectPattern`
+\| `SequenceExpression`
+\| `Super`
+\| `TaggedTemplateExpression`
+\| `TemplateLiteral`
+\| `ThisExpression`
+\| `TSAsExpression`
+\| `TSEmptyBodyFunctionExpression`
+\| `TSInstantiationExpression`
+\| `TSNonNullExpression`
+\| `TSSatisfiesExpression`
+\| `TSTypeAssertion`
+\| `UnaryExpressionBitwiseNot`
+\| `UnaryExpressionDelete`
+\| `UnaryExpressionMinus`
+\| `UnaryExpressionNot`
+\| `UnaryExpressionPlus`
+\| `UnaryExpressionTypeof`
+\| `UnaryExpressionVoid`
+\| `UpdateExpression`
+\| `YieldNoStarExpression`
+\| `YieldStarExpression`\>\>
+
+## Methods
+
+### \[NodeInspectSymbol\]()
+
+```ts
+NodeInspectSymbol: unknown;
+```
+
+Node.js custom inspection method.
 
 #### Returns
 
-[`TSESTreeUnwrapped`](../../../../type-aliases/TSESTreeUnwrapped.md)\<
-  \| `ArrayExpression`
-  \| `ArrayPattern`
-  \| `ArrowFunctionExpressionWithBlockBody`
-  \| `ArrowFunctionExpressionWithExpressionBody`
-  \| `AssignmentExpression`
-  \| `AssignmentPattern`
-  \| `AwaitExpression`
-  \| `PrivateInExpression`
-  \| `SymmetricBinaryExpression`
-  \| `CallExpression`
-  \| `ChainExpression`
-  \| `ClassExpression`
-  \| `ConditionalExpression`
-  \| `FunctionExpression`
-  \| `Identifier`
-  \| `ImportExpression`
-  \| `JSXElement`
-  \| `JSXFragment`
-  \| `BigIntLiteral`
-  \| `BooleanLiteral`
-  \| `NullLiteral`
-  \| `NumberLiteral`
-  \| `RegExpLiteral`
-  \| `StringLiteral`
-  \| `LogicalExpression`
-  \| `MemberExpressionComputedName`
-  \| `MemberExpressionNonComputedName`
-  \| `MetaProperty`
-  \| `NewExpression`
-  \| `ObjectExpression`
-  \| `ObjectPattern`
-  \| `SequenceExpression`
-  \| `Super`
-  \| `TaggedTemplateExpression`
-  \| `TemplateLiteral`
-  \| `ThisExpression`
-  \| `TSAsExpression`
-  \| `TSEmptyBodyFunctionExpression`
-  \| `TSInstantiationExpression`
-  \| `TSNonNullExpression`
-  \| `TSSatisfiesExpression`
-  \| `TSTypeAssertion`
-  \| `UnaryExpressionBitwiseNot`
-  \| `UnaryExpressionDelete`
-  \| `UnaryExpressionMinus`
-  \| `UnaryExpressionNot`
-  \| `UnaryExpressionPlus`
-  \| `UnaryExpressionTypeof`
-  \| `UnaryExpressionVoid`
-  \| `UpdateExpression`
-  \| `YieldNoStarExpression`
-  \| `YieldStarExpression`\>
+`unknown`
 
-***
+#### Since
+
+2.0.0
+
+#### Inherited from
+
+[`Class`](Class.md).[`[NodeInspectSymbol]`](Class.md#nodeinspectsymbol)
+
+---
 
 ### toJSON()
 
@@ -350,7 +372,7 @@ Return the structured, non-circular representation of this view.
 
 [`Class`](Class.md).[`toJSON`](Class.md#tojson)
 
-***
+---
 
 ### toString()
 

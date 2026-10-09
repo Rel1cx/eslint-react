@@ -22,24 +22,24 @@ impossible at runtime.
 **Example** (Handling impossible values)
 
 ```ts
-import { absurd } from "effect"
+import { absurd } from "effect";
 
 const handleNever = (value: never) => {
-  return absurd(value) // This will throw an error if called
-}
+  return absurd(value); // This will throw an error if called
+};
 ```
 
 ## Type Parameters
 
 | Type Parameter |
-| ------ |
-| `A` |
+| -------------- |
+| `A`            |
 
 ## Parameters
 
-| Parameter | Type |
-| ------ | ------ |
-| `_` | `never` |
+| Parameter | Type    |
+| --------- | ------- |
+| `_`       | `never` |
 
 ## Returns
 

@@ -11,9 +11,9 @@ instances that support Effect-style method chaining with `.pipe(...)`.
 
 ## See
 
- - [Pipeable](Pipeable.md) for the instance-side contract
- - [Class](../variables/Class.md) for the base constructor
- - [Mixin](../functions/Mixin.md) for wrapping an existing class constructor
+- [Pipeable](Pipeable.md) for the instance-side contract
+- [Class](../variables/Class.md) for the base constructor
+- [Mixin](../functions/Mixin.md) for wrapping an existing class constructor
 
 ## Since
 
@@ -29,8 +29,8 @@ new PipeableConstructor(...args: readonly any[]): Pipeable;
 
 #### Parameters
 
-| Parameter | Type |
-| ------ | ------ |
+| Parameter | Type             |
+| --------- | ---------------- |
 | ...`args` | readonly `any`[] |
 
 #### Returns

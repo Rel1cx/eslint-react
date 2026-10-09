@@ -87,60 +87,60 @@ function getCallKind(node: TSESTree.CallExpression): CallKind {
  * @returns The resolved function or the callee name, or null when neither applies
  */
 function resolveCleanupCallee(context: RuleContext<MessageID, []>, node: TSESTree.CallExpression): CleanupCallee | null {
-  const callee = View.of(node).getCallee();
-  switch (callee.type) {
+  const callee = View.of(node).callee;
+  switch (callee.node.type) {
     // stop()
     case AST.Identifier: {
-      const variable = findVariable(context.sourceCode.getScope(node), callee);
+      const variable = findVariable(context.sourceCode.getScope(node), callee.node);
       const defNode = variable?.defs.at(-1)?.node;
       const fn = defNode == null
         ? null
         : defNode.type === AST.FunctionDeclaration
         ? defNode
         : defNode.type === AST.VariableDeclarator
-        ? View.of(defNode).getInit()
+        ? (View.of(defNode).init?.node ?? null)
         : null;
       return fn != null && Check.isFunction(fn)
         ? { kind: "function", node: fn }
-        : { kind: "name", name: callee.name };
+        : { kind: "name", name: callee.node.name };
     }
     // handlers.stop()
     case AST.MemberExpression: {
-      if (callee.computed) {
+      if (callee.node.computed) {
         return null;
       }
-      const calleeView = View.of(callee);
-      const property = calleeView.getProperty();
-      const object = calleeView.getObject();
-      if (property.type !== AST.Identifier || object.type !== AST.Identifier) {
+      const calleeView = View.of(callee.node);
+      const property = calleeView.property;
+      const object = calleeView.object;
+      if (property.node.type !== AST.Identifier || object.node.type !== AST.Identifier) {
         return null;
       }
-      const variable = findVariable(context.sourceCode.getScope(node), object);
+      const variable = findVariable(context.sourceCode.getScope(node), object.node);
       const defNode = variable?.defs.at(-1)?.node;
       if (defNode?.type !== AST.VariableDeclarator) {
         return null;
       }
-      const init = View.of(defNode).getInit();
-      if (init?.type !== AST.ObjectExpression) {
+      const init = View.of(defNode).init;
+      if (init?.node.type !== AST.ObjectExpression) {
         return null;
       }
-      for (const prop of init.properties) {
+      for (const prop of init.node.properties) {
         if (prop.type !== AST.Property || prop.computed) {
           continue;
         }
         const propView = View.of(prop);
-        const key = propView.getKey();
-        const keyName = key.type === AST.Identifier
-          ? key.name
-          : key.type === AST.Literal && isString(key.value)
-          ? key.value
+        const key = propView.key;
+        const keyName = key.node.type === AST.Identifier
+          ? key.node.name
+          : key.node.type === AST.Literal && isString(key.node.value)
+          ? key.node.value
           : null;
-        if (keyName !== property.name) {
+        if (keyName !== property.node.name) {
           continue;
         }
-        const value = propView.getValue();
-        if (Check.isFunction(value)) {
-          return { kind: "function", node: value };
+        const value = propView.value;
+        if (Check.isFunction(value.node)) {
+          return { kind: "function", node: value.node };
         }
       }
       return null;
@@ -260,13 +260,13 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       const fKind = isUseEffectSetupCallback(fn) ? "setup" : "cleanup";
       const setupFn = fKind === "setup" ? fn : Traverse.findParent(fn, Check.isFunction);
       const effect = setupFn == null ? null : Extract.unwrap(setupFn).parent ?? null;
-      const callee = View.of(node).getCallee();
+      const callee = View.of(node).callee;
       match(getCallKind(node))
         .with("addEventListener", (callKind) => {
           // https://github.com/Rel1cx/eslint-react/issues/1323
-          const isFromReactNative = callee.type === AST.MemberExpression
-            && Check.isIdentifier(callee.object)
-            && isInitializedFromReactNative(callee.object.name, context.sourceCode.getScope(node));
+          const isFromReactNative = callee.node.type === AST.MemberExpression
+            && Check.isIdentifier(callee.node.object)
+            && isInitializedFromReactNative(callee.node.object.name, context.sourceCode.getScope(node));
           if (isFromReactNative) {
             return;
           }
@@ -281,7 +281,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
           aEntries.push({
             ...opts,
             type,
-            callee,
+            callee: callee.node,
             effect,
             listener,
             method: "addEventListener",
@@ -300,7 +300,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
           visitInlineFunction(node, callKind, opts);
           rEntries.push({
             type,
-            callee,
+            callee: callee.node,
             capture: opts.capture,
             effect,
             listener,

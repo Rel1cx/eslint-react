@@ -17,15 +17,15 @@ this so operations can be chained without nesting function calls.
 **Example** (Chaining operations with pipe)
 
 ```ts
-import { Effect } from "effect"
+import { Effect } from "effect";
 
 // The Pipeable interface allows Effect values to be chained using the pipe method
 const program = Effect.succeed(1).pipe(
   Effect.map((x) => x + 1),
-  Effect.flatMap((x) => Effect.succeed(x * 2))
-)
+  Effect.flatMap((x) => Effect.succeed(x * 2)),
+);
 
-Effect.runSync(program) // => 4
+Effect.runSync(program); // => 4
 ```
 
 ## Since
@@ -45,14 +45,14 @@ pipe<A>(this: A): A;
 ##### Type Parameters
 
 | Type Parameter |
-| ------ |
-| `A` |
+| -------------- |
+| `A`            |
 
 ##### Parameters
 
 | Parameter | Type |
-| ------ | ------ |
-| `this` | `A` |
+| --------- | ---- |
+| `this`    | `A`  |
 
 ##### Returns
 
@@ -67,16 +67,16 @@ pipe<A, B = never>(this: A, ab: (_: A) => B): B;
 ##### Type Parameters
 
 | Type Parameter | Default type |
-| ------ | ------ |
-| `A` | - |
-| `B` | `never` |
+| -------------- | ------------ |
+| `A`            | -            |
+| `B`            | `never`      |
 
 ##### Parameters
 
-| Parameter | Type |
-| ------ | ------ |
-| `this` | `A` |
-| `ab` | (`_`: `A`) => `B` |
+| Parameter | Type              |
+| --------- | ----------------- |
+| `this`    | `A`               |
+| `ab`      | (`_`: `A`) => `B` |
 
 ##### Returns
 
@@ -95,18 +95,18 @@ pipe<A, B = never, C = never>(
 ##### Type Parameters
 
 | Type Parameter | Default type |
-| ------ | ------ |
-| `A` | - |
-| `B` | `never` |
-| `C` | `never` |
+| -------------- | ------------ |
+| `A`            | -            |
+| `B`            | `never`      |
+| `C`            | `never`      |
 
 ##### Parameters
 
-| Parameter | Type |
-| ------ | ------ |
-| `this` | `A` |
-| `ab` | (`_`: `A`) => `B` |
-| `bc` | (`_`: `B`) => `C` |
+| Parameter | Type              |
+| --------- | ----------------- |
+| `this`    | `A`               |
+| `ab`      | (`_`: `A`) => `B` |
+| `bc`      | (`_`: `B`) => `C` |
 
 ##### Returns
 
@@ -126,20 +126,20 @@ pipe<A, B = never, C = never, D = never>(
 ##### Type Parameters
 
 | Type Parameter | Default type |
-| ------ | ------ |
-| `A` | - |
-| `B` | `never` |
-| `C` | `never` |
-| `D` | `never` |
+| -------------- | ------------ |
+| `A`            | -            |
+| `B`            | `never`      |
+| `C`            | `never`      |
+| `D`            | `never`      |
 
 ##### Parameters
 
-| Parameter | Type |
-| ------ | ------ |
-| `this` | `A` |
-| `ab` | (`_`: `A`) => `B` |
-| `bc` | (`_`: `B`) => `C` |
-| `cd` | (`_`: `C`) => `D` |
+| Parameter | Type              |
+| --------- | ----------------- |
+| `this`    | `A`               |
+| `ab`      | (`_`: `A`) => `B` |
+| `bc`      | (`_`: `B`) => `C` |
+| `cd`      | (`_`: `C`) => `D` |
 
 ##### Returns
 
@@ -160,22 +160,22 @@ pipe<A, B = never, C = never, D = never, E = never>(
 ##### Type Parameters
 
 | Type Parameter | Default type |
-| ------ | ------ |
-| `A` | - |
-| `B` | `never` |
-| `C` | `never` |
-| `D` | `never` |
-| `E` | `never` |
+| -------------- | ------------ |
+| `A`            | -            |
+| `B`            | `never`      |
+| `C`            | `never`      |
+| `D`            | `never`      |
+| `E`            | `never`      |
 
 ##### Parameters
 
-| Parameter | Type |
-| ------ | ------ |
-| `this` | `A` |
-| `ab` | (`_`: `A`) => `B` |
-| `bc` | (`_`: `B`) => `C` |
-| `cd` | (`_`: `C`) => `D` |
-| `de` | (`_`: `D`) => `E` |
+| Parameter | Type              |
+| --------- | ----------------- |
+| `this`    | `A`               |
+| `ab`      | (`_`: `A`) => `B` |
+| `bc`      | (`_`: `B`) => `C` |
+| `cd`      | (`_`: `C`) => `D` |
+| `de`      | (`_`: `D`) => `E` |
 
 ##### Returns
 
@@ -197,24 +197,24 @@ pipe<A, B = never, C = never, D = never, E = never, F = never>(
 ##### Type Parameters
 
 | Type Parameter | Default type |
-| ------ | ------ |
-| `A` | - |
-| `B` | `never` |
-| `C` | `never` |
-| `D` | `never` |
-| `E` | `never` |
-| `F` | `never` |
+| -------------- | ------------ |
+| `A`            | -            |
+| `B`            | `never`      |
+| `C`            | `never`      |
+| `D`            | `never`      |
+| `E`            | `never`      |
+| `F`            | `never`      |
 
 ##### Parameters
 
-| Parameter | Type |
-| ------ | ------ |
-| `this` | `A` |
-| `ab` | (`_`: `A`) => `B` |
-| `bc` | (`_`: `B`) => `C` |
-| `cd` | (`_`: `C`) => `D` |
-| `de` | (`_`: `D`) => `E` |
-| `ef` | (`_`: `E`) => `F` |
+| Parameter | Type              |
+| --------- | ----------------- |
+| `this`    | `A`               |
+| `ab`      | (`_`: `A`) => `B` |
+| `bc`      | (`_`: `B`) => `C` |
+| `cd`      | (`_`: `C`) => `D` |
+| `de`      | (`_`: `D`) => `E` |
+| `ef`      | (`_`: `E`) => `F` |
 
 ##### Returns
 
@@ -237,26 +237,26 @@ pipe<A, B = never, C = never, D = never, E = never, F = never, G = never>(
 ##### Type Parameters
 
 | Type Parameter | Default type |
-| ------ | ------ |
-| `A` | - |
-| `B` | `never` |
-| `C` | `never` |
-| `D` | `never` |
-| `E` | `never` |
-| `F` | `never` |
-| `G` | `never` |
+| -------------- | ------------ |
+| `A`            | -            |
+| `B`            | `never`      |
+| `C`            | `never`      |
+| `D`            | `never`      |
+| `E`            | `never`      |
+| `F`            | `never`      |
+| `G`            | `never`      |
 
 ##### Parameters
 
-| Parameter | Type |
-| ------ | ------ |
-| `this` | `A` |
-| `ab` | (`_`: `A`) => `B` |
-| `bc` | (`_`: `B`) => `C` |
-| `cd` | (`_`: `C`) => `D` |
-| `de` | (`_`: `D`) => `E` |
-| `ef` | (`_`: `E`) => `F` |
-| `fg` | (`_`: `F`) => `G` |
+| Parameter | Type              |
+| --------- | ----------------- |
+| `this`    | `A`               |
+| `ab`      | (`_`: `A`) => `B` |
+| `bc`      | (`_`: `B`) => `C` |
+| `cd`      | (`_`: `C`) => `D` |
+| `de`      | (`_`: `D`) => `E` |
+| `ef`      | (`_`: `E`) => `F` |
+| `fg`      | (`_`: `F`) => `G` |
 
 ##### Returns
 
@@ -280,28 +280,28 @@ pipe<A, B = never, C = never, D = never, E = never, F = never, G = never, H = ne
 ##### Type Parameters
 
 | Type Parameter | Default type |
-| ------ | ------ |
-| `A` | - |
-| `B` | `never` |
-| `C` | `never` |
-| `D` | `never` |
-| `E` | `never` |
-| `F` | `never` |
-| `G` | `never` |
-| `H` | `never` |
+| -------------- | ------------ |
+| `A`            | -            |
+| `B`            | `never`      |
+| `C`            | `never`      |
+| `D`            | `never`      |
+| `E`            | `never`      |
+| `F`            | `never`      |
+| `G`            | `never`      |
+| `H`            | `never`      |
 
 ##### Parameters
 
-| Parameter | Type |
-| ------ | ------ |
-| `this` | `A` |
-| `ab` | (`_`: `A`) => `B` |
-| `bc` | (`_`: `B`) => `C` |
-| `cd` | (`_`: `C`) => `D` |
-| `de` | (`_`: `D`) => `E` |
-| `ef` | (`_`: `E`) => `F` |
-| `fg` | (`_`: `F`) => `G` |
-| `gh` | (`_`: `G`) => `H` |
+| Parameter | Type              |
+| --------- | ----------------- |
+| `this`    | `A`               |
+| `ab`      | (`_`: `A`) => `B` |
+| `bc`      | (`_`: `B`) => `C` |
+| `cd`      | (`_`: `C`) => `D` |
+| `de`      | (`_`: `D`) => `E` |
+| `ef`      | (`_`: `E`) => `F` |
+| `fg`      | (`_`: `F`) => `G` |
+| `gh`      | (`_`: `G`) => `H` |
 
 ##### Returns
 
@@ -326,30 +326,30 @@ pipe<A, B = never, C = never, D = never, E = never, F = never, G = never, H = ne
 ##### Type Parameters
 
 | Type Parameter | Default type |
-| ------ | ------ |
-| `A` | - |
-| `B` | `never` |
-| `C` | `never` |
-| `D` | `never` |
-| `E` | `never` |
-| `F` | `never` |
-| `G` | `never` |
-| `H` | `never` |
-| `I` | `never` |
+| -------------- | ------------ |
+| `A`            | -            |
+| `B`            | `never`      |
+| `C`            | `never`      |
+| `D`            | `never`      |
+| `E`            | `never`      |
+| `F`            | `never`      |
+| `G`            | `never`      |
+| `H`            | `never`      |
+| `I`            | `never`      |
 
 ##### Parameters
 
-| Parameter | Type |
-| ------ | ------ |
-| `this` | `A` |
-| `ab` | (`_`: `A`) => `B` |
-| `bc` | (`_`: `B`) => `C` |
-| `cd` | (`_`: `C`) => `D` |
-| `de` | (`_`: `D`) => `E` |
-| `ef` | (`_`: `E`) => `F` |
-| `fg` | (`_`: `F`) => `G` |
-| `gh` | (`_`: `G`) => `H` |
-| `hi` | (`_`: `H`) => `I` |
+| Parameter | Type              |
+| --------- | ----------------- |
+| `this`    | `A`               |
+| `ab`      | (`_`: `A`) => `B` |
+| `bc`      | (`_`: `B`) => `C` |
+| `cd`      | (`_`: `C`) => `D` |
+| `de`      | (`_`: `D`) => `E` |
+| `ef`      | (`_`: `E`) => `F` |
+| `fg`      | (`_`: `F`) => `G` |
+| `gh`      | (`_`: `G`) => `H` |
+| `hi`      | (`_`: `H`) => `I` |
 
 ##### Returns
 
@@ -375,32 +375,32 @@ pipe<A, B = never, C = never, D = never, E = never, F = never, G = never, H = ne
 ##### Type Parameters
 
 | Type Parameter | Default type |
-| ------ | ------ |
-| `A` | - |
-| `B` | `never` |
-| `C` | `never` |
-| `D` | `never` |
-| `E` | `never` |
-| `F` | `never` |
-| `G` | `never` |
-| `H` | `never` |
-| `I` | `never` |
-| `J` | `never` |
+| -------------- | ------------ |
+| `A`            | -            |
+| `B`            | `never`      |
+| `C`            | `never`      |
+| `D`            | `never`      |
+| `E`            | `never`      |
+| `F`            | `never`      |
+| `G`            | `never`      |
+| `H`            | `never`      |
+| `I`            | `never`      |
+| `J`            | `never`      |
 
 ##### Parameters
 
-| Parameter | Type |
-| ------ | ------ |
-| `this` | `A` |
-| `ab` | (`_`: `A`) => `B` |
-| `bc` | (`_`: `B`) => `C` |
-| `cd` | (`_`: `C`) => `D` |
-| `de` | (`_`: `D`) => `E` |
-| `ef` | (`_`: `E`) => `F` |
-| `fg` | (`_`: `F`) => `G` |
-| `gh` | (`_`: `G`) => `H` |
-| `hi` | (`_`: `H`) => `I` |
-| `ij` | (`_`: `I`) => `J` |
+| Parameter | Type              |
+| --------- | ----------------- |
+| `this`    | `A`               |
+| `ab`      | (`_`: `A`) => `B` |
+| `bc`      | (`_`: `B`) => `C` |
+| `cd`      | (`_`: `C`) => `D` |
+| `de`      | (`_`: `D`) => `E` |
+| `ef`      | (`_`: `E`) => `F` |
+| `fg`      | (`_`: `F`) => `G` |
+| `gh`      | (`_`: `G`) => `H` |
+| `hi`      | (`_`: `H`) => `I` |
+| `ij`      | (`_`: `I`) => `J` |
 
 ##### Returns
 
@@ -427,34 +427,34 @@ pipe<A, B = never, C = never, D = never, E = never, F = never, G = never, H = ne
 ##### Type Parameters
 
 | Type Parameter | Default type |
-| ------ | ------ |
-| `A` | - |
-| `B` | `never` |
-| `C` | `never` |
-| `D` | `never` |
-| `E` | `never` |
-| `F` | `never` |
-| `G` | `never` |
-| `H` | `never` |
-| `I` | `never` |
-| `J` | `never` |
-| `K` | `never` |
+| -------------- | ------------ |
+| `A`            | -            |
+| `B`            | `never`      |
+| `C`            | `never`      |
+| `D`            | `never`      |
+| `E`            | `never`      |
+| `F`            | `never`      |
+| `G`            | `never`      |
+| `H`            | `never`      |
+| `I`            | `never`      |
+| `J`            | `never`      |
+| `K`            | `never`      |
 
 ##### Parameters
 
-| Parameter | Type |
-| ------ | ------ |
-| `this` | `A` |
-| `ab` | (`_`: `A`) => `B` |
-| `bc` | (`_`: `B`) => `C` |
-| `cd` | (`_`: `C`) => `D` |
-| `de` | (`_`: `D`) => `E` |
-| `ef` | (`_`: `E`) => `F` |
-| `fg` | (`_`: `F`) => `G` |
-| `gh` | (`_`: `G`) => `H` |
-| `hi` | (`_`: `H`) => `I` |
-| `ij` | (`_`: `I`) => `J` |
-| `jk` | (`_`: `J`) => `K` |
+| Parameter | Type              |
+| --------- | ----------------- |
+| `this`    | `A`               |
+| `ab`      | (`_`: `A`) => `B` |
+| `bc`      | (`_`: `B`) => `C` |
+| `cd`      | (`_`: `C`) => `D` |
+| `de`      | (`_`: `D`) => `E` |
+| `ef`      | (`_`: `E`) => `F` |
+| `fg`      | (`_`: `F`) => `G` |
+| `gh`      | (`_`: `G`) => `H` |
+| `hi`      | (`_`: `H`) => `I` |
+| `ij`      | (`_`: `I`) => `J` |
+| `jk`      | (`_`: `J`) => `K` |
 
 ##### Returns
 
@@ -482,36 +482,36 @@ pipe<A, B = never, C = never, D = never, E = never, F = never, G = never, H = ne
 ##### Type Parameters
 
 | Type Parameter | Default type |
-| ------ | ------ |
-| `A` | - |
-| `B` | `never` |
-| `C` | `never` |
-| `D` | `never` |
-| `E` | `never` |
-| `F` | `never` |
-| `G` | `never` |
-| `H` | `never` |
-| `I` | `never` |
-| `J` | `never` |
-| `K` | `never` |
-| `L` | `never` |
+| -------------- | ------------ |
+| `A`            | -            |
+| `B`            | `never`      |
+| `C`            | `never`      |
+| `D`            | `never`      |
+| `E`            | `never`      |
+| `F`            | `never`      |
+| `G`            | `never`      |
+| `H`            | `never`      |
+| `I`            | `never`      |
+| `J`            | `never`      |
+| `K`            | `never`      |
+| `L`            | `never`      |
 
 ##### Parameters
 
-| Parameter | Type |
-| ------ | ------ |
-| `this` | `A` |
-| `ab` | (`_`: `A`) => `B` |
-| `bc` | (`_`: `B`) => `C` |
-| `cd` | (`_`: `C`) => `D` |
-| `de` | (`_`: `D`) => `E` |
-| `ef` | (`_`: `E`) => `F` |
-| `fg` | (`_`: `F`) => `G` |
-| `gh` | (`_`: `G`) => `H` |
-| `hi` | (`_`: `H`) => `I` |
-| `ij` | (`_`: `I`) => `J` |
-| `jk` | (`_`: `J`) => `K` |
-| `kl` | (`_`: `K`) => `L` |
+| Parameter | Type              |
+| --------- | ----------------- |
+| `this`    | `A`               |
+| `ab`      | (`_`: `A`) => `B` |
+| `bc`      | (`_`: `B`) => `C` |
+| `cd`      | (`_`: `C`) => `D` |
+| `de`      | (`_`: `D`) => `E` |
+| `ef`      | (`_`: `E`) => `F` |
+| `fg`      | (`_`: `F`) => `G` |
+| `gh`      | (`_`: `G`) => `H` |
+| `hi`      | (`_`: `H`) => `I` |
+| `ij`      | (`_`: `I`) => `J` |
+| `jk`      | (`_`: `J`) => `K` |
+| `kl`      | (`_`: `K`) => `L` |
 
 ##### Returns
 
@@ -540,38 +540,38 @@ pipe<A, B = never, C = never, D = never, E = never, F = never, G = never, H = ne
 ##### Type Parameters
 
 | Type Parameter | Default type |
-| ------ | ------ |
-| `A` | - |
-| `B` | `never` |
-| `C` | `never` |
-| `D` | `never` |
-| `E` | `never` |
-| `F` | `never` |
-| `G` | `never` |
-| `H` | `never` |
-| `I` | `never` |
-| `J` | `never` |
-| `K` | `never` |
-| `L` | `never` |
-| `M` | `never` |
+| -------------- | ------------ |
+| `A`            | -            |
+| `B`            | `never`      |
+| `C`            | `never`      |
+| `D`            | `never`      |
+| `E`            | `never`      |
+| `F`            | `never`      |
+| `G`            | `never`      |
+| `H`            | `never`      |
+| `I`            | `never`      |
+| `J`            | `never`      |
+| `K`            | `never`      |
+| `L`            | `never`      |
+| `M`            | `never`      |
 
 ##### Parameters
 
-| Parameter | Type |
-| ------ | ------ |
-| `this` | `A` |
-| `ab` | (`_`: `A`) => `B` |
-| `bc` | (`_`: `B`) => `C` |
-| `cd` | (`_`: `C`) => `D` |
-| `de` | (`_`: `D`) => `E` |
-| `ef` | (`_`: `E`) => `F` |
-| `fg` | (`_`: `F`) => `G` |
-| `gh` | (`_`: `G`) => `H` |
-| `hi` | (`_`: `H`) => `I` |
-| `ij` | (`_`: `I`) => `J` |
-| `jk` | (`_`: `J`) => `K` |
-| `kl` | (`_`: `K`) => `L` |
-| `lm` | (`_`: `L`) => `M` |
+| Parameter | Type              |
+| --------- | ----------------- |
+| `this`    | `A`               |
+| `ab`      | (`_`: `A`) => `B` |
+| `bc`      | (`_`: `B`) => `C` |
+| `cd`      | (`_`: `C`) => `D` |
+| `de`      | (`_`: `D`) => `E` |
+| `ef`      | (`_`: `E`) => `F` |
+| `fg`      | (`_`: `F`) => `G` |
+| `gh`      | (`_`: `G`) => `H` |
+| `hi`      | (`_`: `H`) => `I` |
+| `ij`      | (`_`: `I`) => `J` |
+| `jk`      | (`_`: `J`) => `K` |
+| `kl`      | (`_`: `K`) => `L` |
+| `lm`      | (`_`: `L`) => `M` |
 
 ##### Returns
 
@@ -601,40 +601,40 @@ pipe<A, B = never, C = never, D = never, E = never, F = never, G = never, H = ne
 ##### Type Parameters
 
 | Type Parameter | Default type |
-| ------ | ------ |
-| `A` | - |
-| `B` | `never` |
-| `C` | `never` |
-| `D` | `never` |
-| `E` | `never` |
-| `F` | `never` |
-| `G` | `never` |
-| `H` | `never` |
-| `I` | `never` |
-| `J` | `never` |
-| `K` | `never` |
-| `L` | `never` |
-| `M` | `never` |
-| `N` | `never` |
+| -------------- | ------------ |
+| `A`            | -            |
+| `B`            | `never`      |
+| `C`            | `never`      |
+| `D`            | `never`      |
+| `E`            | `never`      |
+| `F`            | `never`      |
+| `G`            | `never`      |
+| `H`            | `never`      |
+| `I`            | `never`      |
+| `J`            | `never`      |
+| `K`            | `never`      |
+| `L`            | `never`      |
+| `M`            | `never`      |
+| `N`            | `never`      |
 
 ##### Parameters
 
-| Parameter | Type |
-| ------ | ------ |
-| `this` | `A` |
-| `ab` | (`_`: `A`) => `B` |
-| `bc` | (`_`: `B`) => `C` |
-| `cd` | (`_`: `C`) => `D` |
-| `de` | (`_`: `D`) => `E` |
-| `ef` | (`_`: `E`) => `F` |
-| `fg` | (`_`: `F`) => `G` |
-| `gh` | (`_`: `G`) => `H` |
-| `hi` | (`_`: `H`) => `I` |
-| `ij` | (`_`: `I`) => `J` |
-| `jk` | (`_`: `J`) => `K` |
-| `kl` | (`_`: `K`) => `L` |
-| `lm` | (`_`: `L`) => `M` |
-| `mn` | (`_`: `M`) => `N` |
+| Parameter | Type              |
+| --------- | ----------------- |
+| `this`    | `A`               |
+| `ab`      | (`_`: `A`) => `B` |
+| `bc`      | (`_`: `B`) => `C` |
+| `cd`      | (`_`: `C`) => `D` |
+| `de`      | (`_`: `D`) => `E` |
+| `ef`      | (`_`: `E`) => `F` |
+| `fg`      | (`_`: `F`) => `G` |
+| `gh`      | (`_`: `G`) => `H` |
+| `hi`      | (`_`: `H`) => `I` |
+| `ij`      | (`_`: `I`) => `J` |
+| `jk`      | (`_`: `J`) => `K` |
+| `kl`      | (`_`: `K`) => `L` |
+| `lm`      | (`_`: `L`) => `M` |
+| `mn`      | (`_`: `M`) => `N` |
 
 ##### Returns
 
@@ -665,42 +665,42 @@ pipe<A, B = never, C = never, D = never, E = never, F = never, G = never, H = ne
 ##### Type Parameters
 
 | Type Parameter | Default type |
-| ------ | ------ |
-| `A` | - |
-| `B` | `never` |
-| `C` | `never` |
-| `D` | `never` |
-| `E` | `never` |
-| `F` | `never` |
-| `G` | `never` |
-| `H` | `never` |
-| `I` | `never` |
-| `J` | `never` |
-| `K` | `never` |
-| `L` | `never` |
-| `M` | `never` |
-| `N` | `never` |
-| `O` | `never` |
+| -------------- | ------------ |
+| `A`            | -            |
+| `B`            | `never`      |
+| `C`            | `never`      |
+| `D`            | `never`      |
+| `E`            | `never`      |
+| `F`            | `never`      |
+| `G`            | `never`      |
+| `H`            | `never`      |
+| `I`            | `never`      |
+| `J`            | `never`      |
+| `K`            | `never`      |
+| `L`            | `never`      |
+| `M`            | `never`      |
+| `N`            | `never`      |
+| `O`            | `never`      |
 
 ##### Parameters
 
-| Parameter | Type |
-| ------ | ------ |
-| `this` | `A` |
-| `ab` | (`_`: `A`) => `B` |
-| `bc` | (`_`: `B`) => `C` |
-| `cd` | (`_`: `C`) => `D` |
-| `de` | (`_`: `D`) => `E` |
-| `ef` | (`_`: `E`) => `F` |
-| `fg` | (`_`: `F`) => `G` |
-| `gh` | (`_`: `G`) => `H` |
-| `hi` | (`_`: `H`) => `I` |
-| `ij` | (`_`: `I`) => `J` |
-| `jk` | (`_`: `J`) => `K` |
-| `kl` | (`_`: `K`) => `L` |
-| `lm` | (`_`: `L`) => `M` |
-| `mn` | (`_`: `M`) => `N` |
-| `no` | (`_`: `N`) => `O` |
+| Parameter | Type              |
+| --------- | ----------------- |
+| `this`    | `A`               |
+| `ab`      | (`_`: `A`) => `B` |
+| `bc`      | (`_`: `B`) => `C` |
+| `cd`      | (`_`: `C`) => `D` |
+| `de`      | (`_`: `D`) => `E` |
+| `ef`      | (`_`: `E`) => `F` |
+| `fg`      | (`_`: `F`) => `G` |
+| `gh`      | (`_`: `G`) => `H` |
+| `hi`      | (`_`: `H`) => `I` |
+| `ij`      | (`_`: `I`) => `J` |
+| `jk`      | (`_`: `J`) => `K` |
+| `kl`      | (`_`: `K`) => `L` |
+| `lm`      | (`_`: `L`) => `M` |
+| `mn`      | (`_`: `M`) => `N` |
+| `no`      | (`_`: `N`) => `O` |
 
 ##### Returns
 
@@ -732,44 +732,44 @@ pipe<A, B = never, C = never, D = never, E = never, F = never, G = never, H = ne
 ##### Type Parameters
 
 | Type Parameter | Default type |
-| ------ | ------ |
-| `A` | - |
-| `B` | `never` |
-| `C` | `never` |
-| `D` | `never` |
-| `E` | `never` |
-| `F` | `never` |
-| `G` | `never` |
-| `H` | `never` |
-| `I` | `never` |
-| `J` | `never` |
-| `K` | `never` |
-| `L` | `never` |
-| `M` | `never` |
-| `N` | `never` |
-| `O` | `never` |
-| `P` | `never` |
+| -------------- | ------------ |
+| `A`            | -            |
+| `B`            | `never`      |
+| `C`            | `never`      |
+| `D`            | `never`      |
+| `E`            | `never`      |
+| `F`            | `never`      |
+| `G`            | `never`      |
+| `H`            | `never`      |
+| `I`            | `never`      |
+| `J`            | `never`      |
+| `K`            | `never`      |
+| `L`            | `never`      |
+| `M`            | `never`      |
+| `N`            | `never`      |
+| `O`            | `never`      |
+| `P`            | `never`      |
 
 ##### Parameters
 
-| Parameter | Type |
-| ------ | ------ |
-| `this` | `A` |
-| `ab` | (`_`: `A`) => `B` |
-| `bc` | (`_`: `B`) => `C` |
-| `cd` | (`_`: `C`) => `D` |
-| `de` | (`_`: `D`) => `E` |
-| `ef` | (`_`: `E`) => `F` |
-| `fg` | (`_`: `F`) => `G` |
-| `gh` | (`_`: `G`) => `H` |
-| `hi` | (`_`: `H`) => `I` |
-| `ij` | (`_`: `I`) => `J` |
-| `jk` | (`_`: `J`) => `K` |
-| `kl` | (`_`: `K`) => `L` |
-| `lm` | (`_`: `L`) => `M` |
-| `mn` | (`_`: `M`) => `N` |
-| `no` | (`_`: `N`) => `O` |
-| `op` | (`_`: `O`) => `P` |
+| Parameter | Type              |
+| --------- | ----------------- |
+| `this`    | `A`               |
+| `ab`      | (`_`: `A`) => `B` |
+| `bc`      | (`_`: `B`) => `C` |
+| `cd`      | (`_`: `C`) => `D` |
+| `de`      | (`_`: `D`) => `E` |
+| `ef`      | (`_`: `E`) => `F` |
+| `fg`      | (`_`: `F`) => `G` |
+| `gh`      | (`_`: `G`) => `H` |
+| `hi`      | (`_`: `H`) => `I` |
+| `ij`      | (`_`: `I`) => `J` |
+| `jk`      | (`_`: `J`) => `K` |
+| `kl`      | (`_`: `K`) => `L` |
+| `lm`      | (`_`: `L`) => `M` |
+| `mn`      | (`_`: `M`) => `N` |
+| `no`      | (`_`: `N`) => `O` |
+| `op`      | (`_`: `O`) => `P` |
 
 ##### Returns
 
@@ -802,46 +802,46 @@ pipe<A, B = never, C = never, D = never, E = never, F = never, G = never, H = ne
 ##### Type Parameters
 
 | Type Parameter | Default type |
-| ------ | ------ |
-| `A` | - |
-| `B` | `never` |
-| `C` | `never` |
-| `D` | `never` |
-| `E` | `never` |
-| `F` | `never` |
-| `G` | `never` |
-| `H` | `never` |
-| `I` | `never` |
-| `J` | `never` |
-| `K` | `never` |
-| `L` | `never` |
-| `M` | `never` |
-| `N` | `never` |
-| `O` | `never` |
-| `P` | `never` |
-| `Q` | `never` |
+| -------------- | ------------ |
+| `A`            | -            |
+| `B`            | `never`      |
+| `C`            | `never`      |
+| `D`            | `never`      |
+| `E`            | `never`      |
+| `F`            | `never`      |
+| `G`            | `never`      |
+| `H`            | `never`      |
+| `I`            | `never`      |
+| `J`            | `never`      |
+| `K`            | `never`      |
+| `L`            | `never`      |
+| `M`            | `never`      |
+| `N`            | `never`      |
+| `O`            | `never`      |
+| `P`            | `never`      |
+| `Q`            | `never`      |
 
 ##### Parameters
 
-| Parameter | Type |
-| ------ | ------ |
-| `this` | `A` |
-| `ab` | (`_`: `A`) => `B` |
-| `bc` | (`_`: `B`) => `C` |
-| `cd` | (`_`: `C`) => `D` |
-| `de` | (`_`: `D`) => `E` |
-| `ef` | (`_`: `E`) => `F` |
-| `fg` | (`_`: `F`) => `G` |
-| `gh` | (`_`: `G`) => `H` |
-| `hi` | (`_`: `H`) => `I` |
-| `ij` | (`_`: `I`) => `J` |
-| `jk` | (`_`: `J`) => `K` |
-| `kl` | (`_`: `K`) => `L` |
-| `lm` | (`_`: `L`) => `M` |
-| `mn` | (`_`: `M`) => `N` |
-| `no` | (`_`: `N`) => `O` |
-| `op` | (`_`: `O`) => `P` |
-| `pq` | (`_`: `P`) => `Q` |
+| Parameter | Type              |
+| --------- | ----------------- |
+| `this`    | `A`               |
+| `ab`      | (`_`: `A`) => `B` |
+| `bc`      | (`_`: `B`) => `C` |
+| `cd`      | (`_`: `C`) => `D` |
+| `de`      | (`_`: `D`) => `E` |
+| `ef`      | (`_`: `E`) => `F` |
+| `fg`      | (`_`: `F`) => `G` |
+| `gh`      | (`_`: `G`) => `H` |
+| `hi`      | (`_`: `H`) => `I` |
+| `ij`      | (`_`: `I`) => `J` |
+| `jk`      | (`_`: `J`) => `K` |
+| `kl`      | (`_`: `K`) => `L` |
+| `lm`      | (`_`: `L`) => `M` |
+| `mn`      | (`_`: `M`) => `N` |
+| `no`      | (`_`: `N`) => `O` |
+| `op`      | (`_`: `O`) => `P` |
+| `pq`      | (`_`: `P`) => `Q` |
 
 ##### Returns
 
@@ -875,48 +875,48 @@ pipe<A, B = never, C = never, D = never, E = never, F = never, G = never, H = ne
 ##### Type Parameters
 
 | Type Parameter | Default type |
-| ------ | ------ |
-| `A` | - |
-| `B` | `never` |
-| `C` | `never` |
-| `D` | `never` |
-| `E` | `never` |
-| `F` | `never` |
-| `G` | `never` |
-| `H` | `never` |
-| `I` | `never` |
-| `J` | `never` |
-| `K` | `never` |
-| `L` | `never` |
-| `M` | `never` |
-| `N` | `never` |
-| `O` | `never` |
-| `P` | `never` |
-| `Q` | `never` |
-| `R` | `never` |
+| -------------- | ------------ |
+| `A`            | -            |
+| `B`            | `never`      |
+| `C`            | `never`      |
+| `D`            | `never`      |
+| `E`            | `never`      |
+| `F`            | `never`      |
+| `G`            | `never`      |
+| `H`            | `never`      |
+| `I`            | `never`      |
+| `J`            | `never`      |
+| `K`            | `never`      |
+| `L`            | `never`      |
+| `M`            | `never`      |
+| `N`            | `never`      |
+| `O`            | `never`      |
+| `P`            | `never`      |
+| `Q`            | `never`      |
+| `R`            | `never`      |
 
 ##### Parameters
 
-| Parameter | Type |
-| ------ | ------ |
-| `this` | `A` |
-| `ab` | (`_`: `A`) => `B` |
-| `bc` | (`_`: `B`) => `C` |
-| `cd` | (`_`: `C`) => `D` |
-| `de` | (`_`: `D`) => `E` |
-| `ef` | (`_`: `E`) => `F` |
-| `fg` | (`_`: `F`) => `G` |
-| `gh` | (`_`: `G`) => `H` |
-| `hi` | (`_`: `H`) => `I` |
-| `ij` | (`_`: `I`) => `J` |
-| `jk` | (`_`: `J`) => `K` |
-| `kl` | (`_`: `K`) => `L` |
-| `lm` | (`_`: `L`) => `M` |
-| `mn` | (`_`: `M`) => `N` |
-| `no` | (`_`: `N`) => `O` |
-| `op` | (`_`: `O`) => `P` |
-| `pq` | (`_`: `P`) => `Q` |
-| `qr` | (`_`: `Q`) => `R` |
+| Parameter | Type              |
+| --------- | ----------------- |
+| `this`    | `A`               |
+| `ab`      | (`_`: `A`) => `B` |
+| `bc`      | (`_`: `B`) => `C` |
+| `cd`      | (`_`: `C`) => `D` |
+| `de`      | (`_`: `D`) => `E` |
+| `ef`      | (`_`: `E`) => `F` |
+| `fg`      | (`_`: `F`) => `G` |
+| `gh`      | (`_`: `G`) => `H` |
+| `hi`      | (`_`: `H`) => `I` |
+| `ij`      | (`_`: `I`) => `J` |
+| `jk`      | (`_`: `J`) => `K` |
+| `kl`      | (`_`: `K`) => `L` |
+| `lm`      | (`_`: `L`) => `M` |
+| `mn`      | (`_`: `M`) => `N` |
+| `no`      | (`_`: `N`) => `O` |
+| `op`      | (`_`: `O`) => `P` |
+| `pq`      | (`_`: `P`) => `Q` |
+| `qr`      | (`_`: `Q`) => `R` |
 
 ##### Returns
 
@@ -951,50 +951,50 @@ pipe<A, B = never, C = never, D = never, E = never, F = never, G = never, H = ne
 ##### Type Parameters
 
 | Type Parameter | Default type |
-| ------ | ------ |
-| `A` | - |
-| `B` | `never` |
-| `C` | `never` |
-| `D` | `never` |
-| `E` | `never` |
-| `F` | `never` |
-| `G` | `never` |
-| `H` | `never` |
-| `I` | `never` |
-| `J` | `never` |
-| `K` | `never` |
-| `L` | `never` |
-| `M` | `never` |
-| `N` | `never` |
-| `O` | `never` |
-| `P` | `never` |
-| `Q` | `never` |
-| `R` | `never` |
-| `S` | `never` |
+| -------------- | ------------ |
+| `A`            | -            |
+| `B`            | `never`      |
+| `C`            | `never`      |
+| `D`            | `never`      |
+| `E`            | `never`      |
+| `F`            | `never`      |
+| `G`            | `never`      |
+| `H`            | `never`      |
+| `I`            | `never`      |
+| `J`            | `never`      |
+| `K`            | `never`      |
+| `L`            | `never`      |
+| `M`            | `never`      |
+| `N`            | `never`      |
+| `O`            | `never`      |
+| `P`            | `never`      |
+| `Q`            | `never`      |
+| `R`            | `never`      |
+| `S`            | `never`      |
 
 ##### Parameters
 
-| Parameter | Type |
-| ------ | ------ |
-| `this` | `A` |
-| `ab` | (`_`: `A`) => `B` |
-| `bc` | (`_`: `B`) => `C` |
-| `cd` | (`_`: `C`) => `D` |
-| `de` | (`_`: `D`) => `E` |
-| `ef` | (`_`: `E`) => `F` |
-| `fg` | (`_`: `F`) => `G` |
-| `gh` | (`_`: `G`) => `H` |
-| `hi` | (`_`: `H`) => `I` |
-| `ij` | (`_`: `I`) => `J` |
-| `jk` | (`_`: `J`) => `K` |
-| `kl` | (`_`: `K`) => `L` |
-| `lm` | (`_`: `L`) => `M` |
-| `mn` | (`_`: `M`) => `N` |
-| `no` | (`_`: `N`) => `O` |
-| `op` | (`_`: `O`) => `P` |
-| `pq` | (`_`: `P`) => `Q` |
-| `qr` | (`_`: `Q`) => `R` |
-| `rs` | (`_`: `R`) => `S` |
+| Parameter | Type              |
+| --------- | ----------------- |
+| `this`    | `A`               |
+| `ab`      | (`_`: `A`) => `B` |
+| `bc`      | (`_`: `B`) => `C` |
+| `cd`      | (`_`: `C`) => `D` |
+| `de`      | (`_`: `D`) => `E` |
+| `ef`      | (`_`: `E`) => `F` |
+| `fg`      | (`_`: `F`) => `G` |
+| `gh`      | (`_`: `G`) => `H` |
+| `hi`      | (`_`: `H`) => `I` |
+| `ij`      | (`_`: `I`) => `J` |
+| `jk`      | (`_`: `J`) => `K` |
+| `kl`      | (`_`: `K`) => `L` |
+| `lm`      | (`_`: `L`) => `M` |
+| `mn`      | (`_`: `M`) => `N` |
+| `no`      | (`_`: `N`) => `O` |
+| `op`      | (`_`: `O`) => `P` |
+| `pq`      | (`_`: `P`) => `Q` |
+| `qr`      | (`_`: `Q`) => `R` |
+| `rs`      | (`_`: `R`) => `S` |
 
 ##### Returns
 
@@ -1030,52 +1030,52 @@ pipe<A, B = never, C = never, D = never, E = never, F = never, G = never, H = ne
 ##### Type Parameters
 
 | Type Parameter | Default type |
-| ------ | ------ |
-| `A` | - |
-| `B` | `never` |
-| `C` | `never` |
-| `D` | `never` |
-| `E` | `never` |
-| `F` | `never` |
-| `G` | `never` |
-| `H` | `never` |
-| `I` | `never` |
-| `J` | `never` |
-| `K` | `never` |
-| `L` | `never` |
-| `M` | `never` |
-| `N` | `never` |
-| `O` | `never` |
-| `P` | `never` |
-| `Q` | `never` |
-| `R` | `never` |
-| `S` | `never` |
-| `T` | `never` |
+| -------------- | ------------ |
+| `A`            | -            |
+| `B`            | `never`      |
+| `C`            | `never`      |
+| `D`            | `never`      |
+| `E`            | `never`      |
+| `F`            | `never`      |
+| `G`            | `never`      |
+| `H`            | `never`      |
+| `I`            | `never`      |
+| `J`            | `never`      |
+| `K`            | `never`      |
+| `L`            | `never`      |
+| `M`            | `never`      |
+| `N`            | `never`      |
+| `O`            | `never`      |
+| `P`            | `never`      |
+| `Q`            | `never`      |
+| `R`            | `never`      |
+| `S`            | `never`      |
+| `T`            | `never`      |
 
 ##### Parameters
 
-| Parameter | Type |
-| ------ | ------ |
-| `this` | `A` |
-| `ab` | (`_`: `A`) => `B` |
-| `bc` | (`_`: `B`) => `C` |
-| `cd` | (`_`: `C`) => `D` |
-| `de` | (`_`: `D`) => `E` |
-| `ef` | (`_`: `E`) => `F` |
-| `fg` | (`_`: `F`) => `G` |
-| `gh` | (`_`: `G`) => `H` |
-| `hi` | (`_`: `H`) => `I` |
-| `ij` | (`_`: `I`) => `J` |
-| `jk` | (`_`: `J`) => `K` |
-| `kl` | (`_`: `K`) => `L` |
-| `lm` | (`_`: `L`) => `M` |
-| `mn` | (`_`: `M`) => `N` |
-| `no` | (`_`: `N`) => `O` |
-| `op` | (`_`: `O`) => `P` |
-| `pq` | (`_`: `P`) => `Q` |
-| `qr` | (`_`: `Q`) => `R` |
-| `rs` | (`_`: `R`) => `S` |
-| `st` | (`_`: `S`) => `T` |
+| Parameter | Type              |
+| --------- | ----------------- |
+| `this`    | `A`               |
+| `ab`      | (`_`: `A`) => `B` |
+| `bc`      | (`_`: `B`) => `C` |
+| `cd`      | (`_`: `C`) => `D` |
+| `de`      | (`_`: `D`) => `E` |
+| `ef`      | (`_`: `E`) => `F` |
+| `fg`      | (`_`: `F`) => `G` |
+| `gh`      | (`_`: `G`) => `H` |
+| `hi`      | (`_`: `H`) => `I` |
+| `ij`      | (`_`: `I`) => `J` |
+| `jk`      | (`_`: `J`) => `K` |
+| `kl`      | (`_`: `K`) => `L` |
+| `lm`      | (`_`: `L`) => `M` |
+| `mn`      | (`_`: `M`) => `N` |
+| `no`      | (`_`: `N`) => `O` |
+| `op`      | (`_`: `O`) => `P` |
+| `pq`      | (`_`: `P`) => `Q` |
+| `qr`      | (`_`: `Q`) => `R` |
+| `rs`      | (`_`: `R`) => `S` |
+| `st`      | (`_`: `S`) => `T` |
 
 ##### Returns
 
@@ -1112,54 +1112,54 @@ pipe<A, B = never, C = never, D = never, E = never, F = never, G = never, H = ne
 ##### Type Parameters
 
 | Type Parameter | Default type |
-| ------ | ------ |
-| `A` | - |
-| `B` | `never` |
-| `C` | `never` |
-| `D` | `never` |
-| `E` | `never` |
-| `F` | `never` |
-| `G` | `never` |
-| `H` | `never` |
-| `I` | `never` |
-| `J` | `never` |
-| `K` | `never` |
-| `L` | `never` |
-| `M` | `never` |
-| `N` | `never` |
-| `O` | `never` |
-| `P` | `never` |
-| `Q` | `never` |
-| `R` | `never` |
-| `S` | `never` |
-| `T` | `never` |
-| `U` | `never` |
+| -------------- | ------------ |
+| `A`            | -            |
+| `B`            | `never`      |
+| `C`            | `never`      |
+| `D`            | `never`      |
+| `E`            | `never`      |
+| `F`            | `never`      |
+| `G`            | `never`      |
+| `H`            | `never`      |
+| `I`            | `never`      |
+| `J`            | `never`      |
+| `K`            | `never`      |
+| `L`            | `never`      |
+| `M`            | `never`      |
+| `N`            | `never`      |
+| `O`            | `never`      |
+| `P`            | `never`      |
+| `Q`            | `never`      |
+| `R`            | `never`      |
+| `S`            | `never`      |
+| `T`            | `never`      |
+| `U`            | `never`      |
 
 ##### Parameters
 
-| Parameter | Type |
-| ------ | ------ |
-| `this` | `A` |
-| `ab` | (`_`: `A`) => `B` |
-| `bc` | (`_`: `B`) => `C` |
-| `cd` | (`_`: `C`) => `D` |
-| `de` | (`_`: `D`) => `E` |
-| `ef` | (`_`: `E`) => `F` |
-| `fg` | (`_`: `F`) => `G` |
-| `gh` | (`_`: `G`) => `H` |
-| `hi` | (`_`: `H`) => `I` |
-| `ij` | (`_`: `I`) => `J` |
-| `jk` | (`_`: `J`) => `K` |
-| `kl` | (`_`: `K`) => `L` |
-| `lm` | (`_`: `L`) => `M` |
-| `mn` | (`_`: `M`) => `N` |
-| `no` | (`_`: `N`) => `O` |
-| `op` | (`_`: `O`) => `P` |
-| `pq` | (`_`: `P`) => `Q` |
-| `qr` | (`_`: `Q`) => `R` |
-| `rs` | (`_`: `R`) => `S` |
-| `st` | (`_`: `S`) => `T` |
-| `tu` | (`_`: `T`) => `U` |
+| Parameter | Type              |
+| --------- | ----------------- |
+| `this`    | `A`               |
+| `ab`      | (`_`: `A`) => `B` |
+| `bc`      | (`_`: `B`) => `C` |
+| `cd`      | (`_`: `C`) => `D` |
+| `de`      | (`_`: `D`) => `E` |
+| `ef`      | (`_`: `E`) => `F` |
+| `fg`      | (`_`: `F`) => `G` |
+| `gh`      | (`_`: `G`) => `H` |
+| `hi`      | (`_`: `H`) => `I` |
+| `ij`      | (`_`: `I`) => `J` |
+| `jk`      | (`_`: `J`) => `K` |
+| `kl`      | (`_`: `K`) => `L` |
+| `lm`      | (`_`: `L`) => `M` |
+| `mn`      | (`_`: `M`) => `N` |
+| `no`      | (`_`: `N`) => `O` |
+| `op`      | (`_`: `O`) => `P` |
+| `pq`      | (`_`: `P`) => `Q` |
+| `qr`      | (`_`: `Q`) => `R` |
+| `rs`      | (`_`: `R`) => `S` |
+| `st`      | (`_`: `S`) => `T` |
+| `tu`      | (`_`: `T`) => `U` |
 
 ##### Returns
 
@@ -1196,54 +1196,54 @@ pipe<A, B = never, C = never, D = never, E = never, F = never, G = never, H = ne
 ##### Type Parameters
 
 | Type Parameter | Default type |
-| ------ | ------ |
-| `A` | - |
-| `B` | `never` |
-| `C` | `never` |
-| `D` | `never` |
-| `E` | `never` |
-| `F` | `never` |
-| `G` | `never` |
-| `H` | `never` |
-| `I` | `never` |
-| `J` | `never` |
-| `K` | `never` |
-| `L` | `never` |
-| `M` | `never` |
-| `N` | `never` |
-| `O` | `never` |
-| `P` | `never` |
-| `Q` | `never` |
-| `R` | `never` |
-| `S` | `never` |
-| `T` | `never` |
-| `U` | `never` |
+| -------------- | ------------ |
+| `A`            | -            |
+| `B`            | `never`      |
+| `C`            | `never`      |
+| `D`            | `never`      |
+| `E`            | `never`      |
+| `F`            | `never`      |
+| `G`            | `never`      |
+| `H`            | `never`      |
+| `I`            | `never`      |
+| `J`            | `never`      |
+| `K`            | `never`      |
+| `L`            | `never`      |
+| `M`            | `never`      |
+| `N`            | `never`      |
+| `O`            | `never`      |
+| `P`            | `never`      |
+| `Q`            | `never`      |
+| `R`            | `never`      |
+| `S`            | `never`      |
+| `T`            | `never`      |
+| `U`            | `never`      |
 
 ##### Parameters
 
-| Parameter | Type |
-| ------ | ------ |
-| `this` | `A` |
-| `ab` | (`_`: `A`) => `B` |
-| `bc` | (`_`: `B`) => `C` |
-| `cd` | (`_`: `C`) => `D` |
-| `de` | (`_`: `D`) => `E` |
-| `ef` | (`_`: `E`) => `F` |
-| `fg` | (`_`: `F`) => `G` |
-| `gh` | (`_`: `G`) => `H` |
-| `hi` | (`_`: `H`) => `I` |
-| `ij` | (`_`: `I`) => `J` |
-| `jk` | (`_`: `J`) => `K` |
-| `kl` | (`_`: `K`) => `L` |
-| `lm` | (`_`: `L`) => `M` |
-| `mn` | (`_`: `M`) => `N` |
-| `no` | (`_`: `N`) => `O` |
-| `op` | (`_`: `O`) => `P` |
-| `pq` | (`_`: `P`) => `Q` |
-| `qr` | (`_`: `Q`) => `R` |
-| `rs` | (`_`: `R`) => `S` |
-| `st` | (`_`: `S`) => `T` |
-| `tu` | (`_`: `T`) => `U` |
+| Parameter | Type              |
+| --------- | ----------------- |
+| `this`    | `A`               |
+| `ab`      | (`_`: `A`) => `B` |
+| `bc`      | (`_`: `B`) => `C` |
+| `cd`      | (`_`: `C`) => `D` |
+| `de`      | (`_`: `D`) => `E` |
+| `ef`      | (`_`: `E`) => `F` |
+| `fg`      | (`_`: `F`) => `G` |
+| `gh`      | (`_`: `G`) => `H` |
+| `hi`      | (`_`: `H`) => `I` |
+| `ij`      | (`_`: `I`) => `J` |
+| `jk`      | (`_`: `J`) => `K` |
+| `kl`      | (`_`: `K`) => `L` |
+| `lm`      | (`_`: `L`) => `M` |
+| `mn`      | (`_`: `M`) => `N` |
+| `no`      | (`_`: `N`) => `O` |
+| `op`      | (`_`: `O`) => `P` |
+| `pq`      | (`_`: `P`) => `Q` |
+| `qr`      | (`_`: `Q`) => `R` |
+| `rs`      | (`_`: `R`) => `S` |
+| `st`      | (`_`: `S`) => `T` |
+| `tu`      | (`_`: `T`) => `U` |
 
 ##### Returns
 

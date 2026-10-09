@@ -21,17 +21,17 @@ This uses `Boolean(input)` and treats `0`, `""`, `false`, `null`, and
 **Example** (Filtering truthy values)
 
 ```ts
-import { Predicate } from "effect"
+import { Predicate } from "effect";
 
-const values = [0, 1, "", "ok", false]
-const truthy = values.filter(Predicate.isTruthy) // => [1, "ok"]
+const values = [0, 1, "", "ok", false];
+const truthy = values.filter(Predicate.isTruthy); // => [1, "ok"]
 ```
 
 ## Parameters
 
-| Parameter | Type |
-| ------ | ------ |
-| `input` | `unknown` |
+| Parameter | Type      |
+| --------- | --------- |
+| `input`   | `unknown` |
 
 ## Returns
 
@@ -39,8 +39,8 @@ const truthy = values.filter(Predicate.isTruthy) // => [1, "ok"]
 
 ## See
 
- - [isNullish](isNullish.md)
- - [isNotNullish](isNotNullish.md)
+- [isNullish](isNullish.md)
+- [isNotNullish](isNotNullish.md)
 
 ## Since
 

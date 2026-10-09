@@ -8,9 +8,9 @@ const isGetChildContext: (node: Node) => node is TSESTreeMethodOrPropertyDefinit
 
 ## Parameters
 
-| Parameter | Type |
-| ------ | ------ |
-| `node` | `Node` |
+| Parameter | Type   |
+| --------- | ------ |
+| `node`    | `Node` |
 
 ## Returns
 

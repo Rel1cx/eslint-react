@@ -16,9 +16,9 @@ meaningful return value.
 **Example** (Returning void from a thunk)
 
 ```ts
-import { Function } from "effect"
+import { Function } from "effect";
 
-Function.constVoid() // => undefined
+Function.constVoid(); // => undefined
 ```
 
 ## Since

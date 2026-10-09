@@ -15,25 +15,25 @@ Use to adapt a tuple-argument function so it accepts multiple arguments.
 **Example** (Converting a tuple to arguments)
 
 ```ts
-import { Function } from "effect"
+import { Function } from "effect";
 
-const getFirst = Function.untupled(<A, B>(tuple: [A, B]): A => tuple[0])
+const getFirst = Function.untupled(<A, B>(tuple: [A, B]): A => tuple[0]);
 
-getFirst(1, 2) // => 1
+getFirst(1, 2); // => 1
 ```
 
 ## Type Parameters
 
-| Type Parameter |
-| ------ |
-| `A` *extends* readonly `unknown`[] |
-| `B` |
+| Type Parameter                     |
+| ---------------------------------- |
+| `A` _extends_ readonly `unknown`[] |
+| `B`                                |
 
 ## Parameters
 
-| Parameter | Type |
-| ------ | ------ |
-| `f` | (`a`: `A`) => `B` |
+| Parameter | Type              |
+| --------- | ----------------- |
+| `f`       | (`a`: `A`) => `B` |
 
 ## Returns
 

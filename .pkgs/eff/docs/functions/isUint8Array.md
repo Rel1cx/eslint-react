@@ -19,18 +19,18 @@ Uses `instanceof Uint8Array`.
 **Example** (Guarding Uint8Array values)
 
 ```ts
-import { Predicate } from "effect"
+import { Predicate } from "effect";
 
-const data: unknown = new Uint8Array([1, 2])
+const data: unknown = new Uint8Array([1, 2]);
 
-Predicate.isUint8Array(data) // => true
+Predicate.isUint8Array(data); // => true
 ```
 
 ## Parameters
 
-| Parameter | Type |
-| ------ | ------ |
-| `input` | `unknown` |
+| Parameter | Type      |
+| --------- | --------- |
+| `input`   | `unknown` |
 
 ## Returns
 
@@ -38,8 +38,8 @@ Predicate.isUint8Array(data) // => true
 
 ## See
 
- - [isIterable](isIterable.md)
- - [isSet](isSet.md)
+- [isIterable](isIterable.md)
+- [isSet](isSet.md)
 
 ## Since
 

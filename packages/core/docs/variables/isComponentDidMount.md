@@ -8,9 +8,9 @@ const isComponentDidMount: (node: Node) => node is TSESTreeMethodOrPropertyDefin
 
 ## Parameters
 
-| Parameter | Type |
-| ------ | ------ |
-| `node` | `Node` |
+| Parameter | Type   |
+| --------- | ------ |
+| `node`    | `Node` |
 
 ## Returns
 

@@ -21,7 +21,7 @@ Return every import entry, in source order.
 
 readonly [`ImportEntry`](ImportEntry.md)[]
 
-***
+---
 
 ### binding()
 
@@ -33,9 +33,9 @@ Look up the import entry a local name is bound to.
 
 #### Parameters
 
-| Parameter | Type | Description |
-| ------ | ------ | ------ |
-| `local` | `string` | The local binding name. |
+| Parameter | Type     | Description             |
+| --------- | -------- | ----------------------- |
+| `local`   | `string` | The local binding name. |
 
 #### Returns
 
@@ -43,7 +43,7 @@ Look up the import entry a local name is bound to.
 
 The matching entry, or `undefined` if the name is not imported.
 
-***
+---
 
 ### bindingsOf()
 
@@ -55,9 +55,9 @@ Look up all local bindings of a given imported export name.
 
 #### Parameters
 
-| Parameter | Type | Description |
-| ------ | ------ | ------ |
-| `name` | `string` | The imported export name (`"default"` for default imports). |
+| Parameter | Type     | Description                                                 |
+| --------- | -------- | ----------------------------------------------------------- |
+| `name`    | `string` | The imported export name (`"default"` for default imports). |
 
 #### Returns
 
@@ -65,7 +65,7 @@ readonly [`ImportEntry`](ImportEntry.md)[]
 
 The matching entries in source order, possibly empty.
 
-***
+---
 
 ### has()
 
@@ -77,16 +77,16 @@ Check whether a local name is bound to a specific imported export.
 
 #### Parameters
 
-| Parameter | Type | Description |
-| ------ | ------ | ------ |
-| `local` | `string` | The local binding name. |
-| `name` | `string` | The imported export name. |
+| Parameter | Type     | Description               |
+| --------- | -------- | ------------------------- |
+| `local`   | `string` | The local binding name.   |
+| `name`    | `string` | The imported export name. |
 
 #### Returns
 
 `boolean`
 
-***
+---
 
 ### hasNamespace()
 
@@ -99,9 +99,9 @@ that refers to the module as a whole rather than to a single named export.
 
 #### Parameters
 
-| Parameter | Type | Description |
-| ------ | ------ | ------ |
-| `local` | `string` | The local binding name. |
+| Parameter | Type     | Description             |
+| --------- | -------- | ----------------------- |
+| `local`   | `string` | The local binding name. |
 
 #### Returns
 

@@ -3,48 +3,49 @@
 # Type Alias: AttributeValue
 
 ```ts
-type AttributeValue = 
+type AttributeValue =
   | {
-  kind: "boolean";
-  node: null;
-  toStatic: true;
-}
+    kind: "boolean";
+    node: null;
+    toStatic: true;
+  }
   | {
-  kind: "literal";
-  node: TSESTree.Literal;
-  toStatic:   | string
-     | number
-     | bigint
-     | boolean
-     | RegExp
-     | null;
-}
+    kind: "literal";
+    node: TSESTree.Literal;
+    toStatic:
+      | string
+      | number
+      | bigint
+      | boolean
+      | RegExp
+      | null;
+  }
   | {
-  kind: "unknown";
-  node: TSESTree.Expression;
-  toStatic: unknown;
-}
+    kind: "unknown";
+    node: TSESTree.Expression;
+    toStatic: unknown;
+  }
   | {
-  kind: "element";
-  node: TSESTree.JSXElement;
-  toStatic: undefined;
-}
+    kind: "element";
+    node: TSESTree.JSXElement;
+    toStatic: undefined;
+  }
   | {
-  kind: "missing";
-  node: TSESTree.JSXEmptyExpression;
-  toStatic: undefined;
-}
+    kind: "missing";
+    node: TSESTree.JSXEmptyExpression;
+    toStatic: undefined;
+  }
   | {
-  kind: "spreadChild";
-  node: TSESTree.JSXSpreadChild;
-  toStatic: undefined;
-}
+    kind: "spreadChild";
+    node: TSESTree.JSXSpreadChild;
+    toStatic: undefined;
+  }
   | {
-  kind: "spreadProps";
-  node: TSESTree.JSXSpreadAttribute["argument"];
-  getProperty: unknown;
-  toStatic: unknown;
-};
+    kind: "spreadProps";
+    node: TSESTree.JSXSpreadAttribute["argument"];
+    getProperty: unknown;
+    toStatic: unknown;
+  };
 ```
 
 Discriminated union representing the resolved value of a JSX attribute.

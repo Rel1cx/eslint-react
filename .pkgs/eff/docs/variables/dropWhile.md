@@ -4,8 +4,8 @@
 
 ```ts
 const dropWhile: {
-<A>  (predicate: (a: NoInfer<A>, i: number) => boolean): (self: Iterable<A>) => A[];
-<A>  (self: Iterable<A>, predicate: (a: A, i: number) => boolean): A[];
+  <A>(predicate: (a: NoInfer<A>, i: number) => boolean): (self: Iterable<A>) => A[];
+  <A>(self: Iterable<A>, predicate: (a: A, i: number) => boolean): A[];
 };
 ```
 
@@ -22,9 +22,9 @@ The predicate receives `(element, index)`.
 **Example** (Dropping while condition holds)
 
 ```ts
-import { Array } from "effect"
+import { Array } from "effect";
 
-Array.dropWhile([1, 2, 3, 4, 5], (x) => x < 4) // => [4, 5]
+Array.dropWhile([1, 2, 3, 4, 5], (x) => x < 4); // => [4, 5]
 ```
 
 ## Call Signature
@@ -36,13 +36,13 @@ Array.dropWhile([1, 2, 3, 4, 5], (x) => x < 4) // => [4, 5]
 ### Type Parameters
 
 | Type Parameter |
-| ------ |
-| `A` |
+| -------------- |
+| `A`            |
 
 ### Parameters
 
-| Parameter | Type |
-| ------ | ------ |
+| Parameter   | Type                                                                                                                               |
+| ----------- | ---------------------------------------------------------------------------------------------------------------------------------- |
 | `predicate` | (`a`: [`NoInfer`](https://www.typescriptlang.org/docs/handbook/utility-types.html#noinfertype)\<`A`\>, `i`: `number`) => `boolean` |
 
 ### Returns
@@ -58,15 +58,15 @@ Array.dropWhile([1, 2, 3, 4, 5], (x) => x < 4) // => [4, 5]
 ### Type Parameters
 
 | Type Parameter |
-| ------ |
-| `A` |
+| -------------- |
+| `A`            |
 
 ### Parameters
 
-| Parameter | Type |
-| ------ | ------ |
-| `self` | [`Iterable`](https://www.typescriptlang.org/docs/handbook/iterators-and-generators.html#iterable-interface)\<`A`\> |
-| `predicate` | (`a`: `A`, `i`: `number`) => `boolean` |
+| Parameter   | Type                                                                                                               |
+| ----------- | ------------------------------------------------------------------------------------------------------------------ |
+| `self`      | [`Iterable`](https://www.typescriptlang.org/docs/handbook/iterators-and-generators.html#iterable-interface)\<`A`\> |
+| `predicate` | (`a`: `A`, `i`: `number`) => `boolean`                                                                             |
 
 ### Returns
 
@@ -74,8 +74,8 @@ Array.dropWhile([1, 2, 3, 4, 5], (x) => x < 4) // => [4, 5]
 
 ## See
 
- - [takeWhile](takeWhile.md) — keep the matching prefix instead
- - drop — drop a fixed count
+- [takeWhile](takeWhile.md) — keep the matching prefix instead
+- drop — drop a fixed count
 
 ## Since
 

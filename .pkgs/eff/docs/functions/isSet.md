@@ -19,20 +19,20 @@ Uses `instanceof Set`.
 **Example** (Guarding a Set)
 
 ```ts
-import { Predicate } from "effect"
+import { Predicate } from "effect";
 
-const data: unknown = new Set([1, 2])
+const data: unknown = new Set([1, 2]);
 
 if (Predicate.isSet(data)) {
-  data.size // => 2
+  data.size; // => 2
 }
 ```
 
 ## Parameters
 
-| Parameter | Type |
-| ------ | ------ |
-| `input` | `unknown` |
+| Parameter | Type      |
+| --------- | --------- |
+| `input`   | `unknown` |
 
 ## Returns
 
@@ -40,8 +40,8 @@ if (Predicate.isSet(data)) {
 
 ## See
 
- - [isMap](isMap.md)
- - [isIterable](isIterable.md)
+- [isMap](isMap.md)
+- [isIterable](isIterable.md)
 
 ## Since
 

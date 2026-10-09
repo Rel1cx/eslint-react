@@ -1,6 +1,6 @@
 [@eslint-react/ast](../../../../README.md) / [View](../README.md) / BinaryLikeView
 
-# Class: BinaryLikeView\<N *extends* `TSESTree.BinaryExpression` \| `TSESTree.LogicalExpression`\>
+# Class: BinaryLikeView\<N _extends_ `TSESTree.BinaryExpression` \| `TSESTree.LogicalExpression`\>
 
 Base view over binary-like expressions sharing `left`/`right` operands.
 
@@ -15,9 +15,9 @@ Base view over binary-like expressions sharing `left`/`right` operands.
 
 ## Type Parameters
 
-| Type Parameter |
-| ------ |
-| `N` *extends* `TSESTree.BinaryExpression` \| `TSESTree.LogicalExpression` |
+| Type Parameter                                                            |
+| ------------------------------------------------------------------------- |
+| `N` _extends_ `TSESTree.BinaryExpression` \| `TSESTree.LogicalExpression` |
 
 ## Constructors
 
@@ -29,9 +29,9 @@ new BinaryLikeView<N extends BinaryExpression | LogicalExpression>(node: N, cont
 
 #### Parameters
 
-| Parameter | Type |
-| ------ | ------ |
-| `node` | `N` |
+| Parameter  | Type                                          |
+| ---------- | --------------------------------------------- |
+| `node`     | `N`                                           |
 | `context?` | [`ViewContext`](../interfaces/ViewContext.md) |
 
 #### Returns
@@ -44,10 +44,68 @@ new BinaryLikeView<N extends BinaryExpression | LogicalExpression>(node: N, cont
 
 ## Properties
 
-| Property | Modifier | Type | Description | Inherited from |
-| ------ | ------ | ------ | ------ | ------ |
+| Property                                | Modifier   | Type                                                         | Description                                              | Inherited from                                             |
+| --------------------------------------- | ---------- | ------------------------------------------------------------ | -------------------------------------------------------- | ---------------------------------------------------------- |
 | <a id="property-context"></a> `context` | `readonly` | [`ViewContext`](../interfaces/ViewContext.md) \| `undefined` | Optional rule context for getters that need source text. | [`Class`](Class.md).[`context`](Class.md#property-context) |
-| <a id="property-node"></a> `node` | `readonly` | `N` | The original node, as delivered by ESLint. | [`Class`](Class.md).[`node`](Class.md#property-node) |
+| <a id="property-node"></a> `node`       | `readonly` | `N`                                                          | The original node, as delivered by ESLint.               | [`Class`](Class.md).[`node`](Class.md#property-node)       |
+
+## Accessors
+
+### left
+
+#### Get Signature
+
+```ts
+get left(): View<TSESTreeUnwrapped<PrivateIdentifier | Expression>>;
+```
+
+A view over the left operand with type and chain expressions unwrapped.
+
+##### Returns
+
+[`View`](../interfaces/View.md)\<[`TSESTreeUnwrapped`](../../../../type-aliases/TSESTreeUnwrapped.md)\<`PrivateIdentifier` \| `Expression`\>\>
+
+---
+
+### parent
+
+#### Get Signature
+
+```ts
+get parent(): View<Node> | undefined;
+```
+
+A view over the parent node.
+Deliberately NOT unwrapped: upward walks must see the tree as it is,
+including any type expression wrappers enclosing this node.
+
+##### Returns
+
+[`View`](../interfaces/View.md)\<`Node`\> \| `undefined`
+
+A view over the parent node.
+Deliberately NOT unwrapped: upward walks must see the tree as it is,
+including any type expression wrappers enclosing this node.
+
+#### Inherited from
+
+[`Class`](Class.md).[`parent`](Class.md#parent)
+
+---
+
+### right
+
+#### Get Signature
+
+```ts
+get right(): View<TSESTreeUnwrapped<Expression>>;
+```
+
+A view over the right operand with type and chain expressions unwrapped.
+
+##### Returns
+
+[`View`](../interfaces/View.md)\<[`TSESTreeUnwrapped`](../../../../type-aliases/TSESTreeUnwrapped.md)\<`Expression`\>\>
 
 ## Methods
 
@@ -71,55 +129,7 @@ Node.js custom inspection method.
 
 [`Class`](Class.md).[`[NodeInspectSymbol]`](Class.md#nodeinspectsymbol)
 
-***
-
-### getLeft()
-
-```ts
-getLeft(): TSESTreeUnwrapped<PrivateIdentifier | Expression>;
-```
-
-Get the left operand with type and chain expressions unwrapped.
-
-#### Returns
-
-[`TSESTreeUnwrapped`](../../../../type-aliases/TSESTreeUnwrapped.md)\<`PrivateIdentifier` \| `Expression`\>
-
-***
-
-### getParent()
-
-```ts
-getParent(): Node | undefined;
-```
-
-Get the parent node.
-Deliberately NOT unwrapped: upward walks must see the tree as it is,
-including any type expression wrappers enclosing this node.
-
-#### Returns
-
-`Node` \| `undefined`
-
-#### Inherited from
-
-[`Class`](Class.md).[`getParent`](Class.md#getparent)
-
-***
-
-### getRight()
-
-```ts
-getRight(): TSESTreeUnwrapped<Expression>;
-```
-
-Get the right operand with type and chain expressions unwrapped.
-
-#### Returns
-
-[`TSESTreeUnwrapped`](../../../../type-aliases/TSESTreeUnwrapped.md)\<`Expression`\>
-
-***
+---
 
 ### toJSON()
 
@@ -137,7 +147,7 @@ Return the structured, non-circular representation of this view.
 
 [`Class`](Class.md).[`toJSON`](Class.md#tojson)
 
-***
+---
 
 ### toString()
 

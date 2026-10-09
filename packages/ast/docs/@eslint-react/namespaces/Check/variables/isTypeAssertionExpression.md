@@ -10,9 +10,9 @@ Check if a node is a TypeScript type assertion-like expression (as, assertion, n
 
 ## Parameters
 
-| Parameter | Type |
-| ------ | ------ |
-| `node` | `Node` \| `null` \| `undefined` |
+| Parameter | Type                            |
+| --------- | ------------------------------- |
+| `node`    | `Node` \| `null` \| `undefined` |
 
 ## Returns
 

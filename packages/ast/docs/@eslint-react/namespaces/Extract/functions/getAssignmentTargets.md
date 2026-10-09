@@ -13,9 +13,9 @@ their left side is.
 
 ## Parameters
 
-| Parameter | Type | Description |
-| ------ | ------ | ------ |
-| `node` | `Node` | The assignment left side or for-in/of loop target to inspect. |
+| Parameter | Type   | Description                                                   |
+| --------- | ------ | ------------------------------------------------------------- |
+| `node`    | `Node` | The assignment left side or for-in/of loop target to inspect. |
 
 ## Returns
 

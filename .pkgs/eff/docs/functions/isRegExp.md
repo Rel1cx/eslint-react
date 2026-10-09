@@ -19,18 +19,18 @@ Uses `instanceof RegExp`.
 **Example** (Guarding RegExp values)
 
 ```ts
-import { Predicate } from "effect"
+import { Predicate } from "effect";
 
-const data: unknown = /abc/
+const data: unknown = /abc/;
 
-Predicate.isRegExp(data) // => true
+Predicate.isRegExp(data); // => true
 ```
 
 ## Parameters
 
-| Parameter | Type |
-| ------ | ------ |
-| `input` | `unknown` |
+| Parameter | Type      |
+| --------- | --------- |
+| `input`   | `unknown` |
 
 ## Returns
 

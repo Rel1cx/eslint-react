@@ -23,35 +23,35 @@ original value; otherwise it feeds each result into the next function.
 **Example** (Implementing a pipe method)
 
 ```ts
-import { Pipeable } from "effect"
+import { Pipeable } from "effect";
 
 class NumberBox {
   constructor(readonly value: number) {}
 
   pipe(..._fns: ReadonlyArray<(value: number) => number>): number {
-    return Pipeable.pipeArguments(this.value, arguments) as number
+    return Pipeable.pipeArguments(this.value, arguments) as number;
   }
 }
 
 const result = new NumberBox(5).pipe(
   (n) => n + 2,
-  (n) => n * 3
-)
-result // => 21
+  (n) => n * 3,
+);
+result; // => 21
 ```
 
 ## Type Parameters
 
 | Type Parameter |
-| ------ |
-| `A` |
+| -------------- |
+| `A`            |
 
 ## Parameters
 
-| Parameter | Type |
-| ------ | ------ |
-| `self` | `A` |
-| `args` | `IArguments` |
+| Parameter | Type         |
+| --------- | ------------ |
+| `self`    | `A`          |
+| `args`    | `IArguments` |
 
 ## Returns
 
