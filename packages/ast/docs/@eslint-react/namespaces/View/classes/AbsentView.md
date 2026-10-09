@@ -1,15 +1,15 @@
-[@eslint-react/ast](../../../../README.md) / [View](../README.md) / EmptyView
+[@eslint-react/ast](../../../../README.md) / [View](../README.md) / AbsentView
 
-# Class: EmptyView
+# Class: AbsentView
 
-View over the absence of a node, consumed as `View.EmptyView`.
+View over the absence of a node, consumed as `View.AbsentView`.
 
 A null-object view returned by accessors whose child may be absent (ex: the
 argument of a bare `return`) and by `from()` when given `null` or `undefined`.
 It wraps no node: `node`, `type`, and `parent` are always `undefined`.
 Unlike node views, it is not created from the tree, so there is nothing to
-unwrap and no source text to read. Use `isEmptyView()` to narrow a
-`View | EmptyView` union, or compare `type` directly.
+unwrap and no source text to read. Use `isAbsentView()` to narrow a
+`View | AbsentView` union, or compare `type` directly.
 
 ## Extends
 
@@ -20,7 +20,7 @@ unwrap and no source text to read. Use `isEmptyView()` to narrow a
 ### Constructor
 
 ```ts
-new EmptyView(context?: ViewContext): EmptyView;
+new AbsentView(context?: ViewContext): AbsentView;
 ```
 
 #### Parameters
@@ -31,7 +31,7 @@ new EmptyView(context?: ViewContext): EmptyView;
 
 #### Returns
 
-`EmptyView`
+`AbsentView`
 
 #### Overrides
 
@@ -55,7 +55,7 @@ InspectableClass.constructor;
 get node(): undefined;
 ```
 
-Always `undefined`: an empty view wraps no node.
+Always `undefined`: an absent view wraps no node.
 
 ##### Returns
 
@@ -71,7 +71,7 @@ Always `undefined`: an empty view wraps no node.
 get parent(): undefined;
 ```
 
-Always `undefined`: an empty view has no parent.
+Always `undefined`: an absent view has no parent.
 
 ##### Returns
 
@@ -87,7 +87,7 @@ Always `undefined`: an empty view has no parent.
 get type(): undefined;
 ```
 
-Always `undefined`: an empty view wraps no node.
+Always `undefined`: an absent view wraps no node.
 
 ##### Returns
 
@@ -122,14 +122,14 @@ InspectableClass.[NodeInspectSymbol]
 ### toJSON()
 
 ```ts
-toJSON(): EmptyViewJSON;
+toJSON(): AbsentViewJSON;
 ```
 
-Return the structured representation of this empty view.
+Return the structured representation of this absent view.
 
 #### Returns
 
-[`EmptyViewJSON`](../interfaces/EmptyViewJSON.md)
+[`AbsentViewJSON`](../interfaces/AbsentViewJSON.md)
 
 #### Overrides
 

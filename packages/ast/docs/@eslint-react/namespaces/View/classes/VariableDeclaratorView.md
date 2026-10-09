@@ -82,10 +82,10 @@ get init():
   | Class<UpdateExpression>
   | Class<YieldNoStarExpression>
   | Class<YieldStarExpression>
-  | EmptyView;
+  | AbsentView;
 ```
 
-A view over the initializer with type and chain expressions unwrapped, or an empty view when absent.
+A view over the initializer with type and chain expressions unwrapped, or an absent view when absent.
 
 ##### Returns
 
@@ -125,7 +125,7 @@ A view over the initializer with type and chain expressions unwrapped, or an emp
 \| [`Class`](Class.md)\<`UpdateExpression`\>
 \| [`Class`](Class.md)\<`YieldNoStarExpression`\>
 \| [`Class`](Class.md)\<`YieldStarExpression`\>
-\| [`EmptyView`](EmptyView.md)
+\| [`AbsentView`](AbsentView.md)
 
 ---
 
@@ -165,7 +165,7 @@ get type(): N["type"];
 
 The node type, identical to `node.type` (ex: `"CallExpression"`).
 Exposed on the view itself so it reads like the wrapped node and can
-discriminate a `View | EmptyView` union without touching `.node`.
+discriminate a `View | AbsentView` union without touching `.node`.
 
 ##### Returns
 
@@ -173,7 +173,7 @@ discriminate a `View | EmptyView` union without touching `.node`.
 
 The node type, identical to `node.type` (ex: `"CallExpression"`).
 Exposed on the view itself so it reads like the wrapped node and can
-discriminate a `View | EmptyView` union without touching `.node`.
+discriminate a `View | AbsentView` union without touching `.node`.
 
 #### Inherited from
 

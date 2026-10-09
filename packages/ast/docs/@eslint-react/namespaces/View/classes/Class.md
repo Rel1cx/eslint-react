@@ -13,7 +13,7 @@ Views expose only getter accessors. Accessors that read a child node return
 a view over that node, created via `from()` with the view's context passed
 down, and with type and chain expressions unwrapped where the accessor's
 semantics call for it. Accessors whose child may be absent (ex: the argument
-of a bare `return`) return an `EmptyView` instead of `null`. Views never
+of a bare `return`) return an `AbsentView` instead of `null`. Views never
 modify or copy the tree, so the
 underlying nodes keep their identity and remain usable with `===`
 comparisons, scope analysis, WeakMap caches, and `context.report`; the
@@ -120,7 +120,7 @@ get type(): N["type"];
 
 The node type, identical to `node.type` (ex: `"CallExpression"`).
 Exposed on the view itself so it reads like the wrapped node and can
-discriminate a `View | EmptyView` union without touching `.node`.
+discriminate a `View | AbsentView` union without touching `.node`.
 
 ##### Returns
 
@@ -128,7 +128,7 @@ discriminate a `View | EmptyView` union without touching `.node`.
 
 The node type, identical to `node.type` (ex: `"CallExpression"`).
 Exposed on the view itself so it reads like the wrapped node and can
-discriminate a `View | EmptyView` union without touching `.node`.
+discriminate a `View | AbsentView` union without touching `.node`.
 
 #### Implementation of
 

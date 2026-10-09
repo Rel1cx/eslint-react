@@ -5,12 +5,12 @@
 ## Call Signature
 
 ```ts
-function from(node: null | undefined, context?: ViewContext): EmptyView;
+function from(node: null | undefined, context?: ViewContext): AbsentView;
 ```
 
 Create the most specific view for a node.
 Node types without a dedicated view get an instance of the base `Class`;
-`null` and `undefined` get an `EmptyView`.
+`null` and `undefined` get an `AbsentView`.
 
 The return type is a discriminated union over `type`: when the node's type
 is a union (including `TSESTree.Node` itself), each constituent maps to its
@@ -25,7 +25,7 @@ own view, so a `view.type` check narrows both the view and its `.node`.
 
 ### Returns
 
-[`EmptyView`](../classes/EmptyView.md)
+[`AbsentView`](../classes/AbsentView.md)
 
 A view whose getters return views over the node's children.
 
@@ -37,7 +37,7 @@ function from<N extends Node>(node: N, context?: ViewContext): ViewOf<N>;
 
 Create the most specific view for a node.
 Node types without a dedicated view get an instance of the base `Class`;
-`null` and `undefined` get an `EmptyView`.
+`null` and `undefined` get an `AbsentView`.
 
 The return type is a discriminated union over `type`: when the node's type
 is a union (including `TSESTree.Node` itself), each constituent maps to its
@@ -66,13 +66,13 @@ A view whose getters return views over the node's children.
 
 ```ts
 function from<N extends Node>(node: N | null | undefined, context?: ViewContext):
-  | EmptyView
+  | AbsentView
   | ViewOf<N>;
 ```
 
 Create the most specific view for a node.
 Node types without a dedicated view get an instance of the base `Class`;
-`null` and `undefined` get an `EmptyView`.
+`null` and `undefined` get an `AbsentView`.
 
 The return type is a discriminated union over `type`: when the node's type
 is a union (including `TSESTree.Node` itself), each constituent maps to its
@@ -93,7 +93,7 @@ own view, so a `view.type` check narrows both the view and its `.node`.
 
 ### Returns
 
-\| [`EmptyView`](../classes/EmptyView.md)
+\| [`AbsentView`](../classes/AbsentView.md)
 \| [`ViewOf`](../type-aliases/ViewOf.md)\<`N`\>
 
 A view whose getters return views over the node's children.

@@ -253,7 +253,7 @@ get type(): N["type"];
 
 The node type, identical to `node.type` (ex: `"CallExpression"`).
 Exposed on the view itself so it reads like the wrapped node and can
-discriminate a `View | EmptyView` union without touching `.node`.
+discriminate a `View | AbsentView` union without touching `.node`.
 
 ##### Returns
 
@@ -261,7 +261,7 @@ discriminate a `View | EmptyView` union without touching `.node`.
 
 The node type, identical to `node.type` (ex: `"CallExpression"`).
 Exposed on the view itself so it reads like the wrapped node and can
-discriminate a `View | EmptyView` union without touching `.node`.
+discriminate a `View | AbsentView` union without touching `.node`.
 
 #### Inherited from
 

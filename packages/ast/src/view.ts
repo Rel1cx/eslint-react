@@ -30,11 +30,11 @@ export interface ViewJSON {
 }
 
 /**
- * The structured representation of an empty view, consumed as `View.EmptyViewJSON`.
+ * The structured representation of an absent view, consumed as `View.AbsentViewJSON`.
  * It carries only the view tag: there is no node, hence no type, range, or text.
  */
-export interface EmptyViewJSON {
-  /** The view class name (always `"EmptyView"`). */
+export interface AbsentViewJSON {
+  /** The view class name (always `"AbsentView"`). */
   readonly _tag: string;
 }
 
@@ -51,7 +51,7 @@ export interface View<N extends TSESTree.Node = TSESTree.Node> extends Inspectab
   /**
    * The node type, identical to `node.type` (ex: `"CallExpression"`).
    * Exposed on the view itself so it reads like the wrapped node and can
-   * discriminate a `View | EmptyView` union without touching `.node`.
+   * discriminate a `View | AbsentView` union without touching `.node`.
    */
   readonly type: N["type"];
   /** Optional rule context for getters that need source text. */
@@ -80,7 +80,7 @@ export interface View<N extends TSESTree.Node = TSESTree.Node> extends Inspectab
  * a view over that node, created via `from()` with the view's context passed
  * down, and with type and chain expressions unwrapped where the accessor's
  * semantics call for it. Accessors whose child may be absent (ex: the argument
- * of a bare `return`) return an `EmptyView` instead of `null`. Views never
+ * of a bare `return`) return an `AbsentView` instead of `null`. Views never
  * modify or copy the tree, so the
  * underlying nodes keep their identity and remain usable with `===`
  * comparisons, scope analysis, WeakMap caches, and `context.report`; the
@@ -104,7 +104,7 @@ export class Class<N extends TSESTree.Node = TSESTree.Node> extends InspectableC
   /**
    * The node type, identical to `node.type` (ex: `"CallExpression"`).
    * Exposed on the view itself so it reads like the wrapped node and can
-   * discriminate a `View | EmptyView` union without touching `.node`.
+   * discriminate a `View | AbsentView` union without touching `.node`.
    */
   get type(): N["type"] {
     return this.node.type;
@@ -129,30 +129,30 @@ export class Class<N extends TSESTree.Node = TSESTree.Node> extends InspectableC
 }
 
 /**
- * View over the absence of a node, consumed as `View.EmptyView`.
+ * View over the absence of a node, consumed as `View.AbsentView`.
  *
  * A null-object view returned by accessors whose child may be absent (ex: the
  * argument of a bare `return`) and by `from()` when given `null` or `undefined`.
  * It wraps no node: `node`, `type`, and `parent` are always `undefined`.
  * Unlike node views, it is not created from the tree, so there is nothing to
- * unwrap and no source text to read. Use `isEmptyView()` to narrow a
- * `View | EmptyView` union, or compare `type` directly.
+ * unwrap and no source text to read. Use `isAbsentView()` to narrow a
+ * `View | AbsentView` union, or compare `type` directly.
  */
-export class EmptyView extends InspectableClass {
+export class AbsentView extends InspectableClass {
   /** Optional rule context, kept for symmetry with node views. */
   readonly context: ViewContext | undefined;
 
-  /** Always `undefined`: an empty view wraps no node. */
+  /** Always `undefined`: an absent view wraps no node. */
   get node(): undefined {
     return undefined;
   }
 
-  /** Always `undefined`: an empty view has no parent. */
+  /** Always `undefined`: an absent view has no parent. */
   get parent(): undefined {
     return undefined;
   }
 
-  /** Always `undefined`: an empty view wraps no node. */
+  /** Always `undefined`: an absent view wraps no node. */
   get type(): undefined {
     return undefined;
   }
@@ -162,19 +162,19 @@ export class EmptyView extends InspectableClass {
     this.context = context;
   }
 
-  /** Return the structured representation of this empty view. */
-  toJSON(): EmptyViewJSON {
+  /** Return the structured representation of this absent view. */
+  toJSON(): AbsentViewJSON {
     return { _tag: this.constructor.name };
   }
 }
 
 /**
- * Check whether a view is an empty view.
+ * Check whether a view is an absent view.
  * @param view The view to check.
  * @returns `true` when the view wraps no node.
  */
-export function isEmptyView(view: View | EmptyView): view is EmptyView {
-  return view instanceof EmptyView;
+export function isAbsentView(view: View | AbsentView): view is AbsentView {
+  return view instanceof AbsentView;
 }
 
 /** View over a call expression. */
@@ -289,9 +289,9 @@ export class ExpressionStatementView extends Class<TSESTree.ExpressionStatement>
 
 /** View over a return statement. */
 export class ReturnStatementView extends Class<TSESTree.ReturnStatement> {
-  /** A view over the argument with type and chain expressions unwrapped, or an empty view for a bare `return`. */
-  get argument(): ViewOf<TSESTreeUnwrapped<TSESTree.Expression>> | EmptyView {
-    return this.node.argument == null ? new EmptyView(this.context) : from(Extract.unwrap(this.node.argument), this.context);
+  /** A view over the argument with type and chain expressions unwrapped, or an absent view for a bare `return`. */
+  get argument(): ViewOf<TSESTreeUnwrapped<TSESTree.Expression>> | AbsentView {
+    return this.node.argument == null ? new AbsentView(this.context) : from(Extract.unwrap(this.node.argument), this.context);
   }
 }
 
@@ -321,9 +321,9 @@ export class AwaitExpressionView extends Class<TSESTree.AwaitExpression> {
 
 /** View over a variable declarator. */
 export class VariableDeclaratorView extends Class<TSESTree.VariableDeclarator> {
-  /** A view over the initializer with type and chain expressions unwrapped, or an empty view when absent. */
-  get init(): ViewOf<TSESTreeUnwrapped<TSESTree.Expression>> | EmptyView {
-    return this.node.init == null ? new EmptyView(this.context) : from(Extract.unwrap(this.node.init), this.context);
+  /** A view over the initializer with type and chain expressions unwrapped, or an absent view when absent. */
+  get init(): ViewOf<TSESTreeUnwrapped<TSESTree.Expression>> | AbsentView {
+    return this.node.init == null ? new AbsentView(this.context) : from(Extract.unwrap(this.node.init), this.context);
   }
 }
 
@@ -386,7 +386,7 @@ export type ViewOf<N extends TSESTree.Node> = N extends TSESTree.AssignmentExpre
 /**
  * Create the most specific view for a node.
  * Node types without a dedicated view get an instance of the base `Class`;
- * `null` and `undefined` get an `EmptyView`.
+ * `null` and `undefined` get an `AbsentView`.
  *
  * The return type is a discriminated union over `type`: when the node's type
  * is a union (including `TSESTree.Node` itself), each constituent maps to its
@@ -395,12 +395,12 @@ export type ViewOf<N extends TSESTree.Node> = N extends TSESTree.AssignmentExpre
  * @param context Optional rule context for getters that need source text.
  * @returns A view whose getters return views over the node's children.
  */
-export function from(node: null | undefined, context?: ViewContext): EmptyView;
+export function from(node: null | undefined, context?: ViewContext): AbsentView;
 export function from<N extends TSESTree.Node>(node: N, context?: ViewContext): ViewOf<N>;
-export function from<N extends TSESTree.Node>(node: N | null | undefined, context?: ViewContext): EmptyView | ViewOf<N>;
-export function from(node: TSESTree.Node | null | undefined, context?: ViewContext): EmptyView | View {
+export function from<N extends TSESTree.Node>(node: N | null | undefined, context?: ViewContext): AbsentView | ViewOf<N>;
+export function from(node: TSESTree.Node | null | undefined, context?: ViewContext): AbsentView | View {
   if (node == null) {
-    return new EmptyView(context);
+    return new AbsentView(context);
   }
   switch (node.type) {
     case AST.AssignmentExpression:
