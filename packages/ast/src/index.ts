@@ -6,5 +6,7 @@ export * as Compare from "./compare";
 export * as Extract from "./extract";
 /** Helpers for traversing `TSESTree` nodes. */
 export * as Traverse from "./traverse";
-/** Helpers for typing `TSESTree` nodes. */
-export type * from "./types";
+/** Experimental read-only node facades with unwrapping accessors. */
+export * as View from "./view";
+/** Shared `TSESTree` node type aliases and unions. */
+export type * from "./tree";
