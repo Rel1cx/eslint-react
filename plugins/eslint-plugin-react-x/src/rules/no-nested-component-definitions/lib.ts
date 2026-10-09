@@ -127,5 +127,5 @@ export function isInsideJSXAttributeValue(node: TSESTreeFunction) {
  * @returns `true` if the node is inside a class component's render block
  */
 export function isInsideRenderMethod(node: TSESTree.Node) {
-  return Traverse.findParent(node, (n) => core.isRenderMethodLike(n) && core.isClassComponent(n.parent.parent)) != null;
+  return Traverse.hasParent(node, (n) => core.isRenderMethodLike(n) && core.isClassComponent(n.parent.parent));
 }

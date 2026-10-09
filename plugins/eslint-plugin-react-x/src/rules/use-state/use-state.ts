@@ -102,7 +102,7 @@ export function create(context: RuleContext<MessageID, Options>): RuleListener {
             // Ignore primitive wrappers like `new String('foo')`
             if (LAZY_INIT_ALLOW_LIST.includes(expr.callee.name)) continue;
             // Ignore if it's inside a `use()` call
-            if (Traverse.findParent(expr, core.isUseCall(context)) != null) continue;
+            if (Traverse.hasParent(expr, core.isUseCall(context))) continue;
             context.report({ messageId: "invalid-initialization", node: expr });
           }
           // Check for function call expressions, e.g., `myFunction()`
@@ -113,7 +113,7 @@ export function create(context: RuleContext<MessageID, Options>): RuleListener {
             // Ignore primitive wrappers like `String('foo')`
             if (LAZY_INIT_ALLOW_LIST.includes(expr.callee.name)) continue;
             // Ignore if it's inside a `use()` call
-            if (Traverse.findParent(expr, core.isUseCall(context)) != null) continue;
+            if (Traverse.hasParent(expr, core.isUseCall(context))) continue;
             context.report({ messageId: "invalid-initialization", node: expr });
           }
         }
