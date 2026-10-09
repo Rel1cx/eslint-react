@@ -66,7 +66,7 @@
     "@textlint/textlint-plugin-markdown": "^15.8.0",
     "@tsconfig/node24": "^24.0.5",
     "@tsconfig/strictest": "^2.0.8",
-    "@types/node": "^26.6.4",
+    "@types/node": "^26.6.5",
     "@types/react": "^19.3.0",
     "@types/react-dom": "^19.3.0",
     "ansis": "^4.4.0",
