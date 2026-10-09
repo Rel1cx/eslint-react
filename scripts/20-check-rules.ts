@@ -3,9 +3,12 @@ import * as NodeSrv from "@effect/platform-node/NodeServices";
 import { hasProperty, isString } from "@local/eff";
 import ansis from "ansis";
 import { identity } from "effect";
+import * as Chunk from "effect/Chunk";
+import * as Data from "effect/Data";
 import * as Effect from "effect/Effect";
 import * as FileSystem from "effect/FileSystem";
 import * as Path from "effect/Path";
+import * as Ref from "effect/Ref";
 import * as NodePath from "node:path";
 import { pathToFileURL } from "node:url";
 import { P, match } from "ts-pattern";
@@ -38,6 +41,10 @@ const DOMAIN_CONFIGS: Record<string, Record<string, unknown>> = {
   rsc: rscConfig.rules,
 };
 
+class CheckError extends Data.Error<{ readonly message: string }> {}
+
+const logErrors = (errors: Chunk.Chunk<CheckError>) => Effect.forEach(errors, (error) => Effect.logError(error.message), { discard: true });
+
 interface RegisteredRule {
   readonly name: string;
   readonly configKey: string;
@@ -46,7 +53,6 @@ interface RegisteredRule {
 
 const collectRegisteredRules = Effect.gen(function*() {
   const files = glob(RULES_GLOB).filter(isRuleEntryFile);
-
   const rules: RegisteredRule[] = [];
 
   for (const file of files) {
@@ -71,45 +77,57 @@ const checkAllRulesAccountedFor = Effect.fnUntraced(
     const experimentalKeys = new Set(keys(disableExperimentalConfig.rules));
     const typeCheckedKeys = new Set(keys(disableTypeCheckedConfig.rules));
 
-    let errorCount = 0;
+    const errors = yield* Ref.make(Chunk.empty<CheckError>());
     for (const rule of rules) {
       if (!allRuleKeys.has(rule.configKey) && !experimentalKeys.has(rule.configKey) && !typeCheckedKeys.has(rule.configKey)) {
-        yield* Effect.logError(
-          ansis.red(
-            `  Rule ${
-              ansis.bold(rule.configKey)
-            } is registered in react-${rule.domain} plugin but not found in all.ts, disable-experimental.ts, or disable-type-checked.ts`,
+        yield* Ref.update(
+          errors,
+          Chunk.append(
+            new CheckError({
+              message: ansis.red(
+                `  Rule ${
+                  ansis.bold(rule.configKey)
+                } is registered in react-${rule.domain} plugin but not found in all.ts, disable-experimental.ts, or disable-type-checked.ts`,
+              ),
+            }),
           ),
         );
-        errorCount += 1;
       }
     }
 
-    if (errorCount === 0) {
+    const result = yield* Ref.get(errors);
+    if (Chunk.isEmpty(result)) {
       yield* Effect.log(ansis.green("  All registered rules are accounted for."));
     }
 
-    return errorCount;
+    return result;
   },
 );
 
 const checkConfigKeysValid = Effect.fnUntraced(
   function*(rules: RegisteredRule[], configName: string, configRules: Record<string, unknown>) {
     const validKeys = new Set(rules.map((r) => r.configKey));
-    let errorCount = 0;
+    const errors = yield* Ref.make(Chunk.empty<CheckError>());
 
     for (const key of keys(configRules)) {
       if (!validKeys.has(key)) {
-        yield* Effect.logError(ansis.red(`  Config ${ansis.bold(configName)} references unknown rule: ${ansis.bold(key)}`));
-        errorCount += 1;
+        yield* Ref.update(
+          errors,
+          Chunk.append(
+            new CheckError({
+              message: ansis.red(`  Config ${ansis.bold(configName)} references unknown rule: ${ansis.bold(key)}`),
+            }),
+          ),
+        );
       }
     }
 
-    if (errorCount === 0) {
+    const result = yield* Ref.get(errors);
+    if (Chunk.isEmpty(result)) {
       yield* Effect.log(ansis.green(`  Config ${configName}: all rule keys are valid.`));
     }
 
-    return errorCount;
+    return result;
   },
 );
 
@@ -117,20 +135,27 @@ const checkHierarchy = Effect.fnUntraced(
   function*(parentName: string, parentRules: Record<string, unknown>, childName: string, childRules: Record<string, unknown>) {
     const parentKeys = new Set(keys(parentRules));
     const childKeys = new Set(keys(childRules));
-    let errorCount = 0;
+    const errors = yield* Ref.make(Chunk.empty<CheckError>());
 
     for (const key of parentKeys) {
       if (!childKeys.has(key)) {
-        yield* Effect.logError(ansis.red(`  Rule ${ansis.bold(key)} is in ${ansis.bold(parentName)} but missing from ${ansis.bold(childName)}`));
-        errorCount += 1;
+        yield* Ref.update(
+          errors,
+          Chunk.append(
+            new CheckError({
+              message: ansis.red(`  Rule ${ansis.bold(key)} is in ${ansis.bold(parentName)} but missing from ${ansis.bold(childName)}`),
+            }),
+          ),
+        );
       }
     }
 
-    if (errorCount === 0) {
+    const result = yield* Ref.get(errors);
+    if (Chunk.isEmpty(result)) {
       yield* Effect.log(ansis.green(`  ${parentName} ⊂ ${childName}: hierarchy is valid.`));
     }
 
-    return errorCount;
+    return result;
   },
 );
 
@@ -138,7 +163,7 @@ const checkDomainConfigCompleteness = Effect.fnUntraced(
   function*(rules: RegisteredRule[]) {
     yield* Effect.log(ansis.bold("4. Checking domain config integrity..."));
 
-    let errorCount = 0;
+    const errors = yield* Ref.make(Chunk.empty<CheckError>());
 
     for (const [domain, configRules] of entries(DOMAIN_CONFIGS)) {
       const domainInfo = DOMAIN_META_BY_KEY[domain as PluginDomain];
@@ -150,10 +175,16 @@ const checkDomainConfigCompleteness = Effect.fnUntraced(
 
       for (const key of configKeys) {
         if (!domainRuleKeys.has(key)) {
-          yield* Effect.logError(
-            ansis.red(`  Config ${ansis.bold(domain)}.ts contains rule ${ansis.bold(key)} which is not registered in react-${domain} plugin`),
+          yield* Ref.update(
+            errors,
+            Chunk.append(
+              new CheckError({
+                message: ansis.red(
+                  `  Config ${ansis.bold(domain)}.ts contains rule ${ansis.bold(key)} which is not registered in react-${domain} plugin`,
+                ),
+              }),
+            ),
           );
-          errorCount += 1;
         }
       }
 
@@ -170,7 +201,7 @@ const checkDomainConfigCompleteness = Effect.fnUntraced(
       }
     }
 
-    return errorCount;
+    return yield* Ref.get(errors);
   },
 );
 
@@ -183,34 +214,49 @@ const checkConfigs = Effect.gen(function*() {
   yield* Effect.log("");
 
   const accountedErrors = yield* checkAllRulesAccountedFor(rules);
+  yield* logErrors(accountedErrors);
 
   yield* Effect.log("");
   yield* Effect.log(ansis.bold("2. Checking config keys reference valid rules..."));
   const allKeyErrors = yield* checkConfigKeysValid(rules, "all", allConfig.rules);
+  yield* logErrors(allKeyErrors);
   const recommendedKeyErrors = yield* checkConfigKeysValid(rules, "recommended", recommendedConfig.rules);
+  yield* logErrors(recommendedKeyErrors);
   const strictKeyErrors = yield* checkConfigKeysValid(rules, "strict", strictConfig.rules);
+  yield* logErrors(strictKeyErrors);
   const experimentalKeyErrors = yield* checkConfigKeysValid(rules, "disable-experimental", disableExperimentalConfig.rules);
+  yield* logErrors(experimentalKeyErrors);
   const typeCheckedKeyErrors = yield* checkConfigKeysValid(rules, "disable-type-checked", disableTypeCheckedConfig.rules);
+  yield* logErrors(typeCheckedKeyErrors);
 
   yield* Effect.log("");
   yield* Effect.log(ansis.bold("3. Checking preset hierarchy..."));
   const recStrictErrors = yield* checkHierarchy("recommended", recommendedConfig.rules, "strict", strictConfig.rules);
+  yield* logErrors(recStrictErrors);
   const strictAllErrors = yield* checkHierarchy("strict", strictConfig.rules, "all", allConfig.rules);
+  yield* logErrors(strictAllErrors);
 
   yield* Effect.log("");
   const domainErrors = yield* checkDomainConfigCompleteness(rules);
+  yield* logErrors(domainErrors);
 
-  const totalErrors = accountedErrors
-    + allKeyErrors + recommendedKeyErrors + strictKeyErrors
-    + experimentalKeyErrors + typeCheckedKeyErrors
-    + recStrictErrors + strictAllErrors
-    + domainErrors;
+  const totalErrors = Chunk.empty<CheckError>().pipe(
+    Chunk.appendAll(accountedErrors),
+    Chunk.appendAll(allKeyErrors),
+    Chunk.appendAll(recommendedKeyErrors),
+    Chunk.appendAll(strictKeyErrors),
+    Chunk.appendAll(experimentalKeyErrors),
+    Chunk.appendAll(typeCheckedKeyErrors),
+    Chunk.appendAll(recStrictErrors),
+    Chunk.appendAll(strictAllErrors),
+    Chunk.appendAll(domainErrors),
+  );
 
   yield* Effect.log("");
-  if (totalErrors === 0) {
+  if (Chunk.isEmpty(totalErrors)) {
     yield* Effect.log(ansis.bold.green("All config consistency checks passed!"));
   } else {
-    yield* Effect.log(ansis.bold.red(`Found ${totalErrors} config error(s).`));
+    yield* Effect.log(ansis.bold.red(`Found ${Chunk.size(totalErrors)} config error(s).`));
   }
 
   return totalErrors;
@@ -309,8 +355,7 @@ const checkDocs = Effect.gen(function*() {
   const fs = yield* FileSystem.FileSystem;
   const path = yield* Path.Path;
   const files = glob(RULES_GLOB).filter(isRuleEntryFile);
-
-  let errorCount = 0;
+  const errors = yield* Ref.make(Chunk.empty<CheckError>());
 
   for (const file of files) {
     // Extract domain and rule name from file path
@@ -333,10 +378,16 @@ const checkDocs = Effect.gen(function*() {
       .replaceAll(/^"|"$/gu, "")
       .replaceAll("`", "'");
     if (providedDescription == null || !providedDescription.includes(expectedDescription.replace(/\.$/, "").replaceAll("`", "'"))) {
-      errorCount++;
-      yield* Effect.logError(ansis.red(`  Found 1 mismatched description in documentation for rule ${rulename}`));
-      yield* Effect.logError(`    Expected: ${ansis.bgGreen(expectedDescription)}`);
-      yield* Effect.logError(`    Provided: ${ansis.bgYellow(providedDescription)}`);
+      yield* Ref.update(
+        errors,
+        Chunk.append(
+          new CheckError({
+            message: ansis.red(`  Found 1 mismatched description in documentation for rule ${rulename}`)
+              + `\n    Expected: ${ansis.bgGreen(expectedDescription)}`
+              + `\n    Provided: ${ansis.bgYellow(providedDescription)}`,
+          }),
+        ),
+      );
     }
 
     // Verify the "Full Name" sections contain the correct rule names
@@ -344,10 +395,16 @@ const checkDocs = Effect.gen(function*() {
     const expectedScopedName = `react-${domain}/${basename}`;
     const providedScopedName = scopedNameIndex === -1 ? undefined : contentLines.at(scopedNameIndex + 3)?.trim();
     if (providedScopedName !== expectedScopedName) {
-      errorCount++;
-      yield* Effect.logError(ansis.red(`  Found 1 mismatched full name (scoped plugin) in documentation for rule ${rulename}`));
-      yield* Effect.logError(`    Expected: ${ansis.bgGreen(expectedScopedName)}`);
-      yield* Effect.logError(`    Provided: ${ansis.bgYellow(providedScopedName)}`);
+      yield* Ref.update(
+        errors,
+        Chunk.append(
+          new CheckError({
+            message: ansis.red(`  Found 1 mismatched full name (scoped plugin) in documentation for rule ${rulename}`)
+              + `\n    Expected: ${ansis.bgGreen(expectedScopedName)}`
+              + `\n    Provided: ${ansis.bgYellow(providedScopedName)}`,
+          }),
+        ),
+      );
     }
 
     if (!EXCLUDED_VERIFY_DOMAINS.has(domain as PluginDomain)) {
@@ -357,10 +414,16 @@ const checkDocs = Effect.gen(function*() {
         : `@eslint-react/${domain}-${basename}`;
       const providedFullName = fullNameIndex === -1 ? undefined : contentLines.at(fullNameIndex + 3)?.trim();
       if (providedFullName !== expectedFullName) {
-        errorCount++;
-        yield* Effect.logError(ansis.red(`  Found 1 mismatched full name (@eslint-react/eslint-plugin) in documentation for rule ${rulename}`));
-        yield* Effect.logError(`    Expected: ${ansis.bgGreen(expectedFullName)}`);
-        yield* Effect.logError(`    Provided: ${ansis.bgYellow(providedFullName)}`);
+        yield* Ref.update(
+          errors,
+          Chunk.append(
+            new CheckError({
+              message: ansis.red(`  Found 1 mismatched full name (@eslint-react/eslint-plugin) in documentation for rule ${rulename}`)
+                + `\n    Expected: ${ansis.bgGreen(expectedFullName)}`
+                + `\n    Provided: ${ansis.bgYellow(providedFullName)}`,
+            }),
+          ),
+        );
       }
     }
 
@@ -368,8 +431,10 @@ const checkDocs = Effect.gen(function*() {
     const presetsIndex = contentLines.findIndex((line) => line.startsWith("**Presets**"));
     if (presetsIndex === -1) {
       if (rulemeta.severities.some((severity) => severity !== 0)) {
-        errorCount++;
-        yield* Effect.logError(ansis.red(`  Missing presets line in documentation for rule ${rulename}`));
+        yield* Ref.update(
+          errors,
+          Chunk.append(new CheckError({ message: ansis.red(`  Missing presets line in documentation for rule ${rulename}`) })),
+        );
       }
     } else {
       // Verify the presets section content matches the actual preset configurations
@@ -393,14 +458,14 @@ const checkDocs = Effect.gen(function*() {
       const extra = docPresets.filter((preset) => !expSet.has(preset));
 
       if (missing.length > 0 || extra.length > 0) {
-        errorCount++;
-        yield* Effect.logError(ansis.red(`  Found mismatched presets in documentation for rule ${rulename}`));
+        let message = ansis.red(`  Found mismatched presets in documentation for rule ${rulename}`);
         if (missing.length > 0) {
-          yield* Effect.logError(`    Expected but missing: ${ansis.bgGreen(missing.join(", "))}`);
+          message += `\n    Expected but missing: ${ansis.bgGreen(missing.join(", "))}`;
         }
         if (extra.length > 0) {
-          yield* Effect.logError(`    Present but unexpected: ${ansis.bgYellow(extra.join(", "))}`);
+          message += `\n    Present but unexpected: ${ansis.bgYellow(extra.join(", "))}`;
         }
+        yield* Ref.update(errors, Chunk.append(new CheckError({ message })));
       }
     }
 
@@ -408,8 +473,10 @@ const checkDocs = Effect.gen(function*() {
     const featuresIndex = contentLines.findIndex((line) => line.startsWith("**Features**"));
     if (featuresIndex === -1) {
       if (rulemeta.features.length > 0) {
-        errorCount++;
-        yield* Effect.logError(ansis.red(`  Missing features line in documentation for rule ${rulename}`));
+        yield* Ref.update(
+          errors,
+          Chunk.append(new CheckError({ message: ansis.red(`  Missing features line in documentation for rule ${rulename}`) })),
+        );
       }
     } else {
       const expectedFeatureIcons = rulemeta
@@ -419,18 +486,26 @@ const checkDocs = Effect.gen(function*() {
         .join(" ");
       const providedFeatureIcons = contentLines[featuresIndex + 2]?.trim() ?? "";
       if (expectedFeatureIcons !== providedFeatureIcons) {
-        errorCount++;
-        yield* Effect.logError(ansis.red(`  Found 1 mismatched feature icons in documentation for rule ${rulename}`));
-        yield* Effect.logError(`    Expected: ${ansis.bgGreen(expectedFeatureIcons)}`);
-        yield* Effect.logError(`    Provided: ${ansis.bgYellow(providedFeatureIcons)}`);
+        yield* Ref.update(
+          errors,
+          Chunk.append(
+            new CheckError({
+              message: ansis.red(`  Found 1 mismatched feature icons in documentation for rule ${rulename}`)
+                + `\n    Expected: ${ansis.bgGreen(expectedFeatureIcons)}`
+                + `\n    Provided: ${ansis.bgYellow(providedFeatureIcons)}`,
+            }),
+          ),
+        );
       }
     }
 
     // Verify the resources section contains correct Rule Source and Test Source links
     const resourcesIndex = contentLines.findIndex((line) => line.startsWith("## Resources"));
     if (resourcesIndex === -1) {
-      errorCount++;
-      yield* Effect.logError(ansis.red(`  Missing resources line in documentation for rule ${rulename}`));
+      yield* Ref.update(
+        errors,
+        Chunk.append(new CheckError({ message: ansis.red(`  Missing resources line in documentation for rule ${rulename}`) })),
+      );
       continue;
     }
 
@@ -442,17 +517,23 @@ const checkDocs = Effect.gen(function*() {
     const ruleSourceLine = resourcesSection.find((line) => line.includes("[Rule Source]"));
     const expectedRuleSource = `https://github.com/Rel1cx/eslint-react/tree/main/plugins/eslint-plugin-react-${domain}/src/rules/${basename}/${basename}.ts`;
     if (ruleSourceLine == null) {
-      errorCount++;
-      yield* Effect.logError(ansis.red(`  Missing Rule Source link in documentation for rule ${rulename}`));
+      yield* Ref.update(
+        errors,
+        Chunk.append(new CheckError({ message: ansis.red(`  Missing Rule Source link in documentation for rule ${rulename}`) })),
+      );
     } else {
       const providedRuleSource = ruleSourceLine.match(/\[Rule Source\]\(([^)]+)\)/)?.[1];
       if (providedRuleSource !== expectedRuleSource) {
-        errorCount++;
-        yield* Effect.logError(
-          ansis.red(`  Found 1 mismatched Rule Source link in documentation for rule ${rulename}`),
+        yield* Ref.update(
+          errors,
+          Chunk.append(
+            new CheckError({
+              message: ansis.red(`  Found 1 mismatched Rule Source link in documentation for rule ${rulename}`)
+                + `\n    Expected: ${ansis.bgGreen(expectedRuleSource)}`
+                + `\n    Provided: ${ansis.bgYellow(providedRuleSource)}`,
+            }),
+          ),
         );
-        yield* Effect.logError(`    Expected: ${ansis.bgGreen(expectedRuleSource)}`);
-        yield* Effect.logError(`    Provided: ${ansis.bgYellow(providedRuleSource)}`);
       }
     }
 
@@ -461,22 +542,28 @@ const checkDocs = Effect.gen(function*() {
     const expectedTestSource =
       `https://github.com/Rel1cx/eslint-react/tree/main/plugins/eslint-plugin-react-${domain}/src/rules/${basename}/${basename}.spec.ts`;
     if (testSourceLine == null) {
-      errorCount++;
-      yield* Effect.logError(ansis.red(`  Missing Test Source link in documentation for rule ${rulename}`));
+      yield* Ref.update(
+        errors,
+        Chunk.append(new CheckError({ message: ansis.red(`  Missing Test Source link in documentation for rule ${rulename}`) })),
+      );
     } else {
       const providedTestSource = testSourceLine.match(/\[Test Source\]\(([^)]+)\)/)?.[1];
       if (providedTestSource !== expectedTestSource) {
-        errorCount++;
-        yield* Effect.logError(
-          ansis.red(`  Found 1 mismatched Test Source link in documentation for rule ${rulename}`),
+        yield* Ref.update(
+          errors,
+          Chunk.append(
+            new CheckError({
+              message: ansis.red(`  Found 1 mismatched Test Source link in documentation for rule ${rulename}`)
+                + `\n    Expected: ${ansis.bgGreen(expectedTestSource)}`
+                + `\n    Provided: ${ansis.bgYellow(providedTestSource)}`,
+            }),
+          ),
         );
-        yield* Effect.logError(`    Expected: ${ansis.bgGreen(expectedTestSource)}`);
-        yield* Effect.logError(`    Provided: ${ansis.bgYellow(providedTestSource)}`);
       }
     }
   }
 
-  return errorCount;
+  return yield* Ref.get(errors);
 });
 
 // Verify the index.mdx "View by Domain" table entries match the actual rule metadata
@@ -492,23 +579,35 @@ const checkIndex = Effect.gen(function*() {
 
   yield* Effect.log(ansis.green(`Verifying rules index at ${target}...`));
 
-  let errorCount = 0;
+  const errors = yield* Ref.make(Chunk.empty<CheckError>());
 
   // Process each rule domain section
   for (const { key, heading } of SECTION_HEADERS) {
     // Locate the section heading and table boundaries
     const headerStartIndex = relevantLines.findIndex((line) => line.startsWith(`## ${heading}`));
     if (headerStartIndex === -1) {
-      return yield* Effect.die(new Error(`Could not find section for ${heading} in ${target}`));
+      yield* Ref.update(
+        errors,
+        Chunk.append(new CheckError({ message: ansis.red(`Could not find section for ${heading} in ${target}`) })),
+      );
+      continue;
     }
     const tableStartIndex = relevantLines
       .findIndex((line, index) => index > headerStartIndex && line.startsWith("| Rule"));
     if (tableStartIndex === -1) {
-      return yield* Effect.die(new Error(`Could not find table for ${heading} in ${target}`));
+      yield* Ref.update(
+        errors,
+        Chunk.append(new CheckError({ message: ansis.red(`Could not find table for ${heading} in ${target}`) })),
+      );
+      continue;
     }
     const tableEndIndex = relevantLines.findIndex((line, index) => index > tableStartIndex && line.trim() === "");
     if (tableEndIndex === -1) {
-      return yield* Effect.die(new Error(`Could not find the end of the table for ${heading} in ${target}`));
+      yield* Ref.update(
+        errors,
+        Chunk.append(new CheckError({ message: ansis.red(`Could not find the end of the table for ${heading} in ${target}`) })),
+      );
+      continue;
     }
 
     // Verify each table row (skip header and separator rows)
@@ -517,16 +616,17 @@ const checkIndex = Effect.gen(function*() {
       const columns = line.split("|").slice(1, -1); // Remove leading/trailing empty splits
       const [link, severities, features, description] = columns;
       if (link == null || severities == null || features == null || description == null) {
-        errorCount++;
-        yield* Effect.logError(ansis.red(`Malformed table line (skipped): ${line}`));
+        yield* Ref.update(errors, Chunk.append(new CheckError({ message: ansis.red(`Malformed table line (skipped): ${line}`) })));
         continue;
       }
 
       const domain = key;
       const rulename = link.match(/\[`([^`]+)`\]/)?.[1];
       if (rulename == null) {
-        errorCount++;
-        yield* Effect.logError(ansis.red(`Could not extract rule name from link (skipped): ${link}`));
+        yield* Ref.update(
+          errors,
+          Chunk.append(new CheckError({ message: ansis.red(`Could not extract rule name from link (skipped): ${link}`) })),
+        );
         continue;
       }
 
@@ -536,45 +636,69 @@ const checkIndex = Effect.gen(function*() {
       const expectedLink = `[\`${rulename}\`](/docs/rules/${domain === "x" ? "" : domain + "-"}${rulename})`;
       const providedLink = link.trim();
       if (expectedLink !== providedLink) {
-        errorCount++;
-        yield* Effect.logError(ansis.red(`Found 1 mismatched link for rule ${rulename}`));
-        yield* Effect.logError(`  Expected: ${ansis.bgGreen(expectedLink)}`);
-        yield* Effect.logError(`  Provided: ${ansis.bgYellow(providedLink)}`);
+        yield* Ref.update(
+          errors,
+          Chunk.append(
+            new CheckError({
+              message: ansis.red(`Found 1 mismatched link for rule ${rulename}`)
+                + `\n  Expected: ${ansis.bgGreen(expectedLink)}`
+                + `\n  Provided: ${ansis.bgYellow(providedLink)}`,
+            }),
+          ),
+        );
       }
 
       // Verify the description text
       const expectedDescription = meta.description.replace(/\.$/, "").replaceAll("`", "'");
       const providedDescription = description.trim().replaceAll("`", "'");
       if (expectedDescription !== providedDescription) {
-        errorCount++;
-        yield* Effect.logError(ansis.red(`Found 1 mismatched description for rule ${rulename}`));
-        yield* Effect.logError(`  Expected: ${ansis.bgGreen(expectedDescription)}`);
-        yield* Effect.logError(`  Provided: ${ansis.bgYellow(providedDescription)}`);
+        yield* Ref.update(
+          errors,
+          Chunk.append(
+            new CheckError({
+              message: ansis.red(`Found 1 mismatched description for rule ${rulename}`)
+                + `\n  Expected: ${ansis.bgGreen(expectedDescription)}`
+                + `\n  Provided: ${ansis.bgYellow(providedDescription)}`,
+            }),
+          ),
+        );
       }
 
       // Verify feature icons match the rule features
       const expectedFeatureIcons = meta.features.map(getFeatureIcon).map((icon: string) => "`" + icon + "`").join(" ");
       const providedFeatureIcons = features.trim();
       if (expectedFeatureIcons !== providedFeatureIcons) {
-        errorCount++;
-        yield* Effect.logError(ansis.red(`Found 1 mismatched feature icons for rule ${rulename}`));
-        yield* Effect.logError(`  Expected: ${ansis.bgGreen(expectedFeatureIcons)}`);
-        yield* Effect.logError(`  Provided: ${ansis.bgYellow(providedFeatureIcons)}`);
+        yield* Ref.update(
+          errors,
+          Chunk.append(
+            new CheckError({
+              message: ansis.red(`Found 1 mismatched feature icons for rule ${rulename}`)
+                + `\n  Expected: ${ansis.bgGreen(expectedFeatureIcons)}`
+                + `\n  Provided: ${ansis.bgYellow(providedFeatureIcons)}`,
+            }),
+          ),
+        );
       }
 
       // Verify severity icons match preset configurations
       const expectedSeverityIcons = `${getSeverityIcon(meta.severities[0])} ${getSeverityIcon(meta.severities[1])}`;
       const providedSeverityIcons = severities.trim();
       if (expectedSeverityIcons !== providedSeverityIcons) {
-        errorCount++;
-        yield* Effect.logError(ansis.red(`Found 1 mismatched severity icons for rule ${rulename}`));
-        yield* Effect.logError(`  Expected: ${ansis.bgGreen(expectedSeverityIcons)}`);
-        yield* Effect.logError(`  Provided: ${ansis.bgYellow(providedSeverityIcons)}`);
+        yield* Ref.update(
+          errors,
+          Chunk.append(
+            new CheckError({
+              message: ansis.red(`Found 1 mismatched severity icons for rule ${rulename}`)
+                + `\n  Expected: ${ansis.bgGreen(expectedSeverityIcons)}`
+                + `\n  Provided: ${ansis.bgYellow(providedSeverityIcons)}`,
+            }),
+          ),
+        );
       }
     }
   }
 
-  return errorCount;
+  return yield* Ref.get(errors);
 });
 
 const program = Effect.gen(function*() {
@@ -586,17 +710,23 @@ const program = Effect.gen(function*() {
   yield* Effect.log("");
   yield* Effect.log(ansis.bold("Verifying rule documentation..."));
   const docsErrors = yield* checkDocs;
+  yield* logErrors(docsErrors);
 
   yield* Effect.log("");
   const indexErrors = yield* checkIndex;
-  const totalErrors = configErrors + docsErrors + indexErrors;
+  yield* logErrors(indexErrors);
+
+  const totalErrors = configErrors.pipe(
+    Chunk.appendAll(docsErrors),
+    Chunk.appendAll(indexErrors),
+  );
 
   yield* Effect.log("");
-  if (totalErrors === 0) {
+  if (Chunk.isEmpty(totalErrors)) {
     yield* Effect.log(ansis.bold.green("All rule checks passed!"));
   } else {
-    yield* Effect.log(ansis.bold.red(`Found ${totalErrors} rule error(s).`));
-    return yield* Effect.fail(`Rule verification failed with ${totalErrors} error(s).`);
+    yield* Effect.log(ansis.bold.red(`Found ${Chunk.size(totalErrors)} rule error(s).`));
+    return yield* new CheckError({ message: `Rule verification failed with ${Chunk.size(totalErrors)} error(s).` });
   }
 });
 

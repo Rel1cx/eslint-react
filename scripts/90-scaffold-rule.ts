@@ -1,10 +1,13 @@
 import * as NodeRtm from "@effect/platform-node/NodeRuntime";
 import * as NodeSrv from "@effect/platform-node/NodeServices";
 import ansis from "ansis";
+import * as Data from "effect/Data";
 import * as Effect from "effect/Effect";
 import * as FileSystem from "effect/FileSystem";
 import * as Path from "effect/Path";
 import { DOMAIN_META_BY_KEY, PLUGIN_DOMAINS, type PluginDomain, buildConfigKey, buildPluginPrefix } from "./00-constants";
+
+class ScaffoldError extends Data.Error<{ readonly message: string }> {}
 
 function kebabToCamel(str: string): string {
   return str.replace(/-([a-z])/g, (_, c) => c.toUpperCase());
@@ -219,26 +222,24 @@ function findRulesEntryInsertionIndex(lines: string[], entryKey: string): number
 const parseArgs = Effect.gen(function*() {
   const args = process.argv.slice(2);
   if (args.length < 2) {
-    yield* Effect.logError(
-      ansis.red(
-        `Usage: nub ./scripts/90-scaffold-rule.ts <plugin> <rule-name> [description]\n`
-          + `  plugin: ${PLUGIN_DOMAINS.join(", ")}\n`
-          + `  rule-name: kebab-case rule name (e.g. no-foo-bar)\n`
-          + `  description: optional rule description`,
-      ),
-    );
-    return yield* Effect.fail(new Error("Missing required arguments."));
+    return yield* new ScaffoldError({
+      message: `Missing required arguments.\n`
+        + `Usage: nub ./scripts/90-scaffold-rule.ts <plugin> <rule-name> [description]\n`
+        + `  plugin: ${PLUGIN_DOMAINS.join(", ")}\n`
+        + `  rule-name: kebab-case rule name (e.g. no-foo-bar)\n`
+        + `  description: optional rule description`,
+    });
   }
 
   const [pluginArg, ruleName, ...descParts] = args as [string, string, ...string[]];
   const description = descParts.join(" ") || "TODO: Add rule description.";
 
   if (!PLUGIN_DOMAINS.some((x) => x === pluginArg)) {
-    return yield* Effect.fail(new Error(`Invalid plugin "${pluginArg}". Must be one of: ${PLUGIN_DOMAINS.join(", ")}`));
+    return yield* new ScaffoldError({ message: `Invalid plugin "${pluginArg}". Must be one of: ${PLUGIN_DOMAINS.join(", ")}` });
   }
 
   if (!/^[a-z][a-z0-9]*(-[a-z0-9]+)*$/u.test(ruleName)) {
-    return yield* Effect.fail(new Error(`Invalid rule name "${ruleName}". Must be kebab-case (e.g. no-foo-bar).`));
+    return yield* new ScaffoldError({ message: `Invalid rule name "${ruleName}". Must be kebab-case (e.g. no-foo-bar).` });
   }
 
   return { domain: pluginArg as PluginDomain, ruleName, description };
@@ -255,7 +256,7 @@ const createRuleFiles = Effect.fnUntraced(
 
     const exists = yield* fs.exists(rulesDir);
     if (exists) {
-      return yield* Effect.fail(new Error(`Rule directory already exists: ${rulesDir}`));
+      return yield* new ScaffoldError({ message: `Rule directory already exists: ${rulesDir}` });
     }
 
     yield* fs.makeDirectory(rulesDir, { recursive: true });
@@ -292,7 +293,7 @@ const updatePluginTs = Effect.fnUntraced(
 
     const entryIndex = findRulesEntryInsertionIndex(lines, ruleName);
     if (entryIndex === -1) {
-      return yield* Effect.fail(new Error(`Could not find rules object in ${pluginTsPath}`));
+      return yield* new ScaffoldError({ message: `Could not find rules object in ${pluginTsPath}` });
     }
     lines.splice(entryIndex, 0, rulesEntry);
 

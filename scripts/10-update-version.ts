@@ -1,6 +1,7 @@
 import * as NodeRtm from "@effect/platform-node/NodeRuntime";
 import * as NodeSrv from "@effect/platform-node/NodeServices";
 import ansis from "ansis";
+import * as Data from "effect/Data";
 import * as Effect from "effect/Effect";
 import * as FileSystem from "effect/FileSystem";
 import * as Fn from "effect/Function";
@@ -14,13 +15,15 @@ const GLOB_PACKAGE_JSON = [
   "plugins/*/package.json",
 ];
 
+class InvalidPackageJsonError extends Data.Error<{ readonly message: string }> {}
+
 const processPackageJson = Effect.fnUntraced(
   function*(filename: string) {
     const fs = yield* FileSystem.FileSystem;
     const packageJsonText = yield* fs.readFileString(filename, "utf8");
     const packageJson = JSON.parse(packageJsonText);
     if (!isMatching({ version: P.string }, packageJson)) {
-      return yield* Effect.fail(new Error(`Invalid package.json at ${filename}: invalid or missing version field`));
+      return yield* new InvalidPackageJsonError({ message: `Invalid package.json at ${filename}: invalid or missing version field` });
     }
     const newVersion = yield* version;
     const oldVersion = match(packageJson)
