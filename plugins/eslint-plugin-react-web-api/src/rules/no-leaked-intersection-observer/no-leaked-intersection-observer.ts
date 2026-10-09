@@ -243,6 +243,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         returnedCleanups.add(fn);
       }
     },
+
     ["Program:exit"]() {
       for (const { id, node, phaseNode } of observers) {
         // A ref-held instance is referenced through `ref.current` (or a local alias of it)

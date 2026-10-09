@@ -2,6 +2,21 @@
 title: Changelog
 ---
 
+## v5.24.10 (2026-10-09)
+
+### 📝 Documentation
+
+- Added a link to the Astryx `no-react-introspection` rule in the `react-x/no-children-count` and `react-x/no-children-map` rule documentation.
+
+### 🏗️ Internal
+
+- Disabled test isolation in the vitest config.
+- Reordered `react-web-api/no-leaked-event-listener` test specs from typical cases to edge cases. (#2015)
+- Unified `KNOWN_`-prefixed constant names in `react-x/no-array-index-key` and `react-x/no-missing-key`. (#2014)
+- Bumped `effect` to `4.0.2`, `@effect/platform-node` to `4.0.2`, `nx` to `23.3.0`, `vite` to `8.3.4`, `lucide-react` to `1.53.0`, and `pnpm` to `12.10.1`.
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.24.9...v5.24.10
+
 ## v5.24.9 (2026-10-08)
 
 ### 🐞 Fixes
