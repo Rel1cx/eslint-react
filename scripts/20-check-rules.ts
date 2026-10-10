@@ -207,38 +207,24 @@ const checkDomainConfigCompleteness = Effect.fnUntraced(
 
 const checkConfigs = Effect.gen(function*() {
   yield* Effect.log(ansis.bold("Verifying config consistency..."));
-  yield* Effect.log("");
 
   const rules = yield* collectRegisteredRules;
   yield* Effect.log(`Found ${ansis.bold(rules.length.toString())} registered rules (excluding debug).`);
-  yield* Effect.log("");
 
-  const accountedErrors = yield* checkAllRulesAccountedFor(rules);
-  yield* logErrors(accountedErrors);
+  const accountedErrors = yield* checkAllRulesAccountedFor(rules).pipe(Effect.tap(logErrors));
 
-  yield* Effect.log("");
   yield* Effect.log(ansis.bold("2. Checking config keys reference valid rules..."));
-  const allKeyErrors = yield* checkConfigKeysValid(rules, "all", allConfig.rules);
-  yield* logErrors(allKeyErrors);
-  const recommendedKeyErrors = yield* checkConfigKeysValid(rules, "recommended", recommendedConfig.rules);
-  yield* logErrors(recommendedKeyErrors);
-  const strictKeyErrors = yield* checkConfigKeysValid(rules, "strict", strictConfig.rules);
-  yield* logErrors(strictKeyErrors);
-  const experimentalKeyErrors = yield* checkConfigKeysValid(rules, "disable-experimental", disableExperimentalConfig.rules);
-  yield* logErrors(experimentalKeyErrors);
-  const typeCheckedKeyErrors = yield* checkConfigKeysValid(rules, "disable-type-checked", disableTypeCheckedConfig.rules);
-  yield* logErrors(typeCheckedKeyErrors);
+  const allKeyErrors = yield* checkConfigKeysValid(rules, "all", allConfig.rules).pipe(Effect.tap(logErrors));
+  const recommendedKeyErrors = yield* checkConfigKeysValid(rules, "recommended", recommendedConfig.rules).pipe(Effect.tap(logErrors));
+  const strictKeyErrors = yield* checkConfigKeysValid(rules, "strict", strictConfig.rules).pipe(Effect.tap(logErrors));
+  const experimentalKeyErrors = yield* checkConfigKeysValid(rules, "disable-experimental", disableExperimentalConfig.rules).pipe(Effect.tap(logErrors));
+  const typeCheckedKeyErrors = yield* checkConfigKeysValid(rules, "disable-type-checked", disableTypeCheckedConfig.rules).pipe(Effect.tap(logErrors));
 
-  yield* Effect.log("");
   yield* Effect.log(ansis.bold("3. Checking preset hierarchy..."));
-  const recStrictErrors = yield* checkHierarchy("recommended", recommendedConfig.rules, "strict", strictConfig.rules);
-  yield* logErrors(recStrictErrors);
-  const strictAllErrors = yield* checkHierarchy("strict", strictConfig.rules, "all", allConfig.rules);
-  yield* logErrors(strictAllErrors);
+  const recStrictErrors = yield* checkHierarchy("recommended", recommendedConfig.rules, "strict", strictConfig.rules).pipe(Effect.tap(logErrors));
+  const strictAllErrors = yield* checkHierarchy("strict", strictConfig.rules, "all", allConfig.rules).pipe(Effect.tap(logErrors));
 
-  yield* Effect.log("");
-  const domainErrors = yield* checkDomainConfigCompleteness(rules);
-  yield* logErrors(domainErrors);
+  const domainErrors = yield* checkDomainConfigCompleteness(rules).pipe(Effect.tap(logErrors));
 
   const totalErrors = Chunk.empty<CheckError>().pipe(
     Chunk.appendAll(accountedErrors),
@@ -252,7 +238,6 @@ const checkConfigs = Effect.gen(function*() {
     Chunk.appendAll(domainErrors),
   );
 
-  yield* Effect.log("");
   if (Chunk.isEmpty(totalErrors)) {
     yield* Effect.log(ansis.bold.green("All config consistency checks passed!"));
   } else {
@@ -703,25 +688,18 @@ const checkIndex = Effect.gen(function*() {
 
 const program = Effect.gen(function*() {
   yield* Effect.log(ansis.bold("Verifying rules..."));
-  yield* Effect.log("");
 
   const configErrors = yield* checkConfigs;
 
-  yield* Effect.log("");
   yield* Effect.log(ansis.bold("Verifying rule documentation..."));
-  const docsErrors = yield* checkDocs;
-  yield* logErrors(docsErrors);
+  const docsErrors = yield* checkDocs.pipe(Effect.tap(logErrors));
 
-  yield* Effect.log("");
-  const indexErrors = yield* checkIndex;
-  yield* logErrors(indexErrors);
-
+  const indexErrors = yield* checkIndex.pipe(Effect.tap(logErrors));
   const totalErrors = configErrors.pipe(
     Chunk.appendAll(docsErrors),
     Chunk.appendAll(indexErrors),
   );
 
-  yield* Effect.log("");
   if (Chunk.isEmpty(totalErrors)) {
     yield* Effect.log(ansis.bold.green("All rule checks passed!"));
   } else {
