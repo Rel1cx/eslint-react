@@ -1,8 +1,9 @@
 import { createJsxElementResolver } from "@/utils/create-jsx-element-resolver";
 import { createRule } from "@/utils/create-rule";
-import { type RuleContext, type RuleFeature, type RuleListener } from "@eslint-react/eslint";
+import { type ReportFixFunction, type RuleContext, type RuleFeature, type RuleListener } from "@eslint-react/eslint";
 import { findAttribute, getAttributeStaticValue } from "@eslint-react/jsx";
 import type { JSONSchema4 } from "@typescript-eslint/utils/json-schema";
+import type { ReportDescriptor } from "@typescript-eslint/utils/ts-eslint";
 import { isExternalLinkLike, isSafeRel } from "./lib";
 
 export const RULE_NAME = "no-unsafe-target-blank";
@@ -68,36 +69,35 @@ export default createRule<Options, MessageID>({
 
 export function create(context: RuleContext<MessageID, Options>): RuleListener {
   const { allowReferrer = false } = context.options[0] ?? defaultOptions[0];
-  const safeRel = `rel="${allowReferrer ? "noopener" : "noreferrer noopener"}"`;
-  const messageId = allowReferrer ? "default-allow-referrer" : "default";
-  const suggestionMessageId = allowReferrer ? "add-rel-noopener" : "add-rel-noreferrer-noopener";
   const resolver = createJsxElementResolver(context);
+
+  const requiredRelValue = allowReferrer ? "noopener" : "noreferrer noopener";
+  const requiredRelAttribute = `rel="${requiredRelValue}"`;
+  const reportMessageId: MessageID = allowReferrer ? "default-allow-referrer" : "default";
+  const suggestionMessageId: MessageID = allowReferrer ? "add-rel-noopener" : "add-rel-noreferrer-noopener";
+
+  function buildSuggest(fix: ReportFixFunction): ReportDescriptor<MessageID>["suggest"] & {} {
+    return [{
+      fix,
+      messageId: suggestionMessageId,
+    }];
+  }
 
   return {
     JSXElement(node) {
       const { domElementType } = resolver.resolve(node);
       if (domElementType !== "a") return;
-
-      const targetValue = getAttributeStaticValue(context, node, "target");
-      if (targetValue !== "_blank") return;
+      if (getAttributeStaticValue(context, node, "target") !== "_blank") return;
 
       const hrefValue = getAttributeStaticValue(context, node, "href");
       if (!isExternalLinkLike(hrefValue)) return;
 
-      const relProp = findAttribute(context, node, "rel");
-      if (relProp == null) {
+      const relAttribute = findAttribute(context, node, "rel");
+      if (relAttribute == null) {
         context.report({
-          messageId,
+          messageId: reportMessageId,
           node: node.openingElement,
-          suggest: [{
-            fix(fixer) {
-              return fixer.insertTextAfter(
-                node.openingElement.name,
-                ` ${safeRel}`,
-              );
-            },
-            messageId: suggestionMessageId,
-          }],
+          suggest: buildSuggest((fixer) => fixer.insertTextAfter(node.openingElement.name, ` ${requiredRelAttribute}`)),
         });
         return;
       }
@@ -106,14 +106,9 @@ export function create(context: RuleContext<MessageID, Options>): RuleListener {
       if (isSafeRel(relValue, allowReferrer)) return;
 
       context.report({
-        messageId,
-        node: relProp,
-        suggest: [{
-          fix(fixer) {
-            return fixer.replaceText(relProp, safeRel);
-          },
-          messageId: suggestionMessageId,
-        }],
+        messageId: reportMessageId,
+        node: relAttribute,
+        suggest: buildSuggest((fixer) => fixer.replaceText(relAttribute, requiredRelAttribute)),
       });
     },
   };
