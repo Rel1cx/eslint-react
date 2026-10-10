@@ -211,6 +211,38 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
     },
+    // allowReferrer: missing rel attribute is still reported, suggesting rel="noopener"
+    {
+      code: '<a href="https://react.dev" target="_blank"></a>',
+      errors: [
+        {
+          messageId: "default-allow-referrer",
+          suggestions: [
+            {
+              messageId: "add-rel-noopener",
+              output: '<a rel="noopener" href="https://react.dev" target="_blank"></a>',
+            },
+          ],
+        },
+      ],
+      options: [{ allowReferrer: true }],
+    },
+    // allowReferrer: unsafe rel attribute is still reported, suggesting rel="noopener"
+    {
+      code: '<a href="https://react.dev" target="_blank" rel="nofollow"></a>',
+      errors: [
+        {
+          messageId: "default-allow-referrer",
+          suggestions: [
+            {
+              messageId: "add-rel-noopener",
+              output: '<a href="https://react.dev" target="_blank" rel="noopener"></a>',
+            },
+          ],
+        },
+      ],
+      options: [{ allowReferrer: true }],
+    },
     // TODO: Restore Link component tests using the polymorphicPropName setting (additionalComponents was removed in 2.0.0).
     // },
     // {
@@ -420,6 +452,21 @@ ruleTester.run(RULE_NAME, rule, {
     '<Link href="https://react.dev" target="_blank" rel="noopener noreferrer"></Link>',
     '<Link href="https://react.dev" target="_blank" rel={"noopener noreferrer"}></Link>',
     '<Link href="https://react.dev" target="_blank" rel="noreferrer"></Link>',
+    // allowReferrer: rel="noopener" alone is considered safe
+    {
+      code: '<a href="https://react.dev" target="_blank" rel="noopener"></a>',
+      options: [{ allowReferrer: true }],
+    },
+    // allowReferrer: rel="noopener" combined with other tokens
+    {
+      code: '<a href="https://react.dev" target="_blank" rel="noopener nofollow"></a>',
+      options: [{ allowReferrer: true }],
+    },
+    // allowReferrer: rel="noreferrer" remains safe
+    {
+      code: '<a href="https://react.dev" target="_blank" rel="noreferrer"></a>',
+      options: [{ allowReferrer: true }],
+    },
     // Internal link with target="_blank" (no external href)
     '<a href="/local" target="_blank"></a>',
     '<a href="#section" target="_blank"></a>',
