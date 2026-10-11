@@ -1,12 +1,13 @@
 import { Check, Extract, type TSESTreeFunction, Traverse } from "@eslint-react/ast";
+import * as core from "@eslint-react/core";
 import type { RuleContext } from "@eslint-react/eslint";
 import { ScopeType } from "@typescript-eslint/scope-manager";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import { findVariable } from "@typescript-eslint/utils/ast-utils";
 import type { Scope } from "@typescript-eslint/utils/ts-eslint";
 import type { MutationFact } from "./collect";
-import { isKnownNonMutatingMethodCall, isRefLikeChain, isRefLikeName, resolveVariableOrigin } from "./helpers";
-import { classifyFrozenOrigin } from "./origins";
+import { KNOWN_MUTATING_HOOKS, isRefLikeName } from "./helpers";
+import { classifyFrozenOrigin, isInitializedFromCall, isRefLikeChain, resolveVariableOrigin } from "./origins";
 
 export type MutationEffect = {
   name: string;
@@ -28,6 +29,13 @@ function isGlobalOrModuleVariable(variable: Scope.Variable) {
 function isRefMutation(context: RuleContext, mutation: MutationFact) {
   if (Check.isIdentifier(mutation.target)) return isRefLikeName(mutation.target.name);
   return isRefLikeChain(context, mutation.target);
+}
+
+function isKnownNonMutatingMethodCall(context: RuleContext, node: TSESTree.CallExpression) {
+  const callee = Extract.unwrap(node.callee);
+  return Check.isExpression(callee) && isInitializedFromCall(context, callee, (init) => {
+    return [...KNOWN_MUTATING_HOOKS].some((hook) => core.isAPICall(hook)(context, init));
+  });
 }
 
 export function inferMutableFunctions(context: RuleContext, mutations: readonly MutationFact[]): MutableFunctionMap {
