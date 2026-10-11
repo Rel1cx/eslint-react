@@ -17,7 +17,7 @@ react-dom/no-unsafe-target-blank
 
 **Features**
 
-`🔧`
+`⚙️` `🔧`
 
 **Presets**
 
@@ -55,6 +55,22 @@ function MyComponent() {
   );
 }
 ```
+
+## Options
+
+### Rule Options
+
+```ts
+type Options = {
+  allowReferrer?: boolean; // default: false
+};
+```
+
+#### `allowReferrer`
+
+When set to `true`, `rel="noopener"` alone is accepted and the suggested fix adds `rel="noopener"` instead of `rel="noreferrer noopener"`. This preserves the `Referer` header while still requiring an explicit token that prevents tabnabbing.
+
+Default: `false`
 
 ## Resources
 

@@ -14,12 +14,15 @@ export function isExternalLinkLike(value: unknown): boolean {
 
 /**
  * Check if a rel prop value contains the necessary security attributes.
- * At minimum, it should contain "noreferrer".
+ * At minimum, it should contain "noreferrer", or "noopener" when `allowReferrer` is enabled.
  * @param value The rel prop value to check
+ * @param allowReferrer Whether "noopener" alone is considered secure
  * @returns Whether the rel value is considered secure
  */
-export function isSafeRel(value: unknown): boolean {
+export function isSafeRel(value: unknown, allowReferrer: boolean): boolean {
   if (!isString(value)) return false;
 
-  return value === "noreferrer" || /\bnoreferrer\b/u.test(value);
+  if (/\bnoreferrer\b/u.test(value)) return true;
+
+  return allowReferrer && /\bnoopener\b/u.test(value);
 }
