@@ -45,8 +45,8 @@
   "devDependencies": {
     "@local/configs": "workspace:*",
     "@local/eff": "workspace:*",
-    "@tsconfig/node20": "^20.1.8",
-    "@types/node": "^20.19.0",
+    "@tsconfig/node20": "^20.1.10",
+    "@types/node": "^20.19.43",
     "@types/picomatch": "^4.0.3",
     "eslint": "^10.12.0",
     "tinybench": "6.2.2",

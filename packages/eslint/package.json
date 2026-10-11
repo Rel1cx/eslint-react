@@ -41,8 +41,8 @@
   },
   "devDependencies": {
     "@local/configs": "workspace:*",
-    "@tsconfig/node20": "^20.1.8",
-    "@types/node": "^20.19.0",
+    "@tsconfig/node20": "^20.1.10",
+    "@types/node": "^20.19.43",
     "eslint": "^10.12.0",
     "tsdown": "^0.23.1",
     "typescript": "6.0.3"

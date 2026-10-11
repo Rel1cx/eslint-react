@@ -12,11 +12,6 @@ allowBuilds:
   nx: true
   sharp: true
 
-onlyBuiltDependencies:
-  - dprint
-  - esbuild
-  - sharp
-
 overrides:
   "@types/react": "^19.3.0"
   "@types/react-dom": "^19.3.0"

@@ -238,7 +238,7 @@ importers:
         specifier: ^15.8.0
         version: 15.8.0(supports-color@7.2.0)
       '@tsconfig/node20':
-        specifier: ^20.1.8
+        specifier: ^20.1.10
         version: 20.1.10
       '@tsconfig/node24':
         specifier: ^24.0.5
@@ -247,7 +247,7 @@ importers:
         specifier: ^2.0.8
         version: 2.0.8
       '@types/node':
-        specifier: ^20.19.0
+        specifier: ^20.19.43
         version: 20.19.43
       '@types/react':
         specifier: ^19.3.0
@@ -429,7 +429,7 @@ importers:
         specifier: workspace:*
         version: link:../configs
       '@tsconfig/node20':
-        specifier: ^20.1.8
+        specifier: ^20.1.10
         version: 20.1.10
       '@types/react':
         specifier: ^19.3.0
@@ -469,10 +469,10 @@ importers:
         specifier: workspace:*
         version: link:../configs
       '@tsconfig/node20':
-        specifier: ^20.1.8
+        specifier: ^20.1.10
         version: 20.1.10
       '@types/node':
-        specifier: ^20.19.0
+        specifier: ^20.19.43
         version: 20.19.43
       eslint:
         specifier: ^10.12.0
@@ -532,7 +532,7 @@ importers:
         specifier: ^2.0.6
         version: 2.0.6
       '@tsconfig/node20':
-        specifier: ^20.1.8
+        specifier: ^20.1.10
         version: 20.1.10
       '@tsconfig/strictest':
         specifier: ^2.0.8
@@ -544,7 +544,7 @@ importers:
         specifier: ^2.0.14
         version: 2.0.14
       '@types/node':
-        specifier: ^20.19.0
+        specifier: ^20.19.43
         version: 20.19.43
       '@types/react':
         specifier: ^19.3.0
@@ -674,13 +674,13 @@ importers:
         specifier: ^2.0.6
         version: 2.0.6
       '@tsconfig/node20':
-        specifier: ^20.1.8
+        specifier: ^20.1.10
         version: 20.1.10
       '@tsconfig/strictest':
         specifier: ^2.0.8
         version: 2.0.8
       '@types/node':
-        specifier: ^20.19.0
+        specifier: ^20.19.43
         version: 20.19.43
       '@types/react':
         specifier: ^19.3.0
@@ -720,13 +720,13 @@ importers:
         specifier: ^2.10.6
         version: 2.10.6(@babel/core@7.29.7(supports-color@9.4.0))(preact@10.29.8)(supports-color@9.4.0)(vite@8.3.4(@types/node@20.19.43)(esbuild@0.28.2)(jiti@2.7.0)(tsx@4.23.15)(yaml@2.9.1))
       '@tsconfig/node20':
-        specifier: ^20.1.8
+        specifier: ^20.1.10
         version: 20.1.10
       '@tsconfig/strictest':
         specifier: ^2.0.8
         version: 2.0.8
       '@types/node':
-        specifier: ^20.19.0
+        specifier: ^20.19.43
         version: 20.19.43
       eslint:
         specifier: ^10.12.0
@@ -763,13 +763,13 @@ importers:
         specifier: ^2.10.6
         version: 2.10.6(@babel/core@7.29.7(supports-color@9.4.0))(preact@10.29.8)(supports-color@9.4.0)(vite@8.3.4(@types/node@20.19.43)(esbuild@0.28.2)(jiti@2.7.0)(tsx@4.23.15)(yaml@2.9.1))
       '@tsconfig/node20':
-        specifier: ^20.1.8
+        specifier: ^20.1.10
         version: 20.1.10
       '@tsconfig/strictest':
         specifier: ^2.0.8
         version: 2.0.8
       '@types/node':
-        specifier: ^20.19.0
+        specifier: ^20.19.43
         version: 20.19.43
       eslint:
         specifier: ^10.12.0
@@ -806,7 +806,7 @@ importers:
         specifier: ^10.0.1
         version: 10.0.1(eslint@10.12.0(jiti@2.7.0)(supports-color@9.4.0))
       '@tsconfig/node20':
-        specifier: ^20.1.8
+        specifier: ^20.1.10
         version: 20.1.10
       '@tsconfig/strictest':
         specifier: ^2.0.8
@@ -947,7 +947,7 @@ importers:
         specifier: workspace:*
         version: link:../../.pkgs/samples
       '@tsconfig/node20':
-        specifier: ^20.1.8
+        specifier: ^20.1.10
         version: 20.1.10
       '@tsconfig/strictest':
         specifier: ^2.0.8
@@ -1051,7 +1051,7 @@ importers:
         specifier: workspace:*
         version: link:../../.pkgs/testkit
       '@types/node':
-        specifier: ^20.19.0
+        specifier: ^20.19.43
         version: 20.19.43
       '@typescript-eslint/typescript-estree':
         specifier: ^8.71.1
@@ -1082,10 +1082,10 @@ importers:
         specifier: workspace:*
         version: link:../../.pkgs/configs
       '@tsconfig/node20':
-        specifier: ^20.1.8
+        specifier: ^20.1.10
         version: 20.1.10
       '@types/node':
-        specifier: ^20.19.0
+        specifier: ^20.19.43
         version: 20.19.43
       eslint:
         specifier: ^10.12.0
@@ -1165,7 +1165,7 @@ importers:
         specifier: workspace:*
         version: link:../../.pkgs/configs
       '@types/node':
-        specifier: ^20.19.0
+        specifier: ^20.19.43
         version: 20.19.43
       eslint:
         specifier: ^10.12.0
@@ -1199,10 +1199,10 @@ importers:
         specifier: workspace:*
         version: link:../../.pkgs/eff
       '@tsconfig/node20':
-        specifier: ^20.1.8
+        specifier: ^20.1.10
         version: 20.1.10
       '@types/node':
-        specifier: ^20.19.0
+        specifier: ^20.19.43
         version: 20.19.43
       '@types/picomatch':
         specifier: ^4.0.3
@@ -1294,7 +1294,7 @@ importers:
         specifier: workspace:*
         version: link:../../.pkgs/configs
       '@types/node':
-        specifier: ^20.19.0
+        specifier: ^20.19.43
         version: 20.19.43
       '@types/react':
         specifier: ^19.3.0
