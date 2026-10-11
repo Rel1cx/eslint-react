@@ -97,6 +97,59 @@ export function createSetStateResolver(context: RuleContext) {
   return { isSetStateCall, isSetStateId, isUseStateCall } as const;
 }
 
+function isRefAttribute(node: TSESTree.Node | undefined): boolean {
+  return node?.type === AST.JSXExpressionContainer
+    && node.parent.type === AST.JSXAttribute
+    && node.parent.name.type === AST.JSXIdentifier
+    && node.parent.name.name === "ref";
+}
+
+/**
+ * Check if a function is used as a callback ref (ex: `<div ref={(node) => setNode(node)} />`,
+ * `const nodeRef = useCallback((node) => setNode(node), [])` or `ref={nodeRef}`)
+ * @param context The rule context
+ * @param fn The function to check
+ * @returns `true` if the function is a callback ref
+ */
+function isCallbackRefFunction(context: RuleContext, fn: TSESTree.Node): boolean {
+  // useCallback(fn, deps)
+  const binding = fn.parent?.type === AST.CallExpression && fn.parent.arguments[0] === fn ? fn.parent : fn;
+  if (isRefAttribute(binding.parent)) return true;
+  if (binding.parent?.type !== AST.VariableDeclarator || binding.parent.id.type !== AST.Identifier) return false;
+  const { name } = binding.parent.id;
+  if (name === "ref" || name.endsWith("Ref")) return true;
+  const variable = findVariable(context.sourceCode.getScope(binding), name);
+  return variable?.references.some((r) => isRefAttribute(r.identifier.parent)) ?? false;
+}
+
+/**
+ * Check if a `useState` value is a DOM node that is only ever written by callback refs
+ * (ex: `const [node, setNode] = useState(null); ... <div ref={setNode} />`)
+ * @param context The rule context
+ * @param declarator The `useState` variable declarator
+ * @param name The name of the state value binding
+ * @returns `true` if the state setter is only used as, or inside, a callback ref
+ */
+function isStateWrittenByCallbackRef(context: RuleContext, declarator: TSESTree.VariableDeclarator, name: string): boolean {
+  const { additionalStateHooks } = getSettingsFromContext(context);
+  const { id, init } = declarator;
+  if (init == null || id.type !== AST.ArrayPattern) return false;
+  const initNode = Extract.unwrap(init);
+  if (initNode.type !== AST.CallExpression || !core.isUseStateLikeCall(initNode, additionalStateHooks)) return false;
+  const [value, setter] = id.elements;
+  if (value == null || setter == null) return false;
+  if (!Check.isIdentifier(value, name) || !Check.isIdentifier(setter)) return false;
+  const variable = findVariable(context.sourceCode.getScope(declarator), setter.name);
+  const references = variable?.references.filter((r) => r.identifier !== setter && r.init !== true) ?? [];
+  if (references.length === 0) return false;
+  return references.every((r) => {
+    if (isRefAttribute(r.identifier.parent)) return true;
+    let current: TSESTree.Node | undefined = r.identifier.parent;
+    while (current != null && !Check.isFunction(current)) current = current.parent;
+    return current != null && isCallbackRefFunction(context, current);
+  });
+}
+
 export function isInitializedFromRef(context: RuleContext, name: string, initialScope: Scope, seen = new Set<string>()): boolean {
   const { additionalRefHooks } = getSettingsFromContext(context);
   if (seen.has(name)) return false;
@@ -114,6 +167,8 @@ export function isInitializedFromRef(context: RuleContext, name: string, initial
     if (node.type !== AST.VariableDeclarator) continue;
     const init = node.init == null ? null : Extract.unwrap(node.init);
     if (init == null) continue;
+    // const [node, setNode] = useState(null); <div ref={setNode} />
+    if (isStateWrittenByCallbackRef(context, node, name)) return true;
     switch (true) {
       // const identifier = anotherRef.current;
       // const identifier = containerRef.current.offsetWidth;
