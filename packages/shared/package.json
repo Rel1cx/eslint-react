@@ -49,8 +49,8 @@
     "@types/node": "^26.6.5",
     "@types/picomatch": "^4.0.3",
     "eslint": "^10.12.0",
-    "tinybench": "6.2.1",
-    "tsdown": "^0.23.0",
+    "tinybench": "6.2.2",
+    "tsdown": "^0.23.1",
     "typescript": "6.0.3"
   },
   "peerDependencies": {

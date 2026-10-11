@@ -57,7 +57,7 @@
   },
   "devDependencies": {
     "@effect/language-service": "^0.87.4",
-    "@effect/platform-node": "^4.0.2",
+    "@effect/platform-node": "^4.0.3",
     "@local/configs": "workspace:*",
     "@local/eff": "workspace:*",
     "@local/testkit": "workspace:*",
@@ -87,7 +87,7 @@
     "textlint": "^15.8.0",
     "tinyglobby": "^0.2.17",
     "ts-pattern": "^5.9.0",
-    "tsdown": "^0.23.0",
+    "tsdown": "^0.23.1",
     "tsl": "^1.0.30",
     "typedoc": "^0.28.20",
     "typedoc-plugin-file-overview": "^0.2.0",
@@ -97,7 +97,7 @@
     "typescript-eslint": "^8.71.1",
     "vitest": "^5.0.3"
   },
-  "packageManager": "pnpm@12.10.1",
+  "packageManager": "pnpm@12.11.2",
   "engines": {
     "node": ">=22.0.0"
   },
