@@ -2,6 +2,14 @@
 title: Changelog
 ---
 
+## v5.26.0 (2026-10-11)
+
+### ✨ New
+
+- Lowered the minimum required Node.js version from `>=22.0.0` to `>=20.19.0`. (#2020)
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.25.0...v5.26.0
+
 ## v5.25.0 (2026-10-11)
 
 ### ✨ New
