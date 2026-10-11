@@ -240,6 +240,9 @@ importers:
       '@tsconfig/node20':
         specifier: ^20.1.8
         version: 20.1.10
+      '@tsconfig/node24':
+        specifier: ^24.0.5
+        version: 24.0.5
       '@tsconfig/strictest':
         specifier: ^2.0.8
         version: 2.0.8
@@ -468,6 +471,9 @@ importers:
       '@tsconfig/node20':
         specifier: ^20.1.8
         version: 20.1.10
+      '@types/node':
+        specifier: ^20.19.0
+        version: 20.19.43
       eslint:
         specifier: ^10.12.0
         version: 10.12.0(jiti@2.7.0)(supports-color@9.4.0)
@@ -479,7 +485,7 @@ importers:
         version: 6.0.3
       vitest:
         specifier: ^5.0.3
-        version: 5.0.3(@types/node@26.6.5)(vite@8.3.4(@types/node@26.6.5)(esbuild@0.28.2)(jiti@2.7.0)(tsx@4.23.15)(yaml@2.9.1))
+        version: 5.0.3(@types/node@20.19.43)(vite@8.3.4(@types/node@20.19.43)(esbuild@0.28.2)(jiti@2.7.0)(tsx@4.23.15)(yaml@2.9.1))
 
   apps/website:
     dependencies:
@@ -1044,6 +1050,9 @@ importers:
       '@local/testkit':
         specifier: workspace:*
         version: link:../../.pkgs/testkit
+      '@types/node':
+        specifier: ^20.19.0
+        version: 20.19.43
       '@typescript-eslint/typescript-estree':
         specifier: ^8.71.1
         version: 8.71.1(supports-color@9.4.0)(typescript@6.0.3)
@@ -1058,7 +1067,7 @@ importers:
         version: 6.0.3
       vitest:
         specifier: ^5.0.3
-        version: 5.0.3(@types/node@26.6.5)(vite@8.3.4(@types/node@26.6.5)(esbuild@0.28.2)(jiti@2.7.0)(tsx@4.23.15)(yaml@2.9.1))
+        version: 5.0.3(@types/node@20.19.43)(vite@8.3.4(@types/node@20.19.43)(esbuild@0.28.2)(jiti@2.7.0)(tsx@4.23.15)(yaml@2.9.1))
 
   packages/eslint:
     dependencies:
@@ -1155,6 +1164,9 @@ importers:
       '@local/configs':
         specifier: workspace:*
         version: link:../../.pkgs/configs
+      '@types/node':
+        specifier: ^20.19.0
+        version: 20.19.43
       eslint:
         specifier: ^10.12.0
         version: 10.12.0(jiti@2.7.0)(supports-color@9.4.0)
@@ -1281,6 +1293,9 @@ importers:
       '@local/configs':
         specifier: workspace:*
         version: link:../../.pkgs/configs
+      '@types/node':
+        specifier: ^20.19.0
+        version: 20.19.43
       '@types/react':
         specifier: ^19.3.0
         version: 19.3.0
@@ -9421,7 +9436,7 @@ snapshots:
 
   '@types/concat-stream@2.0.3':
     dependencies:
-      '@types/node': 26.6.5
+      '@types/node': 20.19.43
 
   '@types/d3-array@3.2.2': {}
 
@@ -9613,7 +9628,7 @@ snapshots:
 
   '@types/ws@8.18.2':
     dependencies:
-      '@types/node': 26.6.5
+      '@types/node': 20.19.43
 
   '@typescript-eslint/eslint-plugin@8.71.1(@typescript-eslint/parser@8.71.1(eslint@10.12.0(jiti@2.7.0)(supports-color@7.2.0))(supports-color@7.2.0)(typescript@6.0.3))(eslint@10.12.0(jiti@2.7.0)(supports-color@7.2.0))(supports-color@7.2.0)(typescript@6.0.3)':
     dependencies:

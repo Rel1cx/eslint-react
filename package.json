@@ -65,6 +65,7 @@
     "@textlint-rule/textlint-rule-pattern": "^2.0.2",
     "@textlint/textlint-plugin-markdown": "^15.8.0",
     "@tsconfig/node20": "^20.1.8",
+    "@tsconfig/node24": "^24.0.5",
     "@tsconfig/strictest": "^2.0.8",
     "@types/node": "^20.19.0",
     "@types/react": "^19.3.0",
