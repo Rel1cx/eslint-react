@@ -28,7 +28,7 @@ export function buildConfig(cwd: string) {
     },
     platform: "node",
     sourcemap: false,
-    target: "node22",
+    target: "node20",
     treeshake: true,
   } as const satisfies UserConfig;
 }

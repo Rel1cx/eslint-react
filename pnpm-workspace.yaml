@@ -79,8 +79,6 @@ overrides:
   typescript: "6.0.3"
   # Keep a single vite copy in the tree (fumadocs-mdx's peer otherwise stays on an older resolution)
   vite: "^8.3.4"
-  # Transitive dependency via @types/node 26.1.2
-  undici-types: "^8.11.2"
   # Transitive dependency via @effect/platform-node 4.0.0
   undici: "^8.11.2"
   # Transitive dependency via @effect/sql 0.51.1
@@ -89,6 +87,9 @@ overrides:
   why-is-node-running: "3.2.1"
 
 trustPolicy: "no-downgrade"
+trustPolicyExclude:
+  # Required by @types/node 20; the undici-types 6.x line predates provenance publishing (types-only package)
+  - undici-types
 minimumReleaseAge: 0
 patchedDependencies:
   import-integrity-lint: patches/import-integrity-lint.patch
