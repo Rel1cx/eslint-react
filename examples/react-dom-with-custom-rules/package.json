@@ -18,7 +18,7 @@
     "@eslint-react/kit": "workspace:*",
     "@eslint/js": "^10.0.1",
     "@local/samples": "workspace:*",
-    "@tsconfig/node24": "^24.0.5",
+    "@tsconfig/node20": "^20.1.8",
     "@tsconfig/strictest": "^2.0.8",
     "@tsconfig/vite-react": "^8.1.1",
     "@types/react": "^19.3.0",
@@ -32,6 +32,6 @@
     "vite": "^8.3.4"
   },
   "engines": {
-    "node": ">=22.0.0"
+    "node": ">=20.19.0"
   }
 }

@@ -26,7 +26,7 @@ export function buildConfig(cwd) {
         },
         platform: "node",
         sourcemap: false,
-        target: "node22",
+        target: "node20",
         treeshake: true,
     };
 }

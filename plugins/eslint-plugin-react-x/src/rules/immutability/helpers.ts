@@ -130,7 +130,7 @@ export function isInitializedFromUseRef(context: RuleContext, node: TSESTree.Exp
 export function isKnownNonMutatingMethodCall(context: RuleContext, node: TSESTree.CallExpression) {
   const callee = Extract.unwrap(node.callee);
   return Check.isExpression(callee) && isInitializedFromCall(context, callee, (init) => {
-    return KNOWN_MUTATING_HOOKS.values().some((hook) => core.isAPICall(hook)(context, init));
+    return [...KNOWN_MUTATING_HOOKS].some((hook) => core.isAPICall(hook)(context, init));
   });
 }
 

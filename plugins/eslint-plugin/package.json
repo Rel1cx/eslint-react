@@ -58,6 +58,7 @@
   },
   "devDependencies": {
     "@local/configs": "workspace:*",
+    "@types/node": "^20.19.0",
     "@types/react": "^19.3.0",
     "@types/react-dom": "^19.3.0",
     "dedent": "^1.7.2",
@@ -75,7 +76,7 @@
     }
   },
   "engines": {
-    "node": ">=22.0.0"
+    "node": ">=20.19.0"
   },
   "publishConfig": {
     "access": "public"

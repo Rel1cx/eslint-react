@@ -1,8 +1,11 @@
 import dedent from "dedent";
 import { execFileSync } from "node:child_process";
 import { existsSync, readdirSync } from "node:fs";
-import { registerHooks } from "node:module";
+import * as nodeModule from "node:module";
 import { describe, it } from "vitest";
+
+// `module.registerHooks` requires Node.js >= 22.15.0 and is absent from @types/node 20.
+const registerHooks: unknown = (nodeModule as unknown as Record<string, unknown>)["registerHooks"];
 
 const loadWithoutESLint = dedent`
   import assert from "node:assert/strict";
@@ -38,7 +41,7 @@ const pluginDirectories = readdirSync(new URL("../../", import.meta.url), { with
   .map((entry) => entry.name)
   .sort();
 
-// `module.registerHooks` requires Node.js >= 22.15.0; skip on older runtimes.
+// Skip on runtimes without `module.registerHooks`.
 describe.skipIf(typeof registerHooks !== "function")("plugin loading", () => {
   it.each(pluginDirectories)("loads %s without ESLint", (directory) => {
     execFileSync(process.execPath, ["--input-type=module", "--eval", loadWithoutESLint], {

@@ -53,3 +53,14 @@ jobs:
         uses: pnpm/action-setup@ea17c68df8912ef543352723c149a84f56e3d413 # v6.1.0
       - name: Test on node@22
         run: node --run test
+      - name: Setup node@20
+        uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: 20.19
+          package-manager-cache: false
+      - name: Setup pnpm
+        uses: pnpm/action-setup@ea17c68df8912ef543352723c149a84f56e3d413 # v6.1.0
+      # The toolchain (tsdown, vitest) requires Node >= 22, so reuse the artifacts built above
+      # and smoke test them on the minimum supported runtime by linting an example project.
+      - name: Smoke test on node@20
+        run: pnpm -F @examples/react-dom run lint

@@ -20,6 +20,6 @@ export declare function buildConfig(cwd: string): {
     };
     readonly platform: "node";
     readonly sourcemap: false;
-    readonly target: "node22";
+    readonly target: "node20";
     readonly treeshake: true;
 };

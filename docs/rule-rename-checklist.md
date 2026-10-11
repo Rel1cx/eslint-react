@@ -62,7 +62,7 @@ Checklist for renaming or moving rules in `eslint-plugin-react-x` and `@eslint-r
 
 - [ ] `pnpm tsc --noEmit` (run from the repo root)
 - [ ] `pnpm vitest run src/rules/<new-name>/<new-name>.spec.ts` (run from `plugins/eslint-plugin-react-x/`)
-- [ ] `grep -r --exclude-dir=node_modules --exclude-dir=dist "<old-name>" plugins/ packages/` — no leftover references (run from the repo root)
+- [ ] `rg "<old-name>" plugins/ packages/ --glob '!node_modules/' --glob '!dist/'` — no leftover references (run from the repo root)
 
 ---
 
@@ -119,7 +119,7 @@ Checklist for renaming or moving rules in `eslint-plugin-react-x` and `@eslint-r
 
 - [ ] `pnpm tsc --noEmit` in all affected packages (run from each package directory, or from the repo root).
 - [ ] `pnpm vitest run src/rules/<rule-name>/<rule-name>.spec.ts` (run from `plugins/eslint-plugin-react-x/`)
-- [ ] `grep -r --exclude-dir=node_modules --exclude-dir=dist "react-<source>/<rule-name>" plugins/ packages/` — no stale references (run from the repo root)
+- [ ] `rg "react-<source>/<rule-name>" plugins/ packages/ --glob '!node_modules/' --glob '!dist/'` — no stale references (run from the repo root)
 
 ---
 

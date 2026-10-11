@@ -28,7 +28,7 @@ Per-plugin `tsconfig.json`:
 
 ```json
 {
-  "extends": ["@local/configs/tsconfig.base.json", "@tsconfig/node24/tsconfig.json"],
+  "extends": ["@local/configs/tsconfig.base.json", "@tsconfig/node20/tsconfig.json"],
   "compilerOptions": {
     "paths": {
       "@": ["./src"],
