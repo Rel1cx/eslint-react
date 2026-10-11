@@ -4,12 +4,13 @@ Checklist for raising the minimum supported Node.js version (e.g. dropping Node 
 
 The examples below assume the new floor is Node 22; adjust targets and version strings proportionally for a different floor.
 
-## 1. `engines` Fields (26 packages)
+## 1. `engines` Fields (25 packages)
 
-- [ ] Bump `engines.node` from `>=20.19.0` to the new floor in every workspace `package.json`:
-  - root, `.pkgs/{eff,testkit,samples,configs}`, `packages/*` (7), `plugins/*` (8), `examples/*` (6)
+- [ ] Bump `engines.node` from `>=20.19.0` to the new floor in every published-floor `package.json`:
+  - `.pkgs/{eff,testkit,samples,configs}`, `packages/*` (7), `plugins/*` (8), `examples/*` (6)
+  - **Exclude the root** `package.json` — it is private and follows the toolchain floor (`>=24.21.0`, set by the strictest of tsdown/vitest), not the published floor. Bump it separately when the toolchain requires it.
   - **Exclude** `examples/react-dom-oxlint` — it stays at `>=22.15.0` on its own track (its lint script requires `module.registerHooks`).
-- [ ] `rg --hidden '"node": ">=20' --glob 'package.json' --glob '!node_modules/' .` — no leftovers (`--hidden` is needed for `.pkgs/`; `pnpm-lock.yaml` hits are third-party engines and don't count).
+- [ ] `rg --hidden '"node": ">=20' --glob 'package.json' --glob '!node_modules/' .` — no leftovers (`--hidden` is needed for `.pkgs/`; the root and `examples/react-dom-oxlint` follow their own floors and never match this pattern; `pnpm-lock.yaml` hits are third-party engines and don't count).
 
 ## 2. Build Target
 

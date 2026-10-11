@@ -99,7 +99,7 @@
   },
   "packageManager": "pnpm@12.11.2",
   "engines": {
-    "node": ">=20.19.0"
+    "node": ">=24.21.0"
   },
   "inlinedDependencies": {
     "@local/eff": "workspace:*"
