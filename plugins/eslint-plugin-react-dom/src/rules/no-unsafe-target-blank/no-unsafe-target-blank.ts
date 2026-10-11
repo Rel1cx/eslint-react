@@ -14,10 +14,8 @@ export const RULE_FEATURES = [
 ] as const satisfies RuleFeature[];
 
 export type MessageID =
-  | "add-rel-noopener"
-  | "add-rel-noreferrer-noopener"
   | "default"
-  | "default-allow-referrer";
+  | "suggest";
 
 type Options = readonly [
   | null
@@ -56,10 +54,8 @@ export default createRule<Options, MessageID>({
     fixable: "code",
     hasSuggestions: true,
     messages: {
-      "add-rel-noopener": `Add 'rel="noopener"' to the link to prevent security risks.`,
-      "add-rel-noreferrer-noopener": `Add 'rel="noreferrer noopener"' to the link to prevent security risks.`,
-      default: `Using 'target="_blank"' on an external link without 'rel="noreferrer noopener"' is a security risk.`,
-      "default-allow-referrer": `Using 'target="_blank"' on an external link without 'rel="noopener"' is a security risk.`,
+      default: `Using 'target="_blank"' on an external link without '{{rel}}' is a security risk.`,
+      suggest: `Add '{{rel}}' to the link to prevent security risks.`,
     },
     schema,
   },
@@ -73,13 +69,12 @@ export function create(context: RuleContext<MessageID, Options>): RuleListener {
 
   const requiredRelValue = allowReferrer ? "noopener" : "noreferrer noopener";
   const requiredRelAttribute = `rel="${requiredRelValue}"`;
-  const reportMessageId: MessageID = allowReferrer ? "default-allow-referrer" : "default";
-  const suggestionMessageId: MessageID = allowReferrer ? "add-rel-noopener" : "add-rel-noreferrer-noopener";
 
   function buildSuggest(fix: ReportFixFunction): ReportDescriptor<MessageID>["suggest"] & {} {
     return [{
+      data: { rel: requiredRelAttribute },
       fix,
-      messageId: suggestionMessageId,
+      messageId: "suggest",
     }];
   }
 
@@ -95,7 +90,8 @@ export function create(context: RuleContext<MessageID, Options>): RuleListener {
       const relAttribute = findAttribute(context, node, "rel");
       if (relAttribute == null) {
         context.report({
-          messageId: reportMessageId,
+          messageId: "default",
+          data: { rel: requiredRelAttribute },
           node: node.openingElement,
           suggest: buildSuggest((fixer) => fixer.insertTextAfter(node.openingElement.name, ` ${requiredRelAttribute}`)),
         });
@@ -106,7 +102,8 @@ export function create(context: RuleContext<MessageID, Options>): RuleListener {
       if (isSafeRel(relValue, allowReferrer)) return;
 
       context.report({
-        messageId: reportMessageId,
+        messageId: "default",
+        data: { rel: requiredRelAttribute },
         node: relAttribute,
         suggest: buildSuggest((fixer) => fixer.replaceText(relAttribute, requiredRelAttribute)),
       });

@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [5.25.0] - 2026-10-11
+
 ### Added
 
 - Added an `allowReferrer` option (default: `false`). When enabled, `rel="noopener"` alone is accepted and the suggested fix adds `rel="noopener"` instead of `rel="noreferrer noopener"`, preserving referrer information while still requiring an explicit token. Closes #2012.

@@ -1,5 +1,20 @@
 # Changelog
 
+## v5.25.0 (2026-10-11)
+
+### ✨ New
+
+- `react-dom/no-unsafe-target-blank`: added an `allowReferrer` option (default: `false`). When enabled, `rel="noopener"` alone is accepted and the suggested fix adds `rel="noopener"` instead of `rel="noreferrer noopener"`, preserving referrer information while still requiring an explicit token. (#2019) Closes #2012.
+
+### 🏗️ Internal
+
+- `@eslint-react/ast`: added `hasParent` and `hasEnclosingTryBlock` shortcuts to `Traverse`. (#2016)
+- `@eslint-react/ast`: renamed the `types` module to `tree` and narrowed the `Extract.unwrap` result type. (#2017)
+- `@eslint-react/core`: removed the unused `REACT_BUILTIN_HOOK_NAMES` constant.
+- Bumped `tsdown` to `0.23.1`, `@effect/platform-node` to `4.0.3`, `pnpm` to `12.11.2`, `@types/node` to `26.6.5`, `setup-uv` to `v10.3.0`, and `fumadocs` and `lucide-react` in the website.
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.24.10...v5.25.0
+
 ## v5.24.10 (2026-10-09)
 
 ### 📝 Documentation
