@@ -3,7 +3,7 @@ import { includeIgnoreFile } from "@eslint/compat";
 import eslintJs from "@eslint/js";
 import eslintPluginNext from "@next/eslint-plugin-next";
 import eslintPluginReactHooks from "eslint-plugin-react-hooks";
-import eslintPluginReactRefresh from "eslint-plugin-react-refresh";
+import { reactRefresh } from "eslint-plugin-react-refresh";
 import { defineConfig } from "eslint/config";
 import path from "node:path";
 import tseslint from "typescript-eslint";
@@ -32,7 +32,7 @@ export default defineConfig(
     languageOptions: {
       parser: tseslint.parser,
       parserOptions: {
-        project: "./tsconfig.json",
+        projectService: true,
         tsconfigRootDir: import.meta.dirname,
       },
     },
@@ -41,7 +41,7 @@ export default defineConfig(
     files: TSCONFIG.include,
     extends: [
       eslintReact.configs["strict-typescript"],
-      eslintPluginReactRefresh.configs.recommended,
+      reactRefresh.configs.next(),
       eslintPluginReactHooks.configs.flat["recommended-latest"] ?? [],
     ],
     plugins: {

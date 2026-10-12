@@ -30,6 +30,7 @@
   "scripts": {
     "build": "node --run build:pkgs && node --run build:packages && node --run build:plugins",
     "build:docs": "nx run-many -t build:docs --parallel",
+    "build:examples": "pnpm m -F \"./examples/*\" run build",
     "build:packages": "nx run-many -t build -p 'packages/*' --parallel",
     "build:pkgs": "nx run-many -t build -p '.pkgs/*' --parallel",
     "build:plugins": "nx run-many -t build -p 'plugins/*' --parallel",

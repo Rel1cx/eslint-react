@@ -1,7 +1,7 @@
 import eslintReact from "@eslint-react/eslint-plugin";
 import eslintJs from "@eslint/js";
 import eslintPluginReactHooks from "eslint-plugin-react-hooks";
-import eslintPluginReactRefresh from "eslint-plugin-react-refresh";
+import { reactRefresh } from "eslint-plugin-react-refresh";
 import { defineConfig } from "eslint/config";
 import globals from "globals";
 
@@ -18,8 +18,6 @@ export default defineConfig(
         ...globals.browser,
       },
       parserOptions: {
-        project: "./jsconfig.app.json",
-        tsconfigRootDir: import.meta.dirname,
         ecmaFeatures: {
           jsx: true,
         },
@@ -38,10 +36,6 @@ export default defineConfig(
       globals: {
         ...globals.node,
       },
-      parserOptions: {
-        project: "./jsconfig.node.json",
-        tsconfigRootDir: import.meta.dirname,
-      },
     },
     rules: {
       "no-console": "off",
@@ -53,7 +47,7 @@ export default defineConfig(
     extends: [
       eslintReact.configs.strict,
       eslintPluginReactHooks.configs.flat["recommended-latest"] ?? [],
-      eslintPluginReactRefresh.configs.recommended,
+      reactRefresh.configs.vite(),
     ],
   },
 );
