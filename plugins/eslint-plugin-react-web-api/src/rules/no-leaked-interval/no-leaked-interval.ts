@@ -14,8 +14,8 @@ export const RULE_NAME = "no-leaked-interval";
 export const RULE_FEATURES = [] as const satisfies RuleFeature[];
 
 export type MessageID =
-  | "expected-clear-interval-in-cleanup"
-  | "expected-interval-id";
+  | "expected-interval-id"
+  | "expected-clear-interval-in-cleanup";
 
 // #endregion
 
@@ -54,8 +54,8 @@ export default createRule<[], MessageID>({
       description: "Enforces that every 'setInterval' in a component or custom hook has a corresponding 'clearInterval'.",
     },
     messages: {
-      "expected-clear-interval-in-cleanup": "A 'setInterval' created in '{{ kind }}' must be cleared with 'clearInterval' in the cleanup function.",
       "expected-interval-id": "A 'setInterval' must be assigned to a variable for proper cleanup.",
+      "expected-clear-interval-in-cleanup": "A 'setInterval' created in '{{ kind }}' must be cleared with 'clearInterval' in the cleanup function.",
     },
     schema: [],
   },

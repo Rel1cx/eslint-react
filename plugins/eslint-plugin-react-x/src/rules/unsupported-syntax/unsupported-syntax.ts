@@ -50,6 +50,11 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         if (func == null) return;
         evalCalls.push({ func, node });
       },
+      WithStatement(node: TSESTree.WithStatement) {
+        const func = Traverse.findParent(node, Check.isFunction);
+        if (func == null) return;
+        withStmts.push({ func, node });
+      },
       "Program:exit"(node) {
         const comps = fc.api.getAllComponents(node);
         const hooks = hc.api.getAllHooks(node);
@@ -68,11 +73,6 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
             node,
           });
         }
-      },
-      WithStatement(node: TSESTree.WithStatement) {
-        const func = Traverse.findParent(node, Check.isFunction);
-        if (func == null) return;
-        withStmts.push({ func, node });
       },
     },
   );

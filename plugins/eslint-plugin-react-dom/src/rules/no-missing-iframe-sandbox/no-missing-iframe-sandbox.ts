@@ -11,8 +11,8 @@ export const RULE_FEATURES = [
 ] as const satisfies RuleFeature[];
 
 export type MessageID =
-  | "add-sandbox-attribute"
-  | "missing-sandbox-attribute";
+  | "default"
+  | "suggest";
 
 export default createRule<[], MessageID>({
   meta: {
@@ -23,8 +23,8 @@ export default createRule<[], MessageID>({
     fixable: "code",
     hasSuggestions: true,
     messages: {
-      "add-sandbox-attribute": "Add sandbox attribute with value '{{ value }}'.",
-      "missing-sandbox-attribute": "Missing an explicit sandbox attribute for iframe.",
+      default: "Missing an explicit sandbox attribute for iframe.",
+      suggest: "Add sandbox attribute with value '{{ value }}'.",
     },
     schema: [],
   },
@@ -47,7 +47,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       // If the 'sandbox' prop is missing, report an error
       if (sandboxProp == null) {
         context.report({
-          messageId: "missing-sandbox-attribute",
+          messageId: "default",
           node: node.openingElement,
           suggest: [{
             data: { value: "" },
@@ -55,7 +55,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
               // Suggest adding a 'sandbox' attribute
               return fixer.insertTextAfter(node.openingElement.name, ` sandbox=""`);
             },
-            messageId: "add-sandbox-attribute",
+            messageId: "suggest",
           }],
         });
         return;
@@ -69,7 +69,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
 
       // If the value is not a static string (ex: a variable), report an error
       context.report({
-        messageId: "missing-sandbox-attribute",
+        messageId: "default",
         node: sandboxValue.node ?? sandboxProp,
         suggest: [
           {
@@ -80,7 +80,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
               // Suggest replacing the prop with a valid one
               return fixer.replaceText(sandboxProp, `sandbox=""`);
             },
-            messageId: "add-sandbox-attribute",
+            messageId: "suggest",
           },
         ],
       });

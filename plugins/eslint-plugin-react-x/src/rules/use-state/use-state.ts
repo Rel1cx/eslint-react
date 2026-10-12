@@ -18,8 +18,8 @@ export const RULE_FEATURES = [
 ] as const satisfies RuleFeature[];
 
 export type MessageID =
-  | "invalid-assignment"
   | "invalid-initialization"
+  | "invalid-assignment"
   | "invalid-setter-name";
 
 type Options = readonly [
@@ -69,9 +69,9 @@ export default createRule<Options, MessageID>({
         "Enforces correct usage of 'useState', including destructuring, symmetric naming of the value and setter, and wrapping expensive initializers in a lazy initializer function.",
     },
     messages: {
-      "invalid-assignment": "useState should be destructured into a value and setter pair, e.g., const [state, setState] = useState(...).",
       "invalid-initialization":
         "To prevent re-computation, consider using lazy initial state for useState calls that involve function calls. Ex: 'useState(() => getValue())'.",
+      "invalid-assignment": "useState should be destructured into a value and setter pair, e.g., const [state, setState] = useState(...).",
       "invalid-setter-name": "The setter should be named 'set' followed by the capitalized state variable name, e.g., 'setState' for 'state'.",
     },
     schema,
