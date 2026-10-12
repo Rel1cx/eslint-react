@@ -1,16 +1,20 @@
 {
   "compilerOptions": {
-    "target": "ES2021",
+    "target": "ES2023",
     "module": "ESNext",
     "moduleDetection": "force",
     "moduleResolution": "bundler",
     "jsx": "react-jsx",
     "lib": [
-      "ES2021",
+      "ES2023",
       "DOM",
       "DOM.Iterable"
     ],
+    "types": [
+      "vite/client"
+    ],
     "allowJs": true,
+    "skipLibCheck": true,
     "noEmit": true
   },
   "include": [

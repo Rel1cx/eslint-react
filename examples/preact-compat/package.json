@@ -4,13 +4,13 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "build": "tsc && vite build",
+    "build": "tsc -b && vite build",
     "dev": "vite",
     "lint": "eslint . --concurrency=auto",
     "preview": "vite preview"
   },
   "dependencies": {
-    "preact": "^10.29.8"
+    "preact": "^11.0.1"
   },
   "devDependencies": {
     "@eslint-react/eslint-plugin": "workspace:*",

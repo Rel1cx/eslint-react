@@ -6,11 +6,10 @@
   "compilerOptions": {
     "incremental": false,
     "skipLibCheck": true,
-    "module": "ESNext",
+    "module": "nodenext",
     "moduleDetection": "force",
-    "moduleResolution": "bundler",
-    "esModuleInterop": true,
-    "allowSyntheticDefaultImports": true,
+    "moduleResolution": "nodenext",
+    "resolveJsonModule": true,
     "allowJs": true,
     "noEmit": true
   },
