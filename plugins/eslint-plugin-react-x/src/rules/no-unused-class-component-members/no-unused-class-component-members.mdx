@@ -31,6 +31,8 @@ This rule warns about class component methods and properties that are defined bu
 
 Note that `shouldComponentUpdate` is considered unused when defined in a class extending `PureComponent`, since `PureComponent` implements its own `shouldComponentUpdate` with shallow prop and state comparison.
 
+Public methods (including function-valued properties) of an exported class component are not reported, as they may be part of the component's imperative API invoked by consumers through refs (e.g. `drawerRef.current.openDrawer()`). Data fields, `private`/`protected` members, and members of non-exported classes are still reported.
+
 ## Examples
 
 ### Class component methods defined but never used

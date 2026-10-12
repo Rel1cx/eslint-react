@@ -4,7 +4,7 @@ import * as core from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, type RuleListener } from "@eslint-react/eslint";
 import { getOrInsertComputed } from "@local/eff";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
-import { HOST_CONVENTION_METHODS, LIFECYCLE_METHODS } from "./lib";
+import { KNOWN_HOST_CONVENTION_METHODS, LIFECYCLE_METHODS, isExportedClass, isPublicMethod } from "./lib";
 
 export const RULE_NAME = "no-unused-class-component-members";
 
@@ -44,6 +44,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       return;
     }
     const usages = propertyUsages.get(node);
+    const exported = isExportedClass(node);
     // Compare definitions and usages to find unused members
     for (const def of defs) {
       const methodName = def.name;
@@ -61,7 +62,12 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         }
       }
       // If a member is invoked by the host environment through refs (ex: `setNativeProps` in React Native), skip it
-      if (HOST_CONVENTION_METHODS.has(methodName)) {
+      if (KNOWN_HOST_CONVENTION_METHODS.has(methodName)) {
+        continue;
+      }
+      // If a member is a public method of an exported class component, skip it
+      // as it may be invoked by consumers through refs (ex: `drawerRef.current.openDrawer()`)
+      if (exported && isPublicMethod(def)) {
         continue;
       }
       // Report members that are defined but not used
