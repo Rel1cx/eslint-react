@@ -5,6 +5,14 @@ All notable changes to the `naming-convention/ref-name` rule will be documented 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+### Fixed
+
+- Immediate dereferences of the `useRef` result through TypeScript type wrappers (ex: `(useRef(null) as { current: null }).current`, `useRef(null)!.current`, `useRef(null)?.current`) are no longer reported; this extends the #1375 fix, which only handled a bare member access.
+- An enclosing object literal property key now takes precedence over the outer assignment target when statically known, so `const refs = { myRef: useRef(0) }` is no longer reported just because `refs` is not a valid ref name; conversely `{ value: useRef(0) }` is now reported on the `value` key.
+- Computed member expression and class property keys with string literals are now checked (ex: `refs["value"] = useRef(null)`), while unresolvable computed keys (ex: `refs[value] = useRef(null)`) are no longer reported.
+
 ## [5.18.0] - 2026-07-23
 
 ### Changed

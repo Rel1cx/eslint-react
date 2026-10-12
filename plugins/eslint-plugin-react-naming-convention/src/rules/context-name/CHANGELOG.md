@@ -5,6 +5,13 @@ All notable changes to the `naming-convention/context-name` rule will be documen
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+### Fixed
+
+- An enclosing object literal property key now takes precedence over the outer assignment target when statically known, so `const contexts = { ThemeContext: createContext("") }` is no longer reported just because `contexts` is not a valid context name; conversely `{ theme: createContext("") }` is now reported on the `theme` key.
+- Computed member expression and class property keys with string literals are now checked (ex: `ctxs["theme"] = createContext("")`), while unresolvable computed keys (ex: `ctxs[theme] = createContext("")`) are no longer reported.
+
 ## [5.2.3-beta.0] - 2026-04-14
 
 ### Changed

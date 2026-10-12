@@ -1,11 +1,10 @@
 import { createRule } from "@/utils/create-rule";
-import { Extract } from "@eslint-react/ast";
+import { resolveNamingTarget } from "@/utils/resolve-naming-target";
+import { Check } from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, type RuleListener } from "@eslint-react/eslint";
 import { getSettingsFromContext } from "@eslint-react/shared";
-import { resolveEnclosingAssignmentTarget } from "@eslint-react/var";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
-import { P, match } from "ts-pattern";
 
 export const RULE_NAME = "ref-name";
 
@@ -34,14 +33,14 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
     CallExpression(node: TSESTree.CallExpression) {
       if (!core.isUseRefLikeCall(node, additionalRefHooks)) return;
       // https://github.com/Rel1cx/eslint-react/issues/1375
-      if (Extract.unwrap(node.parent).type === AST.MemberExpression) return;
-      const [id, name] = match(resolveEnclosingAssignmentTarget(node))
-        // for cases like: const inputRef = useRef();
-        .with({ type: AST.Identifier, name: P.string }, (id) => [id, id.name] as const)
-        // for cases like: refs.inputRef = useRef();
-        .with({ type: AST.MemberExpression, property: { name: P.string } }, (id) => [id, id.property.name] as const)
-        .otherwise(() => [null, null] as const);
-      if (id == null) return;
+      // Skip immediate dereferences like `useRef(null).current`, including through
+      // TS wrappers like `useRef(null)!.current` or `(useRef(null) as T).current`
+      let parent: TSESTree.Node = node.parent;
+      while (Check.isTypeExpression(parent)) parent = parent.parent;
+      if (parent.type === AST.MemberExpression) return;
+      const target = resolveNamingTarget(node);
+      if (target == null) return;
+      const [id, name] = target;
       if (name.endsWith("Ref") || name === "ref") return;
       context.report({
         messageId: "invalid-ref-name",

@@ -1,9 +1,8 @@
 import { createRule } from "@/utils/create-rule";
+import { resolveNamingTarget } from "@/utils/resolve-naming-target";
 import * as core from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, type RuleListener } from "@eslint-react/eslint";
-import { resolveEnclosingAssignmentTarget } from "@eslint-react/var";
-import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
-import { P, match } from "ts-pattern";
+import { type TSESTree } from "@typescript-eslint/types";
 
 export const RULE_NAME = "id-name";
 
@@ -31,13 +30,9 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   return {
     CallExpression(node: TSESTree.CallExpression) {
       if (!core.isUseIdCall(context, node)) return;
-      const [id, name] = match(resolveEnclosingAssignmentTarget(node))
-        // for cases like: const myId = useId();
-        .with({ type: AST.Identifier, name: P.string }, (id) => [id, id.name] as const)
-        // for cases like: ctxs.myId = useId();
-        .with({ type: AST.MemberExpression, property: { name: P.string } }, (id) => [id, id.property.name] as const)
-        .otherwise(() => [null, null] as const);
-      if (id == null) return;
+      const target = resolveNamingTarget(node);
+      if (target == null) return;
+      const [id, name] = target;
       if (name.endsWith("Id") || name === "id") return;
       context.report({
         messageId: "invalid-id-name",

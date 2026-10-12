@@ -104,10 +104,10 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [{ messageId: "invalid-id-name" }],
     },
     {
-      name: "Variable initialized with an object literal containing useId",
+      name: "Object literal property with invalid id name key",
       code: tsx`
         import { useId } from "react";
-        const ids = { myId: useId() };
+        const ids = { value: useId() };
       `,
       errors: [{ messageId: "invalid-id-name" }],
     },
@@ -129,12 +129,12 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [{ messageId: "invalid-id-name" }],
     },
     {
-      name: "Computed member expression assignment with invalid id name",
+      name: "Computed member expression assignment with string-literal key with invalid id name",
       code: tsx`
-        ctxs[value] = useId();
+        import { useId } from "react";
+        ctxs["value"] = useId();
       `,
       errors: [{ messageId: "invalid-id-name", type: AST.MemberExpression }],
-      output: null,
     },
     // Indirect useId calls
     {
@@ -252,13 +252,6 @@ ruleTester.run(RULE_NAME, rule, {
       `,
     },
     {
-      name: "Variable with valid id name initialized with an object literal containing useId",
-      code: tsx`
-        import { useId } from "react";
-        const containerId = { value: useId() };
-      `,
-    },
-    {
       name: "Assignment after declaration with valid id name",
       code: tsx`
         import { useId } from "react";
@@ -351,9 +344,30 @@ ruleTester.run(RULE_NAME, rule, {
       `,
     },
     {
-      name: "Computed member expression assignment with non-id name",
+      name: "Computed member expression assignment with unresolvable key variable",
       code: tsx`
-        ctxs["value"] = useId();
+        ctxs[value] = useId();
+      `,
+    },
+    {
+      name: "Object literal property with valid id name key",
+      code: tsx`
+        import { useId } from "react";
+        const ids = { myId: useId() };
+      `,
+    },
+    {
+      name: "Valid property key takes precedence over the invalid outer variable",
+      code: tsx`
+        import { useId } from "react";
+        const container = { myId: useId() };
+      `,
+    },
+    {
+      name: "Destructuring default value does not report",
+      code: tsx`
+        import { useId } from "react";
+        const { value = useId() } = ids;
       `,
     },
   ],
