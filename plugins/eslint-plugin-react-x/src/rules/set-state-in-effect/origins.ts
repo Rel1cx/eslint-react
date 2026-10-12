@@ -170,6 +170,12 @@ function isExpressionFromRef(context: RuleContext, init: TSESTree.Node, refParam
           if (sourceName === "ref" || sourceName?.endsWith("Ref") === true) {
             return true;
           }
+          // A `.current` read rooted at a parameter marks the parameter as a
+          // ref-like object passed via props (ex: `anchor?.current` where
+          // `anchor` is a RefObject prop)
+          if (object.type === AST.Identifier && isParameterId(context, object)) {
+            return true;
+          }
         }
         current = object;
       }
@@ -207,8 +213,21 @@ export function isArgumentUsingRefValue(context: RuleContext, node: TSESTree.Cal
     switch (n.type) {
       case AST.Identifier:
         return isInitializedFromRef(context, n, refParams);
-      case AST.MemberExpression:
+      case AST.MemberExpression: {
+        // A `.current` read rooted at a parameter marks the parameter as a
+        // ref-like object passed via props (ex: `anchor?.current` where
+        // `anchor` is a RefObject prop)
+        const property = Extract.unwrap(n.property);
+        if (
+          !n.computed
+          && Check.isIdentifier(property, "current")
+          && n.object.type === AST.Identifier
+          && isParameterId(context, n.object)
+        ) {
+          return true;
+        }
         return isUsingRefValue(n.object);
+      }
       case AST.CallExpression:
         return isUsingRefValue(n.callee) || getNestedIdentifiers(n).some(isUsingRefValue);
       // setState(ref.current?.scrollTop): optional chaining wraps the chain in a ChainExpression
@@ -291,6 +310,15 @@ export function isRefGatedContext(context: RuleContext, node: TSESTree.Node, ref
 
 function isRefInExpression(context: RuleContext, node: TSESTree.Node, refParams?: ReadonlySet<TSESTree.Node>): boolean {
   return getNestedIdentifiers(node).some((id) => isInitializedFromRef(context, id, refParams));
+}
+
+/**
+ * Check if an identifier resolves to a function parameter (ex: a prop of the
+ * enclosing component).
+ */
+function isParameterId(context: RuleContext, id: TSESTree.Identifier): boolean {
+  const variable = findVariable(context.sourceCode.getScope(id), id);
+  return variable?.defs.some((def) => def.type === DefinitionType.Parameter) ?? false;
 }
 
 /**

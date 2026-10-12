@@ -1686,13 +1686,8 @@ ruleTester.run(RULE_NAME, rule, {
         { data: { name: "setData" }, messageId: "default" },
       ],
     },
-    // --- Ref-derived value tracking gaps (docs/eslint-disable-next-line-fix-priority.md P0) ---
-    // Gap A (helper parameters fed ref-derived arguments) and Gap B
-    // (assignment flow) are closed; their cases live in `valid`. The remaining
-    // gap is Gap C below.
-    // Gap B (assignment flow) is closed: a ref-derived value reaching the
-    // setter through an assignment statement is traced. But a write that
-    // lexically follows the use cannot flow into it and must stay reported.
+    // Gap B boundary: a write that lexically follows the use cannot flow into
+    // it and must stay reported.
     {
       name: "setState with a variable written from a ref measurement only after the use",
       code: tsx`
@@ -1760,25 +1755,6 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         { data: { name: "setWidth" }, messageId: "default" },
-      ],
-    },
-    // Gap C: a `.current` read on a prop whose name is not `ref`/`*Ref` is not
-    // recognized as a ref read. (Frontify/fondue Popper: anchor?.current)
-    {
-      name: "setState with prop.current where the prop is not ref-named",
-      code: tsx`
-        import { useEffect, useState } from "react";
-
-        function Popper({ anchor }) {
-          const [referenceElement, setReferenceElement] = useState(null);
-          useEffect(() => {
-            setReferenceElement(anchor?.current);
-          }, [anchor]);
-          return null;
-        }
-      `,
-      errors: [
-        { data: { name: "setReferenceElement" }, messageId: "default" },
       ],
     },
     // Boundary: these must stay reported after the tracking gaps are closed —
@@ -1899,6 +1875,48 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         { data: { name: "setWidth" }, messageId: "default" },
+      ],
+    },
+    // The param-rooted `.current` heuristic applies to parameters only; a
+    // plain local object with a `.current` property is not a ref.
+    {
+      name: "setState with .current on a plain local object",
+      code: tsx`
+        import { useEffect, useState } from "react";
+
+        function Component() {
+          const [page, setPage] = useState(0);
+          useEffect(() => {
+            const pagination = { current: 1 };
+            setPage(pagination.current);
+          }, []);
+          return null;
+        }
+      `,
+      errors: [
+        { data: { name: "setPage" }, messageId: "default" },
+      ],
+    },
+    // Scope boundary: a param-rooted `.current` read in a guard test does not
+    // gate the block for plain arguments; the heuristic applies to the
+    // setState argument value only.
+    {
+      name: "setState with a plain argument gated by a param-rooted .current test",
+      code: tsx`
+        import { useEffect, useState } from "react";
+
+        function Popper({ anchor }) {
+          const [data, setData] = useState(0);
+          useEffect(() => {
+            if (anchor.current) {
+              setData(1);
+            }
+          }, [anchor]);
+          return null;
+        }
+      `,
+      errors: [
+        { data: { name: "setData" }, messageId: "default" },
       ],
     },
   ],
@@ -3597,6 +3615,70 @@ ruleTester.run(RULE_NAME, rule, {
           useEffect(() => {
             measure(scrollRef.current);
           }, []);
+          return null;
+        }
+      `,
+    },
+    // A `.current` read rooted at a parameter marks the parameter as a
+    // ref-like object passed via props, regardless of its name.
+    // (Frontify/fondue Popper: anchor?.current)
+    {
+      name: "setState with prop.current where the prop is not ref-named",
+      code: tsx`
+        import { useEffect, useState } from "react";
+
+        function Popper({ anchor }) {
+          const [referenceElement, setReferenceElement] = useState(null);
+          useEffect(() => {
+            setReferenceElement(anchor?.current);
+          }, [anchor]);
+          return null;
+        }
+      `,
+    },
+    {
+      name: "setState with a local variable derived from a param-rooted .current",
+      code: tsx`
+        import { useEffect, useState } from "react";
+
+        function Popper({ anchor }) {
+          const [width, setWidth] = useState(0);
+          useEffect(() => {
+            const el = anchor.current;
+            setWidth(el.offsetWidth);
+          }, [anchor]);
+          return null;
+        }
+      `,
+    },
+    {
+      name: "setState with a deeper chain on a param-rooted .current",
+      code: tsx`
+        import { useEffect, useState } from "react";
+
+        function Popper({ anchor }) {
+          const [width, setWidth] = useState(0);
+          useEffect(() => {
+            setWidth(anchor.current.offsetWidth);
+          }, [anchor]);
+          return null;
+        }
+      `,
+    },
+    // Accepted tradeoff of the param-rooted `.current` heuristic: a prop with
+    // a non-ref `.current` property is exempt as well. The exemption only
+    // silences reports, and RefObject props are far more common than plain
+    // objects with a `.current` property.
+    {
+      name: "setState with a prop whose .current property is not a ref",
+      code: tsx`
+        import { useEffect, useState } from "react";
+
+        function Pager({ pagination }) {
+          const [page, setPage] = useState(0);
+          useEffect(() => {
+            setPage(pagination.current);
+          }, [pagination]);
           return null;
         }
       `,
