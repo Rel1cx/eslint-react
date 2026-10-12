@@ -2,6 +2,21 @@
 title: Changelog
 ---
 
+## v5.26.1 (2026-10-12)
+
+### 🏗️ Internal
+
+- `react-x/no-context-provider`, `react-x/no-forward-ref`, `react-x/no-use-context`: renamed the internal suggestion message id from `"replace"` to `"suggest"`.
+- `react-x/immutability`: moved context-dependent helpers from `helpers.ts` into `origins.ts` and `effects.ts` to match the fact-based implementation pattern.
+- `react-x/globals`: moved `resolveToFunction` from `helpers.ts` to `origins.ts`.
+- Bumped `effect` to `4.0.3`, `tsl-dx` to `0.14.1`, `@tsconfig/node20` to `20.1.10`, and `@types/node` to `20.19.43`.
+
+### 📝 Documentation
+
+- Refreshed spec diff verification dates and notes for `react-x` rules.
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.26.0...v5.26.1
+
 ## v5.26.0 (2026-10-11)
 
 ### ✨ New
