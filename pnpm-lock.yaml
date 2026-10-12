@@ -181,7 +181,7 @@ overrides:
   brace-expansion: ^5.0.12
   chokidar: ^5.0.0
   defu: ^6.1.7
-  dompurify: ^3.4.16
+  dompurify: ^3.4.17
   esbuild: ^0.28.2
   fast-uri: ^4.2.2
   follow-redirects: ^1.16.1
@@ -334,7 +334,7 @@ importers:
         specifier: ^8.71.1
         version: 8.71.1(eslint@10.12.0(jiti@2.7.0)(supports-color@9.4.0))(supports-color@9.4.0)(typescript@6.0.3)
       vitest:
-        specifier: ^5.0.3
+        specifier: ^5.0.4
         version: 5.0.4(@types/node@20.19.43)(vite@8.3.4(@types/node@20.19.43)(esbuild@0.28.2)(jiti@2.7.0)(tsx@4.23.15)(yaml@2.9.1))
 
   .pkgs/configs:
@@ -349,8 +349,8 @@ importers:
         specifier: ^2.0.8
         version: 2.0.8
       eslint-plugin-de-morgan:
-        specifier: ^2.2.0
-        version: 2.2.0(eslint@10.12.0(jiti@2.7.0)(supports-color@9.4.0))
+        specifier: ^2.2.1
+        version: 2.2.1(eslint@10.12.0(jiti@2.7.0)(supports-color@9.4.0))
       eslint-plugin-jsdoc:
         specifier: ^64.5.4
         version: 64.5.4(eslint@10.12.0(jiti@2.7.0)(supports-color@9.4.0))(supports-color@9.4.0)(typescript@6.0.3)
@@ -484,7 +484,7 @@ importers:
         specifier: 6.0.3
         version: 6.0.3
       vitest:
-        specifier: ^5.0.3
+        specifier: ^5.0.4
         version: 5.0.4(@types/node@20.19.43)(vite@8.3.4(@types/node@20.19.43)(esbuild@0.28.2)(jiti@2.7.0)(tsx@4.23.15)(yaml@2.9.1))
 
   apps/website:
@@ -592,8 +592,8 @@ importers:
         specifier: 3.3.1
         version: 3.3.1(71ef240d4eafb748c4c2d0146017319f)
       fumadocs-typescript:
-        specifier: ^5.5.1
-        version: 5.5.1(0bc05a50fb070e64ad1a2a5791b955d0)
+        specifier: ^5.5.2
+        version: 5.5.2(0bc05a50fb070e64ad1a2a5791b955d0)
       fumadocs-ui:
         specifier: ^16.17.1
         version: 16.17.1(@types/mdx@2.0.14)(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(fumadocs-core@16.17.1(@mdx-js/mdx@3.1.1(supports-color@9.4.0))(@modelcontextprotocol/server@2.3.1)(@types/estree-jsx@1.0.5)(@types/hast@3.0.5)(@types/mdast@4.0.4)(@types/react@19.3.0)(lucide-react@1.55.0(@types/react@19.3.0)(react@19.3.0))(next@16.4.0(@babel/core@7.29.7(supports-color@9.4.0))(@types/node@20.19.43)(react-dom@19.3.0(react@19.3.0))(react@19.3.0))(react-dom@19.3.0(react@19.3.0))(react@19.3.0)(supports-color@9.4.0)(zod@4.6.6))(next@16.4.0(@babel/core@7.29.7(supports-color@9.4.0))(@types/node@20.19.43)(react-dom@19.3.0(react@19.3.0))(react@19.3.0))(react-dom@19.3.0(react@19.3.0))(react@19.3.0)(supports-color@9.4.0)(tailwindcss@4.3.3)
@@ -1017,7 +1017,7 @@ importers:
         specifier: 6.0.3
         version: 6.0.3
       vitest:
-        specifier: ^5.0.3
+        specifier: ^5.0.4
         version: 5.0.4(@types/node@26.6.5)(vite@8.3.4(@types/node@26.6.5)(esbuild@0.28.2)(jiti@2.7.0)(tsx@4.23.15)(yaml@2.9.1))
 
   packages/core:
@@ -1069,7 +1069,7 @@ importers:
         specifier: 6.0.3
         version: 6.0.3
       vitest:
-        specifier: ^5.0.3
+        specifier: ^5.0.4
         version: 5.0.4(@types/node@20.19.43)(vite@8.3.4(@types/node@20.19.43)(esbuild@0.28.2)(jiti@2.7.0)(tsx@4.23.15)(yaml@2.9.1))
 
   packages/eslint:
@@ -1266,7 +1266,7 @@ importers:
         specifier: 6.0.3
         version: 6.0.3
       vitest:
-        specifier: ^5.0.3
+        specifier: ^5.0.4
         version: 5.0.4(@types/node@26.6.5)(vite@8.3.4(@types/node@26.6.5)(esbuild@0.28.2)(jiti@2.7.0)(tsx@4.23.15)(yaml@2.9.1))
 
   plugins/eslint-plugin:
@@ -4781,8 +4781,8 @@ packages:
     resolution: {integrity: sha512-cgwlv/1iFQiFnU96XXgROh8xTeetsnJiDsTc7TYCLFd9+/WNkIqPTxiM/8pSd8VIrhXGTf1Ny1q1hquVqDJB5w==}
     engines: {node: '>= 4'}
 
-  dompurify@3.4.16:
-    resolution: {integrity: sha512-sqo+pNp3qRhCIpbgRi1y8Tgk27Bo2Ry7w0dC1NBeNTdZChWjz9Xb/KOoZbRP/R6pQZ80Qw8YhXw13hWWBbMRnQ==}
+  dompurify@3.4.17:
+    resolution: {integrity: sha512-B/pSlYVHQ58kqISD/yDjuJ1yfzI34m1gF4lAod2bwSRhiN4K5Cl3H8Af7hqB2PmTL911tdEudnnXn5FnhRoz0w==}
 
   domutils@3.2.2:
     resolution: {integrity: sha512-6kZKyUajlDuqlHKVX1w7gyslj9MPIXzIFiz/rGu35uC1wMi+kMhQwGhl4lt9unC9Vb9INnY9Z3/ZA3+FhASLaw==}
@@ -4910,8 +4910,8 @@ packages:
       '@eslint/json':
         optional: true
 
-  eslint-plugin-de-morgan@2.2.0:
-    resolution: {integrity: sha512-bHg8e68rQTJ01av4sxhgNWQeoSzPWDjb6MqeKgmgRGaCzq83Ou6/g5S1ZssvFdHHS4BsblkJkagoioUmSEHPMg==}
+  eslint-plugin-de-morgan@2.2.1:
+    resolution: {integrity: sha512-uJeLrx8bt1wGn9GCPy+2jTfH6OLBw/59ipjrhWolKijzty8F3VrnerKKtclQhIIizuy/QrRIV5fYrrALo6psyw==}
     engines: {node: ^20.0.0 || >=22.0.0}
     peerDependencies:
       eslint: ^8.45.0 || ^9.0.0 || ^10.0.0
@@ -5295,8 +5295,8 @@ packages:
       '@types/react':
         optional: true
 
-  fumadocs-typescript@5.5.1:
-    resolution: {integrity: sha512-dnK9YeF5UL3zENYthI/529QWRoQDw2JjyhZmXPVbGMs/kRdQ4env5qGKgtxr/J11jpqf0lPt92zB+4p3yUmTOw==}
+  fumadocs-typescript@5.5.2:
+    resolution: {integrity: sha512-QbKLRpx2Hfyq3R4NpPHKEz0TW+csBuT9IFLhrjyalfP89HpsZBwpHRVCOl//d2Smcbpmj9N4UCp03p97od+NkA==}
     peerDependencies:
       '@types/estree': '*'
       '@types/hast': '*'
@@ -10347,7 +10347,7 @@ snapshots:
     dependencies:
       domelementtype: 2.3.0
 
-  dompurify@3.4.16:
+  dompurify@3.4.17:
     optionalDependencies:
       '@types/trusted-types': 2.0.7
 
@@ -10485,7 +10485,7 @@ snapshots:
       esquery: 1.7.0
       jsonc-eslint-parser: 3.3.0
 
-  eslint-plugin-de-morgan@2.2.0(eslint@10.12.0(jiti@2.7.0)(supports-color@9.4.0)):
+  eslint-plugin-de-morgan@2.2.1(eslint@10.12.0(jiti@2.7.0)(supports-color@9.4.0)):
     dependencies:
       eslint: 10.12.0(jiti@2.7.0)(supports-color@9.4.0)
 
@@ -10920,7 +10920,7 @@ snapshots:
       - date-fns
       - supports-color
 
-  fumadocs-typescript@5.5.1(0bc05a50fb070e64ad1a2a5791b955d0):
+  fumadocs-typescript@5.5.2(0bc05a50fb070e64ad1a2a5791b955d0):
     dependencies:
       estree-util-value-to-estree: 3.5.0
       fumadocs-core: 16.17.1(@mdx-js/mdx@3.1.1(supports-color@9.4.0))(@modelcontextprotocol/server@2.3.1)(@types/estree-jsx@1.0.5)(@types/hast@3.0.5)(@types/mdast@4.0.4)(@types/react@19.3.0)(lucide-react@1.55.0(@types/react@19.3.0)(react@19.3.0))(next@16.4.0(@babel/core@7.29.7(supports-color@9.4.0))(@types/node@20.19.43)(react-dom@19.3.0(react@19.3.0))(react@19.3.0))(react-dom@19.3.0(react@19.3.0))(react@19.3.0)(supports-color@9.4.0)(zod@4.6.6)
@@ -11805,7 +11805,7 @@ snapshots:
       d3-sankey: 0.12.3
       dagre-d3-es: 7.0.14
       dayjs: 1.11.23
-      dompurify: 3.4.16
+      dompurify: 3.4.17
       es-toolkit: 1.52.0
       fastdom: 1.0.12
       katex: 0.16.47

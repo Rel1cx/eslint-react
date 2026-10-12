@@ -22,7 +22,6 @@ The examples below assume the new floor is Node 22; adjust targets and version s
 - [ ] Bump `@types/node` from `^20.19.0` in the 11 packages that pin it (root, `apps/website`, `.pkgs/testkit`, `packages/{core,eslint,kit,shared}`, `plugins/eslint-plugin`, `examples/{next,preact,preact-compat}`). Every package whose code touches Node APIs declares its own pin; the remaining packages still auto-include the type library via `@tsconfig/node20`'s `"types": ["node"]`, resolved from the root `node_modules` copy — so the root pin follows the published floor, not the dev floor, and is part of the guardrail.
 - [ ] Replace `@tsconfig/node20` with the matching base (e.g. `@tsconfig/node22`): 24 tsconfig `extends` entries + 11 `package.json` devDependencies.
   - **Exclude the root** `tsconfig.json` — it covers dev-side files only (`scripts/`, configs; `packages/*/src` and `plugins/*/src` are excluded) and extends `@tsconfig/node24` to match the dev floor. Note the root `package.json` still declares `@tsconfig/node20` as a devDependency: most workspace tsconfigs extend it without declaring it themselves, resolving the base from the root `node_modules` copy. Keep that provider entry (and add the new base alongside it) when bumping.
-- [ ] Update the example in `docs/repo-path-aliases.md` to match.
 - [ ] Run `pnpm install`, then `node --run lint:ts` — new types may deprecate APIs in current use; address each report.
 
 ## 4. Dependency Policy Cleanup (`pnpm-workspace.yaml`)
