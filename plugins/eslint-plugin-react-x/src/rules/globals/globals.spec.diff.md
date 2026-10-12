@@ -4,16 +4,16 @@
 
 - **IMPL**: `globals.ts` + `collect.ts` + `effects.ts` + `origins.ts` + `helpers.ts` (ESLint rule)
 - **SPEC**: `globals.spec.md` (React Compiler `InferMutationAliasingEffects`)
-- **Implementation commit**: `cdad818d0c2e5d5006769950cdeca71717c52950`
+- **Implementation commit**: `7649b8a761385105b964f6d408e672eda2050b3d`
 - **React commit**: `7c6ac13e19fef500b7f669a16bbd01ecc95965ca`
-- **Last verified**: `2026-09-30`
+- **Last verified**: `2026-10-12`
 - **React package**: `compiler/packages/babel-plugin-react-compiler`
 - **Implementation sources/tests**:
-  - `globals.ts`
-  - `collect.ts`
-  - `effects.ts`
-  - `origins.ts`
-  - `helpers.ts`
+  - `globals.ts` (rule orchestration and reporting)
+  - `collect.ts` (AST fact collection for writes, mutating calls, and direct call edges)
+  - `effects.ts` (global-mutation inference, call-graph construction, reachable-effect collection)
+  - `origins.ts` (global/module binding classification, stable `const` alias resolution, function-node resolution)
+  - `helpers.ts` (mutating array method set)
   - `globals.spec.ts`
 - **React sources/fixtures**:
   - `src/Inference/InferMutationAliasingEffects.ts`

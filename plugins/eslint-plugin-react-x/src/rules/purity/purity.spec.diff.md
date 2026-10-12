@@ -4,9 +4,9 @@
 
 - **IMPL**: `purity.ts` + `lib.ts` (ESLint rule)
 - **SPEC**: `purity.spec.md` (current React Compiler behavior)
-- **Implementation commit**: `629632d3d4bf810db428b99b604c0a90ebe8a262`
-- **React commit**: `7c6ac13e19fef500b7f669a16bbd01ecc95965ca`
-- **Last verified**: `2026-09-30`
+- **Implementation commit**: `14f1d8edf9ad36c30095ad5c8470ab6a1a2103de`
+- **React commit**: `b618bbb4422693bbb8d387180687b3f510300f42`
+- **Last verified**: `2026-10-12`
 - **React package**: `compiler/packages/babel-plugin-react-compiler`
 - **Implementation sources/tests**:
   - `purity.ts`

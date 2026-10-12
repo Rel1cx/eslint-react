@@ -6,7 +6,8 @@
 - **SPEC**: `error-boundaries.spec.md` (React Compiler `ValidateNoJSXInTryStatement`)
 - **Implementation commit**: `cdad818d0c2e5d5006769950cdeca71717c52950`
 - **React commit**: `7c6ac13e19fef500b7f669a16bbd01ecc95965ca`
-- **Last verified**: `2026-09-30`
+- **Last verified**: `2026-10-12`
+- **Recent implementation changes**: `c02e9cd8dda91049391e733f2bb13f4367cddc99` added `Traverse.hasParent` and `Traverse.hasEnclosingTryBlock` shortcuts; this is a behavior-preserving API addition and does not affect the reported limitations.
 - **React package**: `compiler/packages/babel-plugin-react-compiler`
 - **Implementation sources/tests**:
   - `error-boundaries.ts`

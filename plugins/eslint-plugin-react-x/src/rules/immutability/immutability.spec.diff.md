@@ -4,16 +4,16 @@
 
 - **IMPL**: `immutability.ts` + `collect.ts` + `effects.ts` + `origins.ts` + `helpers.ts` (ESLint AST rule)
 - **SPEC**: `immutability.spec.md` (React Compiler `ValidateNoFreezingKnownMutableFunctions`)
-- **Implementation commit**: `cdad818d0c2e5d5006769950cdeca71717c52950`
+- **Implementation commit**: `e7654667e1026fafe4cc7fd8ff8e50b0b3d8e043`
 - **React commit**: `7c6ac13e19fef500b7f669a16bbd01ecc95965ca`
-- **Last verified**: `2026-09-30`
+- **Last verified**: `2026-10-12`
 - **React package**: `compiler/packages/babel-plugin-react-compiler`
 - **Implementation sources/tests**:
-  - `immutability.ts`
-  - `collect.ts`
-  - `effects.ts`
-  - `helpers.ts`
-  - `origins.ts`
+  - `immutability.ts` (rule orchestration and reporting)
+  - `collect.ts` (AST fact collection for mutations and freeze sinks)
+  - `effects.ts` (mutable-function inference, direct-mutation inference, navigation-hook exemption)
+  - `origins.ts` (variable origin resolution, frozen-origin classification, ref-like chain detection, function-node resolution)
+  - `helpers.ts` (constants and naming heuristics)
   - `immutability.spec.ts`
 - **React sources/fixtures**:
   - `src/Validation/ValidateNoFreezingKnownMutableFunctions.ts`

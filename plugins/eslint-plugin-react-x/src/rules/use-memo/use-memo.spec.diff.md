@@ -4,9 +4,9 @@
 
 - **IMPL**: `use-memo.ts` + `collect.ts` + `origins.ts` + `effects.ts` + `helpers.ts` (ESLint rule)
 - **SPEC**: `use-memo.spec.md` (React Compiler `ValidateUseMemo`)
-- **Implementation commit**: `629632d3d4bf810db428b99b604c0a90ebe8a262`
+- **Implementation commit**: `c02e9cd8dda91049391e733f2bb13f4367cddc99`
 - **React commit**: `c0c39a6b3907eaab35f43074949e2957a2a734c1`
-- **Last verified**: `2026-09-30`
+- **Last verified**: `2026-10-12`
 - **React package**: `compiler/packages/babel-plugin-react-compiler`
 - **Implementation sources/tests**:
   - `use-memo.ts`

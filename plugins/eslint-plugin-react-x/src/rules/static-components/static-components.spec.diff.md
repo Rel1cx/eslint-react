@@ -6,7 +6,8 @@
 - **SPEC**: `static-components.spec.md` (React Compiler `ValidateStaticComponents`)
 - **Implementation commit**: `55c10db7bae04d49606792767530cc1e786dd5a0` (last full verification; the IMPL has since been restructured into the fact-based layout listed below, and the behaviors enumerated in this report were re-verified against the restructured sources)
 - **React commit**: `c0c39a6b3907eaab35f43074949e2957a2a734c1`
-- **Last verified**: `2026-09-30`
+- **Last verified**: `2026-10-12`
+- **Recent implementation changes**: `c02e9cd8dda91049391e733f2bb13f4367cddc99` refactored `helpers.ts` to use `Traverse.hasParent` instead of `Traverse.findParent(...) != null`; this is a behavior-preserving API rename and does not affect the reported limitations.
 - **React package**: `compiler/packages/babel-plugin-react-compiler`
 - **Implementation sources/tests**:
   - `static-components.ts`

@@ -4,9 +4,9 @@
 
 - **IMPL**: `refs.ts` + `collect.ts` + `effects.ts` + `origins.ts` + `helpers.ts` (ESLint rule)
 - **SPEC**: `refs.spec.md` (React Compiler `ValidateNoRefAccessInRender`)
-- **Implementation commit**: `629632d3d4bf810db428b99b604c0a90ebe8a262`
+- **Implementation commit**: `7649b8a761385105b964f6d408e672eda2050b3d`
 - **React commit**: `7c6ac13e19fef500b7f669a16bbd01ecc95965ca`
-- **Last verified**: `2026-09-30`
+- **Last verified**: `2026-10-12`
 - **React package**: `compiler/packages/babel-plugin-react-compiler`
 - **Implementation sources/tests**:
   - `refs.ts`
@@ -80,6 +80,11 @@ branch proven non-null are allowed; writes there are still reported.
 
 Truthiness checks such as `if (!ref.current)` are not treated as null guards because valid initialized
 values can be falsy. Arbitrary comparison values are likewise rejected.
+
+Compound assignments such as `ref.current ??= value` or `ref.current ||= value` are also not treated
+as lazy initialization: only a direct `=` assignment inside a nullish guard is exempt. These writes
+are reported as ordinary render-time writes, and any subsequent read of the same ref is reported as
+a render-time read.
 
 A second allowed initialization of the same scoped ref identity is reported as `duplicate-ref-init`,
 including initialization through an alias and initialization after an inverted early-return guard.
