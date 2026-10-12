@@ -13,7 +13,7 @@ export const RULE_FEATURES = [
 
 export type MessageID =
   | "default"
-  | "replace";
+  | "suggest";
 
 export default createRule<[], MessageID>({
   meta: {
@@ -25,7 +25,7 @@ export default createRule<[], MessageID>({
     hasSuggestions: true,
     messages: {
       default: "In React 19, 'use' is preferred over 'useContext' because it is more flexible.",
-      replace: "Replace 'useContext' with 'use'.",
+      suggest: "Replace 'useContext' with 'use'.",
     },
     schema: [],
   },
@@ -58,7 +58,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
               }
               return null;
             },
-            messageId: "replace",
+            messageId: "suggest",
           },
         ],
       });

@@ -13,7 +13,7 @@ export const RULE_FEATURES = [
 
 export type MessageID =
   | "default"
-  | "replace";
+  | "suggest";
 
 export default createRule<[], MessageID>({
   meta: {
@@ -25,7 +25,7 @@ export default createRule<[], MessageID>({
     hasSuggestions: true,
     messages: {
       default: "In React 19, you can render '<Context>' as a provider instead of '<Context.Provider>'.",
-      replace: "Replace '<Context.Provider>' with '<Context>'.",
+      suggest: "Replace '<Context.Provider>' with '<Context>'.",
     },
     schema: [],
   },
@@ -71,7 +71,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
                 fixer.replaceText(closingElement.name, contextFullName),
               ];
             },
-            messageId: "replace",
+            messageId: "suggest",
           },
         ],
       });

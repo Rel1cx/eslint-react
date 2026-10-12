@@ -17,7 +17,7 @@ export const RULE_FEATURES = [
 
 export type MessageID =
   | "default"
-  | "replace";
+  | "suggest";
 
 export default createRule<[], MessageID>({
   meta: {
@@ -29,7 +29,7 @@ export default createRule<[], MessageID>({
     hasSuggestions: true,
     messages: {
       default: "In React 19, 'forwardRef' is no longer necessary. Pass 'ref' as a prop instead.",
-      replace: "Replace 'forwardRef' with passing 'ref' as a prop.",
+      suggest: "Replace 'forwardRef' with passing 'ref' as a prop.",
     },
     schema: [],
   },
@@ -58,7 +58,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         ? [
           {
             fix: buildFix(context, node),
-            messageId: "replace" as const,
+            messageId: "suggest" as const,
           },
         ]
         : [];

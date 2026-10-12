@@ -27,7 +27,7 @@ export const RULE_NAME = "no-forward-ref";
 
 export const RULE_FEATURES = ["MOD"] as const satisfies RuleFeature[];
 
-export type MessageID = "default" | "replace";
+export type MessageID = "default" | "suggest";
 
 export default createRule<[], MessageID>({
   meta: {
@@ -39,7 +39,7 @@ export default createRule<[], MessageID>({
     hasSuggestions: true,
     messages: {
       default: "In React 19, 'forwardRef' is no longer necessary. Pass 'ref' as a prop instead.",
-      replace: "Replace 'forwardRef' with passing 'ref' as a prop.",
+      suggest: "Replace 'forwardRef' with passing 'ref' as a prop.",
     },
     schema: [],
   },
@@ -116,7 +116,7 @@ ruleTester.run(RULE_NAME, rule, {
     {
       code: tsx`import { forwardRef } from 'react' ...`,
       errors: [
-        { messageId: "default", suggestions: [{ messageId: "replace", output: tsx`...` }] },
+        { messageId: "default", suggestions: [{ messageId: "suggest", output: tsx`...` }] },
       ],
       settings: { "react-x": { version: "19.0.0" } },
     },

@@ -15,7 +15,7 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: "default",
           suggestions: [
             {
-              messageId: "replace",
+              messageId: "suggest",
               output: tsx`
                 import { forwardRef } from 'react'
                 const Component = ({ ref, ...props }) => null;
@@ -42,7 +42,7 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: "default",
           suggestions: [
             {
-              messageId: "replace",
+              messageId: "suggest",
               output: tsx`
                 import { forwardRef } from 'react'
                 const Component = ({ ref, ...props }) => {
@@ -71,7 +71,7 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: "default",
           suggestions: [
             {
-              messageId: "replace",
+              messageId: "suggest",
               output: tsx`
                 import { forwardRef } from 'react'
                 const Component = function ({ ref, ...props }) {
@@ -100,7 +100,7 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: "default",
           suggestions: [
             {
-              messageId: "replace",
+              messageId: "suggest",
               output: tsx`
                 import { forwardRef } from 'react'
                 const Component = function Component({ ref, ...props }) {
@@ -127,7 +127,7 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: "default",
           suggestions: [
             {
-              messageId: "replace",
+              messageId: "suggest",
               output: tsx`
                 import * as React from 'react'
                 const Component = ({ ref, ...props }) => null;
@@ -154,7 +154,7 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: "default",
           suggestions: [
             {
-              messageId: "replace",
+              messageId: "suggest",
               output: tsx`
                 import * as React from 'react'
                 const Component = ({ ref, ...props }) => {
@@ -183,7 +183,7 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: "default",
           suggestions: [
             {
-              messageId: "replace",
+              messageId: "suggest",
               output: tsx`
                 import * as React from 'react'
                 const Component = function ({ ref, ...props }) {
@@ -212,7 +212,7 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: "default",
           suggestions: [
             {
-              messageId: "replace",
+              messageId: "suggest",
               output: tsx`
                 import * as React from 'react'
                 const Component = function Component({ ref, ...props }) {
@@ -241,7 +241,7 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: "default",
           suggestions: [
             {
-              messageId: "replace",
+              messageId: "suggest",
               output: tsx`
                 import * as React from 'react'
                 const Component = function Component({ ref, ...props }) {
@@ -273,7 +273,7 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: "default",
           suggestions: [
             {
-              messageId: "replace",
+              messageId: "suggest",
               output: tsx`
                 import * as React from 'react'
                 interface ComponentProps {
@@ -305,7 +305,7 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: "default",
           suggestions: [
             {
-              messageId: "replace",
+              messageId: "suggest",
               output: tsx`
                 import * as React from 'react'
                 const Component = function Component({ ref, ...props }: { foo: string } & { ref?: React.RefObject<HTMLElement | null> }) {
@@ -334,7 +334,7 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: "default",
           suggestions: [
             {
-              messageId: "replace",
+              messageId: "suggest",
               output: tsx`
                 import * as React from 'react'
                 const Component = function Component({ ref, foo }: { foo: string } & { ref?: React.RefObject<HTMLElement | null> }) {
@@ -363,7 +363,7 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: "default",
           suggestions: [
             {
-              messageId: "replace",
+              messageId: "suggest",
               output: tsx`
                 import * as React from 'react'
                 const Component = function Component({ ref: r, foo }: { foo: string } & { ref?: React.RefObject<HTMLElement | null> }) {
@@ -392,7 +392,7 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: "default",
           suggestions: [
             {
-              messageId: "replace",
+              messageId: "suggest",
               output: tsx`
                 import * as React from 'react'
                 const Component = function Component({ ref: r, foo, ...rest }: { foo: string, bar: number } & { ref?: React.RefObject<HTMLElement | null> }) {
@@ -420,7 +420,7 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: "default",
           suggestions: [
             {
-              messageId: "replace",
+              messageId: "suggest",
               output: tsx`
                 import { forwardRef } from 'react'
                 const Component = () => null;
@@ -448,7 +448,7 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: "default",
           suggestions: [
             {
-              messageId: "replace",
+              messageId: "suggest",
               output: tsx`
                 import { forwardRef } from 'react'
                 const Component = () => {
@@ -478,7 +478,7 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: "default",
           suggestions: [
             {
-              messageId: "replace",
+              messageId: "suggest",
               output: tsx`
                 import { forwardRef } from 'react'
                 const Component = function () {
@@ -508,7 +508,7 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: "default",
           suggestions: [
             {
-              messageId: "replace",
+              messageId: "suggest",
               output: tsx`
                 import { forwardRef } from 'react'
                 const Component = function Component() {
@@ -536,7 +536,7 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: "default",
           suggestions: [
             {
-              messageId: "replace",
+              messageId: "suggest",
               output: tsx`
                 import * as React from 'react'
                 const Component = ({ ref }: { foo: string } & { ref?: React.RefObject<HTMLElement | null> }) => null;
@@ -567,7 +567,7 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: "default",
           suggestions: [
             {
-              messageId: "replace",
+              messageId: "suggest",
               output: tsx`
                 import * as React from 'react'
                 interface ComponentProps {
@@ -613,7 +613,7 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: "default",
           suggestions: [
             {
-              messageId: "replace",
+              messageId: "suggest",
               output: tsx`
                 import { forwardRef } from 'react'
                 const Component = ({ ref, ...props }) => {
@@ -642,7 +642,7 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: "default",
           suggestions: [
             {
-              messageId: "replace",
+              messageId: "suggest",
               output: tsx`
                 import * as React from 'react'
                 const Component = ({ ref, ...props }) => {

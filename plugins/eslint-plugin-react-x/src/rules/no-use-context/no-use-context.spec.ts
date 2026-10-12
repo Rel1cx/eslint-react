@@ -19,7 +19,7 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: "default",
           suggestions: [
             {
-              messageId: "replace",
+              messageId: "suggest",
               output: tsx`
                 import { useContext } from 'react'
 
@@ -52,7 +52,7 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: "default",
           suggestions: [
             {
-              messageId: "replace",
+              messageId: "suggest",
               output: tsx`
                 import React from 'react'
 

@@ -12,7 +12,7 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: "default",
           suggestions: [
             {
-              messageId: "replace",
+              messageId: "suggest",
               output: tsx`<Context>{children}</Context>`,
             },
           ],
@@ -31,7 +31,7 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: "default",
           suggestions: [
             {
-              messageId: "replace",
+              messageId: "suggest",
               output: tsx`<ThemeContext><App /></ThemeContext>`,
             },
           ],
@@ -50,7 +50,7 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: "default",
           suggestions: [
             {
-              messageId: "replace",
+              messageId: "suggest",
               output: tsx`<Context />`,
             },
           ],
