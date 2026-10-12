@@ -145,20 +145,38 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [{ messageId: "invalid-context-name" }],
     },
     {
-      name: "Variable initialized with an object literal containing createContext",
+      name: "Object literal property with invalid context name key",
       code: tsx`
         import { createContext } from "react";
-        const contexts = { ThemeContext: createContext("") };
+        const contexts = { theme: createContext("") };
       `,
-      errors: [{
-        column: 7,
-        endColumn: 15,
-        endLine: 2,
-        line: 2,
-        messageId: "invalid-context-name",
-        suggestions: [],
-      }],
-      output: null,
+      errors: [{ messageId: "invalid-context-name" }],
+    },
+    {
+      name: "Nested object literal property resolves the innermost key",
+      code: tsx`
+        import { createContext } from "react";
+        const contexts = { outer: { theme: createContext("") } };
+      `,
+      errors: [{ messageId: "invalid-context-name" }],
+    },
+    {
+      name: "Arrow function implicit return of object literal with invalid context name key",
+      code: tsx`
+        import { createContext } from "react";
+        const useTheme = () => ({ theme: createContext("") });
+      `,
+      errors: [{ messageId: "invalid-context-name" }],
+    },
+    {
+      name: "Class property with computed string-literal key with invalid context name",
+      code: tsx`
+        import { createContext } from "react";
+        class Store {
+          ["theme"] = createContext("");
+        }
+      `,
+      errors: [{ messageId: "invalid-context-name" }],
     },
     {
       name: "Assignment after declaration with invalid context name",
@@ -186,20 +204,12 @@ ruleTester.run(RULE_NAME, rule, {
       output: null,
     },
     {
-      name: "Computed member expression assignment with invalid context name",
+      name: "Computed member expression assignment with string-literal key with invalid context name",
       code: tsx`
-        const theme = "theme";
-        ctxs[theme] = createContext("");
+        import { createContext } from "react";
+        ctxs["theme"] = createContext("");
       `,
-      errors: [{
-        column: 1,
-        endColumn: 12,
-        endLine: 2,
-        line: 2,
-        messageId: "invalid-context-name",
-        suggestions: [],
-      }],
-      output: null,
+      errors: [{ messageId: "invalid-context-name" }],
     },
     // Indirect createContext calls
     {
@@ -400,10 +410,49 @@ ruleTester.run(RULE_NAME, rule, {
       `,
     },
     {
-      name: "Computed member expression assignment with non-context name",
+      name: "Computed member expression assignment with unresolvable key variable",
       code: tsx`
         import { createContext } from "react";
-        ctxs["theme"] = createContext("");
+        ctxs[theme] = createContext("");
+      `,
+    },
+    {
+      name: "Object literal property with valid context name key",
+      code: tsx`
+        import { createContext } from "react";
+        const contexts = { ThemeContext: createContext("") };
+      `,
+    },
+    {
+      name: "Destructuring default value does not report",
+      code: tsx`
+        import { createContext } from "react";
+        const { theme = createContext("") } = contexts;
+      `,
+    },
+    {
+      name: "Export default object literal containing createContext",
+      code: tsx`
+        import { createContext } from "react";
+        export default { theme: createContext("") };
+      `,
+    },
+    {
+      name: "Object literal in return statement is not reported",
+      code: tsx`
+        import { createContext } from "react";
+        function make() {
+          return { theme: createContext("") };
+        }
+      `,
+    },
+    {
+      name: "Private class field with createContext is not reported",
+      code: tsx`
+        import { createContext } from "react";
+        class Store {
+          #theme = createContext("");
+        }
       `,
     },
   ],
