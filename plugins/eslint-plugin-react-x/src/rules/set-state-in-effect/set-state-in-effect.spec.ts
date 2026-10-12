@@ -1687,97 +1687,9 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     // --- Ref-derived value tracking gaps (docs/eslint-disable-next-line-fix-priority.md P0) ---
-    // The following cases are false positives under the rule's documented
-    // DOM-measurement allowance; they lock the current behavior and move to
-    // `valid` once the corresponding tracking gap is closed.
-    // Gap A: a helper invoked from the setup receives a ref-derived value as a
-    // parameter, but the parameter name heuristic only recognizes `ref`/`*Ref`.
-    // (Forthtilliath/forthtilliath-packages scroll-shadow: updateEdges(el))
-    {
-      name: "setState in a helper whose parameter receives ref.current at the call site",
-      code: tsx`
-        import { useEffect, useRef, useState } from "react";
-
-        function Component() {
-          const scrollRef = useRef(null);
-          const [atTop, setAtTop] = useState(true);
-          const updateEdges = (el) => {
-            setAtTop(el.scrollTop === 0);
-          };
-          useEffect(() => {
-            updateEdges(scrollRef.current);
-          }, []);
-          return null;
-        }
-      `,
-      errors: [
-        { data: { name: "setAtTop" }, messageId: "default" },
-      ],
-    },
-    {
-      name: "setState in a function declaration helper fed ref.current at the call site",
-      code: tsx`
-        import { useEffect, useRef, useState } from "react";
-
-        function Component() {
-          const scrollRef = useRef(null);
-          const [width, setWidth] = useState(0);
-          function measure(node) {
-            setWidth(node.offsetWidth);
-          }
-          useEffect(() => {
-            measure(scrollRef.current);
-          }, []);
-          return null;
-        }
-      `,
-      errors: [
-        { data: { name: "setWidth" }, messageId: "default" },
-      ],
-    },
-    {
-      name: "setState in a helper fed a ref-derived local variable at the call site",
-      code: tsx`
-        import { useEffect, useRef, useState } from "react";
-
-        function Component() {
-          const scrollRef = useRef(null);
-          const [atTop, setAtTop] = useState(true);
-          const updateEdges = (el) => {
-            setAtTop(el.scrollTop === 0);
-          };
-          useEffect(() => {
-            const el = scrollRef.current;
-            updateEdges(el);
-          }, []);
-          return null;
-        }
-      `,
-      errors: [
-        { data: { name: "setAtTop" }, messageId: "default" },
-      ],
-    },
-    {
-      name: "setState in a helper with mixed ref-derived and plain arguments",
-      code: tsx`
-        import { useEffect, useRef, useState } from "react";
-
-        function Component() {
-          const scrollRef = useRef(null);
-          const [width, setWidth] = useState(0);
-          const update = (el, extra) => {
-            setWidth(el.offsetWidth + extra);
-          };
-          useEffect(() => {
-            update(scrollRef.current, 10);
-          }, []);
-          return null;
-        }
-      `,
-      errors: [
-        { data: { name: "setWidth" }, messageId: "default" },
-      ],
-    },
+    // Gap A (helper parameters fed ref-derived arguments) and Gap B
+    // (assignment flow) are closed; their cases live in `valid`. The remaining
+    // gap is Gap C below.
     // Gap B (assignment flow) is closed: a ref-derived value reaching the
     // setter through an assignment statement is traced. But a write that
     // lexically follows the use cannot flow into it and must stay reported.
@@ -1904,6 +1816,84 @@ ruleTester.run(RULE_NAME, rule, {
             width = value;
             setWidth(width);
           }, [value]);
+          return null;
+        }
+      `,
+      errors: [
+        { data: { name: "setWidth" }, messageId: "default" },
+      ],
+    },
+    // Ref-fed parameter tracking matches parameter definitions by node
+    // identity, so a block-scoped shadow of the parameter name is not
+    // treated as ref-derived.
+    {
+      name: "setState in a helper where the parameter name is shadowed by a plain local",
+      code: tsx`
+        import { useEffect, useRef, useState } from "react";
+
+        function Component() {
+          const scrollRef = useRef(null);
+          const [width, setWidth] = useState(0);
+          const measure = (el) => {
+            let out = 0;
+            {
+              const el = { offsetWidth: 1 };
+              out = el.offsetWidth;
+            }
+            setWidth(out);
+          };
+          useEffect(() => {
+            measure(scrollRef.current);
+          }, []);
+          return null;
+        }
+      `,
+      errors: [
+        { data: { name: "setWidth" }, messageId: "default" },
+      ],
+    },
+    // Parameter treatment is per call site: the same helper fed a ref-derived
+    // argument in one call and a plain argument in another is exempt only for
+    // the ref-derived call.
+    {
+      name: "setState in a helper called with both ref-derived and plain arguments",
+      code: tsx`
+        import { useEffect, useRef, useState } from "react";
+
+        function Component() {
+          const scrollRef = useRef(null);
+          const [atTop, setAtTop] = useState(true);
+          const updateEdges = (el) => {
+            setAtTop(el.scrollTop === 0);
+          };
+          useEffect(() => {
+            updateEdges(scrollRef.current);
+            updateEdges(document.body);
+          }, []);
+          return null;
+        }
+      `,
+      errors: [
+        { data: { name: "setAtTop" }, messageId: "default" },
+      ],
+    },
+    // One-hop boundary: a helper wrapped in useCallback resolves to the hook
+    // call, whose parameters are not the callback's parameters, so call-site
+    // arguments are not mapped.
+    {
+      name: "setState in a useCallback-wrapped helper fed ref.current",
+      code: tsx`
+        import { useCallback, useEffect, useRef, useState } from "react";
+
+        function Component() {
+          const scrollRef = useRef(null);
+          const [width, setWidth] = useState(0);
+          const measure = useCallback((el) => {
+            setWidth(el.offsetWidth);
+          }, []);
+          useEffect(() => {
+            measure(scrollRef.current);
+          }, []);
           return null;
         }
       `,
@@ -3488,6 +3478,124 @@ ruleTester.run(RULE_NAME, rule, {
             width = containerRef.current.offsetWidth;
             width = 42;
             setWidth(width);
+          }, []);
+          return null;
+        }
+      `,
+    },
+    // A helper invoked from the setup whose call-site argument is ref-derived
+    // has its corresponding parameter treated as ref-derived, regardless of
+    // the parameter name. (Forthtilliath/forthtilliath-packages scroll-shadow:
+    // updateEdges(el))
+    {
+      name: "setState in a helper whose parameter receives ref.current at the call site",
+      code: tsx`
+        import { useEffect, useRef, useState } from "react";
+
+        function Component() {
+          const scrollRef = useRef(null);
+          const [atTop, setAtTop] = useState(true);
+          const updateEdges = (el) => {
+            setAtTop(el.scrollTop === 0);
+          };
+          useEffect(() => {
+            updateEdges(scrollRef.current);
+          }, []);
+          return null;
+        }
+      `,
+    },
+    {
+      name: "setState in a function declaration helper fed ref.current at the call site",
+      code: tsx`
+        import { useEffect, useRef, useState } from "react";
+
+        function Component() {
+          const scrollRef = useRef(null);
+          const [width, setWidth] = useState(0);
+          function measure(node) {
+            setWidth(node.offsetWidth);
+          }
+          useEffect(() => {
+            measure(scrollRef.current);
+          }, []);
+          return null;
+        }
+      `,
+    },
+    {
+      name: "setState in a helper fed a ref-derived local variable at the call site",
+      code: tsx`
+        import { useEffect, useRef, useState } from "react";
+
+        function Component() {
+          const scrollRef = useRef(null);
+          const [atTop, setAtTop] = useState(true);
+          const updateEdges = (el) => {
+            setAtTop(el.scrollTop === 0);
+          };
+          useEffect(() => {
+            const el = scrollRef.current;
+            updateEdges(el);
+          }, []);
+          return null;
+        }
+      `,
+    },
+    {
+      name: "setState in a helper with mixed ref-derived and plain arguments",
+      code: tsx`
+        import { useEffect, useRef, useState } from "react";
+
+        function Component() {
+          const scrollRef = useRef(null);
+          const [width, setWidth] = useState(0);
+          const update = (el, extra) => {
+            setWidth(el.offsetWidth + extra);
+          };
+          useEffect(() => {
+            update(scrollRef.current, 10);
+          }, []);
+          return null;
+        }
+      `,
+    },
+    // A default-value parameter fed a ref-derived argument at the call site is
+    // ref-derived as well.
+    {
+      name: "setState in a helper with a default-value parameter fed ref.current",
+      code: tsx`
+        import { useEffect, useRef, useState } from "react";
+
+        function Component() {
+          const scrollRef = useRef(null);
+          const [width, setWidth] = useState(0);
+          const measure = (el = document.body) => {
+            setWidth(el.offsetWidth);
+          };
+          useEffect(() => {
+            measure(scrollRef.current);
+          }, []);
+          return null;
+        }
+      `,
+    },
+    // The call-site-fed parameter exemption also covers ref-gated guards on
+    // the parameter inside the helper.
+    {
+      name: "setState behind a ref-gated guard on a ref-fed parameter inside a helper",
+      code: tsx`
+        import { useEffect, useRef, useState } from "react";
+
+        function Component() {
+          const scrollRef = useRef(null);
+          const [width, setWidth] = useState(0);
+          const measure = (el) => {
+            if (el == null) return;
+            setWidth(el.offsetWidth);
+          };
+          useEffect(() => {
+            measure(scrollRef.current);
           }, []);
           return null;
         }
