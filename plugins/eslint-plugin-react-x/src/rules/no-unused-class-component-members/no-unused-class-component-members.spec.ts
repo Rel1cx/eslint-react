@@ -398,6 +398,75 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
     },
+    {
+      name: "private method in exported class component is still reported",
+      code: tsx`
+        export default class Foo extends React.Component {
+          private handleClick() {}
+          render() {
+            return null;
+          }
+        }
+      `,
+      errors: [
+        {
+          data: { className: "Foo", methodName: "handleClick" },
+          messageId: "default",
+        },
+      ],
+    },
+    {
+      name: "protected method in exported class component is still reported",
+      code: tsx`
+        export class Foo extends React.Component {
+          protected handleClick() {}
+          render() {
+            return null;
+          }
+        }
+      `,
+      errors: [
+        {
+          data: { className: "Foo", methodName: "handleClick" },
+          messageId: "default",
+        },
+      ],
+    },
+    {
+      name: "unused data field in exported class component is still reported",
+      code: tsx`
+        export default class Foo extends React.Component {
+          foo = 3;
+          render() {
+            return null;
+          }
+        }
+      `,
+      errors: [
+        {
+          data: { className: "Foo", methodName: "foo" },
+          messageId: "default",
+        },
+      ],
+    },
+    {
+      name: "unused method in class exported via separate export statement is still reported",
+      code: tsx`
+        class Foo extends React.Component {
+          handleClick() {}
+          render() {
+            return null;
+          }
+        }
+        export default Foo;
+      `,
+      errors: [
+        {
+          data: { className: "Foo", methodName: "handleClick" },
+          messageId: "default",
+        },
+      ],
+    },
   ],
   valid: [
     {
@@ -892,6 +961,69 @@ ruleTester.run(RULE_NAME, rule, {
           }
           render() {
             return <SomeComponent ref={(ref) => this.root = ref} />;
+          }
+        }
+      `,
+    },
+    {
+      name: "public imperative methods in default-exported class component (RNGH DrawerLayout pattern)",
+      code: tsx`
+        export default class DrawerLayout extends React.Component {
+          openDrawer = () => {
+            this.animateDrawer(true);
+          };
+          closeDrawer = () => {
+            this.animateDrawer(false);
+          };
+          animateDrawer(open) {}
+          render() {
+            return null;
+          }
+        }
+      `,
+    },
+    {
+      name: "public imperative methods in named-exported class component (RNGH Swipeable pattern)",
+      code: tsx`
+        export class Swipeable extends React.Component {
+          openLeft() {}
+          openRight() {}
+          close() {}
+          render() {
+            return null;
+          }
+        }
+      `,
+    },
+    {
+      name: "public method in anonymous default-exported class component",
+      code: tsx`
+        export default class extends React.Component {
+          openDrawer() {}
+          render() {
+            return null;
+          }
+        }
+      `,
+    },
+    {
+      name: "public method in class expression exported via variable declaration",
+      code: tsx`
+        export const DrawerLayout = class extends React.Component {
+          openDrawer() {}
+          render() {
+            return null;
+          }
+        };
+      `,
+    },
+    {
+      name: "explicitly public method in exported class component",
+      code: tsx`
+        export class Foo extends React.Component {
+          public openDrawer() {}
+          render() {
+            return null;
           }
         }
       `,

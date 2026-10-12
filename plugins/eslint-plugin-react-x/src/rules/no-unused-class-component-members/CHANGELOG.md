@@ -5,6 +5,12 @@ All notable changes to the `react-x/no-unused-class-component-members` rule will
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+### Fixed
+
+- Public methods (including function-valued properties) of an exported class component are no longer reported as unused, as they may be part of the component's imperative API invoked by consumers through refs (ex: react-native-gesture-handler's `DrawerLayout.openDrawer`, `Swipeable.openLeft`). Data fields, `private`/`protected` members, and members of non-exported classes are still reported.
+
 ## [5.21.2] - 2026-09-29
 
 ### Fixed
