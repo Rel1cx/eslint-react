@@ -13,8 +13,8 @@ export const RULE_FEATURES = [
 ] as const satisfies RuleFeature[];
 
 export type MessageID =
-  | "use-namespace-import"
-  | "missing-development-only-check";
+  | "missing-development-only-check"
+  | "use-namespace-import";
 
 export default createRule<[], MessageID>({
   meta: {

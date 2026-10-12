@@ -13,7 +13,7 @@ export const RULE_FEATURES = [
 
 export type MessageID =
   | "default"
-  | "remove-dollar-sign";
+  | "suggest";
 
 export default createRule<[], MessageID>({
   meta: {
@@ -26,7 +26,7 @@ export default createRule<[], MessageID>({
     hasSuggestions: true,
     messages: {
       default: "Leaked '$' in JSX. This '$' will be rendered as text nodes.",
-      "remove-dollar-sign": "Remove the text node '$'.",
+      suggest: "Remove the text node '$'.",
     },
     schema: [],
   },
@@ -66,7 +66,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
             fix(fixer) {
               return fixer.removeRange([dollarStart, dollarEnd]);
             },
-            messageId: "remove-dollar-sign",
+            messageId: "suggest",
           },
         ],
       });

@@ -9,8 +9,8 @@ export const RULE_NAME = "error-boundaries";
 export const RULE_FEATURES = [] as const satisfies RuleFeature[];
 
 export type MessageID =
-  | "try-catch-with-jsx"
-  | "try-catch-with-use";
+  | "try-catch-with-use"
+  | "try-catch-with-jsx";
 
 export default createRule<[], MessageID>({
   meta: {
@@ -19,9 +19,9 @@ export default createRule<[], MessageID>({
       description: "Validates usage of Error Boundaries instead of try/catch for errors in child components.",
     },
     messages: {
-      "try-catch-with-jsx": "Use an Error Boundary to catch errors in child components. Try/catch can't catch errors during React's rendering process.",
       "try-catch-with-use":
         "Use an Error Boundary instead of try/catch around the 'use' hook. The 'use' hook suspends the component, and its errors can only be caught by Error Boundaries.",
+      "try-catch-with-jsx": "Use an Error Boundary to catch errors in child components. Try/catch can't catch errors during React's rendering process.",
     },
     schema: [],
   },

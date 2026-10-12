@@ -13,8 +13,8 @@ export const RULE_FEATURES = [
 
 export type MessageID =
   | "default"
-  | "remove-children-content"
-  | "remove-children-prop";
+  | "remove-children-prop"
+  | "remove-children-content";
 
 export default createRule<[], MessageID>({
   meta: {
@@ -26,8 +26,8 @@ export default createRule<[], MessageID>({
     hasSuggestions: true,
     messages: {
       default: "Do not pass 'children' as a prop when the element already has children content.",
-      "remove-children-content": "Remove the nested children content.",
       "remove-children-prop": "Remove the 'children' prop.",
+      "remove-children-content": "Remove the nested children content.",
     },
     schema: [],
   },

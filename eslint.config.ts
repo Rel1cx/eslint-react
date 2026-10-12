@@ -88,6 +88,9 @@ export default defineConfig(
       eslintPlugin.configs.recommended,
     ],
     files: ["plugins/*/src/rules/**/*.ts"],
+    rules: {
+      "perfectionist/sort-objects": "off",
+    },
   },
   // Scripts and Configs (Relaxed, No Type Checking)
   {

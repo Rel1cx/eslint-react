@@ -13,9 +13,9 @@ export const RULE_FEATURES = [
 ] as const satisfies RuleFeature[];
 
 export type MessageID =
-  | "direct-mutation"
   | "indirect-mutation"
-  | "mutation-site";
+  | "mutation-site"
+  | "direct-mutation";
 
 export default createRule<[], MessageID>({
   meta: {
@@ -25,10 +25,10 @@ export default createRule<[], MessageID>({
         "Validates against mutating props, state, and other immutable values, including through functions passed into frozen contexts such as JSX props, hook arguments, and hook return values.",
     },
     messages: {
-      "direct-mutation": "Do not mutate '{{name}}' directly. {{detail}}",
       "indirect-mutation":
         "This function may (indirectly) reassign or modify '{{name}}' after render, which can cause inconsistent behavior on subsequent renders. Consider using state instead.",
       "mutation-site": "This modifies '{{name}}'.",
+      "direct-mutation": "Do not mutate '{{name}}' directly. {{detail}}",
     },
     schema: [],
   },

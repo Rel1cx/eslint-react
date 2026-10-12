@@ -9,11 +9,11 @@ ruleTester.run(RULE_NAME, rule, {
       code: tsx`<iframe />;`,
       errors: [
         {
-          messageId: "missing-sandbox-attribute",
+          messageId: "default",
           suggestions: [
             {
               data: { value: "" },
-              messageId: "add-sandbox-attribute",
+              messageId: "suggest",
               output: tsx`<iframe sandbox="" />;`,
             },
           ],
@@ -24,11 +24,11 @@ ruleTester.run(RULE_NAME, rule, {
       code: tsx`<iframe sandbox />;`,
       errors: [
         {
-          messageId: "missing-sandbox-attribute",
+          messageId: "default",
           suggestions: [
             {
               data: { value: "" },
-              messageId: "add-sandbox-attribute",
+              messageId: "suggest",
               output: tsx`<iframe sandbox="" />;`,
             },
           ],
@@ -43,10 +43,10 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [{
-        messageId: "missing-sandbox-attribute",
+        messageId: "default",
         suggestions: [{
           data: { value: "" },
-          messageId: "add-sandbox-attribute",
+          messageId: "suggest",
           output: tsx`
             function App() {
               return <iframe sandbox="" />;
@@ -63,10 +63,10 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [{
-        messageId: "missing-sandbox-attribute",
+        messageId: "default",
         suggestions: [{
           data: { value: "" },
-          messageId: "add-sandbox-attribute",
+          messageId: "suggest",
           output: tsx`
             function App() {
               return <iframe sandbox="" />;
@@ -79,11 +79,11 @@ ruleTester.run(RULE_NAME, rule, {
       code: tsx`<PolyComponent as="iframe" />;`,
       errors: [
         {
-          messageId: "missing-sandbox-attribute",
+          messageId: "default",
           suggestions: [
             {
               data: { value: "" },
-              messageId: "add-sandbox-attribute",
+              messageId: "suggest",
               output: tsx`<PolyComponent sandbox="" as="iframe" />;`,
             },
           ],
@@ -99,11 +99,11 @@ ruleTester.run(RULE_NAME, rule, {
       code: tsx`<PolyComponent as="iframe" sandbox />;`,
       errors: [
         {
-          messageId: "missing-sandbox-attribute",
+          messageId: "default",
           suggestions: [
             {
               data: { value: "" },
-              messageId: "add-sandbox-attribute",
+              messageId: "suggest",
               output: tsx`<PolyComponent as="iframe" sandbox="" />;`,
             },
           ],
@@ -123,10 +123,10 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [{
-        messageId: "missing-sandbox-attribute",
+        messageId: "default",
         suggestions: [{
           data: { value: "" },
-          messageId: "add-sandbox-attribute",
+          messageId: "suggest",
           output: tsx`
             function App() {
               return <iframe sandbox="" />;
@@ -143,10 +143,10 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [{
-        messageId: "missing-sandbox-attribute",
+        messageId: "default",
         suggestions: [{
           data: { value: "" },
-          messageId: "add-sandbox-attribute",
+          messageId: "suggest",
           output: tsx`
             function App() {
               return <iframe sandbox="" />;
@@ -163,10 +163,10 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [{
-        messageId: "missing-sandbox-attribute",
+        messageId: "default",
         suggestions: [{
           data: { value: "" },
-          messageId: "add-sandbox-attribute",
+          messageId: "suggest",
           output: tsx`
             function App({ kind }) {
               return <iframe sandbox="" />;
@@ -180,11 +180,11 @@ ruleTester.run(RULE_NAME, rule, {
       code: tsx`<motion.div as="iframe" />;`,
       errors: [
         {
-          messageId: "missing-sandbox-attribute",
+          messageId: "default",
           suggestions: [
             {
               data: { value: "" },
-              messageId: "add-sandbox-attribute",
+              messageId: "suggest",
               output: tsx`<motion.div sandbox="" as="iframe" />;`,
             },
           ],

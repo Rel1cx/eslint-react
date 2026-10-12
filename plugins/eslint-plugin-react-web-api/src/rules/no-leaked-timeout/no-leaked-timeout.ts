@@ -14,8 +14,8 @@ export const RULE_NAME = "no-leaked-timeout";
 export const RULE_FEATURES = [] as const satisfies RuleFeature[];
 
 export type MessageID =
-  | "expected-clear-timeout-in-cleanup"
-  | "expected-timeout-id";
+  | "expected-timeout-id"
+  | "expected-clear-timeout-in-cleanup";
 
 // #endregion
 
@@ -54,8 +54,8 @@ export default createRule<[], MessageID>({
       description: "Enforces that every 'setTimeout' in a component or custom hook has a corresponding 'clearTimeout'.",
     },
     messages: {
-      "expected-clear-timeout-in-cleanup": "A 'setTimeout' created in '{{ kind }}' must be cleared with 'clearTimeout' in the cleanup function.",
       "expected-timeout-id": "A 'setTimeout' must be assigned to a variable for proper cleanup.",
+      "expected-clear-timeout-in-cleanup": "A 'setTimeout' created in '{{ kind }}' must be cleared with 'clearTimeout' in the cleanup function.",
     },
     schema: [],
   },

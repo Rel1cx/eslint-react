@@ -12,7 +12,7 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: "default",
           suggestions: [
             {
-              messageId: "move-children-to-content",
+              messageId: "suggest",
               output: "<div>Children</div>;",
             },
           ],
@@ -26,7 +26,7 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: "default",
           suggestions: [
             {
-              messageId: "move-children-to-content",
+              messageId: "suggest",
               output: tsx`<div>{someVariable}</div>;`,
             },
           ],
@@ -40,7 +40,7 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: "default",
           suggestions: [
             {
-              messageId: "move-children-to-content",
+              messageId: "suggest",
               output: tsx`<div><div /></div>;`,
             },
           ],
@@ -54,7 +54,7 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: "default",
           suggestions: [
             {
-              messageId: "move-children-to-content",
+              messageId: "suggest",
               output: tsx`<div>{[<div />, <div />]}</div>;`,
             },
           ],
@@ -68,7 +68,7 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: "default",
           suggestions: [
             {
-              messageId: "move-children-to-content",
+              messageId: "suggest",
               output: "<MyComponent>Children</MyComponent>",
             },
           ],
@@ -82,7 +82,7 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: "default",
           suggestions: [
             {
-              messageId: "move-children-to-content",
+              messageId: "suggest",
               output: "<Foo.Bar>Children</Foo.Bar>;",
             },
           ],
@@ -96,7 +96,7 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: "default",
           suggestions: [
             {
-              messageId: "move-children-to-content",
+              messageId: "suggest",
               output: tsx`<div>{condition ? <A /> : <B />}</div>;`,
             },
           ],
@@ -110,7 +110,7 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: "default",
           suggestions: [
             {
-              messageId: "move-children-to-content",
+              messageId: "suggest",
               output: tsx`<div>{show && <span />}</div>;`,
             },
           ],
@@ -124,7 +124,7 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: "default",
           suggestions: [
             {
-              messageId: "move-children-to-content",
+              messageId: "suggest",
               output: tsx`<div>{getChildren()}</div>;`,
             },
           ],
@@ -138,7 +138,7 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: "default",
           suggestions: [
             {
-              messageId: "move-children-to-content",
+              messageId: "suggest",
               output: tsx`<div>{42}</div>;`,
             },
           ],
@@ -152,7 +152,7 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: "default",
           suggestions: [
             {
-              messageId: "move-children-to-content",
+              messageId: "suggest",
               output: "<div>{`hello world`}</div>;",
             },
           ],
@@ -166,7 +166,7 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: "default",
           suggestions: [
             {
-              messageId: "move-children-to-content",
+              messageId: "suggest",
               output: tsx`<div><><span /><span /></></div>;`,
             },
           ],
@@ -180,7 +180,7 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: "default",
           suggestions: [
             {
-              messageId: "move-children-to-content",
+              messageId: "suggest",
               output: tsx`<div><>fragment</></div>;`,
             },
           ],
@@ -195,7 +195,7 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: "default",
           suggestions: [
             {
-              messageId: "move-children-to-content",
+              messageId: "suggest",
               output: '<div className="x">Children</div>;',
             },
           ],
@@ -209,7 +209,7 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: "default",
           suggestions: [
             {
-              messageId: "move-children-to-content",
+              messageId: "suggest",
               output: '<MyComponent className="class-name">Children</MyComponent>;',
             },
           ],
@@ -223,7 +223,7 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: "default",
           suggestions: [
             {
-              messageId: "move-children-to-content",
+              messageId: "suggest",
               output: "<MyComponent {...props}>Children</MyComponent>;",
             },
           ],
@@ -243,7 +243,7 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: "default",
           suggestions: [
             {
-              messageId: "move-children-to-content",
+              messageId: "suggest",
               output: tsx`
                 <MyComponent
                   id="test"
@@ -261,7 +261,7 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: "default",
           suggestions: [
             {
-              messageId: "move-children-to-content",
+              messageId: "suggest",
               output: "<div>ChildrenChildren</div>;",
             },
           ],
@@ -275,7 +275,7 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: "default",
           suggestions: [
             {
-              messageId: "move-children-to-content",
+              messageId: "suggest",
               output: tsx`<div>existing<span /></div>;`,
             },
           ],
@@ -307,7 +307,7 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: "default",
           suggestions: [
             {
-              messageId: "move-children-to-content",
+              messageId: "suggest",
               output: "<div></div>;",
             },
           ],
@@ -321,7 +321,7 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: "default",
           suggestions: [
             {
-              messageId: "move-children-to-content",
+              messageId: "suggest",
               output: "<div> </div>;",
             },
           ],
@@ -335,7 +335,7 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: "default",
           suggestions: [
             {
-              messageId: "move-children-to-content",
+              messageId: "suggest",
               output: tsx`<div>{""}</div>;`,
             },
           ],
@@ -349,7 +349,7 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: "default",
           suggestions: [
             {
-              messageId: "move-children-to-content",
+              messageId: "suggest",
               output: "<div>Children</div>;",
             },
           ],
@@ -363,7 +363,7 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: "default",
           suggestions: [
             {
-              messageId: "move-children-to-content",
+              messageId: "suggest",
               output: tsx`<div>{"&nbsp;"}</div>;`,
             },
           ],
@@ -377,7 +377,7 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: "default",
           suggestions: [
             {
-              messageId: "move-children-to-content",
+              messageId: "suggest",
               output: "<div>&lt;span&gt;</div>;",
             },
           ],
@@ -391,7 +391,7 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: "default",
           suggestions: [
             {
-              messageId: "move-children-to-content",
+              messageId: "suggest",
               output: "<div>&#123;expr&#125;</div>;",
             },
           ],
@@ -405,7 +405,7 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: "default",
           suggestions: [
             {
-              messageId: "move-children-to-content",
+              messageId: "suggest",
               output: "<div>A &amp; B</div>;",
             },
           ],
@@ -419,7 +419,7 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: "default",
           suggestions: [
             {
-              messageId: "move-children-to-content",
+              messageId: "suggest",
               output: tsx`<div>{null}</div>;`,
             },
           ],
@@ -433,7 +433,7 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: "default",
           suggestions: [
             {
-              messageId: "move-children-to-content",
+              messageId: "suggest",
               output: tsx`<div>{undefined}</div>;`,
             },
           ],
@@ -447,7 +447,7 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: "default",
           suggestions: [
             {
-              messageId: "move-children-to-content",
+              messageId: "suggest",
               output: tsx`<div>{true}</div>;`,
             },
           ],
@@ -461,7 +461,7 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: "default",
           suggestions: [
             {
-              messageId: "move-children-to-content",
+              messageId: "suggest",
               output: tsx`<div>{false}</div>;`,
             },
           ],
@@ -475,7 +475,7 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: "default",
           suggestions: [
             {
-              messageId: "move-children-to-content",
+              messageId: "suggest",
               output: tsx`<div>{0}</div>;`,
             },
           ],
@@ -489,7 +489,7 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: "default",
           suggestions: [
             {
-              messageId: "move-children-to-content",
+              messageId: "suggest",
               output: tsx`<div>{{ a: 1 }}</div>;`,
             },
           ],
@@ -503,7 +503,7 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: "default",
           suggestions: [
             {
-              messageId: "move-children-to-content",
+              messageId: "suggest",
               output: "<my:div>Children</my:div>;",
             },
           ],
@@ -517,7 +517,7 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: "default",
           suggestions: [
             {
-              messageId: "move-children-to-content",
+              messageId: "suggest",
               output: tsx`<div><span /></div>;`,
             },
           ],
@@ -531,7 +531,7 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: "default",
           suggestions: [
             {
-              messageId: "move-children-to-content",
+              messageId: "suggest",
               output: "<div>Children</div>;",
             },
           ],

@@ -16,9 +16,9 @@ export const RULE_NAME = "no-leaked-intersection-observer";
 export const RULE_FEATURES = [] as const satisfies RuleFeature[];
 
 export type MessageID =
+  | "unexpected-floating-instance"
   | "expected-disconnect-in-control-flow"
-  | "expected-disconnect-or-unobserve-in-cleanup"
-  | "unexpected-floating-instance";
+  | "expected-disconnect-or-unobserve-in-cleanup";
 
 // #endregion
 
@@ -100,11 +100,11 @@ export default createRule<[], MessageID>({
       description: "Enforces that every 'IntersectionObserver' created in a component or custom hook has a corresponding 'IntersectionObserver.disconnect()'.",
     },
     messages: {
+      "unexpected-floating-instance":
+        "An 'IntersectionObserver' instance created in component or custom hook must be assigned to a variable for proper cleanup.",
       "expected-disconnect-in-control-flow":
         "Dynamically added 'IntersectionObserver.observe' should be cleared all at once using 'IntersectionObserver.disconnect' in the cleanup function.",
       "expected-disconnect-or-unobserve-in-cleanup": "An 'IntersectionObserver' instance created in 'useEffect' must be disconnected in the cleanup function.",
-      "unexpected-floating-instance":
-        "An 'IntersectionObserver' instance created in component or custom hook must be assigned to a variable for proper cleanup.",
     },
     schema: [],
   },

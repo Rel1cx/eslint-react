@@ -68,6 +68,11 @@ export function create(context: RuleContext<MessageID, Options>, [options]: Opti
   const safePatterns = safeDefaultProps.map((s) => toRegExp(s));
 
   return merge(visitor, {
+    [SEL_OBJECT_DESTRUCTURING_VARIABLE_DECLARATOR](node: ObjectDestructuringVariableDeclarator) {
+      const enclosingFunction = Traverse.findParent(node, Check.isFunction);
+      if (enclosingFunction == null) return;
+      getOrInsertComputed(declarators, enclosingFunction, () => []).push(node);
+    },
     "Program:exit"(program) {
       for (const { node: component } of api.getAllComponents(program)) {
         const { params } = component;
@@ -120,11 +125,6 @@ export function create(context: RuleContext<MessageID, Options>, [options]: Opti
           });
         }
       }
-    },
-    [SEL_OBJECT_DESTRUCTURING_VARIABLE_DECLARATOR](node: ObjectDestructuringVariableDeclarator) {
-      const enclosingFunction = Traverse.findParent(node, Check.isFunction);
-      if (enclosingFunction == null) return;
-      getOrInsertComputed(declarators, enclosingFunction, () => []).push(node);
     },
   });
 }
