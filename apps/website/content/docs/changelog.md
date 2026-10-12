@@ -2,6 +2,15 @@
 title: Changelog
 ---
 
+## v5.26.3 (2026-10-12)
+
+### 🐞 Fixes
+
+- `react-naming-convention/context-name`, `react-naming-convention/id-name`, `react-naming-convention/ref-name`: an enclosing object literal property key now takes precedence over the outer assignment target when statically known, so `const refs = { myRef: useRef(0) }` is no longer reported just because `refs` is not a valid ref name, while `{ value: useRef(0) }` is now reported on the `value` key; computed member expression and class property keys with string literals are now checked (ex: `refs["value"] = useRef(null)`), and unresolvable computed keys are no longer reported. (#2028)
+- `react-naming-convention/ref-name`: immediate dereferences of the `useRef` result through TypeScript type wrappers (ex: `(useRef(null) as { current: null }).current`, `useRef(null)!.current`, `useRef(null)?.current`) are no longer reported; this extends the #1375 fix, which only handled a bare member access. (#2028)
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.26.2...v5.26.3
+
 ## v5.26.2 (2026-10-12)
 
 ### ✨ New
