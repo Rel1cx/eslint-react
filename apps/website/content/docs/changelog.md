@@ -2,6 +2,26 @@
 title: Changelog
 ---
 
+## v5.26.2 (2026-10-12)
+
+### ✨ New
+
+- `react-x/no-unused-props`: improved prop usage detection. Props parameters with default values (ex: `function Component(props: Props = defaultProps)`) are now unwrapped and analyzed, props aliased to a local variable (ex: `const alias = props`) are tracked through the alias, and template literals without substitutions (ex: ``props[`foo`]``) are recognized as static prop keys. (#2021)
+
+### 🐞 Fixes
+
+- `react-x/no-unused-props`: a component whose used prop keys cannot be fully determined (ex: it passes the whole props object to another function) now marks all of its declared props as used, so a props declaration shared with another fully analyzable component is no longer reported as unused. (#2021)
+- `react-x/set-state-in-effect`: ref-derived values that reach the `setState` argument through assignment statements (rather than the declaration initializer) are now recognized; only writes that lexically precede the use and live in the use's own function or an ancestor count. (#2027)
+- `react-x/set-state-in-effect`: parameters of a helper invoked from the effect setup are now treated as ref-derived when the call-site argument is ref-derived, matched per call site by parameter definition. (#2027)
+- `react-x/set-state-in-effect`: a `.current` read rooted at a function parameter is now recognized as a ref read (ex: `setReferenceElement(anchor?.current)` where `anchor` is a `RefObject` prop); previously only parameters named `ref` or ending in `Ref` were recognized. (#2027)
+- `react-x/no-unused-class-component-members`: public methods (including function-valued properties) of an exported class component are no longer reported as unused, as they may be part of the component's imperative API invoked by consumers through refs. Data fields, `private`/`protected` members, and members of non-exported classes are still reported. (#2024)
+
+### 🏗️ Internal
+
+- Ordered message ids by first usage and unified default/suggestion message id naming across `react-dom`, `react-jsx`, `react-web-api`, and `react-x` rules. (#2022)
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.26.1...v5.26.2
+
 ## v5.26.1 (2026-10-12)
 
 ### 🏗️ Internal
