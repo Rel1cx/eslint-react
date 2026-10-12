@@ -5,6 +5,18 @@ All notable changes to the `react-x/no-unused-props` rule will be documented in 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+### Fixed
+
+- A component whose used prop keys cannot be fully determined (ex: it passes the whole props object to another function) now marks all of its declared props as used, so a props declaration shared with another fully analyzable component is no longer reported as unused.
+
+### Changed
+
+- Props parameters with default values (ex: `function Component(props: Props = defaultProps)`) are now unwrapped and analyzed instead of being skipped.
+- Props aliased to a local variable (ex: `const alias = props`) are now tracked through the alias; untrackable alias references still cause a conservative bailout.
+- Template literals without substitutions (ex: ``props[`foo`]``) are now recognized as static prop keys.
+
 ## [5.24.6] - 2026-10-06
 
 ### Fixed

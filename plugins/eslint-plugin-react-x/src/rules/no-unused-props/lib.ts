@@ -16,6 +16,10 @@ export function collectUsedPropKeysOfParameter(context: RuleContext, usedPropKey
         parameter,
       );
     }
+    case AST.AssignmentPattern: {
+      // Unwrap default values (`props: Props = defaultProps`) and track the binding itself
+      return collectUsedPropKeysOfParameter(context, usedPropKeys, parameter.left);
+    }
     default: {
       return false;
     }
@@ -95,13 +99,19 @@ export function collectUsedPropKeysOfReference(context: RuleContext, usedPropKey
       break;
     }
     case AST.VariableDeclarator: {
+      if (parent.init !== valueNode) break;
       // Handle `const { foo, bar } = props` (including wrapped variants)
-      if (parent.id.type === AST.ObjectPattern && parent.init === valueNode) {
+      if (parent.id.type === AST.ObjectPattern) {
         return collectUsedPropKeysOfObjectPattern(
           context,
           usedPropKeys,
           parent.id,
         );
+      }
+      // Handle `const alias = props` by tracking how the alias is used; any
+      // untrackable alias reference (ex: reassignment) still bails out
+      if (parent.id.type === AST.Identifier) {
+        return collectUsedPropKeysOfIdentifier(context, usedPropKeys, parent.id);
       }
       break;
     }
@@ -119,6 +129,13 @@ export function getKeyOfExpression(expr: TSESTree.Expression | TSESTree.PrivateI
     case AST.Literal: {
       if (isString(expr.value)) {
         return expr.value;
+      }
+      break;
+    }
+    case AST.TemplateLiteral: {
+      // A template literal without substitutions is a static key (`props[`foo`]`)
+      if (expr.expressions.length === 0 && expr.quasis.length === 1) {
+        return expr.quasis[0]?.value.cooked ?? null;
       }
       break;
     }

@@ -104,7 +104,7 @@ function Text({ children, ...rest }: TextProps) {
 
 ### Multiple components sharing the same props type definition
 
-When a type/interface is shared by multiple components, as long as each field is used in at least one component, it will not be reported as unused.
+When a type/interface is shared by multiple components, as long as each field is used in at least one component, it will not be reported as unused. If a component's prop usage cannot be fully determined (for example, it passes the whole props object to another function), all props it declares are treated as used to avoid false positives.
 
 ```tsx
 // 🔵 OK: userId and theme are used in different components respectively
