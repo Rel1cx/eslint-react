@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- Ref-derived values that reach the `setState` argument through assignment statements (rather than the declaration initializer) are now recognized (ex: `let overflow = false; if (container) { overflow = container.scrollWidth > container.clientWidth; } setIsOverflow(overflow)`). Only writes that lexically precede the use and live in the use's own function or an ancestor count — a write inside a nested callback (ex: an event listener defined in the setup) has not run when the setup executes and stays reported.
+- Parameters of a helper invoked from the effect setup are now treated as ref-derived when the call-site argument is ref-derived, regardless of the parameter name (ex: `updateEdges(ref.current)` where `updateEdges = (el) => { setAtTop(el.scrollTop === 0); }`). The mapping is per call site and matched by parameter definition, so the same helper called with a plain argument (ex: `updateEdges(document.body)`) stays reported.
+- A `.current` read rooted at a function parameter is now recognized as a ref read (ex: `setReferenceElement(anchor?.current)` where `anchor` is a `RefObject` prop) — previously only parameters named `ref` or ending in `Ref` were recognized.
+
 ## [5.24.9] - 2026-10-08
 
 ### Fixed

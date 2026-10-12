@@ -54,10 +54,8 @@ export function inferViolations(context: RuleContext, facts: SetStateInEffectFac
       // do nothing, this is a deferred setState call
       continue;
     }
-    const isDirectlyInSetup = setupFunction != null
-      && (enclosingFunction === setupFunction
-        || enclosingFunctionKind === "immediate"
-          && Traverse.findParent(enclosingFunction, Check.isFunction) === setupFunction);
+    // dprint-ignore
+    const isDirectlyInSetup = setupFunction != null && (enclosingFunction === setupFunction || enclosingFunctionKind === "immediate" && Traverse.findParent(enclosingFunction, Check.isFunction) === setupFunction);
     if (isDirectlyInSetup) {
       const args0 = node.arguments.at(0);
       // setState() without arguments, which is invalid but other tools will report it
@@ -115,12 +113,34 @@ export function inferViolations(context: RuleContext, facts: SetStateInEffectFac
   // The ref-derived value exemption that applies to direct setup calls
   // applies to indirectly reached setState calls as well (ex: a `measure`
   // helper invoked from the setup whose setState carries DOM measurements)
-  const isExemptSetStateCall = (setStateCall: TSESTree.CallExpression | TSESTree.Identifier) => {
+  const isExemptSetStateCall = (setStateCall: TSESTree.CallExpression | TSESTree.Identifier, refParams?: ReadonlySet<TSESTree.Node>) => {
     const callNode = getSetStateCallExpression(setStateCall);
-    if (isRefGatedContext(context, callNode)) return true;
+    if (isRefGatedContext(context, callNode, refParams)) return true;
     if (callNode.type !== AST.CallExpression) return false;
     const args0 = callNode.arguments.at(0);
-    return args0 != null && isArgumentUsingRefValue(context, args0);
+    return args0 != null && isArgumentUsingRefValue(context, args0, refParams);
+  };
+
+  // A helper invoked from the setup receives its values through parameters:
+  // when the call-site argument is ref-derived, the corresponding parameter is
+  // treated as ref-derived inside the helper regardless of its name
+  // (ex: `updateEdges(ref.current)` where `updateEdges = (el) => ...`)
+  const getRefDerivedParams = (call: TSESTree.CallExpression, callee: TSESTree.Identifier) => {
+    const origin = resolveOrigin(context, callee);
+    if (origin == null || !Check.isFunction(origin)) return undefined;
+    const refParams = new Set<TSESTree.Node>();
+    origin.params.forEach((param, index) => {
+      const paramId = param.type === AST.Identifier
+        ? param
+        : param.type === AST.AssignmentPattern && param.left.type === AST.Identifier
+        ? param.left
+        : null;
+      if (paramId == null) return;
+      const arg = call.arguments.at(index);
+      if (arg == null || arg.type === AST.SpreadElement) return;
+      if (isArgumentUsingRefValue(context, arg)) refParams.add(paramId);
+    });
+    return refParams.size > 0 ? refParams : undefined;
   };
 
   const getSetStateCalls = (id: TSESTree.Identifier): (TSESTree.CallExpression | TSESTree.Identifier)[] => {
@@ -150,13 +170,14 @@ export function inferViolations(context: RuleContext, facts: SetStateInEffectFac
       violations.push({ name: call.name, node: call });
     }
   }
-  for (const { callee } of trackedFnCalls) {
-    const unwrappedCallee = Extract.unwrap(callee);
+  for (const trackedCall of trackedFnCalls) {
+    const unwrappedCallee = Extract.unwrap(trackedCall.callee);
     if (!Check.isIdentifier(unwrappedCallee)) {
       continue;
     }
+    const refParams = getRefDerivedParams(trackedCall, unwrappedCallee);
     for (const setStateCall of getSetStateCalls(unwrappedCallee)) {
-      if (isExemptSetStateCall(setStateCall)) continue;
+      if (isExemptSetStateCall(setStateCall, refParams)) continue;
       violations.push({
         name: getCallName(setStateCall, getText),
         node: setStateCall,

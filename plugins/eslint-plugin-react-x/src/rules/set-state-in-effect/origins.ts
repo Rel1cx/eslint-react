@@ -1,10 +1,10 @@
-import { Check, Extract } from "@eslint-react/ast";
+import { Check, Extract, Traverse } from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
 import type { RuleContext } from "@eslint-react/eslint";
 import { getSettingsFromContext } from "@eslint-react/shared";
 import { resolveOrigin } from "@eslint-react/var";
 import { hasProperty } from "@local/eff";
-import { DefinitionType, type Scope } from "@typescript-eslint/scope-manager";
+import { DefinitionType } from "@typescript-eslint/scope-manager";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import { findVariable, getStaticValue } from "@typescript-eslint/utils/ast-utils";
 import { getNestedIdentifiers, isTerminatingStatement } from "./helpers";
@@ -97,14 +97,21 @@ export function createSetStateResolver(context: RuleContext) {
   return { isSetStateCall, isSetStateId, isUseStateCall } as const;
 }
 
-export function isInitializedFromRef(context: RuleContext, name: string, initialScope: Scope, seen = new Set<string>()): boolean {
-  const { additionalRefHooks } = getSettingsFromContext(context);
+export function isInitializedFromRef(context: RuleContext, id: TSESTree.Identifier, refParams?: ReadonlySet<TSESTree.Node>, seen = new Set<string>()): boolean {
+  const name = id.name;
   if (seen.has(name)) return false;
   seen.add(name);
-  for (const def of findVariable(initialScope, name)?.defs ?? []) {
-    // A parameter named `ref`/`xxxRef` is treated as a ref by the same naming
-    // heuristic used for member-chain roots (ex: `function useDetect(ref) { ... ref.current ... }`)
+  const variable = findVariable(context.sourceCode.getScope(id), name);
+  for (const def of variable?.defs ?? []) {
     if (def.type === DefinitionType.Parameter) {
+      // A parameter fed a ref-derived argument at the call site of its
+      // function counts as ref-derived (ex: `updateEdges(ref.current)` where
+      // `updateEdges = (el) => ...`)
+      if (refParams?.has(def.name) === true) {
+        return true;
+      }
+      // A parameter named `ref`/`xxxRef` is treated as a ref by the same naming
+      // heuristic used for member-chain roots (ex: `function useDetect(ref) { ... ref.current ... }`)
       if (def.name.type === AST.Identifier && (def.name.name === "ref" || def.name.name.endsWith("Ref"))) {
         return true;
       }
@@ -114,60 +121,113 @@ export function isInitializedFromRef(context: RuleContext, name: string, initial
     if (node.type !== AST.VariableDeclarator) continue;
     const init = node.init == null ? null : Extract.unwrap(node.init);
     if (init == null) continue;
-    switch (true) {
-      // const identifier = anotherRef.current;
-      // const identifier = containerRef.current.offsetWidth;
-      case init.type === AST.MemberExpression: {
-        let current: TSESTree.Node = init;
-        // Walk the member chain; a `<ref-named>.current` link marks the value
-        // as read from a ref (ex: `popover.contentRef.current`)
-        while (current.type === AST.MemberExpression) {
-          const property = Extract.unwrap(current.property);
-          const object: TSESTree.Node = Extract.unwrap(current.object);
-          if (!current.computed && Check.isIdentifier(property, "current")) {
-            const sourceName = getRefSourceName(object);
-            if (sourceName === "ref" || sourceName?.endsWith("Ref") === true) {
-              return true;
-            }
-          }
-          current = object;
-        }
-        // const identifier = containerRef.foo; (rooted at a ref-named identifier)
-        if (Check.isIdentifier(current) && (current.name === "ref" || current.name.endsWith("Ref"))) {
-          return true;
-        }
-        // Fall back to tracing the identifiers used inside the chain so a
-        // ref-rooted local still counts (ex: `scroller.clientWidth` where
-        // `const scroller = scrollerRef.current`)
-        return getNestedIdentifiers(init).some((id) => isInitializedFromRef(context, id.name, context.sourceCode.getScope(id), seen));
-      }
-      // const identifier = useRef();
-      case init.type === AST.CallExpression
-        && core.isUseRefLikeCall(init, additionalRefHooks):
-        return true;
-      // Trace through arbitrary expressions so a ref read reaching the binding
-      // via an intermediate computation still counts:
-      // const dv = visible - prevVisible.current;
-      default:
-        return getNestedIdentifiers(init).some((id) => isInitializedFromRef(context, id.name, context.sourceCode.getScope(id), seen));
-    }
+    if (isExpressionFromRef(context, init, refParams, seen)) return true;
+  }
+  // A ref-derived value may also reach the binding through an assignment
+  // statement rather than the declaration initializer:
+  // let overflow = false;
+  // if (container) { overflow = container.scrollWidth > container.clientWidth; }
+  // setIsOverflow(overflow);
+  for (const reference of variable?.references ?? []) {
+    if (!reference.isWrite()) continue;
+    const writeExpr = reference.writeExpr == null ? null : Extract.unwrap(reference.writeExpr);
+    if (writeExpr == null) continue;
+    // Only a write that lexically precedes the use can flow into it
+    if (writeExpr.range[1] > id.range[0]) continue;
+    // The write must run before the use: a write inside a nested function
+    // (e.g. an event callback defined in the setup) has not executed when the
+    // use runs, so only writes in the use's own function or an ancestor count
+    const writeFn = Traverse.findParent(writeExpr, Check.isFunction);
+    if (writeFn != null && !isSelfOrAncestorFunction(writeFn, id)) continue;
+    if (isExpressionFromRef(context, writeExpr, refParams, seen)) return true;
   }
   return false;
+}
+
+function isSelfOrAncestorFunction(fn: TSESTree.Node, node: TSESTree.Node): boolean {
+  let current = Traverse.findParent(node, Check.isFunction);
+  while (current != null) {
+    if (current === fn) return true;
+    current = Traverse.findParent(current, Check.isFunction);
+  }
+  return false;
+}
+
+function isExpressionFromRef(context: RuleContext, init: TSESTree.Node, refParams: ReadonlySet<TSESTree.Node> | undefined, seen: Set<string>): boolean {
+  const { additionalRefHooks } = getSettingsFromContext(context);
+  switch (true) {
+    // const identifier = anotherRef.current;
+    // const identifier = containerRef.current.offsetWidth;
+    case init.type === AST.MemberExpression: {
+      let current: TSESTree.Node = init;
+      // Walk the member chain; a `<ref-named>.current` link marks the value
+      // as read from a ref (ex: `popover.contentRef.current`)
+      while (current.type === AST.MemberExpression) {
+        const property = Extract.unwrap(current.property);
+        const object: TSESTree.Node = Extract.unwrap(current.object);
+        if (!current.computed && Check.isIdentifier(property, "current")) {
+          const sourceName = getRefSourceName(object);
+          if (sourceName === "ref" || sourceName?.endsWith("Ref") === true) {
+            return true;
+          }
+          // A `.current` read rooted at a parameter marks the parameter as a
+          // ref-like object passed via props (ex: `anchor?.current` where
+          // `anchor` is a RefObject prop)
+          if (object.type === AST.Identifier && isParameterId(context, object)) {
+            return true;
+          }
+        }
+        current = object;
+      }
+      // const identifier = containerRef.foo; (rooted at a ref-named identifier)
+      if (Check.isIdentifier(current) && (current.name === "ref" || current.name.endsWith("Ref"))) {
+        return true;
+      }
+      // Fall back to tracing the identifiers used inside the chain so a
+      // ref-rooted local still counts (ex: `scroller.clientWidth` where
+      // `const scroller = scrollerRef.current`)
+      return getNestedIdentifiers(init).some((id) => isInitializedFromRef(context, id, refParams, seen));
+    }
+    // const identifier = useRef();
+    case init.type === AST.CallExpression
+      && core.isUseRefLikeCall(init, additionalRefHooks):
+      return true;
+    // Trace through arbitrary expressions so a ref read reaching the binding
+    // via an intermediate computation still counts:
+    // const dv = visible - prevVisible.current;
+    default:
+      return getNestedIdentifiers(init).some((id) => isInitializedFromRef(context, id, refParams, seen));
+  }
 }
 
 /**
  * Check if the setState call is using a ref value, which is safe to use in an effect (ex: `setState(ref.current.scrollTop)`)
  * @param context The rule context
  * @param node The setState call argument to check
+ * @param refParams Parameters treated as ref-derived because the call site of
+ * their function passed a ref-derived argument
  * @returns `true` if the argument value is derived from a ref
  */
-export function isArgumentUsingRefValue(context: RuleContext, node: TSESTree.CallExpressionArgument) {
+export function isArgumentUsingRefValue(context: RuleContext, node: TSESTree.CallExpressionArgument, refParams?: ReadonlySet<TSESTree.Node>) {
   const isUsingRefValue = (n: TSESTree.Node): boolean => {
     switch (n.type) {
       case AST.Identifier:
-        return isInitializedFromRef(context, n.name, context.sourceCode.getScope(n));
-      case AST.MemberExpression:
+        return isInitializedFromRef(context, n, refParams);
+      case AST.MemberExpression: {
+        // A `.current` read rooted at a parameter marks the parameter as a
+        // ref-like object passed via props (ex: `anchor?.current` where
+        // `anchor` is a RefObject prop)
+        const property = Extract.unwrap(n.property);
+        if (
+          !n.computed
+          && Check.isIdentifier(property, "current")
+          && n.object.type === AST.Identifier
+          && isParameterId(context, n.object)
+        ) {
+          return true;
+        }
         return isUsingRefValue(n.object);
+      }
       case AST.CallExpression:
         return isUsingRefValue(n.callee) || getNestedIdentifiers(n).some(isUsingRefValue);
       // setState(ref.current?.scrollTop): optional chaining wraps the chain in a ChainExpression
@@ -216,18 +276,20 @@ export function isArgumentUsingRefValue(context: RuleContext, node: TSESTree.Cal
  * is derived from a ref value (e.g. `if (prevRef.current !== value) setState(...)`).
  * @param context The ESLint rule context
  * @param node The AST node to check
+ * @param refParams Parameters treated as ref-derived because the call site of
+ * their function passed a ref-derived argument
  * @returns `true` if the node is inside a ref-gated conditional block
  */
-export function isRefGatedContext(context: RuleContext, node: TSESTree.Node): boolean {
+export function isRefGatedContext(context: RuleContext, node: TSESTree.Node, refParams?: ReadonlySet<TSESTree.Node>): boolean {
   let child: TSESTree.Node = node;
   let current: TSESTree.Node | undefined = node.parent;
   while (current != null) {
     if (Check.isFunction(current)) break;
     if (current.type === AST.IfStatement) {
-      if (isRefInExpression(context, current.test)) return true;
+      if (isRefInExpression(context, current.test, refParams)) return true;
     }
     if (current.type === AST.ConditionalExpression) {
-      if (isRefInExpression(context, current.test)) return true;
+      if (isRefInExpression(context, current.test, refParams)) return true;
     }
     if (current.type === AST.BlockStatement) {
       // A preceding early-return guard gates the rest of the block as well:
@@ -236,7 +298,7 @@ export function isRefGatedContext(context: RuleContext, node: TSESTree.Node): bo
       const index = current.body.findIndex((statement) => statement === child);
       for (const statement of current.body.slice(0, Math.max(0, index))) {
         if (statement.type !== AST.IfStatement) continue;
-        if (!isRefInExpression(context, statement.test)) continue;
+        if (!isRefInExpression(context, statement.test, refParams)) continue;
         if (isTerminatingStatement(statement.consequent)) return true;
       }
     }
@@ -246,8 +308,17 @@ export function isRefGatedContext(context: RuleContext, node: TSESTree.Node): bo
   return false;
 }
 
-function isRefInExpression(context: RuleContext, node: TSESTree.Node): boolean {
-  return getNestedIdentifiers(node).some((id) => isInitializedFromRef(context, id.name, context.sourceCode.getScope(id)));
+function isRefInExpression(context: RuleContext, node: TSESTree.Node, refParams?: ReadonlySet<TSESTree.Node>): boolean {
+  return getNestedIdentifiers(node).some((id) => isInitializedFromRef(context, id, refParams));
+}
+
+/**
+ * Check if an identifier resolves to a function parameter (ex: a prop of the
+ * enclosing component).
+ */
+function isParameterId(context: RuleContext, id: TSESTree.Identifier): boolean {
+  const variable = findVariable(context.sourceCode.getScope(id), id);
+  return variable?.defs.some((def) => def.type === DefinitionType.Parameter) ?? false;
 }
 
 /**

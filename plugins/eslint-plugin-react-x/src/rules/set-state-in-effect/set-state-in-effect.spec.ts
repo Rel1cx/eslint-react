@@ -1686,6 +1686,239 @@ ruleTester.run(RULE_NAME, rule, {
         { data: { name: "setData" }, messageId: "default" },
       ],
     },
+    // Gap B boundary: a write that lexically follows the use cannot flow into
+    // it and must stay reported.
+    {
+      name: "setState with a variable written from a ref measurement only after the use",
+      code: tsx`
+        import { useEffect, useRef, useState } from "react";
+
+        function Component() {
+          const containerRef = useRef(null);
+          const [width, setWidth] = useState(0);
+          useEffect(() => {
+            let width = 0;
+            setWidth(width);
+            width = containerRef.current.offsetWidth;
+          }, []);
+          return null;
+        }
+      `,
+      errors: [
+        { data: { name: "setWidth" }, messageId: "default" },
+      ],
+    },
+    // A write inside a nested callback has not executed when the setup runs
+    // synchronously, so it cannot flow into the setState call even though it
+    // lexically precedes it; only writes in the use's own function or an
+    // ancestor function count.
+    {
+      name: "setState with a variable written from a ref measurement inside a nested callback",
+      code: tsx`
+        import { useEffect, useRef, useState } from "react";
+
+        function Component() {
+          const containerRef = useRef(null);
+          const [width, setWidth] = useState(0);
+          useEffect(() => {
+            let width = 0;
+            const measure = () => {
+              width = containerRef.current.offsetWidth;
+            };
+            window.addEventListener("resize", measure);
+            setWidth(width);
+          }, []);
+          return null;
+        }
+      `,
+      errors: [
+        { data: { name: "setWidth" }, messageId: "default" },
+      ],
+    },
+    // A self-referencing assignment is not ref-derived; the recursion into its
+    // own identifiers terminates via the `seen` set instead of looping.
+    {
+      name: "setState with a variable reassigned from itself",
+      code: tsx`
+        import { useEffect, useRef, useState } from "react";
+
+        function Component() {
+          const containerRef = useRef(null);
+          const [width, setWidth] = useState(0);
+          useEffect(() => {
+            let width = 0;
+            width = width + 1;
+            setWidth(width);
+          }, []);
+          return null;
+        }
+      `,
+      errors: [
+        { data: { name: "setWidth" }, messageId: "default" },
+      ],
+    },
+    // Boundary: these must stay reported after the tracking gaps are closed —
+    // a helper fed a non-ref argument, and a variable reassigned from a
+    // non-ref source, are not ref-derived.
+    {
+      name: "setState in a helper whose parameter receives a non-ref argument",
+      code: tsx`
+        import { useEffect, useState } from "react";
+
+        function Component() {
+          const [atTop, setAtTop] = useState(true);
+          const updateEdges = (el) => {
+            setAtTop(el.scrollTop === 0);
+          };
+          useEffect(() => {
+            updateEdges(document.body);
+          }, []);
+          return null;
+        }
+      `,
+      errors: [
+        { data: { name: "setAtTop" }, messageId: "default" },
+      ],
+    },
+    {
+      name: "setState with a variable reassigned from a non-ref value",
+      code: tsx`
+        import { useEffect, useState } from "react";
+
+        function Component({ value }) {
+          const [width, setWidth] = useState(0);
+          useEffect(() => {
+            let width = 0;
+            width = value;
+            setWidth(width);
+          }, [value]);
+          return null;
+        }
+      `,
+      errors: [
+        { data: { name: "setWidth" }, messageId: "default" },
+      ],
+    },
+    // Ref-fed parameter tracking matches parameter definitions by node
+    // identity, so a block-scoped shadow of the parameter name is not
+    // treated as ref-derived.
+    {
+      name: "setState in a helper where the parameter name is shadowed by a plain local",
+      code: tsx`
+        import { useEffect, useRef, useState } from "react";
+
+        function Component() {
+          const scrollRef = useRef(null);
+          const [width, setWidth] = useState(0);
+          const measure = (el) => {
+            let out = 0;
+            {
+              const el = { offsetWidth: 1 };
+              out = el.offsetWidth;
+            }
+            setWidth(out);
+          };
+          useEffect(() => {
+            measure(scrollRef.current);
+          }, []);
+          return null;
+        }
+      `,
+      errors: [
+        { data: { name: "setWidth" }, messageId: "default" },
+      ],
+    },
+    // Parameter treatment is per call site: the same helper fed a ref-derived
+    // argument in one call and a plain argument in another is exempt only for
+    // the ref-derived call.
+    {
+      name: "setState in a helper called with both ref-derived and plain arguments",
+      code: tsx`
+        import { useEffect, useRef, useState } from "react";
+
+        function Component() {
+          const scrollRef = useRef(null);
+          const [atTop, setAtTop] = useState(true);
+          const updateEdges = (el) => {
+            setAtTop(el.scrollTop === 0);
+          };
+          useEffect(() => {
+            updateEdges(scrollRef.current);
+            updateEdges(document.body);
+          }, []);
+          return null;
+        }
+      `,
+      errors: [
+        { data: { name: "setAtTop" }, messageId: "default" },
+      ],
+    },
+    // One-hop boundary: a helper wrapped in useCallback resolves to the hook
+    // call, whose parameters are not the callback's parameters, so call-site
+    // arguments are not mapped.
+    {
+      name: "setState in a useCallback-wrapped helper fed ref.current",
+      code: tsx`
+        import { useCallback, useEffect, useRef, useState } from "react";
+
+        function Component() {
+          const scrollRef = useRef(null);
+          const [width, setWidth] = useState(0);
+          const measure = useCallback((el) => {
+            setWidth(el.offsetWidth);
+          }, []);
+          useEffect(() => {
+            measure(scrollRef.current);
+          }, []);
+          return null;
+        }
+      `,
+      errors: [
+        { data: { name: "setWidth" }, messageId: "default" },
+      ],
+    },
+    // The param-rooted `.current` heuristic applies to parameters only; a
+    // plain local object with a `.current` property is not a ref.
+    {
+      name: "setState with .current on a plain local object",
+      code: tsx`
+        import { useEffect, useState } from "react";
+
+        function Component() {
+          const [page, setPage] = useState(0);
+          useEffect(() => {
+            const pagination = { current: 1 };
+            setPage(pagination.current);
+          }, []);
+          return null;
+        }
+      `,
+      errors: [
+        { data: { name: "setPage" }, messageId: "default" },
+      ],
+    },
+    // Scope boundary: a param-rooted `.current` read in a guard test does not
+    // gate the block for plain arguments; the heuristic applies to the
+    // setState argument value only.
+    {
+      name: "setState with a plain argument gated by a param-rooted .current test",
+      code: tsx`
+        import { useEffect, useState } from "react";
+
+        function Popper({ anchor }) {
+          const [data, setData] = useState(0);
+          useEffect(() => {
+            if (anchor.current) {
+              setData(1);
+            }
+          }, [anchor]);
+          return null;
+        }
+      `,
+      errors: [
+        { data: { name: "setData" }, messageId: "default" },
+      ],
+    },
   ],
   valid: [
     {
@@ -3183,6 +3416,269 @@ ruleTester.run(RULE_NAME, rule, {
         function Component() {
           const [data, setData] = useState(0);
           useEffect(() => {}, [setData(1)]);
+          return null;
+        }
+      `,
+    },
+    // A ref-derived value that reaches the setter through an assignment
+    // statement (rather than the declaration initializer) keeps its origin.
+    // (zakodium-oss/react-science useCheckOverflow)
+    {
+      name: "setState with a variable reassigned from a ref measurement in a branch",
+      code: tsx`
+        import { useEffect, useRef, useState } from "react";
+
+        function useCheckOverflow() {
+          const containerRef = useRef(null);
+          const [isOverflow, setIsOverflow] = useState(false);
+          useEffect(() => {
+            const container = containerRef.current;
+            let overflow = false;
+            if (container != null) {
+              overflow = container.scrollWidth > container.clientWidth;
+            }
+            setIsOverflow(overflow);
+          }, []);
+        }
+      `,
+    },
+    {
+      name: "setState with a variable reassigned from ref.current",
+      code: tsx`
+        import { useEffect, useRef, useState } from "react";
+
+        function Component() {
+          const containerRef = useRef(null);
+          const [width, setWidth] = useState(0);
+          useEffect(() => {
+            let width = 0;
+            width = containerRef.current.offsetWidth;
+            setWidth(width);
+          }, []);
+          return null;
+        }
+      `,
+    },
+    // A write in an enclosing function (here the effect setup, enclosing the
+    // local `setup`) runs before the nested function is invoked, so the value
+    // read inside it is genuinely ref-derived.
+    {
+      name: "setState with a variable written from a ref measurement in an enclosing function",
+      code: tsx`
+        import { useEffect, useRef, useState } from "react";
+
+        function Component() {
+          const containerRef = useRef(null);
+          const [width, setWidth] = useState(0);
+          let width = 0;
+          useEffect(() => {
+            width = containerRef.current.offsetWidth;
+            const setup = () => setWidth(width);
+            setup();
+          }, []);
+          return null;
+        }
+      `,
+    },
+    // Assignment tracking uses OR semantics over preceding writes: any
+    // ref-derived write exempts the use even when a later plain write
+    // overwrites it. Lenient by design — the exemption only silences reports.
+    {
+      name: "setState with a ref-derived write followed by a plain write",
+      code: tsx`
+        import { useEffect, useRef, useState } from "react";
+
+        function Component() {
+          const containerRef = useRef(null);
+          const [width, setWidth] = useState(0);
+          useEffect(() => {
+            let width = 0;
+            width = containerRef.current.offsetWidth;
+            width = 42;
+            setWidth(width);
+          }, []);
+          return null;
+        }
+      `,
+    },
+    // A helper invoked from the setup whose call-site argument is ref-derived
+    // has its corresponding parameter treated as ref-derived, regardless of
+    // the parameter name. (Forthtilliath/forthtilliath-packages scroll-shadow:
+    // updateEdges(el))
+    {
+      name: "setState in a helper whose parameter receives ref.current at the call site",
+      code: tsx`
+        import { useEffect, useRef, useState } from "react";
+
+        function Component() {
+          const scrollRef = useRef(null);
+          const [atTop, setAtTop] = useState(true);
+          const updateEdges = (el) => {
+            setAtTop(el.scrollTop === 0);
+          };
+          useEffect(() => {
+            updateEdges(scrollRef.current);
+          }, []);
+          return null;
+        }
+      `,
+    },
+    {
+      name: "setState in a function declaration helper fed ref.current at the call site",
+      code: tsx`
+        import { useEffect, useRef, useState } from "react";
+
+        function Component() {
+          const scrollRef = useRef(null);
+          const [width, setWidth] = useState(0);
+          function measure(node) {
+            setWidth(node.offsetWidth);
+          }
+          useEffect(() => {
+            measure(scrollRef.current);
+          }, []);
+          return null;
+        }
+      `,
+    },
+    {
+      name: "setState in a helper fed a ref-derived local variable at the call site",
+      code: tsx`
+        import { useEffect, useRef, useState } from "react";
+
+        function Component() {
+          const scrollRef = useRef(null);
+          const [atTop, setAtTop] = useState(true);
+          const updateEdges = (el) => {
+            setAtTop(el.scrollTop === 0);
+          };
+          useEffect(() => {
+            const el = scrollRef.current;
+            updateEdges(el);
+          }, []);
+          return null;
+        }
+      `,
+    },
+    {
+      name: "setState in a helper with mixed ref-derived and plain arguments",
+      code: tsx`
+        import { useEffect, useRef, useState } from "react";
+
+        function Component() {
+          const scrollRef = useRef(null);
+          const [width, setWidth] = useState(0);
+          const update = (el, extra) => {
+            setWidth(el.offsetWidth + extra);
+          };
+          useEffect(() => {
+            update(scrollRef.current, 10);
+          }, []);
+          return null;
+        }
+      `,
+    },
+    // A default-value parameter fed a ref-derived argument at the call site is
+    // ref-derived as well.
+    {
+      name: "setState in a helper with a default-value parameter fed ref.current",
+      code: tsx`
+        import { useEffect, useRef, useState } from "react";
+
+        function Component() {
+          const scrollRef = useRef(null);
+          const [width, setWidth] = useState(0);
+          const measure = (el = document.body) => {
+            setWidth(el.offsetWidth);
+          };
+          useEffect(() => {
+            measure(scrollRef.current);
+          }, []);
+          return null;
+        }
+      `,
+    },
+    // The call-site-fed parameter exemption also covers ref-gated guards on
+    // the parameter inside the helper.
+    {
+      name: "setState behind a ref-gated guard on a ref-fed parameter inside a helper",
+      code: tsx`
+        import { useEffect, useRef, useState } from "react";
+
+        function Component() {
+          const scrollRef = useRef(null);
+          const [width, setWidth] = useState(0);
+          const measure = (el) => {
+            if (el == null) return;
+            setWidth(el.offsetWidth);
+          };
+          useEffect(() => {
+            measure(scrollRef.current);
+          }, []);
+          return null;
+        }
+      `,
+    },
+    // A `.current` read rooted at a parameter marks the parameter as a
+    // ref-like object passed via props, regardless of its name.
+    // (Frontify/fondue Popper: anchor?.current)
+    {
+      name: "setState with prop.current where the prop is not ref-named",
+      code: tsx`
+        import { useEffect, useState } from "react";
+
+        function Popper({ anchor }) {
+          const [referenceElement, setReferenceElement] = useState(null);
+          useEffect(() => {
+            setReferenceElement(anchor?.current);
+          }, [anchor]);
+          return null;
+        }
+      `,
+    },
+    {
+      name: "setState with a local variable derived from a param-rooted .current",
+      code: tsx`
+        import { useEffect, useState } from "react";
+
+        function Popper({ anchor }) {
+          const [width, setWidth] = useState(0);
+          useEffect(() => {
+            const el = anchor.current;
+            setWidth(el.offsetWidth);
+          }, [anchor]);
+          return null;
+        }
+      `,
+    },
+    {
+      name: "setState with a deeper chain on a param-rooted .current",
+      code: tsx`
+        import { useEffect, useState } from "react";
+
+        function Popper({ anchor }) {
+          const [width, setWidth] = useState(0);
+          useEffect(() => {
+            setWidth(anchor.current.offsetWidth);
+          }, [anchor]);
+          return null;
+        }
+      `,
+    },
+    // Accepted tradeoff of the param-rooted `.current` heuristic: a prop with
+    // a non-ref `.current` property is exempt as well. The exemption only
+    // silences reports, and RefObject props are far more common than plain
+    // objects with a `.current` property.
+    {
+      name: "setState with a prop whose .current property is not a ref",
+      code: tsx`
+        import { useEffect, useState } from "react";
+
+        function Pager({ pagination }) {
+          const [page, setPage] = useState(0);
+          useEffect(() => {
+            setPage(pagination.current);
+          }, [pagination]);
           return null;
         }
       `,
