@@ -218,7 +218,7 @@ importers:
         version: 0.87.4
       '@effect/platform-node':
         specifier: ^4.0.3
-        version: 4.0.3(effect@4.0.2)(redis@6.3.0)
+        version: 4.0.3(effect@4.0.3)(redis@6.3.0)
       '@local/configs':
         specifier: workspace:*
         version: link:.pkgs/configs
@@ -262,8 +262,8 @@ importers:
         specifier: ^0.57.4
         version: 0.57.4
       effect:
-        specifier: ^4.0.2
-        version: 4.0.2
+        specifier: ^4.0.3
+        version: 4.0.3
       eslint:
         specifier: ^10.12.0
         version: 10.12.0(jiti@2.7.0)(supports-color@7.2.0)
@@ -380,8 +380,8 @@ importers:
         specifier: ^1.0.30
         version: 1.0.30(typescript@6.0.3)
       tsl-dx:
-        specifier: ^0.14.0
-        version: 0.14.0(tsl@1.0.30(typescript@6.0.3))(typescript@6.0.3)
+        specifier: ^0.14.1
+        version: 0.14.1(tsl@1.0.30(typescript@6.0.3))(typescript@6.0.3)
       typedoc:
         specifier: ^0.28.20
         version: 0.28.20(typescript@6.0.3)
@@ -568,8 +568,8 @@ importers:
         specifier: ^1.7.2
         version: 1.7.2
       effect:
-        specifier: ^4.0.2
-        version: 4.0.2
+        specifier: ^4.0.3
+        version: 4.0.3
       eslint:
         specifier: ^10.12.0
         version: 10.12.0(jiti@2.7.0)(supports-color@9.4.0)
@@ -634,8 +634,8 @@ importers:
         specifier: ^1.0.30
         version: 1.0.30(typescript@6.0.3)
       tsl-dx:
-        specifier: ^0.14.0
-        version: 0.14.0(tsl@1.0.30(typescript@6.0.3))(typescript@6.0.3)
+        specifier: ^0.14.1
+        version: 0.14.1(tsl@1.0.30(typescript@6.0.3))(typescript@6.0.3)
       twoslash:
         specifier: ^0.3.9
         version: 0.3.9(supports-color@9.4.0)(typescript@6.0.3)
@@ -1721,8 +1721,8 @@ importers:
         specifier: ^1.0.30
         version: 1.0.30(typescript@6.0.3)
       tsl-dx:
-        specifier: ^0.14.0
-        version: 0.14.0(tsl@1.0.30(typescript@6.0.3))(typescript@6.0.3)
+        specifier: ^0.14.1
+        version: 0.14.1(tsl@1.0.30(typescript@6.0.3))(typescript@6.0.3)
       typescript:
         specifier: 6.0.3
         version: 6.0.3
@@ -4809,8 +4809,8 @@ packages:
   eastasianwidth@0.2.0:
     resolution: {integrity: sha512-I88TYZWc9XiYHRQ4/3c5rjjfgkjhLyW2luGIheGERbNQ6OY7yTybanSpDXZa8y7VUP9YmDcYa+eyq4ca7iLqWA==}
 
-  effect@4.0.2:
-    resolution: {integrity: sha512-YeYnLqSFrL4+tCOXRrfNP03w8FILoF/wDl+ukraJAGzXrjcS383W7LAAvGBbLatEyktmLxRq+9xJinx7QzXW5A==}
+  effect@4.0.3:
+    resolution: {integrity: sha512-LoWn/Uwwx0JjHSDmBAAahx8sB+klzM6vsZovnbYowBNw6B4QScJLRLBByO61plvNiycx7HPN8FnsWUCu0eXW5w==}
 
   ejs@5.0.1:
     resolution: {integrity: sha512-COqBPFMxuPTPspXl2DkVYaDS3HtrD1GpzOGkNTJ1IYkifq/r9h8SVEFrjA3D9/VJGOEoMQcrlhpntcSUrM8k6A==}
@@ -7096,8 +7096,8 @@ packages:
       unrun:
         optional: true
 
-  tsl-dx@0.14.0:
-    resolution: {integrity: sha512-eMxoL2mmPjajy61356vNG48jkJ2OXxdP1lrUbIlZLtpzNlwK8sbtuxk/IRN1XThHhgm83qHUmEyAd7fcGT4iDA==}
+  tsl-dx@0.14.1:
+    resolution: {integrity: sha512-GZu0i9LD65jLnAWCAacoMW0YB4xGGIkxrRdsFWDjx7AlGpBvZGUVrqJ2uVCrTYURcW6BAhAk+PE6uy3m9EgFvw==}
     peerDependencies:
       tsl: ^1.0.30
       typescript: 6.0.3
@@ -7806,19 +7806,19 @@ snapshots:
 
   '@effect/language-service@0.87.4': {}
 
-  '@effect/platform-node-shared@4.0.3(effect@4.0.2)':
+  '@effect/platform-node-shared@4.0.3(effect@4.0.3)':
     dependencies:
       '@types/ws': 8.18.2
-      effect: 4.0.2
+      effect: 4.0.3
       ws: 8.22.0
     transitivePeerDependencies:
       - bufferutil
       - utf-8-validate
 
-  '@effect/platform-node@4.0.3(effect@4.0.2)(redis@6.3.0)':
+  '@effect/platform-node@4.0.3(effect@4.0.3)(redis@6.3.0)':
     dependencies:
-      '@effect/platform-node-shared': 4.0.3(effect@4.0.2)
-      effect: 4.0.2
+      '@effect/platform-node-shared': 4.0.3(effect@4.0.3)
+      effect: 4.0.3
       redis: 6.3.0
       undici: 8.11.2
     transitivePeerDependencies:
@@ -10476,7 +10476,7 @@ snapshots:
 
   eastasianwidth@0.2.0: {}
 
-  effect@4.0.2: {}
+  effect@4.0.3: {}
 
   ejs@5.0.1: {}
 
@@ -13598,7 +13598,7 @@ snapshots:
       - oxc-resolver
       - vue-tsc
 
-  tsl-dx@0.14.0(tsl@1.0.30(typescript@6.0.3))(typescript@6.0.3):
+  tsl-dx@0.14.1(tsl@1.0.30(typescript@6.0.3))(typescript@6.0.3):
     dependencies:
       ts-pattern: 5.9.0
       tsl: 1.0.30(typescript@6.0.3)

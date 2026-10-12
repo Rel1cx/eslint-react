@@ -36,7 +36,7 @@
     "bsky-react-post": "^0.1.7",
     "clsx": "^2.1.1",
     "dedent": "^1.7.2",
-    "effect": "^4.0.2",
+    "effect": "^4.0.3",
     "eslint": "^10.12.0",
     "eslint-plugin-react-hooks": "^7.1.1",
     "eslint-plugin-react-refresh": "^0.5.7",
@@ -58,7 +58,7 @@
     "tailwindcss": "^4.3.3",
     "tailwindcss-animate": "^1.0.7",
     "tsl": "^1.0.30",
-    "tsl-dx": "^0.14.0",
+    "tsl-dx": "^0.14.1",
     "twoslash": "^0.3.9",
     "typescript": "6.0.3",
     "typescript-eslint": "^8.71.1"
