@@ -4,6 +4,7 @@ export const projects = [
   { owner: "argoproj", repo: "argo-cd" },
   { owner: "clash-verge-rev", repo: "clash-verge-rev" },
   { owner: "clientIO", repo: "joint" },
+  { owner: "crowi", repo: "crowi" },
   { owner: "DimensionDev", repo: "Maskbook" },
   { owner: "electric-sql", repo: "electric" },
   { owner: "electric-sql", repo: "pglite" },
