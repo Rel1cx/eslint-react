@@ -1919,6 +1919,78 @@ ruleTester.run(RULE_NAME, rule, {
         { data: { name: "setData" }, messageId: "default" },
       ],
     },
+    // Lexical-ordering boundary for nested functions: a write in the setup
+    // that runs before the nested function is invoked but lexically follows
+    // the use inside the nested body is not traced, so this stays reported.
+    {
+      name: "setState with a write that runs before the call but lexically follows the use in a nested function",
+      code: tsx`
+        import { useEffect, useRef, useState } from "react";
+
+        function Component() {
+          const containerRef = useRef(null);
+          const [width, setWidth] = useState(0);
+          let width = 0;
+          useEffect(() => {
+            const setup = () => setWidth(width);
+            width = containerRef.current.offsetWidth;
+            setup();
+          }, []);
+          return null;
+        }
+      `,
+      errors: [
+        { data: { name: "setWidth" }, messageId: "default" },
+      ],
+    },
+    // A write inside a nested function is excluded even when that function is
+    // invoked immediately before the use; the write tracing does not account
+    // for immediate invocation.
+    {
+      name: "setState with a variable written from a ref measurement inside an IIFE",
+      code: tsx`
+        import { useEffect, useRef, useState } from "react";
+
+        function Component() {
+          const containerRef = useRef(null);
+          const [width, setWidth] = useState(0);
+          useEffect(() => {
+            let width = 0;
+            (() => {
+              width = containerRef.current.offsetWidth;
+            })();
+            setWidth(width);
+          }, []);
+          return null;
+        }
+      `,
+      errors: [
+        { data: { name: "setWidth" }, messageId: "default" },
+      ],
+    },
+    // Mutually-referencing assignments are not ref-derived; the recursion
+    // terminates via the `seen` set instead of looping.
+    {
+      name: "setState with mutually-referencing assignments",
+      code: tsx`
+        import { useEffect, useState } from "react";
+
+        function Component() {
+          const [data, setData] = useState(0);
+          useEffect(() => {
+            let a = 0;
+            let b = 0;
+            a = b;
+            b = a;
+            setData(a);
+          }, []);
+          return null;
+        }
+      `,
+      errors: [
+        { data: { name: "setData" }, messageId: "default" },
+      ],
+    },
   ],
   valid: [
     {
@@ -3679,6 +3751,68 @@ ruleTester.run(RULE_NAME, rule, {
           useEffect(() => {
             setPage(pagination.current);
           }, [pagination]);
+          return null;
+        }
+      `,
+    },
+    // Write tracing applies to parameters as well: a parameter reassigned
+    // from ref.current before the use is ref-derived regardless of the
+    // call-site argument.
+    {
+      name: "setState in a helper whose parameter is reassigned from ref.current",
+      code: tsx`
+        import { useEffect, useRef, useState } from "react";
+
+        function Component() {
+          const scrollRef = useRef(null);
+          const [width, setWidth] = useState(0);
+          const measure = (el) => {
+            el = scrollRef.current;
+            setWidth(el.offsetWidth);
+          };
+          useEffect(() => {
+            measure(document.body);
+          }, []);
+          return null;
+        }
+      `,
+    },
+    // Assignment tracing composes with the param-rooted `.current` heuristic:
+    // a local assigned from a ref-like prop before the use is ref-derived.
+    {
+      name: "setState with a local variable assigned from a param-rooted .current",
+      code: tsx`
+        import { useEffect, useState } from "react";
+
+        function Popper({ anchor }) {
+          const [width, setWidth] = useState(0);
+          useEffect(() => {
+            let el = null;
+            el = anchor.current;
+            setWidth(el.offsetWidth);
+          }, [anchor]);
+          return null;
+        }
+      `,
+    },
+    // Accepted tradeoff of the param-rooted `.current` heuristic, one level
+    // up from the prop case: a helper parameter read via `.current` is exempt
+    // even when the call-site argument is a plain object — the per-call-site
+    // refParams gating does not apply to `.current` reads.
+    {
+      name: "setState in a helper fed a plain object whose parameter is read via .current",
+      code: tsx`
+        import { useEffect, useState } from "react";
+
+        function Component() {
+          const [atTop, setAtTop] = useState(true);
+          const config = { current: 1 };
+          const updateEdges = (el) => {
+            setAtTop(el.current === 0);
+          };
+          useEffect(() => {
+            updateEdges(config);
+          }, []);
           return null;
         }
       `,
