@@ -44,17 +44,15 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         const [props] = component.node.params;
         if (props == null) continue;
 
+        const tsNode = services.esTreeNodeToTSNodeMap.get(props);
+        const declaredProps = checker.getTypeAtLocation(tsNode).getProperties();
+
         const usedPropKeys = new Set<string>();
         const couldFindAllUsedPropKeys = collectUsedPropKeysOfParameter(
           context,
           usedPropKeys,
           props,
         );
-        // Unable to determine all used prop keys — bail out to avoid false positives
-        if (!couldFindAllUsedPropKeys) continue;
-
-        const tsNode = services.esTreeNodeToTSNodeMap.get(props);
-        const declaredProps = checker.getTypeAtLocation(tsNode).getProperties();
 
         for (const declaredProp of declaredProps) {
           const declaration = declaredProp.getDeclarations()?.[0];
@@ -64,7 +62,10 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
             totalDeclaredProps.set(declaration, declaredProp);
           }
 
-          if (usedPropKeys.has(declaredProp.name)) {
+          // When not all used prop keys can be determined, treat every prop declared by
+          // this component as used — otherwise a declaration shared with a component that
+          // can be fully analyzed would still be reported (conservative bailout)
+          if (!couldFindAllUsedPropKeys || usedPropKeys.has(declaredProp.name)) {
             totalUsedDeclarations.add(declaration);
           }
         }

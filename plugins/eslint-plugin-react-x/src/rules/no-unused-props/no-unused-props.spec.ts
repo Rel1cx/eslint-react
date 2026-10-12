@@ -579,6 +579,214 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
         messageId: "default",
       }],
     },
+    {
+      // Boundary: optional chaining member access marks the prop as used
+      code: tsx`
+        function Component(props: { abc: string; hello: string; }) {
+          return <div>{props?.abc}</div>;
+        }
+      `,
+      errors: [{
+        column: 42,
+        data: {
+          name: "hello",
+        },
+        endColumn: 47,
+        endLine: 1,
+        line: 1,
+        messageId: "default",
+      }],
+    },
+    {
+      // Boundary: non-null assertion wrapper is unwrapped, the prop access counts as usage
+      code: tsx`
+        function Component(props: { abc: string; hello: string; }) {
+          return <div>{props!.abc}</div>;
+        }
+      `,
+      errors: [{
+        column: 42,
+        data: {
+          name: "hello",
+        },
+        endColumn: 47,
+        endLine: 1,
+        line: 1,
+        messageId: "default",
+      }],
+    },
+    {
+      // Boundary: satisfies expression wrapper is unwrapped, the prop access counts as usage
+      code: tsx`
+        function Component(props: { abc: string; hello: string; }) {
+          return <div>{(props satisfies { abc: string; hello: string; }).abc}</div>;
+        }
+      `,
+      errors: [{
+        column: 42,
+        data: {
+          name: "hello",
+        },
+        endColumn: 47,
+        endLine: 1,
+        line: 1,
+        messageId: "default",
+      }],
+    },
+    {
+      // Boundary: destructuring with a default value still counts as usage of that prop
+      code: tsx`
+        function Component({ abc = "a" }: { abc: string; hello: string; }) {
+          return <div>{abc}</div>;
+        }
+      `,
+      errors: [{
+        column: 50,
+        data: {
+          name: "hello",
+        },
+        endColumn: 55,
+        endLine: 1,
+        line: 1,
+        messageId: "default",
+      }],
+    },
+    {
+      // Boundary: later destructuring through a type assertion on the props object
+      code: tsx`
+        interface Props {
+          abc: string;
+          hello: string;
+        }
+
+        function Component(props: Props) {
+          const { abc } = props as Props;
+          return <div>{abc}</div>;
+        }
+      `,
+      errors: [{
+        column: 3,
+        data: {
+          name: "hello",
+        },
+        endColumn: 8,
+        endLine: 3,
+        line: 3,
+        messageId: "default",
+      }],
+    },
+    {
+      // destructured parameter with a default value is unwrapped and tracked
+      code: tsx`
+        function Component({ abc }: { abc: string; hello: string; } = { abc: "", hello: "" }) {
+          return null;
+        }
+      `,
+      errors: [{
+        data: {
+          name: "hello",
+        },
+        messageId: "default",
+      }],
+    },
+    {
+      // props parameter with a default value is unwrapped and tracked
+      code: tsx`
+        function Component(props: { abc: string; hello: string; } = { abc: "", hello: "" }) {
+          return <div>{props.abc}</div>;
+        }
+      `,
+      errors: [{
+        data: {
+          name: "hello",
+        },
+        messageId: "default",
+      }],
+    },
+    {
+      // props aliased to another variable is tracked through the alias
+      code: tsx`
+        function Component(props: { abc: string; hello: string; }) {
+          const p = props;
+          return <div>{p.abc}</div>;
+        }
+      `,
+      errors: [{
+        column: 42,
+        data: {
+          name: "hello",
+        },
+        endColumn: 47,
+        endLine: 1,
+        line: 1,
+        messageId: "default",
+      }],
+    },
+    {
+      // template literal without substitutions is a static key and counts as usage
+      code: tsx`
+        function Component(props: { abc: string; hello: string; }) {
+          return <div>{props[\`abc\`]}</div>;
+        }
+      `,
+      errors: [{
+        column: 42,
+        data: {
+          name: "hello",
+        },
+        endColumn: 47,
+        endLine: 1,
+        line: 1,
+        messageId: "default",
+      }],
+    },
+    {
+      // Boundary: two components sharing the same props declaration produce a single report
+      // per unused prop (declarations are deduplicated by declaration node, not by symbol)
+      code: tsx`
+        interface Props {
+          foo: string;
+          hello: string;
+        }
+
+        function Component1({ foo }: Props) {
+          return <div>{foo}</div>;
+        }
+
+        function Component2({ foo }: Props) {
+          return <div>{foo}</div>;
+        }
+      `,
+      errors: [{
+        column: 3,
+        data: {
+          name: "hello",
+        },
+        endColumn: 8,
+        endLine: 3,
+        line: 3,
+        messageId: "default",
+      }],
+    },
+    {
+      // Boundary: a non-computed member property named like the parameter is not a
+      // reference to it, so the parameter has no tracked uses and the prop is reported
+      code: tsx`
+        function Component(props: { foo: string }) {
+          return <div>{wrapper.props}</div>;
+        }
+      `,
+      errors: [{
+        column: 29,
+        data: {
+          name: "foo",
+        },
+        endColumn: 32,
+        endLine: 1,
+        line: 1,
+        messageId: "default",
+      }],
+    },
     // TODO: Should we report unused ref prop?
     // {
     //   // expect no false negatives when using ref as a prop
@@ -995,6 +1203,86 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
         const key = "foo";
         const { [key]: value } = props;
         return <div>{value}</div>;
+      }
+    `,
+    // Boundary: props aliased to another variable is tracked through the alias,
+    // so using the alias's property counts as usage of the prop
+    tsx`
+      function Component(props: { foo: string }) {
+        const p = props;
+        return <div>{p.foo}</div>;
+      }
+    `,
+    // Boundary: props alias used in an untrackable way causes a conservative bailout
+    // (collectUsedPropKeysOfReference on the alias's reference returns false)
+    tsx`
+      import { anyFunction } from "./anyFunction";
+
+      function Component(props: { foo: string }) {
+        const p = props;
+        anyFunction(p);
+        return null;
+      }
+    `,
+    // Boundary: template literal without substitutions is a static key and counts as usage
+    tsx`
+      function Component(props: { foo: string }) {
+        return <div>{props[\`foo\`]}</div>;
+      }
+    `,
+    // Boundary: numeric literal destructuring key is not a known prop key
+    // (getKeyOfExpression returns null, rule bails out)
+    tsx`
+      function Component(props: { foo: string }) {
+        const { 0: zero } = props;
+        return <div>{zero}</div>;
+      }
+    `,
+    // Boundary: props referenced as a computed member key (not the object) of a member
+    // expression (parent.object !== valueNode, rule bails out)
+    tsx`
+      function Component(props: { foo: string }) {
+        return <div>{wrapper[props]}</div>;
+      }
+    `,
+    // Boundary: parameter with a default value (AssignmentPattern) is unwrapped,
+    // so member access on it counts as usage
+    tsx`
+      function Component(props: { foo: string } = { foo: "" }) {
+        return <div>{props.foo}</div>;
+      }
+    `,
+    // Boundary: array pattern parameter is not an Identifier or ObjectPattern,
+    // rule bails out without crashing
+    tsx`
+      function Component([foo]: [string]) {
+        return <div>{foo}</div>;
+      }
+    `,
+    // Boundary: component without parameters has no props to check
+    tsx`
+      function Component() {
+        return <div />;
+      }
+    `,
+    // Boundary: a component whose used keys cannot be fully determined marks all of its
+    // declared props as used (conservative bailout), so a declaration shared with a fully
+    // analyzable component is not reported either
+    tsx`
+      import { anyFunction } from "./anyFunction";
+
+      interface Props {
+        foo: string;
+        hello: string;
+      }
+
+      function Component1(props: Props) {
+        anyFunction(props);
+        return null;
+      }
+
+      function Component2(props: Props) {
+        return <div>{props.foo}</div>;
       }
     `,
   ],
