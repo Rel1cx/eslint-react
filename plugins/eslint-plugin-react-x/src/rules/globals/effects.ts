@@ -2,8 +2,7 @@ import { Check, type TSESTreeFunction } from "@eslint-react/ast";
 import type { RuleContext } from "@eslint-react/eslint";
 import type { TSESTree } from "@typescript-eslint/types";
 import type { CallEdgeFact, GlobalsFacts } from "./collect";
-import { resolveToFunction } from "./helpers";
-import { isGlobalVariable, resolveGlobalOrigin } from "./origins";
+import { isGlobalVariable, resolveGlobalOrigin, resolveToFunction } from "./origins";
 
 export type GlobalMutationEffect = {
   kind: "global" | "method" | "property";
