@@ -1543,27 +1543,6 @@ ruleTester.run(RULE_NAME, rule, {
         { data: { name: "setData" }, messageId: "default" },
       ],
     },
-    // Only if statements, conditional expressions, and early-return guards are
-    // ref gates; a ref read on the left of a logical-and does not exempt the
-    // setState on the right.
-    {
-      name: "setState on the right of a logical-and with a ref read on the left",
-      code: tsx`
-        import { useEffect, useRef, useState } from "react";
-
-        function Component() {
-          const [data, setData] = useState(0);
-          const ref = useRef(0);
-          useEffect(() => {
-            ref.current && setData(1);
-          }, []);
-          return null;
-        }
-      `,
-      errors: [
-        { data: { name: "setData" }, messageId: "default" },
-      ],
-    },
     // A hole in the destructured tuple does not shift the setter index.
     {
       name: "setState from a tuple with a hole (const [, setData] = useState())",
@@ -2638,6 +2617,54 @@ ruleTester.run(RULE_NAME, rule, {
           const flagRef = useRef(false);
           useEffect(() => {
             flagRef.current ? setData(1) : setData(0);
+          }, []);
+          return null;
+        }
+      `,
+    },
+    // The right side of a short-circuit operator runs only when the left
+    // operand's value selects it, so a ref-derived left operand gates it just
+    // like an if test or a conditional test does.
+    {
+      name: "setState on the right of a logical-and with a ref read on the left",
+      code: tsx`
+        import { useEffect, useRef, useState } from "react";
+
+        function Component() {
+          const [data, setData] = useState(0);
+          const ref = useRef(0);
+          useEffect(() => {
+            ref.current && setData(1);
+          }, []);
+          return null;
+        }
+      `,
+    },
+    {
+      name: "setState on the right of a logical-or with a ref read on the left",
+      code: tsx`
+        import { useEffect, useRef, useState } from "react";
+
+        function Component() {
+          const [data, setData] = useState(0);
+          const ref = useRef(0);
+          useEffect(() => {
+            ref.current || setData(1);
+          }, []);
+          return null;
+        }
+      `,
+    },
+    {
+      name: "setState on the right of a nullish coalescing with a ref read on the left",
+      code: tsx`
+        import { useEffect, useRef, useState } from "react";
+
+        function Component() {
+          const [data, setData] = useState(0);
+          const ref = useRef(0);
+          useEffect(() => {
+            ref.current ?? setData(1);
           }, []);
           return null;
         }
