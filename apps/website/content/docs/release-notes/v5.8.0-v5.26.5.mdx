@@ -4,10 +4,10 @@ description: "A recap of five months of LTS maintenance: React Compiler alignmen
 ---
 
 <Callout type="info">
-  This article consolidates the highlights of 102 releases across 19 minor lines, from v5.8.0 (2026-05-17) to v5.26.5 (2026-10-13), while the project is in LTS maintenance mode.
+  This article consolidates the highlights of 107 releases across 19 minor lines, from v5.8.0 (2026-05-17) to v5.26.5 (2026-10-13), while the project is in LTS maintenance mode.
 </Callout>
 
-## **v5.8.x — Documentation Overhaul** (2026-05-17 → 06-12, 19 patches)
+## **v5.8.x — Documentation Overhaul** (2026-05-17 → 06-12, 19 releases)
 
 - **JSX package aligned with React/Babel source semantics**: children filtering and whitespace handling were unified into public APIs in `@eslint-react/jsx`, improving the accuracy of `no-useless-fragment`, `no-children-prop`, and related rules.
 - **Rule documentation overhaul**: all plugin docs were migrated from the old `Common Violations/Invalid/Valid` format to a scenario-based `Examples/Troubleshooting/Further Reading` format; 48 react-x rule docs gained scenario examples.
@@ -29,7 +29,7 @@ description: "A recap of five months of LTS maintenance: React Compiler alignmen
   }, []);
   ```
 
-## **v5.10.x–v5.14.x — React Compiler Alignment Sprint** (2026-06-28 → 07-15, 25 releases)
+## **v5.10.x–v5.14.x — React Compiler Alignment Sprint** (2026-06-28 → 07-15, 24 releases)
 
 No new rules; the focus was deep rework of `refs` and `immutability`:
 
@@ -49,8 +49,9 @@ No new rules; the focus was deep rework of `refs` and `immutability`:
 - **v5.12.0**: `immutability` was reworked to align with React Compiler's `ValidateNoFreezingKnownMutableFunctions` validation pass.
 - **v5.13.0**: `refs` gained nested property write tracking and member-expression-bound function tracing; lazy-initialization guard detection became direction-aware.
 - **v5.14.0**: `refs` render-reachability analysis expanded to IIFEs and `useMemo`/`useReducer` callbacks with unbounded fixed-point propagation; internals switched to scope-variable-identity tracking.
+- **v5.14.6/.7**: `immutability` stopped treating navigation-hook methods (`useRouter().push()`, `useNavigate()`) as in-place mutations inside frozen callbacks; `useHistory` followed in v5.16.1.
 
-## **v5.15.x–v5.20.x — Capability Leaps and Preset Fixes** (2026-07-15 → 09-24, 28 releases)
+## **v5.15.x–v5.20.x — New Capabilities and Preset Fixes** (2026-07-15 → 09-24, 28 releases)
 
 - **v5.16.0**: tagged-template hook calls (Motion-style APIs) are now recognized.
 
@@ -63,7 +64,7 @@ No new rules; the focus was deep rework of `refs` and `immutability`:
 - **v5.18.0**: new shared setting `additionalRefHooks` — five rules uniformly recognize custom ref-creating hooks, completing the custom-hook declaration system alongside `additionalStateHooks`/`additionalEffectHooks`.
 - **v5.18.8/.10**: fixed the frequently-hit "Cannot redefine plugin" integration error across all presets — the most user-impactful fix of this period.
 - **v5.18.2/.3**: `no-nested-component-definitions` refined (known-wrapper resolution, narrowed `with*` HOC detection).
-- **v5.19.0**: `immutability` capability leap — direct mutation reporting plus shallow-copy awareness (`{ ...state }` nested mutations are now reported).
+- **v5.19.0**: `immutability` now reports direct mutations of props/state, plus nested mutations through shallow copies (`{ ...state }`).
 
   ```tsx
   const copy = { ...state };
@@ -84,9 +85,9 @@ No new rules; the focus was deep rework of `refs` and `immutability`:
 ## **v5.21.x–v5.26.5 — Ecosystem Expansion and Final Polish** (2026-09-28 → 10-13, 30 releases)
 
 - **v5.21.0**: **Oxlint compatibility** — `eslint` became an optional peer dependency, so the plugins can run in environments without ESLint installed.
-- **v5.21.1**: web-api leak rules now resolve variables by scope, eliminating cross-effect same-name mispairing for good.
+- **v5.21.1**: web-api leak rules now resolve variables by scope, fixing the cross-effect same-name mispairing that name-only matching could cause.
 - **v5.22.0**: support for React 19.3 DOM attributes (`closedby`, `shadowrootmode`, and friends).
-- **v5.23.0 / v5.24.0**: peak of the **fact-based architecture** rollout — `static-components`, `set-state-in-effect`, `set-state-in-render`, and `use-memo` were split into `collect`/`origins`/`effects` modules; message ids were unified to kebab-case across all plugins.
+- **v5.23.0 / v5.24.0**: **fact-based architecture** adopted in core rules — `static-components`, `set-state-in-effect`, `set-state-in-render`, and `use-memo` were split into `collect`/`origins`/`effects` modules; `static-components` also gained dynamic creation-site tracing through logical and sequence expressions, reported once per creation site.
 - **v5.23.3/.5 → v5.26.5**: the ref-derived-value exemption system in `set-state-in-effect` kept expanding (template interpolation, literals, optional chaining, indirect calls, assignment tracing, short-circuit operators), aligning with `react-hooks` 7.1.1.
 
   ```tsx
@@ -98,28 +99,12 @@ No new rules; the focus was deep rework of `refs` and `immutability`:
   }, [visible]);
   ```
 
-- **v5.24.7**: leak-rule fix wave — recursive signal alias chains, destructured `AbortController`, observer cleanup-phase semantics.
+- **v5.24.7**: leak-rule fixes — recursive signal alias chains, destructured `AbortController`, observer cleanup-phase semantics.
 - **v5.24.2/.4**: smaller published packages (tsdown dead-code elimination, stripped JSDoc).
 - **v5.25.0**: `no-unsafe-target-blank` gained the `allowReferrer` option.
-
-  ```tsx
-  // with { allowReferrer: true }
-  <a href="https://example.com" target="_blank" rel="noopener">
-    {/* accepted: referrer preserved, explicit `noopener` still required */}
-  </a>
-  ```
-
 - **v5.26.0**: minimum Node.js version lowered from 22 to 20.19, broadening the install base.
 - **v5.26.2**: `no-unused-props` detection improvements (default-valued params, alias tracing, template-literal keys).
 - **v5.26.3/.4**: name-lookup boundary fixes for the three naming-convention rules.
-
-## **Key Themes**
-
-1. **React Compiler-aligned rules went from embryonic to mature**: `immutability`, `refs`, `purity`, `set-state-in-effect`, and `use-memo` evolved over twenty-plus releases into a complete system with render-reachability analysis, shallow-copy awareness, and ref-derived-value exemptions — repeatedly verified against the official `react-hooks` implementations.
-2. **Fact-based rule architecture fully landed**: core rules are uniformly split into fact collection / origin resolution / violation inference modules, with a dedicated pattern guide in the repo (`docs/rule-implementation-patterns-fact-based.md`).
-3. **Systematic hardening of the web-api leak detection family**: from scope-level pairing to function-resolution-level pairing, covering the whole listener/timer/fetch/observer family.
-4. **Ecosystem compatibility triple**: Oxlint without ESLint (v5.21.0), Node.js floor lowered to 20.19 (v5.26.0), React 19.3 attribute support (v5.22.0).
-5. **Engineering system took shape**: per-rule changelogs, IMPL-SPEC comparison docs, behavior-boundary tests, gated CI, pnpm supply-chain hardening, and smaller published packages.
 
 ## **References**
 
