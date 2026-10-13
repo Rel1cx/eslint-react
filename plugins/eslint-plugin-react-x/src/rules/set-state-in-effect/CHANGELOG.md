@@ -5,6 +5,14 @@ All notable changes to the `react-x/set-state-in-effect` rule will be documented
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+### Fixed
+
+- A `setState` call on the right side of a short-circuit operator (`&&`, `||`, `??`) is now exempt when the left operand is ref-derived (ex: `ref.current && setData(1)`), aligning with the existing exemption for ref-gated `if` statements, conditional expressions, and early-return guards. A `setState` on the left side (ex: `setData(1) && ref.current`) still runs unconditionally and stays reported.
+- Setup identifiers are now collected from the setup argument of the effect call only; the callee and the deps array are no longer scanned, so a function referenced only in the deps array (ex: `useEffect(setup, [helper])`) is no longer mistaken for the setup and its `setState` calls stay unattributed.
+- Arrow function parameters are no longer collected as callback-body setter references (ex: the `setState` in `useMemo((setState) => ..., [])`), narrowing the collection to actual callback bodies (ex: `useMemo(() => setState, [])`).
+
 ## [5.26.2] - 2026-10-12
 
 ### Fixed
