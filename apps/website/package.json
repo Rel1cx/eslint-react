@@ -31,8 +31,8 @@
     "@types/node": "^20.19.43",
     "@types/react": "^19.3.0",
     "@types/react-dom": "^19.3.0",
-    "@typescript-eslint/types": "^8.71.1",
-    "@typescript-eslint/utils": "^8.71.1",
+    "@typescript-eslint/types": "^8.71.2",
+    "@typescript-eslint/utils": "^8.71.2",
     "bsky-react-post": "^0.1.7",
     "clsx": "^2.1.1",
     "dedent": "^1.7.2",
@@ -51,7 +51,7 @@
     "lucide-react": "^1.55.0",
     "next": "^16.4.0",
     "next-view-transitions": "^0.3.5",
-    "postcss": "^8.5.29",
+    "postcss": "^8.5.30",
     "react": "^19.3.0",
     "react-dom": "^19.3.0",
     "tailwind-merge": "^3.7.0",
@@ -61,6 +61,6 @@
     "tsl-dx": "^0.14.1",
     "twoslash": "^0.3.9",
     "typescript": "6.0.3",
-    "typescript-eslint": "^8.71.1"
+    "typescript-eslint": "^8.71.2"
   }
 }

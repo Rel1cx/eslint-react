@@ -4,17 +4,10 @@ import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 export type NamingTarget = readonly [node: TSESTree.Node, name: string];
 
 /**
- * Resolve the naming target of a call assigned to a variable, member, or object property.
- * Unlike `resolveEnclosingAssignmentTarget` from `@eslint-react/var`, an enclosing object
- * property key takes precedence over the outer assignment target (`{ theme: useId() }`
- * resolves to the key `theme`, not the variable holding the object).
- * The search only crosses expressions that pass the call's value through unchanged
- * (conditional, logical, sequence-last, await, TS type wrappers, call/new arguments, and
- * object literals reached via a property value). It finds no target when the name is not
- * statically knowable: across function boundaries, inside JSX expressions, in class static
- * blocks, when the call is a computed key, when a property key cannot be resolved, or when
- * the call's value flows into a container or derived value (array literals, spreads,
- * template literals, member access, operators, yields, ...).
+ * Find the statically-known name a call's value flows into, or `null` when there is none.
+ * Walks up across value-preserving expressions only, stopping at a variable declarator,
+ * assignment, or class property; an object property key wins over the outer target
+ * (`{ theme: useId() }` resolves to `theme`). When in doubt, don't report.
  * @param node The starting node for the upward search.
  * @returns The naming target, or `null` when the name cannot be statically known.
  */

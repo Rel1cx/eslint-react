@@ -96,7 +96,7 @@
     "typedoc-plugin-markdown": "^4.13.1",
     "typedoc-plugin-mdn-links": "^5.1.1",
     "typescript": "6.0.3",
-    "typescript-eslint": "^8.71.1",
+    "typescript-eslint": "^8.71.2",
     "vitest": "^5.0.4"
   },
   "packageManager": "pnpm@12.11.2",
