@@ -549,4 +549,39 @@ describe("isRefGatedContext", () => {
     });
     expect(result).toBe(true);
   });
+
+  it("should match a setState call gated by a ref-derived local variable on the left of a logical-and", () => {
+    expect(check("function f() { const ref = useRef(0); const el = ref.current; el && setData(1); }")).toBe(true);
+  });
+
+  it("should match a setState call gated by a ref read buried in a binary expression on the left of a logical-and", () => {
+    expect(check("function f() { const ref = useRef(0); (ref.current ?? 0) > 1 && setData(1); }")).toBe(true);
+  });
+
+  it("should match a setState call gated by a negated ref read on the left of a logical-and", () => {
+    expect(check("function f() { const ref = useRef(0); !ref.current && setData(1); }")).toBe(true);
+  });
+
+  it("should match a setState call in a helper gated by a ref-fed parameter on the left of a logical-and", () => {
+    const code = "function update(el) { el && setData(1); }";
+    const result = runInRule(code, (context, program) => {
+      const fn = collectNodes<TSESTree.FunctionDeclaration>(program, AST.FunctionDeclaration)[0];
+      const param = fn?.params[0];
+      if (param == null) throw new Error("No parameter found");
+      return isRefGatedContext(context, findCall(context, program, "setData"), new Set([param]));
+    });
+    expect(result).toBe(true);
+  });
+
+  it("should not match a setState call in a helper gated by a plain parameter on the left of a logical-and", () => {
+    expect(check("function update(el) { el && setData(1); }")).toBe(false);
+  });
+
+  it("should not match a setState call in an IIFE on the right of a ref-gated logical-and", () => {
+    expect(check("function f() { const ref = useRef(0); ref.current && (() => { setData(1); })(); }")).toBe(false);
+  });
+
+  it("should not match a setState call in an IIFE inside a ref-gated if block", () => {
+    expect(check("function f() { const ref = useRef(0); if (ref.current) { (() => { setData(1); })(); } }")).toBe(false);
+  });
 });

@@ -284,4 +284,28 @@ describe("inferViolations", () => {
     const code = "function C() { const [data, setData] = useState(0); function setup() {} function helper() { setData(1); } useEffect(setup, [helper]); }";
     expect(inferViolationNames(code)).toEqual([]);
   });
+
+  it("should not report a setState call gated by a ref-derived logical-and left in a helper invoked from the setup", () => {
+    const code =
+      "function C() { const ref = useRef(0); const [data, setData] = useState(0); const update = () => { ref.current && setData(1); }; useEffect(() => { update(); }, []); }";
+    expect(inferViolationNames(code)).toEqual([]);
+  });
+
+  it("should not report a setState call gated by a ref-fed parameter on the left of a logical-and in a helper", () => {
+    const code =
+      "function C() { const ref = useRef(null); const [data, setData] = useState(0); const update = (el) => { el && setData(1); }; useEffect(() => { update(ref.current); }, []); }";
+    expect(inferViolationNames(code)).toEqual([]);
+  });
+
+  it("should report a setState call gated by a plainly-fed parameter on the left of a logical-and in a helper", () => {
+    const code =
+      "function C() { const [data, setData] = useState(0); const update = (el) => { el && setData(1); }; useEffect(() => { update(document.body); }, []); }";
+    expect(inferViolationNames(code)).toEqual(["setData"]);
+  });
+
+  it("should report a setState call in an IIFE on the right of a ref-gated logical-and", () => {
+    const code =
+      "function C() { const ref = useRef(0); const [data, setData] = useState(0); useEffect(() => { ref.current && (() => { setData(1); })(); }, []); }";
+    expect(inferViolationNames(code)).toEqual(["setData"]);
+  });
 });
