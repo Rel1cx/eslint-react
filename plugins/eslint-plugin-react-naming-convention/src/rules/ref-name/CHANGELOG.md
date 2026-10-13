@@ -5,6 +5,14 @@ All notable changes to the `naming-convention/ref-name` rule will be documented 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+### Fixed
+
+- The name lookup now stops at function boundaries, so expression-bodied factory functions and custom hooks (ex: `export const useAnchor = () => useRef<HTMLDivElement>(null)`) are no longer reported on the hook's name, matching the block-bodied version. Closes #2026.
+- Calls inside JSX expressions (ex: `const el = <div ref={useRef(null)} />`) are no longer reported on the enclosing element variable.
+- Calls used as computed object literal keys (ex: `const obj = { [useRef(null)]: 1 }`) or placed in class static blocks are no longer reported on the outer variable.
+
 ## [5.26.3] - 2026-10-12
 
 ### Fixed

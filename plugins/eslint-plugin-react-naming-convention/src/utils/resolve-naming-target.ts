@@ -7,7 +7,10 @@ export type NamingTarget = readonly [node: TSESTree.Node, name: string];
  * Resolve the naming target of a call assigned to a variable, member, or object property.
  * Unlike `resolveEnclosingAssignmentTarget` from `@eslint-react/var`, an enclosing object
  * property key takes precedence over the outer assignment target (`{ theme: useId() }`
- * resolves to the key `theme`, not the variable holding the object).
+ * resolves to the key `theme`, not the variable holding the object). The search finds no
+ * target when the call does not flow into a name: across function boundaries (an
+ * expression-bodied arrow function like `() => useId()` matches the block-bodied version),
+ * inside JSX expressions, in class static blocks, or when the call is a computed key.
  * @param node The starting node for the upward search.
  * @returns The naming target, or `null` when the name cannot be statically known.
  */
@@ -18,8 +21,10 @@ export function resolveNamingTarget(node: TSESTree.Node): NamingTarget | null {
 function resolveUpward(node: TSESTree.Node, propertyTarget: NamingTarget | null): NamingTarget | null {
   const parent = node.parent;
   if (parent == null) return null;
-  if (parent.type === AST.Property && parent.value === node && propertyTarget == null) {
-    propertyTarget = getKeyTarget(parent.key, parent.computed);
+  if (parent.type === AST.Property) {
+    // The call is used as a computed key, not as a value, so it has no naming target
+    if (parent.value !== node) return null;
+    propertyTarget ??= getKeyTarget(parent.key, parent.computed);
   }
   switch (parent.type) {
     case AST.VariableDeclarator: {
@@ -34,6 +39,13 @@ function resolveUpward(node: TSESTree.Node, propertyTarget: NamingTarget | null)
       const keyTarget = getKeyTarget(parent.key, parent.computed);
       return keyTarget == null ? null : (propertyTarget ?? keyTarget);
     }
+    case AST.ArrowFunctionExpression:
+    case AST.FunctionDeclaration:
+    case AST.FunctionExpression:
+    case AST.StaticBlock:
+    case AST.JSXExpressionContainer:
+    case AST.JSXSpreadAttribute:
+    case AST.JSXSpreadChild:
     case AST.ExportDefaultDeclaration:
     case AST.BlockStatement:
     case AST.Program:

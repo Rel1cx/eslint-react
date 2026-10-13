@@ -192,14 +192,6 @@ ruleTester.run(RULE_NAME, rule, {
       output: null,
     },
     {
-      name: "Arrow function returning useRef with invalid ref name",
-      code: tsx`
-        const value = () => useRef(null);
-      `,
-      errors: [{ messageId: "invalid-ref-name" }],
-      output: null,
-    },
-    {
       name: "Optional useRef call with invalid ref name",
       code: tsx`
         const value = useRef?.(null);
@@ -415,6 +407,33 @@ ruleTester.run(RULE_NAME, rule, {
         const value = () => {
           return useRef(null);
         };
+      `,
+    },
+    {
+      name: "Arrow function with expression body returning useRef",
+      code: tsx`
+        const value = () => useRef(null);
+      `,
+    },
+    {
+      name: "Exported custom hook with expression body returning useRef",
+      code: tsx`
+        import { useRef } from "react";
+        export const useAnchor = () => useRef<HTMLDivElement>(null);
+      `,
+    },
+    {
+      name: "useRef call returned from an IIFE",
+      code: tsx`
+        import { useRef } from "react";
+        const value = (() => useRef(null))();
+      `,
+    },
+    {
+      name: "useRef call in a JSX attribute value",
+      code: tsx`
+        import { useRef } from "react";
+        const el = <div ref={useRef(null)} />;
       `,
     },
     {
