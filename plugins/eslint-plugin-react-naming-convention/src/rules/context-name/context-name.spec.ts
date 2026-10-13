@@ -235,6 +235,14 @@ ruleTester.run(RULE_NAME, rule, {
       }],
       output: null,
     },
+    {
+      name: "Sequence expression with the context as the last value",
+      code: tsx`
+        import { createContext } from "react";
+        const value = (foo(), createContext(""));
+      `,
+      errors: [{ messageId: "invalid-context-name" }],
+    },
   ],
   valid: [
     // Variable declarations with valid context names
@@ -483,6 +491,49 @@ ruleTester.run(RULE_NAME, rule, {
         class Store {
           #theme = createContext("");
         }
+      `,
+    },
+    // Containers and derived values do not transfer the context to a name
+    {
+      name: "Array literal containing createContext",
+      code: tsx`
+        import { createContext } from "react";
+        const contexts = [createContext("")];
+      `,
+    },
+    {
+      name: "Object spread of the createContext result",
+      code: tsx`
+        import { createContext } from "react";
+        const contexts = { ...createContext("") };
+      `,
+    },
+    {
+      name: "Object literal property with unresolvable computed key",
+      code: tsx`
+        import { createContext } from "react";
+        const contexts = { [key]: createContext("") };
+      `,
+    },
+    {
+      name: "Nested object literal property with unresolvable computed key",
+      code: tsx`
+        import { createContext } from "react";
+        const contexts = { outer: { [key]: createContext("") } };
+      `,
+    },
+    {
+      name: "Member access on the createContext result",
+      code: tsx`
+        import { createContext } from "react";
+        const Provider = createContext("").Provider;
+      `,
+    },
+    {
+      name: "Sequence expression where createContext is not the last value",
+      code: tsx`
+        import { createContext } from "react";
+        const value = (createContext(""), foo());
       `,
     },
   ],

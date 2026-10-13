@@ -170,6 +170,24 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [{ messageId: "invalid-id-name", type: AST.Identifier }],
       output: null,
     },
+    {
+      name: "Sequence expression with the id as the last value",
+      code: tsx`
+        import { useId } from "react";
+        const value = (foo(), useId());
+      `,
+      errors: [{ messageId: "invalid-id-name" }],
+    },
+    {
+      name: "Awaited useId call with invalid id name",
+      code: tsx`
+        import { useId } from "react";
+        async function load() {
+          const value = await useId();
+        }
+      `,
+      errors: [{ messageId: "invalid-id-name" }],
+    },
   ],
   valid: [
     // Variable declarations with valid id names
@@ -394,6 +412,51 @@ ruleTester.run(RULE_NAME, rule, {
       code: tsx`
         import { useId } from "react";
         const { value = useId() } = ids;
+      `,
+    },
+    // Containers and derived values do not transfer the id to a name
+    {
+      name: "Array literal containing useId",
+      code: tsx`
+        import { useId } from "react";
+        const ids = [useId()];
+      `,
+    },
+    {
+      name: "Object literal property with unresolvable computed key",
+      code: tsx`
+        import { useId } from "react";
+        const ids = { [key]: useId() };
+      `,
+    },
+    {
+      name: "Template literal embedding useId",
+      code: tsx`
+        import { useId } from "react";
+        const label = \`id-\${useId()}\`;
+      `,
+    },
+    {
+      name: "Member access on the useId result",
+      code: tsx`
+        import { useId } from "react";
+        const length = useId().length;
+      `,
+    },
+    {
+      name: "Sequence expression where useId is not the last value",
+      code: tsx`
+        import { useId } from "react";
+        const value = (useId(), foo());
+      `,
+    },
+    {
+      name: "useId call yielded from a generator",
+      code: tsx`
+        import { useId } from "react";
+        function* gen() {
+          const value = yield useId();
+        }
       `,
     },
   ],

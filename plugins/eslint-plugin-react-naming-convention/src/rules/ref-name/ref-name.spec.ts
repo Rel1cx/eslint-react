@@ -199,6 +199,14 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [{ messageId: "invalid-ref-name" }],
       output: null,
     },
+    {
+      name: "Sequence expression with the ref as the last value",
+      code: tsx`
+        import { useRef } from "react";
+        const value = (foo(), useRef(null));
+      `,
+      errors: [{ messageId: "invalid-ref-name" }],
+    },
   ],
   valid: [
     // Variable declarations with valid ref names
@@ -485,6 +493,42 @@ ruleTester.run(RULE_NAME, rule, {
       code: tsx`
         import { useRef } from "react";
         const { value = useRef(null) } = refs;
+      `,
+    },
+    // Containers and derived values do not transfer the ref to a name
+    {
+      name: "Array literal containing useRef",
+      code: tsx`
+        import { useRef } from "react";
+        const refs = [useRef(null)];
+      `,
+    },
+    {
+      name: "Object literal property with unresolvable computed key",
+      code: tsx`
+        import { useRef } from "react";
+        const refs = { [key]: useRef(null) };
+      `,
+    },
+    {
+      name: "useRef call result invoked as a callee",
+      code: tsx`
+        import { useRef } from "react";
+        const value = useRef(null)();
+      `,
+    },
+    {
+      name: "useRef call in a binary expression",
+      code: tsx`
+        import { useRef } from "react";
+        const n = useRef(0) + 1;
+      `,
+    },
+    {
+      name: "useRef call as a computed member key",
+      code: tsx`
+        import { useRef } from "react";
+        const value = obj[useRef(null)];
       `,
     },
   ],

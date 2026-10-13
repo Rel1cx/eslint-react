@@ -12,6 +12,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - The name lookup now stops at function boundaries, so expression-bodied factory functions (ex: `export const createThemeContext = () => createContext(null)`) are no longer reported on the factory's name, matching the block-bodied version. Closes #2026.
 - Calls inside JSX expressions (ex: `const el = <Ctx.Provider value={createContext("")} />`) are no longer reported on the enclosing element variable.
 - Calls used as computed object literal keys (ex: `const obj = { [createContext("")]: 1 }`) or placed in class static blocks are no longer reported on the outer variable.
+- The name lookup no longer crosses containers or derived values, so calls inside array literals, spreads, template literals, member accesses, operators, yields, or callee positions (ex: `const contexts = [createContext("")]`, `const Provider = createContext("").Provider`) are no longer reported on the enclosing variable. Within a sequence expression only the last value is checked (ex: `const value = (foo(), createContext(""))` is still reported).
+- An object literal property with an unresolvable computed key (ex: `const contexts = { [key]: createContext("") }`) no longer falls back to reporting the outer variable, matching the behavior for member expression assignments and class properties.
 
 ## [5.26.3] - 2026-10-12
 
