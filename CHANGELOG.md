@@ -1,5 +1,15 @@
 # Changelog
 
+## v5.26.5 (2026-10-13)
+
+### 🐞 Fixes
+
+- `react-x/set-state-in-effect`: a `setState` on the right side of a short-circuit operator (`&&`, `||`, `??`) is now exempt when the left operand is ref-derived (ex: `ref.current && setData(1)`), matching the existing ref-gated conditional exemption; a left-side `setState` still runs unconditionally and stays reported. (#2031)
+- `react-x/set-state-in-effect`: setup identifiers are now collected from the setup argument of the effect call only; the callee and the deps array are no longer scanned, so a function referenced only in the deps array (ex: `useEffect(setup, [helper])`) is no longer mistaken for the setup and its `setState` calls stay unattributed. (#2031)
+- `react-x/set-state-in-effect`: arrow function parameters are no longer collected as callback-body setter references (ex: the `setState` in `useMemo((setState) => ..., [])`); only actual callback bodies are collected (ex: `useMemo(() => setState, [])`). (#2031)
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.26.4...v5.26.5
+
 ## v5.26.4 (2026-10-13)
 
 ### 🐞 Fixes
