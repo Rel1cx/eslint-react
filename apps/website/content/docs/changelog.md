@@ -6,8 +6,8 @@ title: Changelog
 
 ### 🐞 Fixes
 
-- `react-naming-convention/context-name`, `react-naming-convention/id-name`, `react-naming-convention/ref-name`: the name lookup now stops at function boundaries, so expression-bodied factory functions and custom hooks (ex: `export const useAnchor = () => useRef(null)`) are no longer reported on the hook's name; calls inside JSX expressions, computed object literal keys, and class static blocks are no longer reported on the outer variable. (#2029) Closes #2026.
-- `react-naming-convention/context-name`, `react-naming-convention/id-name`, `react-naming-convention/ref-name`: the name lookup no longer crosses containers or derived values, so calls inside array literals, spreads, template literals, operators, yields, or callee positions (ex: `const refs = [useRef(null)]`, `const n = useRef(0) + 1`) are no longer reported on the enclosing variable; within a sequence expression only the last value is checked, and object literal properties with unresolvable computed keys (ex: `{ [key]: useRef(null) }`) no longer fall back to reporting the outer variable. (#2030)
+- `react-naming-convention/context-name`, `react-naming-convention/id-name`, `react-naming-convention/ref-name`: the name lookup now stops at function boundaries, so expression-bodied factory functions and custom hooks (ex: `export const useAnchor = () => useRef(null)`) are no longer misreported; calls inside JSX expressions, computed keys, or class static blocks no longer fall back to the outer variable. (#2029) Closes #2026.
+- `react-naming-convention/context-name`, `react-naming-convention/id-name`, `react-naming-convention/ref-name`: the name lookup no longer crosses containers or derived values (ex: `const refs = [useRef(null)]`, `const n = useRef(0) + 1`), so such calls are no longer reported on the enclosing variable; sequence expressions check only the last value, and unresolvable computed keys (ex: `{ [key]: useRef(null) }`) no longer fall back to the outer variable. (#2030)
 
 **Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.26.3...v5.26.4
 
