@@ -163,15 +163,6 @@ ruleTester.run(RULE_NAME, rule, {
       output: null,
     },
     {
-      name: "Arrow function returning useId with invalid id name",
-      code: tsx`
-        import { useId } from "react";
-        const valueFactory = () => useId();
-      `,
-      errors: [{ messageId: "invalid-id-name", type: AST.Identifier }],
-      output: null,
-    },
-    {
       name: "Type-casted useId call with invalid id name",
       code: tsx`
         const value = (useId as () => string)();
@@ -302,6 +293,41 @@ ruleTester.run(RULE_NAME, rule, {
         function useCustomId() {
           return useId();
         }
+      `,
+    },
+    {
+      name: "useId call returned from an arrow function with expression body",
+      code: tsx`
+        import { useId } from "react";
+        const valueFactory = () => useId();
+      `,
+    },
+    {
+      name: "Exported custom hook with expression body returning useId",
+      code: tsx`
+        import { useId } from "react";
+        export const useFieldLabel = () => useId();
+      `,
+    },
+    {
+      name: "useId call returned from an IIFE",
+      code: tsx`
+        import { useId } from "react";
+        const value = (() => useId())();
+      `,
+    },
+    {
+      name: "useId call in a JSX attribute value",
+      code: tsx`
+        import { useId } from "react";
+        const el = <input id={useId()} />;
+      `,
+    },
+    {
+      name: "Computed object literal key using useId",
+      code: tsx`
+        import { useId } from "react";
+        const obj = { [useId()]: 1 };
       `,
     },
     {

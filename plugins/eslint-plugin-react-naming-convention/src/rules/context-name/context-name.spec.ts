@@ -161,14 +161,6 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [{ messageId: "invalid-context-name" }],
     },
     {
-      name: "Arrow function implicit return of object literal with invalid context name key",
-      code: tsx`
-        import { createContext } from "react";
-        const useTheme = () => ({ theme: createContext("") });
-      `,
-      errors: [{ messageId: "invalid-context-name" }],
-    },
-    {
       name: "Class property with computed string-literal key with invalid context name",
       code: tsx`
         import { createContext } from "react";
@@ -227,21 +219,6 @@ ruleTester.run(RULE_NAME, rule, {
         const value = createContext("") || null;
       `,
       errors: [{ messageId: "invalid-context-name" }],
-    },
-    {
-      name: "Arrow function returning createContext with invalid context name",
-      code: tsx`
-        const theme = () => createContext("");
-      `,
-      errors: [{
-        column: 7,
-        endColumn: 12,
-        endLine: 1,
-        line: 1,
-        messageId: "invalid-context-name",
-        suggestions: [],
-      }],
-      output: null,
     },
     {
       name: "createContext call on a non-React namespace with invalid context name",
@@ -407,6 +384,59 @@ ruleTester.run(RULE_NAME, rule, {
         const theme = () => {
           return createContext("");
         };
+      `,
+    },
+    {
+      name: "Arrow function with expression body returning createContext",
+      code: tsx`
+        import { createContext } from "react";
+        const theme = () => createContext("");
+      `,
+    },
+    {
+      name: "Exported context factory with expression body",
+      code: tsx`
+        import { createContext } from "react";
+        export const createThemeContext = () => createContext(null);
+      `,
+    },
+    {
+      name: "Arrow function implicit return of object literal containing createContext",
+      code: tsx`
+        import { createContext } from "react";
+        const useTheme = () => ({ theme: createContext("") });
+      `,
+    },
+    {
+      name: "createContext call returned from an IIFE",
+      code: tsx`
+        import { createContext } from "react";
+        const value = (() => createContext(""))();
+      `,
+    },
+    {
+      name: "createContext call in a JSX attribute value",
+      code: tsx`
+        import { createContext } from "react";
+        const el = <Ctx.Provider value={createContext("")} />;
+      `,
+    },
+    {
+      name: "createContext call in a class static block",
+      code: tsx`
+        import { createContext } from "react";
+        const C = class {
+          static {
+            createContext("");
+          }
+        };
+      `,
+    },
+    {
+      name: "Computed object literal key using createContext",
+      code: tsx`
+        import { createContext } from "react";
+        const obj = { [createContext("")]: 1 };
       `,
     },
     {
