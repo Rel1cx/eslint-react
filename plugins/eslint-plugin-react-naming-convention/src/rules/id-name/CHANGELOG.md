@@ -12,6 +12,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - The name lookup now stops at function boundaries, so expression-bodied factory functions and custom hooks (ex: `export const useFieldLabel = () => useId()`) are no longer reported on the hook's name, matching the block-bodied version. Closes #2026.
 - Calls inside JSX expressions (ex: `const el = <input id={useId()} />`) are no longer reported on the enclosing element variable.
 - Calls used as computed object literal keys (ex: `const obj = { [useId()]: 1 }`) or placed in class static blocks are no longer reported on the outer variable.
+- The name lookup no longer crosses containers or derived values, so calls inside array literals, spreads, template literals, member accesses, operators, or yields (ex: `const ids = [useId()]`, `` const label = `id-${useId()}` ``) are no longer reported on the enclosing variable. Within a sequence expression only the last value is checked (ex: `const value = (foo(), useId())` is still reported).
+- An object literal property with an unresolvable computed key (ex: `const ids = { [key]: useId() }`) no longer falls back to reporting the outer variable, matching the behavior for member expression assignments and class properties.
 
 ## [5.26.3] - 2026-10-12
 
