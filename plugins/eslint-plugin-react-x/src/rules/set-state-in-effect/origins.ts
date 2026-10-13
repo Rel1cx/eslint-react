@@ -273,7 +273,9 @@ export function isArgumentUsingRefValue(context: RuleContext, node: TSESTree.Cal
 
 /**
  * Check if a setState call is inside a conditional block whose test expression
- * is derived from a ref value (e.g. `if (prevRef.current !== value) setState(...)`).
+ * is derived from a ref value (e.g. `if (prevRef.current !== value) setState(...)`),
+ * or on the right side of a short-circuit operator whose left operand is
+ * ref-derived (e.g. `ref.current && setState(...)`).
  * @param context The ESLint rule context
  * @param node The AST node to check
  * @param refParams Parameters treated as ref-derived because the call site of
@@ -290,6 +292,12 @@ export function isRefGatedContext(context: RuleContext, node: TSESTree.Node, ref
     }
     if (current.type === AST.ConditionalExpression) {
       if (isRefInExpression(context, current.test, refParams)) return true;
+    }
+    if (current.type === AST.LogicalExpression && child === current.right) {
+      // The right side of a short-circuit operator runs only when the left
+      // operand's value selects it, so a ref-derived left gates it too:
+      // ref.current && setState(...)
+      if (isRefInExpression(context, current.left, refParams)) return true;
     }
     if (current.type === AST.BlockStatement) {
       // A preceding early-return guard gates the rest of the block as well:

@@ -107,9 +107,11 @@ export function createFactCollector(additionalStateHooks: RegExpLike, additional
       }
       if (isUseEffectCall(node)) {
         // useEffect(setupIdentifier, []): the setup is referenced rather than
-        // defined inline, so collect the identifiers for later resolution
-        if (!Check.isFunction(node.arguments.at(0))) {
-          facts.setupIdentifiers.push(...getNestedIdentifiers(node));
+        // defined inline, so collect the identifiers of the setup argument for
+        // later resolution
+        const setup = node.arguments.at(0);
+        if (setup != null && !Check.isFunction(setup)) {
+          facts.setupIdentifiers.push(...getNestedIdentifiers(setup));
         }
         return;
       }
@@ -126,7 +128,9 @@ export function createFactCollector(additionalStateHooks: RegExpLike, additional
       }
       switch (node.parent.type) {
         case AST.ArrowFunctionExpression: {
-          facts.setStateReferences.push({ kind: "callback-body", node });
+          if (node === node.parent.body) {
+            facts.setStateReferences.push({ kind: "callback-body", node });
+          }
           return;
         }
         case AST.CallExpression: {
