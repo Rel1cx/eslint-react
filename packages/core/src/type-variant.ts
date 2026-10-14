@@ -69,6 +69,10 @@ export function getTypeVariants(types: ts.Type[]) {
       variants.add("falsy boolean");
     } else if (isTrueLiteralType(boolean0)) {
       variants.add("truthy boolean");
+    } else {
+      // A single non-literal boolean (e.g. an unsplit 'boolean' union type)
+      // can be either true or false.
+      variants.add("boolean");
     }
   } else if (booleans.length === 2) {
     variants.add("boolean");

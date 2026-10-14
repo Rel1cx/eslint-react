@@ -73,12 +73,21 @@ describe("getTypeVariants", () => {
     expect(variantsOf("declare const x: false;", "x")).toEqual(["falsy boolean"]);
   });
 
-  it("should silently drop an unsplit 'boolean' union (callers must pass union constituents)", () => {
+  it("should classify an unsplit 'boolean' union as 'boolean'", () => {
     const booleanType = getTypeOfDeclaredValue("declare const x: boolean;", "x");
     expect(booleanType.isUnion()).toBe(true);
     // The union type carries TypeFlags.Boolean but not BooleanLiteral, so it
-    // matches isBooleanType without being true/false and produces no variant.
-    expect([...getTypeVariants([booleanType])]).toEqual([]);
+    // matches isBooleanType without being true/false; the fallback treats it
+    // as the full 'boolean' variant, mirroring the upstream rule.
+    expect([...getTypeVariants([booleanType])]).toEqual(["boolean"]);
+  });
+
+  it("should classify an unsplit 'boolean' union inside a mixed union as 'boolean'", () => {
+    // TS flattens 'boolean | string' into 'false | true | string' internally,
+    // so construct the mixed input manually to exercise the fallback.
+    const booleanType = getTypeOfDeclaredValue("declare const x: boolean;", "x");
+    const stringType = getTypeOfDeclaredValue("declare const x: string;", "x");
+    expect([...getTypeVariants([booleanType, stringType])].sort()).toEqual(["boolean", "string"]);
   });
 
   it("should classify string variants", () => {
