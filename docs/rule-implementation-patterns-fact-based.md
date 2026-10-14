@@ -8,7 +8,7 @@ Core ideas:
 
 - **Diagnostics as data** — inference returns typed effect objects (often a `kind`-tagged union) instead of calling `context.report`; the rule file then reports them exhaustively in one place.
 - **Resolve origins once, reuse everywhere** — _parse, don't validate_: what each fact refers to is resolved once up front and turned into typed origin data, so downstream inference consumes that resolution instead of re-deriving it at every use site.
-- **Separate interpretation from traversal** — collectors only classify syntax during the walk; all semantic judgment happens afterward on plain data, so each layer can be read and unit-tested in isolation.
+- **Defer interpretation past traversal** — collectors only classify syntax during the walk; all semantic judgment happens afterward on plain data provenanced by resolved origins, so each layer can be read and unit-tested in isolation.
 
 ## Directory Structure
 
@@ -25,6 +25,8 @@ src/rules/<rule-name>/
 Only the pattern-specific files are shown; every rule directory also contains the standard `<rule-name>.mdx`, `CHANGELOG.md`, and `<rule-name>.spec.ts` files. Fact-based rules (and a few other complex rules) additionally carry `<rule-name>.spec.md` and `<rule-name>.spec.diff.md` snapshots, and some add unit tests for individual layers (`collect.test.ts`, `effects.test.ts`, ...).
 
 Add a layer only when the rule file would otherwise own that responsibility — some rules use all four layers, others stay minimal and defer judgments to later layers instead of capturing more up front.
+
+Module dependencies point one way only — `<rule-name>.ts` → `effects.ts` → `origins.ts` → `collect.ts` → `helpers.ts` — with no cyclic or backward imports. Since each layer may depend only on an earlier pipeline stage, the analysis forms a unidirectional data flow: facts collected during traversal flow into origin resolution, resolved origins flow into effect inference, and effects flow into the rule file's report pass. Nothing downstream can leak back into traversal.
 
 ## Layer Responsibilities
 
