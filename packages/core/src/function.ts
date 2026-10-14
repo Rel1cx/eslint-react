@@ -135,8 +135,7 @@ export function getFunctionId(node: TSESTree.Expression | TSESTreeFunction) {
       return node.parent.left;
     // const MaybeComponent = condition ? () => {} : () => {};
     // Only consequent/alternate positions inherit the id; the test position does not.
-    case node.parent.type === AST.ConditionalExpression
-      && (node.parent.consequent === node || node.parent.alternate === node):
+    case node.parent.type === AST.ConditionalExpression && (node.parent.consequent === node || node.parent.alternate === node):
       return getFunctionId(node.parent);
     // const MaybeComponent = (() => {})!;
     // const MaybeComponent = (() => {}) as FunctionComponent;

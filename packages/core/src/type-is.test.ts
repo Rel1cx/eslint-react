@@ -1,3 +1,4 @@
+import dedent from "dedent";
 import ts from "typescript";
 import { describe, expect, it } from "vitest";
 
@@ -66,7 +67,7 @@ function getTypeOfDeclaredValue(code: string, name: string): ts.Type {
 }
 
 describe("isBooleanLiteralType / isFalseLiteralType / isTrueLiteralType", () => {
-  const code = `
+  const code = dedent`
     declare const t: true;
     declare const f: false;
     declare const b: boolean;

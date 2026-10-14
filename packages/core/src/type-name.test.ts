@@ -1,3 +1,4 @@
+import dedent from "dedent";
 import ts from "typescript";
 import { describe, expect, it } from "vitest";
 
@@ -52,7 +53,7 @@ function getSymbolOfFirstDeclaration(code: string, name: string): { checker: ts.
 
 describe("getFullyQualifiedNameEx", () => {
   it("should prepend the 'export as namespace' namespace, unlike ts.TypeChecker.getFullyQualifiedName", () => {
-    const code = `
+    const code = dedent`
       export as namespace preact;
       declare namespace JSX {
         interface IntrinsicElements {
@@ -66,7 +67,7 @@ describe("getFullyQualifiedNameEx", () => {
   });
 
   it("should not duplicate the namespace when the walked name already starts with it", () => {
-    const code = `
+    const code = dedent`
       export as namespace React;
       declare namespace React {
         interface Attributes {
@@ -79,7 +80,7 @@ describe("getFullyQualifiedNameEx", () => {
   });
 
   it("should qualify members of a namespace when there is no 'export as namespace' declaration", () => {
-    const code = `
+    const code = dedent`
       export {};
       declare namespace JSX {
         interface IntrinsicElements {
@@ -92,7 +93,7 @@ describe("getFullyQualifiedNameEx", () => {
   });
 
   it("should include nested type literal property segments that getFullyQualifiedName skips", () => {
-    const code = `
+    const code = dedent`
       export {};
       interface A {
         b: {
@@ -107,7 +108,7 @@ describe("getFullyQualifiedNameEx", () => {
   });
 
   it("should qualify enum members and class members by their container names", () => {
-    const code = `
+    const code = dedent`
       export {};
       enum E { A }
       class C { m() {} }
@@ -119,7 +120,7 @@ describe("getFullyQualifiedNameEx", () => {
   });
 
   it("should qualify function-local variables by the function name, unlike getFullyQualifiedName", () => {
-    const code = `
+    const code = dedent`
       export {};
       function foo() {
         const x = 1;
@@ -132,7 +133,7 @@ describe("getFullyQualifiedNameEx", () => {
   });
 
   it("should return the plain name for a top-level declaration in a module without namespace export", () => {
-    const code = `
+    const code = dedent`
       export {};
       interface Props {
         a: string;
