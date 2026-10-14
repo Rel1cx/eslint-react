@@ -6,17 +6,17 @@
 
 - `react-web-api/no-leaked-event-listener`: cleanups returned through conditional expressions (ex: `return cond ? () => window.removeEventListener(...) : null`) are now recognized and no longer reported. (#2038)
 - `react-web-api/no-leaked-fetch`: effect setups wrapped in type expressions (ex: `useEffect((() => { fetch(...) }) as any, [])`) are now recognized. (#2038)
-- `react-debug/function-component`: computed string-literal `displayName` keys (ex: `App["displayName"]`) are now recognized. (#2038)
-
-### 🏗️ Internal
-
-- `@eslint-react/core`: accuracy and consistency fixes in detection helpers. (#2038)
-- `react-x`: the custom tsl config now enforces the fact-based layer dependency order. (#2036)
-- Bumped `react` and `react-dom` to `19.3.1`, `next` to `16.4.1`.
+- `react-debug/function-component`: computed string-literal `displayName` keys (ex: `App["displayName"] = "..."`) are now recognized. (#2038)
 
 ### 📝 Documentation
 
 - Revised the rule implementation pattern guides and refined the core ideas and layer dependency model in the fact-based rule implementation docs. (#2034, #2035)
+
+### 🏗️ Internal
+
+- `@eslint-react/core`: accuracy and consistency fixes in detection helpers. (#2038)
+- `react-x`: the custom `tsl` config now enforces the fact-based layer dependency order. (#2036)
+- Bumped `react` and `react-dom` to `19.3.1`, and `next` to `16.4.1`.
 
 **Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.26.7...v5.27.0
 
