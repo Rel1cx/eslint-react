@@ -196,6 +196,18 @@ describe("getFunctionInitPath", () => {
     const node = getFirstNodeOfType<TSESTree.ArrowFunctionExpression>(code, AST.ArrowFunctionExpression);
     expect(getFunctionInitPath(node)).not.toBeNull();
   });
+
+  it("should still recognize a type-wrapped HOC argument", () => {
+    const code = "const f = memo((() => {}) as any)";
+    const node = getFirstNodeOfType<TSESTree.ArrowFunctionExpression>(code, AST.ArrowFunctionExpression);
+    expect(getFunctionInitPath(node)).not.toBeNull();
+  });
+
+  it("should still recognize a type-wrapped nested HOC argument", () => {
+    const code = "const f = memo(forwardRef((() => {}) as any))";
+    const node = getFirstNodeOfType<TSESTree.ArrowFunctionExpression>(code, AST.ArrowFunctionExpression);
+    expect(getFunctionInitPath(node)).not.toBeNull();
+  });
 });
 
 describe("isFunctionEmpty", () => {

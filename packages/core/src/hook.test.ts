@@ -380,4 +380,32 @@ describe("isUseEffectCleanupCallback", () => {
     }, true);
     expect(found).toBe(true);
   });
+
+  it("should return false for cleanup behind a conditional return (not the direct return value)", () => {
+    const code = "useEffect(() => { return cond ? () => {} : null; })";
+    let found = false;
+    simpleTraverse(parseCode(code).ast, {
+      enter(node) {
+        if (node.type === AST.ArrowFunctionExpression && node.parent.type === AST.ConditionalExpression) {
+          expect(isUseEffectCleanupCallback(node)).toBe(false);
+          found = true;
+        }
+      },
+    }, true);
+    expect(found).toBe(true);
+  });
+
+  it("should return false for cleanup behind a logical expression return", () => {
+    const code = "useEffect(() => { return maybeCleanup ?? (() => {}); })";
+    let found = false;
+    simpleTraverse(parseCode(code).ast, {
+      enter(node) {
+        if (node.type === AST.ArrowFunctionExpression && node.parent.type === AST.LogicalExpression) {
+          expect(isUseEffectCleanupCallback(node)).toBe(false);
+          found = true;
+        }
+      },
+    }, true);
+    expect(found).toBe(true);
+  });
 });

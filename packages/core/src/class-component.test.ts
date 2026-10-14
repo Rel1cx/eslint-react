@@ -220,6 +220,14 @@ describe("isRenderMethodCallback", () => {
     );
     expect(isRenderMethodCallback(node)).toBe(false);
   });
+
+  it("should return false for a function inside a conditional render property value", () => {
+    const node = getFirstNodeOfType<TSESTree.ArrowFunctionExpression>(
+      "class A extends Component { render = cond ? () => null : null; }",
+      AST.ArrowFunctionExpression,
+    );
+    expect(isRenderMethodCallback(node)).toBe(false);
+  });
 });
 
 describe("isThisSetStateCall", () => {
