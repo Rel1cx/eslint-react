@@ -4,7 +4,7 @@
 
 ### 🏗️ Internal
 
-- `@eslint-react/core`: component and hook collectors now use the node's source range start as the map key, dropping the shared counter in `collector-key.ts` entirely. The key now corresponds directly to the node's offset in the source code, so its position can be looked up when debugging, repeated lints of the same file produce stable, reproducible results, and it performs slightly better than converting numbers to strings as keys. (#2033)
+- `@eslint-react/core`: collectors now use the node's source range start as the map key, replacing the shared counter, keys are stable across repeated lints, traceable to source positions when debugging, and slightly cheaper than stringified numbers. (#2033)
 
 **Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.26.6...v5.26.7
 

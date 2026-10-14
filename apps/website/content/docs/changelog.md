@@ -2,6 +2,14 @@
 title: Changelog
 ---
 
+## v5.26.7 (2026-10-15)
+
+### 🏗️ Internal
+
+- `@eslint-react/core`: collectors now use the node's source range start as the map key, replacing the shared counter, keys are stable across repeated lints, traceable to source positions when debugging, and slightly cheaper than stringified numbers. (#2033)
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.26.6...v5.26.7
+
 ## v5.26.6 (2026-10-14)
 
 ### 🏗️ Internal
