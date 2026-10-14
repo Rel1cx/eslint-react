@@ -1,6 +1,6 @@
 {
   "name": "eslint-plugin-react-web-api",
-  "version": "5.26.5",
+  "version": "5.26.6",
   "description": "ESLint React's ESLint plugin for interacting with Web APIs",
   "keywords": [
     "react",
@@ -50,7 +50,7 @@
     "@eslint-react/var": "workspace:*",
     "@typescript-eslint/types": "^8.71.2",
     "@typescript-eslint/utils": "^8.71.2",
-    "ts-pattern": "^5.9.0"
+    "ts-pattern": "^5.9.2"
   },
   "devDependencies": {
     "@local/configs": "workspace:*",

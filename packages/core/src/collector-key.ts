@@ -1,5 +1,5 @@
-let nextKey = 0;
+let key = 0;
 
 export function getNextCollectorKey() {
-  return String(nextKey++);
+  return String(key++);
 }

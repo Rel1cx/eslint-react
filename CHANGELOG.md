@@ -1,5 +1,18 @@
 # Changelog
 
+## v5.26.6 (2026-10-14)
+
+### 🏗️ Internal
+
+- `@eslint-react/core`: component and hook collectors now use sequential integer keys instead of random `randomBytes` hex keys, removing `node:crypto` from the lint hot path. (#2032) Thanks to @kurtextrem!
+- Bumped `effect` to `4.0.4`, `ts-pattern` to `5.9.2`, `fumadocs-core` and `fumadocs-ui` to `16.17.3`, `lucide-react` to `1.57.0`, `oxlint` to `1.88.0`, `typedoc-plugin-markdown` to `4.14.0`, and `undici` to `8.12.1`.
+
+### New Contributors
+
+- **Jacob Groß** (@kurtextrem) made their first contribution in #2032.
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.26.5...v5.26.6
+
 ## v5.26.5 (2026-10-13)
 
 ### 🐞 Fixes
