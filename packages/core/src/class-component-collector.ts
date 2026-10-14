@@ -2,9 +2,9 @@ import { Extract, type TSESTreeClass } from "@eslint-react/ast";
 import type { RuleContext } from "@eslint-react/eslint";
 import type { TSESTree } from "@typescript-eslint/types";
 import type { ESLintUtils } from "@typescript-eslint/utils";
-import { randomBytes } from "node:crypto";
 import { getClassId } from "./class";
 import { type ClassComponentSemanticNode, isClassComponent } from "./class-component";
+import { getNextCollectorKey } from "./collector-key";
 
 // #region Component Collector Legacy
 
@@ -33,7 +33,7 @@ export function getClassComponentCollector(context: RuleContext): getClassCompon
   const collect = (node: TSESTreeClass) => {
     if (!isClassComponent(node)) return;
     const id = getClassId(node);
-    const key = randomBytes(8).toString("hex");
+    const key = getNextCollectorKey();
     const name = id == null ? null : Extract.getFullyQualifiedName(id, getText);
     components.set(
       key,
