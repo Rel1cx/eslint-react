@@ -319,4 +319,49 @@ describe("isUseEffectCleanupCallback", () => {
     }, true);
     expect(found).toBe(true);
   });
+
+  it("should return false for arrow function passed as argument to the returned expression", () => {
+    const code = "useEffect(() => { return foo(() => {}); })";
+    let found = false;
+    simpleTraverse(parseCode(code).ast, {
+      enter(node) {
+        if (node.type === AST.ArrowFunctionExpression && node.parent.type === AST.CallExpression) {
+          expect(isUseEffectCleanupCallback(node)).toBe(false);
+          found = true;
+        }
+      },
+    }, true);
+    expect(found).toBe(true);
+  });
+
+  it("should return false for the innermost arrow nested deeper than the cleanup", () => {
+    const code = "useEffect(() => () => () => {})";
+    let found = false;
+    simpleTraverse(parseCode(code).ast, {
+      enter(node) {
+        if (
+          node.type === AST.ArrowFunctionExpression && node.parent.type === AST.ArrowFunctionExpression
+          && node.parent.parent.type === AST.ArrowFunctionExpression
+        ) {
+          expect(isUseEffectCleanupCallback(node)).toBe(false);
+          found = true;
+        }
+      },
+    }, true);
+    expect(found).toBe(true);
+  });
+
+  it("should return true for cleanup function wrapped in a type expression", () => {
+    const code = "useEffect(() => { return (() => {}) as any; })";
+    let found = false;
+    simpleTraverse(parseCode(code).ast, {
+      enter(node) {
+        if (node.type === AST.ArrowFunctionExpression && node.parent.type === AST.TSAsExpression) {
+          expect(isUseEffectCleanupCallback(node)).toBe(true);
+          found = true;
+        }
+      },
+    }, true);
+    expect(found).toBe(true);
+  });
 });
