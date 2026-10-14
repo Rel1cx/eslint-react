@@ -10,9 +10,9 @@ Disallow usage of string literals in JSX.
 
 ## Parameters
 
-| Parameter | Type                                                              |
-| --------- | ----------------------------------------------------------------- |
-| `options` | [`JsxNoLiteralsOptions`](../type-aliases/JsxNoLiteralsOptions.md) |
+| Parameter  | Type                                                              |
+| ---------- | ----------------------------------------------------------------- |
+| `options?` | [`JsxNoLiteralsOptions`](../type-aliases/JsxNoLiteralsOptions.md) |
 
 ## Returns
 

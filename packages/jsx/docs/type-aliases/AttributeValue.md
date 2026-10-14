@@ -7,12 +7,12 @@ type AttributeValue =
   | {
     kind: "boolean";
     node: null;
-    toStatic: true;
+    toStatic(): true;
   }
   | {
     kind: "literal";
     node: TSESTree.Literal;
-    toStatic:
+    toStatic():
       | string
       | number
       | bigint
@@ -23,28 +23,28 @@ type AttributeValue =
   | {
     kind: "unknown";
     node: TSESTree.Expression;
-    toStatic: unknown;
+    toStatic(): unknown;
   }
   | {
     kind: "element";
     node: TSESTree.JSXElement;
-    toStatic: undefined;
+    toStatic(): undefined;
   }
   | {
     kind: "missing";
     node: TSESTree.JSXEmptyExpression;
-    toStatic: undefined;
+    toStatic(): undefined;
   }
   | {
     kind: "spreadChild";
     node: TSESTree.JSXSpreadChild;
-    toStatic: undefined;
+    toStatic(): undefined;
   }
   | {
     kind: "spreadProps";
     node: TSESTree.JSXSpreadAttribute["argument"];
-    getProperty: unknown;
-    toStatic: unknown;
+    getProperty(name: string): unknown;
+    toStatic(): unknown;
   };
 ```
 

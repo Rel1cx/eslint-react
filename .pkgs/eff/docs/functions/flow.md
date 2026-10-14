@@ -35,10 +35,10 @@ f("aaa"); // => 6
 
 ### Type Parameters
 
-| Type Parameter                     | Default type |
-| ---------------------------------- | ------------ |
-| `A` _extends_ readonly `unknown`[] | -            |
-| `B`                                | `never`      |
+| Type Parameter                                                   | Default type |
+| ---------------------------------------------------------------- | ------------ |
+| <a id="type-parameter-a"></a> `A` _extends_ readonly `unknown`[] | -            |
+| <a id="type-parameter-b"></a> `B`                                | `never`      |
 
 ### Parameters
 
@@ -92,11 +92,11 @@ f("aaa"); // => 6
 
 ### Type Parameters
 
-| Type Parameter                     | Default type |
-| ---------------------------------- | ------------ |
-| `A` _extends_ readonly `unknown`[] | -            |
-| `B`                                | `never`      |
-| `C`                                | `never`      |
+| Type Parameter                                                     | Default type |
+| ------------------------------------------------------------------ | ------------ |
+| <a id="type-parameter-a-1"></a> `A` _extends_ readonly `unknown`[] | -            |
+| <a id="type-parameter-b-1"></a> `B`                                | `never`      |
+| <a id="type-parameter-c"></a> `C`                                  | `never`      |
 
 ### Parameters
 
@@ -151,12 +151,12 @@ f("aaa"); // => 6
 
 ### Type Parameters
 
-| Type Parameter                     | Default type |
-| ---------------------------------- | ------------ |
-| `A` _extends_ readonly `unknown`[] | -            |
-| `B`                                | `never`      |
-| `C`                                | `never`      |
-| `D`                                | `never`      |
+| Type Parameter                                                     | Default type |
+| ------------------------------------------------------------------ | ------------ |
+| <a id="type-parameter-a-2"></a> `A` _extends_ readonly `unknown`[] | -            |
+| <a id="type-parameter-b-2"></a> `B`                                | `never`      |
+| <a id="type-parameter-c-1"></a> `C`                                | `never`      |
+| <a id="type-parameter-d"></a> `D`                                  | `never`      |
 
 ### Parameters
 
@@ -217,13 +217,13 @@ f("aaa"); // => 6
 
 ### Type Parameters
 
-| Type Parameter                     | Default type |
-| ---------------------------------- | ------------ |
-| `A` _extends_ readonly `unknown`[] | -            |
-| `B`                                | `never`      |
-| `C`                                | `never`      |
-| `D`                                | `never`      |
-| `E`                                | `never`      |
+| Type Parameter                                                     | Default type |
+| ------------------------------------------------------------------ | ------------ |
+| <a id="type-parameter-a-3"></a> `A` _extends_ readonly `unknown`[] | -            |
+| <a id="type-parameter-b-3"></a> `B`                                | `never`      |
+| <a id="type-parameter-c-2"></a> `C`                                | `never`      |
+| <a id="type-parameter-d-1"></a> `D`                                | `never`      |
+| <a id="type-parameter-e"></a> `E`                                  | `never`      |
 
 ### Parameters
 
@@ -286,14 +286,14 @@ f("aaa"); // => 6
 
 ### Type Parameters
 
-| Type Parameter                     | Default type |
-| ---------------------------------- | ------------ |
-| `A` _extends_ readonly `unknown`[] | -            |
-| `B`                                | `never`      |
-| `C`                                | `never`      |
-| `D`                                | `never`      |
-| `E`                                | `never`      |
-| `F`                                | `never`      |
+| Type Parameter                                                     | Default type |
+| ------------------------------------------------------------------ | ------------ |
+| <a id="type-parameter-a-4"></a> `A` _extends_ readonly `unknown`[] | -            |
+| <a id="type-parameter-b-4"></a> `B`                                | `never`      |
+| <a id="type-parameter-c-3"></a> `C`                                | `never`      |
+| <a id="type-parameter-d-2"></a> `D`                                | `never`      |
+| <a id="type-parameter-e-1"></a> `E`                                | `never`      |
+| <a id="type-parameter-f"></a> `F`                                  | `never`      |
 
 ### Parameters
 
@@ -358,15 +358,15 @@ f("aaa"); // => 6
 
 ### Type Parameters
 
-| Type Parameter                     | Default type |
-| ---------------------------------- | ------------ |
-| `A` _extends_ readonly `unknown`[] | -            |
-| `B`                                | `never`      |
-| `C`                                | `never`      |
-| `D`                                | `never`      |
-| `E`                                | `never`      |
-| `F`                                | `never`      |
-| `G`                                | `never`      |
+| Type Parameter                                                     | Default type |
+| ------------------------------------------------------------------ | ------------ |
+| <a id="type-parameter-a-5"></a> `A` _extends_ readonly `unknown`[] | -            |
+| <a id="type-parameter-b-5"></a> `B`                                | `never`      |
+| <a id="type-parameter-c-4"></a> `C`                                | `never`      |
+| <a id="type-parameter-d-3"></a> `D`                                | `never`      |
+| <a id="type-parameter-e-2"></a> `E`                                | `never`      |
+| <a id="type-parameter-f-1"></a> `F`                                | `never`      |
+| <a id="type-parameter-g"></a> `G`                                  | `never`      |
 
 ### Parameters
 
@@ -433,16 +433,16 @@ f("aaa"); // => 6
 
 ### Type Parameters
 
-| Type Parameter                     | Default type |
-| ---------------------------------- | ------------ |
-| `A` _extends_ readonly `unknown`[] | -            |
-| `B`                                | `never`      |
-| `C`                                | `never`      |
-| `D`                                | `never`      |
-| `E`                                | `never`      |
-| `F`                                | `never`      |
-| `G`                                | `never`      |
-| `H`                                | `never`      |
+| Type Parameter                                                     | Default type |
+| ------------------------------------------------------------------ | ------------ |
+| <a id="type-parameter-a-6"></a> `A` _extends_ readonly `unknown`[] | -            |
+| <a id="type-parameter-b-6"></a> `B`                                | `never`      |
+| <a id="type-parameter-c-5"></a> `C`                                | `never`      |
+| <a id="type-parameter-d-4"></a> `D`                                | `never`      |
+| <a id="type-parameter-e-3"></a> `E`                                | `never`      |
+| <a id="type-parameter-f-2"></a> `F`                                | `never`      |
+| <a id="type-parameter-g-1"></a> `G`                                | `never`      |
+| <a id="type-parameter-h"></a> `H`                                  | `never`      |
 
 ### Parameters
 
@@ -511,17 +511,17 @@ f("aaa"); // => 6
 
 ### Type Parameters
 
-| Type Parameter                     | Default type |
-| ---------------------------------- | ------------ |
-| `A` _extends_ readonly `unknown`[] | -            |
-| `B`                                | `never`      |
-| `C`                                | `never`      |
-| `D`                                | `never`      |
-| `E`                                | `never`      |
-| `F`                                | `never`      |
-| `G`                                | `never`      |
-| `H`                                | `never`      |
-| `I`                                | `never`      |
+| Type Parameter                                                     | Default type |
+| ------------------------------------------------------------------ | ------------ |
+| <a id="type-parameter-a-7"></a> `A` _extends_ readonly `unknown`[] | -            |
+| <a id="type-parameter-b-7"></a> `B`                                | `never`      |
+| <a id="type-parameter-c-6"></a> `C`                                | `never`      |
+| <a id="type-parameter-d-5"></a> `D`                                | `never`      |
+| <a id="type-parameter-e-4"></a> `E`                                | `never`      |
+| <a id="type-parameter-f-3"></a> `F`                                | `never`      |
+| <a id="type-parameter-g-2"></a> `G`                                | `never`      |
+| <a id="type-parameter-h-1"></a> `H`                                | `never`      |
+| <a id="type-parameter-i"></a> `I`                                  | `never`      |
 
 ### Parameters
 
@@ -592,18 +592,18 @@ f("aaa"); // => 6
 
 ### Type Parameters
 
-| Type Parameter                     | Default type |
-| ---------------------------------- | ------------ |
-| `A` _extends_ readonly `unknown`[] | -            |
-| `B`                                | `never`      |
-| `C`                                | `never`      |
-| `D`                                | `never`      |
-| `E`                                | `never`      |
-| `F`                                | `never`      |
-| `G`                                | `never`      |
-| `H`                                | `never`      |
-| `I`                                | `never`      |
-| `J`                                | `never`      |
+| Type Parameter                                                     | Default type |
+| ------------------------------------------------------------------ | ------------ |
+| <a id="type-parameter-a-8"></a> `A` _extends_ readonly `unknown`[] | -            |
+| <a id="type-parameter-b-8"></a> `B`                                | `never`      |
+| <a id="type-parameter-c-7"></a> `C`                                | `never`      |
+| <a id="type-parameter-d-6"></a> `D`                                | `never`      |
+| <a id="type-parameter-e-5"></a> `E`                                | `never`      |
+| <a id="type-parameter-f-4"></a> `F`                                | `never`      |
+| <a id="type-parameter-g-3"></a> `G`                                | `never`      |
+| <a id="type-parameter-h-2"></a> `H`                                | `never`      |
+| <a id="type-parameter-i-1"></a> `I`                                | `never`      |
+| <a id="type-parameter-j"></a> `J`                                  | `never`      |
 
 ### Parameters
 

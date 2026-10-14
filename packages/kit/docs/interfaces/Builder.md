@@ -36,9 +36,9 @@ use<F extends (...args: any[]) => RuleFunction>(factory: F, ...args: Parameters<
 
 #### Type Parameters
 
-| Type Parameter                                                                          |
-| --------------------------------------------------------------------------------------- |
-| `F` _extends_ (...`args`: `any`[]) => [`RuleFunction`](../type-aliases/RuleFunction.md) |
+| Type Parameter                                                                                                        |
+| --------------------------------------------------------------------------------------------------------------------- |
+| <a id="type-parameter-f"></a> `F` _extends_ (...`args`: `any`[]) => [`RuleFunction`](../type-aliases/RuleFunction.md) |
 
 #### Parameters
 

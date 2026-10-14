@@ -35,9 +35,9 @@ Array.dropWhile([1, 2, 3, 4, 5], (x) => x < 4); // => [4, 5]
 
 ### Type Parameters
 
-| Type Parameter |
-| -------------- |
-| `A`            |
+| Type Parameter                          |
+| --------------------------------------- |
+| <a id="type-parameter-__typea"></a> `A` |
 
 ### Parameters
 
@@ -57,9 +57,9 @@ Array.dropWhile([1, 2, 3, 4, 5], (x) => x < 4); // => [4, 5]
 
 ### Type Parameters
 
-| Type Parameter |
-| -------------- |
-| `A`            |
+| Type Parameter                            |
+| ----------------------------------------- |
+| <a id="type-parameter-__typea-1"></a> `A` |
 
 ### Parameters
 

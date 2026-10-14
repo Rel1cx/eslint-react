@@ -28,9 +28,9 @@ const test2 = Function.satisfies<string>()(5);
 
 ## Type Parameters
 
-| Type Parameter |
-| -------------- |
-| `A`            |
+| Type Parameter                    |
+| --------------------------------- |
+| <a id="type-parameter-a"></a> `A` |
 
 ## Returns
 

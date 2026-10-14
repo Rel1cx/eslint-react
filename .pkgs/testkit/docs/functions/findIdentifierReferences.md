@@ -15,11 +15,11 @@ property keys. Requires parent pointers (as attached by `parseCode`) when
 
 ## Parameters
 
-| Parameter | Type                                                    | Description                                         |
-| --------- | ------------------------------------------------------- | --------------------------------------------------- |
-| `input`   | `string` \| `Node`                                      | Source code or an AST node to search.               |
-| `name`    | `string`                                                | The identifier name to look for.                    |
-| `options` | [`ParseCodeOptions`](../interfaces/ParseCodeOptions.md) | Parser options, only used when `input` is a string. |
+| Parameter  | Type                                                    | Description                                         |
+| ---------- | ------------------------------------------------------- | --------------------------------------------------- |
+| `input`    | `string` \| `Node`                                      | Source code or an AST node to search.               |
+| `name`     | `string`                                                | The identifier name to look for.                    |
+| `options?` | [`ParseCodeOptions`](../interfaces/ParseCodeOptions.md) | Parser options, only used when `input` is a string. |
 
 ## Returns
 

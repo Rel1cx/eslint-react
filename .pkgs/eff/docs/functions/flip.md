@@ -25,11 +25,11 @@ Function.flip(f)("aaa")(2); // => -1
 
 ## Type Parameters
 
-| Type Parameter            |
-| ------------------------- |
-| `A` _extends_ `unknown`[] |
-| `B` _extends_ `unknown`[] |
-| `C`                       |
+| Type Parameter                                          |
+| ------------------------------------------------------- |
+| <a id="type-parameter-a"></a> `A` _extends_ `unknown`[] |
+| <a id="type-parameter-b"></a> `B` _extends_ `unknown`[] |
+| <a id="type-parameter-c"></a> `C`                       |
 
 ## Parameters
 

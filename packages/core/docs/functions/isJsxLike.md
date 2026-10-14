@@ -21,7 +21,7 @@ treated as not JSX-like instead of recursing indefinitely.
 | --------- | ---------------- | ---------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
 | `context` | `RuleContext`    | `undefined`                  | The ESLint rule context (needed for variable resolution).                                                                                 |
 | `node`    | `Node` \| `null` | `undefined`                  | The AST node to analyze.                                                                                                                  |
-| `hint`    | `bigint`         | `DEFAULT_JSX_DETECTION_HINT` | Optional bit-flags to adjust detection behavior. Defaults to [DEFAULT\_JSX\_DETECTION\_HINT](../variables/DEFAULT_JSX_DETECTION_HINT.md). |
+| `hint?`   | `bigint`         | `DEFAULT_JSX_DETECTION_HINT` | Optional bit-flags to adjust detection behavior. Defaults to [DEFAULT\_JSX\_DETECTION\_HINT](../variables/DEFAULT_JSX_DETECTION_HINT.md). |
 
 ## Returns
 

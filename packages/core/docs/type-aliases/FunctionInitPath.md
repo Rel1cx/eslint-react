@@ -9,23 +9,6 @@ type FunctionInitPath =
   | readonly [TSESTree.VariableDeclaration, TSESTree.VariableDeclarator, TSESTree.CallExpression, TSESTreeFunction]
   | readonly [TSESTree.VariableDeclaration, TSESTree.VariableDeclarator, TSESTree.CallExpression, TSESTree.CallExpression, TSESTreeFunction]
   | readonly [TSESTree.VariableDeclaration, TSESTree.VariableDeclarator, TSESTree.ObjectExpression, TSESTree.Property, TSESTreeFunction]
-  | readonly [
-    TSESTree.VariableDeclaration,
-    TSESTree.VariableDeclarator,
-    TSESTree.ObjectExpression,
-    TSESTree.Property,
-    TSESTree.CallExpression,
-    TSESTreeFunction,
-  ]
-  | readonly [
-    TSESTree.VariableDeclaration,
-    TSESTree.VariableDeclarator,
-    TSESTree.ObjectExpression,
-    TSESTree.Property,
-    TSESTree.CallExpression,
-    TSESTree.CallExpression,
-    TSESTreeFunction,
-  ]
   | readonly [TSESTree.ClassDeclaration | TSESTree.ClassExpression, TSESTree.ClassBody, TSESTree.MethodDefinition, TSESTreeFunction]
   | readonly [TSESTree.ClassDeclaration | TSESTree.ClassExpression, TSESTree.ClassBody, TSESTree.PropertyDefinition, TSESTreeFunction];
 ```

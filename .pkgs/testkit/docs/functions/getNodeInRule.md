@@ -14,9 +14,9 @@ Runs `code` through a real `Linter` and captures the first node visited by
 
 ## Type Parameters
 
-| Type Parameter       |
-| -------------------- |
-| `T` _extends_ `Node` |
+| Type Parameter                                     |
+| -------------------------------------------------- |
+| <a id="type-parameter-t"></a> `T` _extends_ `Node` |
 
 ## Parameters
 
@@ -24,7 +24,7 @@ Runs `code` through a real `Linter` and captures the first node visited by
 | ------------ | ----------------------------------------------------- | ---------------------------------------------- |
 | `code`       | `string`                                              | The source code to lint.                       |
 | `visitorKey` | `string`                                              | The visitor key whose first match is captured. |
-| `options`    | [`RuleRunOptions`](../type-aliases/RuleRunOptions.md) | Parser options (filename, JSX, source type).   |
+| `options?`   | [`RuleRunOptions`](../type-aliases/RuleRunOptions.md) | Parser options (filename, JSX, source type).   |
 
 ## Returns
 

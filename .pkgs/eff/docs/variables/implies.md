@@ -41,9 +41,9 @@ implies(16); // => true
 
 ### Type Parameters
 
-| Type Parameter |
-| -------------- |
-| `T`            |
+| Type Parameter                          |
+| --------------------------------------- |
+| <a id="type-parameter-__typet"></a> `T` |
 
 ### Parameters
 
@@ -63,9 +63,9 @@ implies(16); // => true
 
 ### Type Parameters
 
-| Type Parameter |
-| -------------- |
-| `T`            |
+| Type Parameter                            |
+| ----------------------------------------- |
+| <a id="type-parameter-__typet-1"></a> `T` |
 
 ### Parameters
 

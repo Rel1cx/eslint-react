@@ -31,9 +31,9 @@ const buildUser = (id: number): { readonly id: number; readonly name: string } =
 
 ## Type Parameters
 
-| Type Parameter |
-| -------------- |
-| `T`            |
+| Type Parameter                          |
+| --------------------------------------- |
+| <a id="type-parameter-__typet"></a> `T` |
 
 ## Returns
 

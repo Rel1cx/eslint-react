@@ -30,10 +30,10 @@ be garbage collected; primitive keys are cached by value in a private
 
 ## Type Parameters
 
-| Type Parameter                   |
-| -------------------------------- |
-| `A`                              |
-| `O` _extends_ \| \{ \} \| `null` |
+| Type Parameter                                                 |
+| -------------------------------------------------------------- |
+| <a id="type-parameter-a"></a> `A`                              |
+| <a id="type-parameter-o"></a> `O` _extends_ \| \{ \} \| `null` |
 
 ## Parameters
 

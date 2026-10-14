@@ -42,9 +42,9 @@ if (hasName(data)) {
 
 ### Type Parameters
 
-| Type Parameter              |
-| --------------------------- |
-| `P` _extends_ `PropertyKey` |
+| Type Parameter                                                  |
+| --------------------------------------------------------------- |
+| <a id="type-parameter-__typep"></a> `P` _extends_ `PropertyKey` |
 
 ### Parameters
 
@@ -64,9 +64,9 @@ if (hasName(data)) {
 
 ### Type Parameters
 
-| Type Parameter              |
-| --------------------------- |
-| `P` _extends_ `PropertyKey` |
+| Type Parameter                                                    |
+| ----------------------------------------------------------------- |
+| <a id="type-parameter-__typep-1"></a> `P` _extends_ `PropertyKey` |
 
 ### Parameters
 

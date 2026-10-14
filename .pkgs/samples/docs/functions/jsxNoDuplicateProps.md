@@ -10,9 +10,9 @@ Disallow duplicate properties in JSX.
 
 ## Parameters
 
-| Parameter | Type                                                                          |
-| --------- | ----------------------------------------------------------------------------- |
-| `options` | [`JsxNoDuplicatePropsOptions`](../type-aliases/JsxNoDuplicatePropsOptions.md) |
+| Parameter  | Type                                                                          |
+| ---------- | ----------------------------------------------------------------------------- |
+| `options?` | [`JsxNoDuplicatePropsOptions`](../type-aliases/JsxNoDuplicatePropsOptions.md) |
 
 ## Returns
 

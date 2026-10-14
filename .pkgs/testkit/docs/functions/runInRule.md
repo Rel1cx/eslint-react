@@ -12,17 +12,17 @@ from its `Program` listener, giving the callback a real rule context
 
 ## Type Parameters
 
-| Type Parameter |
-| -------------- |
-| `T`            |
+| Type Parameter                    |
+| --------------------------------- |
+| <a id="type-parameter-t"></a> `T` |
 
 ## Parameters
 
-| Parameter | Type                                                                                              | Description                                              |
-| --------- | ------------------------------------------------------------------------------------------------- | -------------------------------------------------------- |
-| `code`    | `string`                                                                                          | The source code to lint.                                 |
-| `fn`      | (`context`: [`TestRuleContext`](../type-aliases/TestRuleContext.md), `program`: `Program`) => `T` | The callback invoked from the rule's `Program` listener. |
-| `options` | [`RuleRunOptions`](../type-aliases/RuleRunOptions.md)                                             | Parser options (filename, JSX, source type).             |
+| Parameter  | Type                                                                                              | Description                                              |
+| ---------- | ------------------------------------------------------------------------------------------------- | -------------------------------------------------------- |
+| `code`     | `string`                                                                                          | The source code to lint.                                 |
+| `fn`       | (`context`: [`TestRuleContext`](../type-aliases/TestRuleContext.md), `program`: `Program`) => `T` | The callback invoked from the rule's `Program` listener. |
+| `options?` | [`RuleRunOptions`](../type-aliases/RuleRunOptions.md)                                             | Parser options (filename, JSX, source type).             |
 
 ## Returns
 

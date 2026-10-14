@@ -43,10 +43,10 @@ isStringOrNumber("a"); // => true
 
 ### Type Parameters
 
-| Type Parameter |
-| -------------- |
-| `T`            |
-| `U`            |
+| Type Parameter                          |
+| --------------------------------------- |
+| <a id="type-parameter-__typet"></a> `T` |
+| <a id="type-parameter-__typeu"></a> `U` |
 
 ### Parameters
 
@@ -66,9 +66,9 @@ isStringOrNumber("a"); // => true
 
 ### Type Parameters
 
-| Type Parameter |
-| -------------- |
-| `T`            |
+| Type Parameter                            |
+| ----------------------------------------- |
+| <a id="type-parameter-__typet-1"></a> `T` |
 
 ### Parameters
 
@@ -88,11 +88,11 @@ isStringOrNumber("a"); // => true
 
 ### Type Parameters
 
-| Type Parameter |
-| -------------- |
-| `T`            |
-| `S`            |
-| `U`            |
+| Type Parameter                            |
+| ----------------------------------------- |
+| <a id="type-parameter-__typet-2"></a> `T` |
+| <a id="type-parameter-__types"></a> `S`   |
+| <a id="type-parameter-__typeu-1"></a> `U` |
 
 ### Parameters
 
@@ -113,10 +113,10 @@ isStringOrNumber("a"); // => true
 
 ### Type Parameters
 
-| Type Parameter |
-| -------------- |
-| `T`            |
-| `S`            |
+| Type Parameter                            |
+| ----------------------------------------- |
+| <a id="type-parameter-__typet-3"></a> `T` |
+| <a id="type-parameter-__types-1"></a> `S` |
 
 ### Parameters
 
@@ -137,10 +137,10 @@ isStringOrNumber("a"); // => true
 
 ### Type Parameters
 
-| Type Parameter |
-| -------------- |
-| `T`            |
-| `U`            |
+| Type Parameter                            |
+| ----------------------------------------- |
+| <a id="type-parameter-__typet-4"></a> `T` |
+| <a id="type-parameter-__typeu-2"></a> `U` |
 
 ### Parameters
 
@@ -161,9 +161,9 @@ isStringOrNumber("a"); // => true
 
 ### Type Parameters
 
-| Type Parameter |
-| -------------- |
-| `T`            |
+| Type Parameter                            |
+| ----------------------------------------- |
+| <a id="type-parameter-__typet-5"></a> `T` |
 
 ### Parameters
 

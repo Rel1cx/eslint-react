@@ -26,9 +26,9 @@ constNull(); // => null
 
 ## Type Parameters
 
-| Type Parameter |
-| -------------- |
-| `A`            |
+| Type Parameter                    |
+| --------------------------------- |
+| <a id="type-parameter-a"></a> `A` |
 
 ## Parameters
 

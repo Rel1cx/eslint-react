@@ -30,10 +30,10 @@ isNotString(1); // => true
 
 ### Type Parameters
 
-| Type Parameter |
-| -------------- |
-| `T`            |
-| `S`            |
+| Type Parameter                    |
+| --------------------------------- |
+| <a id="type-parameter-t"></a> `T` |
+| <a id="type-parameter-s"></a> `S` |
 
 ### Parameters
 
@@ -83,9 +83,9 @@ isNotString(1); // => true
 
 ### Type Parameters
 
-| Type Parameter |
-| -------------- |
-| `T`            |
+| Type Parameter                      |
+| ----------------------------------- |
+| <a id="type-parameter-t-1"></a> `T` |
 
 ### Parameters
 

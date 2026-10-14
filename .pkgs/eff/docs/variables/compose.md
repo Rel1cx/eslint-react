@@ -53,10 +53,10 @@ Function.compose(increment, square)(2); // => 9
 
 ### Type Parameters
 
-| Type Parameter |
-| -------------- |
-| `B`            |
-| `C`            |
+| Type Parameter                          |
+| --------------------------------------- |
+| <a id="type-parameter-__typeb"></a> `B` |
+| <a id="type-parameter-__typec"></a> `C` |
 
 ### Parameters
 
@@ -103,11 +103,11 @@ Function.compose(increment, square)(2); // => 9
 
 ### Type Parameters
 
-| Type Parameter |
-| -------------- |
-| `A`            |
-| `B`            |
-| `C`            |
+| Type Parameter                            |
+| ----------------------------------------- |
+| <a id="type-parameter-__typea"></a> `A`   |
+| <a id="type-parameter-__typeb-1"></a> `B` |
+| <a id="type-parameter-__typec-1"></a> `C` |
 
 ### Parameters
 

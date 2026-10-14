@@ -24,10 +24,10 @@ sum(2, 3); // => 5
 
 ## Type Parameters
 
-| Type Parameter                             |
-| ------------------------------------------ |
-| `A` _extends_ `ReadonlyArray`\<`unknown`\> |
-| `B`                                        |
+| Type Parameter                                                           |
+| ------------------------------------------------------------------------ |
+| <a id="type-parameter-a"></a> `A` _extends_ `ReadonlyArray`\<`unknown`\> |
+| <a id="type-parameter-b"></a> `B`                                        |
 
 ## Parameters
 

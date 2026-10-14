@@ -13,17 +13,17 @@ and existing parent pointers are left untouched.
 
 ## Type Parameters
 
-| Type Parameter       |
-| -------------------- |
-| `T` _extends_ `Node` |
+| Type Parameter                                     |
+| -------------------------------------------------- |
+| <a id="type-parameter-t"></a> `T` _extends_ `Node` |
 
 ## Parameters
 
-| Parameter | Type                                                    | Description                                         |
-| --------- | ------------------------------------------------------- | --------------------------------------------------- |
-| `input`   | `string` \| `Node`                                      | Source code or an AST node to search.               |
-| `type`    | `T`\[`"type"`\]                                         | The node type to collect.                           |
-| `options` | [`ParseCodeOptions`](../interfaces/ParseCodeOptions.md) | Parser options, only used when `input` is a string. |
+| Parameter  | Type                                                    | Description                                         |
+| ---------- | ------------------------------------------------------- | --------------------------------------------------- |
+| `input`    | `string` \| `Node`                                      | Source code or an AST node to search.               |
+| `type`     | `T`\[`"type"`\]                                         | The node type to collect.                           |
+| `options?` | [`ParseCodeOptions`](../interfaces/ParseCodeOptions.md) | Parser options, only used when `input` is a string. |
 
 ## Returns
 

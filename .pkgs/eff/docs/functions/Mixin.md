@@ -21,9 +21,9 @@ method delegates to `pipeArguments`.
 
 ## Type Parameters
 
-| Type Parameter                                           |
-| -------------------------------------------------------- |
-| `TBase` _extends_ (...`args`: readonly `any`[]) => `any` |
+| Type Parameter                                                                             |
+| ------------------------------------------------------------------------------------------ |
+| <a id="type-parameter-tbase"></a> `TBase` _extends_ (...`args`: readonly `any`[]) => `any` |
 
 ## Parameters
 

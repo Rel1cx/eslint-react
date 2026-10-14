@@ -12,7 +12,7 @@ Require the project to use a specific React version.
 
 | Parameter | Type     | Default value |
 | --------- | -------- | ------------- |
-| `major`   | `string` | `"19"`        |
+| `major?`  | `string` | `"19"`        |
 
 ## Returns
 

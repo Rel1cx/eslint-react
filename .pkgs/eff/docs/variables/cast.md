@@ -20,10 +20,10 @@ conversion.
 
 ## Type Parameters
 
-| Type Parameter |
-| -------------- |
-| `A`            |
-| `B`            |
+| Type Parameter                          |
+| --------------------------------------- |
+| <a id="type-parameter-__typea"></a> `A` |
+| <a id="type-parameter-__typeb"></a> `B` |
 
 ## Parameters
 

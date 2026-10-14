@@ -36,9 +36,9 @@ Recursively unwrap TypeScript type expressions and chain expressions to get the 
 
 ### Type Parameters
 
-| Type Parameter       |
-| -------------------- |
-| `T` _extends_ `Node` |
+| Type Parameter                                     |
+| -------------------------------------------------- |
+| <a id="type-parameter-t"></a> `T` _extends_ `Node` |
 
 ### Parameters
 

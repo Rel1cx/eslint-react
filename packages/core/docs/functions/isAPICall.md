@@ -18,4 +18,5 @@ Check if the node is a call expression to a specific React API.
 
 [`ReturnType`](../@eslint-react/namespaces/isAPICall/type-aliases/ReturnType.md)
 
-A predicate function to check if a node is a call to the API.
+A dual-signature predicate: call it as `(context, node)` to check a node directly,
+or as `(context)` to get a `(node) => node is TSESTree.CallExpression` predicate (ex: for use in array filters).

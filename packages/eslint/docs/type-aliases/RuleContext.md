@@ -10,10 +10,10 @@ Represents the ESLint rule context.
 
 ## Type Parameters
 
-| Type Parameter                     | Default type         |
-| ---------------------------------- | -------------------- |
-| `M` _extends_ `string`             | `string`             |
-| `O` _extends_ readonly `unknown`[] | readonly `unknown`[] |
+| Type Parameter                                                   | Default type         |
+| ---------------------------------------------------------------- | -------------------- |
+| <a id="type-parameter-m"></a> `M` _extends_ `string`             | `string`             |
+| <a id="type-parameter-o"></a> `O` _extends_ readonly `unknown`[] | readonly `unknown`[] |
 
 ## Since
 

@@ -28,9 +28,9 @@ const present = values.filter(Predicate.isNotNullish); // => [0, ""]
 
 ## Type Parameters
 
-| Type Parameter |
-| -------------- |
-| `A`            |
+| Type Parameter                    |
+| --------------------------------- |
+| <a id="type-parameter-a"></a> `A` |
 
 ## Parameters
 

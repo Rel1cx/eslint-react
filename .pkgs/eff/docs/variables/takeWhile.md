@@ -40,10 +40,10 @@ Array.takeWhile([1, 3, 2, 4, 1, 2], (x) => x < 4); // => [1, 3, 2]
 
 ### Type Parameters
 
-| Type Parameter |
-| -------------- |
-| `A`            |
-| `B`            |
+| Type Parameter                          |
+| --------------------------------------- |
+| <a id="type-parameter-__typea"></a> `A` |
+| <a id="type-parameter-__typeb"></a> `B` |
 
 ### Parameters
 
@@ -63,9 +63,9 @@ Array.takeWhile([1, 3, 2, 4, 1, 2], (x) => x < 4); // => [1, 3, 2]
 
 ### Type Parameters
 
-| Type Parameter |
-| -------------- |
-| `A`            |
+| Type Parameter                            |
+| ----------------------------------------- |
+| <a id="type-parameter-__typea-1"></a> `A` |
 
 ### Parameters
 
@@ -85,10 +85,10 @@ Array.takeWhile([1, 3, 2, 4, 1, 2], (x) => x < 4); // => [1, 3, 2]
 
 ### Type Parameters
 
-| Type Parameter |
-| -------------- |
-| `A`            |
-| `B`            |
+| Type Parameter                            |
+| ----------------------------------------- |
+| <a id="type-parameter-__typea-2"></a> `A` |
+| <a id="type-parameter-__typeb-1"></a> `B` |
 
 ### Parameters
 
@@ -109,9 +109,9 @@ Array.takeWhile([1, 3, 2, 4, 1, 2], (x) => x < 4); // => [1, 3, 2]
 
 ### Type Parameters
 
-| Type Parameter |
-| -------------- |
-| `A`            |
+| Type Parameter                            |
+| ----------------------------------------- |
+| <a id="type-parameter-__typea-3"></a> `A` |
 
 ### Parameters
 

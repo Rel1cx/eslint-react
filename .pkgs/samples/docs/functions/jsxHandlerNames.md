@@ -10,9 +10,9 @@ Enforce naming convention for JSX event handlers.
 
 ## Parameters
 
-| Parameter | Type                                                                  |
-| --------- | --------------------------------------------------------------------- |
-| `options` | [`JsxHandlerNamesOptions`](../type-aliases/JsxHandlerNamesOptions.md) |
+| Parameter  | Type                                                                  |
+| ---------- | --------------------------------------------------------------------- |
+| `options?` | [`JsxHandlerNamesOptions`](../type-aliases/JsxHandlerNamesOptions.md) |
 
 ## Returns
 

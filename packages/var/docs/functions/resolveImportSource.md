@@ -14,7 +14,7 @@ Resolve the import source of a variable by walking its latest definition.
 | -------------- | --------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------- |
 | `name`         | `string`                                                                                            | The variable name.                                               |
 | `initialScope` | `Scope`                                                                                             | The initial scope.                                               |
-| `seen`         | [`Set`](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Set)\<`string`\> | The set of already visited variable names (for cycle detection). |
+| `seen?`        | [`Set`](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Set)\<`string`\> | The set of already visited variable names (for cycle detection). |
 
 ## Returns
 

@@ -32,9 +32,9 @@ A function that checks if the passed parameter is an Array and narrows its type 
 
 ### Type Parameters
 
-| Type Parameter |
-| -------------- |
-| `T`            |
+| Type Parameter                    |
+| --------------------------------- |
+| <a id="type-parameter-t"></a> `T` |
 
 ### Parameters
 

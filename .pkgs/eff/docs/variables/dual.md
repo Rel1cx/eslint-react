@@ -135,10 +135,10 @@ pipe(2, sum(3)); // => 5
 
 ### Type Parameters
 
-| Type Parameter                                      |
-| --------------------------------------------------- |
-| `DataLast` _extends_ (...`args`: `any`[]) => `any`  |
-| `DataFirst` _extends_ (...`args`: `any`[]) => `any` |
+| Type Parameter                                                                                  |
+| ----------------------------------------------------------------------------------------------- |
+| <a id="type-parameter-__typedatalast"></a> `DataLast` _extends_ (...`args`: `any`[]) => `any`   |
+| <a id="type-parameter-__typedatafirst"></a> `DataFirst` _extends_ (...`args`: `any`[]) => `any` |
 
 ### Parameters
 
@@ -222,10 +222,10 @@ pipe(2, sum(3)); // => 5
 
 ### Type Parameters
 
-| Type Parameter                                      |
-| --------------------------------------------------- |
-| `DataLast` _extends_ (...`args`: `any`[]) => `any`  |
-| `DataFirst` _extends_ (...`args`: `any`[]) => `any` |
+| Type Parameter                                                                                    |
+| ------------------------------------------------------------------------------------------------- |
+| <a id="type-parameter-__typedatalast-1"></a> `DataLast` _extends_ (...`args`: `any`[]) => `any`   |
+| <a id="type-parameter-__typedatafirst-1"></a> `DataFirst` _extends_ (...`args`: `any`[]) => `any` |
 
 ### Parameters
 

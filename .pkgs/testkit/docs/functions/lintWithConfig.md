@@ -12,7 +12,7 @@ function lintWithConfig(config: Config<RulesConfig> | Config<RulesConfig>[], pat
 | ---------- | -------------------------------------------------------- |
 | `config`   | `Config`\<`RulesConfig`\> \| `Config`\<`RulesConfig`\>[] |
 | `patterns` | `string`[]                                               |
-| `cwd`      | `string`                                                 |
+| `cwd?`     | `string`                                                 |
 
 ## Returns
 

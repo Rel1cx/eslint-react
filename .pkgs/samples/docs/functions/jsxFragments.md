@@ -10,9 +10,9 @@ Enforce shorthand or standard form for React fragments.
 
 ## Parameters
 
-| Parameter | Type                                                              |
-| --------- | ----------------------------------------------------------------- |
-| `options` | [`JsxsFragmentsOptions`](../type-aliases/JsxsFragmentsOptions.md) |
+| Parameter  | Type                                                              |
+| ---------- | ----------------------------------------------------------------- |
+| `options?` | [`JsxsFragmentsOptions`](../type-aliases/JsxsFragmentsOptions.md) |
 
 ## Returns
 

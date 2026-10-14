@@ -10,9 +10,9 @@ Enforce PascalCase for user-defined JSX components.
 
 ## Parameters
 
-| Parameter | Type                                                              |
-| --------- | ----------------------------------------------------------------- |
-| `options` | [`JsxPascalCaseOptions`](../type-aliases/JsxPascalCaseOptions.md) |
+| Parameter  | Type                                                              |
+| ---------- | ----------------------------------------------------------------- |
+| `options?` | [`JsxPascalCaseOptions`](../type-aliases/JsxPascalCaseOptions.md) |
 
 ## Returns
 

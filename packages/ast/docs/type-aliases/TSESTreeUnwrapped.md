@@ -14,6 +14,6 @@ Node type `T` with TypeScript type expressions excluded — the static result sh
 
 ## Type Parameters
 
-| Type Parameter                |
-| ----------------------------- |
-| `T` _extends_ `TSESTree.Node` |
+| Type Parameter                                              |
+| ----------------------------------------------------------- |
+| <a id="type-parameter-t"></a> `T` _extends_ `TSESTree.Node` |

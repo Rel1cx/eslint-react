@@ -19,3 +19,10 @@ Get the initialization path of a function node in the AST.
 [`FunctionInitPath`](../type-aliases/FunctionInitPath.md) \| `null`
 
 The function initialization path or `null` if not identifiable.
+
+## Remarks
+
+Higher-order component wrappers (ex: `memo`, `forwardRef`) are only
+recognized when the call expression initializes a variable declarator
+directly. HOCs inside object properties (ex: `{ Nav: memo(() => {}) }`)
+are not supported and yield `null`.

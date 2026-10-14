@@ -12,10 +12,10 @@ Retrieves a value from a Map or WeakMap if the key exists, or inserts and return
 
 ### Type Parameters
 
-| Type Parameter          |
-| ----------------------- |
-| `K` _extends_ `WeakKey` |
-| `V`                     |
+| Type Parameter                                        |
+| ----------------------------------------------------- |
+| <a id="type-parameter-k"></a> `K` _extends_ `WeakKey` |
+| <a id="type-parameter-v"></a> `V`                     |
 
 ### Parameters
 
@@ -41,10 +41,10 @@ Retrieves a value from a Map or WeakMap if the key exists, or inserts and return
 
 ### Type Parameters
 
-| Type Parameter |
-| -------------- |
-| `K`            |
-| `V`            |
+| Type Parameter                      |
+| ----------------------------------- |
+| <a id="type-parameter-k-1"></a> `K` |
+| <a id="type-parameter-v-1"></a> `V` |
 
 ### Parameters
 

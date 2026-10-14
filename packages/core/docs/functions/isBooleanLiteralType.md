@@ -10,9 +10,9 @@ Check if the type is a boolean literal type.
 
 ## Type Parameters
 
-| Type Parameter           |
-| ------------------------ |
-| `TType` _extends_ `Type` |
+| Type Parameter                                             |
+| ---------------------------------------------------------- |
+| <a id="type-parameter-ttype"></a> `TType` _extends_ `Type` |
 
 ## Parameters
 

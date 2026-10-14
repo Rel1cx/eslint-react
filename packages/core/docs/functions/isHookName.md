@@ -6,7 +6,7 @@
 function isHookName(name: string): boolean;
 ```
 
-Check if the name is a hook name (starts with `use` followed by an uppercase letter or digit).
+Check if the name is a hook name (`use` itself, or starts with `use` followed by an uppercase letter or digit).
 
 ## Parameters
 

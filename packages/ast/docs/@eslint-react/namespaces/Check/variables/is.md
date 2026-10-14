@@ -222,9 +222,9 @@ Check if a node is of the given type.
 
 ## Type Parameters
 
-| Type Parameter                        |
-| ------------------------------------- |
-| `NodeType` _extends_ `AST_NODE_TYPES` |
+| Type Parameter                                                                   |
+| -------------------------------------------------------------------------------- |
+| <a id="type-parameter-__typenodetype"></a> `NodeType` _extends_ `AST_NODE_TYPES` |
 
 ## Parameters
 

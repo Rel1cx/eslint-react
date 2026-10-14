@@ -24,10 +24,10 @@ sumTupled([1, 2]); // => 3
 
 ## Type Parameters
 
-| Type Parameter                     |
-| ---------------------------------- |
-| `A` _extends_ readonly `unknown`[] |
-| `B`                                |
+| Type Parameter                                                   |
+| ---------------------------------------------------------------- |
+| <a id="type-parameter-a"></a> `A` _extends_ readonly `unknown`[] |
+| <a id="type-parameter-b"></a> `B`                                |
 
 ## Parameters
 

@@ -18,4 +18,11 @@ Check if the node is a React API identifier or member expression.
 
 [`ReturnType`](../@eslint-react/namespaces/isAPI/type-aliases/ReturnType.md)
 
-A predicate function to check if a node matches the API.
+A dual-signature predicate: call it as `(context, node)` to check a node directly,
+or as `(context)` to get a `(node) => boolean` predicate (ex: for use in array filters).
+
+## Remarks
+
+Matching is namespace-agnostic by design: the fully qualified name of the node is compared
+against the API name by exact match or by suffix (`.${api}`), so `foo.bar.useState` matches
+`"useState"` just as `React.useState` does.

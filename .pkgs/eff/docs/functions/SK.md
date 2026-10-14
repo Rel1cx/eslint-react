@@ -24,10 +24,10 @@ Function.SK(0, "hello"); // => "hello"
 
 ## Type Parameters
 
-| Type Parameter |
-| -------------- |
-| `A`            |
-| `B`            |
+| Type Parameter                    |
+| --------------------------------- |
+| <a id="type-parameter-a"></a> `A` |
+| <a id="type-parameter-b"></a> `B` |
 
 ## Parameters
 

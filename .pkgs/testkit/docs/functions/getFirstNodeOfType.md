@@ -10,17 +10,17 @@ Returns the first node of the given `type` under `input`.
 
 ## Type Parameters
 
-| Type Parameter       |
-| -------------------- |
-| `T` _extends_ `Node` |
+| Type Parameter                                     |
+| -------------------------------------------------- |
+| <a id="type-parameter-t"></a> `T` _extends_ `Node` |
 
 ## Parameters
 
-| Parameter | Type                                                    | Description                                         |
-| --------- | ------------------------------------------------------- | --------------------------------------------------- |
-| `input`   | `string` \| `Node`                                      | Source code or an AST node to search.               |
-| `type`    | `T`\[`"type"`\]                                         | The node type to find.                              |
-| `options` | [`ParseCodeOptions`](../interfaces/ParseCodeOptions.md) | Parser options, only used when `input` is a string. |
+| Parameter  | Type                                                    | Description                                         |
+| ---------- | ------------------------------------------------------- | --------------------------------------------------- |
+| `input`    | `string` \| `Node`                                      | Source code or an AST node to search.               |
+| `type`     | `T`\[`"type"`\]                                         | The node type to find.                              |
+| `options?` | [`ParseCodeOptions`](../interfaces/ParseCodeOptions.md) | Parser options, only used when `input` is a string. |
 
 ## Returns
 

@@ -12,10 +12,10 @@ The rule creator that generates documentation URLs for ESLint React rules.
 
 ## Type Parameters
 
-| Type Parameter                           |
-| ---------------------------------------- |
-| `Options` _extends_ readonly `unknown`[] |
-| `MessageIds` _extends_ `string`          |
+| Type Parameter                                                                     |
+| ---------------------------------------------------------------------------------- |
+| <a id="type-parameter-__typeoptions"></a> `Options` _extends_ readonly `unknown`[] |
+| <a id="type-parameter-__typemessageids"></a> `MessageIds` _extends_ `string`       |
 
 ## Parameters
 

@@ -29,7 +29,7 @@ checks) and the `spreadProps` variant of `resolveAttributeValue` (value extracti
 | `context`  | `RuleContext`                                                                                     | The ESLint rule context (needed for variable resolution). |
 | `argument` | `Expression`                                                                                      | The spread argument expression to search.                 |
 | `name`     | `string`                                                                                          | The property name to look for.                            |
-| `seen`     | [`Set`](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Set)\<`Node`\> | Internal set of already-visited nodes (cycle guard).      |
+| `seen?`    | [`Set`](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Set)\<`Node`\> | Internal set of already-visited nodes (cycle guard).      |
 
 ## Returns
 

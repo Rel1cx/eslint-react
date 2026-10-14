@@ -27,9 +27,9 @@ const nullish = values.filter(Predicate.isNullish); // => [null, undefined]
 
 ## Type Parameters
 
-| Type Parameter |
-| -------------- |
-| `A`            |
+| Type Parameter                    |
+| --------------------------------- |
+| <a id="type-parameter-a"></a> `A` |
 
 ## Parameters
 

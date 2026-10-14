@@ -20,10 +20,10 @@ into the rule, and harvests the result via the collector's `api` on
 
 ## Type Parameters
 
-| Type Parameter |
-| -------------- |
-| `A`            |
-| `R`            |
+| Type Parameter                    |
+| --------------------------------- |
+| <a id="type-parameter-a"></a> `A` |
+| <a id="type-parameter-r"></a> `R` |
 
 ## Parameters
 
@@ -32,7 +32,7 @@ into the rule, and harvests the result via the collector's `api` on
 | `code`         | `string`                                                                                                             | The source code to lint.                      |
 | `getCollector` | (`context`: [`TestRuleContext`](../type-aliases/TestRuleContext.md)) => \{ `api`: `A`; `visitor`: `RuleListener`; \} | Builds the collector from the rule context.   |
 | `harvest`      | (`api`: `A`, `program`: `Program`) => `R`                                                                            | Extracts the result from the collector's api. |
-| `options`      | [`RuleRunOptions`](../type-aliases/RuleRunOptions.md)                                                                | Parser options (filename, JSX, source type).  |
+| `options?`     | [`RuleRunOptions`](../type-aliases/RuleRunOptions.md)                                                                | Parser options (filename, JSX, source type).  |
 
 ## Returns
 
