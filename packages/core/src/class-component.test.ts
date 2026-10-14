@@ -19,6 +19,7 @@ import {
   isGetSnapshotBeforeUpdate,
   isPureComponent,
   isRender,
+  isRenderMethodCallback,
   isRenderMethodLike,
   isShouldComponentUpdate,
   isThisSetStateCall,
@@ -39,6 +40,26 @@ describe("isClassComponent", () => {
     const node = getFirstNodeOfType<TSESTree.ClassDeclaration>(code, AST.ClassDeclaration);
     expect(isClassComponent(node)).toBe(expected);
   });
+  it("should return false for a computed member superClass with an identifier property", () => {
+    const node = getFirstNodeOfType<TSESTree.ClassDeclaration>("class A extends React[Component] {}", AST.ClassDeclaration);
+    expect(isClassComponent(node)).toBe(false);
+  });
+
+  it("should return true for a computed member superClass with a string literal property", () => {
+    const node = getFirstNodeOfType<TSESTree.ClassDeclaration>(`class A extends React["Component"] {}`, AST.ClassDeclaration);
+    expect(isClassComponent(node)).toBe(true);
+  });
+
+  it("should return true when the heritage clause has type arguments", () => {
+    const node = getFirstNodeOfType<TSESTree.ClassDeclaration>("class A extends Component<Props> {}", AST.ClassDeclaration);
+    expect(node.superClass?.type).toBe(AST.Identifier);
+    expect(isClassComponent(node)).toBe(true);
+  });
+
+  it("should return false when the superClass is a call expression (mixin)", () => {
+    const node = getFirstNodeOfType<TSESTree.ClassDeclaration>("class A extends mixin(Component) {}", AST.ClassDeclaration);
+    expect(isClassComponent(node)).toBe(false);
+  });
 });
 
 describe("isPureComponent", () => {
@@ -51,6 +72,16 @@ describe("isPureComponent", () => {
   ])("isPureComponent(%s) === %s", (code, expected) => {
     const node = getFirstNodeOfType<TSESTree.ClassDeclaration>(code, AST.ClassDeclaration);
     expect(isPureComponent(node)).toBe(expected);
+  });
+
+  it("should return false for a computed member superClass with an identifier property", () => {
+    const node = getFirstNodeOfType<TSESTree.ClassDeclaration>("class A extends React[PureComponent] {}", AST.ClassDeclaration);
+    expect(isPureComponent(node)).toBe(false);
+  });
+
+  it("should return true for a computed member superClass with a string literal property", () => {
+    const node = getFirstNodeOfType<TSESTree.ClassDeclaration>(`class A extends React["PureComponent"] {}`, AST.ClassDeclaration);
+    expect(isPureComponent(node)).toBe(true);
   });
 });
 
@@ -93,6 +124,36 @@ describe("lifecycle method checkers", () => {
     expect(isRender(node)).toBe(false);
     expect(isComponentDidMount(node)).toBe(false);
   });
+
+  it("should not match a computed key whose identifier has the lifecycle name", () => {
+    const node = getFirstNodeOfType<TSESTree.MethodDefinition>("class A { [render]() {} }", AST.MethodDefinition);
+    expect(isRender(node)).toBe(false);
+  });
+
+  it("should not match a computed key even when it is a string literal with the lifecycle name", () => {
+    const node = getFirstNodeOfType<TSESTree.MethodDefinition>(`class A { ["render"]() {} }`, AST.MethodDefinition);
+    expect(isRender(node)).toBe(false);
+  });
+
+  it("should match a non-computed string literal key with the lifecycle name", () => {
+    const node = getFirstNodeOfType<TSESTree.MethodDefinition>(`class A { "render"() {} }`, AST.MethodDefinition);
+    expect(isRender(node)).toBe(true);
+  });
+
+  it("should respect the static modifier of each lifecycle method", () => {
+    const staticRender = getFirstNodeOfType<TSESTree.MethodDefinition>("class A { static render() {} }", AST.MethodDefinition);
+    expect(isRender(staticRender)).toBe(false);
+    const instanceGetDerivedStateFromProps = getFirstNodeOfType<TSESTree.MethodDefinition>(
+      "class A { getDerivedStateFromProps() {} }",
+      AST.MethodDefinition,
+    );
+    expect(isGetDerivedStateFromProps(instanceGetDerivedStateFromProps)).toBe(false);
+  });
+
+  it("should match a lifecycle property definition", () => {
+    const node = getFirstNodeOfType<TSESTree.PropertyDefinition>("class A { render = () => {} }", AST.PropertyDefinition);
+    expect(isRender(node)).toBe(true);
+  });
 });
 
 describe("isRenderMethodLike", () => {
@@ -103,6 +164,50 @@ describe("isRenderMethodLike", () => {
   ])("isRenderMethodLike(%s) === %s", (code, expected) => {
     const node = getFirstNodeOfType<TSESTree.MethodDefinition>(code, AST.MethodDefinition);
     expect(isRenderMethodLike(node)).toBe(expected);
+  });
+
+  it("should match a render-like property definition", () => {
+    const node = getFirstNodeOfType<TSESTree.PropertyDefinition>("class A { render = () => {} }", AST.PropertyDefinition);
+    expect(isRenderMethodLike(node)).toBe(true);
+  });
+
+  it("should match a static render-like method", () => {
+    const node = getFirstNodeOfType<TSESTree.MethodDefinition>("class A { static renderFooter() {} }", AST.MethodDefinition);
+    expect(isRenderMethodLike(node)).toBe(true);
+  });
+});
+
+describe("isRenderMethodCallback", () => {
+  it("should return true for the function of a render method in a class component", () => {
+    const node = getFirstNodeOfType<TSESTree.FunctionExpression>(
+      "class A extends Component { render() { return null; } }",
+      AST.FunctionExpression,
+    );
+    expect(isRenderMethodCallback(node)).toBe(true);
+  });
+
+  it("should return true for the arrow function of a render property in a class component", () => {
+    const node = getFirstNodeOfType<TSESTree.ArrowFunctionExpression>(
+      "class A extends Component { render = () => null; }",
+      AST.ArrowFunctionExpression,
+    );
+    expect(isRenderMethodCallback(node)).toBe(true);
+  });
+
+  it("should return false for the function of a render method in a non-component class", () => {
+    const node = getFirstNodeOfType<TSESTree.FunctionExpression>(
+      "class A { render() { return null; } }",
+      AST.FunctionExpression,
+    );
+    expect(isRenderMethodCallback(node)).toBe(false);
+  });
+
+  it("should return false for a function nested inside a render method", () => {
+    const node = getFirstNodeOfType<TSESTree.ArrowFunctionExpression>(
+      "class A extends Component { render() { return () => null; } }",
+      AST.ArrowFunctionExpression,
+    );
+    expect(isRenderMethodCallback(node)).toBe(false);
   });
 });
 
@@ -140,5 +245,23 @@ describe("isThisSetStateCall", () => {
     const node = getFirstNodeOfType<TSESTree.CallExpression>(code, AST.CallExpression);
     const result = isThisSetStateCall(node);
     expect(result).toBe(true);
+  });
+
+  it("should return false for a computed setState key", () => {
+    const node = getFirstNodeOfType<TSESTree.CallExpression>(`this["setState"]({})`, AST.CallExpression);
+    expect(isThisSetStateCall(node)).toBe(false);
+  });
+
+  it("should return false for super.setState()", () => {
+    const node = getFirstNodeOfType<TSESTree.CallExpression>(
+      "class A extends Component { f() { super.setState({}); } }",
+      AST.CallExpression,
+    );
+    expect(isThisSetStateCall(node)).toBe(false);
+  });
+
+  it("should return true for an optional this?.setState() call", () => {
+    const node = getFirstNodeOfType<TSESTree.CallExpression>("this?.setState({})", AST.CallExpression);
+    expect(isThisSetStateCall(node)).toBe(true);
   });
 });
