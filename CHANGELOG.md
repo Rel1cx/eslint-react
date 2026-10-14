@@ -4,11 +4,10 @@
 
 ### 🐞 Fixes
 
-- `react-x/no-missing-component-display-name`: only a string-literal `displayName` assignment now counts; non-literal values (ex: `App.displayName = displayName`, `Component.displayName = getDisplayName()`) are now reported. (#2038)
-- `react-x/no-missing-context-display-name`: assigning `displayName` through a variable (ex: `ctx.displayName = displayName`) is now reported; the autofix inserts a string-literal assignment (ex: `ctx.displayName = "ctx"`). (#2038)
-- `react-web-api/no-leaked-event-listener`: a cleanup returned through a conditional expression (ex: `return cond ? () => window.removeEventListener(...) : null`) is now recognized, so such listeners are no longer reported. (#2038)
-- `react-web-api/no-leaked-fetch`: an effect setup wrapped in a type expression (ex: `useEffect((() => { fetch(...) }) as any, [])`) is now recognized, so the `fetch` inside is checked. (#2038)
-- `react-debug/function-component`: the reported `displayName` now reflects only literal assignments (non-literal values show as `none`), and computed string-literal keys (ex: `App["displayName"] = "..."`) are now recognized. (#2038)
+- `react-x/no-missing-component-display-name`, `react-x/no-missing-context-display-name`: only string-literal `displayName` assignments count now; non-literal values (ex: `App.displayName = displayName`) are reported, and the context rule's autofix inserts a string literal (ex: `ctx.displayName = "ctx"`). (#2038)
+- `react-web-api/no-leaked-event-listener`: cleanups returned through conditional expressions (ex: `return cond ? () => window.removeEventListener(...) : null`) are now recognized and no longer reported. (#2038)
+- `react-web-api/no-leaked-fetch`: effect setups wrapped in type expressions (ex: `useEffect((() => { fetch(...) }) as any, [])`) are now recognized. (#2038)
+- `react-debug/function-component`: the reported `displayName` now only reflects literal assignments (non-literal shows as `none`); computed string-literal keys (ex: `App["displayName"]`) are recognized. (#2038)
 
 ### 🏗️ Internal
 
