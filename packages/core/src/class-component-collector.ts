@@ -4,7 +4,6 @@ import type { TSESTree } from "@typescript-eslint/types";
 import type { ESLintUtils } from "@typescript-eslint/utils";
 import { getClassId } from "./class";
 import { type ClassComponentSemanticNode, isClassComponent } from "./class-component";
-import { getNextCollectorKey } from "./collector-key";
 
 // #region Component Collector Legacy
 
@@ -27,13 +26,13 @@ export declare namespace getClassComponentCollector {
  * @deprecated Class components are legacy. This function exists only to support legacy rules.
  */
 export function getClassComponentCollector(context: RuleContext): getClassComponentCollector.ReturnType {
-  const components = new Map<string, ClassComponentSemanticNode>();
+  const components = new Map<number, ClassComponentSemanticNode>();
 
   const getText = (n: TSESTree.Node) => context.sourceCode.getText(n);
   const collect = (node: TSESTreeClass) => {
     if (!isClassComponent(node)) return;
     const id = getClassId(node);
-    const key = getNextCollectorKey();
+    const key = node.range[0];
     const name = id == null ? null : Extract.getFullyQualifiedName(id, getText);
     components.set(
       key,
