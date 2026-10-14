@@ -134,7 +134,9 @@ export function getFunctionId(node: TSESTree.Expression | TSESTreeFunction) {
       && node.parent.right === node:
       return node.parent.left;
     // const MaybeComponent = condition ? () => {} : () => {};
-    case node.parent.type === AST.ConditionalExpression:
+    // Only consequent/alternate positions inherit the id; the test position does not.
+    case node.parent.type === AST.ConditionalExpression
+      && (node.parent.consequent === node || node.parent.alternate === node):
       return getFunctionId(node.parent);
     // const MaybeComponent = (() => {})!;
     // const MaybeComponent = (() => {}) as FunctionComponent;
@@ -165,7 +167,11 @@ export function getFunctionInitPath(node: TSESTreeFunction): null | FunctionInit
 
   // Traverse up through type expressions (as, satisfies, !, etc.) to find the semantic parent
   let parent: TSESTree.Node = node.parent;
-  while (Check.isTypeExpression(parent)) parent = parent.parent;
+  let child: TSESTree.Expression = node;
+  while (Check.isTypeExpression(parent)) {
+    child = parent;
+    parent = parent.parent;
+  }
 
   // Match against various component patterns
   switch (true) {
@@ -174,13 +180,18 @@ export function getFunctionInitPath(node: TSESTreeFunction): null | FunctionInit
       return [parent.parent, parent, node] as const;
 
     // HOC pattern: const Component = React.memo(() => {})
+    // The function must be a call argument, not the callee (ex: `const f = (() => {})()` is an IIFE, not an HOC)
     case parent.type === AST.CallExpression
+      && parent.arguments.includes(child)
       && parent.parent.type === AST.VariableDeclarator:
       return [parent.parent.parent, parent.parent, parent, node] as const;
 
     // Nested HOC pattern: const Component = React.memo(React.forwardRef(() => {}))
+    // Both calls must receive the inner expression as an argument, not as the callee
     case parent.type === AST.CallExpression
+      && parent.arguments.includes(child)
       && parent.parent.type === AST.CallExpression
+      && parent.parent.arguments.includes(parent)
       && parent.parent.parent.type === AST.VariableDeclarator:
       return [parent.parent.parent.parent, parent.parent.parent, parent.parent, parent, node] as const;
 

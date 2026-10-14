@@ -91,6 +91,28 @@ describe("getFunctionId", () => {
     expect(getFunctionId(node)).toBeNull();
   });
 
+  it("should return null for function in conditional test position", () => {
+    const code = "const x = (() => {}) ? a : b";
+    const node = getFirstNodeOfType<TSESTree.ArrowFunctionExpression>(code, AST.ArrowFunctionExpression);
+    expect(getFunctionId(node)).toBeNull();
+  });
+
+  it("should return null for type-wrapped function in conditional test position", () => {
+    const code = "const x = ((() => {}) as any) ? a : b";
+    const node = getFirstNodeOfType<TSESTree.ArrowFunctionExpression>(code, AST.ArrowFunctionExpression);
+    expect(getFunctionId(node)).toBeNull();
+  });
+
+  it("should get function id for function in conditional alternate position", () => {
+    const code = "const x = cond ? a : () => {}";
+    const node = getFirstNodeOfType<TSESTree.ArrowFunctionExpression>(code, AST.ArrowFunctionExpression);
+    const id = getFunctionId(node);
+    expect(id).not.toBeNull();
+    if (id != null && Check.isIdentifier(id)) {
+      expect(id.name).toBe("x");
+    }
+  });
+
   it("should return member expression for assignment to member expression", () => {
     const code = "obj.Component = () => {}";
     const node = getFirstNodeOfType<TSESTree.ArrowFunctionExpression>(code, AST.ArrowFunctionExpression);
@@ -149,6 +171,30 @@ describe("getFunctionInitPath", () => {
     const code = "const Component = memo(memo(forwardRef(() => {})))";
     const node = getFirstNodeOfType<TSESTree.ArrowFunctionExpression>(code, AST.ArrowFunctionExpression);
     expect(getFunctionInitPath(node)).toBeNull();
+  });
+
+  it("should return null for IIFE callee arrow function (not an HOC argument)", () => {
+    const code = "const f = (() => {})()";
+    const node = getFirstNodeOfType<TSESTree.ArrowFunctionExpression>(code, AST.ArrowFunctionExpression);
+    expect(getFunctionInitPath(node)).toBeNull();
+  });
+
+  it("should return null for IIFE callee function expression (not an HOC argument)", () => {
+    const code = "const f = (function(){})()";
+    const node = getFirstNodeOfType<TSESTree.FunctionExpression>(code, AST.FunctionExpression);
+    expect(getFunctionInitPath(node)).toBeNull();
+  });
+
+  it("should return null for type-wrapped IIFE callee (not an HOC argument)", () => {
+    const code = "const f = ((() => {}) as any)()";
+    const node = getFirstNodeOfType<TSESTree.ArrowFunctionExpression>(code, AST.ArrowFunctionExpression);
+    expect(getFunctionInitPath(node)).toBeNull();
+  });
+
+  it("should still recognize HOC argument position", () => {
+    const code = "const f = memo(() => {})";
+    const node = getFirstNodeOfType<TSESTree.ArrowFunctionExpression>(code, AST.ArrowFunctionExpression);
+    expect(getFunctionInitPath(node)).not.toBeNull();
   });
 });
 
