@@ -130,7 +130,13 @@ export const isUnsafeComponentWillMount = createLifecycleChecker("UNSAFE_compone
 export const isUnsafeComponentWillReceiveProps = createLifecycleChecker("UNSAFE_componentWillReceiveProps");
 /** @deprecated Class components are legacy. */
 export const isUnsafeComponentWillUpdate = createLifecycleChecker("UNSAFE_componentWillUpdate");
-/** @deprecated Class components are legacy. */
+/**
+ * @deprecated Class components are legacy. Additionally, this predicate does not correspond to any
+ * real React semantics: `getDefaultProps` is a `createReactClass` spec method (an instance-side
+ * spec object member, not a static class member), while React class components use the static
+ * `defaultProps` property — a `static getDefaultProps` class method is meaningless to React.
+ * Retained only to preserve the published API; do not use.
+ */
 export const isGetDefaultProps = createLifecycleChecker("getDefaultProps", true);
 /** @deprecated Class components are legacy. */
 export const isGetDerivedStateFromProps = createLifecycleChecker("getDerivedStateFromProps", true);
@@ -162,8 +168,13 @@ export function isRenderMethodLike(node: TSESTree.Node): node is TSESTreeMethodO
  * @returns `true` if the function implements a class component's render method.
  */
 export function isRenderMethodCallback(node: TSESTreeFunction) {
-  const parent = node.parent;
-  const grandparent = parent.parent;
+  // Traverse up past type expressions (e.g. `as any` in `render = (() => null) as any`)
+  // so the immediate syntactic parent is the method or property definition.
+  let parent = node.parent;
+  while (parent != null && Check.isTypeExpression(parent)) {
+    parent = parent.parent;
+  }
+  const grandparent = parent?.parent;
   const greatGrandparent = grandparent?.parent;
   if (greatGrandparent == null) return false;
   return isRenderMethodLike(parent) && isClassComponent(greatGrandparent);

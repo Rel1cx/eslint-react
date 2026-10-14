@@ -108,6 +108,9 @@ describe("lifecycle method checkers", () => {
     expect(checker(node)).toBe(true);
   });
 
+  // NOTE: the `getDefaultProps` entry pins the current static-side behavior of the published API;
+  // it does not endorse it as React semantics (`getDefaultProps` is a createReactClass spec method,
+  // not a static class member). See the @deprecated JSDoc on `isGetDefaultProps`.
   it.each([
     ["getDefaultProps", isGetDefaultProps, true],
     ["getDerivedStateFromProps", isGetDerivedStateFromProps, true],
@@ -200,6 +203,14 @@ describe("isRenderMethodCallback", () => {
       AST.FunctionExpression,
     );
     expect(isRenderMethodCallback(node)).toBe(false);
+  });
+
+  it("should return true for the arrow function of a type-wrapped render property in a class component", () => {
+    const node = getFirstNodeOfType<TSESTree.ArrowFunctionExpression>(
+      "class A extends Component { render = (() => null) as any; }",
+      AST.ArrowFunctionExpression,
+    );
+    expect(isRenderMethodCallback(node)).toBe(true);
   });
 
   it("should return false for a function nested inside a render method", () => {
