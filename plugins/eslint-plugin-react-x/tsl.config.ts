@@ -25,8 +25,8 @@ const factBasedLayerOrder = defineRule((): Rule<FactBasedLayerData> => ({
     const parts = context.sourceFile.fileName.split("/");
     const importerBase = parts.at(-1)?.replace(/\.tsx?$/, "");
     const dir = parts.at(-2);
-    const rankOf = (base: string) => base === dir ? 4 : factBasedLayerRanks[base];
-    const importerRank = importerBase == null ? undefined : rankOf(importerBase); // spec/test files are not part of the layering
+    const getRank = (base: string) => base === dir ? 4 : factBasedLayerRanks[base];
+    const importerRank = importerBase == null ? undefined : getRank(importerBase); // spec/test files are not part of the layering
     return {
       diagnostics,
       visit(spec) {
@@ -36,7 +36,7 @@ const factBasedLayerOrder = defineRule((): Rule<FactBasedLayerData> => ({
         const target = spec.text;
         if (!target.startsWith("./")) return;
         const targetBase = target.slice(2).replace(/\.tsx?$/, "");
-        const targetRank = rankOf(targetBase);
+        const targetRank = getRank(targetBase);
         if (targetRank == null || targetRank < importerRank) return;
         diagnostics.push({
           node: spec,
