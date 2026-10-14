@@ -63,6 +63,64 @@ ruleTester.run(RULE_NAME, rule, {
         messageId: "default",
       }],
     },
+    {
+      code: tsx`
+        const App = React.memo(function () {
+            return <div>foo</div>
+        })
+
+        App.displayName = \`\${"TestDisplayName"}\`;
+      `,
+      errors: [{
+        messageId: "default",
+      }],
+    },
+    {
+      code: tsx`
+        const App = React.memo(function () {
+            return <div>foo</div>
+        })
+
+        const displayName = "TestDisplayName";
+
+        App.displayName = displayName;
+      `,
+      errors: [{
+        messageId: "default",
+      }],
+    },
+    {
+      code: tsx`
+        const someThing = {
+          displayName: "someThing",
+        }
+        const Component = React.forwardRef(() => <div/>)
+        Component.displayName = someThing.displayName
+      `,
+      errors: [{
+        messageId: "default",
+      }],
+    },
+    {
+      code: tsx`
+        function getDisplayName() { return "someThing" }
+        const Component = React.forwardRef(() => <div/>)
+        Component.displayName = getDisplayName()
+      `,
+      errors: [{
+        messageId: "default",
+      }],
+    },
+    {
+      code: tsx`
+        function getDisplayName() { return "someThing" }
+        const Component = React.forwardRef(() => <div/>)
+        Component.displayName = (true, 1 + 1, getDisplayName)()
+      `,
+      errors: [{
+        messageId: "default",
+      }],
+    },
   ],
   valid: [
     "const App = () => <div>foo</div>",
@@ -96,39 +154,6 @@ ruleTester.run(RULE_NAME, rule, {
       })
 
       App.displayName = "TestDisplayName";
-    `,
-    tsx`
-      const App = React.memo(function () {
-          return <div>foo</div>
-      })
-
-      App.displayName = \`\${"TestDisplayName"}\`;
-    `,
-    tsx`
-      const App = React.memo(function () {
-          return <div>foo</div>
-      })
-
-      const displayName = "TestDisplayName";
-
-      App.displayName = displayName;
-    `,
-    tsx`
-      const someThing = {
-        displayName: "someThing",
-      }
-      const Component = React.forwardRef(() => <div/>)
-      Component.displayName = someThing.displayName
-    `,
-    tsx`
-      function getDisplayName() { return "someThing" }
-      const Component = React.forwardRef(() => <div/>)
-      Component.displayName = getDisplayName()
-    `,
-    tsx`
-      function getDisplayName() { return "someThing" }
-      const Component = React.forwardRef(() => <div/>)
-      Component.displayName = (true, 1 + 1, getDisplayName)()
     `,
     // https://github.com/Rel1cx/eslint-react/issues/177
     tsx`

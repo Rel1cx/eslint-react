@@ -276,16 +276,23 @@ export function isFunctionHasDirective(node: TSESTreeFunction, name: string): bo
 /** Represents a `displayName` assignment expression (ex: `Component.displayName = "MyComponent"`). */
 export type FunctionDisplayNameAssignment = TSESTree.AssignmentExpression & {
   left: TSESTree.MemberExpression & {
-    property: TSESTree.Identifier & { name: "displayName" };
+    property:
+      | TSESTree.Identifier & { name: "displayName" }
+      | TSESTree.StringLiteral & { value: "displayName" };
   };
   operator: "=";
   right: TSESTree.Literal;
 };
 
-/** The esquery selector matching `displayName` assignment expressions. */
+/** The esquery selector matching `displayName` assignment expressions with a statically determinable property name and a literal right side. */
 export const SEL_FUNCTION_DISPLAY_NAME_ASSIGNMENT = [
   "AssignmentExpression",
   "[operator='=']",
   "[left.type='MemberExpression']",
-  "[left.property.name='displayName']",
+  "[right.type='Literal']",
+  ":matches(",
+  "[left.computed=false][left.property.name='displayName']",
+  ", ",
+  "[left.computed=true][left.property.type='Literal'][left.property.value='displayName']",
+  ")",
 ].join("");
