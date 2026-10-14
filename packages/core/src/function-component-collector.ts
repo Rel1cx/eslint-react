@@ -51,7 +51,6 @@ export function getFunctionComponentCollector(
 
   const functionEntries: FunctionEntry[] = [];
   const components = new Map<number, FunctionComponentSemanticNode>();
-  const displayNameAssignments: { componentName: null | string; right: TSESTree.Literal }[] = [];
 
   const getText = (n: TSESTree.Node) => context.sourceCode.getText(n);
   const getCurrentEntry = () => functionEntries.at(-1) ?? null;
@@ -93,13 +92,6 @@ export function getFunctionComponentCollector(
 
   const api = {
     getAllComponents(_: TSESTree.Program) {
-      // Mount displayName assignments collected during traversal, independent of
-      // whether they appear before or after the component definition.
-      for (const { componentName, right } of displayNameAssignments) {
-        const component = [...components.values()].findLast(({ name }) => name != null && name === componentName);
-        if (component == null) continue;
-        component.displayName = right;
-      }
       return [...components.values()];
     },
   } as const;
@@ -124,7 +116,9 @@ export function getFunctionComponentCollector(
           const componentName = left.object.type === AST.Identifier
             ? left.object.name
             : null;
-          displayNameAssignments.push({ componentName, right });
+          const component = [...components.values()].findLast(({ name }) => name != null && name === componentName);
+          if (component == null) return;
+          component.displayName = right;
         },
       }
       : {},
