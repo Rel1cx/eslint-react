@@ -170,11 +170,11 @@ export function isRenderMethodLike(node: TSESTree.Node): node is TSESTreeMethodO
 export function isRenderMethodCallback(node: TSESTreeFunction) {
   // Traverse up past type expressions (e.g. `as any` in `render = (() => null) as any`)
   // so the immediate syntactic parent is the method or property definition.
-  let parent = node.parent;
-  while (parent != null && Check.isTypeExpression(parent)) {
+  let parent: TSESTree.Node = node.parent;
+  while (Check.isTypeExpression(parent)) {
     parent = parent.parent;
   }
-  const grandparent = parent?.parent;
+  const grandparent = parent.parent;
   const greatGrandparent = grandparent?.parent;
   if (greatGrandparent == null) return false;
   return isRenderMethodLike(parent) && isClassComponent(greatGrandparent);
