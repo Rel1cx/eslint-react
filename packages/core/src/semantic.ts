@@ -33,7 +33,7 @@ export interface SemanticFunc extends SemanticNode {
   /** The AST node of the function. */
   node: TSESTreeFunction;
   /** The name of the function. */
-  name: string | null;
+  name: null | string;
   /** The return type annotation of the function. */
   type: TSESTree.TSTypeAnnotation | null;
   /** The body of the function. */

@@ -1,4 +1,4 @@
-import { createMockContext, getLastExpression, parseCode } from "@local/testkit";
+import { createMockContext, getFirstNodeOfType, getLastExpression, parseCode } from "@local/testkit";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import { simpleTraverse } from "@typescript-eslint/typescript-estree";
 import { describe, expect, it } from "vitest";
@@ -7,7 +7,7 @@ import { isAPI, isAPICall, isCreateElementCall } from "./api";
 
 /**
  * This function mirrors the core matching logic inside `isAPI` from
- * `is-react-api.ts`. We test it in isolation to verify the bugfix from PR #1660.
+ * `api.ts`. We test it in isolation to verify the bugfix from PR #1660.
  *
  * BEFORE (buggy):
  *   if (name.substring(name.indexOf(".") + 1) === api) return true;
@@ -298,5 +298,92 @@ describe("dual signature: curried form (context first)", () => {
     const { context, node } = parseLastExpression(`createElement("div", null);`);
     expect(isCreateElementCall(context, node)).toBe(true);
     expect(isCreateElementCall(context)(node)).toBe(true);
+  });
+});
+
+describe("isAPI unwrapping and expression forms", () => {
+  function parseLastExpression(code: string) {
+    return { context: createMockContext({ code }), node: getLastExpression(code) };
+  }
+
+  it("unwraps TS as-expressions before matching", () => {
+    const { context, node } = parseLastExpression(`(React.createElement as any);`);
+    expect(isAPI("createElement")(context, node)).toBe(true);
+  });
+
+  it("unwraps TS satisfies-expressions before matching", () => {
+    const { context, node } = parseLastExpression(`(React.useState satisfies any);`);
+    expect(isAPI("useState")(context, node)).toBe(true);
+  });
+
+  it("unwraps TS non-null expressions before matching", () => {
+    const { context, node } = parseLastExpression(`React.memo!;`);
+    expect(isAPI("memo")(context, node)).toBe(true);
+  });
+
+  it("unwraps chain expressions before matching", () => {
+    const { context, node } = parseLastExpression(`React?.createElement;`);
+    expect(isAPI("createElement")(context, node)).toBe(true);
+  });
+
+  it("matches any namespace prefix, not just React (namespace-agnostic by design)", () => {
+    const { context, node } = parseLastExpression(`NotReact.createElement;`);
+    expect(isAPI("createElement")(context, node)).toBe(true);
+  });
+
+  it("matches deeply nested namespaces of any name", () => {
+    const { context, node } = parseLastExpression(`foo.bar.useState;`);
+    expect(isAPI("useState")(context, node)).toBe(true);
+  });
+
+  it("does not match computed member expressions (falls back to raw source text)", () => {
+    const { context, node } = parseLastExpression(`React["createElement"];`);
+    expect(isAPI("createElement")(context, node)).toBe(false);
+  });
+
+  it("returns false for a null node in the two-argument form", () => {
+    const { context } = parseLastExpression(`React.createElement;`);
+    expect(isAPI("createElement")(context, null)).toBe(false);
+  });
+});
+
+describe("isAPICall expression forms", () => {
+  function parseLastExpression(code: string) {
+    return { context: createMockContext({ code }), node: getLastExpression(code) };
+  }
+
+  it("matches optionally chained calls when given the inner CallExpression (as ESLint rule listeners do)", () => {
+    const code = `React?.createElement("div", null);`;
+    const context = createMockContext({ code });
+    const call = getFirstNodeOfType(code, AST.CallExpression);
+    expect(isAPICall("createElement")(context, call)).toBe(true);
+  });
+
+  it("unwraps a ChainExpression wrapping the call (same as isAPI, which unwraps its input)", () => {
+    const code = `React?.createElement("div", null);`;
+    const context = createMockContext({ code });
+    const chain = getLastExpression(code);
+    expect(chain.type).toBe(AST.ChainExpression);
+    expect(isAPICall("createElement")(context, chain)).toBe(true);
+  });
+
+  it("matches calls whose callee is wrapped in a TS as-expression", () => {
+    const { context, node } = parseLastExpression(`(React.createElement as any)("div", null);`);
+    expect(isAPICall("createElement")(context, node)).toBe(true);
+  });
+
+  it("does not match tagged template expressions", () => {
+    const { context, node } = parseLastExpression("React.createElement`div`;");
+    expect(isAPICall("createElement")(context, node)).toBe(false);
+  });
+
+  it("does not match computed member callees", () => {
+    const { context, node } = parseLastExpression(`React["createElement"]("div", null);`);
+    expect(isAPICall("createElement")(context, node)).toBe(false);
+  });
+
+  it("returns false for a null node in the two-argument form", () => {
+    const { context } = parseLastExpression(`React.createElement();`);
+    expect(isAPICall("createElement")(context, null)).toBe(false);
   });
 });
