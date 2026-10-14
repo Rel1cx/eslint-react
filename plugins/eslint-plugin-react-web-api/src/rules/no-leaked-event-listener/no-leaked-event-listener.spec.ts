@@ -2480,5 +2480,21 @@ ruleTester.run(RULE_NAME, rule, {
         }, []);
       }
     `,
+    // A cleanup returned via a conditional expression is still recognized:
+    // the conditional itself is the direct return value of the setup
+    tsx`
+      import { useEffect } from "react";
+
+      function Example() {
+        const cond = true;
+        useEffect(() => {
+          const handleResize = () => {};
+          window.addEventListener("resize", handleResize);
+          return cond
+            ? () => window.removeEventListener("resize", handleResize)
+            : null;
+        }, []);
+      }
+    `,
   ],
 });
