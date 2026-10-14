@@ -40,9 +40,9 @@ export default function HomePage() {
             />
           ))}
         </Cards>
-        <h2>Release Notes</h2>
+        <h2>Roadmap</h2>
         <p>
-          Check out the <Link aria-label="View the release notes" href="/docs/release-notes">release notes</Link> to see what's new in recent releases.
+          Check out the <Link aria-label="View the project roadmap" href="/docs/roadmap">roadmap</Link> to see what's planned for the future.
         </p>
         <h2>Contributing</h2>
         <p>Contributions are welcome!</p>
