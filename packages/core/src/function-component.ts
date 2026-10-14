@@ -26,7 +26,7 @@ export interface FunctionComponentSemanticNode extends SemanticNode {
   node: TSESTreeFunction;
   /** Flags describing the component's characteristics. */
   flag: bigint;
-  /** Hint for how the component was detected. */
+  /** Detection hints configured by the caller when collecting this component; identical for every component collected under the same settings. */
   hint: bigint;
   /** List of expressions returned by the component. */
   rets: TSESTree.ReturnStatement["argument"][];
@@ -110,9 +110,15 @@ export function isFunctionComponentWrapperCall(context: RuleContext, node: TSEST
  */
 export function isFunctionComponentWrapperCallback(context: RuleContext, node: TSESTree.Node) {
   if (!Check.isFunction(node)) return false;
+  let argument: TSESTree.Node = node;
   let parent = node.parent;
-  while (Check.isTypeExpression(parent)) parent = parent.parent;
+  while (Check.isTypeExpression(parent)) {
+    argument = parent;
+    parent = parent.parent;
+  }
   if (parent.type !== AST.CallExpression) return false;
+  // Only the first argument is the render callback: memo(Component, propsAreEqual?), forwardRef(render).
+  if (parent.arguments[0] !== argument) return false;
   return isFunctionComponentWrapperCall(context, parent);
 }
 

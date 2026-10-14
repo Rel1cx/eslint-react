@@ -117,6 +117,25 @@ describe("isFunctionComponentWrapperCallback", () => {
     }, true);
     expect(found).toBe(true);
   });
+
+  it("treats only the first argument of memo() as a wrapper callback", () => {
+    const code = "memo(() => <div />, () => true)";
+    const fns: TSESTree.ArrowFunctionExpression[] = [];
+    simpleTraverse(parseCode(code).ast, {
+      enter(node) {
+        if (node.type === AST.ArrowFunctionExpression) fns.push(node);
+      },
+    }, true);
+    expect(fns).toHaveLength(2);
+    expect(isFunctionComponentWrapperCallback(context, fns[0]!)).toBe(true);
+    expect(isFunctionComponentWrapperCallback(context, fns[1]!)).toBe(false);
+  });
+
+  it("does not treat a named propsAreEqual comparator as a wrapper callback", () => {
+    const code = "memo(Component, function propsAreEqual() { return true })";
+    const fn = getFirstNodeOfType<TSESTree.FunctionExpression>(code, AST.FunctionExpression);
+    expect(isFunctionComponentWrapperCallback(context, fn)).toBe(false);
+  });
 });
 
 describe("getFunctionComponentId", () => {
