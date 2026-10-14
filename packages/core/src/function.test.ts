@@ -78,6 +78,25 @@ describe("getFunctionId", () => {
     const node = getFirstNodeOfType<TSESTree.ArrowFunctionExpression>(code, AST.ArrowFunctionExpression);
     expect(getFunctionId(node)).toBeNull();
   });
+
+  it("should return null for computed object property key", () => {
+    const code = `const obj = { ["Component"]: () => {} }`;
+    const node = getFirstNodeOfType<TSESTree.ArrowFunctionExpression>(code, AST.ArrowFunctionExpression);
+    expect(getFunctionId(node)).toBeNull();
+  });
+
+  it("should return null for computed class property key (consistent with object property case)", () => {
+    const code = `class A { ["Component"] = () => {} }`;
+    const node = getFirstNodeOfType<TSESTree.ArrowFunctionExpression>(code, AST.ArrowFunctionExpression);
+    expect(getFunctionId(node)).toBeNull();
+  });
+
+  it("should return member expression for assignment to member expression", () => {
+    const code = "obj.Component = () => {}";
+    const node = getFirstNodeOfType<TSESTree.ArrowFunctionExpression>(code, AST.ArrowFunctionExpression);
+    const id = getFunctionId(node);
+    expect(id?.type).toBe(AST.MemberExpression);
+  });
 });
 
 describe("getFunctionInitPath", () => {
@@ -110,6 +129,24 @@ describe("getFunctionInitPath", () => {
 
   it("should return null for unrecognized patterns", () => {
     const code = "(() => {})()";
+    const node = getFirstNodeOfType<TSESTree.ArrowFunctionExpression>(code, AST.ArrowFunctionExpression);
+    expect(getFunctionInitPath(node)).toBeNull();
+  });
+
+  it("should return null for HOC inside object property (not supported by getFunctionInitPath)", () => {
+    const code = "const Components = { Nav: memo(() => {}) }";
+    const node = getFirstNodeOfType<TSESTree.ArrowFunctionExpression>(code, AST.ArrowFunctionExpression);
+    expect(getFunctionInitPath(node)).toBeNull();
+  });
+
+  it("should return null for nested HOC inside object property (not supported by getFunctionInitPath)", () => {
+    const code = "const Components = { Nav: memo(forwardRef(() => {})) }";
+    const node = getFirstNodeOfType<TSESTree.ArrowFunctionExpression>(code, AST.ArrowFunctionExpression);
+    expect(getFunctionInitPath(node)).toBeNull();
+  });
+
+  it("should return null for triple-nested HOC", () => {
+    const code = "const Component = memo(memo(forwardRef(() => {})))";
     const node = getFirstNodeOfType<TSESTree.ArrowFunctionExpression>(code, AST.ArrowFunctionExpression);
     expect(getFunctionInitPath(node)).toBeNull();
   });
@@ -176,6 +213,20 @@ describe("getFunctionDirectives", () => {
           expect(directives).toHaveLength(2);
           expect(directives[0]?.directive).toBe("use strict");
           expect(directives[1]?.directive).toBe("use client");
+          found = true;
+        }
+      },
+    }, true);
+    expect(found).toBe(true);
+  });
+
+  it("should not treat a string literal statement after other statements as a directive", () => {
+    const code = `function Foo() { bar(); "use strict"; }`;
+    let found = false;
+    simpleTraverse(parseCode(code).ast, {
+      enter(node) {
+        if (Check.isFunction(node)) {
+          expect(getFunctionDirectives(node)).toHaveLength(0);
           found = true;
         }
       },

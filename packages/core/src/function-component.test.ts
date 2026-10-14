@@ -103,6 +103,7 @@ describe("isFunctionComponentWrapperCallback", () => {
     ["memo(() => {})", true],
     ["forwardRef(() => {})", true],
     ["React.memo(() => {})", true],
+    ["memo((() => {}) as any)", true],
     ["custom(() => {})", false],
   ])("isFunctionComponentWrapperCallback(%s) === %s", (code, expected) => {
     let found = false;
@@ -282,6 +283,54 @@ describe("isFunctionComponentDefinition", () => {
           const hintWithExclude = DEFAULT_COMPONENT_DETECTION_HINT
             | FunctionComponentDetectionHint.DoNotIncludeFunctionDefinedAsArbitraryCallExpressionCallback;
           expect(isFunctionComponentDefinition(context, node, hintWithExclude)).toBe(true);
+          found = true;
+        }
+      },
+    }, true);
+    expect(found).toBe(true);
+  });
+
+  it("excludes named callbacks in array map calls when hint is set (unlike the arbitrary call case)", () => {
+    const code = "const x = items.map(function Item() { return <div /> })";
+    let found = false;
+    simpleTraverse(parseCode(code).ast, {
+      enter(node) {
+        if (Check.isFunction(node)) {
+          const hintWithExclude = DEFAULT_COMPONENT_DETECTION_HINT
+            | FunctionComponentDetectionHint.DoNotIncludeFunctionDefinedAsArrayMapCallback;
+          expect(isFunctionComponentDefinition(context, node, hintWithExclude)).toBe(false);
+          found = true;
+        }
+      },
+    }, true);
+    expect(found).toBe(true);
+  });
+
+  it("excludes anonymous callbacks in array map calls when hint is set", () => {
+    const code = "const x = items.map(() => <div />)";
+    let found = false;
+    simpleTraverse(parseCode(code).ast, {
+      enter(node) {
+        if (Check.isFunction(node)) {
+          const hintWithExclude = DEFAULT_COMPONENT_DETECTION_HINT
+            | FunctionComponentDetectionHint.DoNotIncludeFunctionDefinedAsArrayMapCallback;
+          expect(isFunctionComponentDefinition(context, node, hintWithExclude)).toBe(false);
+          found = true;
+        }
+      },
+    }, true);
+    expect(found).toBe(true);
+  });
+
+  it("includes named callbacks in array map calls when hint is not set", () => {
+    const code = "const x = items.map(function Item() { return <div /> })";
+    let found = false;
+    simpleTraverse(parseCode(code).ast, {
+      enter(node) {
+        if (Check.isFunction(node)) {
+          const hintWithoutExclude = DEFAULT_COMPONENT_DETECTION_HINT
+            & ~FunctionComponentDetectionHint.DoNotIncludeFunctionDefinedAsArrayMapCallback;
+          expect(isFunctionComponentDefinition(context, node, hintWithoutExclude)).toBe(true);
           found = true;
         }
       },

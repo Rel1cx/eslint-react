@@ -42,25 +42,6 @@ export type FunctionInitPath =
     TSESTree.Property,
     TSESTreeFunction,
   ]
-  // HOC inside object property: const Components = { Nav: React.memo(() => <div />) }
-  | readonly [
-    TSESTree.VariableDeclaration,
-    TSESTree.VariableDeclarator,
-    TSESTree.ObjectExpression,
-    TSESTree.Property,
-    TSESTree.CallExpression,
-    TSESTreeFunction,
-  ]
-  // Nested HOCs in object: const Components = { Nav: React.memo(React.forwardRef(() => <div />)) }
-  | readonly [
-    TSESTree.VariableDeclaration,
-    TSESTree.VariableDeclarator,
-    TSESTree.ObjectExpression,
-    TSESTree.Property,
-    TSESTree.CallExpression,
-    TSESTree.CallExpression,
-    TSESTreeFunction,
-  ]
   // Class method components: class Component { Nav() { return <div />; } } or const Component = class { Nav() {} }
   | readonly [
     TSESTree.ClassDeclaration | TSESTree.ClassExpression,
@@ -142,7 +123,8 @@ export function getFunctionId(node: TSESTree.Expression | TSESTreeFunction) {
     // class {MaybeComponent = () => {}}
     // class {MaybeComponent() {}}
     case Check.isPropertyOrMethod(node.parent)
-      && node.parent.value === node:
+      && node.parent.value === node
+      && !node.parent.computed:
       return node.parent.key;
     // Follow spec convention for `IsAnonymousFunctionDefinition()` usage.
     //
@@ -165,6 +147,12 @@ export function getFunctionId(node: TSESTree.Expression | TSESTreeFunction) {
 
 /**
  * Get the initialization path of a function node in the AST.
+ *
+ * @remarks
+ * Higher-order component wrappers (ex: `memo`, `forwardRef`) are only
+ * recognized when the call expression initializes a variable declarator
+ * directly. HOCs inside object properties (ex: `{ Nav: memo(() => {}) }`)
+ * are not supported and yield `null`.
  *
  * @param node The function node to analyze.
  * @returns The function initialization path or `null` if not identifiable.
