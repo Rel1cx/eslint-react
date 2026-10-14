@@ -44,14 +44,35 @@ describe("getJsxConfigFromAnnotation", () => {
     });
   });
 
-  it("should let the last pragma win when a pragma appears multiple times", () => {
+  it("should let the first @jsx/@jsxFrag pragma win when it appears multiple times", () => {
+    // tsc applies the first `@jsx`/`@jsxFrag` pragma and ignores later ones.
     const code = [
       "/* @jsx h */",
       "/* @jsx createElement */",
+      "/* @jsxFrag Fragment */",
+      "/* @jsxFrag F */",
       "const a = 1;",
     ].join("\n");
     runInRule(code, (context) => {
-      expect(getJsxConfigFromAnnotation(context).jsxFactory).toBe("createElement");
+      const config = getJsxConfigFromAnnotation(context);
+      expect(config.jsxFactory).toBe("h");
+      expect(config.jsxFragmentFactory).toBe("Fragment");
+    });
+  });
+
+  it("should let the last @jsxRuntime/@jsxImportSource pragma win when it appears multiple times", () => {
+    // tsc applies the last `@jsxRuntime`/`@jsxImportSource` pragma.
+    const code = [
+      "/* @jsxRuntime classic */",
+      "/* @jsxRuntime automatic */",
+      "/* @jsxImportSource preact */",
+      "/* @jsxImportSource react */",
+      "const a = 1;",
+    ].join("\n");
+    runInRule(code, (context) => {
+      const config = getJsxConfigFromAnnotation(context);
+      expect(config.jsx).toBe(ts.JsxEmit.ReactJSX);
+      expect(config.jsxImportSource).toBe("react");
     });
   });
 
@@ -61,11 +82,12 @@ describe("getJsxConfigFromAnnotation", () => {
     });
   });
 
-  it("should map an unrecognized @jsxRuntime value to ts.JsxEmit.ReactJSX", () => {
-    // Current behavior: any value other than "classic" is treated as the automatic
-    // runtime instead of being rejected (tsc would report an error for this).
+  it("should ignore an unrecognized @jsxRuntime value", () => {
+    // tsc silently ignores a `@jsxRuntime` pragma whose value is neither
+    // "classic" nor "automatic", leaving `jsx` unset so the compiler-option
+    // defaults apply when the config is merged.
     runInRule("/* @jsxRuntime bogus */\nconst a = 1;", (context) => {
-      expect(getJsxConfigFromAnnotation(context).jsx).toBe(ts.JsxEmit.ReactJSX);
+      expect(getJsxConfigFromAnnotation(context)).toEqual({});
     });
   });
 

@@ -83,18 +83,22 @@ export function getJsxConfigFromAnnotation(context: RuleContext): JsxConfig {
   // eslint-disable-next-line perfectionist/sort-variable-declarations
   let jsx, jsxFrag, jsxRuntime, jsxImportSource;
 
-  // Iterate in reverse so that the *last* pragma wins (mirrors tsc behaviour).
-  for (const comment of context.sourceCode.getAllComments().reverse()) {
+  // Precedence mirrors tsc per pragma: the *first* `@jsx`/`@jsxFrag` wins,
+  // while the *last* `@jsxRuntime`/`@jsxImportSource` wins.
+  for (const comment of context.sourceCode.getAllComments()) {
     const value = comment.value;
     jsx ??= value.match(RE_ANNOTATION_JSX)?.[1];
     jsxFrag ??= value.match(RE_ANNOTATION_JSX_FRAG)?.[1];
-    jsxRuntime ??= value.match(RE_ANNOTATION_JSX_RUNTIME)?.[1];
-    jsxImportSource ??= value.match(RE_ANNOTATION_JSX_IMPORT_SOURCE)?.[1];
+    jsxRuntime = value.match(RE_ANNOTATION_JSX_RUNTIME)?.[1] ?? jsxRuntime;
+    jsxImportSource = value.match(RE_ANNOTATION_JSX_IMPORT_SOURCE)?.[1] ?? jsxImportSource;
   }
 
   if (jsx != null) options.jsxFactory = jsx;
   if (jsxFrag != null) options.jsxFragmentFactory = jsxFrag;
-  if (jsxRuntime != null) options.jsx = jsxRuntime === "classic" ? ts.JsxEmit.React : ts.JsxEmit.ReactJSX;
+  // tsc silently ignores a `@jsxRuntime` pragma whose value is neither
+  // "classic" nor "automatic", so only set `jsx` for those two values.
+  if (jsxRuntime === "classic") options.jsx = ts.JsxEmit.React;
+  else if (jsxRuntime === "automatic") options.jsx = ts.JsxEmit.ReactJSX;
   if (jsxImportSource != null) options.jsxImportSource = jsxImportSource;
 
   annotationCache.set(context.sourceCode, options);
