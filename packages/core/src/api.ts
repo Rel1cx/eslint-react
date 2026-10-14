@@ -55,9 +55,8 @@ export declare namespace isAPICall {
 export function isAPICall(api: string): isAPICall.ReturnType {
   const func = (context: RuleContext, node: null | TSESTree.Node): node is TSESTree.CallExpression => {
     if (node == null) return false;
-    const expr = Extract.unwrap(node);
-    if (expr.type !== AST.CallExpression) return false;
-    return isAPI(api)(context, expr.callee);
+    if (node.type !== AST.CallExpression) return false;
+    return isAPI(api)(context, Extract.unwrap(node.callee));
   };
   function dual(context: RuleContext, node: null | TSESTree.Node): node is TSESTree.CallExpression;
   function dual(context: RuleContext): (node: null | TSESTree.Node) => node is TSESTree.CallExpression;

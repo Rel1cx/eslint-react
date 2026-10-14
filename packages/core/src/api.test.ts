@@ -359,12 +359,12 @@ describe("isAPICall expression forms", () => {
     expect(isAPICall("createElement")(context, call)).toBe(true);
   });
 
-  it("unwraps a ChainExpression wrapping the call (same as isAPI, which unwraps its input)", () => {
+  it("does not match a ChainExpression wrapping the call (input is matched as-is, unlike isAPI which unwraps)", () => {
     const code = `React?.createElement("div", null);`;
     const context = createMockContext({ code });
     const chain = getLastExpression(code);
     expect(chain.type).toBe(AST.ChainExpression);
-    expect(isAPICall("createElement")(context, chain)).toBe(true);
+    expect(isAPICall("createElement")(context, chain)).toBe(false);
   });
 
   it("matches calls whose callee is wrapped in a TS as-expression", () => {
