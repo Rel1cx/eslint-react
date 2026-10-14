@@ -26,7 +26,7 @@ Only the pattern-specific files are shown; every rule directory also contains th
 
 Add a layer only when the rule file would otherwise own that responsibility — some rules use all four layers, others stay minimal and defer judgments to later layers instead of capturing more up front.
 
-Dependencies point one way only — `<rule-name>.ts` → `effects.ts` → `origins.ts` → `collect.ts` → `helpers.ts`, no cyclic or backward imports — so each layer builds only on an earlier pipeline stage and data flows strictly forward: facts → resolved origins → effects → the rule file's report pass, with nothing leaking back into traversal.
+Dependencies point one way only — `<rule-name>.ts` → `effects.ts` → `origins.ts` → `collect.ts` → `helpers.ts`, no cyclic or backward imports (enforced by the `react-x/factBasedLayerOrder` tsl rule) — so each layer builds only on an earlier pipeline stage and data flows strictly forward: facts → resolved origins → effects → the rule file's report pass, with nothing leaking back into traversal.
 
 ## Layer Responsibilities
 
