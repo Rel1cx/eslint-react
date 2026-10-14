@@ -1,4 +1,5 @@
 import { runCollector } from "@local/testkit";
+import type { TSESTree } from "@typescript-eslint/types";
 import { describe, expect, it } from "vitest";
 
 import { DEFAULT_COMPONENT_DETECTION_HINT, FunctionComponentFlag } from "./function-component";
@@ -166,5 +167,79 @@ describe("getFunctionComponentCollector", () => {
     );
     expect(components).toHaveLength(1);
     expect(components[0]?.displayName).toBeNull();
+  });
+
+  it("should not collect displayName assigned before the component definition (mounting happens at visit time)", () => {
+    const components = collectComponentsWithDisplayName(
+      "Component.displayName = 'MyComponent'; function Component() { return <div />; }",
+    );
+    expect(components).toHaveLength(1);
+    expect(components[0]?.displayName).toBeNull();
+  });
+
+  it("should mount the displayName on the component the assignment lexically refers to", () => {
+    const components = collectComponentsWithDisplayName(
+      "function outer1() { const App = () => <div>1</div>; App.displayName = 'First'; return App; }"
+        + " function outer2() { const App = () => <div>2</div>; return App; }",
+    );
+    expect(components).toHaveLength(2);
+    const [first, second] = components;
+    expect(first?.displayName).not.toBeNull();
+    expect(first?.displayName?.type).toBe("Literal");
+    expect((first?.displayName as TSESTree.StringLiteral).value).toBe("First");
+    expect(second?.displayName).toBeNull();
+  });
+
+  it("should not collect displayName assignment with a non-literal right side", () => {
+    const components = collectComponentsWithDisplayName(
+      "const Component = () => <div />; Component.displayName = makeName();",
+    );
+    expect(components).toHaveLength(1);
+    expect(components[0]?.displayName).toBeNull();
+  });
+
+  it("should collect displayName assignment with a computed string literal key", () => {
+    const components = collectComponentsWithDisplayName(
+      "const Component = () => <div />; Component['displayName'] = 'MyComponent';",
+    );
+    expect(components).toHaveLength(1);
+    expect(components[0]?.displayName).not.toBeNull();
+    expect(components[0]?.displayName?.type).toBe("Literal");
+  });
+
+  it("should not collect displayName assignment with a runtime-computed key", () => {
+    const components = collectComponentsWithDisplayName(
+      "const Component = () => <div />; Component[displayName] = 'MyComponent';",
+    );
+    expect(components).toHaveLength(1);
+    expect(components[0]?.displayName).toBeNull();
+  });
+
+  it("should collect a named component with a 'use memo' directive even without JSX or hooks", () => {
+    const components = collectComponents("function Component() { 'use memo'; return 1; }");
+    expect(components).toHaveLength(1);
+    expect(components[0]?.name).toBe("Component");
+    expect(components[0]?.directives[0]?.directive).toBe("use memo");
+  });
+
+  it("should collect a named component with a 'use no memo' directive even without JSX or hooks", () => {
+    const components = collectComponents("function Component() { 'use no memo'; return 1; }");
+    expect(components).toHaveLength(1);
+    expect(components[0]?.name).toBe("Component");
+  });
+
+  it("should collect anonymous default-exported components with a null name", () => {
+    const components = collectComponents("export default function () { return <div />; }");
+    expect(components).toHaveLength(1);
+    expect(components[0]?.name).toBeNull();
+    expect(components[0]?.isExportDefault).toBe(true);
+    expect(components[0]?.isExportDefaultDeclaration).toBe(true);
+  });
+
+  it("should not mark wrapper-call default exports as the default export declaration itself", () => {
+    const components = collectComponents("export default memo(() => <div />);");
+    expect(components).toHaveLength(1);
+    expect(components[0]?.isExportDefault).toBe(true);
+    expect(components[0]?.isExportDefaultDeclaration).toBe(false);
   });
 });

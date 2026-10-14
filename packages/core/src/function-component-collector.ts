@@ -2,7 +2,7 @@ import { Extract, type TSESTreeFunction, Traverse } from "@eslint-react/ast";
 import type { RuleContext } from "@eslint-react/eslint";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import type { ESLintUtils } from "@typescript-eslint/utils";
-import { SEL_FUNCTION_DISPLAY_NAME_ASSIGNMENT, getFunctionDirectives, getFunctionInitPath } from "./function";
+import { type FunctionDisplayNameAssignment, SEL_FUNCTION_DISPLAY_NAME_ASSIGNMENT, getFunctionDirectives, getFunctionInitPath } from "./function";
 import {
   DEFAULT_COMPONENT_DETECTION_HINT,
   type FunctionComponentDetectionHint,
@@ -111,9 +111,8 @@ export function getFunctionComponentCollector(
     },
     ...collectDisplayName
       ? {
-        [SEL_FUNCTION_DISPLAY_NAME_ASSIGNMENT](node: TSESTree.AssignmentExpression) {
+        [SEL_FUNCTION_DISPLAY_NAME_ASSIGNMENT](node: FunctionDisplayNameAssignment) {
           const { left, right } = node;
-          if (left.type !== AST.MemberExpression) return;
           const componentName = left.object.type === AST.Identifier
             ? left.object.name
             : null;

@@ -122,4 +122,23 @@ describe("getHookCollector", () => {
     expect(outer?.hookCalls[0]?.type).toBe("CallExpression");
     expect(inner?.hookCalls[0]?.type).toBe("TaggedTemplateExpression");
   });
+
+  it("should collect hooks assigned to member expressions with a fully qualified name", () => {
+    const hooks = collectHooks("obj.useFoo = function() { useState(); };");
+    expect(hooks).toHaveLength(1);
+    expect(hooks[0]?.name).toBe("obj.useFoo");
+    expect(hooks[0]?.hookCalls).toHaveLength(1);
+  });
+
+  it("should not collect hooks assigned to computed member expressions", () => {
+    const hooks = collectHooks(`obj["useFoo"] = function() { useState(); };`);
+    expect(hooks).toHaveLength(0);
+  });
+
+  it("should populate directives on collected hooks", () => {
+    const hooks = collectHooks(`function useFoo() { "use strict"; useState(); }`);
+    expect(hooks).toHaveLength(1);
+    expect(hooks[0]?.directives).toHaveLength(1);
+    expect(hooks[0]?.directives[0]?.directive).toBe("use strict");
+  });
 });

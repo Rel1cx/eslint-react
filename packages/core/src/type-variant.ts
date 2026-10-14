@@ -63,12 +63,16 @@ export function getTypeVariants(types: ts.Type[]) {
   // If incoming type is either "true" or "false", there will be one type
   // object with intrinsicName set accordingly
   // If incoming type is boolean, there will be two type objects with
-  // intrinsicName set "true" and "false" each because of ts-api-utils.unionTypeParts()
+  // intrinsicName set "true" and "false" each because of ts-api-utils.unionConstituents()
   if (booleans.length === 1 && boolean0 != null) {
     if (isFalseLiteralType(boolean0)) {
       variants.add("falsy boolean");
     } else if (isTrueLiteralType(boolean0)) {
       variants.add("truthy boolean");
+    } else {
+      // A single non-literal boolean (e.g. an unsplit 'boolean' union type)
+      // can be either true or false.
+      variants.add("boolean");
     }
   } else if (booleans.length === 2) {
     variants.add("boolean");
@@ -86,7 +90,7 @@ export function getTypeVariants(types: ts.Type[]) {
     const evaluated = match<ts.Type[], TypeVariant>(bigints)
       .when((types) => types.every(isTruthyBigIntType), () => "truthy bigint")
       .when((types) => types.every(isFalsyBigIntType), () => "falsy bigint")
-      .otherwise(() => "bigint");
+      .otherwise(() => "bigint" as const);
     variants.add(evaluated);
   }
   const numbers = types.filter(isNumberType);

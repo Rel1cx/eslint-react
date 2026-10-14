@@ -81,35 +81,76 @@ ruleTester.run(RULE_NAME, rule, {
         { messageId: "default" },
       ],
     },
+    {
+      code: tsx`
+        const ctx = createContext();
+        const displayName = "ctx";
+        ctx.displayName = displayName;
+      `,
+      errors: [{ messageId: "default" }],
+      output: tsx`
+        const ctx = createContext();
+        ctx.displayName = "ctx";
+        const displayName = "ctx";
+        ctx.displayName = displayName;
+      `,
+    },
+    {
+      code: tsx`
+        const ctx1 = createContext();
+        const ctx2 = createContext();
+        const displayName = "ctx";
+        ctx1.displayName = displayName;
+        ctx2.displayName = displayName;
+      `,
+      errors: [
+        { messageId: "default" },
+        { messageId: "default" },
+      ],
+      output: tsx`
+        const ctx1 = createContext();
+        ctx1.displayName = "ctx1";
+        const ctx2 = createContext();
+        ctx2.displayName = "ctx2";
+        const displayName = "ctx";
+        ctx1.displayName = displayName;
+        ctx2.displayName = displayName;
+      `,
+    },
+    {
+      code: tsx`
+        const ctx1 = createContext();
+        const ctx2 = createContext();
+        {
+          const displayName = "ctx";
+          ctx1.displayName = displayName;
+          ctx2.displayName = displayName;
+        }
+      `,
+      errors: [
+        { messageId: "default" },
+        { messageId: "default" },
+      ],
+      output: tsx`
+        const ctx1 = createContext();
+        ctx1.displayName = "ctx1";
+        const ctx2 = createContext();
+        ctx2.displayName = "ctx2";
+        {
+          const displayName = "ctx";
+          ctx1.displayName = displayName;
+          ctx2.displayName = displayName;
+        }
+      `,
+    },
   ],
   valid: [
     tsx`const ctx = createContext(); ctx.displayName = "ctx";`,
-    tsx`
-      const ctx = createContext();
-      const displayName = "ctx";
-      ctx.displayName = displayName;
-    `,
     tsx`
       const ctx1 = createContext();
       const ctx2 = createContext();
       ctx1.displayName = "ctx1";
       ctx2.displayName = "ctx2";
-    `,
-    tsx`
-      const ctx1 = createContext();
-      const ctx2 = createContext();
-      const displayName = "ctx";
-      ctx1.displayName = displayName;
-      ctx2.displayName = displayName;
-    `,
-    tsx`
-      const ctx1 = createContext();
-      const ctx2 = createContext();
-      {
-        const displayName = "ctx";
-        ctx1.displayName = displayName;
-        ctx2.displayName = displayName;
-      }
     `,
   ],
 });

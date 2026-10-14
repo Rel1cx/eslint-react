@@ -90,7 +90,7 @@ export function isCreateElementChildrenArgument(context: RuleContext, node: TSES
   while (Check.isTypeExpression(parent)) parent = parent.parent;
   return parent?.type === AST.CallExpression
     && isCreateElementCall(context, parent)
-    && parent.arguments.slice(2).some((arg) => Extract.unwrap(arg) === node);
+    && parent.arguments.slice(2).some((arg) => Extract.unwrap(arg) === Extract.unwrap(node));
 }
 
 /**
@@ -105,7 +105,9 @@ export function isInsideCreateElementProps(context: RuleContext, node: TSESTree.
   // The props object is the second argument of createElement
   const prop = Traverse.findParent(node, Check.isObjectExpression);
   if (prop == null) return false;
-  return prop === call.arguments[1];
+  const propsArg = call.arguments[1];
+  if (propsArg == null) return false;
+  return prop === Extract.unwrap(propsArg);
 }
 
 // #endregion

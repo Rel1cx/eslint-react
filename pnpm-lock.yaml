@@ -1059,6 +1059,9 @@ importers:
       '@typescript-eslint/typescript-estree':
         specifier: ^8.71.2
         version: 8.71.2(supports-color@9.4.0)(typescript@6.0.3)
+      dedent:
+        specifier: ^1.7.2
+        version: 1.7.2
       eslint:
         specifier: ^10.12.0
         version: 10.12.0(jiti@2.7.0)(supports-color@9.4.0)

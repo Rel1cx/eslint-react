@@ -261,6 +261,22 @@ describe("isJsxLike", () => {
       expect(isJsxLike(context, xRefs[0]!)).toBe(false);
     });
 
+    it("should resolve a twice-referenced alias under RequireAllArrayElementsToBeJsx", () => {
+      const hint = JsxDetectionHint.RequireAllArrayElementsToBeJsx;
+      expect(run("const el = <div />; const alias = el; [alias, alias];", hint)).toBe(true);
+    });
+
+    it("should resolve a twice-referenced alias under RequireBothBranchesOfConditionalExpressionToBeJsx", () => {
+      const hint = JsxDetectionHint.RequireBothBranchesOfConditionalExpressionToBeJsx;
+      expect(run("const el = <div />; const alias = el; x ? alias : alias;", hint)).toBe(true);
+    });
+
+    it("should resolve a shadowed 'undefined' binding to its initializer", () => {
+      // A local binding named `undefined` shadows the global value, so the
+      // identifier resolves to its initializer instead of the undefined value.
+      expect(run("const undefined = <div />; undefined;")).toBe(true);
+    });
+
     it("should return false for an identifier bound through a destructuring pattern", () => {
       // With value semantics (`resolve`), a destructured binding's value is a member of
       // the source object, not the initializer itself — so it is not JSX-like even when

@@ -12,8 +12,13 @@ export declare namespace isAPI {
 
 /**
  * Check if the node is a React API identifier or member expression.
+ * @remarks
+ * Matching is namespace-agnostic by design: the fully qualified name of the node is compared
+ * against the API name by exact match or by suffix (`.${api}`), so `foo.bar.useState` matches
+ * `"useState"` just as `React.useState` does.
  * @param api The React API name to check against (ex: "useState", "React.memo").
- * @returns A predicate function to check if a node matches the API.
+ * @returns A dual-signature predicate: call it as `(context, node)` to check a node directly,
+ * or as `(context)` to get a `(node) => boolean` predicate (ex: for use in array filters).
  */
 export function isAPI(api: string): isAPI.ReturnType {
   const func = (context: RuleContext, node: null | TSESTree.Node) => {
@@ -44,7 +49,8 @@ export declare namespace isAPICall {
 /**
  * Check if the node is a call expression to a specific React API.
  * @param api The React API name to check against.
- * @returns A predicate function to check if a node is a call to the API.
+ * @returns A dual-signature predicate: call it as `(context, node)` to check a node directly,
+ * or as `(context)` to get a `(node) => node is TSESTree.CallExpression` predicate (ex: for use in array filters).
  */
 export function isAPICall(api: string): isAPICall.ReturnType {
   const func = (context: RuleContext, node: null | TSESTree.Node): node is TSESTree.CallExpression => {
@@ -83,10 +89,10 @@ export const isCreateElement = isAPI("createElement");
 export const isCreateRef = isAPI("createRef");
 /** Check if the node is a React `forwardRef` API identifier or member expression. */
 export const isForwardRef = isAPI("forwardRef");
-/** Check if the node is a React `memo` API identifier or member expression. */
-export const isMemo = isAPI("memo");
 /** Check if the node is a React `lazy` API identifier or member expression. */
 export const isLazy = isAPI("lazy");
+/** Check if the node is a React `memo` API identifier or member expression. */
+export const isMemo = isAPI("memo");
 
 // React API Call checks
 /** Check if the node is a call expression to the React `captureOwnerStack` API. */
@@ -111,10 +117,10 @@ export const isCreateElementCall = isAPICall("createElement");
 export const isCreateRefCall = isAPICall("createRef");
 /** Check if the node is a call expression to the React `forwardRef` API. */
 export const isForwardRefCall = isAPICall("forwardRef");
-/** Check if the node is a call expression to the React `memo` API. */
-export const isMemoCall = isAPICall("memo");
 /** Check if the node is a call expression to the React `lazy` API. */
 export const isLazyCall = isAPICall("lazy");
+/** Check if the node is a call expression to the React `memo` API. */
+export const isMemoCall = isAPICall("memo");
 
 // React Hook API checks
 /** Check if the node is a React `use` API identifier or member expression. */

@@ -39,7 +39,7 @@ export type HookCall = TSESTree.CallExpression | TSESTree.TaggedTemplateExpressi
 // #region Hook Name
 
 /**
- * Check if the name is a hook name (starts with `use` followed by an uppercase letter or digit).
+ * Check if the name is a hook name (`use` itself, or starts with `use` followed by an uppercase letter or digit).
  * @param name The name of the identifier to check.
  * @returns `true` if the name is a hook name.
  * @see https://github.com/facebook/react/blob/1d6c8168db1d82713202e842df3167787ffa00ed/packages/eslint-plugin-react-hooks/src/rules/RulesOfHooks.ts#L16
@@ -62,7 +62,8 @@ export function isHookId(id: TSESTree.Node): id is TSESTree.Identifier | TSESTre
     case AST.Identifier:
       return isHookName(id.name);
     case AST.MemberExpression:
-      return hasProperty(id.property, "name")
+      return !id.computed
+        && hasProperty(id.property, "name")
         && isHookName(id.property.name);
     default:
       return false;
@@ -95,7 +96,7 @@ export function isHookDefinition(node: TSESTreeFunction | null) {
     case AST.Identifier:
       return isHookName(id.name);
     case AST.MemberExpression:
-      return hasProperty(id.property, "name") && isHookName(id.property.name);
+      return !id.computed && hasProperty(id.property, "name") && isHookName(id.property.name);
     default:
       return false;
   }
@@ -168,9 +169,15 @@ export function isUseEffectLikeCall(node: TSESTree.Node | null, additionalEffect
 export function isUseEffectSetupCallback(node: TSESTree.Node | null) {
   if (node == null) return false;
   const expr = Extract.unwrap(node);
-  return expr.parent?.type === AST.CallExpression
-    && expr.parent.arguments.at(0) === expr
-    && isUseEffectLikeCall(expr.parent);
+  let parent = expr.parent;
+  while (parent != null && (Check.isTypeExpression(parent) || parent.type === AST.ChainExpression)) {
+    parent = parent.parent;
+  }
+  if (parent?.type !== AST.CallExpression) return false;
+  const firstArgument = parent.arguments.at(0);
+  return firstArgument != null
+    && Extract.unwrap(firstArgument) === expr
+    && isUseEffectLikeCall(parent);
 }
 
 /**
@@ -183,11 +190,21 @@ export function isUseEffectCleanupCallback(node: TSESTree.Node | null) {
   const expr = Extract.unwrap(node);
   const returnStatement = Traverse.findParent(expr, Check.isReturnStatement);
   const enclosingFunction = Traverse.findParent(expr, Check.isFunction);
+
+  if (returnStatement == null) {
+    return Check.isFunction(expr)
+      && enclosingFunction?.type === AST.ArrowFunctionExpression
+      && Extract.unwrap(enclosingFunction.body) === expr
+      && isUseEffectSetupCallback(enclosingFunction);
+  }
+
   const enclosingFunctionOfReturn = Traverse.findParent(returnStatement, Check.isFunction);
 
   if (enclosingFunction !== enclosingFunctionOfReturn) return false;
 
-  return isUseEffectSetupCallback(enclosingFunction);
+  return returnStatement.argument != null
+    && Extract.unwrap(returnStatement.argument) === expr
+    && isUseEffectSetupCallback(enclosingFunction);
 }
 
 // #endregion

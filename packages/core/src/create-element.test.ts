@@ -102,6 +102,8 @@ describe("getCreateElementProp", () => {
     [`React.createElement("div", { "children": "a" });`, `"children": "a"`],
     // Computed keys with statically resolvable names also match
     [`React.createElement("div", { ["children"]: "a" });`, `["children"]: "a"`],
+    // Simple template-literal keys also match
+    ['React.createElement("div", { [`children`]: "a" });', '[`children`]: "a"'],
   ])("should find the statically named property: %s", (code, expected) => {
     const { context, node } = parseCallExpression(code);
     expect(textOf(code, getCreateElementProp(context, node, "children"))).toBe(expected);
@@ -142,6 +144,12 @@ describe("isCreateElementChildrenArgument", () => {
     expect(isCreateElementChildrenArgument(context, node!)).toBe(true);
   });
 
+  it("should return true when the node is the type-expression children argument itself", () => {
+    const code = `React.createElement("div", null, (child as any));`;
+    const { context, node } = parseNode<TSESTree.TSAsExpression>(code, AST.TSAsExpression);
+    expect(isCreateElementChildrenArgument(context, node)).toBe(true);
+  });
+
   it.each<[string, TSESTree.Node["type"]]>([
     // The type argument is not a children argument
     [`createElement("div", null);`, AST.Literal],
@@ -180,5 +188,13 @@ describe("isInsideCreateElementProps", () => {
       AST.ArrowFunctionExpression,
     );
     expect(isInsideCreateElementProps(context, node)).toBe(false);
+  });
+
+  it("should return true when the props object is wrapped in a type expression", () => {
+    const { context, node } = parseNode<TSESTree.ArrowFunctionExpression>(
+      `React.createElement("div", ({ render: () => null } as const));`,
+      AST.ArrowFunctionExpression,
+    );
+    expect(isInsideCreateElementProps(context, node)).toBe(true);
   });
 });

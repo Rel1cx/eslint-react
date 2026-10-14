@@ -26,7 +26,7 @@ export interface FunctionComponentSemanticNode extends SemanticNode {
   node: TSESTreeFunction;
   /** Flags describing the component's characteristics. */
   flag: bigint;
-  /** Hint for how the component was detected. */
+  /** Detection hints configured by the caller when collecting this component; identical for every component collected under the same settings. */
   hint: bigint;
   /** List of expressions returned by the component. */
   rets: TSESTree.ReturnStatement["argument"][];
@@ -58,9 +58,15 @@ export interface FunctionComponentSemanticNode extends SemanticNode {
 export const FunctionComponentFlag = {
   /** No flags set. */
   None: 0n,
-  /** Indicates the component is a pure component (ex: extends PureComponent). */
+  /**
+   * Indicates the component is a pure component.
+   * @deprecated This flag is never set; purity of class components (`extends PureComponent`) is not tracked here.
+   */
   PureComponent: 1n << 0n,
-  /** Indicates the component creates elements using `createElement` instead of JSX. */
+  /**
+   * Indicates the component creates elements using `createElement` instead of JSX.
+   * @deprecated This flag is never set; createElement usage is not tracked here.
+   */
   CreateElement: 1n << 1n,
   /** Indicates the component is memoized (ex: React.memo). */
   Memo: 1n << 2n,
@@ -104,9 +110,15 @@ export function isFunctionComponentWrapperCall(context: RuleContext, node: TSEST
  */
 export function isFunctionComponentWrapperCallback(context: RuleContext, node: TSESTree.Node) {
   if (!Check.isFunction(node)) return false;
+  let argument: TSESTree.Node = node;
   let parent = node.parent;
-  while (Check.isTypeExpression(parent)) parent = parent.parent;
+  while (Check.isTypeExpression(parent)) {
+    argument = parent;
+    parent = parent.parent;
+  }
   if (parent.type !== AST.CallExpression) return false;
+  // Only the first argument is the render callback: memo(Component, propsAreEqual?), forwardRef(render).
+  if (parent.arguments[0] !== argument) return false;
   return isFunctionComponentWrapperCall(context, parent);
 }
 
@@ -207,11 +219,11 @@ export const FunctionComponentDetectionHint = {
   /** Exclude functions defined as array pattern elements from component detection. */
   DoNotIncludeFunctionDefinedAsArrayPatternElement: 1n << 15n,
 
-  /** Exclude functions defined as array flatMap callbacks from component detection. */
+  /** Exclude functions defined as array flatMap callbacks (named or anonymous) from component detection. */
   DoNotIncludeFunctionDefinedAsArrayFlatMapCallback: 1n << 16n,
-  /** Exclude functions defined as array map callbacks from component detection. */
+  /** Exclude functions defined as array map callbacks (named or anonymous) from component detection. */
   DoNotIncludeFunctionDefinedAsArrayMapCallback: 1n << 17n,
-  /** Exclude functions defined as arbitrary call expression callbacks from component detection. */
+  /** Exclude anonymous functions defined as arbitrary call expression callbacks from component detection. */
   DoNotIncludeFunctionDefinedAsArbitraryCallExpressionCallback: 1n << 18n,
 } as const;
 
@@ -278,6 +290,9 @@ export function isFunctionComponentDefinition(context: RuleContext, node: TSESTr
     case parentCallee != null
       && parentCallee.type === AST.MemberExpression
       && parentCalleeName === "map":
+      // Unlike the arbitrary-call case below, map callbacks are excluded even when named:
+      // `items.map(function Item() { ... })` is the common render-list pattern, and downstream
+      // rules (e.g. no-nested-component-definitions) rely on this hint to allow it.
       if (hint & FunctionComponentDetectionHint.DoNotIncludeFunctionDefinedAsArrayMapCallback) return false;
       break;
     case parentCallee != null

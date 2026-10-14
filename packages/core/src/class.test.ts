@@ -32,4 +32,14 @@ describe("getClassId", () => {
     const node = getFirstNodeOfType<TSESTree.ClassExpression>(code, AST.ClassExpression);
     expect(getClassId(node)).toBeNull();
   });
+
+  it("should return the destructuring pattern for a class assigned via destructuring", () => {
+    const node = getFirstNodeOfType<TSESTree.ClassExpression>("const { x } = class {}", AST.ClassExpression);
+    expect(getClassId(node)?.type).toBe(AST.ObjectPattern);
+  });
+
+  it("should return null for an anonymous default-exported class", () => {
+    const node = getFirstNodeOfType<TSESTree.ClassDeclaration>("export default class {}", AST.ClassDeclaration);
+    expect(getClassId(node)).toBeNull();
+  });
 });

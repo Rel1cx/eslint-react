@@ -311,7 +311,7 @@ ruleTester.run(RULE_NAME, rule, {
         data: {
           json: stringify({
             name: "App",
-            displayName: '`${"TestDisplayName"}`',
+            displayName: "none",
             forwardRef: false,
             hookCalls: 0,
             memo: true,
@@ -521,7 +521,7 @@ ruleTester.run(RULE_NAME, rule, {
       code: tsx`
         const App = () => <div />;
         App.displayName = labels.current;
-        App["displayName"] = "ignored";
+        App["displayName"] = "TestDisplayName";
         Other.displayName = "ignored";
       `,
       errors: [
@@ -529,7 +529,7 @@ ruleTester.run(RULE_NAME, rule, {
           data: {
             json: stringify({
               name: "App",
-              displayName: "labels.current",
+              displayName: `"TestDisplayName"`,
               forwardRef: false,
               hookCalls: 0,
               memo: false,

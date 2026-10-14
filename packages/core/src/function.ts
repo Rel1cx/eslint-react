@@ -42,25 +42,6 @@ export type FunctionInitPath =
     TSESTree.Property,
     TSESTreeFunction,
   ]
-  // HOC inside object property: const Components = { Nav: React.memo(() => <div />) }
-  | readonly [
-    TSESTree.VariableDeclaration,
-    TSESTree.VariableDeclarator,
-    TSESTree.ObjectExpression,
-    TSESTree.Property,
-    TSESTree.CallExpression,
-    TSESTreeFunction,
-  ]
-  // Nested HOCs in object: const Components = { Nav: React.memo(React.forwardRef(() => <div />)) }
-  | readonly [
-    TSESTree.VariableDeclaration,
-    TSESTree.VariableDeclarator,
-    TSESTree.ObjectExpression,
-    TSESTree.Property,
-    TSESTree.CallExpression,
-    TSESTree.CallExpression,
-    TSESTreeFunction,
-  ]
   // Class method components: class Component { Nav() { return <div />; } } or const Component = class { Nav() {} }
   | readonly [
     TSESTree.ClassDeclaration | TSESTree.ClassExpression,
@@ -142,7 +123,8 @@ export function getFunctionId(node: TSESTree.Expression | TSESTreeFunction) {
     // class {MaybeComponent = () => {}}
     // class {MaybeComponent() {}}
     case Check.isPropertyOrMethod(node.parent)
-      && node.parent.value === node:
+      && node.parent.value === node
+      && !node.parent.computed:
       return node.parent.key;
     // Follow spec convention for `IsAnonymousFunctionDefinition()` usage.
     //
@@ -152,7 +134,8 @@ export function getFunctionId(node: TSESTree.Expression | TSESTreeFunction) {
       && node.parent.right === node:
       return node.parent.left;
     // const MaybeComponent = condition ? () => {} : () => {};
-    case node.parent.type === AST.ConditionalExpression:
+    // Only consequent/alternate positions inherit the id; the test position does not.
+    case node.parent.type === AST.ConditionalExpression && (node.parent.consequent === node || node.parent.alternate === node):
       return getFunctionId(node.parent);
     // const MaybeComponent = (() => {})!;
     // const MaybeComponent = (() => {}) as FunctionComponent;
@@ -166,6 +149,12 @@ export function getFunctionId(node: TSESTree.Expression | TSESTreeFunction) {
 /**
  * Get the initialization path of a function node in the AST.
  *
+ * @remarks
+ * Higher-order component wrappers (ex: `memo`, `forwardRef`) are only
+ * recognized when the call expression initializes a variable declarator
+ * directly. HOCs inside object properties (ex: `{ Nav: memo(() => {}) }`)
+ * are not supported and yield `null`.
+ *
  * @param node The function node to analyze.
  * @returns The function initialization path or `null` if not identifiable.
  */
@@ -177,7 +166,11 @@ export function getFunctionInitPath(node: TSESTreeFunction): null | FunctionInit
 
   // Traverse up through type expressions (as, satisfies, !, etc.) to find the semantic parent
   let parent: TSESTree.Node = node.parent;
-  while (Check.isTypeExpression(parent)) parent = parent.parent;
+  let child: TSESTree.Expression = node;
+  while (Check.isTypeExpression(parent)) {
+    child = parent;
+    parent = parent.parent;
+  }
 
   // Match against various component patterns
   switch (true) {
@@ -186,13 +179,18 @@ export function getFunctionInitPath(node: TSESTreeFunction): null | FunctionInit
       return [parent.parent, parent, node] as const;
 
     // HOC pattern: const Component = React.memo(() => {})
+    // The function must be a call argument, not the callee (ex: `const f = (() => {})()` is an IIFE, not an HOC)
     case parent.type === AST.CallExpression
+      && parent.arguments.includes(child)
       && parent.parent.type === AST.VariableDeclarator:
       return [parent.parent.parent, parent.parent, parent, node] as const;
 
     // Nested HOC pattern: const Component = React.memo(React.forwardRef(() => {}))
+    // Both calls must receive the inner expression as an argument, not as the callee
     case parent.type === AST.CallExpression
+      && parent.arguments.includes(child)
       && parent.parent.type === AST.CallExpression
+      && parent.parent.arguments.includes(parent)
       && parent.parent.parent.type === AST.VariableDeclarator:
       return [parent.parent.parent.parent, parent.parent.parent, parent.parent, parent, node] as const;
 
@@ -277,16 +275,23 @@ export function isFunctionHasDirective(node: TSESTreeFunction, name: string): bo
 /** Represents a `displayName` assignment expression (ex: `Component.displayName = "MyComponent"`). */
 export type FunctionDisplayNameAssignment = TSESTree.AssignmentExpression & {
   left: TSESTree.MemberExpression & {
-    property: TSESTree.Identifier & { name: "displayName" };
+    property:
+      | TSESTree.Identifier & { name: "displayName" }
+      | TSESTree.StringLiteral & { value: "displayName" };
   };
   operator: "=";
   right: TSESTree.Literal;
 };
 
-/** The esquery selector matching `displayName` assignment expressions. */
+/** The esquery selector matching `displayName` assignment expressions with a statically determinable property name and a literal right side. */
 export const SEL_FUNCTION_DISPLAY_NAME_ASSIGNMENT = [
   "AssignmentExpression",
   "[operator='=']",
   "[left.type='MemberExpression']",
-  "[left.property.name='displayName']",
+  "[right.type='Literal']",
+  ":matches(",
+  "[left.computed=false][left.property.name='displayName']",
+  ", ",
+  "[left.computed=true][left.property.type='Literal'][left.property.value='displayName']",
+  ")",
 ].join("");
