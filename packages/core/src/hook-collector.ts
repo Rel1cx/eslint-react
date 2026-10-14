@@ -2,7 +2,6 @@ import { Extract, type TSESTreeFunction } from "@eslint-react/ast";
 import type { RuleContext } from "@eslint-react/eslint";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import type { ESLintUtils } from "@typescript-eslint/utils";
-import { getNextCollectorKey } from "./collector-key";
 import { getFunctionId } from "./function";
 import { type HookSemanticNode, isHookCall, isHookId, isHookTag } from "./hook";
 
@@ -27,14 +26,14 @@ export declare namespace getHookCollector {
  */
 export function getHookCollector(context: RuleContext): getHookCollector.ReturnType {
   const functionEntries: FunctionEntry[] = [];
-  const hooks = new Map<string, HookSemanticNode>();
+  const hooks = new Map<number, HookSemanticNode>();
 
   const getText = (n: TSESTree.Node) => context.sourceCode.getText(n);
   const getCurrentEntry = () => functionEntries.at(-1) ?? null;
   const getCurrentHookEntry = () => functionEntries.findLast((entry) => entry.isHookDefinition) ?? null;
   const onFunctionEnter = (node: TSESTreeFunction) => {
     const id = getFunctionId(node);
-    const key = getNextCollectorKey();
+    const key = node.range[0];
     const name = id == null ? null : Extract.getFullyQualifiedName(id, getText);
     const entry = {
       id,

@@ -9,7 +9,7 @@ export interface SemanticNode {
   /** The identifier of the node. */
   id: null | TSESTree.Node;
   /** The unique key of the node. */
-  key: string;
+  key: number;
   /** The kind of the node. */
   kind: string;
   /** The name of the node. */
