@@ -2,6 +2,28 @@
 title: Changelog
 ---
 
+## v5.26.8 (2026-10-15)
+
+### 🐞 Fixes
+
+- `react-x/no-missing-component-display-name`: only a string-literal `displayName` assignment now counts; non-literal values (ex: `App.displayName = displayName`, `Component.displayName = getDisplayName()`) are now reported. (#2038)
+- `react-x/no-missing-context-display-name`: assigning `displayName` through a variable (ex: `ctx.displayName = displayName`) is now reported; the autofix inserts a string-literal assignment (ex: `ctx.displayName = "ctx"`). (#2038)
+- `react-web-api/no-leaked-event-listener`: a cleanup returned through a conditional expression (ex: `return cond ? () => window.removeEventListener(...) : null`) is now recognized, so such listeners are no longer reported. (#2038)
+- `react-web-api/no-leaked-fetch`: an effect setup wrapped in a type expression (ex: `useEffect((() => { fetch(...) }) as any, [])`) is now recognized, so the `fetch` inside is checked. (#2038)
+- `react-debug/function-component`: the reported `displayName` now reflects only literal assignments (non-literal values show as `none`), and computed string-literal keys (ex: `App["displayName"] = "..."`) are now recognized. (#2038)
+
+### 🏗️ Internal
+
+- `@eslint-react/core`: accuracy and consistency fixes in detection helpers. (#2038)
+- `react-x`: the custom tsl config now enforces the fact-based layer dependency order. (#2036)
+- Bumped `react`/`react-dom` to `19.3.1` and `next` to `16.4.1`.
+
+### 📝 Documentation
+
+- Revised the rule implementation pattern guides and refined the core ideas and layer dependency model in the fact-based rule implementation docs. (#2034, #2035)
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.26.7...v5.26.8
+
 ## v5.26.7 (2026-10-15)
 
 ### 🏗️ Internal

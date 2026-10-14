@@ -5,6 +5,12 @@ All notable changes to the `react-web-api/no-leaked-fetch` rule will be document
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [5.26.8] - 2026-10-15
+
+### Fixed
+
+- An effect setup wrapped in a type expression (ex: `useEffect((() => { fetch("/api/user"); }) as any, [])`) is now recognized as a setup callback, so the `fetch` inside is checked for an abort signal; previously it was silently skipped. (#2038)
+
 ## [5.24.7] - 2026-10-07
 
 ### Fixed
