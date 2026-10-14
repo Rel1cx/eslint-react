@@ -14,7 +14,6 @@ type FunctionDisplayNameAssignment = TSESTree.AssignmentExpression & {
       };
   };
   operator: "=";
-  right: TSESTree.Literal;
 };
 ```
 
@@ -26,4 +25,3 @@ Represents a `displayName` assignment expression (ex: `Component.displayName = "
 | ---------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | `left`     | `TSESTree.MemberExpression` & \{ `property`: \| `TSESTree.Identifier` & \{ `name`: `"displayName"`; \} \| `TSESTree.StringLiteral` & \{ `value`: `"displayName"`; \}; \} |
 | `operator` | `"="`                                                                                                                                                                    |
-| `right`    | `TSESTree.Literal`                                                                                                                                                       |

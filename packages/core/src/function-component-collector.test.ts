@@ -190,12 +190,13 @@ describe("getFunctionComponentCollector", () => {
     expect(second?.displayName).toBeNull();
   });
 
-  it("should not collect displayName assignment with a non-literal right side", () => {
+  it("should collect displayName assignment with a non-literal right side", () => {
     const components = collectComponentsWithDisplayName(
       "const Component = () => <div />; Component.displayName = makeName();",
     );
     expect(components).toHaveLength(1);
-    expect(components[0]?.displayName).toBeNull();
+    expect(components[0]?.displayName).not.toBeNull();
+    expect(components[0]?.displayName?.type).toBe("CallExpression");
   });
 
   it("should collect displayName assignment with a computed string literal key", () => {

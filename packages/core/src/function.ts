@@ -280,15 +280,13 @@ export type FunctionDisplayNameAssignment = TSESTree.AssignmentExpression & {
       | TSESTree.StringLiteral & { value: "displayName" };
   };
   operator: "=";
-  right: TSESTree.Literal;
 };
 
-/** The esquery selector matching `displayName` assignment expressions with a statically determinable property name and a literal right side. */
+/** The esquery selector matching `displayName` assignment expressions with a statically determinable property name. */
 export const SEL_FUNCTION_DISPLAY_NAME_ASSIGNMENT = [
   "AssignmentExpression",
   "[operator='=']",
   "[left.type='MemberExpression']",
-  "[right.type='Literal']",
   ":matches(",
   "[left.computed=false][left.property.name='displayName']",
   ", ",

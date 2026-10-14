@@ -5,11 +5,11 @@ All notable changes to the `react-debug/function-component` rule will be documen
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [5.26.8] - 2026-10-15
+## [5.27.0] - 2026-10-15
 
 ### Changed
 
-- The reported `displayName` now reflects only assignments whose value is a literal; non-literal values (ex: `App.displayName = labels.current`, template literals with expressions) are reported as `none`. Computed string-literal keys (ex: `App["displayName"] = "TestDisplayName"`) are now recognized. (#2038)
+- Computed string-literal `displayName` keys (ex: `App["displayName"] = "TestDisplayName"`) are now recognized. (#2038)
 
 ## [5.16.0] - 2026-07-15
 

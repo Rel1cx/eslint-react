@@ -311,7 +311,7 @@ ruleTester.run(RULE_NAME, rule, {
         data: {
           json: stringify({
             name: "App",
-            displayName: "none",
+            displayName: '`${"TestDisplayName"}`',
             forwardRef: false,
             hookCalls: 0,
             memo: true,

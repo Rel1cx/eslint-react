@@ -6,4 +6,4 @@
 const SEL_FUNCTION_DISPLAY_NAME_ASSIGNMENT: string;
 ```
 
-The esquery selector matching `displayName` assignment expressions with a statically determinable property name and a literal right side.
+The esquery selector matching `displayName` assignment expressions with a statically determinable property name.
