@@ -38,6 +38,8 @@ describe("isHookId", () => {
     ["React.useState", true],
     ["notAHook", false],
     ["user", false],
+    // Computed member expressions are not treated as hook ids
+    [`React["useState"]`, false],
   ])("isHookId for %s === %s", (expr, expected) => {
     const code = `${expr}()`;
     const node = getFirstNodeOfType<TSESTree.CallExpression>(code, AST.CallExpression);
@@ -110,6 +112,20 @@ describe("isHookDefinition", () => {
 
   it("should return false for null", () => {
     expect(isHookDefinition(null)).toBe(false);
+  });
+
+  it("should return true for function assigned to a member expression with a hook name", () => {
+    const code = "obj.useFoo = function() {};";
+    let found = false;
+    simpleTraverse(parseCode(code).ast, {
+      enter(node) {
+        if (Check.isFunction(node)) {
+          expect(isHookDefinition(node)).toBe(true);
+          found = true;
+        }
+      },
+    }, true);
+    expect(found).toBe(true);
   });
 });
 
@@ -235,6 +251,12 @@ describe("isUseEffectSetupCallback", () => {
   it("should return false for null", () => {
     expect(isUseEffectSetupCallback(null)).toBe(false);
   });
+
+  it("should return true when the setup callback is wrapped in a type expression", () => {
+    const code = "useEffect((() => {}) as any)";
+    const node = getFirstNodeOfType<TSESTree.ArrowFunctionExpression>(code, AST.ArrowFunctionExpression);
+    expect(isUseEffectSetupCallback(node)).toBe(true);
+  });
 });
 
 describe("isUseEffectCleanupCallback", () => {
@@ -277,6 +299,20 @@ describe("isUseEffectCleanupCallback", () => {
       enter(node) {
         if (node.type === AST.ArrowFunctionExpression && node.parent.type === AST.VariableDeclarator) {
           expect(isUseEffectCleanupCallback(node)).toBe(false);
+          found = true;
+        }
+      },
+    }, true);
+    expect(found).toBe(true);
+  });
+
+  it("should return true for cleanup function returned via arrow expression body", () => {
+    const code = "useEffect(() => () => {})";
+    let found = false;
+    simpleTraverse(parseCode(code).ast, {
+      enter(node) {
+        if (node.type === AST.ArrowFunctionExpression && node.parent.type === AST.ArrowFunctionExpression) {
+          expect(isUseEffectCleanupCallback(node)).toBe(true);
           found = true;
         }
       },

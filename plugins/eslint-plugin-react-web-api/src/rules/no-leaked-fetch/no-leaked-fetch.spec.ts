@@ -658,6 +658,22 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
     },
+    // Setup wrapped in a type expression is still recognized as a setup callback, so
+    // the fetch inside is checked
+    {
+      code: tsx`
+        function Example() {
+          useEffect((() => {
+            fetch("/api/user");
+          }) as any, []);
+        }
+      `,
+      errors: [
+        {
+          messageId: "expected-abort-controller",
+        },
+      ],
+    },
   ],
   valid: [
     // Basic valid cases
@@ -1302,17 +1318,6 @@ ruleTester.run(RULE_NAME, rule, {
           fetch("/api/user");
         };
         useEffect(setup, []);
-      }
-    `,
-    // Setup wrapped in a type expression is not recognized as a setup callback, so
-    // the fetch inside is not checked
-    tsx`
-      import { useEffect } from "react";
-
-      function Example() {
-        useEffect((() => {
-          fetch("/api/user");
-        }) as any, []);
       }
     `,
     // fetch in the dependency array is not checked: the innermost function is the

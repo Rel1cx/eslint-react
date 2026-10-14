@@ -168,9 +168,15 @@ export function isUseEffectLikeCall(node: TSESTree.Node | null, additionalEffect
 export function isUseEffectSetupCallback(node: TSESTree.Node | null) {
   if (node == null) return false;
   const expr = Extract.unwrap(node);
-  return expr.parent?.type === AST.CallExpression
-    && expr.parent.arguments.at(0) === expr
-    && isUseEffectLikeCall(expr.parent);
+  let parent = expr.parent;
+  while (parent != null && (Check.isTypeExpression(parent) || parent.type === AST.ChainExpression)) {
+    parent = parent.parent;
+  }
+  if (parent?.type !== AST.CallExpression) return false;
+  const firstArgument = parent.arguments.at(0);
+  return firstArgument != null
+    && Extract.unwrap(firstArgument) === expr
+    && isUseEffectLikeCall(parent);
 }
 
 /**
@@ -183,6 +189,14 @@ export function isUseEffectCleanupCallback(node: TSESTree.Node | null) {
   const expr = Extract.unwrap(node);
   const returnStatement = Traverse.findParent(expr, Check.isReturnStatement);
   const enclosingFunction = Traverse.findParent(expr, Check.isFunction);
+
+  if (returnStatement == null) {
+    return Check.isFunction(expr)
+      && enclosingFunction?.type === AST.ArrowFunctionExpression
+      && Extract.unwrap(enclosingFunction.body) === expr
+      && isUseEffectSetupCallback(enclosingFunction);
+  }
+
   const enclosingFunctionOfReturn = Traverse.findParent(returnStatement, Check.isFunction);
 
   if (enclosingFunction !== enclosingFunctionOfReturn) return false;

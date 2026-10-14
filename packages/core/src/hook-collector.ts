@@ -2,7 +2,7 @@ import { Extract, type TSESTreeFunction } from "@eslint-react/ast";
 import type { RuleContext } from "@eslint-react/eslint";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import type { ESLintUtils } from "@typescript-eslint/utils";
-import { getFunctionId } from "./function";
+import { getFunctionDirectives, getFunctionId } from "./function";
 import { type HookSemanticNode, isHookCall, isHookId, isHookTag } from "./hook";
 
 interface FunctionEntry extends HookSemanticNode {
@@ -40,7 +40,7 @@ export function getHookCollector(context: RuleContext): getHookCollector.ReturnT
       key,
       kind: "hook",
       name,
-      directives: [],
+      directives: getFunctionDirectives(node),
       flag: 0n,
       hint: 0n,
       hookCalls: [],
