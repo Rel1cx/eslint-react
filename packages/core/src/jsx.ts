@@ -2,6 +2,7 @@ import { Check } from "@eslint-react/ast";
 import type { RuleContext } from "@eslint-react/eslint";
 import { resolve } from "@eslint-react/var";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
+import { findVariable } from "@typescript-eslint/utils/ast-utils";
 import { P, match } from "ts-pattern";
 import { isCreateElementCall } from "./api";
 
@@ -48,9 +49,12 @@ export const JsxDetectionHint = {
 /**
  * Default JSX detection hint.
  *
- * Skips number, bigint, boolean, string, and undefined literals,
- * the value types that are commonly returned alongside JSX in React
- * components but are not themselves renderable elements.
+ * Skips number, bigint, boolean, string, and undefined literals —
+ * the value types commonly returned alongside JSX in React components.
+ * They are excluded because callers are typically interested in
+ * element-shaped values rather than text or flag content, not because
+ * they are unrenderable (strings and numbers are renderable since
+ * React 16).
  */
 export const DEFAULT_JSX_DETECTION_HINT: JsxDetectionHint = 0n
   | JsxDetectionHint.DoNotIncludeJsxWithNumberValue
@@ -151,13 +155,20 @@ export function isJsxLike(context: RuleContext, node: TSESTree.Node | null, hint
       }
 
       case AST.Identifier: {
-        if (node.name === "undefined") {
+        // Look up the scope binding first so that a local binding named
+        // `undefined` shadows the global value; only an unbound `undefined`
+        // refers to the global undefined value.
+        if (node.name === "undefined" && findVariable(context.sourceCode.getScope(node), node) == null) {
           return !(hint & JsxDetectionHint.DoNotIncludeJsxWithUndefinedValue);
         }
-        // Guard against circular variable definitions (e.g. `var a = b; var b = a;`).
+        // Guard against circular variable definitions (e.g. `var a = b; var b = a;`)
+        // by tracking the identifiers on the current resolution path only;
+        // sibling visits may resolve the same identifier independently.
         if (seen.has(node)) return false;
         seen.add(node);
-        return visit(resolve(context, node));
+        const result = visit(resolve(context, node));
+        seen.delete(node);
+        return result;
       }
     }
 
