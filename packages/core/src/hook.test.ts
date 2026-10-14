@@ -40,6 +40,8 @@ describe("isHookId", () => {
     ["user", false],
     // Computed member expressions are not treated as hook ids
     [`React["useState"]`, false],
+    ["obj[useState]", false],
+    ["React[useState]", false],
   ])("isHookId for %s === %s", (expr, expected) => {
     const code = `${expr}()`;
     const node = getFirstNodeOfType<TSESTree.CallExpression>(code, AST.CallExpression);
@@ -121,6 +123,20 @@ describe("isHookDefinition", () => {
       enter(node) {
         if (Check.isFunction(node)) {
           expect(isHookDefinition(node)).toBe(true);
+          found = true;
+        }
+      },
+    }, true);
+    expect(found).toBe(true);
+  });
+
+  it("should return false for function assigned to a computed member expression", () => {
+    const code = "obj[useFoo] = function() {};";
+    let found = false;
+    simpleTraverse(parseCode(code).ast, {
+      enter(node) {
+        if (Check.isFunction(node)) {
+          expect(isHookDefinition(node)).toBe(false);
           found = true;
         }
       },

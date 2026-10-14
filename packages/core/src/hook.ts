@@ -62,7 +62,8 @@ export function isHookId(id: TSESTree.Node): id is TSESTree.Identifier | TSESTre
     case AST.Identifier:
       return isHookName(id.name);
     case AST.MemberExpression:
-      return hasProperty(id.property, "name")
+      return !id.computed
+        && hasProperty(id.property, "name")
         && isHookName(id.property.name);
     default:
       return false;
@@ -95,7 +96,7 @@ export function isHookDefinition(node: TSESTreeFunction | null) {
     case AST.Identifier:
       return isHookName(id.name);
     case AST.MemberExpression:
-      return hasProperty(id.property, "name") && isHookName(id.property.name);
+      return !id.computed && hasProperty(id.property, "name") && isHookName(id.property.name);
     default:
       return false;
   }
