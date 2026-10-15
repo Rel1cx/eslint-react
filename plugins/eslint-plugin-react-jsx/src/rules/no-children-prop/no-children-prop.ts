@@ -41,6 +41,10 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       const prop = core.getCreateElementProp(context, node, "children");
       if (prop == null) return;
 
+      // `createElement(type, props, ...children)` already has conflicting
+      // children content; that case belongs to 'no-children-prop-with-children'
+      if (core.getCreateElementChildrenArguments(context, node).length > 0) return;
+
       context.report({
         messageId: "default",
         node: prop,
@@ -50,16 +54,13 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       const prop = findAttribute(context, node, "children");
       if (prop == null) return;
 
+      // Nested children content already conflicts with the prop; that case
+      // belongs to 'no-children-prop-with-children'
+      if (hasChildren(node)) return;
+
       // Spread attributes cannot be converted to element content safely,
       // so report without a suggestion
       if (prop.type !== AST.JSXAttribute) {
-        context.report({ messageId: "default", node: prop });
-        return;
-      }
-
-      // Nested children already exist, so merging would duplicate content;
-      // defer to 'no-children-prop-with-children' for a safe suggestion
-      if (hasChildren(node)) {
         context.report({ messageId: "default", node: prop });
         return;
       }
