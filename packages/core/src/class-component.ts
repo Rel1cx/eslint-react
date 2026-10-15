@@ -158,7 +158,7 @@ export function isRenderMethodLike(node: TSESTree.Node): node is TSESTreeMethodO
   return Check.isPropertyOrMethod(node)
     && Check.isIdentifier(node.key)
     && node.key.name.startsWith("render")
-    && Check.isOneOf([AST.ClassDeclaration, AST.ClassExpression])(node.parent.parent);
+    && Check.isClass(node.parent.parent);
 }
 
 /**

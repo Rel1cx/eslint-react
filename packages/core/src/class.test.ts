@@ -1,3 +1,4 @@
+import { Check } from "@eslint-react/ast";
 import { getFirstNodeOfType, parseCode } from "@local/testkit";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import { simpleTraverse } from "@typescript-eslint/typescript-estree";
@@ -14,7 +15,7 @@ describe("getClassId", () => {
     let found = false;
     simpleTraverse(parseCode(code).ast, {
       enter(node) {
-        if (node.type === AST.ClassDeclaration || node.type === AST.ClassExpression) {
+        if (Check.isClass(node)) {
           const id = getClassId(node);
           expect(id).not.toBeNull();
           if (id?.type === AST.Identifier) {

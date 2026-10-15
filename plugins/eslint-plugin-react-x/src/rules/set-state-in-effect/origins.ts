@@ -137,7 +137,7 @@ export function isInitializedFromRef(context: RuleContext, id: TSESTree.Identifi
     // The write must run before the use: a write inside a nested function
     // (e.g. an event callback defined in the setup) has not executed when the
     // use runs, so only writes in the use's own function or an ancestor count
-    if (Traverse.findParent(writeExpr, and(Check.isFunction, (n) => !Traverse.hasParent(id, (m) => m === n))) != null) continue;
+    if (Traverse.hasParent(writeExpr, and(Check.isFunction, (n) => !Traverse.hasParent(id, (m) => m === n)))) continue;
     if (isExpressionFromRef(context, writeExpr, refParams, seen)) return true;
   }
   return false;
