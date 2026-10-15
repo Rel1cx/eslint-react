@@ -184,23 +184,15 @@ export function isUseEffectSetupCallback(node: TSESTree.Node | null) {
 export function isUseEffectCleanupCallback(node: TSESTree.Node | null) {
   if (node == null) return false;
   const expr = Extract.unwrap(node);
-  const returnStatement = Traverse.findParent(expr, Check.isReturnStatement);
-  const enclosingFunction = Traverse.findParent(expr, Check.isFunction);
-
-  if (returnStatement == null) {
-    return Check.isFunction(expr)
-      && enclosingFunction?.type === AST.ArrowFunctionExpression
-      && Extract.unwrap(enclosingFunction.body) === expr
-      && isUseEffectSetupCallback(enclosingFunction);
+  const func = Traverse.findParent(expr, Check.isFunction);
+  if (func == null || !isUseEffectSetupCallback(func)) return false;
+  const stat = Traverse.findParent(expr, Check.isReturnStatement, Check.isFunction);
+  if (stat != null) {
+    return stat.argument != null && Extract.unwrap(stat.argument) === expr;
   }
-
-  const enclosingFunctionOfReturn = Traverse.findParent(returnStatement, Check.isFunction);
-
-  if (enclosingFunction !== enclosingFunctionOfReturn) return false;
-
-  return returnStatement.argument != null
-    && Extract.unwrap(returnStatement.argument) === expr
-    && isUseEffectSetupCallback(enclosingFunction);
+  return Check.isFunction(expr)
+    && func.type === AST.ArrowFunctionExpression
+    && Extract.unwrap(func.body) === expr;
 }
 
 // #endregion

@@ -59,6 +59,49 @@ ruleTester.run(RULE_NAME, rule, {
         { messageId: "default" },
       ],
     },
+    {
+      name: "setState in componentDidUpdate of a nested class component",
+      code: tsx`
+        class Foo extends React.Component {
+          componentDidUpdate() {
+            class Bar extends React.Component {
+              componentDidUpdate() {
+                this.setState({ foo: "bar" });
+              }
+            }
+          }
+        }
+      `,
+      errors: [
+        { messageId: "default" },
+      ],
+    },
+    {
+      name: "setState in componentDidUpdate defined as a class property arrow function",
+      code: tsx`
+        class Foo extends React.Component {
+          componentDidUpdate = () => {
+            this.setState({ foo: "bar" });
+          };
+        }
+      `,
+      errors: [
+        { messageId: "default" },
+      ],
+    },
+    {
+      name: "setState in componentDidUpdate defined as a class property function expression",
+      code: tsx`
+        class Foo extends React.Component {
+          componentDidUpdate = function () {
+            this.setState({ foo: "bar" });
+          };
+        }
+      `,
+      errors: [
+        { messageId: "default" },
+      ],
+    },
   ],
   valid: [
     {
@@ -223,6 +266,27 @@ ruleTester.run(RULE_NAME, rule, {
               componentDidUpdate() {
                 this.setState({ foo: "bar" });
               }
+            }
+          }
+        }
+      `,
+    },
+    {
+      name: "setState in class property initializer outside componentDidUpdate",
+      code: tsx`
+        class Foo extends React.Component {
+          componentDidUpdate() {}
+          state = this.setState({ foo: "bar" });
+        }
+      `,
+    },
+    {
+      name: "setState in a class field initializer of a nested class inside componentDidUpdate",
+      code: tsx`
+        class Foo extends React.Component {
+          componentDidUpdate() {
+            class C {
+              x = this.setState({ foo: "bar" });
             }
           }
         }

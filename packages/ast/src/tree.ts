@@ -11,6 +11,11 @@ export type TSESTreeClass =
   | TSESTree.ClassDeclaration
   | TSESTree.ClassExpression;
 
+/** Union of function-like and class-like node types. */
+export type TSESTreeFunctionOrClass =
+  | TSESTreeFunction
+  | TSESTreeClass;
+
 /** Union of method and property definition node types. */
 export type TSESTreeMethodOrPropertyDefinition =
   | TSESTree.PropertyDefinition

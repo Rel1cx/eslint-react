@@ -59,6 +59,49 @@ ruleTester.run(RULE_NAME, rule, {
         { messageId: "default" },
       ],
     },
+    {
+      name: "setState in componentWillUpdate of a nested class component",
+      code: tsx`
+        class Foo extends React.Component {
+          componentWillUpdate() {
+            class Bar extends React.Component {
+              componentWillUpdate() {
+                this.setState({ foo: "bar" });
+              }
+            }
+          }
+        }
+      `,
+      errors: [
+        { messageId: "default" },
+      ],
+    },
+    {
+      name: "setState in componentWillUpdate defined as a class property arrow function",
+      code: tsx`
+        class Foo extends React.Component {
+          componentWillUpdate = () => {
+            this.setState({ foo: "bar" });
+          };
+        }
+      `,
+      errors: [
+        { messageId: "default" },
+      ],
+    },
+    {
+      name: "setState in componentWillUpdate defined as a class property function expression",
+      code: tsx`
+        class Foo extends React.Component {
+          componentWillUpdate = function () {
+            this.setState({ foo: "bar" });
+          };
+        }
+      `,
+      errors: [
+        { messageId: "default" },
+      ],
+    },
   ],
   valid: [
     {
@@ -224,6 +267,27 @@ ruleTester.run(RULE_NAME, rule, {
             callback(() => {
               this.setState({ foo: "bar" });
             });
+          }
+        }
+      `,
+    },
+    {
+      name: "setState in class property initializer outside componentWillUpdate",
+      code: tsx`
+        class Foo extends React.Component {
+          componentWillUpdate() {}
+          state = this.setState({ foo: "bar" });
+        }
+      `,
+    },
+    {
+      name: "setState in a class field initializer of a nested class inside componentWillUpdate",
+      code: tsx`
+        class Foo extends React.Component {
+          componentWillUpdate() {
+            class C {
+              x = this.setState({ foo: "bar" });
+            }
           }
         }
       `,

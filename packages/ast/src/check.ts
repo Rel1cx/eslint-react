@@ -62,6 +62,15 @@ export const isFunction = isOneOf([
   AST.FunctionExpression,
 ]);
 
+/** Check if a node is a function declaration, function expression, arrow function expression, class declaration, or class expression. */
+export const isFunctionOrClass = isOneOf([
+  AST.ArrowFunctionExpression,
+  AST.FunctionDeclaration,
+  AST.FunctionExpression,
+  AST.ClassDeclaration,
+  AST.ClassExpression,
+]);
+
 /** Check if a node is a property-like node (property definition, index signature, parameter property, or property signature). */
 export const isProperty = isOneOf([
   AST.PropertyDefinition,

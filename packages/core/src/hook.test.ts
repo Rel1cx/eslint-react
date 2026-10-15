@@ -408,4 +408,166 @@ describe("isUseEffectCleanupCallback", () => {
     }, true);
     expect(found).toBe(true);
   });
+
+  it("should return true for cleanup via arrow expression body when the useEffect call is nested in an outer return", () => {
+    const code = "function outer() { return useEffect(() => () => {}); }";
+    let found = false;
+    simpleTraverse(parseCode(code).ast, {
+      enter(node) {
+        if (node.type === AST.ArrowFunctionExpression && node.parent.type === AST.ArrowFunctionExpression) {
+          expect(isUseEffectCleanupCallback(node)).toBe(true);
+          found = true;
+        }
+      },
+    }, true);
+    expect(found).toBe(true);
+  });
+
+  it("should return true for cleanup returned from setup when the useEffect call is nested in an outer return", () => {
+    const code = "function outer() { return useEffect(() => { return () => {}; }); }";
+    let found = false;
+    simpleTraverse(parseCode(code).ast, {
+      enter(node) {
+        if (node.type === AST.ArrowFunctionExpression && node.parent.type === AST.ReturnStatement) {
+          expect(isUseEffectCleanupCallback(node)).toBe(true);
+          found = true;
+        }
+      },
+    }, true);
+    expect(found).toBe(true);
+  });
+
+  it("should return true for cleanup via arrow expression body when the useEffect call is nested in a conditional outer return", () => {
+    const code = "function useCustom() { return cond ? useEffect(() => () => {}) : null; }";
+    let found = false;
+    simpleTraverse(parseCode(code).ast, {
+      enter(node) {
+        if (node.type === AST.ArrowFunctionExpression && node.parent.type === AST.ArrowFunctionExpression) {
+          expect(isUseEffectCleanupCallback(node)).toBe(true);
+          found = true;
+        }
+      },
+    }, true);
+    expect(found).toBe(true);
+  });
+
+  it("should return true for cleanup returned from a function expression setup", () => {
+    const code = "useEffect(function setup() { return () => {}; })";
+    let found = false;
+    simpleTraverse(parseCode(code).ast, {
+      enter(node) {
+        if (node.type === AST.ArrowFunctionExpression && node.parent.type === AST.ReturnStatement) {
+          expect(isUseEffectCleanupCallback(node)).toBe(true);
+          found = true;
+        }
+      },
+    }, true);
+    expect(found).toBe(true);
+  });
+
+  it("should return true for cleanups returned from multiple return statements of the setup", () => {
+    const code = "useEffect(() => { if (cond) { return () => {}; } return () => {}; })";
+    let count = 0;
+    simpleTraverse(parseCode(code).ast, {
+      enter(node) {
+        if (node.type === AST.ArrowFunctionExpression && node.parent.type === AST.ReturnStatement) {
+          expect(isUseEffectCleanupCallback(node)).toBe(true);
+          count += 1;
+        }
+      },
+    }, true);
+    expect(count).toBe(2);
+  });
+
+  it("should return false for a function returned from a nested function inside the setup", () => {
+    const code = "useEffect(() => { function inner() { return () => {}; } })";
+    let found = false;
+    simpleTraverse(parseCode(code).ast, {
+      enter(node) {
+        if (node.type === AST.ArrowFunctionExpression && node.parent.type === AST.ReturnStatement) {
+          expect(isUseEffectCleanupCallback(node)).toBe(false);
+          found = true;
+        }
+      },
+    }, true);
+    expect(found).toBe(true);
+  });
+
+  it("should return false for a function returned from the cleanup itself (return nested inside cleanup)", () => {
+    const code = "useEffect(() => { return () => { return () => {}; }; })";
+    let cleanupFound = false;
+    let nestedFound = false;
+    simpleTraverse(parseCode(code).ast, {
+      enter(node) {
+        if (node.type !== AST.ArrowFunctionExpression || node.parent.type !== AST.ReturnStatement) return;
+        // the cleanup is returned directly from the setup: ReturnStatement -> BlockStatement -> setup arrow -> CallExpression
+        if (node.parent.parent.parent?.parent?.type === AST.CallExpression) {
+          expect(isUseEffectCleanupCallback(node)).toBe(true);
+          cleanupFound = true;
+        } else {
+          // the innermost arrow is returned from the cleanup, not from the setup
+          expect(isUseEffectCleanupCallback(node)).toBe(false);
+          nestedFound = true;
+        }
+      },
+    }, true);
+    expect(cleanupFound).toBe(true);
+    expect(nestedFound).toBe(true);
+  });
+
+  it("should return false for a function nested in the returned object literal", () => {
+    const code = "useEffect(() => { return { cleanup: () => {} }; })";
+    let found = false;
+    simpleTraverse(parseCode(code).ast, {
+      enter(node) {
+        if (node.type === AST.ArrowFunctionExpression && node.parent.type === AST.Property) {
+          expect(isUseEffectCleanupCallback(node)).toBe(false);
+          found = true;
+        }
+      },
+    }, true);
+    expect(found).toBe(true);
+  });
+
+  it("should return false for an arrow nested in an IIFE inside the setup", () => {
+    const code = "useEffect(() => { const g = (() => () => {})(); })";
+    let found = false;
+    simpleTraverse(parseCode(code).ast, {
+      enter(node) {
+        if (node.type === AST.ArrowFunctionExpression && node.parent.type === AST.ArrowFunctionExpression) {
+          expect(isUseEffectCleanupCallback(node)).toBe(false);
+          found = true;
+        }
+      },
+    }, true);
+    expect(found).toBe(true);
+  });
+
+  it("should return true for an expression-body cleanup whose own body contains a bare return", () => {
+    const code = "useEffect(() => () => { return; })";
+    let found = false;
+    simpleTraverse(parseCode(code).ast, {
+      enter(node) {
+        if (node.type === AST.ArrowFunctionExpression && node.parent.type === AST.ArrowFunctionExpression) {
+          expect(isUseEffectCleanupCallback(node)).toBe(true);
+          found = true;
+        }
+      },
+    }, true);
+    expect(found).toBe(true);
+  });
+
+  it("should return true for a named function referenced in the setup's return statement", () => {
+    const code = "useEffect(() => { const cleanup = () => {}; return cleanup; })";
+    let found = false;
+    simpleTraverse(parseCode(code).ast, {
+      enter(node) {
+        if (node.type === AST.Identifier && node.name === "cleanup" && node.parent.type === AST.ReturnStatement) {
+          expect(isUseEffectCleanupCallback(node)).toBe(true);
+          found = true;
+        }
+      },
+    }, true);
+    expect(found).toBe(true);
+  });
 });

@@ -3,7 +3,7 @@ import * as core from "@eslint-react/core";
 import type { RuleContext } from "@eslint-react/eslint";
 import { getSettingsFromContext } from "@eslint-react/shared";
 import { resolveOrigin } from "@eslint-react/var";
-import { hasProperty } from "@local/eff";
+import { and, hasProperty } from "@local/eff";
 import { DefinitionType } from "@typescript-eslint/scope-manager";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import { findVariable, getStaticValue } from "@typescript-eslint/utils/ast-utils";
@@ -137,18 +137,8 @@ export function isInitializedFromRef(context: RuleContext, id: TSESTree.Identifi
     // The write must run before the use: a write inside a nested function
     // (e.g. an event callback defined in the setup) has not executed when the
     // use runs, so only writes in the use's own function or an ancestor count
-    const writeFn = Traverse.findParent(writeExpr, Check.isFunction);
-    if (writeFn != null && !isSelfOrAncestorFunction(writeFn, id)) continue;
+    if (Traverse.findParent(writeExpr, and(Check.isFunction, (n) => !Traverse.hasParent(id, (m) => m === n))) != null) continue;
     if (isExpressionFromRef(context, writeExpr, refParams, seen)) return true;
-  }
-  return false;
-}
-
-function isSelfOrAncestorFunction(fn: TSESTree.Node, node: TSESTree.Node): boolean {
-  let current = Traverse.findParent(node, Check.isFunction);
-  while (current != null) {
-    if (current === fn) return true;
-    current = Traverse.findParent(current, Check.isFunction);
   }
   return false;
 }

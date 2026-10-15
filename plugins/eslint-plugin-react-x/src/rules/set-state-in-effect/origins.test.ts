@@ -342,6 +342,24 @@ describe("isInitializedFromRef", () => {
     expect(result).toBe(true);
   });
 
+  it("should match a variable written and used inside the same nested function", () => {
+    const code = "function f() { const ref = useRef(0); let v; const g = () => { v = ref.current; sink(v); }; }";
+    const result = runInRule(code, (context, program) => isInitializedFromRef(context, findReference(program, "v", -1)));
+    expect(result).toBe(true);
+  });
+
+  it("should not match a variable written in a sibling nested function of the use", () => {
+    const code = "function f() { const ref = useRef(0); let v; const g = () => { v = ref.current; }; const h = () => { sink(v); }; }";
+    const result = runInRule(code, (context, program) => isInitializedFromRef(context, findReference(program, "v", -1)));
+    expect(result).toBe(false);
+  });
+
+  it("should match a variable written at module scope before a nested-function use", () => {
+    const code = "const ref = useRef(0); let v; v = ref.current; function f() { sink(v); }";
+    const result = runInRule(code, (context, program) => isInitializedFromRef(context, findReference(program, "v", -1)));
+    expect(result).toBe(true);
+  });
+
   it("should not match a variable reassigned from itself", () => {
     const code = "function f() { let v = 0; v = v + 1; sink(v); }";
     const result = runInRule(code, (context, program) => isInitializedFromRef(context, findReference(program, "v", -1)));

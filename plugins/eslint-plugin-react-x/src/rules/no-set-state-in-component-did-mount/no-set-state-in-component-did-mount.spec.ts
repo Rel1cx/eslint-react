@@ -59,6 +59,49 @@ ruleTester.run(RULE_NAME, rule, {
         { messageId: "default" },
       ],
     },
+    {
+      name: "setState in componentDidMount of a nested class component",
+      code: tsx`
+        class Foo extends React.Component {
+          componentDidMount() {
+            class Bar extends React.Component {
+              componentDidMount() {
+                this.setState({ foo: "bar" });
+              }
+            }
+          }
+        }
+      `,
+      errors: [
+        { messageId: "default" },
+      ],
+    },
+    {
+      name: "setState in componentDidMount defined as a class property arrow function",
+      code: tsx`
+        class Foo extends React.Component {
+          componentDidMount = () => {
+            this.setState({ foo: "bar" });
+          };
+        }
+      `,
+      errors: [
+        { messageId: "default" },
+      ],
+    },
+    {
+      name: "setState in componentDidMount defined as a class property function expression",
+      code: tsx`
+        class Foo extends React.Component {
+          componentDidMount = function () {
+            this.setState({ foo: "bar" });
+          };
+        }
+      `,
+      errors: [
+        { messageId: "default" },
+      ],
+    },
   ],
   valid: [
     {
@@ -212,6 +255,27 @@ ruleTester.run(RULE_NAME, rule, {
             callback(() => {
               this.setState({ foo: "bar" });
             });
+          }
+        }
+      `,
+    },
+    {
+      name: "setState in class property initializer outside componentDidMount",
+      code: tsx`
+        class Foo extends React.Component {
+          componentDidMount() {}
+          state = this.setState({ foo: "bar" });
+        }
+      `,
+    },
+    {
+      name: "setState in a class field initializer of a nested class inside componentDidMount",
+      code: tsx`
+        class Foo extends React.Component {
+          componentDidMount() {
+            class C {
+              x = this.setState({ foo: "bar" });
+            }
           }
         }
       `,
