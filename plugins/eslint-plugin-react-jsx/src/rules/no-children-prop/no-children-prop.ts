@@ -3,7 +3,7 @@ import { removeJsxAttribute } from "@/utils/remove-jsx-attribute";
 import { Check } from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, type RuleListener } from "@eslint-react/eslint";
-import { findAttribute } from "@eslint-react/jsx";
+import { findAttribute, hasChildren } from "@eslint-react/jsx";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import type { RuleFix, RuleFixer } from "@typescript-eslint/utils/ts-eslint";
 
@@ -53,6 +53,13 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       // Spread attributes cannot be converted to element content safely,
       // so report without a suggestion
       if (prop.type !== AST.JSXAttribute) {
+        context.report({ messageId: "default", node: prop });
+        return;
+      }
+
+      // Nested children already exist, so merging would duplicate content;
+      // defer to 'no-children-prop-with-children' for a safe suggestion
+      if (hasChildren(node)) {
         context.report({ messageId: "default", node: prop });
         return;
       }

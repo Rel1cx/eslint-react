@@ -254,33 +254,14 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
     },
+    // Nested children already exist — merging would duplicate content, so no suggestion is offered
     {
       code: '<div children="Children">Children</div>;',
-      errors: [
-        {
-          messageId: "default",
-          suggestions: [
-            {
-              messageId: "suggest",
-              output: "<div>ChildrenChildren</div>;",
-            },
-          ],
-        },
-      ],
+      errors: [{ messageId: "default" }],
     },
     {
       code: tsx`<div children={<span />}>existing</div>;`,
-      errors: [
-        {
-          messageId: "default",
-          suggestions: [
-            {
-              messageId: "suggest",
-              output: tsx`<div>existing<span /></div>;`,
-            },
-          ],
-        },
-      ],
+      errors: [{ messageId: "default" }],
     },
     // 'children' passed via spread (reported without suggestion)
     {
