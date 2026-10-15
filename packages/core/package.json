@@ -48,6 +48,7 @@
     "@local/configs": "workspace:*",
     "@local/eff": "workspace:*",
     "@local/testkit": "workspace:*",
+    "@tsconfig/node20": "^20.1.10",
     "@types/node": "^20.19.43",
     "@typescript-eslint/typescript-estree": "^8.71.2",
     "dedent": "^1.7.2",
