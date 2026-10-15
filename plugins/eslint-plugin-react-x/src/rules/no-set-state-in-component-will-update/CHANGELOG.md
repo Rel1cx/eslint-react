@@ -5,6 +5,12 @@ All notable changes to the `react-x/no-set-state-in-component-will-update` rule 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+### Fixed
+
+- A `componentWillUpdate` defined as a class property (ex: `componentWillUpdate = () => { this.setState(...) }` or `componentWillUpdate = function () { ... }`, including type-expression-wrapped values) is now recognized; a direct `this.setState` call in it is reported just like the method shorthand form.
+
 ## [5.2.3-beta.0] - 2026-04-14
 
 ### Changed

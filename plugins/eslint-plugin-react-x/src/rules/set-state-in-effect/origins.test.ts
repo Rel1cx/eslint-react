@@ -360,6 +360,12 @@ describe("isInitializedFromRef", () => {
     expect(result).toBe(true);
   });
 
+  it("should not match a variable written in a nested function when the use is in the enclosing function", () => {
+    const code = "function f() { const ref = useRef(0); let v; sink(v); const g = () => { v = ref.current; }; }";
+    const result = runInRule(code, (context, program) => isInitializedFromRef(context, findReference(program, "v", -1)));
+    expect(result).toBe(false);
+  });
+
   it("should not match a variable reassigned from itself", () => {
     const code = "function f() { let v = 0; v = v + 1; sink(v); }";
     const result = runInRule(code, (context, program) => isInitializedFromRef(context, findReference(program, "v", -1)));

@@ -60,6 +60,39 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
+      name: "setState in componentDidMount inside doubly-nested blocks with block-scoped declarations",
+      code: tsx`
+        class Foo extends React.Component {
+          componentDidMount() {
+            if (true) {
+              let a = 1;
+              if (a) {
+                let b = 2;
+                this.setState({ foo: b });
+              }
+            }
+          }
+        }
+      `,
+      errors: [
+        { messageId: "default" },
+      ],
+    },
+    {
+      name: "setState in async componentDidMount after an await",
+      code: tsx`
+        class Foo extends React.Component {
+          async componentDidMount() {
+            await fetch("/api");
+            this.setState({ foo: "bar" });
+          }
+        }
+      `,
+      errors: [
+        { messageId: "default" },
+      ],
+    },
+    {
       name: "setState in componentDidMount of a nested class component",
       code: tsx`
         class Foo extends React.Component {

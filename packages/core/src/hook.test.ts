@@ -570,4 +570,32 @@ describe("isUseEffectCleanupCallback", () => {
     }, true);
     expect(found).toBe(true);
   });
+
+  it("should return true for a cleanup returned from a setup wrapped in a TS as-expression", () => {
+    const code = "useEffect((() => { return () => {}; }) as any)";
+    let found = false;
+    simpleTraverse(parseCode(code).ast, {
+      enter(node) {
+        if (node.type === AST.ArrowFunctionExpression && node.parent.type === AST.ReturnStatement) {
+          expect(isUseEffectCleanupCallback(node)).toBe(true);
+          found = true;
+        }
+      },
+    }, true);
+    expect(found).toBe(true);
+  });
+
+  it("should return true for a cleanup wrapped in a TS as-expression in the return statement", () => {
+    const code = "useEffect(() => { return (() => {}) as any; })";
+    let found = false;
+    simpleTraverse(parseCode(code).ast, {
+      enter(node) {
+        if (node.type === AST.ArrowFunctionExpression && node.parent.type === AST.TSAsExpression) {
+          expect(isUseEffectCleanupCallback(node)).toBe(true);
+          found = true;
+        }
+      },
+    }, true);
+    expect(found).toBe(true);
+  });
 });
