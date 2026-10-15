@@ -10,18 +10,6 @@ export const is = ASTUtils.isNodeOfType;
 /** Check if a node is one of the given types. */
 export const isOneOf = ASTUtils.isNodeOfTypes;
 
-// Directive guards
-
-/**
- * Check if a node is a directive statement (ex: `"use client"`), optionally matching a specific directive name.
- * @param node The node to check.
- * @param name The directive name to match. When omitted, any directive matches.
- * @returns `true` if the node is a matching directive statement.
- */
-export function isDirective(node: TSESTree.Node, name?: string): node is TSESTreeDirective {
-  return node.type === AST.ExpressionStatement && (name == null || node.directive === name);
-}
-
 // Identifier guards
 
 /**
@@ -34,6 +22,18 @@ export function isIdentifier(node: TSESTree.Node, name?: string): node is TSESTr
   return node.type === AST.Identifier && (name == null || node.name === name);
 }
 
+// Directive guards
+
+/**
+ * Check if a node is a directive statement (ex: `"use client"`), optionally matching a specific directive name.
+ * @param node The node to check.
+ * @param name The directive name to match. When omitted, any directive matches.
+ * @returns `true` if the node is a matching directive statement.
+ */
+export function isDirective(node: TSESTree.Node, name?: string): node is TSESTreeDirective {
+  return node.type === AST.ExpressionStatement && (name == null || node.directive === name);
+}
+
 // Expression guards
 
 /** Check if a node is a call expression. */
@@ -44,6 +44,45 @@ export const isMemberExpression = is(AST.MemberExpression);
 
 /** Check if a node is an object expression. */
 export const isObjectExpression = is(AST.ObjectExpression);
+
+/** Check if a node is an expression node. */
+export const isExpression = isOneOf([
+  AST.ArrayExpression,
+  AST.ArrayPattern,
+  AST.ArrowFunctionExpression,
+  AST.AssignmentExpression,
+  AST.AwaitExpression,
+  AST.BinaryExpression,
+  AST.CallExpression,
+  AST.ChainExpression,
+  AST.ClassExpression,
+  AST.ConditionalExpression,
+  AST.FunctionExpression,
+  AST.Identifier,
+  AST.ImportExpression,
+  AST.JSXElement,
+  AST.JSXFragment,
+  AST.Literal,
+  AST.LogicalExpression,
+  AST.MemberExpression,
+  AST.MetaProperty,
+  AST.NewExpression,
+  AST.ObjectExpression,
+  AST.ObjectPattern,
+  AST.SequenceExpression,
+  AST.Super,
+  AST.TSAsExpression,
+  AST.TSInstantiationExpression,
+  AST.TSNonNullExpression,
+  AST.TSSatisfiesExpression,
+  AST.TSTypeAssertion,
+  AST.TaggedTemplateExpression,
+  AST.TemplateLiteral,
+  AST.ThisExpression,
+  AST.UnaryExpression,
+  AST.UpdateExpression,
+  AST.YieldExpression,
+]);
 
 // Statement guards
 
@@ -85,29 +124,20 @@ export const isPropertyOrMethod = isOneOf([
   AST.MethodDefinition,
 ]);
 
-// JSX guards
-
-/** Check if a node is a JSX element. */
-export const isJSXElement = is(AST.JSXElement);
-
-/** Check if a node is a JSX expression container. */
-export const isJSXExpressionContainer = is(AST.JSXExpressionContainer);
-
-/** Check if a node is a JSX spread attribute. */
-export const isJSXSpreadAttribute = is(AST.JSXSpreadAttribute);
-
-/** Check if a node is a JSX fragment. */
-export const isJSXFragment = is(AST.JSXFragment);
-
-/** Check if a node is a JSX element or JSX fragment. */
-export const isJSXElementOrFragment = isOneOf([AST.JSXElement, AST.JSXFragment]);
-
-/** Check if a node can appear as a JSX tag name. */
-export const isJSXTagNameExpression = isOneOf([
-  AST.JSXIdentifier,
-  AST.JSXMemberExpression,
-  AST.JSXNamespacedName,
+/** Check if a node is a conditional expression or a control flow statement. */
+export const isConditional = isOneOf([
+  AST.DoWhileStatement,
+  AST.ForInStatement,
+  AST.ForOfStatement,
+  AST.ForStatement,
+  AST.WhileStatement,
+  AST.IfStatement,
+  AST.SwitchStatement,
+  AST.LogicalExpression,
+  AST.ConditionalExpression,
 ]);
+
+// JSX guards
 
 /** Check if a node is any JSX-related node. */
 export const isJSX = isOneOf([
@@ -126,6 +156,28 @@ export const isJSX = isOneOf([
   AST.JSXSpreadAttribute,
   AST.JSXSpreadChild,
   AST.JSXText,
+]);
+
+/** Check if a node is a JSX element. */
+export const isJSXElement = is(AST.JSXElement);
+
+/** Check if a node is a JSX fragment. */
+export const isJSXFragment = is(AST.JSXFragment);
+
+/** Check if a node is a JSX element or JSX fragment. */
+export const isJSXElementOrFragment = isOneOf([AST.JSXElement, AST.JSXFragment]);
+
+/** Check if a node is a JSX expression container. */
+export const isJSXExpressionContainer = is(AST.JSXExpressionContainer);
+
+/** Check if a node is a JSX spread attribute. */
+export const isJSXSpreadAttribute = is(AST.JSXSpreadAttribute);
+
+/** Check if a node can appear as a JSX tag name. */
+export const isJSXTagNameExpression = isOneOf([
+  AST.JSXIdentifier,
+  AST.JSXMemberExpression,
+  AST.JSXNamespacedName,
 ]);
 
 // TypeScript guards
@@ -155,56 +207,4 @@ export const isTypeOrChainExpression = isOneOf([
   AST.TSSatisfiesExpression,
   AST.TSInstantiationExpression,
   AST.ChainExpression,
-]);
-
-/** Check if a node is an expression node. */
-export const isExpression = isOneOf([
-  AST.ArrayExpression,
-  AST.ArrayPattern,
-  AST.ArrowFunctionExpression,
-  AST.AssignmentExpression,
-  AST.AwaitExpression,
-  AST.BinaryExpression,
-  AST.CallExpression,
-  AST.ChainExpression,
-  AST.ClassExpression,
-  AST.ConditionalExpression,
-  AST.FunctionExpression,
-  AST.Identifier,
-  AST.ImportExpression,
-  AST.JSXElement,
-  AST.JSXFragment,
-  AST.Literal,
-  AST.LogicalExpression,
-  AST.MemberExpression,
-  AST.MetaProperty,
-  AST.NewExpression,
-  AST.ObjectExpression,
-  AST.ObjectPattern,
-  AST.SequenceExpression,
-  AST.Super,
-  AST.TSAsExpression,
-  AST.TSInstantiationExpression,
-  AST.TSNonNullExpression,
-  AST.TSSatisfiesExpression,
-  AST.TSTypeAssertion,
-  AST.TaggedTemplateExpression,
-  AST.TemplateLiteral,
-  AST.ThisExpression,
-  AST.UnaryExpression,
-  AST.UpdateExpression,
-  AST.YieldExpression,
-]);
-
-/** Check if a node is a conditional expression or a control flow statement. */
-export const isConditional = isOneOf([
-  AST.DoWhileStatement,
-  AST.ForInStatement,
-  AST.ForOfStatement,
-  AST.ForStatement,
-  AST.WhileStatement,
-  AST.IfStatement,
-  AST.SwitchStatement,
-  AST.LogicalExpression,
-  AST.ConditionalExpression,
 ]);

@@ -48,6 +48,28 @@ describe("isOneOf", () => {
   });
 });
 
+describe("isIdentifier", () => {
+  it("should return true for an Identifier node", () => {
+    const node = getFirstNodeOfType<TSESTree.Identifier>("const a = 1;", AST.Identifier);
+    expect(isIdentifier(node)).toBe(true);
+  });
+
+  it("should return false for a non-Identifier node", () => {
+    const node = getFirstNodeOfType<TSESTree.Literal>("const a = 1;", AST.Literal);
+    expect(isIdentifier(node)).toBe(false);
+  });
+
+  it("should return true when the identifier name matches", () => {
+    const node = getFirstNodeOfType<TSESTree.Identifier>("const a = 1;", AST.Identifier);
+    expect(isIdentifier(node, "a")).toBe(true);
+  });
+
+  it("should return false when the identifier name does not match", () => {
+    const node = getFirstNodeOfType<TSESTree.Identifier>("const a = 1;", AST.Identifier);
+    expect(isIdentifier(node, "b")).toBe(false);
+  });
+});
+
 describe("isDirective", () => {
   it("should return true for a string literal expression statement", () => {
     const node = getFirstNodeOfType<TSESTree.ExpressionStatement>('"use strict";', AST.ExpressionStatement);
@@ -75,25 +97,30 @@ describe("isDirective", () => {
   });
 });
 
-describe("isIdentifier", () => {
-  it("should return true for an Identifier node", () => {
-    const node = getFirstNodeOfType<TSESTree.Identifier>("const a = 1;", AST.Identifier);
-    expect(isIdentifier(node)).toBe(true);
+describe("isExpression", () => {
+  it("should return true for a JavaScript expression", () => {
+    const node = getFirstNodeOfType<TSESTree.CallExpression>("foo();", AST.CallExpression);
+    expect(isExpression(node)).toBe(true);
   });
 
-  it("should return false for a non-Identifier node", () => {
-    const node = getFirstNodeOfType<TSESTree.Literal>("const a = 1;", AST.Literal);
-    expect(isIdentifier(node)).toBe(false);
+  it("should return true for a JSX expression", () => {
+    const node = getFirstNodeOfType<TSESTree.JSXElement>("<div />", AST.JSXElement);
+    expect(isExpression(node)).toBe(true);
   });
 
-  it("should return true when the identifier name matches", () => {
-    const node = getFirstNodeOfType<TSESTree.Identifier>("const a = 1;", AST.Identifier);
-    expect(isIdentifier(node, "a")).toBe(true);
+  it("should return true for a TypeScript expression", () => {
+    const node = getFirstNodeOfType<TSESTree.TSAsExpression>("const a = 1 as number;", AST.TSAsExpression);
+    expect(isExpression(node)).toBe(true);
   });
 
-  it("should return false when the identifier name does not match", () => {
-    const node = getFirstNodeOfType<TSESTree.Identifier>("const a = 1;", AST.Identifier);
-    expect(isIdentifier(node, "b")).toBe(false);
+  it("should return true for a pattern included in TSESTree.Expression", () => {
+    const node = getFirstNodeOfType<TSESTree.ArrayPattern>("const [a] = value;", AST.ArrayPattern);
+    expect(isExpression(node)).toBe(true);
+  });
+
+  it("should return false for a non-expression node", () => {
+    const node = getFirstNodeOfType<TSESTree.ExpressionStatement>("foo();", AST.ExpressionStatement);
+    expect(isExpression(node)).toBe(false);
   });
 });
 
@@ -212,102 +239,83 @@ describe("isPropertyOrMethod", () => {
   });
 });
 
-describe("JSX guards", () => {
-  it("isJSXElement should return true for a JSXElement", () => {
-    const node = getFirstNodeOfType<TSESTree.JSXElement>("<div />", AST.JSXElement);
-    expect(isJSXElement(node)).toBe(true);
-  });
-
-  it("isJSXElement should return false for a JSXFragment", () => {
-    const node = getFirstNodeOfType<TSESTree.JSXFragment>("<></>", AST.JSXFragment);
-    expect(isJSXElement(node)).toBe(false);
-  });
-
-  it("isJSXFragment should return true for a JSXFragment", () => {
-    const node = getFirstNodeOfType<TSESTree.JSXFragment>("<></>", AST.JSXFragment);
-    expect(isJSXFragment(node)).toBe(true);
-  });
-
-  it("isJSXFragment should return false for a JSXElement", () => {
-    const node = getFirstNodeOfType<TSESTree.JSXElement>("<div />", AST.JSXElement);
-    expect(isJSXFragment(node)).toBe(false);
-  });
-
-  it("isJSXElementOrFragment should return true for a JSXElement", () => {
-    const node = getFirstNodeOfType<TSESTree.JSXElement>("<div />", AST.JSXElement);
-    expect(isJSXElementOrFragment(node)).toBe(true);
-  });
-
-  it("isJSXElementOrFragment should return true for a JSXFragment", () => {
-    const node = getFirstNodeOfType<TSESTree.JSXFragment>("<></>", AST.JSXFragment);
-    expect(isJSXElementOrFragment(node)).toBe(true);
-  });
-
-  it("isJSXTagNameExpression should return true for a JSXIdentifier", () => {
-    const node = getFirstNodeOfType<TSESTree.JSXIdentifier>("<div />", AST.JSXIdentifier);
-    expect(isJSXTagNameExpression(node)).toBe(true);
-  });
-
-  it("isJSXTagNameExpression should return true for a JSXMemberExpression", () => {
-    const node = getFirstNodeOfType<TSESTree.JSXMemberExpression>("<A.B />", AST.JSXMemberExpression);
-    expect(isJSXTagNameExpression(node)).toBe(true);
-  });
-
-  it("isJSXTagNameExpression should return true for a JSXNamespacedName", () => {
-    const node = getFirstNodeOfType<TSESTree.JSXNamespacedName>("<ns:name />", AST.JSXNamespacedName);
-    expect(isJSXTagNameExpression(node)).toBe(true);
-  });
-
-  it("isJSXTagNameExpression should return false for a JSXAttribute", () => {
-    const node = getFirstNodeOfType<TSESTree.JSXAttribute>('<div id="a" />', AST.JSXAttribute);
-    expect(isJSXTagNameExpression(node)).toBe(false);
-  });
-
-  it("isJSX should return true for JSX nodes", () => {
+describe("isJSX", () => {
+  it("should return true for JSX nodes", () => {
     const node = getFirstNodeOfType<TSESTree.JSXElement>("<div />", AST.JSXElement);
     expect(isJSX(node)).toBe(true);
   });
 
-  it("isJSX should return false for non-JSX nodes", () => {
+  it("should return false for non-JSX nodes", () => {
     const node = getFirstNodeOfType<TSESTree.Identifier>("const a = 1;", AST.Identifier);
     expect(isJSX(node)).toBe(false);
   });
 });
 
-describe("isExpression", () => {
-  it("should return true for a JavaScript expression", () => {
-    const node = getFirstNodeOfType<TSESTree.CallExpression>("foo();", AST.CallExpression);
-    expect(isExpression(node)).toBe(true);
-  });
-
-  it("should return true for a JSX expression", () => {
+describe("isJSXElement", () => {
+  it("should return true for a JSXElement", () => {
     const node = getFirstNodeOfType<TSESTree.JSXElement>("<div />", AST.JSXElement);
-    expect(isExpression(node)).toBe(true);
+    expect(isJSXElement(node)).toBe(true);
   });
 
-  it("should return true for a TypeScript expression", () => {
-    const node = getFirstNodeOfType<TSESTree.TSAsExpression>("const a = 1 as number;", AST.TSAsExpression);
-    expect(isExpression(node)).toBe(true);
-  });
-
-  it("should return true for a pattern included in TSESTree.Expression", () => {
-    const node = getFirstNodeOfType<TSESTree.ArrayPattern>("const [a] = value;", AST.ArrayPattern);
-    expect(isExpression(node)).toBe(true);
-  });
-
-  it("should return false for a non-expression node", () => {
-    const node = getFirstNodeOfType<TSESTree.ExpressionStatement>("foo();", AST.ExpressionStatement);
-    expect(isExpression(node)).toBe(false);
+  it("should return false for a JSXFragment", () => {
+    const node = getFirstNodeOfType<TSESTree.JSXFragment>("<></>", AST.JSXFragment);
+    expect(isJSXElement(node)).toBe(false);
   });
 });
 
-describe("TypeScript type guards", () => {
-  it("isTypeExpression should return true for a TSAsExpression", () => {
+describe("isJSXFragment", () => {
+  it("should return true for a JSXFragment", () => {
+    const node = getFirstNodeOfType<TSESTree.JSXFragment>("<></>", AST.JSXFragment);
+    expect(isJSXFragment(node)).toBe(true);
+  });
+
+  it("should return false for a JSXElement", () => {
+    const node = getFirstNodeOfType<TSESTree.JSXElement>("<div />", AST.JSXElement);
+    expect(isJSXFragment(node)).toBe(false);
+  });
+});
+
+describe("isJSXElementOrFragment", () => {
+  it("should return true for a JSXElement", () => {
+    const node = getFirstNodeOfType<TSESTree.JSXElement>("<div />", AST.JSXElement);
+    expect(isJSXElementOrFragment(node)).toBe(true);
+  });
+
+  it("should return true for a JSXFragment", () => {
+    const node = getFirstNodeOfType<TSESTree.JSXFragment>("<></>", AST.JSXFragment);
+    expect(isJSXElementOrFragment(node)).toBe(true);
+  });
+});
+
+describe("isJSXTagNameExpression", () => {
+  it("should return true for a JSXIdentifier", () => {
+    const node = getFirstNodeOfType<TSESTree.JSXIdentifier>("<div />", AST.JSXIdentifier);
+    expect(isJSXTagNameExpression(node)).toBe(true);
+  });
+
+  it("should return true for a JSXMemberExpression", () => {
+    const node = getFirstNodeOfType<TSESTree.JSXMemberExpression>("<A.B />", AST.JSXMemberExpression);
+    expect(isJSXTagNameExpression(node)).toBe(true);
+  });
+
+  it("should return true for a JSXNamespacedName", () => {
+    const node = getFirstNodeOfType<TSESTree.JSXNamespacedName>("<ns:name />", AST.JSXNamespacedName);
+    expect(isJSXTagNameExpression(node)).toBe(true);
+  });
+
+  it("should return false for a JSXAttribute", () => {
+    const node = getFirstNodeOfType<TSESTree.JSXAttribute>('<div id="a" />', AST.JSXAttribute);
+    expect(isJSXTagNameExpression(node)).toBe(false);
+  });
+});
+
+describe("isTypeExpression", () => {
+  it("should return true for a TSAsExpression", () => {
     const node = getFirstNodeOfType<TSESTree.TSAsExpression>("const a = 1 as number;", AST.TSAsExpression);
     expect(isTypeExpression(node)).toBe(true);
   });
 
-  it("isTypeExpression should return true for a TSTypeAssertion", () => {
+  it("should return true for a TSTypeAssertion", () => {
     const node = getFirstNodeOfType<TSESTree.TSTypeAssertion>("const a = <number>1;", AST.TSTypeAssertion, {
       filePath: fixturePath("estree.ts"),
       jsx: false,
@@ -315,51 +323,53 @@ describe("TypeScript type guards", () => {
     expect(isTypeExpression(node)).toBe(true);
   });
 
-  it("isTypeExpression should return true for a TSNonNullExpression", () => {
+  it("should return true for a TSNonNullExpression", () => {
     const node = getFirstNodeOfType<TSESTree.TSNonNullExpression>("const a = b!;", AST.TSNonNullExpression);
     expect(isTypeExpression(node)).toBe(true);
   });
 
-  it("isTypeExpression should return true for a TSSatisfiesExpression", () => {
+  it("should return true for a TSSatisfiesExpression", () => {
     const node = getFirstNodeOfType<TSESTree.TSSatisfiesExpression>("const a = 1 satisfies number;", AST.TSSatisfiesExpression);
     expect(isTypeExpression(node)).toBe(true);
   });
 
-  it("isTypeExpression should return true for a TSInstantiationExpression", () => {
+  it("should return true for a TSInstantiationExpression", () => {
     const node = getFirstNodeOfType<TSESTree.TSInstantiationExpression>("const a = foo<number>;", AST.TSInstantiationExpression);
     expect(isTypeExpression(node)).toBe(true);
   });
 
-  it("isTypeAssertionExpression should return true for a TSAsExpression", () => {
-    const node = getFirstNodeOfType<TSESTree.TSAsExpression>("const a = 1 as number;", AST.TSAsExpression);
-    expect(isTypeAssertionExpression(node)).toBe(true);
-  });
-
-  it("isTypeAssertionExpression should return true for a TSTypeAssertion", () => {
-    const node = getFirstNodeOfType<TSESTree.TSTypeAssertion>("const a = <number>1;", AST.TSTypeAssertion, {
-      filePath: fixturePath("estree.ts"),
-      jsx: false,
-    });
-    expect(isTypeAssertionExpression(node)).toBe(true);
-  });
-
-  it("isTypeAssertionExpression should return true for a TSNonNullExpression", () => {
-    const node = getFirstNodeOfType<TSESTree.TSNonNullExpression>("const a = b!;", AST.TSNonNullExpression);
-    expect(isTypeAssertionExpression(node)).toBe(true);
-  });
-
-  it("isTypeAssertionExpression should return true for a TSSatisfiesExpression", () => {
-    const node = getFirstNodeOfType<TSESTree.TSSatisfiesExpression>("const a = 1 satisfies number;", AST.TSSatisfiesExpression);
-    expect(isTypeAssertionExpression(node)).toBe(true);
-  });
-
-  it("isTypeAssertionExpression should return false for a TSInstantiationExpression", () => {
-    const node = getFirstNodeOfType<TSESTree.TSInstantiationExpression>("const a = foo<number>;", AST.TSInstantiationExpression);
-    expect(isTypeAssertionExpression(node)).toBe(false);
-  });
-
-  it("isTypeExpression should return false for a non-type-expression node", () => {
+  it("should return false for a non-type-expression node", () => {
     const node = getFirstNodeOfType<TSESTree.Identifier>("const a = 1;", AST.Identifier);
     expect(isTypeExpression(node)).toBe(false);
+  });
+});
+
+describe("isTypeAssertionExpression", () => {
+  it("should return true for a TSAsExpression", () => {
+    const node = getFirstNodeOfType<TSESTree.TSAsExpression>("const a = 1 as number;", AST.TSAsExpression);
+    expect(isTypeAssertionExpression(node)).toBe(true);
+  });
+
+  it("should return true for a TSTypeAssertion", () => {
+    const node = getFirstNodeOfType<TSESTree.TSTypeAssertion>("const a = <number>1;", AST.TSTypeAssertion, {
+      filePath: fixturePath("estree.ts"),
+      jsx: false,
+    });
+    expect(isTypeAssertionExpression(node)).toBe(true);
+  });
+
+  it("should return true for a TSNonNullExpression", () => {
+    const node = getFirstNodeOfType<TSESTree.TSNonNullExpression>("const a = b!;", AST.TSNonNullExpression);
+    expect(isTypeAssertionExpression(node)).toBe(true);
+  });
+
+  it("should return true for a TSSatisfiesExpression", () => {
+    const node = getFirstNodeOfType<TSESTree.TSSatisfiesExpression>("const a = 1 satisfies number;", AST.TSSatisfiesExpression);
+    expect(isTypeAssertionExpression(node)).toBe(true);
+  });
+
+  it("should return false for a TSInstantiationExpression", () => {
+    const node = getFirstNodeOfType<TSESTree.TSInstantiationExpression>("const a = foo<number>;", AST.TSInstantiationExpression);
+    expect(isTypeAssertionExpression(node)).toBe(false);
   });
 });

@@ -21,6 +21,12 @@ export type TSESTreeMethodOrPropertyDefinition =
   | TSESTree.PropertyDefinition
   | TSESTree.MethodDefinition;
 
+/** An expression statement that is a directive (ex: `"use strict"`). */
+export type TSESTreeDirective = TSESTree.ExpressionStatement & {
+  directive: string;
+  expression: TSESTree.StringLiteral;
+};
+
 /** Union of all JSX-related node types. */
 export type TSESTreeJSX =
   | TSESTree.JSXAttribute
@@ -44,12 +50,6 @@ export type TSESTreeJSXElementLike = TSESTree.JSXElement | TSESTree.JSXFragment;
 
 /** Union of JSX attribute-like node types (attribute or spread attribute). */
 export type TSESTreeJSXAttributeLike = TSESTree.JSXAttribute | TSESTree.JSXSpreadAttribute;
-
-/** An expression statement that is a directive (ex: `"use strict"`). */
-export type TSESTreeDirective = TSESTree.ExpressionStatement & {
-  directive: string;
-  expression: TSESTree.StringLiteral;
-};
 
 /** Union of TypeScript type expression node types. */
 export type TSESTreeTypeExpression =
