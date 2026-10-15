@@ -1,17 +1,17 @@
 import { isString } from "@local/eff";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import * as Check from "./check";
-import type { TSESTreeTypeExpression, TSESTreeUnwrapped } from "./tree";
+import type { TSESTreeTypeOrChainExpression } from "./tree";
 
 /**
  * Recursively unwrap TypeScript type expressions and chain expressions to get the underlying expression.
  * @param node The node to unwrap.
  * @returns The innermost non-type-expression node — a reference into the original tree, never a copy.
  */
-export function unwrap(node: TSESTreeTypeExpression | TSESTree.ChainExpression): TSESTreeUnwrapped<TSESTree.Expression>;
-export function unwrap<T extends TSESTree.Node>(node: T): TSESTreeUnwrapped<T>;
+export function unwrap(node: TSESTreeTypeOrChainExpression): Exclude<TSESTree.Expression, TSESTreeTypeOrChainExpression>;
+export function unwrap<T extends TSESTree.Node>(node: T): Exclude<T, TSESTreeTypeOrChainExpression>;
 export function unwrap(node: TSESTree.Node): TSESTree.Node {
-  if (Check.isTypeExpression(node) || node.type === AST.ChainExpression) {
+  if (Check.isTypeOrChainExpression(node)) {
     return unwrap(node.expression);
   }
   return node;
@@ -59,7 +59,7 @@ export function getCalleeName(node: TSESTree.CallExpression): string | null {
  * @returns The base node followed by each member property in access order.
  */
 export function getMemberChain(node: TSESTree.Expression | TSESTree.PrivateIdentifier) {
-  const members: Exclude<TSESTree.Node, TSESTreeTypeExpression>[] = [];
+  const members: Exclude<TSESTree.Node, TSESTreeTypeOrChainExpression>[] = [];
   let current: TSESTree.Node = unwrap(node);
   while (current.type === AST.MemberExpression) {
     const property = unwrap(current.property);

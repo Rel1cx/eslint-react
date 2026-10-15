@@ -138,6 +138,16 @@ export const isTypeAssertionExpression = isOneOf([
   AST.TSSatisfiesExpression,
 ]);
 
+/** Check if a node is a TypeScript type expression or a chain expression (i.e. a transparent wrapper around an inner expression). */
+export const isTypeOrChainExpression = isOneOf([
+  AST.TSAsExpression,
+  AST.TSTypeAssertion,
+  AST.TSNonNullExpression,
+  AST.TSSatisfiesExpression,
+  AST.TSInstantiationExpression,
+  AST.ChainExpression,
+]);
+
 /** Check if a node is an expression node. */
 export const isExpression = isOneOf([
   AST.ArrayExpression,
