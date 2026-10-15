@@ -46,6 +46,18 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [{ messageId: "invalid-ref-name" }],
     },
     {
+      name: "Custom ref hook via additionalRefHooks with invalid name",
+      code: tsx`
+        const box = useMyRef(null);
+      `,
+      errors: [{ messageId: "invalid-ref-name" }],
+      settings: {
+        "react-x": {
+          additionalRefHooks: "/^(useMyRef|useCustomRef)$/u",
+        },
+      },
+    },
+    {
       name: "Name with all-caps 'REF' suffix",
       code: tsx`
         import { useRef } from "react";
@@ -529,6 +541,23 @@ ruleTester.run(RULE_NAME, rule, {
       code: tsx`
         import { useRef } from "react";
         const value = obj[useRef(null)];
+      `,
+    },
+    {
+      name: "Custom ref hook via additionalRefHooks with valid name",
+      code: tsx`
+        const boxRef = useMyRef(null);
+      `,
+      settings: {
+        "react-x": {
+          additionalRefHooks: "/^(useMyRef|useCustomRef)$/u",
+        },
+      },
+    },
+    {
+      name: "Custom ref hook is ignored when additionalRefHooks does not match",
+      code: tsx`
+        const box = useMyRef(null);
       `,
     },
   ],
