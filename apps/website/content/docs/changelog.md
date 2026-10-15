@@ -80,8 +80,14 @@ title: Changelog
 
 ### 🐞 Fixes
 
-- `react-naming-convention/context-name`, `react-naming-convention/id-name`, `react-naming-convention/ref-name`: the name lookup now stops at function boundaries, so expression-bodied factory functions and custom hooks (ex: `export const useAnchor = () => useRef(null)`) are no longer misreported; calls inside JSX expressions, computed keys, or class static blocks no longer fall back to the outer variable. (#2029) Closes #2026.
-- `react-naming-convention/context-name`, `react-naming-convention/id-name`, `react-naming-convention/ref-name`: the name lookup no longer crosses containers or derived values (ex: `const refs = [useRef(null)]`, `const n = useRef(0) + 1`), so such calls are no longer reported on the enclosing variable; sequence expressions check only the last value, and unresolvable computed keys (ex: `{ [key]: useRef(null) }`) no longer fall back to the outer variable. (#2030)
+- The name lookup now stops at function boundaries, so expression-bodied factory functions and custom hooks (ex: `export const useAnchor = () => useRef(null)`) are no longer misreported; calls inside JSX expressions, computed keys, or class static blocks no longer fall back to the outer variable. (#2029) Closes #2026. Affected rules:
+  - `react-naming-convention/context-name`
+  - `react-naming-convention/id-name`
+  - `react-naming-convention/ref-name`
+- The name lookup no longer crosses containers or derived values (ex: `const refs = [useRef(null)]`, `const n = useRef(0) + 1`), so such calls are no longer reported on the enclosing variable; sequence expressions check only the last value, and unresolvable computed keys (ex: `{ [key]: useRef(null) }`) no longer fall back to the outer variable. (#2030) Affected rules:
+  - `react-naming-convention/context-name`
+  - `react-naming-convention/id-name`
+  - `react-naming-convention/ref-name`
 
 **Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.26.3...v5.26.4
 
@@ -89,7 +95,10 @@ title: Changelog
 
 ### 🐞 Fixes
 
-- `react-naming-convention/context-name`, `react-naming-convention/id-name`, `react-naming-convention/ref-name`: an enclosing object literal property key now takes precedence over the outer assignment target when statically known (ex: `const refs = { myRef: useRef(0) }`); computed keys with string literals (ex: `refs["value"] = useRef(null)`) are now checked, and unresolvable computed keys are no longer reported. (#2028)
+- An enclosing object literal property key now takes precedence over the outer assignment target when statically known (ex: `const refs = { myRef: useRef(0) }`); computed keys with string literals (ex: `refs["value"] = useRef(null)`) are now checked, and unresolvable computed keys are no longer reported. (#2028) Affected rules:
+  - `react-naming-convention/context-name`
+  - `react-naming-convention/id-name`
+  - `react-naming-convention/ref-name`
 - `react-naming-convention/ref-name`: immediate dereferences of the `useRef` result through TypeScript type wrappers (ex: `(useRef(null) as { current: null }).current`, `useRef(null)!.current`) are no longer reported, extending the #1375 fix. (#2028)
 
 **Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.26.2...v5.26.3
@@ -118,7 +127,10 @@ title: Changelog
 
 ### 🏗️ Internal
 
-- `react-x/no-context-provider`, `react-x/no-forward-ref`, `react-x/no-use-context`: renamed the internal suggestion message id from `"replace"` to `"suggest"`.
+- Renamed the internal suggestion message id from `"replace"` to `"suggest"`. Affected rules:
+  - `react-x/no-context-provider`
+  - `react-x/no-forward-ref`
+  - `react-x/no-use-context`
 - `react-x/immutability`: moved context-dependent helpers from `helpers.ts` into `origins.ts` and `effects.ts` to match the fact-based implementation pattern.
 - `react-x/globals`: moved `resolveToFunction` from `helpers.ts` to `origins.ts`.
 - Bumped `effect` to `4.0.3`, `tsl-dx` to `0.14.1`, `@tsconfig/node20` to `20.1.10`, and `@types/node` to `20.19.43`.
@@ -162,7 +174,9 @@ title: Changelog
 
 - Disabled test isolation in the vitest config.
 - Reordered `react-web-api/no-leaked-event-listener` test specs from typical cases to edge cases. (#2015)
-- Unified `KNOWN_`-prefixed constant names in `react-x/no-array-index-key` and `react-x/no-missing-key`. (#2014)
+- Unified `KNOWN_`-prefixed constant names. (#2014) Affected rules:
+  - `react-x/no-array-index-key`
+  - `react-x/no-missing-key`
 - Bumped `effect` to `4.0.2`, `@effect/platform-node` to `4.0.2`, `nx` to `23.3.0`, `vite` to `8.3.4`, `lucide-react` to `1.53.0`, and `pnpm` to `12.10.1`.
 
 **Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.24.9...v5.24.10
@@ -202,7 +216,9 @@ title: Changelog
 - `react-web-api/no-leaked-fetch`: signal alias chains are now resolved recursively, so fetches with aliased signals correctly pair with their cleanup `abort` call. (#1997)
 - `react-web-api/no-leaked-event-listener`: bare global `addEventListener(...)` calls now pair with matching `removeEventListener(...)` cleanup calls. (#1996)
 - `react-web-api/no-leaked-event-listener`: a `signal` destructured from `new AbortController()` is now recognized. (#2001)
-- `react-web-api/no-leaked-resize-observer` / `react-web-api/no-leaked-intersection-observer`: `disconnect()` / `unobserve(...)` now only count as cleanup in the cleanup phase; `useRef`-held observer instances are tracked; `unobserve(...)` inside the observer callback no longer pairs with `observe(...)`. (#2002, #2003)
+- `disconnect()` / `unobserve(...)` now only count as cleanup in the cleanup phase; `useRef`-held observer instances are tracked; `unobserve(...)` inside the observer callback no longer pairs with `observe(...)`. (#2002, #2003) Affected rules:
+  - `react-web-api/no-leaked-resize-observer`
+  - `react-web-api/no-leaked-intersection-observer`
 
 ### 🏗️ Internal
 
@@ -225,7 +241,11 @@ title: Changelog
 ### 🏗️ Internal
 
 - Self-linted rule implementations with `eslint-plugin-eslint-plugin`, removing redundant empty `defaultOptions` declarations and enforcing `meta.defaultOptions` for rules with options. (#1993) Thanks to @rakleed and @Rel1cx!
-- Minor code cleanups in `react-web-api/no-leaked-intersection-observer`, `react-x/no-create-ref`, `react-x/no-nested-lazy-component-declarations`, and `react-x/use-state`. Thanks to @Rel1cx!
+- Minor code cleanups. Thanks to @Rel1cx! Affected rules:
+  - `react-web-api/no-leaked-intersection-observer`
+  - `react-x/no-create-ref`
+  - `react-x/no-nested-lazy-component-declarations`
+  - `react-x/use-state`
 - Bumped `effect` to `4.0.1`, `pnpm` to `12.9.1`, `fumadocs-core` and `fumadocs-ui` to `16.16.1`, `lucide-react` to `1.52.0`, `tsl-dx` to `0.14.0`, and `tinybench` to `6.2.0`. Thanks to @Rel1cx!
 
 **Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.24.4...v5.24.5
@@ -280,7 +300,10 @@ title: Changelog
 ### 🏗️ Internal
 
 - `@local/eff`: added predicate combinators and type guards synced with effect, and migrated call sites across the workspace to them. (#1989)
-- `react-x/set-state-in-effect`, `react-x/set-state-in-render`, and `react-x/use-memo`: reworked to the fact-based implementation pattern — fact collection (`collect.ts`), provenance resolution (`origins.ts`), and violation inference (`effects.ts`) are now separate modules, with `lib.ts` replaced by a pure-AST `helpers.ts`; `set-state-in-effect` again classifies a hook name configured as both `additionalStateHooks` and `additionalEffectHooks` as a state hook first. (#1983, #1985, #1986)
+- Reworked to the fact-based implementation pattern — fact collection (`collect.ts`), provenance resolution (`origins.ts`), and violation inference (`effects.ts`) are now separate modules, with `lib.ts` replaced by a pure-AST `helpers.ts`; `set-state-in-effect` again classifies a hook name configured as both `additionalStateHooks` and `additionalEffectHooks` as a state hook first. (#1983, #1985, #1986) Affected rules:
+  - `react-x/set-state-in-effect`
+  - `react-x/set-state-in-render`
+  - `react-x/use-memo`
 - `react-x/use-state`: aligned the nested-expression collectors' visitor keys to callee-first order, matching `eslint-visitor-keys`; no behavior change. (#1988)
 - Migrated package unit tests to the shared `@local/testkit` helpers. (#1987)
 - Renamed message ids to kebab-case across all plugins. (#1984)
@@ -307,7 +330,9 @@ title: Changelog
 ### 🐞 Fixes
 
 - Added the missing `react-x/static-components` rule to the `disable-experimental` preset. (#1980)
-- Fixed type imports in `react-x/exhaustive-deps` and `react-x/rules-of-hooks` (`RuleFeature` is now imported from `@eslint-react/eslint` instead of `@eslint-react/shared`).
+- Fixed type imports (`RuleFeature` is now imported from `@eslint-react/eslint` instead of `@eslint-react/shared`). Affected rules:
+  - `react-x/exhaustive-deps`
+  - `react-x/rules-of-hooks`
 
 ### 📝 Documentation
 
