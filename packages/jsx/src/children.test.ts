@@ -59,6 +59,10 @@ describe("hasChildren", () => {
     expect(hasChildren(parseJsx('<div>{""}</div>;'))).toBe(false);
   });
 
+  it("returns false for an empty expression container (comment-only)", () => {
+    expect(hasChildren(parseJsx("<div>{/* comment */}</div>;"))).toBe(false);
+  });
+
   it("returns true for meaningful children", () => {
     expect(hasChildren(parseJsx("<div>a</div>;"))).toBe(true);
   });
