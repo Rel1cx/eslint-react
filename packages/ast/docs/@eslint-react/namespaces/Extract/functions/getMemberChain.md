@@ -16,7 +16,6 @@ function getMemberChain(node: PrivateIdentifier | Expression): (
   | BreakStatement
   | CallExpression
   | CatchClause
-  | ChainExpression
   | ClassBody
   | ClassDeclaration
   | ClassExpression
@@ -194,7 +193,6 @@ Type expressions and chain expressions are unwrapped along the way.
 \| `BreakStatement`
 \| `CallExpression`
 \| `CatchClause`
-\| `ChainExpression`
 \| `ClassBody`
 \| `ClassDeclaration`
 \| `ClassExpression`

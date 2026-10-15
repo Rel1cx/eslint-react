@@ -11,6 +11,11 @@ export type TSESTreeClass =
   | TSESTree.ClassDeclaration
   | TSESTree.ClassExpression;
 
+/** Union of function-like and class-like node types. */
+export type TSESTreeFunctionOrClass =
+  | TSESTreeFunction
+  | TSESTreeClass;
+
 /** Union of method and property definition node types. */
 export type TSESTreeMethodOrPropertyDefinition =
   | TSESTree.PropertyDefinition
@@ -54,5 +59,5 @@ export type TSESTreeTypeExpression =
   | TSESTree.TSSatisfiesExpression
   | TSESTree.TSInstantiationExpression;
 
-/** Node type `T` with TypeScript type expressions excluded — the static result shape of `Extract.unwrap`. */
-export type TSESTreeUnwrapped<T extends TSESTree.Node> = Exclude<T, TSESTreeTypeExpression | TSESTree.ChainExpression>;
+/** Union of expression node types that wrap another expression (TypeScript type expressions and chain expressions) — the nodes `Extract.unwrap` strips. */
+export type TSESTreeTypeOrChainExpression = TSESTreeTypeExpression | TSESTree.ChainExpression;

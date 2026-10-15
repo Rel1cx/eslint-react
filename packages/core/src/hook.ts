@@ -1,6 +1,6 @@
 import { Check, Extract, type TSESTreeDirective, type TSESTreeFunction, Traverse } from "@eslint-react/ast";
 import type { RegExpLike } from "@eslint-react/shared";
-import { constFalse, hasProperty } from "@local/eff";
+import { constFalse, hasProperty, not } from "@local/eff";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import { type FunctionID, getFunctionId } from "./function";
 import type { SemanticNode } from "./semantic";
@@ -169,15 +169,11 @@ export function isUseEffectLikeCall(node: TSESTree.Node | null, additionalEffect
 export function isUseEffectSetupCallback(node: TSESTree.Node | null) {
   if (node == null) return false;
   const expr = Extract.unwrap(node);
-  let parent = expr.parent;
-  while (parent != null && (Check.isTypeExpression(parent) || parent.type === AST.ChainExpression)) {
-    parent = parent.parent;
-  }
-  if (parent?.type !== AST.CallExpression) return false;
-  const firstArgument = parent.arguments.at(0);
-  return firstArgument != null
-    && Extract.unwrap(firstArgument) === expr
-    && isUseEffectLikeCall(parent);
+  const call = Traverse.findParent(expr, not(Check.isTypeOrChainExpression));
+  if (call?.type !== AST.CallExpression) return false;
+  const [arg0] = call.arguments;
+  if (arg0 == null) return false;
+  return Extract.unwrap(arg0) === expr && isUseEffectLikeCall(call);
 }
 
 /**
@@ -188,23 +184,15 @@ export function isUseEffectSetupCallback(node: TSESTree.Node | null) {
 export function isUseEffectCleanupCallback(node: TSESTree.Node | null) {
   if (node == null) return false;
   const expr = Extract.unwrap(node);
-  const returnStatement = Traverse.findParent(expr, Check.isReturnStatement);
-  const enclosingFunction = Traverse.findParent(expr, Check.isFunction);
-
-  if (returnStatement == null) {
-    return Check.isFunction(expr)
-      && enclosingFunction?.type === AST.ArrowFunctionExpression
-      && Extract.unwrap(enclosingFunction.body) === expr
-      && isUseEffectSetupCallback(enclosingFunction);
+  const func = Traverse.findParent(expr, Check.isFunction);
+  if (func == null || !isUseEffectSetupCallback(func)) return false;
+  const stat = Traverse.findParent(expr, Check.isReturnStatement, Check.isFunction);
+  if (stat != null) {
+    return stat.argument != null && Extract.unwrap(stat.argument) === expr;
   }
-
-  const enclosingFunctionOfReturn = Traverse.findParent(returnStatement, Check.isFunction);
-
-  if (enclosingFunction !== enclosingFunctionOfReturn) return false;
-
-  return returnStatement.argument != null
-    && Extract.unwrap(returnStatement.argument) === expr
-    && isUseEffectSetupCallback(enclosingFunction);
+  return Check.isFunction(expr)
+    && func.type === AST.ArrowFunctionExpression
+    && Extract.unwrap(func.body) === expr;
 }
 
 // #endregion

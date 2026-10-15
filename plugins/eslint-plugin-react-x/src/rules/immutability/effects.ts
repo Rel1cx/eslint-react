@@ -52,9 +52,10 @@ export function inferMutableFunctions(context: RuleContext, mutations: readonly 
     if (isGlobalOrModuleVariable(origin)) continue;
 
     const declaration = origin.identifiers.at(0) ?? null;
+    const declarationFn = declaration == null ? null : Traverse.findParent(declaration, Check.isFunction);
     let current: TSESTreeFunction | null = mutation.enclosingFunction;
     while (current != null) {
-      if (declaration != null && Traverse.findParent(declaration, Check.isFunction) === current) break;
+      if (declarationFn === current) break;
       if (!mutableFunctions.has(current)) {
         mutableFunctions.set(current, { name: origin.name, node: mutation.node });
       }

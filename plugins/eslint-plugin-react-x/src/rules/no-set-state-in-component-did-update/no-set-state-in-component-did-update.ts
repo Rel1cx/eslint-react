@@ -1,5 +1,5 @@
 import { createRule } from "@/utils/create-rule";
-import { Traverse } from "@eslint-react/ast";
+import { Check, Extract, Traverse } from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, type RuleListener } from "@eslint-react/eslint";
 import type { TSESTree } from "@typescript-eslint/types";
@@ -30,26 +30,22 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   if (!context.sourceCode.text.includes("componentDidUpdate")) return {};
   return {
     CallExpression(node: TSESTree.CallExpression) {
-      if (!core.isThisSetStateCall(node)) {
-        return;
-      }
+      if (!core.isThisSetStateCall(node)) return;
       // Find the enclosing class component
-      const enclosingClassNode = Traverse.findParent(node, core.isClassComponent);
-      // Find the enclosing 'componentDidUpdate' method
-      const enclosingMethodNode = Traverse.findParent(node, (n) => n === enclosingClassNode || core.isComponentDidUpdate(n));
-
-      // Ensure 'this.setState' is inside a 'componentDidUpdate' method within a class component
-      if (enclosingClassNode == null || enclosingMethodNode == null || enclosingMethodNode === enclosingClassNode) {
-        return;
-      }
-
-      // Get the scope of the 'componentDidUpdate' method
-      const enclosingMethodScope = context.sourceCode.getScope(enclosingMethodNode);
-      // Get the scope where 'this.setState' is called
-      const setStateCallParentScope = context.sourceCode.getScope(node).upper;
-
-      // Report an error if 'this.setState' is called directly inside 'componentDidUpdate'
-      if (enclosingMethodNode.parent === enclosingClassNode.body && setStateCallParentScope === enclosingMethodScope) {
+      const component = Traverse.findParent(node, core.isClassComponent);
+      if (component == null) return;
+      // Find the enclosing 'componentDidUpdate' method, without crossing the class boundary
+      const method = Traverse.findParent(node, core.isComponentDidUpdate, (n) => n === component);
+      if (method == null) return;
+      // Report an error if 'this.setState' is called directly inside 'componentDidUpdate':
+      // the nearest enclosing function or class of the call must be the lifecycle function
+      // itself (a nested callback or class field initializer defers the call)
+      const lifecycleFunction = method.value == null ? null : Extract.unwrap(method.value);
+      if (
+        method.parent === component.body
+        && lifecycleFunction != null
+        && lifecycleFunction === Traverse.findParent(node, Check.isFunctionOrClass)
+      ) {
         context.report({
           messageId: "default",
           node,

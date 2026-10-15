@@ -310,5 +310,13 @@ ruleTester.run(RULE_NAME, rule, {
         };
       `,
     },
+    {
+      name: "keyed element passed as a non-callback argument of a map call",
+      code: tsx`
+        const App = () => {
+          return items.map(renderItem, <div key="extra">text</div>);
+        };
+      `,
+    },
   ],
 });

@@ -5,6 +5,12 @@ All notable changes to the `react-x/no-set-state-in-component-did-update` rule w
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+### Fixed
+
+- A `componentDidUpdate` defined as a class property (ex: `componentDidUpdate = () => { this.setState(...) }` or `componentDidUpdate = function () { ... }`, including type-expression-wrapped values) is now recognized; a direct `this.setState` call in it is reported just like the method shorthand form.
+
 ## [5.2.3-beta.0] - 2026-04-14
 
 ### Changed

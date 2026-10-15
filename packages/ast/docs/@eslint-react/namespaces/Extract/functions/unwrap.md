@@ -5,31 +5,82 @@
 ## Call Signature
 
 ```ts
-function unwrap(
-  node:
-    | ChainExpression
-    | TSESTreeTypeExpression,
-): TSESTreeUnwrapped<Expression>;
+function unwrap(node: TSESTreeTypeOrChainExpression):
+  | ArrayExpression
+  | ArrayPattern
+  | ArrowFunctionExpression
+  | AssignmentExpression
+  | AwaitExpression
+  | BinaryExpression
+  | CallExpression
+  | ClassExpression
+  | ConditionalExpression
+  | FunctionExpression
+  | Identifier
+  | ImportExpression
+  | JSXElement
+  | JSXFragment
+  | LogicalExpression
+  | MemberExpression
+  | MetaProperty
+  | NewExpression
+  | ObjectExpression
+  | ObjectPattern
+  | SequenceExpression
+  | Super
+  | TaggedTemplateExpression
+  | ThisExpression
+  | UnaryExpression
+  | UpdateExpression
+  | YieldExpression
+  | LiteralExpression;
 ```
 
 Recursively unwrap TypeScript type expressions and chain expressions to get the underlying expression.
 
 ### Parameters
 
-| Parameter | Type                                                                                                   | Description         |
-| --------- | ------------------------------------------------------------------------------------------------------ | ------------------- |
-| `node`    | \| `ChainExpression` \| [`TSESTreeTypeExpression`](../../../../type-aliases/TSESTreeTypeExpression.md) | The node to unwrap. |
+| Parameter | Type                                                                                         | Description         |
+| --------- | -------------------------------------------------------------------------------------------- | ------------------- |
+| `node`    | [`TSESTreeTypeOrChainExpression`](../../../../type-aliases/TSESTreeTypeOrChainExpression.md) | The node to unwrap. |
 
 ### Returns
 
-[`TSESTreeUnwrapped`](../../../../type-aliases/TSESTreeUnwrapped.md)\<`Expression`\>
+\| `ArrayExpression`
+\| `ArrayPattern`
+\| `ArrowFunctionExpression`
+\| `AssignmentExpression`
+\| `AwaitExpression`
+\| `BinaryExpression`
+\| `CallExpression`
+\| `ClassExpression`
+\| `ConditionalExpression`
+\| `FunctionExpression`
+\| `Identifier`
+\| `ImportExpression`
+\| `JSXElement`
+\| `JSXFragment`
+\| `LogicalExpression`
+\| `MemberExpression`
+\| `MetaProperty`
+\| `NewExpression`
+\| `ObjectExpression`
+\| `ObjectPattern`
+\| `SequenceExpression`
+\| `Super`
+\| `TaggedTemplateExpression`
+\| `ThisExpression`
+\| `UnaryExpression`
+\| `UpdateExpression`
+\| `YieldExpression`
+\| `LiteralExpression`
 
 The innermost non-type-expression node — a reference into the original tree, never a copy.
 
 ## Call Signature
 
 ```ts
-function unwrap<T extends Node>(node: T): TSESTreeUnwrapped<T>;
+function unwrap<T extends Node>(node: T): Exclude<T, TSESTreeTypeOrChainExpression>;
 ```
 
 Recursively unwrap TypeScript type expressions and chain expressions to get the underlying expression.
@@ -48,6 +99,6 @@ Recursively unwrap TypeScript type expressions and chain expressions to get the 
 
 ### Returns
 
-[`TSESTreeUnwrapped`](../../../../type-aliases/TSESTreeUnwrapped.md)\<`T`\>
+[`Exclude`](https://www.typescriptlang.org/docs/handbook/utility-types.html#excludeuniontype-excludedmembers)\<`T`, [`TSESTreeTypeOrChainExpression`](../../../../type-aliases/TSESTreeTypeOrChainExpression.md)\>
 
 The innermost non-type-expression node — a reference into the original tree, never a copy.

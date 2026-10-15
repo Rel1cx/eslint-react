@@ -10,6 +10,7 @@ import {
   isDirective,
   isExpression,
   isFunction,
+  isFunctionOrClass,
   isIdentifier,
   isJSX,
   isJSXElement,
@@ -132,6 +133,38 @@ describe("isFunction", () => {
   it("should return false for a non-function node", () => {
     const node = getFirstNodeOfType<TSESTree.ClassDeclaration>("class A {}", AST.ClassDeclaration);
     expect(isFunction(node)).toBe(false);
+  });
+});
+
+describe("isFunctionOrClass", () => {
+  it("should return true for a ClassDeclaration", () => {
+    const node = getFirstNodeOfType<TSESTree.ClassDeclaration>("class A {}", AST.ClassDeclaration);
+    expect(isFunctionOrClass(node)).toBe(true);
+  });
+
+  it("should return true for a ClassExpression", () => {
+    const node = getFirstNodeOfType<TSESTree.ClassExpression>("const A = class {}", AST.ClassExpression);
+    expect(isFunctionOrClass(node)).toBe(true);
+  });
+
+  it("should return true for a FunctionDeclaration", () => {
+    const node = getFirstNodeOfType<TSESTree.FunctionDeclaration>("function f() {}", AST.FunctionDeclaration);
+    expect(isFunctionOrClass(node)).toBe(true);
+  });
+
+  it("should return true for a FunctionExpression", () => {
+    const node = getFirstNodeOfType<TSESTree.FunctionExpression>("const f = function() {}", AST.FunctionExpression);
+    expect(isFunctionOrClass(node)).toBe(true);
+  });
+
+  it("should return true for an ArrowFunctionExpression", () => {
+    const node = getFirstNodeOfType<TSESTree.ArrowFunctionExpression>("const f = () => {}", AST.ArrowFunctionExpression);
+    expect(isFunctionOrClass(node)).toBe(true);
+  });
+
+  it("should return false for a non-class non-function node", () => {
+    const node = getFirstNodeOfType<TSESTree.Identifier>("const a = 1;", AST.Identifier);
+    expect(isFunctionOrClass(node)).toBe(false);
   });
 });
 

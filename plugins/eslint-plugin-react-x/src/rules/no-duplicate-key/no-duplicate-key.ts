@@ -79,10 +79,11 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
               return Check.isIdentifier(callee.property, "map");
             },
           );
+          if (call == null) return;
           const iter = Traverse.findParent(jsxElement, Check.isFunction, (n) => n === call);
-          if (!Check.isFunction(iter)) return;
-          const arg0 = call?.arguments[0];
-          if (call == null || arg0 == null) return;
+          if (iter == null) return;
+          const arg0 = call.arguments[0];
+          if (arg0 == null) return;
           // Ensure we are inside the callback of the .map() call
           if (Extract.unwrap(arg0) !== iter) {
             return;
