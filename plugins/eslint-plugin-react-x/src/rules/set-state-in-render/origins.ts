@@ -27,6 +27,8 @@ export function createSetStateResolver(context: RuleContext) {
     if (initNode.type !== AST.CallExpression) return false;
     if (!isUseStateCall(initNode)) return false;
     const variableNodeParent = initNode.parent;
+    // The call is not part of a variable declaration, so no destructuring
+    // pattern constrains the setter position (ex: `data = useState()`)
     if (!hasProperty(variableNodeParent, "id")) {
       return true;
     }
@@ -39,9 +41,12 @@ export function createSetStateResolver(context: RuleContext) {
         && Check.isIdentifier(p.value, id.name)
       );
     }
+    // Any other binding form (ex: `const data = useState()`) binds the whole
+    // tuple, so the identifier may carry the setter
     if (variableNodeParent.id?.type !== AST.ArrayPattern) {
       return true;
     }
+    // `const [data, setData] = useState()` destructures the tuple by position
     return variableNodeParent
       .id
       .elements
@@ -62,8 +67,11 @@ export function createSetStateResolver(context: RuleContext) {
           return false;
         }
         const isAt = Extract.getCalleeName(callee) === "at";
+        if (!isAt) {
+          return false;
+        }
         const [index] = callee.arguments;
-        if (!isAt || index == null) {
+        if (index == null) {
           return false;
         }
         const indexScope = context.sourceCode.getScope(node);

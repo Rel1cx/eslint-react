@@ -34,6 +34,10 @@ export default createRule<[], MessageID>({
 });
 
 export function create(context: RuleContext<MessageID, []>): RuleListener {
+  // Detection hints that narrow function-component detection: functions
+  // returning non-JSX values (numbers, booleans, null, strings, undefined),
+  // functions with one-sided conditional or logical JSX returns, and functions
+  // defined in array literals or `array.map` callbacks are not components
   const hint = core.FunctionComponentDetectionHint.DoNotIncludeJsxWithNumberValue
     | core.FunctionComponentDetectionHint.DoNotIncludeJsxWithBooleanValue
     | core.FunctionComponentDetectionHint.DoNotIncludeJsxWithNullValue
@@ -47,12 +51,12 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
 
   const fc = core.getFunctionComponentCollector(context, { hint });
   const cc = core.getClassComponentCollector(context);
-  const facts = createFactCollector();
+  const { facts, visitor } = createFactCollector();
 
   return merge(
     fc.visitor,
     cc.visitor,
-    facts.visitor,
+    visitor,
     {
       "Program:exit"(program) {
         const componentNodes = [
@@ -61,19 +65,21 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         ].map((component) => component.node);
         const isInsideRender = createRenderBoundaryChecker(componentNodes);
 
+        // Report each dynamic component usage, plus a single subordinate
+        // report at the creation site (deduplicated across usages)
         const reportedCreations = new Set<TSESTree.Node>();
-        for (const effect of inferCreatedComponents(context, facts.facts.componentUsages, isInsideRender)) {
+        for (const effect of inferCreatedComponents(context, facts.componentUsages, isInsideRender)) {
           context.report({
             messageId: "default",
             node: effect.node,
           });
-          if (effect.creationNode != null && !reportedCreations.has(effect.creationNode)) {
-            reportedCreations.add(effect.creationNode);
-            context.report({
-              messageId: "created-here",
-              node: effect.creationNode,
-            });
-          }
+          if (effect.creationNode == null) continue;
+          if (reportedCreations.has(effect.creationNode)) continue;
+          reportedCreations.add(effect.creationNode);
+          context.report({
+            messageId: "created-here",
+            node: effect.creationNode,
+          });
         }
       },
     },

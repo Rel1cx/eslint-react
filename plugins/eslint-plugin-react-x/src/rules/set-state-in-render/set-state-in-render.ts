@@ -27,12 +27,14 @@ export default createRule<[], MessageID>({
 });
 
 export function create(context: RuleContext<MessageID, []>): RuleListener {
-  const facts = createFactCollector(context);
+  const { facts, visitor } = createFactCollector(context);
   return merge(
-    facts.visitor,
+    visitor,
     {
+      // Defer inference until the whole file has been traversed so that all
+      // call and early-return facts are complete
       "Program:exit"() {
-        for (const violation of inferViolations(context, facts.facts)) {
+        for (const violation of inferViolations(context, facts)) {
           context.report({
             data: { name: violation.name },
             messageId: "default",

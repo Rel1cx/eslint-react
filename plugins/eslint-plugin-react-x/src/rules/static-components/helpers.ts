@@ -18,6 +18,8 @@ export const KNOWN_DYNAMIC_EXPRESSION_TYPES: ReadonlySet<TSESTree.Node["type"]> 
 /**
  * Builds a predicate that tells whether a given node lies within the body of one of the
  * collected function or class components, i.e. whether it is "created during render".
+ * @param componentNodes The collected function and class component nodes
+ * @returns The predicate telling whether a node lies within a component's render body
  */
 export function createRenderBoundaryChecker(componentNodes: readonly TSESTree.Node[]): IsInsideRender {
   const components = new Set(componentNodes);

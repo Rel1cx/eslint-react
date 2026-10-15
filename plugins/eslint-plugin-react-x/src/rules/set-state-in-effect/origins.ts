@@ -29,6 +29,8 @@ export function createSetStateResolver(context: RuleContext) {
     if (initNode.type !== AST.CallExpression) return false;
     if (!isUseStateCall(initNode)) return false;
     const variableNodeParent = initNode.parent;
+    // The call is not part of a variable declaration, so no destructuring
+    // pattern constrains the setter position (ex: `data = useState()`)
     if (!hasProperty(variableNodeParent, "id")) {
       return true;
     }
@@ -41,9 +43,12 @@ export function createSetStateResolver(context: RuleContext) {
         && Check.isIdentifier(p.value, id.name)
       );
     }
+    // Any other binding form (ex: `const data = useState()`) binds the whole
+    // tuple, so the identifier may carry the setter
     if (variableNodeParent.id?.type !== AST.ArrayPattern) {
       return true;
     }
+    // `const [data, setData] = useState()` destructures the tuple by position
     return variableNodeParent
       .id
       .elements
@@ -64,8 +69,11 @@ export function createSetStateResolver(context: RuleContext) {
           return false;
         }
         const isAt = Extract.getCalleeName(callee) === "at";
+        if (!isAt) {
+          return false;
+        }
         const [index] = callee.arguments;
-        if (!isAt || index == null) {
+        if (index == null) {
           return false;
         }
         const indexScope = context.sourceCode.getScope(node);
@@ -97,6 +105,17 @@ export function createSetStateResolver(context: RuleContext) {
   return { isSetStateCall, isSetStateId, isUseStateCall } as const;
 }
 
+/**
+ * Check whether an identifier's value is derived from a ref, either through
+ * its declaration initializer or through an assignment that lexically
+ * precedes the use
+ * @param context The rule context
+ * @param id The identifier to check
+ * @param refParams Parameters treated as ref-derived because the call site of
+ * their function passed a ref-derived argument
+ * @param seen Identifier names already visited, to prevent infinite recursion
+ * @returns `true` if the identifier's value is derived from a ref
+ */
 export function isInitializedFromRef(context: RuleContext, id: TSESTree.Identifier, refParams?: ReadonlySet<TSESTree.Node>, seen = new Set<string>()): boolean {
   const name = id.name;
   if (seen.has(name)) return false;
@@ -145,49 +164,46 @@ export function isInitializedFromRef(context: RuleContext, id: TSESTree.Identifi
 
 function isExpressionFromRef(context: RuleContext, init: TSESTree.Node, refParams: ReadonlySet<TSESTree.Node> | undefined, seen: Set<string>): boolean {
   const { additionalRefHooks } = getSettingsFromContext(context);
-  switch (true) {
+  // const identifier = useRef();
+  if (init.type === AST.CallExpression && core.isUseRefLikeCall(init, additionalRefHooks)) {
+    return true;
+  }
+  if (init.type === AST.MemberExpression) {
     // const identifier = anotherRef.current;
     // const identifier = containerRef.current.offsetWidth;
-    case init.type === AST.MemberExpression: {
-      let current: TSESTree.Node = init;
-      // Walk the member chain; a `<ref-named>.current` link marks the value
-      // as read from a ref (ex: `popover.contentRef.current`)
-      while (current.type === AST.MemberExpression) {
-        const property = Extract.unwrap(current.property);
-        const object: TSESTree.Node = Extract.unwrap(current.object);
-        if (!current.computed && Check.isIdentifier(property, "current")) {
-          const sourceName = getRefSourceName(object);
-          if (sourceName === "ref" || sourceName?.endsWith("Ref") === true) {
-            return true;
-          }
-          // A `.current` read rooted at a parameter marks the parameter as a
-          // ref-like object passed via props (ex: `anchor?.current` where
-          // `anchor` is a RefObject prop)
-          if (object.type === AST.Identifier && isParameterId(context, object)) {
-            return true;
-          }
+    let current: TSESTree.Node = init;
+    // Walk the member chain; a `<ref-named>.current` link marks the value
+    // as read from a ref (ex: `popover.contentRef.current`)
+    while (current.type === AST.MemberExpression) {
+      const property = Extract.unwrap(current.property);
+      const object: TSESTree.Node = Extract.unwrap(current.object);
+      if (!current.computed && Check.isIdentifier(property, "current")) {
+        const sourceName = getRefSourceName(object);
+        if (sourceName === "ref" || sourceName?.endsWith("Ref") === true) {
+          return true;
         }
-        current = object;
+        // A `.current` read rooted at a parameter marks the parameter as a
+        // ref-like object passed via props (ex: `anchor?.current` where
+        // `anchor` is a RefObject prop)
+        if (object.type === AST.Identifier && isParameterId(context, object)) {
+          return true;
+        }
       }
-      // const identifier = containerRef.foo; (rooted at a ref-named identifier)
-      if (Check.isIdentifier(current) && (current.name === "ref" || current.name.endsWith("Ref"))) {
-        return true;
-      }
-      // Fall back to tracing the identifiers used inside the chain so a
-      // ref-rooted local still counts (ex: `scroller.clientWidth` where
-      // `const scroller = scrollerRef.current`)
-      return getNestedIdentifiers(init).some((id) => isInitializedFromRef(context, id, refParams, seen));
+      current = object;
     }
-    // const identifier = useRef();
-    case init.type === AST.CallExpression
-      && core.isUseRefLikeCall(init, additionalRefHooks):
+    // const identifier = containerRef.foo; (rooted at a ref-named identifier)
+    if (Check.isIdentifier(current) && (current.name === "ref" || current.name.endsWith("Ref"))) {
       return true;
-    // Trace through arbitrary expressions so a ref read reaching the binding
-    // via an intermediate computation still counts:
-    // const dv = visible - prevVisible.current;
-    default:
-      return getNestedIdentifiers(init).some((id) => isInitializedFromRef(context, id, refParams, seen));
+    }
+    // Fall back to tracing the identifiers used inside the chain so a
+    // ref-rooted local still counts (ex: `scroller.clientWidth` where
+    // `const scroller = scrollerRef.current`)
+    return getNestedIdentifiers(init).some((id) => isInitializedFromRef(context, id, refParams, seen));
   }
+  // Trace through arbitrary expressions so a ref read reaching the binding
+  // via an intermediate computation still counts:
+  // const dv = visible - prevVisible.current;
+  return getNestedIdentifiers(init).some((id) => isInitializedFromRef(context, id, refParams, seen));
 }
 
 /**

@@ -37,7 +37,7 @@ const IDENTIFIER_VISITOR_KEYS = {
 } as const;
 
 /**
- * Get all nested identifiers in a expression like node
+ * Get all nested identifiers in an expression-like node
  * @param node The node to get the nested identifiers from
  * @returns All nested identifiers
  */
@@ -55,21 +55,40 @@ export function getNestedIdentifiers(node: TSESTree.Node): readonly TSESTree.Ide
   return identifiers;
 }
 
+/**
+ * Check if a node is a variable declarator whose initializer is a hook call
+ * (ex: `const f = useCallback(...)`)
+ * @param node The node to check
+ * @returns `true` if the node declares a variable initialized by a hook call
+ */
 export function isHookDecl(node: TSESTree.Node): node is TSESTree.VariableDeclarator & { init: TSESTree.CallExpression } {
   if (node.type !== AST.VariableDeclarator) return false;
   if (!Check.isIdentifier(node.id)) return false;
   const init = node.init;
-  if (init == null || init.type !== AST.CallExpression) return false;
+  if (init == null) return false;
+  if (init.type !== AST.CallExpression) return false;
   const name = Extract.getCalleeName(init);
   return name != null && core.isHookName(name);
 }
 
+/**
+ * Check if a call expression is a `.then(...)` call
+ * (ex: `fetch(url).then(...)`)
+ * @param node The call expression to check
+ * @returns `true` if the call is a `.then` call
+ */
 export function isThenCall(node: TSESTree.CallExpression) {
   const callee = Extract.unwrap(node.callee);
   return callee.type === AST.MemberExpression
     && Extract.getCalleeName(node) === "then";
 }
 
+/**
+ * Check if a statement terminates the control flow of its block
+ * (a `return`/`throw`, or a block containing one)
+ * @param node The node to check
+ * @returns `true` if the statement terminates the control flow
+ */
 export function isTerminatingStatement(node: TSESTree.Node): boolean {
   if (node.type === AST.ReturnStatement || node.type === AST.ThrowStatement) return true;
   if (node.type === AST.BlockStatement) return node.body.some(isTerminatingStatement);

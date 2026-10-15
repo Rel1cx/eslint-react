@@ -40,6 +40,15 @@ export type SetStateInEffectFacts = {
   setupIdentifiers: TSESTree.Identifier[];
 };
 
+/**
+ * Create a collector that gathers the raw facts needed to infer synchronous
+ * setState calls in effect setups: observed call expressions with their
+ * function-phase context, setState references in aliasing positions, and the
+ * identifiers passed as the setup argument of an effect
+ * @param additionalStateHooks Additional hooks treated as `useState`-like
+ * @param additionalEffectHooks Additional hooks treated as `useEffect`-like
+ * @returns The collected facts and the visitor that fills them
+ */
 export function createFactCollector(additionalStateHooks: RegExpLike, additionalEffectHooks: RegExpLike) {
   const facts: SetStateInEffectFacts = {
     calls: [],
@@ -64,22 +73,28 @@ export function createFactCollector(additionalStateHooks: RegExpLike, additional
       && isUseEffectCall(node.parent);
   }
 
+  /**
+   * Classify a function by the phase in which its body runs relative to the
+   * effect setup it belongs to
+   * @param node The function node to classify
+   * @returns The function kind
+   */
   function getFunctionKind(node: TSESTreeFunction): FunctionKind {
     const parent = Traverse.findParent(node, not(Check.isTypeExpression)) ?? node.parent;
-    switch (true) {
-      case node.async:
-      case parent.type === AST.CallExpression
-        && isThenCall(parent):
-        return "deferred";
-      case node.type !== AST.FunctionDeclaration
-        && parent.type === AST.CallExpression
-        && parent.callee === node:
-        return "immediate";
-      case isUseEffectSetupCallback(node):
-        return "setup";
-      default:
-        return "other";
+    // An async function body runs synchronously only until its first `await`;
+    // the rule treats the whole body as deferred, accepting setState calls
+    // before the first `await` as a blind spot (a documented limitation)
+    if (node.async) return "deferred";
+    // `.then` callbacks run after the setup has returned
+    if (parent.type === AST.CallExpression && isThenCall(parent)) return "deferred";
+    // An immediately invoked function expression runs synchronously as part of
+    // the enclosing setup
+    if (node.type !== AST.FunctionDeclaration && parent.type === AST.CallExpression && parent.callee === node) {
+      return "immediate";
     }
+    // The callback passed to an effect hook is the setup function
+    if (isUseEffectSetupCallback(node)) return "setup";
+    return "other";
   }
 
   const visitor: RuleListener = {
@@ -99,12 +114,12 @@ export function createFactCollector(additionalStateHooks: RegExpLike, additional
     },
     CallExpression(node: TSESTree.CallExpression) {
       const entry = functionEntries.at(-1);
-      if (entry == null || entry.node.async) {
-        return;
-      }
-      if (isUseStateCall(node)) {
-        return;
-      }
+      // A call outside any function (ex: module scope) has no setup context
+      if (entry == null) return;
+      // Calls inside async functions are treated as deferred (see getFunctionKind)
+      if (entry.node.async) return;
+      // A `useState` call declares the setter; it is not a setState usage
+      if (isUseStateCall(node)) return;
       if (isUseEffectCall(node)) {
         // useEffect(setupIdentifier, []): the setup is referenced rather than
         // defined inline, so collect the identifiers of the setup argument for
@@ -123,22 +138,17 @@ export function createFactCollector(additionalStateHooks: RegExpLike, additional
       });
     },
     Identifier(node: TSESTree.Identifier) {
-      if (node.parent.type === AST.CallExpression && node.parent.callee === node) {
+      // A callee position is a call, not an aliasing reference
+      if (node.parent.type === AST.CallExpression && node.parent.callee === node) return;
+      // `useMemo(() => setState, [])`: setState referenced as the callback body
+      if (node.parent.type === AST.ArrowFunctionExpression && node === node.parent.body) {
+        facts.setStateReferences.push({ kind: "callback-body", node });
         return;
       }
-      switch (node.parent.type) {
-        case AST.ArrowFunctionExpression: {
-          if (node === node.parent.body) {
-            facts.setStateReferences.push({ kind: "callback-body", node });
-          }
-          return;
-        }
-        case AST.CallExpression: {
-          if (node === node.parent.arguments.at(0)) {
-            facts.setStateReferences.push({ kind: "call-argument", node });
-          }
-          return;
-        }
+      // `useCallback(setState, [])` / `useEffect(setState)`: setState referenced
+      // as the first call argument
+      if (node.parent.type === AST.CallExpression && node === node.parent.arguments.at(0)) {
+        facts.setStateReferences.push({ kind: "call-argument", node });
       }
     },
   };

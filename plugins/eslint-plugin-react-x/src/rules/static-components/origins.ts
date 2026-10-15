@@ -29,16 +29,20 @@ function findDynamicCreationSite(
   }
 
   switch (expr.type) {
+    // Both branches of a ternary may produce the component's value
     case AST.ConditionalExpression:
       return findDynamicCreationSite(context, expr.consequent, isInsideRender, seen)
         ?? findDynamicCreationSite(context, expr.alternate, isInsideRender, seen);
+    // Both sides of a short-circuit expression may produce the value
     case AST.LogicalExpression:
       return findDynamicCreationSite(context, expr.left, isInsideRender, seen)
         ?? findDynamicCreationSite(context, expr.right, isInsideRender, seen);
+    // A sequence expression evaluates to its last element
     case AST.SequenceExpression: {
       const last = expr.expressions.at(-1);
       return last == null ? null : findDynamicCreationSite(context, last, isInsideRender, seen);
     }
+    // Follow identifier references to their declarations
     case AST.Identifier:
     case AST.JSXIdentifier: {
       const variable = findVariable(context.sourceCode.getScope(expr), expr.name);
@@ -63,7 +67,10 @@ function findReassignmentCreationSite(
   for (const ref of variable.references) {
     if (!ref.isWrite()) continue;
     const { identifier } = ref;
-    if (identifier.parent.type !== AST.AssignmentExpression || identifier.parent.left !== identifier) continue;
+    // Only direct assignments to the variable itself
+    // (ex: `Component = ...`, not `Component.prop = ...`)
+    if (identifier.parent.type !== AST.AssignmentExpression) continue;
+    if (identifier.parent.left !== identifier) continue;
     const source = findDynamicCreationSite(context, identifier.parent.right, isInsideRender, seen);
     if (source != null) return source;
   }
@@ -73,6 +80,11 @@ function findReassignmentCreationSite(
 /**
  * Resolves a component binding to the node that dynamically created its value, if the
  * value is created during render (a fresh function/class/call result on every render).
+ * @param context The rule context
+ * @param variable The variable binding the component's name
+ * @param isInsideRender The predicate telling whether a node lies within a component's render body
+ * @param seen Variables already visited, to prevent infinite recursion
+ * @returns The creation node and whether the component is dynamically created
  */
 export function resolveDynamicComponentOrigin(
   context: RuleContext,
@@ -96,13 +108,17 @@ export function resolveDynamicComponentOrigin(
 
     if (defNode.type !== AST.VariableDeclarator) continue;
 
-    const initSource = defNode.init == null
-      ? null
-      : findDynamicCreationSite(context, defNode.init, isInsideRender, seen);
-    if (initSource != null) {
-      return { creationNode: initSource, isDynamic: true };
+    // The declaration initializer may create the component
+    // (ex: `const Component = () => ...`)
+    if (defNode.init != null) {
+      const initSource = findDynamicCreationSite(context, defNode.init, isInsideRender, seen);
+      if (initSource != null) {
+        return { creationNode: initSource, isDynamic: true };
+      }
     }
 
+    // A later reassignment may create the component
+    // (ex: `let Component; ...; Component = () => ...`)
     const reassignmentSource = findReassignmentCreationSite(context, variable, isInsideRender, seen);
     if (reassignmentSource != null) {
       return { creationNode: reassignmentSource, isDynamic: true };
