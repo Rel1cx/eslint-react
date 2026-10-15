@@ -81,6 +81,19 @@ export function isWhitespaceText(node: TSESTree.JSXChild): boolean {
 }
 
 /**
+ * Check if the node is an empty expression container (`{}`, `{/* comment *\/}`).
+ *
+ * An empty `JSXExpressionContainer` holds no expression, so it produces no DOM
+ * node and is treated as non-rendered content, same as whitespace padding.
+ * @param node The JSX child node to check.
+ * @returns `true` if the node is an empty `JSXExpressionContainer`.
+ */
+export function isEmptyExpressionContainer(node: TSESTree.JSXChild): boolean {
+  if (node.type !== AST.JSXExpressionContainer) return false;
+  return node.expression.type === AST.JSXEmptyExpression;
+}
+
+/**
  * Check if the node is an empty string expression (`{""}`).
  *
  * React's reconciler and SSR renderer explicitly skip empty strings, producing no

@@ -367,19 +367,6 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
     },
-    // JSX comment as child is treated as meaningful content
-    {
-      code: tsx`<div children="x">{/* comment */}</div>;`,
-      errors: [
-        {
-          messageId: "default",
-          suggestions: [
-            { messageId: "remove-children-prop", output: "<div>{/* comment */}</div>;" },
-            { messageId: "remove-children-content", output: '<div children="x"></div>;' },
-          ],
-        },
-      ],
-    },
     // Empty fragment as child is treated as meaningful content
     {
       code: '<div children="x"><></></div>;',
@@ -451,18 +438,6 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: "default",
           suggestions: [
             { messageId: "remove-children-prop", output: "<div>{false}</div>;" },
-            { messageId: "remove-children-content", output: '<div children="x"></div>;' },
-          ],
-        },
-      ],
-    },
-    {
-      code: '<div children="x">{}</div>;',
-      errors: [
-        {
-          messageId: "default",
-          suggestions: [
-            { messageId: "remove-children-prop", output: "<div>{}</div>;" },
             { messageId: "remove-children-content", output: '<div children="x"></div>;' },
           ],
         },
@@ -566,6 +541,9 @@ ruleTester.run(RULE_NAME, rule, {
     tsx`<div children="x">
       {""}
     </div>;`,
+    // Empty expression containers (comment-only or bare) are not considered meaningful children
+    tsx`<div children="x">{/* comment */}</div>;`,
+    '<div children="x">{}</div>;',
     // createElement with children as extra args only
     'React.createElement("div", null, "Children");',
     'React.createElement("div", { className: "x" }, "Children");',
