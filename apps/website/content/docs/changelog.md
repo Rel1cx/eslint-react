@@ -2,6 +2,15 @@
 title: Changelog
 ---
 
+## v5.27.2 (2026-10-15)
+
+### 🏗️ Internal
+
+- Added the missing `@tsconfig/node20` and `@types/node` dependencies to the workspace packages. (#2040)
+- Bumped `effect` and `@effect/platform-node` to `4.0.5`, `import-integrity-lint` to `1.3.1`, and `sort-package-json` to `4.1.0`. (#2040)
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.27.1...v5.27.2
+
 ## v5.27.1 (2026-10-15)
 
 ### 🐞 Fixes
