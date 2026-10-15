@@ -33,10 +33,17 @@ export function inferViolations(context: RuleContext, facts: SetStateInEffectFac
   const isUseEffectCall = (node: TSESTree.Node) => core.isUseEffectLikeCall(node, additionalEffectHooks);
   const isUseStateOrThenCall = or(resolver.isUseStateCall, isThenCall);
 
+  // setState calls grouped by the local function that directly contains them
   const setStateCallsByFn = new Map<TSESTreeFunction, TSESTree.CallExpression[]>();
+  // setState calls grouped by the hook call whose callback contains them
+  // (ex: `const f = useCallback(() => setState(), [])`)
   const setStateInHookCallbacks = new Map<TSESTree.CallExpression, TSESTree.CallExpression[]>();
+  // setState identifiers forwarded through a memoization hook
+  // (ex: `const set = useMemo(() => setState, [])`)
   const setStateInEffectArg = new Map<TSESTree.CallExpression, TSESTree.Identifier[]>();
+  // setState identifiers passed directly as the effect setup (ex: `useEffect(setState)`)
   const setStateInEffectSetup = new Map<TSESTree.CallExpression, TSESTree.Identifier[]>();
+  // Plain calls made directly in a setup body, pending indirect resolution
   const trackedFnCalls: TSESTree.CallExpression[] = [];
   const violations: SetStateViolation[] = [];
 
@@ -45,21 +52,26 @@ export function inferViolations(context: RuleContext, facts: SetStateInEffectFac
     if (!resolver.isSetStateCall(node)) {
       // A plain call made directly in the setup body may reach a setState
       // through a local function or hook callback; track it for resolution
-      if (setupFunction != null && enclosingFunction === setupFunction) {
-        trackedFnCalls.push(node);
-      }
+      if (setupFunction == null) continue;
+      if (enclosingFunction !== setupFunction) continue;
+      trackedFnCalls.push(node);
       continue;
     }
-    if (enclosingFunctionKind === "deferred") {
-      // do nothing, this is a deferred setState call
-      continue;
-    }
-    // dprint-ignore
-    const isDirectlyInSetup = setupFunction != null && (enclosingFunction === setupFunction || enclosingFunctionKind === "immediate" && Traverse.findParent(enclosingFunction, Check.isFunction) === setupFunction);
+    // Deferred setState calls (async functions, `.then` callbacks) are treated
+    // as running after the setup has returned
+    if (enclosingFunctionKind === "deferred") continue;
+    // The function synchronously containing the call: the enclosing function
+    // itself, or the function an IIFE is immediately invoked in
+    const syncEnclosingFunction = enclosingFunctionKind === "immediate"
+      ? Traverse.findParent(enclosingFunction, Check.isFunction)
+      : enclosingFunction;
+    const isDirectlyInSetup = setupFunction != null && syncEnclosingFunction === setupFunction;
     if (isDirectlyInSetup) {
       const args0 = node.arguments.at(0);
       // setState() without arguments, which is invalid but other tools will report it
       if (args0 == null) continue;
+      // Ref-derived values and ref-gated calls are legitimate (ex: storing DOM
+      // measurements in state)
       if (isArgumentUsingRefValue(context, args0)) continue;
       if (isRefGatedContext(context, node)) continue;
       violations.push({
@@ -68,6 +80,8 @@ export function inferViolations(context: RuleContext, facts: SetStateInEffectFac
       });
       continue;
     }
+    // Group the remaining setState calls by their container so that indirect
+    // resolution can look them up later
     const init = Traverse.findParent(node, isHookDecl)?.init;
     if (init == null) {
       getOrInsertComputed(setStateCallsByFn, enclosingFunction, () => []).push(node);
@@ -127,9 +141,12 @@ export function inferViolations(context: RuleContext, facts: SetStateInEffectFac
   // (ex: `updateEdges(ref.current)` where `updateEdges = (el) => ...`)
   const getRefDerivedParams = (call: TSESTree.CallExpression, callee: TSESTree.Identifier) => {
     const origin = resolveOrigin(context, callee);
-    if (origin == null || !Check.isFunction(origin)) return undefined;
+    if (origin == null) return undefined;
+    if (!Check.isFunction(origin)) return undefined;
     const refParams = new Set<TSESTree.Node>();
     origin.params.forEach((param, index) => {
+      // Resolve the parameter identifier, including defaulted parameters
+      // (ex: `(el = defaultEl) => ...`)
       const paramId = param.type === AST.Identifier
         ? param
         : param.type === AST.AssignmentPattern && param.left.type === AST.Identifier
@@ -137,6 +154,7 @@ export function inferViolations(context: RuleContext, facts: SetStateInEffectFac
         : null;
       if (paramId == null) return;
       const arg = call.arguments.at(index);
+      // A spread argument does not map to a single parameter position
       if (arg == null || arg.type === AST.SpreadElement) return;
       if (isArgumentUsingRefValue(context, arg)) refParams.add(paramId);
     });
@@ -170,6 +188,8 @@ export function inferViolations(context: RuleContext, facts: SetStateInEffectFac
       violations.push({ name: call.name, node: call });
     }
   }
+  // Resolve the plain calls made directly in setup bodies to the setState
+  // calls they reach through local functions and hook callbacks
   for (const trackedCall of trackedFnCalls) {
     const unwrappedCallee = Extract.unwrap(trackedCall.callee);
     if (!Check.isIdentifier(unwrappedCallee)) {
@@ -184,6 +204,8 @@ export function inferViolations(context: RuleContext, facts: SetStateInEffectFac
       });
     }
   }
+  // Resolve the identifiers passed as the setup argument of an effect
+  // (ex: `useEffect(setup, [])`)
   for (const id of facts.setupIdentifiers) {
     for (const setStateCall of getSetStateCalls(id)) {
       if (isExemptSetStateCall(setStateCall)) continue;

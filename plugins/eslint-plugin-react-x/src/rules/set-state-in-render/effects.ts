@@ -23,6 +23,8 @@ export function inferViolations(context: RuleContext, facts: SetStateInRenderFac
   const resolver = createSetStateResolver(context);
   const getText = (n: TSESTree.Node) => context.sourceCode.getText(n);
 
+  // Collect the start positions of early returns per component so that a
+  // setState call positioned after one is known to be conditionally guarded
   const earlyReturnPositions = new Map<TSESTreeFunction, number[]>();
   for (const { componentFunction, node } of facts.earlyReturns) {
     getOrInsertComputed(earlyReturnPositions, componentFunction, () => []).push(node.range[0]);
@@ -37,7 +39,10 @@ export function inferViolations(context: RuleContext, facts: SetStateInRenderFac
     // Allow setState inside conditional blocks
     if (isInsideConditional(node, componentFunction)) continue;
     // Allow setState after an early return (it is conditionally guarded by the early return)
-    if (earlyReturnPositions.get(componentFunction)?.some((pos) => pos < node.range[0]) === true) continue;
+    const isGuardedByEarlyReturn = earlyReturnPositions
+      .get(componentFunction)
+      ?.some((pos) => pos < node.range[0]) === true;
+    if (isGuardedByEarlyReturn) continue;
     violations.push({
       name: getText(Extract.unwrap(node.callee)),
       node,

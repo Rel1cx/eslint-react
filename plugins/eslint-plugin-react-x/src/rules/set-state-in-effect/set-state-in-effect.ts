@@ -27,14 +27,18 @@ export default createRule<[], MessageID>({
 });
 
 export function create(context: RuleContext<MessageID, []>): RuleListener {
+  // Fast path: skip if no effect hook usage is present in the file
   if (!/use\w*Effect/u.test(context.sourceCode.text)) return {};
   const { additionalEffectHooks, additionalStateHooks } = getSettingsFromContext(context);
-  const facts = createFactCollector(additionalStateHooks, additionalEffectHooks);
+  const { facts, visitor } = createFactCollector(additionalStateHooks, additionalEffectHooks);
   return merge(
-    facts.visitor,
+    visitor,
     {
+      // Defer inference until the whole file has been traversed so that
+      // forward references (ex: a setup identifier declared after the effect)
+      // are resolved against complete facts
       "Program:exit"() {
-        for (const violation of inferViolations(context, facts.facts)) {
+        for (const violation of inferViolations(context, facts)) {
           context.report({
             data: { name: violation.name },
             messageId: "default",
