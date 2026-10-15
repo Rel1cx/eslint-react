@@ -1,6 +1,6 @@
 import type { TSESTreeJSXElementLike } from "@eslint-react/ast";
 import { or } from "@local/eff";
-import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
+import type { TSESTree } from "@typescript-eslint/types";
 import { isEmptyExpressionContainer, isEmptyStringExpression, isPaddingWhitespace, isWhitespaceText } from "./text";
 
 /**
