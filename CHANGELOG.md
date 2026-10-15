@@ -1,5 +1,28 @@
 # Changelog
 
+## v5.27.1 (2026-10-15)
+
+### 🐞 Fixes
+
+- Lifecycle methods defined as class properties (ex: `componentDidMount = () => { this.setState(...) }`, including type-expression-wrapped values) are now reported just like the method shorthand form. (#2039) Affected rules:
+  - `react-x/no-set-state-in-component-did-mount`
+  - `react-x/no-set-state-in-component-did-update`
+  - `react-x/no-set-state-in-component-will-update`
+- Effect cleanups are now recognized when the `useEffect` call is nested in an outer `return` (ex: `return useEffect(() => () => { ... })`), so resources released there are no longer reported as leaked. (#2039) Affected rules:
+  - `react-web-api/no-leaked-event-listener`
+  - `react-web-api/no-leaked-fetch`
+  - `react-web-api/no-leaked-intersection-observer`
+  - `react-web-api/no-leaked-interval`
+  - `react-web-api/no-leaked-resize-observer`
+  - `react-web-api/no-leaked-timeout`
+
+### 🏗️ Internal
+
+- `@eslint-react/ast`: added the `Check.isFunctionOrClass` and `Check.isTypeOrChainExpression` helpers; parent lookups across `ast`, `core`, and the rules are now bounded at enclosing function/class boundaries. (#2039)
+- `@eslint-react/core`: `isUseEffectSetupCallback` and `isUseEffectCleanupCallback` reimplemented on bounded parent lookups. (#2039)
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.27.0...v5.27.1
+
 ## v5.27.0 (2026-10-15)
 
 ### 🐞 Fixes
