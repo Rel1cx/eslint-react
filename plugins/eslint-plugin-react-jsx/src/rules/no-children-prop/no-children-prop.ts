@@ -3,7 +3,7 @@ import { removeJsxAttribute } from "@/utils/remove-jsx-attribute";
 import { Check } from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, type RuleListener } from "@eslint-react/eslint";
-import { findAttribute } from "@eslint-react/jsx";
+import { findAttribute, hasChildren } from "@eslint-react/jsx";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import type { RuleFix, RuleFixer } from "@typescript-eslint/utils/ts-eslint";
 
@@ -41,6 +41,10 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       const prop = core.getCreateElementProp(context, node, "children");
       if (prop == null) return;
 
+      // `createElement(type, props, ...children)` already has conflicting
+      // children content; that case belongs to 'no-children-prop-with-children'
+      if (core.getCreateElementChildrenArguments(context, node).length > 0) return;
+
       context.report({
         messageId: "default",
         node: prop,
@@ -49,6 +53,10 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
     JSXElement(node) {
       const prop = findAttribute(context, node, "children");
       if (prop == null) return;
+
+      // Nested children content already conflicts with the prop; that case
+      // belongs to 'no-children-prop-with-children'
+      if (hasChildren(node)) return;
 
       // Spread attributes cannot be converted to element content safely,
       // so report without a suggestion
