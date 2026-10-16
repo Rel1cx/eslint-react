@@ -23,7 +23,8 @@ The following presets are available in `@eslint-react/eslint-plugin`:
 
 - `recommended`\
   Enforce rules that are recommended by ESLint React for general-purpose React + React DOM projects.\
-  _This preset includes the `x`, `jsx`, `rsc`, `dom`, `web-api`, and `naming-convention` presets._
+  _This preset includes the `x`, `jsx`, `rsc`, `dom`, `web-api`, and `naming-convention` presets._\
+  _This preset also enables JSX syntax support via `languageOptions.parserOptions.ecmaFeatures.jsx: true`, as do all presets derived from it (`strict`, `recommended-typescript`, `recommended-type-checked`, `strict-typescript`, `strict-type-checked`)._
 
 - `strict`\
   Same as the `recommended` preset but enables additional strict rules.

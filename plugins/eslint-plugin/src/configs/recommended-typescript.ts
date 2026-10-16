@@ -10,3 +10,5 @@ export const rules = {
 export const settings = {
   ...recommended.settings,
 };
+
+export const languageOptions = recommended.languageOptions;

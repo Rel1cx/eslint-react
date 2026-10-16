@@ -1,4 +1,5 @@
 import type { Linter } from "eslint";
+import * as recommended from "./recommended";
 import * as x from "./x";
 
 export const name = "@eslint-react/all";
@@ -94,3 +95,5 @@ export const rules = {
 export const settings = {
   ...x.settings,
 };
+
+export const languageOptions = recommended.languageOptions;
