@@ -254,34 +254,6 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
     },
-    {
-      code: '<div children="Children">Children</div>;',
-      errors: [
-        {
-          messageId: "default",
-          suggestions: [
-            {
-              messageId: "suggest",
-              output: "<div>ChildrenChildren</div>;",
-            },
-          ],
-        },
-      ],
-    },
-    {
-      code: tsx`<div children={<span />}>existing</div>;`,
-      errors: [
-        {
-          messageId: "default",
-          suggestions: [
-            {
-              messageId: "suggest",
-              output: tsx`<div>existing<span /></div>;`,
-            },
-          ],
-        },
-      ],
-    },
     // 'children' passed via spread (reported without suggestion)
     {
       code: '<div {...{ children: "Children" }} />;',
@@ -563,10 +535,6 @@ ruleTester.run(RULE_NAME, rule, {
       code: 'React.createElement("div", { children: React.createElement("span") });',
       errors: [{ messageId: "default" }],
     },
-    {
-      code: 'React.createElement("div", { children: "Children" }, "extra");',
-      errors: [{ messageId: "default" }],
-    },
     // createElement edge cases
     {
       code: 'React.createElement("div", { children: "Children" } as Props);',
@@ -623,6 +591,10 @@ ruleTester.run(RULE_NAME, rule, {
     'React.createElement("div", null, "Children");',
     'React.createElement("div", { className: "x" }, "Children");',
     'createElement("div", null, "Children");',
+    // 'children' prop alongside nested content conflicts, handled by 'no-children-prop-with-children'
+    '<div children="Children">Children</div>;',
+    tsx`<div children={<span />}>existing</div>;`,
+    'React.createElement("div", { children: "Children" }, "extra");',
     // edge cases
     'React.createElement("div", getProps());',
     'React.createElement("div");',
