@@ -13,7 +13,7 @@ describe("findParent", () => {
     expect(parent!.type).toBe(AST.FunctionDeclaration);
   });
 
-  it("should return null when the stop boundary itself matches test (stop wins)", () => {
+  it("should return null when the stop boundary itself matches test (stop takes precedence)", () => {
     const ast = parseCode("function foo() { const x = 1; }").ast;
     const ids = collectNodes<TSESTree.Identifier>(ast, AST.Identifier);
     const [func] = collectNodes<TSESTree.FunctionDeclaration>(ast, AST.FunctionDeclaration);
