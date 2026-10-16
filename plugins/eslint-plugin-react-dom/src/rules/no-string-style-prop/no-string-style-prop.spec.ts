@@ -297,5 +297,7 @@ ruleTester.run(RULE_NAME, rule, {
     tsx`<div style />`,
     // Boundary: JSXAttribute with empty expression container (resolveAttributeValue handles JSXEmptyExpression)
     tsx`<div style={} />`,
+    // Boundary: JSXAttribute with a fragment value (parser-tolerated; resolveAttributeValue reports kind "element")
+    tsx`<div style=<></> />`,
   ],
 });

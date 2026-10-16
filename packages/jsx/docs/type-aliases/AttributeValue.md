@@ -27,7 +27,7 @@ type AttributeValue =
   }
   | {
     kind: "element";
-    node: TSESTree.JSXElement;
+    node: TSESTreeJSXElementLike;
     toStatic(): undefined;
   }
   | {

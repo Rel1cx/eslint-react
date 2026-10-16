@@ -12,8 +12,8 @@ Mirrors Babel's `cleanJSXElementLiteralChild` algorithm:
 
 1. Split the raw text into lines.
 2. Find the last non-empty line.
-3. Trim leading spaces on non-first lines and trailing spaces on non-last lines.
-4. Collapse tabs into spaces.
+3. Collapse tabs into spaces.
+4. Trim leading spaces on non-first lines and trailing spaces on non-last lines.
 5. Append a single space after each non-last non-empty line.
 
 ## Parameters

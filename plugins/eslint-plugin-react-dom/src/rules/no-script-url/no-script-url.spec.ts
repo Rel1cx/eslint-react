@@ -226,5 +226,7 @@ ruleTester.run(RULE_NAME, rule, {
     // Boundary: JSXAttribute with empty expression container
     "<a href={}>Link</a>",
     "<div href={}></div>",
+    // Boundary: JSXAttribute with a fragment value (parser-tolerated; resolveAttributeValue reports kind "element")
+    "<a href=<></> />;",
   ],
 });

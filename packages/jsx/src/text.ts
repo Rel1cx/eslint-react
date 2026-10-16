@@ -6,8 +6,8 @@ import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
  * Mirrors Babel's `cleanJSXElementLiteralChild` algorithm:
  * 1. Split the raw text into lines.
  * 2. Find the last non-empty line.
- * 3. Trim leading spaces on non-first lines and trailing spaces on non-last lines.
- * 4. Collapse tabs into spaces.
+ * 3. Collapse tabs into spaces.
+ * 4. Trim leading spaces on non-first lines and trailing spaces on non-last lines.
  * 5. Append a single space after each non-last non-empty line.
  * @param text The raw JSX text string to collapse.
  * @returns The collapsed string, or `null` when the text contains only whitespace.
@@ -59,6 +59,10 @@ export function collapseMultilineText(text: string): string | null {
  * {@link collapseMultilineText}) and contains a newline.
  *
  * For the looser "any whitespace-only text" check, see {@link isWhitespaceText}.
+ *
+ * Reads the entity-decoded `node.value`; `value` and `raw` differ only when the
+ * text contains HTML entities (ex: `&nbsp;`), which is never whitespace-only,
+ * so reading either field yields the same result here.
  * @param node The JSX child node to check.
  * @returns `true` if the node is purely formatting whitespace.
  */
@@ -72,6 +76,10 @@ export function isPaddingWhitespace(node: TSESTree.JSXChild): boolean {
  *
  * Looser variant of {@link isPaddingWhitespace}; matches every `JSXText` node
  * whose raw content is empty after trimming, regardless of newlines.
+ *
+ * Reads `node.raw` rather than the entity-decoded `value`; for whitespace-only
+ * text the two are identical (an entity is never whitespace), matching React's
+ * behavior of rendering entity text like `&nbsp;` as a real text node.
  * @param node The JSX child node to check.
  * @returns `true` if the node is a whitespace-only `JSXText`.
  */
@@ -85,6 +93,9 @@ export function isWhitespaceText(node: TSESTree.JSXChild): boolean {
  *
  * An empty `JSXExpressionContainer` holds no expression, so it produces no DOM
  * node and is treated as non-rendered content, same as whitespace padding.
+ *
+ * Not re-exported from the package entry point (`index.ts`) by design; it is
+ * shared internally with `children.ts`.
  * @param node The JSX child node to check.
  * @returns `true` if the node is an empty `JSXExpressionContainer`.
  */
