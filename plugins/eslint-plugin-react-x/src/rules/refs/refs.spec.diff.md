@@ -89,6 +89,12 @@ a render-time read.
 A second allowed initialization of the same scoped ref identity is reported as `duplicate-ref-init`,
 including initialization through an alias and initialization after an inverted early-return guard.
 
+**Remaining difference — duplicate tracking.** This render-boundary-wide, per-ref check is IMPL-only.
+The current React pass has no per-ref initialized set or separate duplicate-initialization diagnostic.
+Each null guard can create a `safeBlocks` region, and a permitted write consumes that region's safe entry.
+The IMPL's cross-guard `duplicate-ref-init` is therefore a stricter extension, not a behavior established
+by the reviewed React source or fixtures.
+
 The IMPL tests lock the exact operators listed above. React fixtures lock representative direct
 nullish equality guards, but the current HIR validator marks a `BinaryExpression` as a ref guard whenever
 one operand is `RefValue` and the other is `Nullable`; that branch does not inspect the operator. Therefore
@@ -142,15 +148,15 @@ The React fixture `error.invalid-set-and-read-ref-nested-property-during-render`
 
 ## 7. Error reporting
 
-| Situation                        | Message                                                        |
-| -------------------------------- | -------------------------------------------------------------- |
-| Read during render               | `Cannot access refs during render`                             |
-| Write during render              | `Cannot update ref during render`                              |
-| Ref passed to function           | `Passing a ref to a function may read its value during render` |
-| Duplicate guarded initialization | `Ref is initialized more than once during render...`           |
+| Situation                                    | Message                                                        |
+| -------------------------------------------- | -------------------------------------------------------------- |
+| Read during render                           | `Cannot access refs during render`                             |
+| Write during render                          | `Cannot update ref during render`                              |
+| Ref passed to function                       | `Passing a ref to a function may read its value during render` |
+| Duplicate guarded initialization (IMPL-only) | `Ref is initialized more than once during render...`           |
 
-The compiler can attach multiple locations to one diagnostic. ESLint reports the duplicate
-initialization at the second initialization site.
+The first three rows map to current React diagnostics. The duplicate row is IMPL-only and is reported at
+the second initialization site. React diagnostics can attach multiple locations to one diagnostic.
 
 ## 8. Known remaining gaps
 

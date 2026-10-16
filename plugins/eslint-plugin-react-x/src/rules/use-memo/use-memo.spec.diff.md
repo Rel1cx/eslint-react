@@ -46,12 +46,12 @@ Both sides check `callback.async || callback.generator`.
 
 The SPEC detects this via HIR `StoreContext` instructions targeting closure-captured context variables. The IMPL uses ESLint scope analysis on assignment write targets, distinguishing local from outer variables. Write targets are collected from plain assignments, destructuring patterns (`({ a } = source)`, `[a] = source`), and `for...in`/`for...of` loop targets without a declaration (`for (x of items)`).
 
-Key IMPL differences:
+Two implementation boundaries are shared by the current SPEC pass rather than being compatibility gaps:
 
-- Assignments inside nested functions are explicitly excluded.
-- Property mutations (e.g., `ref.current = ...`) are ignored; only direct identifier targets (`x = ...`, including identifiers reached through destructuring patterns and loop targets) are flagged.
+- Assignments inside nested functions are excluded. `validateNoContextVariableAssignment` scans only the callback's own HIR blocks and does not recursively validate lowered nested functions.
+- Property mutations (e.g., `ref.current = ...`) are ignored; only direct identifier targets (`x = ...`, including identifiers reached through destructuring patterns and loop targets) are flagged. The SPEC check likewise handles `StoreContext`, not `PropertyStore` or `ComputedStore`.
 
-**Verdict**: The IMPL checks a narrower set of AST assignments; this is not equivalent to the SPEC's `StoreContext` check.
+**Verdict**: The AST and HIR mechanisms are not equivalent, but these two exclusions are not IMPL-only gaps. The cited source and fixture establish direct outer-variable reassignment coverage without establishing a broader nested-function or property-mutation check on either side.
 
 ### Rule 4: Must return a value
 
@@ -85,13 +85,13 @@ Each ESLint message combines the corresponding React diagnostic reason and descr
 
 1. **Missing Configuration Toggle**: The IMPL does not support `validateNoVoidUseMemo`; Rule 4 and Rule 5 are always enforced.
 2. **Verified Rule 4 Semantic Gap**: React accepts `useMemo(() => { return; })` at the verified commit, while the IMPL reports `must-return-a-value`.
-3. **Rule 3 Scope Difference**: The IMPL excludes property mutations and assignments inside nested functions; its AST check is narrower than React's `StoreContext` check.
-4. **Rule 5 Detection Difference**: React performs basic operand-reference tracking, while the IMPL uses an immediate-parent allow-list. The non-equivalent checks can produce false positives or false negatives.
+3. **Rule 5 Detection Difference**: React performs basic operand-reference tracking, while the IMPL uses an immediate-parent allow-list. The non-equivalent checks can produce false positives or false negatives.
 
 ## 5. Verification boundaries
 
 ### Source-verified
 
+- React's Rule 3 check scans only the callback's own HIR blocks and handles `StoreContext`, not property-store instructions; the nested-function and property-mutation exclusions are shared with the IMPL.
 - React gates Rules 4 and 5 on `validateNoVoidUseMemo`; the IMPL enforces both unconditionally.
 - React's `hasNonVoidReturn` accepts `Explicit` and `Implicit` return variants without checking for a returned value; the IMPL requires a non-null `ReturnStatement.argument` for block-bodied callbacks.
 - React's unused-result check is basic instruction/terminal operand-reference tracking, not full SSA liveness.
