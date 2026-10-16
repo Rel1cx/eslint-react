@@ -2,6 +2,24 @@
 title: Changelog
 ---
 
+## v5.28.0 (2026-10-16)
+
+### ✨ New
+
+- `@eslint-react/eslint-plugin`: the general-purpose presets now enable JSX syntax support via `languageOptions.parserOptions.ecmaFeatures.jsx: true`, so you no longer need to configure it yourself. (#2049) Affected presets:
+  - `recommended`
+  - `recommended-typescript`
+  - `recommended-type-checked`
+  - `strict`
+  - `strict-typescript`
+  - `strict-type-checked`
+
+### 🏗️ Internal
+
+- Bumped `fumadocs-core` and `fumadocs-ui` to `16.17.5`, and `lucide-react` to `1.58.0`.
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.27.4...v5.28.0
+
 ## v5.27.4 (2026-10-16)
 
 ### 🐞 Fixes
