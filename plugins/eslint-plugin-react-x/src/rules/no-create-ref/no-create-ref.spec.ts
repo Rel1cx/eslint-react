@@ -61,7 +61,7 @@ ruleTester.run(RULE_NAME, rule, {
         messageId: "default",
       }],
     },
-    // 命名空间调用 React.createRef() 在函数组件内也应被报告
+    // Namespace access via the default React import is also a `createRef` call
     {
       code: tsx`
         import React from 'react';
@@ -134,7 +134,7 @@ ruleTester.run(RULE_NAME, rule, {
         messageId: "default",
       }],
     },
-    // 自定义 hook 内使用 createRef 应被报告
+    // Function-declared custom Hook
     {
       code: tsx`
         import { createRef } from 'react';
@@ -149,7 +149,7 @@ ruleTester.run(RULE_NAME, rule, {
         messageId: "default",
       }],
     },
-    // 箭头函数定义的自定义 hook 内使用 createRef 应被报告
+    // Arrow-function custom Hook
     {
       code: tsx`
         import { createRef } from 'react';
@@ -164,7 +164,7 @@ ruleTester.run(RULE_NAME, rule, {
         messageId: "default",
       }],
     },
-    // 同一个组件内多次调用 createRef 应分别报告
+    // Each call in the same component gets its own report
     {
       code: tsx`
         import { createRef } from 'react';
@@ -181,7 +181,7 @@ ruleTester.run(RULE_NAME, rule, {
         { messageId: "default" },
       ],
     },
-    // 组件内嵌套的辅助函数中使用 createRef 仍应被报告(位于组件作用域内)
+    // Call nested in a helper declared inside the component
     {
       code: tsx`
         import { createRef } from 'react';
@@ -216,7 +216,7 @@ ruleTester.run(RULE_NAME, rule, {
         inputRef = createRef();
       }
     `,
-    // 非 React 组件类中使用 createRef 不应被报告（类中无法使用 useRef hook）
+    // Plain classes are neither function components nor Hooks
     tsx`
       import React from 'react';
 
@@ -243,19 +243,19 @@ ruleTester.run(RULE_NAME, rule, {
         tooltipRef = createRef<HTMLElement>();
       }
     `,
-    // 模块顶层使用 createRef 不应被报告(不在函数组件或 hook 内)
+    // Module top-level sits outside any component or Hook
     tsx`
       import { createRef } from 'react';
 
       const ref = createRef();
     `,
-    // 命名空间调用 React.createRef() 在模块顶层不应被报告
+    // Namespace access at module top-level
     tsx`
       import React from 'react';
 
       const ref = React.createRef<HTMLElement>();
     `,
-    // 普通工具函数(非组件、非 hook)中使用 createRef 不应被报告
+    // Lowercase utility function, not a Hook
     tsx`
       import { createRef } from 'react';
 
@@ -263,7 +263,7 @@ ruleTester.run(RULE_NAME, rule, {
         return createRef();
       }
     `,
-    // 箭头函数形式的普通工具函数中使用 createRef 不应被报告
+    // Lowercase arrow utility, not a Hook
     tsx`
       import { createRef } from 'react';
 

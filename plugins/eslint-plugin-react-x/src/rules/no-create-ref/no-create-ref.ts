@@ -26,11 +26,13 @@ export default createRule<[], MessageID>({
 });
 
 export function create(context: RuleContext<MessageID, []>): RuleListener {
+  // Fast path: skip files that never mention `createRef`
   if (!context.sourceCode.text.includes("createRef")) return {};
 
   const fc = core.getFunctionComponentCollector(context);
   const hc = core.getHookCollector(context);
 
+  // `createRef` calls gathered during traversal, checked once the whole program is known
   const facts = new Set<TSESTree.CallExpression>();
 
   return merge(
@@ -46,7 +48,8 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         const hooks = hc.api.getAllHooks(node);
         const funcs = [...comps, ...hooks];
         for (const call of facts) {
-          // Only report if the call is within a function component or Hook
+          // Report only calls nested in a function component or Hook; calls in class
+          // components, at module top-level, or in utility functions are allowed
           if (!Traverse.hasParent(call, (n) => funcs.some((f) => f.node === n))) continue;
           context.report({ messageId: "default", node: call });
         }
