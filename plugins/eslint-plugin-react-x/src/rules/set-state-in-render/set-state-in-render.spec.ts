@@ -339,6 +339,44 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [{ data: { name: "setState" }, messageId: "default" }],
     },
+    // setState after a loop with break/continue (from React Compiler's
+    // error.unconditional-set-state-in-render-after-loop-break.js)
+    {
+      code: tsx`
+        function Component(props) {
+          const [state, setState] = useState(false);
+          for (const _ of props) {
+            if (props.cond) {
+              break;
+            } else {
+              continue;
+            }
+          }
+          setState(true);
+          return state;
+        }
+      `,
+      errors: [{ data: { name: "setState" }, messageId: "default" }],
+    },
+    // setState after a loop with break/throw (from React Compiler's
+    // error.unconditional-set-state-in-render-with-loop-throw.js)
+    {
+      code: tsx`
+        function Component(props) {
+          const [state, setState] = useState(false);
+          for (const _ of props) {
+            if (props.cond) {
+              break;
+            } else {
+              throw new Error("bye!");
+            }
+          }
+          setState(true);
+          return state;
+        }
+      `,
+      errors: [{ data: { name: "setState" }, messageId: "default" }],
+    },
     {
       code: tsx`
         function Component() {

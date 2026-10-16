@@ -932,6 +932,33 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [{ messageId: "write-during-render" }],
     },
+    // Ported from react/compiler/packages/babel-plugin-react-compiler/src/__tests__/fixtures/compiler/error.ref-initialization-post-access.js
+    // A guarded initialization does not exempt a later unguarded write.
+    {
+      code: tsx`
+        function Component() {
+          const r = useRef(null);
+          if (r.current == null) {
+            r.current = 1;
+          }
+          r.current = 1;
+        }
+      `,
+      errors: [{ messageId: "write-during-render" }],
+    },
+    // Ported from react/compiler/packages/babel-plugin-react-compiler/src/__tests__/fixtures/compiler/error.ref-initialization-call.js
+    // The null guard only exempts initialization writes, not reads of the ref value.
+    {
+      code: tsx`
+        function Component() {
+          const r = useRef(null);
+          if (r.current == null) {
+            f(r.current);
+          }
+        }
+      `,
+      errors: [{ messageId: "read-during-render" }],
+    },
     // error.invalid-ref-in-callback-invoked-during-render
     // `renderItem` is reached through the synchronous callback passed to `.map()`.
     {

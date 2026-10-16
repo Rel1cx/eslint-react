@@ -1148,5 +1148,30 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
     },
+    // Derived from react/compiler/packages/babel-plugin-react-compiler/src/__tests__/fixtures/compiler object-expression-captures-function-with-global-mutation.js
+    {
+      code: tsx`
+        function Foo() {
+          const x = () => {
+            window.href = "foo";
+          };
+          const y = { x };
+          return <Bar y={y} />;
+        }
+      `,
+    },
+    // Derived from react/compiler/packages/babel-plugin-react-compiler/src/__tests__/fixtures/compiler update-global-in-callback.tsx
+    {
+      code: tsx`
+        let renderCount = 0;
+        function Foo() {
+          const cb = () => {
+            renderCount += 1;
+            return renderCount;
+          };
+          return <Stringify cb={cb} shouldInvokeFns={true} />;
+        }
+      `,
+    },
   ],
 });

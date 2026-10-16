@@ -349,6 +349,29 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
     },
+    // Nested component inside an IIFE (from React Compiler's outlined-function-in-iife.js)
+    {
+      code: tsx`
+        function Component() {
+          return (function() {
+            function Inner() {
+              return <div onClick={() => null} />;
+            }
+            return <Inner />;
+          })();
+        }
+      `,
+      errors: [
+        {
+          data: { name: "Inner" },
+          messageId: "created-here",
+        },
+        {
+          data: { name: "Inner" },
+          messageId: "default",
+        },
+      ],
+    },
     // Component tag function that does not return JSX (from React Compiler fixtures)
     {
       code: tsx`

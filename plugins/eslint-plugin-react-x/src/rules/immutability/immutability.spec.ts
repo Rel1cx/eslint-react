@@ -2947,5 +2947,31 @@ ruleTester.run(RULE_NAME, rule, {
         return <div />;
       }
     `,
+    // Derived from react/compiler/packages/babel-plugin-react-compiler/src/__tests__/fixtures/compiler repro-false-positive-ref-validation-in-use-effect.js
+    // Mutating a local shallow copy inside a deferred callback does not make the
+    // callback a known-mutable function passed to a freeze sink.
+    tsx`
+      import { useCallback, useEffect, useRef } from "react";
+
+      function Component() {
+        const params = useHook();
+        const update = useCallback((partialParams) => {
+          const nextParams = {
+            ...params,
+            ...partialParams,
+          };
+          nextParams.param = "value";
+          console.log(nextParams);
+        }, [params]);
+        const ref = useRef(null);
+        useEffect(() => {
+          if (ref.current === null) {
+            update();
+          }
+        }, [update]);
+
+        return "ok";
+      }
+    `,
   ],
 });

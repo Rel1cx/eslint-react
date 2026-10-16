@@ -2472,6 +2472,69 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
     },
+    // Derived from react/compiler/packages/babel-plugin-react-compiler/src/__tests__/fixtures/compiler/set-state-after-await-in-effect.js
+    {
+      name: "setState after await in an async function called by an effect",
+      code: tsx`
+        import { useEffect, useState } from "react";
+
+        function Component() {
+          const [ready, setReady] = useState(false);
+          const load = async () => {
+            await Promise.resolve();
+            setReady(true);
+          };
+          useEffect(() => {
+            load();
+          }, [load]);
+          return ready ? "Ready" : "Loading";
+        }
+      `,
+    },
+    // Derived from react/compiler/packages/babel-plugin-react-compiler/src/__tests__/fixtures/compiler/invalid-setState-in-useEffect-before-await.js
+    // The Compiler reports the pre-await setter; the IMPL currently skips the
+    // entire async function body, as documented in set-state-in-effect.spec.diff.md.
+    {
+      name: "setState before await in an async function called by an effect",
+      code: tsx`
+        import { useEffect, useState } from "react";
+
+        function Component() {
+          const [ready, setReady] = useState(false);
+          const load = async () => {
+            setReady(true);
+            await Promise.resolve();
+          };
+          useEffect(() => {
+            load();
+          }, [load]);
+          return ready ? "Ready" : "Loading";
+        }
+      `,
+    },
+    // Derived from react/compiler/packages/babel-plugin-react-compiler/src/__tests__/fixtures/compiler/invalid-setState-in-useEffect-after-conditional-await.js
+    // The Compiler reports the path that bypasses the conditional await; the
+    // IMPL currently skips the entire async function body.
+    {
+      name: "setState after conditional await in an async function called by an effect",
+      code: tsx`
+        import { useEffect, useState } from "react";
+
+        function Component({ delay }) {
+          const [ready, setReady] = useState(false);
+          const load = async () => {
+            if (delay) {
+              await Promise.resolve();
+            }
+            setReady(true);
+          };
+          useEffect(() => {
+            load();
+          }, [load]);
+          return ready ? "Ready" : "Loading";
+        }
+      `,
+    },
     {
       name: "setState with ref.current inside a nested call argument (conditional branch)",
       code: tsx`
