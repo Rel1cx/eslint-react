@@ -2,6 +2,14 @@
 title: Changelog
 ---
 
+## v5.27.4 (2026-10-16)
+
+### 🐞 Fixes
+
+- `@eslint-react/jsx`: `resolveAttributeValue` now handles a parser-tolerated `JSXFragment` in attribute value position (ex: `<a href=<></> />`), reporting it as kind `"element"` instead of falling through to `undefined`; as a result, `react-dom/no-missing-iframe-sandbox` now reports `<iframe sandbox=<></> />` instead of silently skipping it. (#2048)
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.27.3...v5.27.4
+
 ## v5.27.3 (2026-10-16)
 
 ### 🐞 Fixes

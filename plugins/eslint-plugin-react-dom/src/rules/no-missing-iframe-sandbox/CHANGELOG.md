@@ -5,6 +5,12 @@ All notable changes to the `react-dom/no-missing-iframe-sandbox` rule will be do
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [5.27.4] - 2026-10-16
+
+### Fixed
+
+- Fixed a false negative where a parser-tolerated fragment in the `sandbox` attribute value position (e.g. `<iframe sandbox=<></> />`) fell through attribute value resolution and was silently skipped; it is now resolved as an element value and reported like any other non-string `sandbox` value. (#2048)
+
 ## [5.20.2] - 2026-09-20
 
 ### Fixed
