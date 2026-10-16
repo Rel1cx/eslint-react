@@ -2,6 +2,27 @@
 title: Changelog
 ---
 
+## v5.27.3 (2026-10-16)
+
+### 🐞 Fixes
+
+- `react-jsx/no-key-after-spread`: the fast-path text check now matches `key` assignments with whitespace around `=` (ex: `<div {...props} key = {id} />` or a newline before `=`), so such elements are no longer silently skipped. (#2043) Thanks to @amir-rahmanii!
+- `react-jsx/no-children-prop`: a `children` prop alongside nested children content (ex: `<div children="x">y</div>`, `createElement("div", { children: "x" }, "y")`) is no longer reported by this rule — that conflict case belongs to `react-jsx/no-children-prop-with-children` — removing the unsafe merge suggestion and the duplicate diagnostics. (#2044) Thanks to @amir-rahmanii!
+- `react-jsx/no-children-prop-with-children`: empty expression containers (ex: `{}`, `{/* comment */}`) are no longer treated as meaningful children, so `<div children="x">{/* comment */}</div>` is no longer reported. (#2045) Thanks to @amir-rahmanii!
+
+### 📝 Documentation
+
+- `react-naming-convention/ref-name`: corrected the `additionalRefHooks` example to use the `/pattern/flags` RegExp string form; a bare `(a|b)` string is treated as exact equality and never matches. (#2042) Thanks to @amir-rahmanii!
+- The settings docs examples for the additional hooks settings now use full RegExp strings. (#2047)
+
+### 🏗️ Internal
+
+- `@eslint-react/jsx`: `hasChildren` now treats empty expression containers as non-meaningful, aligned with `getChildren`. (#2045)
+- `react-x`: refactored the internals of `set-state-in-effect`, `set-state-in-render`, and `static-components` for readability; no behavior change. (#2041)
+- Bumped `vitest` to `5.0.5`, `next` to `16.4.2`, `fumadocs-core` and `fumadocs-ui` to `16.17.4`, and `undici` to `8.12.2`.
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.27.2...v5.27.3
+
 ## v5.27.2 (2026-10-15)
 
 ### 🏗️ Internal

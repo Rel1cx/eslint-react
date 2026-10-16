@@ -5,6 +5,12 @@ All notable changes to the `react-jsx/no-children-prop-with-children` rule will 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [5.27.3] - 2026-10-16
+
+### Fixed
+
+- Empty expression containers (ex: `{}`, `{/* comment */}`) are no longer treated as meaningful children, so `<div children="x">{/* comment */}</div>` is no longer reported. (#2045)
+
 ## [5.17.0] - 2026-07-17
 
 ### Changed

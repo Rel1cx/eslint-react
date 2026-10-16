@@ -5,6 +5,12 @@ All notable changes to the `react-jsx/no-children-prop` rule will be documented 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [5.27.3] - 2026-10-16
+
+### Fixed
+
+- A `children` prop alongside nested children content (ex: `<div children="x">y</div>`, `createElement("div", { children: "x" }, "y")`) is no longer reported by this rule; that conflict case belongs to `react-jsx/no-children-prop-with-children`. This removes the unsafe merge suggestion (ex: `<div>yx</div>`) and the duplicate diagnostics for such code. (#2044)
+
 ## [5.17.0] - 2026-07-17
 
 ### Changed
