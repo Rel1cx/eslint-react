@@ -162,6 +162,21 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [{ messageId: "no-async-or-generator-functions" }],
     },
+    // Generator callback without a return (from React Compiler's error.useMemo-callback-generator.js)
+    {
+      code: tsx`
+        function component(a, b) {
+          let x = useMemo(function* () {
+            yield a;
+          }, []);
+          return x;
+        }
+      `,
+      errors: [
+        { messageId: "no-async-or-generator-functions" },
+        { messageId: "must-return-a-value" },
+      ],
+    },
     // Callback with both parameter and missing return
     {
       code: tsx`
@@ -1218,6 +1233,23 @@ ruleTester.run(RULE_NAME, rule, {
           return outer;
         }, []);
         return [outer, y];
+      }
+    `,
+    // Local reassignment inside a nested forEach callback (adapted from React
+    // Compiler's reassign-variable-in-usememo.js Flow fixture)
+    tsx`
+      import { useMemo } from "react";
+
+      function useItemLanguage(items) {
+        return useMemo(() => {
+          let language = null;
+          items.forEach(item => {
+            if (item.language != null) {
+              language = item.language;
+            }
+          });
+          return language;
+        }, [items]);
       }
     `,
     // useMemo in conditional expression (parent is ConditionalExpression, should not crash)

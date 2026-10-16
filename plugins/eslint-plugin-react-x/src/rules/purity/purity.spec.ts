@@ -1003,6 +1003,22 @@ ruleTester.run(RULE_NAME, rule, {
         { messageId: "default" },
       ],
     },
+    // Ported from react/compiler/packages/babel-plugin-react-compiler/src/__tests__/fixtures/compiler/error.invalid-new-date-in-render.js
+    {
+      code: tsx`
+        function Component() {
+          const date = new Date();
+          const time = new Date().getTime();
+          const year = new Date().getFullYear();
+          return <Foo date={date} time={time} year={year} />;
+        }
+      `,
+      errors: [
+        { messageId: "default" },
+        { messageId: "default" },
+        { messageId: "default" },
+      ],
+    },
     // Ported from react/compiler/packages/babel-plugin-react-compiler/src/__tests__/fixtures/compiler/packages/babel-plugin-react-compiler/src/__tests__/fixtures/compiler/timers
     {
       code: tsx`

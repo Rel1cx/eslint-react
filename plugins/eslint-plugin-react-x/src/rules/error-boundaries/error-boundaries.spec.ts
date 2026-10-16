@@ -259,6 +259,34 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [{ messageId: "try-catch-with-jsx" }],
     },
+    // Derived from react/compiler/packages/babel-plugin-react-compiler/src/__tests__/fixtures/compiler try-catch-optional-call.js
+    {
+      code: tsx`
+        function Component({ obj, arg }) {
+          try {
+            const result = obj?.method?.(arg.value);
+            return <span>{result ?? "no result"}</span>;
+          } catch {
+            return <span>error</span>;
+          }
+        }
+      `,
+      errors: [{ messageId: "try-catch-with-jsx" }],
+    },
+    // Derived from react/compiler/packages/babel-plugin-react-compiler/src/__tests__/fixtures/compiler try-catch-nested-optional-chaining.js
+    {
+      code: tsx`
+        function Component({ data, fallback }) {
+          try {
+            const value = data?.nested?.deeply?.value ?? fallback.default;
+            return <div>{value}</div>;
+          } catch {
+            return <div>error</div>;
+          }
+        }
+      `,
+      errors: [{ messageId: "try-catch-with-jsx" }],
+    },
     // JSX in catch block nested inside outer try - should report outer try
     {
       code: tsx`
