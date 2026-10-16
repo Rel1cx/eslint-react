@@ -28,8 +28,8 @@ export default createRule<[], MessageID>({
 });
 
 export function create(context: RuleContext<MessageID, []>): RuleListener {
-  // Fast path: skip if 'key=' is not present in the file
-  if (!context.sourceCode.text.includes("key=")) return {};
+  // Fast path: skip if 'key' is never assigned in the file
+  if (!/key\s*=/.test(context.sourceCode.text)) return {};
   const { jsx } = core.getJsxConfig(context);
   if (jsx !== ts.JsxEmit.ReactJSX && jsx !== ts.JsxEmit.ReactJSXDev) return {};
   return {
