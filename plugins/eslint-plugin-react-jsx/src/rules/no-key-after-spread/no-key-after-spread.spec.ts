@@ -57,6 +57,25 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [{ messageId: "default" }],
     },
+    // Whitespace around '=' must still be detected by fast path
+    {
+      code: tsx`
+        const App = (props) => {
+          return <div {...props} key = {props.id}>1</div>;
+        };
+      `,
+      errors: [{ messageId: "default" }],
+    },
+    // Newline before '=' must still be detected by fast path
+    {
+      code: tsx`
+        const App = (props) => {
+          return <div {...props} key
+          ={props.id}>1</div>;
+        };
+      `,
+      errors: [{ messageId: "default" }],
+    },
   ],
   valid: [
     // Key before spread (valid)
