@@ -129,6 +129,16 @@ describe("resolveAttributeValue", () => {
     expect(value.kind).toBe("literal");
     expect(value.toStatic()).toBe("x");
   });
+
+  it("resolves a JSX fragment value as an element", () => {
+    // @typescript-eslint/parser tolerates a fragment in attribute value
+    // position even though the TSESTree union excludes `JSXFragment`.
+    const { context, element } = parseJsxElement("<a href=<></> />;");
+    const value = resolveAttributeValue(context, getAttribute(element));
+    expect(value.kind).toBe("element");
+    expect(value.node?.type).toBe(AST.JSXFragment);
+    expect(value.toStatic()).toBeUndefined();
+  });
 });
 
 describe("getAttributeValue", () => {
@@ -142,6 +152,13 @@ describe("getAttributeValue", () => {
     const value = getAttributeValue(context, element, "className");
     expect(value?.kind).toBe("literal");
     expect(value?.toStatic()).toBe("x");
+  });
+
+  it("resolves a fragment-valued attribute instead of treating it as absent", () => {
+    const { context, element } = parseJsxElement("<a href=<></> />;");
+    const value = getAttributeValue(context, element, "href");
+    expect(value?.kind).toBe("element");
+    expect(value?.toStatic()).toBeUndefined();
   });
 
   it("resolves the named property of a spread attribute", () => {
@@ -181,6 +198,13 @@ describe("getAttributeStaticValue", () => {
   it("respects later-props-win semantics", () => {
     const { context, element } = parseJsxElement(
       'const props = { className: "first" }; <div {...props} className="second" />;',
+    );
+    expect(getAttributeStaticValue(context, element, "className")).toBe("second");
+  });
+
+  it("respects later-props-win semantics when the spread comes last", () => {
+    const { context, element } = parseJsxElement(
+      'const props = { className: "second" }; <div className="first" {...props} />;',
     );
     expect(getAttributeStaticValue(context, element, "className")).toBe("second");
   });

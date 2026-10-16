@@ -90,4 +90,12 @@ describe("hasChildren", () => {
     expect(getChildren(node).length).toBe(1);
     expect(hasChildren(node)).toBe(false);
   });
+
+  it("differs from getChildren for CR-only whitespace (no \\n present)", () => {
+    // isPaddingWhitespace requires a newline, so CR-only whitespace text is
+    // kept by getChildren but still treated as non-meaningful by hasChildren.
+    const node = parseJsx("<div>\r  \r</div>;");
+    expect(getChildren(node).length).toBe(1);
+    expect(hasChildren(node)).toBe(false);
+  });
 });

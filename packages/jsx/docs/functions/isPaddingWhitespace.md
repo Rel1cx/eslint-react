@@ -12,6 +12,10 @@ rendering, that is, a `JSXText` node that cleans to nothing (see
 
 For the looser "any whitespace-only text" check, see [isWhitespaceText](isWhitespaceText.md).
 
+Reads the entity-decoded `node.value`; `value` and `raw` differ only when the
+text contains HTML entities (ex: `&nbsp;`), which is never whitespace-only,
+so reading either field yields the same result here.
+
 ## Parameters
 
 | Parameter | Type       | Description                  |

@@ -1,4 +1,4 @@
-import { type TSESTreeJSXAttributeLike } from "@eslint-react/ast";
+import { type TSESTreeJSXAttributeLike, type TSESTreeJSXElementLike } from "@eslint-react/ast";
 import type { RuleContext } from "@eslint-react/eslint";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import { getStaticValue } from "@typescript-eslint/utils/ast-utils";
@@ -17,7 +17,7 @@ export type AttributeValue =
   | { readonly kind: "boolean"; readonly node: null; toStatic(): true }
   | { readonly kind: "literal"; readonly node: TSESTree.Literal; toStatic(): TSESTree.Literal["value"] }
   | { readonly kind: "unknown"; readonly node: TSESTree.Expression; toStatic(): unknown }
-  | { readonly kind: "element"; readonly node: TSESTree.JSXElement; toStatic(): undefined }
+  | { readonly kind: "element"; readonly node: TSESTreeJSXElementLike; toStatic(): undefined }
   | { readonly kind: "missing"; readonly node: TSESTree.JSXEmptyExpression; toStatic(): undefined }
   | { readonly kind: "spreadChild"; readonly node: TSESTree.JSXSpreadChild; toStatic(): undefined }
   | { readonly kind: "spreadProps"; getProperty(name: string): unknown; readonly node: TSESTree.JSXSpreadAttribute["argument"]; toStatic(): unknown };
@@ -118,6 +118,21 @@ function resolveJsxAttribute(context: RuleContext, node: TSESTree.JSXAttribute):
     }
 
     case AST.JSXElement: {
+      return {
+        kind: "element",
+        node: node.value,
+        toStatic() {
+          return undefined;
+        },
+      } as const satisfies AttributeValue;
+    }
+
+    // @typescript-eslint/parser tolerates a fragment in attribute value
+    // position (ex: `<div attr=<></> />`) even though the TSESTree union
+    // excludes `JSXFragment`; reported as "element" so the parser-tolerated
+    // shape cannot fall through to `undefined`.
+    // @ts-expect-error -- TS2678: `JSXFragment` is not part of the declared value union
+    case AST.JSXFragment: {
       return {
         kind: "element",
         node: node.value,

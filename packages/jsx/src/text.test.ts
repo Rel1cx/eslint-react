@@ -49,6 +49,12 @@ describe("isPaddingWhitespace", () => {
     if (child == null) throw new Error("expected child");
     expect(isPaddingWhitespace(child)).toBe(false);
   });
+
+  it("matches CRLF whitespace padding", () => {
+    const child = parseJsx("<div>\r\n  <span />\r\n</div>;").children[0];
+    if (child == null) throw new Error("expected child");
+    expect(isPaddingWhitespace(child)).toBe(true);
+  });
 });
 
 describe("isWhitespaceText", () => {
@@ -67,6 +73,16 @@ describe("isWhitespaceText", () => {
   it("does not match meaningful text", () => {
     const child = parseJsx("<div>x</div>;").children[0];
     if (child == null) throw new Error("expected child");
+    expect(isWhitespaceText(child)).toBe(false);
+  });
+
+  it("does not match entity-only text (the check reads raw, not the decoded value)", () => {
+    // For `<div>&nbsp;</div>` the raw is "&nbsp;" while the value is the
+    // decoded "\u00a0"; neither is padding, matching React's behavior of
+    // rendering the entity as a text node.
+    const child = parseJsx("<div>&nbsp;</div>;").children[0];
+    if (child?.type !== AST.JSXText) throw new Error("expected JSXText");
+    expect(child.raw).not.toBe(child.value);
     expect(isWhitespaceText(child)).toBe(false);
   });
 });

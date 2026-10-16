@@ -135,6 +135,26 @@ ruleTester.run(RULE_NAME, rule, {
         }],
       }],
     },
+    // Boundary: JSXAttribute with a fragment value (parser-tolerated; not a static string)
+    {
+      code: tsx`
+        function App() {
+          return <iframe sandbox=<></> />;
+        }
+      `,
+      errors: [{
+        messageId: "default",
+        suggestions: [{
+          data: { value: "" },
+          messageId: "suggest",
+          output: tsx`
+            function App() {
+              return <iframe sandbox="" />;
+            }
+          `,
+        }],
+      }],
+    },
     // Null sandbox value (not a static string)
     {
       code: tsx`

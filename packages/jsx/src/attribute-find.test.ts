@@ -84,6 +84,24 @@ describe("findAttribute", () => {
     expect(attr?.type).toBe(AST.JSXAttribute);
   });
 
+  it("respects later-props-win semantics when the spread comes last", () => {
+    const { context, element } = parseJsxElement(
+      "const props = { className: 'second' }; <div className=\"first\" {...props} />;",
+    );
+    const attr = findAttribute(context, element, "className");
+    expect(attr?.type).toBe(AST.JSXSpreadAttribute);
+  });
+
+  it("falls back to an earlier explicit attribute when a later spread cannot be resolved", () => {
+    const { context, element } = parseJsxElement(
+      'declare const rest: { [k: string]: unknown }; <div className="explicit" {...rest} />;',
+    );
+    // Documented heuristic: the unresolvable spread may still override the
+    // explicit attribute at runtime, but statically it is skipped.
+    const attr = findAttribute(context, element, "className");
+    expect(attr?.type).toBe(AST.JSXAttribute);
+  });
+
   it("returns the last matching attribute when the name is duplicated", () => {
     const { context, element } = parseJsxElement('<div id="a" id="b" />;');
     const attr = findAttribute(context, element, "id");
@@ -202,5 +220,20 @@ describe("findSpreadProperty", () => {
     );
     expect(() => findSpreadProperty(context, getSpreadArgument(element), "k")).not.toThrow();
     expect(findSpreadProperty(context, getSpreadArgument(element), "k")).toBeUndefined();
+  });
+
+  it("resolves a property reachable through two spread chains (diamond)", () => {
+    const { context, element } = parseJsxElement(
+      "const inner = { k: 1 };"
+        + "const left = { ...inner, l: 1 };"
+        + "const right = { ...inner, r: 2 };"
+        + "<div {...{ ...left, ...right }} />;",
+    );
+    // The shared cycle guard must not suppress the second path to `inner`.
+    const prop = findSpreadProperty(context, getSpreadArgument(element), "k");
+    expect(prop?.value.type).toBe(AST.Literal);
+    if (prop?.value.type === AST.Literal) {
+      expect(prop.value.value).toBe(1);
+    }
   });
 });
