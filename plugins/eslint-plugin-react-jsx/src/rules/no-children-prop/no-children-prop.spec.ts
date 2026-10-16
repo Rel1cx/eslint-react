@@ -254,6 +254,36 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
     },
+    // Empty expression containers (comment-only or bare) do not conflict with
+    // the 'children' prop, so the prop is still reported with a suggestion
+    {
+      code: tsx`<div children="x">{/* comment */}</div>;`,
+      errors: [
+        {
+          messageId: "default",
+          suggestions: [
+            {
+              messageId: "suggest",
+              output: tsx`<div>{/* comment */}x</div>;`,
+            },
+          ],
+        },
+      ],
+    },
+    {
+      code: '<div children="x">{}</div>;',
+      errors: [
+        {
+          messageId: "default",
+          suggestions: [
+            {
+              messageId: "suggest",
+              output: "<div>{}x</div>;",
+            },
+          ],
+        },
+      ],
+    },
     // 'children' passed via spread (reported without suggestion)
     {
       code: '<div {...{ children: "Children" }} />;',

@@ -41,6 +41,44 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
     },
+    // JSX element as 'children' prop value with nested content
+    {
+      code: tsx`<div children={<span />}>existing</div>;`,
+      errors: [
+        {
+          messageId: "default",
+          suggestions: [
+            {
+              messageId: "remove-children-prop",
+              output: tsx`<div>existing</div>;`,
+            },
+            {
+              messageId: "remove-children-content",
+              output: tsx`<div children={<span />}></div>;`,
+            },
+          ],
+        },
+      ],
+    },
+    // A comment-only container mixed with meaningful content is still a conflict
+    {
+      code: tsx`<div children="x">{/* comment */}text</div>;`,
+      errors: [
+        {
+          messageId: "default",
+          suggestions: [
+            {
+              messageId: "remove-children-prop",
+              output: tsx`<div>{/* comment */}text</div>;`,
+            },
+            {
+              messageId: "remove-children-content",
+              output: tsx`<div children="x"></div>;`,
+            },
+          ],
+        },
+      ],
+    },
     {
       code: tsx`<MyComponent children={children}>{children}</MyComponent>;`,
       errors: [
