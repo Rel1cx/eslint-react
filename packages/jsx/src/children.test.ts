@@ -30,6 +30,16 @@ describe("getChildren", () => {
     expect(getChildren(parseJsx('<div>{""}</div>;'))).toEqual([]);
   });
 
+  it("filters out bare empty expression containers", () => {
+    expect(getChildren(parseJsx("<div>{}</div>;"))).toEqual([]);
+  });
+
+  it("keeps comment containers mixed with meaningful children", () => {
+    const children = getChildren(parseJsx("<div>{/* comment */}a</div>;"));
+    expect(children.length).toBe(1);
+    expect(children[0]?.type).toBe(AST.JSXText);
+  });
+
   it("keeps meaningful children in order", () => {
     const children = getChildren(parseJsx("<div>a{1}<span /></div>;"));
     expect(children.map((c) => c.type)).toEqual([
@@ -65,6 +75,14 @@ describe("hasChildren", () => {
 
   it("returns true for meaningful children", () => {
     expect(hasChildren(parseJsx("<div>a</div>;"))).toBe(true);
+  });
+
+  it("returns true for a comment container mixed with meaningful children", () => {
+    expect(hasChildren(parseJsx("<div>{/* comment */}a</div>;"))).toBe(true);
+  });
+
+  it("returns false for a bare empty expression container", () => {
+    expect(hasChildren(parseJsx("<div>{}</div>;"))).toBe(false);
   });
 
   it("differs from getChildren for same-line whitespace", () => {

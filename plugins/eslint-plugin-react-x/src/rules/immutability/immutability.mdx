@@ -116,25 +116,25 @@ function Component() {
 
 ### Shared Settings
 
-Custom ref hooks can also be configured via shared ESLint settings, which apply consistently across all rules in the plugin:
+Custom ref hooks can be configured via shared ESLint settings under `react-x`. The value must be a JavaScript RegExp string with delimiters and flags (see [Configure Analyzer](/docs/configuration/configure-analyzer#additionalrefhooks)).
 
 ```json
 {
   "settings": {
     "react-x": {
-      "additionalRefHooks": "(useMyRef|useCustomRef)"
+      "additionalRefHooks": "/^(useMyRef|useCustomRef)$/u"
     }
   }
 }
 ```
 
-Custom state hooks whose returned values should be treated as immutable state can be configured the same way:
+Custom state hooks whose returned values should be treated as immutable state can be configured the same way (see [Configure Analyzer](/docs/configuration/configure-analyzer#additionalstatehooks)):
 
 ```json
 {
   "settings": {
     "react-x": {
-      "additionalStateHooks": "(useMyState|useCustomState)"
+      "additionalStateHooks": "/^(useMyState|useCustomState)$/u"
     }
   }
 }

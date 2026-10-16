@@ -45,17 +45,17 @@ export const ESLintReactSettingsSchema = z.object({
   version: z.optional(z.string()),
   /**
    * Regex pattern matching custom hooks that should be treated as ref hooks.
-   * @example "useMyRef|useCustomRef"
+   * @example "/^(useMyRef|useCustomRef)$/u"
    */
   additionalRefHooks: z.optional(z.string()),
   /**
    * Regex pattern matching custom hooks that should be treated as state hooks.
-   * @example "useMyState|useCustomState"
+   * @example "/^(useMyState|useCustomState)$/u"
    */
   additionalStateHooks: z.optional(z.string()),
   /**
    * Regex pattern matching custom hooks that should be treated as effect hooks.
-   * @example "useMyEffect|useCustomEffect"
+   * @example "/^(useMyEffect|useCustomEffect)$/u"
    */
   additionalEffectHooks: z.optional(z.string()),
 });

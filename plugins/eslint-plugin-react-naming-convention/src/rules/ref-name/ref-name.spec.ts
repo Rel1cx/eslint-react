@@ -58,6 +58,18 @@ ruleTester.run(RULE_NAME, rule, {
       },
     },
     {
+      name: "Custom ref hook via bare additionalRefHooks string with invalid name",
+      code: tsx`
+        const box = useMyRef(null);
+      `,
+      errors: [{ messageId: "invalid-ref-name" }],
+      settings: {
+        "react-x": {
+          additionalRefHooks: "useMyRef",
+        },
+      },
+    },
+    {
       name: "Name with all-caps 'REF' suffix",
       code: tsx`
         import { useRef } from "react";
@@ -559,6 +571,17 @@ ruleTester.run(RULE_NAME, rule, {
       code: tsx`
         const box = useMyRef(null);
       `,
+    },
+    {
+      name: "Bare alternation string is treated as exact equality and never matches",
+      code: tsx`
+        const box = useMyRef(null);
+      `,
+      settings: {
+        "react-x": {
+          additionalRefHooks: "(useMyRef|useCustomRef)",
+        },
+      },
     },
   ],
 });
