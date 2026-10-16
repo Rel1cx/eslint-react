@@ -1,8 +1,6 @@
 import textlintBase from "./textlint.base.json" with { type: "json" };
 export function parseTextlintPattern(pattern) {
-    const match = /^\/(.*)\/([a-z]*)$/.exec(pattern);
-    const source = match?.[1];
-    const flags = match?.[2];
+    const [, source, flags] = /^\/(.*)\/([a-z]*)$/.exec(pattern) ?? [];
     if (source == null || flags == null)
         return new RegExp(pattern, "g");
     return new RegExp(source, flags.includes("g") ? flags : `${flags}g`);
