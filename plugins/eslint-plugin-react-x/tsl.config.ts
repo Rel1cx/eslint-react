@@ -1,4 +1,5 @@
 /// <reference types="node" />
+import { textlint } from "@local/configs/tsl.config.base";
 import { globSync } from "tinyglobby";
 import { type AST, type ReportDescriptor, type Rule, defineConfig, defineRule } from "tsl";
 import { noDuplicateExports, noDuplicateImports, noMultilineTemplateExpressionWithoutAutoDedent, noUnsafeAs, nullish } from "tsl-dx";
@@ -96,6 +97,7 @@ export default defineConfig({
       dedentTagImportCallback: (name) => `import ${name} from "dedent";\n`,
       dedentTagNames: ["ts", "tsx", "dedent"],
     }),
+    textlint(),
   ],
   overrides: [
     {
