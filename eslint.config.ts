@@ -11,7 +11,7 @@ import {
 } from "@local/configs/eslint";
 import eslintPlugin from "eslint-plugin-eslint-plugin";
 import packageJson from "eslint-plugin-package-json";
-import { defineConfig } from "eslint/config";
+import { defineConfig, globalIgnores } from "eslint/config";
 import importIntegrityPlugin from "import-integrity-lint";
 import path from "node:path";
 import tseslint from "typescript-eslint";
@@ -116,4 +116,6 @@ export default defineConfig(
   // Other Presets
   packageJson.configs["recommended-publishable"],
   disableProblematicEslintJsRules,
+  // Un-ignore root-level CJS config files so they can be linted
+  globalIgnores(["!*.cjs"]),
 );

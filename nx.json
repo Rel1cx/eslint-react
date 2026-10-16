@@ -50,6 +50,8 @@
     "lint:ts": {
       "inputs": [
         "default",
+        "{workspaceRoot}/.pkgs/configs/textlint.base.json",
+        "{workspaceRoot}/.pkgs/configs/textlint.ts",
         "{workspaceRoot}/.pkgs/configs/tsconfig.base.json",
         "{workspaceRoot}/.pkgs/configs/tsl.config.base.ts"
       ],

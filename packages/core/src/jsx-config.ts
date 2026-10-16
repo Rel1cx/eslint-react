@@ -83,8 +83,8 @@ export function getJsxConfigFromAnnotation(context: RuleContext): JsxConfig {
   // eslint-disable-next-line perfectionist/sort-variable-declarations
   let jsx, jsxFrag, jsxRuntime, jsxImportSource;
 
-  // Precedence mirrors tsc per pragma: the *first* `@jsx`/`@jsxFrag` wins,
-  // while the *last* `@jsxRuntime`/`@jsxImportSource` wins.
+  // Per-pragma precedence mirrors tsc: the *first* `@jsx`/`@jsxFrag` applies,
+  // while the *last* `@jsxRuntime`/`@jsxImportSource` applies.
   for (const comment of context.sourceCode.getAllComments()) {
     const value = comment.value;
     jsx ??= value.match(RE_ANNOTATION_JSX)?.[1];

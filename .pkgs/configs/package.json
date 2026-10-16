@@ -16,6 +16,11 @@
       "types": "./eslint.d.ts",
       "import": "./eslint.js"
     },
+    "./textlint": {
+      "types": "./textlint.d.ts",
+      "import": "./textlint.js"
+    },
+    "./textlint.base.json": "./textlint.base.json",
     "./tsconfig.base.json": "./tsconfig.base.json",
     "./tsdown.config.base": {
       "types": "./tsdown.config.base.d.ts",

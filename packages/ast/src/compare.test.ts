@@ -137,7 +137,7 @@ describe("isEqual", () => {
       expect(isEqual(nodes1[0]!, nodes2[0]!)).toBe(false);
     });
 
-    it("should return false for optional vs non-optional calls", () => {
+    it("should return false for optional and non-optional calls", () => {
       const nodes1 = collectNodes<TSESTree.CallExpression>("foo();", AST.CallExpression);
       const nodes2 = collectNodes<TSESTree.CallExpression>("foo?.();", AST.CallExpression);
       expect(isEqual(nodes1[0]!, nodes2[0]!)).toBe(false);

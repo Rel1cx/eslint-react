@@ -6,7 +6,7 @@ export type NamingTarget = readonly [node: TSESTree.Node, name: string];
 /**
  * Find the statically-known name a call's value flows into, or `null` when there is none.
  * Walks up across value-preserving expressions only, stopping at a variable declarator,
- * assignment, or class property; an object property key wins over the outer target
+ * assignment, or class property; an object property key takes precedence over the outer target
  * (`{ theme: useId() }` resolves to `theme`). When in doubt, don't report.
  * @param node The starting node for the upward search.
  * @returns The naming target, or `null` when the name cannot be statically known.

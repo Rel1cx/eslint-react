@@ -138,7 +138,7 @@ describe("resolveObjectType", () => {
         return resolveObjectType(context, node);
       });
       expect(fact).not.toBeNull();
-      // consequent is [1] → array, so that wins via the ?? fallback
+      // consequent is [1] → array, so the ?? fallback selects it
       expect(fact!.kind).toBe("array");
     });
   });

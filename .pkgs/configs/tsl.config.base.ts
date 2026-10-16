@@ -1,6 +1,30 @@
 import { globSync } from "tinyglobby";
-import { core, defineConfig } from "tsl";
+import { type Rule, core, defineConfig, defineRule } from "tsl";
 import { noDuplicateExports, noDuplicateImports, noMultilineTemplateExpressionWithoutAutoDedent, noUnsafeAs, nullish } from "tsl-dx";
+
+import { type CompiledTextlintPattern, loadTextlintPatterns, matchTextlintPatterns } from "./textlint.js";
+
+// Applies the text patterns from textlint.base.json to the whole source file text,
+// keeping the documentation wording rules consistent between markdown and source code.
+type TextlintData = {
+  patterns: CompiledTextlintPattern[];
+};
+
+const textlintPatterns = loadTextlintPatterns();
+
+export const textlint = defineRule((): Rule<TextlintData> => ({
+  name: "@local/configs/textlint",
+  createData(): TextlintData {
+    return { patterns: textlintPatterns };
+  },
+  visitor: {
+    SourceFile(context, node) {
+      for (const { end, message, start } of matchTextlintPatterns(node.text, context.data.patterns)) {
+        context.report({ end, message, start });
+      }
+    },
+  },
+}));
 
 export function buildConfig(cwd: string) {
   return defineConfig({
@@ -9,6 +33,8 @@ export function buildConfig(cwd: string) {
       ".d.ts",
       "/dist/",
       "/build/",
+      // The pattern definitions themselves match the patterns
+      "textlint.base.json",
     ],
     overrides: [
       {
@@ -43,6 +69,7 @@ export function buildConfig(cwd: string) {
         dedentTagImportCallback: (name) => `import ${name} from "dedent";\n`,
         dedentTagNames: ["ts", "tsx", "dedent"],
       }),
+      textlint(),
     ],
   });
 }
