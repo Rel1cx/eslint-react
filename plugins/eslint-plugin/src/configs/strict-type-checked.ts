@@ -12,3 +12,5 @@ export const rules = {
 export const settings = {
   ...strictTypeScript.settings,
 };
+
+export const languageOptions = strictTypeScript.languageOptions;

@@ -10,3 +10,5 @@ export const rules = {
 export const settings = {
   ...strict.settings,
 };
+
+export const languageOptions = strict.languageOptions;

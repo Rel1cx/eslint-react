@@ -20,3 +20,11 @@ export const rules = {
 export const settings = {
   ...x.settings,
 };
+
+export const languageOptions = {
+  parserOptions: {
+    ecmaFeatures: {
+      jsx: true,
+    },
+  },
+} as const satisfies Linter.LanguageOptions;
