@@ -292,6 +292,7 @@ ruleTester.run(RULE_NAME, rule, {
     // -------------------------------------------------------------------------
     // Impure constructor calls in function components
     // -------------------------------------------------------------------------
+    // `Date` is a member of IMPURE_CTORS, so `new Date()` during render is flagged
     {
       code: tsx`
         function Component() {
@@ -1796,6 +1797,16 @@ ruleTester.run(RULE_NAME, rule, {
         export default async function Page() {
           const session = cookieStore.get("session");
           return <div>{session?.value}</div>;
+        }
+      `,
+    },
+    // `Map` is not in IMPURE_CTORS (it only appeared in the removed PURE_CTORS
+    // list), so constructing it during render is not flagged
+    {
+      code: tsx`
+        function Component() {
+          const cache = new Map();
+          return <div>{cache.size}</div>;
         }
       `,
     },

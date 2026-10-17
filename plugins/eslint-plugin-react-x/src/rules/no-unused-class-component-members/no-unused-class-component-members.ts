@@ -19,7 +19,7 @@ export default createRule<[], MessageID>({
       description: "Warns about unused class component methods and properties.",
     },
     messages: {
-      default: "Unused method or property '{{methodName}}'' of class '{{className}}'.",
+      default: "Unused method or property '{{methodName}}' of class '{{className}}'.",
     },
     schema: [],
   },

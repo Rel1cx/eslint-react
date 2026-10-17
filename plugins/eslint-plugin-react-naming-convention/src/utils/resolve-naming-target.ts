@@ -50,6 +50,9 @@ function resolveUpward(node: TSESTree.Node, propertyTarget: NamingTarget | null)
     case AST.TSNonNullExpression:
     case AST.TSSatisfiesExpression:
     case AST.TSInstantiationExpression:
+      return resolveUpward(parent, propertyTarget);
+    // Reached when walking up from a property value; continue past the object literal
+    // so the outer target is found and the property key can take precedence over it
     case AST.ObjectExpression:
       return resolveUpward(parent, propertyTarget);
     case AST.SequenceExpression:

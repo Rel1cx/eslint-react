@@ -333,9 +333,13 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         if (rEntries.some((rEntry) => isInverseEntry(aEntry, rEntry))) {
           continue;
         }
+        const effect = aEntry.effect;
+        const effectMethodKind = effect != null && effect.type === AST.CallExpression
+          ? Extract.getCalleeName(effect) ?? "useEffect"
+          : "useEffect";
         context.report({
           data: {
-            effectMethodKind: "useEffect",
+            effectMethodKind,
           },
           messageId: "expected-remove-event-listener-in-cleanup",
           node: aEntry.node,

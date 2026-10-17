@@ -1,5 +1,4 @@
 import { createRule } from "@/utils/create-rule";
-import { stringify } from "@/utils/stringify";
 import * as core from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, type RuleListener, merge } from "@eslint-react/eslint";
 
@@ -35,7 +34,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         for (const { name, hookCalls, node } of api.getAllHooks(program)) {
           context.report({
             data: {
-              json: stringify({
+              json: JSON.stringify({
                 name,
                 hookCalls: hookCalls.length,
               }),

@@ -139,6 +139,77 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
+      name: "reports the actual effect hook name in the message",
+      code: tsx`
+        function Example() {
+          useLayoutEffect(() => {
+            const intervalId = setInterval(() => {}, 1000);
+          }, []);
+        }
+      `,
+      errors: [
+        {
+          messageId: "expected-clear-interval-in-cleanup",
+          data: { kind: "useLayoutEffect" },
+        },
+      ],
+    },
+    {
+      name: "reports the hook property name for a member callee (ex: 'React.useLayoutEffect')",
+      code: tsx`
+        function Example() {
+          React.useLayoutEffect(() => {
+            const intervalId = setInterval(() => {}, 1000);
+          }, []);
+        }
+      `,
+      errors: [
+        {
+          messageId: "expected-clear-interval-in-cleanup",
+          data: { kind: "useLayoutEffect" },
+        },
+      ],
+    },
+    {
+      name: "reports the outer effect hook name for a 'setInterval' created in deeply nested functions",
+      code: tsx`
+        function Example() {
+          useLayoutEffect(() => {
+            let intervalId: number;
+            const schedule = () => {
+              const inner = () => {
+                intervalId = setInterval(() => {}, 1000);
+              };
+              inner();
+            };
+            schedule();
+          }, []);
+        }
+      `,
+      errors: [
+        {
+          messageId: "expected-clear-interval-in-cleanup",
+          data: { kind: "useLayoutEffect" },
+        },
+      ],
+    },
+    {
+      name: "reports the effect hook name when the setup callback is wrapped in a TypeScript cast",
+      code: tsx`
+        function Example() {
+          useLayoutEffect((() => {
+            const intervalId = setInterval(() => {}, 1000);
+          }) as any, []);
+        }
+      `,
+      errors: [
+        {
+          messageId: "expected-clear-interval-in-cleanup",
+          data: { kind: "useLayoutEffect" },
+        },
+      ],
+    },
+    {
       name: "reports a 'setInterval' created in deeply nested functions inside the setup callback",
       code: tsx`
         function Example() {

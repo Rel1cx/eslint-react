@@ -26,7 +26,9 @@ export const KNOWN_MUTATING_METHODS = new Set([
 ]);
 
 /**
- * Known mutating hooks.
+ * Known hooks whose return values have method names that collide with mutating
+ * method names (e.g. `router.push`). Calls on their return values are exempted
+ * as non-mutating.
  */
 export const KNOWN_MUTATING_HOOKS = new Set([
   "useHistory",

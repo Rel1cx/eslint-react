@@ -63,9 +63,36 @@ ruleTester.run(RULE_NAME, rule, {
         messageId: "default",
       }],
     },
+    // Assigning the memo-wrapped anonymous component to a named variable does
+    // NOT exempt it: the rule only checks the function's own name
+    // (`core.getFunctionId(node)`), not the surrounding binding, so this is
+    // still reported (consistent with the `const App = React.memo(() => ...)`
+    // cases above)
+    {
+      code: tsx`
+        import { memo } from "react";
+
+        const App = memo(() => <div />);
+      `,
+      errors: [{
+        messageId: "default",
+      }],
+    },
   ],
   valid: [
     "const App = () => <div>foo</div>",
+    // Unwrapped anonymous default export: the rule only targets memo/forwardRef-wrapped components
+    "export default () => <div />",
+    // Actual behavior (pins a coverage gap): `export default memo(() => ...)` is
+    // NOT reported even though it is an anonymous memo-wrapped component, because
+    // the component collector (`core.getFunctionInitPath`) only recognizes HOC
+    // wrappers whose call expression initializes a variable declarator; a memo
+    // call in export-default position is never collected, so the rule never sees it
+    tsx`
+      import { memo } from "react";
+
+      export default memo(() => <div />);
+    `,
     tsx`
       function App() {
           return <div>foo</div>

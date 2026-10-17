@@ -1,7 +1,7 @@
 import { type TSESTreeClass } from "@eslint-react/ast";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 
-// A set of React lifecycle methods that are implicitly used and should not be flagged as unused
+// A set of class members (lifecycle methods and other implicitly-used members like `constructor`, `render`, `state`) that should not be flagged as unused
 export const LIFECYCLE_METHODS = new Set([
   "componentDidCatch",
   "componentDidMount",

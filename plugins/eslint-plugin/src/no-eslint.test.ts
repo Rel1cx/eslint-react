@@ -4,7 +4,7 @@ import { existsSync, readdirSync } from "node:fs";
 import * as nodeModule from "node:module";
 import { describe, it } from "vitest";
 
-// `module.registerHooks` requires Node.js >= 22.15.0 and is absent from @types/node 20.
+// `module.registerHooks` was added in Node.js v22.15.0 / v23.5.0 and is absent from @types/node 20.
 const registerHooks: unknown = (nodeModule as unknown as Record<string, unknown>)["registerHooks"];
 
 const loadWithoutESLint = dedent`

@@ -619,7 +619,7 @@ export const DOM_PROPERTY_NAMES_TWO_WORDS: string[] = [
   "referrerPolicy",
   "refX",
   "refY",
-  "rendering-intent",
+  "renderingIntent",
   "repeatCount",
   "repeatDur",
   "requiredExtensions",
@@ -687,7 +687,7 @@ export const DOM_PROPERTY_NAMES_TWO_WORDS: string[] = [
   // Safari/Apple specific, no listing available
   "autoCorrect", // https://stackoverflow.com/questions/47985384/html-autocorrect-for-text-input-is-not-working
   "autoSave", // https://stackoverflow.com/questions/25456396/what-is-autosave-attribute-supposed-to-do-how-do-i-use-it
-  // React specific attributes https://reactjs.org/docs/dom-elements.html#differences-in-attributes
+  // React specific attributes https://react.dev/reference/react-dom/components/common
   "className",
   "dangerouslySetInnerHTML",
   "defaultValue",

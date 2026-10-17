@@ -1,10 +1,10 @@
 import { createRule } from "@/utils/create-rule";
-import { Extract, Traverse } from "@eslint-react/ast";
+import { Check, Extract, Traverse } from "@eslint-react/ast";
 import { isUseEffectCleanupCallback, isUseEffectSetupCallback } from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, type RuleListener } from "@eslint-react/eslint";
 import { isAssignmentTargetEqual, resolveEnclosingAssignmentTarget } from "@eslint-react/var";
 import { or } from "@local/eff";
-import { type TSESTree } from "@typescript-eslint/types";
+import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import { P, isMatching, match } from "ts-pattern";
 
 // #region Rule Metadata
@@ -25,6 +25,7 @@ type TimerMethodKind = "setTimeout" | "clearTimeout";
 type CallKind = TimerMethodKind | "other";
 
 interface TimerEntry {
+  effectKind: string;
   node: TSESTree.CallExpression;
   timerId: TSESTree.Node;
 }
@@ -41,6 +42,15 @@ function getCallKind(node: TSESTree.CallExpression): CallKind {
     return name;
   }
   return "other";
+}
+
+// The name of the effect hook whose callback contains the node (ex: "useEffect", "useLayoutEffect")
+function getEffectKind(fn: TSESTree.Node): string {
+  const call = Traverse.findParent(Extract.unwrap(fn), (n) => !Check.isTypeOrChainExpression(n));
+  if (call?.type !== AST.CallExpression) {
+    return "useEffect";
+  }
+  return Extract.getCalleeName(call) ?? "useEffect";
 }
 
 // #endregion
@@ -90,6 +100,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
             return;
           }
           sEntries.push({
+            effectKind: getEffectKind(fn),
             node,
             timerId: timeoutIdNode,
           });
@@ -100,6 +111,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
             return;
           }
           cEntries.push({
+            effectKind: getEffectKind(fn),
             node,
             timerId: timeoutIdNode,
           });
@@ -113,7 +125,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         }
         context.report({
           data: {
-            kind: "useEffect",
+            kind: sEntry.effectKind,
           },
           messageId: "expected-clear-timeout-in-cleanup",
           node: sEntry.node,

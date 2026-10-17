@@ -43,7 +43,7 @@ import React, { createRef } from "react";
 // 🔴 Problem: Using createRef in a function component
 function MyComponent() {
   const ref = React.createRef<HTMLDivElement>();
-  //          ^^^ [Legacy] Use 'useRef' instead.
+  //          ^^^ Use 'useRef' instead of 'createRef' in function components and Hooks.
 
   return <div ref={ref} />;
 }
@@ -143,7 +143,7 @@ import { createRef } from "react";
 // 🔴 Problem: Using createRef inside a custom Hook
 function useInputRef() {
   const ref = createRef<HTMLInputElement>();
-  //          ^^^ [Legacy] Use 'useRef' instead.
+  //          ^^^ Use 'useRef' instead of 'createRef' in function components and Hooks.
 
   return ref;
 }

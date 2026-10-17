@@ -47,6 +47,35 @@ ruleTester.run(RULE_NAME, rule, {
         messageId: "unknown-prop",
       }],
     },
+    // kebab-case SVG attribute gets fixed to the React camelCase name
+    {
+      code: '<svg rendering-intent="auto" />;',
+      errors: [
+        {
+          data: {
+            name: "rendering-intent",
+            standardName: "renderingIntent",
+          },
+          messageId: "unknown-prop-with-standard-name",
+        },
+      ],
+      output: '<svg renderingIntent="auto" />;',
+    },
+    // All-lowercase variant: `getStandardName` matches DOM property names
+    // case-insensitively, so it is reported and fixed to `renderingIntent`
+    {
+      code: '<svg renderingintent="auto" />;',
+      errors: [
+        {
+          data: {
+            name: "renderingintent",
+            standardName: "renderingIntent",
+          },
+          messageId: "unknown-prop-with-standard-name",
+        },
+      ],
+      output: '<svg renderingIntent="auto" />;',
+    },
     {
       code: '<div data-xml-anything="invalid" />',
       errors: [
@@ -769,6 +798,12 @@ ruleTester.run(RULE_NAME, rule, {
     { code: '<g fill="#7B82A0" fillRule="evenodd"></g>' },
     { code: '<mask fill="#7B82A0"></mask>' },
     { code: '<symbol fill="#7B82A0"></symbol>' },
+    // React's camelCase name for the SVG 'rendering-intent' attribute
+    { code: '<svg renderingIntent="auto" />' },
+    // `renderingIntent` is listed in DOM_PROPERTY_NAMES_TWO_WORDS without a per-tag
+    // restriction (no ATTRIBUTE_TAGS_MAP entry), so the rule also accepts it on
+    // non-SVG elements even though it is only meaningful on SVG
+    { code: '<div renderingIntent="auto" />' },
     { code: '<meta property="og:type" content="website" />' },
     { code: '<input type="checkbox" checked={checked} disabled={disabled} id={id} onChange={onChange} />' },
     { code: "<video playsInline />" },

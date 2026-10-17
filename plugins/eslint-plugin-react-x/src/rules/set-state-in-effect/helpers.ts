@@ -113,7 +113,7 @@ export function getCallName(node: TSESTree.CallExpression | TSESTree.Identifier,
  * When the node is an Identifier that is the callee of a CallExpression,
  * returns the parent CallExpression; otherwise returns the node itself.
  * @param node The setState call node (CallExpression or Identifier)
- * @returns The actual CallExpression node
+ * @returns The actual CallExpression node, or the node itself if it is not the callee of a CallExpression
  */
 export function getSetStateCallExpression(node: TSESTree.CallExpression | TSESTree.Identifier): TSESTree.CallExpression | TSESTree.Identifier {
   return Check.isIdentifier(node) && node.parent.type === AST.CallExpression && node.parent.callee === node

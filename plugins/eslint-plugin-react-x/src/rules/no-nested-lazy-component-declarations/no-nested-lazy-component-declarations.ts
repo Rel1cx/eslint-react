@@ -14,10 +14,11 @@ export default createRule<[], MessageID>({
   meta: {
     type: "problem",
     docs: {
-      description: "Disallows nesting lazy component declarations inside other components or hooks.",
+      description: "Disallows declaring lazy components that wrap dynamic imports inside other components or hooks.",
     },
     messages: {
-      default: "Do not declare lazy components inside other components or hooks. Instead, always declare them at the top level of your module.",
+      default:
+        "Do not declare lazy components that wrap dynamic imports inside other components or hooks. Instead, always declare them at the top level of your module.",
     },
     schema: [],
   },

@@ -75,13 +75,13 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   return { JSXElement: visit, JSXFragment: visit };
 }
 
+const isWhitespaceOrEmptyStringExpression = or(isWhitespaceText, isEmptyStringExpression);
+
 /**
- * Whether a JSX child carries no renderable content: padding whitespace, an
+ * Whether a JSX child carries no renderable content: whitespace-only text, an
  * empty expression (ex: `{}` or a comment), or an empty string expression.
  * @param child The JSX child node to check.
  */
-const isWhitespaceOrEmptyStringExpression = or(isWhitespaceText, isEmptyStringExpression);
-
 function isNonSubstantiveChild(child: TSESTree.JSXChild): boolean {
   if (isWhitespaceOrEmptyStringExpression(child)) return true;
   return child.type === AST.JSXExpressionContainer && child.expression.type === AST.JSXEmptyExpression;

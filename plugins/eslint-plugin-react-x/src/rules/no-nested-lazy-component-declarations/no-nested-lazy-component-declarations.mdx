@@ -1,6 +1,6 @@
 ---
 title: no-nested-lazy-component-declarations
-description: Disallows nesting lazy component declarations inside other components or hooks.
+description: Disallows declaring lazy components that wrap dynamic imports inside other components or hooks.
 ---
 
 **Full Name in [`eslint-plugin-react-x`](https://npmx.dev/package/eslint-plugin-react-x/v/latest)**
@@ -48,7 +48,7 @@ import { lazy } from "react";
 
 function Editor() {
   const MarkdownPreview = lazy(() => import("./MarkdownPreview.js"));
-  //    ^^^ Do not declare lazy components inside other components. Instead, always declare them at the top level of your module.
+  //    ^^^ Do not declare lazy components that wrap dynamic imports inside other components or hooks. Instead, always declare them at the top level of your module.
   // ...
 }
 ```

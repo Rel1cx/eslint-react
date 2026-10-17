@@ -104,6 +104,21 @@ ruleTester.run(RULE_NAME, rule, {
         createRoot(document.body).render(<div />);
       `,
     },
+    // Known behavior: the optional third callback argument of the legacy
+    // `render(element, container, callback?)` signature is dropped by the fix,
+    // because 'createRoot(...).render(...)' has no callback counterpart
+    {
+      code: tsx`
+        import { render } from "react-dom";
+        render(<Component />, document.getElementById("app"), () => {});
+      `,
+      errors: [{ messageId: "default" }],
+      output: tsx`
+        import { createRoot } from "react-dom/client";
+        import { render } from "react-dom";
+        createRoot(document.getElementById("app")).render(<Component />);
+      `,
+    },
     // Missing second argument (no auto-fix)
     {
       code: tsx`

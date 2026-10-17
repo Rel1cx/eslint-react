@@ -37,7 +37,8 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   // Detection hints that narrow function-component detection: functions
   // returning non-JSX values (numbers, booleans, null, strings, undefined),
   // functions with one-sided conditional or logical JSX returns, and functions
-  // defined in array literals or `array.map` callbacks are not components
+  // defined as array destructuring pattern elements, in array literals, or in
+  // `array.map` callbacks are not components
   const hint = core.FunctionComponentDetectionHint.DoNotIncludeJsxWithNumberValue
     | core.FunctionComponentDetectionHint.DoNotIncludeJsxWithBooleanValue
     | core.FunctionComponentDetectionHint.DoNotIncludeJsxWithNullValue

@@ -40,8 +40,10 @@ export type RefsFacts = {
  * Collect the raw facts the refs rule reasons about: identifier/member/function
  * bindings with their source positions, JSX `ref` attribute targets, call
  * expressions, ref pass sites (calls, constructor calls, tagged templates), and
- * every `.current` member access. Facts outside any function are never
- * reachable during render and are not collected. All inference is deferred to
+ * every `.current` member access. Call edges, pass sites, and `.current`
+ * accesses require an enclosing function — outside any function they are never
+ * reachable during render and are not collected — while bindings and JSX `ref`
+ * targets are collected regardless of scope. All inference is deferred to
  * `Program:exit`.
  */
 export function createFactCollector() {

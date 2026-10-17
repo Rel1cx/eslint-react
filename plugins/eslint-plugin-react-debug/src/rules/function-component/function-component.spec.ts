@@ -1,6 +1,5 @@
 import tsx from "dedent";
 
-import { stringify } from "@/utils/stringify";
 import { ruleTester } from "@local/testkit";
 import rule, { RULE_NAME } from "./function-component";
 
@@ -13,7 +12,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           data: {
-            json: stringify({
+            json: JSON.stringify({
               name: "ExpressionBody",
               displayName: "none",
               forwardRef: false,
@@ -35,7 +34,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [{
         data: {
-          json: stringify({
+          json: JSON.stringify({
             name: "App",
             displayName: `"TestDisplayName"`,
             forwardRef: false,
@@ -55,7 +54,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [{
         data: {
-          json: stringify({
+          json: JSON.stringify({
             name: "App",
             displayName: "none",
             forwardRef: false,
@@ -76,7 +75,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [{
         data: {
-          json: stringify({
+          json: JSON.stringify({
             name: "ComponentWithHooks",
             displayName: "none",
             forwardRef: false,
@@ -99,7 +98,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           data: {
-            json: stringify({
+            json: JSON.stringify({
               name: "ComponentWithMultipleHooks",
               displayName: "none",
               forwardRef: false,
@@ -124,7 +123,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           data: {
-            json: stringify({
+            json: JSON.stringify({
               name: "Component",
               displayName: "none",
               forwardRef: false,
@@ -144,7 +143,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [{
         data: {
-          json: stringify({
+          json: JSON.stringify({
             name: "App",
             displayName: "none",
             forwardRef: false,
@@ -163,7 +162,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [{
         data: {
-          json: stringify({
+          json: JSON.stringify({
             name: "App",
             displayName: "none",
             forwardRef: false,
@@ -182,7 +181,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [{
         data: {
-          json: stringify({
+          json: JSON.stringify({
             name: "App",
             displayName: "none",
             forwardRef: false,
@@ -199,7 +198,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [{
         data: {
-          json: stringify({
+          json: JSON.stringify({
             name: "App",
             displayName: "none",
             forwardRef: false,
@@ -219,7 +218,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           data: {
-            json: stringify({
+            json: JSON.stringify({
               name: "App",
               displayName: "none",
               forwardRef: false,
@@ -236,7 +235,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           data: {
-            json: stringify({
+            json: JSON.stringify({
               name: "NullComponent",
               displayName: "none",
               forwardRef: false,
@@ -253,7 +252,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           data: {
-            json: stringify({
+            json: JSON.stringify({
               name: "ConditionalComponent",
               displayName: "none",
               forwardRef: false,
@@ -270,7 +269,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           data: {
-            json: stringify({
+            json: JSON.stringify({
               name: "ArrayComponent",
               displayName: "none",
               forwardRef: false,
@@ -288,7 +287,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [{
         data: {
-          json: stringify({
+          json: JSON.stringify({
             name: "App",
             displayName: "none",
             forwardRef: false,
@@ -309,7 +308,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [{
         data: {
-          json: stringify({
+          json: JSON.stringify({
             name: "App",
             displayName: '`${"TestDisplayName"}`',
             forwardRef: false,
@@ -332,7 +331,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [{
         data: {
-          json: stringify({
+          json: JSON.stringify({
             name: "App",
             displayName: "none",
             forwardRef: false,
@@ -349,7 +348,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [{
         data: {
-          json: stringify({
+          json: JSON.stringify({
             name: "App",
             displayName: "none",
             forwardRef: true,
@@ -366,7 +365,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [{
         data: {
-          json: stringify({
+          json: JSON.stringify({
             name: "ForwardRefComponent",
             displayName: "none",
             forwardRef: true,
@@ -385,7 +384,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [{
         data: {
-          json: stringify({
+          json: JSON.stringify({
             name: "MemoComponent",
             displayName: "none",
             forwardRef: false,
@@ -407,7 +406,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [{
         data: {
-          json: stringify({ name: "Component", displayName: "none", forwardRef: false, hookCalls: 0, memo: true }),
+          json: JSON.stringify({ name: "Component", displayName: "none", forwardRef: false, hookCalls: 0, memo: true }),
         },
         messageId: "default",
       }],
@@ -420,7 +419,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [{
         data: {
-          json: stringify({
+          json: JSON.stringify({
             name: "MemoForwardRefComponent",
             displayName: "none",
             forwardRef: true,
@@ -437,7 +436,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [{
         data: {
-          json: stringify({
+          json: JSON.stringify({
             name: "MemoForwardRefComponent",
             displayName: "none",
             forwardRef: true,
@@ -457,7 +456,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           data: {
-            json: stringify({
+            json: JSON.stringify({
               name: "Component",
               displayName: "none",
               forwardRef: false,
@@ -469,7 +468,7 @@ ruleTester.run(RULE_NAME, rule, {
         },
         {
           data: {
-            json: stringify({
+            json: JSON.stringify({
               name: "Component",
               displayName: "none",
               forwardRef: false,
@@ -493,7 +492,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           data: {
-            json: stringify({
+            json: JSON.stringify({
               name: "Nav",
               displayName: "none",
               forwardRef: false,
@@ -505,7 +504,7 @@ ruleTester.run(RULE_NAME, rule, {
         },
         {
           data: {
-            json: stringify({
+            json: JSON.stringify({
               name: "SidePanel",
               displayName: "none",
               forwardRef: false,
@@ -527,7 +526,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           data: {
-            json: stringify({
+            json: JSON.stringify({
               name: "App",
               displayName: `"TestDisplayName"`,
               forwardRef: false,
@@ -556,12 +555,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           data: {
-            // name: "ParentComponent",
-            // displayName: "none",
-            // forwardRef: false,
-            // hookCalls: 0,
-            // memo: false,
-            json: stringify({
+            json: JSON.stringify({
               name: "ParentComponent",
               displayName: "none",
               forwardRef: false,
@@ -573,7 +567,7 @@ ruleTester.run(RULE_NAME, rule, {
         },
         {
           data: {
-            json: stringify({
+            json: JSON.stringify({
               name: "UnstableNestedFunctionComponent",
               displayName: "none",
               forwardRef: false,
@@ -602,7 +596,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           data: {
-            json: stringify({
+            json: JSON.stringify({
               name: "ParentComponent",
               displayName: "none",
               forwardRef: false,
@@ -614,7 +608,7 @@ ruleTester.run(RULE_NAME, rule, {
         },
         {
           data: {
-            json: stringify({
+            json: JSON.stringify({
               name: "UnstableNestedFunctionComponent",
               displayName: "none",
               forwardRef: false,
@@ -643,7 +637,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           data: {
-            json: stringify({
+            json: JSON.stringify({
               name: "ParentComponent",
               displayName: "none",
               forwardRef: false,
@@ -655,7 +649,7 @@ ruleTester.run(RULE_NAME, rule, {
         },
         {
           data: {
-            json: stringify({
+            json: JSON.stringify({
               name: "UnstableNestedVariableComponent",
               displayName: "none",
               forwardRef: false,
@@ -684,7 +678,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           data: {
-            json: stringify({
+            json: JSON.stringify({
               name: "ParentComponent",
               displayName: "none",
               forwardRef: false,
@@ -696,7 +690,7 @@ ruleTester.run(RULE_NAME, rule, {
         },
         {
           data: {
-            json: stringify({
+            json: JSON.stringify({
               name: "UnstableNestedVariableComponent",
               displayName: "none",
               forwardRef: false,
@@ -725,7 +719,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           data: {
-            json: stringify({
+            json: JSON.stringify({
               name: "ParentComponent",
               displayName: "none",
               forwardRef: false,
@@ -737,7 +731,7 @@ ruleTester.run(RULE_NAME, rule, {
         },
         {
           data: {
-            json: stringify({
+            json: JSON.stringify({
               name: "UnstableNestedFunctionComponent",
               displayName: "none",
               forwardRef: false,
@@ -766,7 +760,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           data: {
-            json: stringify({
+            json: JSON.stringify({
               name: "ParentComponent",
               displayName: "none",
               forwardRef: false,
@@ -778,7 +772,7 @@ ruleTester.run(RULE_NAME, rule, {
         },
         {
           data: {
-            json: stringify({
+            json: JSON.stringify({
               name: "UnstableNestedFunctionComponent",
               displayName: "none",
               forwardRef: false,
@@ -807,7 +801,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           data: {
-            json: stringify({
+            json: JSON.stringify({
               name: "ParentComponent",
               displayName: "none",
               forwardRef: false,
@@ -819,7 +813,7 @@ ruleTester.run(RULE_NAME, rule, {
         },
         {
           data: {
-            json: stringify({
+            json: JSON.stringify({
               name: "UnstableNestedVariableComponent",
               displayName: "none",
               forwardRef: false,
@@ -848,7 +842,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           data: {
-            json: stringify({
+            json: JSON.stringify({
               name: "ParentComponent",
               displayName: "none",
               forwardRef: false,
@@ -860,7 +854,7 @@ ruleTester.run(RULE_NAME, rule, {
         },
         {
           data: {
-            json: stringify({
+            json: JSON.stringify({
               name: "UnstableNestedVariableComponent",
               displayName: "none",
               forwardRef: false,
@@ -889,7 +883,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           data: {
-            json: stringify({
+            json: JSON.stringify({
               name: "anonymous",
               displayName: "none",
               forwardRef: false,
@@ -901,7 +895,7 @@ ruleTester.run(RULE_NAME, rule, {
         },
         {
           data: {
-            json: stringify({
+            json: JSON.stringify({
               name: "UnstableNestedFunctionComponent",
               displayName: "none",
               forwardRef: false,
@@ -930,7 +924,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           data: {
-            json: stringify({
+            json: JSON.stringify({
               name: "anonymous",
               displayName: "none",
               forwardRef: false,
@@ -942,7 +936,7 @@ ruleTester.run(RULE_NAME, rule, {
         },
         {
           data: {
-            json: stringify({
+            json: JSON.stringify({
               name: "UnstableNestedFunctionComponent",
               displayName: "none",
               forwardRef: false,
@@ -970,7 +964,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           data: {
-            json: stringify({
+            json: JSON.stringify({
               name: "ParentComponent",
               displayName: "none",
               forwardRef: false,
@@ -982,7 +976,7 @@ ruleTester.run(RULE_NAME, rule, {
         },
         {
           data: {
-            json: stringify({
+            json: JSON.stringify({
               name: "ChildComponent",
               displayName: "none",
               forwardRef: false,
@@ -1012,7 +1006,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [{
         data: {
-          json: stringify({
+          json: JSON.stringify({
             name: "ParentComponent",
             displayName: "none",
             forwardRef: false,
@@ -1041,7 +1035,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [{
         data: {
-          json: stringify({
+          json: JSON.stringify({
             name: "ParentComponent",
             displayName: "none",
             forwardRef: false,
@@ -1070,7 +1064,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [{
         data: {
-          json: stringify({
+          json: JSON.stringify({
             name: "UnstableNestedFunctionComponent",
             displayName: "none",
             forwardRef: false,
@@ -1099,7 +1093,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [{
         data: {
-          json: stringify({
+          json: JSON.stringify({
             name: "UnstableNestedClassComponent",
             displayName: "none",
             forwardRef: false,
@@ -1128,7 +1122,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [{
         data: {
-          json: stringify({
+          json: JSON.stringify({
             name: "UnstableNestedVariableComponent",
             displayName: "none",
             forwardRef: false,
@@ -1158,7 +1152,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           data: {
-            json: stringify({
+            json: JSON.stringify({
               name: "UnstableNestedClassComponent",
               displayName: "none",
               forwardRef: false,
@@ -1185,7 +1179,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           data: {
-            json: stringify({
+            json: JSON.stringify({
               name: "List",
               displayName: "none",
               forwardRef: false,
@@ -1219,7 +1213,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           data: {
-            json: stringify({
+            json: JSON.stringify({
               name: "List",
               displayName: "none",
               forwardRef: false,
@@ -1252,7 +1246,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           data: {
-            json: stringify({
+            json: JSON.stringify({
               name: "ParentComponent",
               displayName: "none",
               forwardRef: false,
@@ -1264,7 +1258,7 @@ ruleTester.run(RULE_NAME, rule, {
         },
         {
           data: {
-            json: stringify({
+            json: JSON.stringify({
               name: "NestedUnstableFunctionComponent",
               displayName: "none",
               forwardRef: false,
@@ -1293,7 +1287,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           data: {
-            json: stringify({
+            json: JSON.stringify({
               name: "ParentComponent",
               displayName: "none",
               forwardRef: false,
@@ -1305,7 +1299,7 @@ ruleTester.run(RULE_NAME, rule, {
         },
         {
           data: {
-            json: stringify({
+            json: JSON.stringify({
               name: "NestedUnstableFunctionComponent",
               displayName: "none",
               forwardRef: false,
@@ -1337,7 +1331,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           data: {
-            json: stringify({
+            json: JSON.stringify({
               name: "ComponentWithProps",
               displayName: "none",
               forwardRef: false,
@@ -1349,7 +1343,7 @@ ruleTester.run(RULE_NAME, rule, {
         },
         {
           data: {
-            json: stringify({
+            json: JSON.stringify({
               name: "ParentComponent",
               displayName: "none",
               forwardRef: false,
@@ -1378,7 +1372,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           data: {
-            json: stringify({
+            json: JSON.stringify({
               name: "ComponentWithProps",
               displayName: "none",
               forwardRef: false,
@@ -1390,7 +1384,7 @@ ruleTester.run(RULE_NAME, rule, {
         },
         {
           data: {
-            json: stringify({
+            json: JSON.stringify({
               name: "ParentComponent",
               displayName: "none",
               forwardRef: false,
@@ -1402,7 +1396,7 @@ ruleTester.run(RULE_NAME, rule, {
         },
         {
           data: {
-            json: stringify({
+            json: JSON.stringify({
               name: "SomeFooter",
               displayName: "none",
               forwardRef: false,
@@ -1429,7 +1423,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           data: {
-            json: stringify({
+            json: JSON.stringify({
               name: "ComponentWithProps",
               displayName: "none",
               forwardRef: false,
@@ -1441,7 +1435,7 @@ ruleTester.run(RULE_NAME, rule, {
         },
         {
           data: {
-            json: stringify({
+            json: JSON.stringify({
               name: "ParentComponent",
               displayName: "none",
               forwardRef: false,
@@ -1468,7 +1462,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           data: {
-            json: stringify({
+            json: JSON.stringify({
               name: "ComponentWithProps",
               displayName: "none",
               forwardRef: false,
@@ -1480,7 +1474,7 @@ ruleTester.run(RULE_NAME, rule, {
         },
         {
           data: {
-            json: stringify({
+            json: JSON.stringify({
               name: "ParentComponent",
               displayName: "none",
               forwardRef: false,
@@ -1519,7 +1513,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           data: {
-            json: stringify({
+            json: JSON.stringify({
               name: "ParentComponent",
               displayName: "none",
               forwardRef: false,
@@ -1531,7 +1525,7 @@ ruleTester.run(RULE_NAME, rule, {
         },
         {
           data: {
-            json: stringify({
+            json: JSON.stringify({
               name: "UnstableNestedComponent",
               displayName: "none",
               forwardRef: false,
@@ -1558,7 +1552,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           data: {
-            json: stringify({
+            json: JSON.stringify({
               name: "ComponentForProps",
               displayName: "none",
               forwardRef: false,
@@ -1570,7 +1564,7 @@ ruleTester.run(RULE_NAME, rule, {
         },
         {
           data: {
-            json: stringify({
+            json: JSON.stringify({
               name: "ParentComponent",
               displayName: "none",
               forwardRef: false,
@@ -1597,7 +1591,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           data: {
-            json: stringify({
+            json: JSON.stringify({
               name: "ComponentForProps",
               displayName: "none",
               forwardRef: false,
@@ -1609,7 +1603,7 @@ ruleTester.run(RULE_NAME, rule, {
         },
         {
           data: {
-            json: stringify({
+            json: JSON.stringify({
               name: "ParentComponent",
               displayName: "none",
               forwardRef: false,
@@ -1632,7 +1626,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           data: {
-            json: stringify({
+            json: JSON.stringify({
               name: "ParentComponent",
               displayName: "none",
               forwardRef: false,
@@ -1644,7 +1638,7 @@ ruleTester.run(RULE_NAME, rule, {
         },
         {
           data: {
-            json: stringify({
+            json: JSON.stringify({
               name: "Header",
               displayName: "none",
               forwardRef: false,
@@ -1675,7 +1669,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           data: {
-            json: stringify({
+            json: JSON.stringify({
               name: "ParentComponent",
               displayName: "none",
               forwardRef: false,
@@ -1705,7 +1699,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           data: {
-            json: stringify({
+            json: JSON.stringify({
               name: "ParentComponent",
               displayName: "none",
               forwardRef: false,
@@ -1733,7 +1727,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           data: {
-            json: stringify({
+            json: JSON.stringify({
               name: "ParentComponent",
               displayName: "none",
               forwardRef: false,
@@ -1762,7 +1756,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           data: {
-            json: stringify({
+            json: JSON.stringify({
               name: "ParentComponent",
               displayName: "none",
               forwardRef: false,
@@ -1774,7 +1768,7 @@ ruleTester.run(RULE_NAME, rule, {
         },
         {
           data: {
-            json: stringify({
+            json: JSON.stringify({
               name: "UnstableNestedComponent",
               displayName: "none",
               forwardRef: false,
@@ -1803,7 +1797,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           data: {
-            json: stringify({
+            json: JSON.stringify({
               name: "ParentComponent",
               displayName: "none",
               forwardRef: false,
@@ -1815,7 +1809,7 @@ ruleTester.run(RULE_NAME, rule, {
         },
         {
           data: {
-            json: stringify({
+            json: JSON.stringify({
               name: "UnstableNestedComponent",
               displayName: "none",
               forwardRef: false,
@@ -1846,7 +1840,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           data: {
-            json: stringify({
+            json: JSON.stringify({
               name: "ParentComponent",
               displayName: "none",
               forwardRef: false,
@@ -1858,7 +1852,7 @@ ruleTester.run(RULE_NAME, rule, {
         },
         {
           data: {
-            json: stringify({
+            json: JSON.stringify({
               name: "UnstableNestedComponent",
               displayName: "none",
               forwardRef: false,
@@ -1889,7 +1883,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           data: {
-            json: stringify({
+            json: JSON.stringify({
               name: "ParentComponent",
               displayName: "none",
               forwardRef: false,
@@ -1901,7 +1895,7 @@ ruleTester.run(RULE_NAME, rule, {
         },
         {
           data: {
-            json: stringify({
+            json: JSON.stringify({
               name: "UnstableNestedComponent",
               displayName: "none",
               forwardRef: false,
@@ -1925,7 +1919,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           data: {
-            json: stringify({
+            json: JSON.stringify({
               name: "Header",
               displayName: "none",
               forwardRef: false,
@@ -1948,7 +1942,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           data: {
-            json: stringify({
+            json: JSON.stringify({
               name: "MyComponent1",
               displayName: "none",
               forwardRef: false,
@@ -1960,7 +1954,7 @@ ruleTester.run(RULE_NAME, rule, {
         },
         {
           data: {
-            json: stringify({
+            json: JSON.stringify({
               name: "MyComponent2",
               displayName: "none",
               forwardRef: false,
@@ -1972,7 +1966,7 @@ ruleTester.run(RULE_NAME, rule, {
         },
         {
           data: {
-            json: stringify({
+            json: JSON.stringify({
               name: "MyComponent3",
               displayName: "none",
               forwardRef: false,
@@ -1984,7 +1978,7 @@ ruleTester.run(RULE_NAME, rule, {
         },
         {
           data: {
-            json: stringify({
+            json: JSON.stringify({
               name: "MyComponent4",
               displayName: "none",
               forwardRef: false,
@@ -1996,7 +1990,7 @@ ruleTester.run(RULE_NAME, rule, {
         },
         {
           data: {
-            json: stringify({
+            json: JSON.stringify({
               name: "MyComponent5",
               displayName: "none",
               forwardRef: false,
@@ -2009,8 +2003,9 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     // --------------------------------------------------------------------------
-    // Tests for type expression parent traversal (component-detection.ts L70-72)
-    // `while (ast.isTypeExpression(parent)) parent = parent.parent;`
+    // Tests for type expression parent traversal
+    // (`while (Check.isTypeExpression(parent)) parent = parent.parent;` in
+    // isFunctionComponentDefinition, packages/core/src/function-component.ts)
     // Ensures that TSAsExpression, TSSatisfiesExpression, TSNonNullExpression,
     // TSTypeAssertion, and TSInstantiationExpression are traversed through
     // so that contextual exclusion hints in step 4 still apply correctly.
@@ -2024,7 +2019,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [{
         data: {
-          json: stringify({
+          json: JSON.stringify({
             name: "App",
             displayName: "none",
             forwardRef: false,
@@ -2044,7 +2039,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [{
         data: {
-          json: stringify({
+          json: JSON.stringify({
             name: "App",
             displayName: "none",
             forwardRef: false,
@@ -2064,7 +2059,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [{
         data: {
-          json: stringify({
+          json: JSON.stringify({
             name: "App",
             displayName: "none",
             forwardRef: false,
@@ -2084,7 +2079,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [{
         data: {
-          json: stringify({
+          json: JSON.stringify({
             name: "App",
             displayName: "none",
             forwardRef: false,
@@ -2104,7 +2099,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [{
         data: {
-          json: stringify({
+          json: JSON.stringify({
             name: "App",
             displayName: "none",
             forwardRef: false,
@@ -2124,7 +2119,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [{
         data: {
-          json: stringify({
+          json: JSON.stringify({
             name: "App",
             displayName: "none",
             forwardRef: false,
@@ -2144,7 +2139,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [{
         data: {
-          json: stringify({
+          json: JSON.stringify({
             name: "App",
             displayName: "none",
             forwardRef: false,
@@ -2164,7 +2159,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [{
         data: {
-          json: stringify({
+          json: JSON.stringify({
             name: "App",
             displayName: "none",
             forwardRef: true,
@@ -2234,7 +2229,8 @@ ruleTester.run(RULE_NAME, rule, {
       }) as ActionFUnction satisfies ActionFUnction;
     `,
     // --------------------------------------------------------------------------
-    // Tests for type expression parent traversal (component-detection.ts L70-72)
+    // Tests for type expression parent traversal
+    // (isFunctionComponentDefinition, packages/core/src/function-component.ts)
     // Ensures contextual exclusions correctly apply through type expression wrappers
     // --------------------------------------------------------------------------
     // Anonymous function in arbitrary call expression wrapped in `as` — excluded by
@@ -2251,8 +2247,9 @@ ruleTester.run(RULE_NAME, rule, {
     // DoNotIncludeFunctionDefinedAsArrayMapCallback
     "(items.map as any)((x) => <div />)",
     "(items.map satisfies typeof items.map)((x) => <div />)",
-    // Named function passed to createElement wrapped in type expression
-    // (node.parent is TSAsExpression, not CallExpression, so L282-289 misses it)
+    // Named function passed to createElement wrapped in a type expression — still
+    // excluded because isCreateElementChildrenArgument itself unwraps type
+    // expressions (packages/core/src/create-element.ts)
     "React.createElement('div', null, (function App() { return <div />; }) as any)",
     // Anonymous function in .flatMap() wrapped in type expressions — excluded by
     // DoNotIncludeFunctionDefinedAsArrayFlatMapCallback

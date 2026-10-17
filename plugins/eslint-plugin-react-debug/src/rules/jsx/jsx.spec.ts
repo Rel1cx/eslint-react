@@ -1,4 +1,3 @@
-import { stringify } from "@/utils/stringify";
 import { createRuleTesterForJsxEmit } from "@local/testkit";
 import tsx from "dedent";
 import ts from "typescript";
@@ -16,7 +15,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           data: {
-            json: stringify({
+            json: JSON.stringify({
               kind: "element",
               type: "div",
               jsx: "react-jsx",
@@ -39,7 +38,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           data: {
-            json: stringify({
+            json: JSON.stringify({
               kind: "element",
               type: "div",
               jsx: "react",
@@ -65,7 +64,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           data: {
-            json: stringify({
+            json: JSON.stringify({
               kind: "element",
               type: "div",
               jsx: "react",

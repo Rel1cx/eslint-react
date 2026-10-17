@@ -128,9 +128,10 @@ function isContentUseless(node: TSESTreeJSXElementLike, options: ResolvedOptions
     return !allowEmptyFragment;
   }
 
-  // A single text child outside JSX cannot be unwrapped into a valid
-  // expression, so keep the existing exception for attribute values such as
-  // `content={<>text</>}`.
+  // A single text child outside JSX keeps its exception: unwrapping would
+  // silently turn the text into an identifier reference (ex:
+  // `content={<>text</>}` → `content={text}`), and multi-word text would
+  // not even parse.
   const insideJsx = Check.isJSXElementOrFragment(node.parent);
   if (allowExpressions && !insideJsx && node.children.length === 1 && node.children[0]?.type === AST.JSXText) {
     return false;
@@ -162,8 +163,10 @@ function isSafeToFix(node: TSESTreeJSXElementLike) {
   }
 
   // Outside of JSX context (e.g. `return <></>`) an empty fragment cannot
-  // be replaced with nothing — that would be a syntax error.
-  if (node.children.length === 0) return false;
+  // be replaced with nothing — that would be a syntax error. The same goes
+  // for fragments whose children are all whitespace: unwrapping them would
+  // leave an empty expression behind.
+  if (!node.children.some((child) => Check.isJSXElementOrFragment(child))) return false;
 
   // Outside of JSX context, only element/fragment children and padding
   // whitespace can be moved into the surrounding expression. Text,
@@ -176,7 +179,7 @@ function isSafeToFix(node: TSESTreeJSXElementLike) {
 
 /**
  * Build an autofix that unwraps the fragment, replacing it with its
- * meaningful children content.  Returns `null` when the fix is unsafe.
+ * children content.  Returns `null` when the fix is unsafe.
  * @param context The rule context.
  * @param node The fragment node to fix.
  */
@@ -197,8 +200,8 @@ function buildFix(context: RuleContext, node: TSESTreeJSXElementLike): ((fixer: 
 
     let start = node.range[0];
 
-    // When unwrapping leaves nothing behind and the fragment sits on its
-    // own line, also remove the line's leading indentation.
+    // When unwrapping leaves nothing behind and only indentation precedes
+    // the fragment on its line, also remove that indentation.
     if (text === "" && node.children.length > 0) {
       const lineStart = Math.max(
         sourceCode.text.lastIndexOf("\n", start - 1),

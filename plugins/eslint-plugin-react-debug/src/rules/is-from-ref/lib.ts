@@ -36,7 +36,7 @@ export function getRefInit(context: RuleContext, name: string, initialScope: Sco
     const init = node.init;
     if (init == null) continue;
     switch (true) {
-      // const identifier = anotherRef.current;
+      // const identifier = anotherRef.current; — any property matches, not just `current`
       case init.type === AST.MemberExpression
         && Check.isIdentifier(init.object)
         && (init.object.name === "ref" || init.object.name.endsWith("Ref")):

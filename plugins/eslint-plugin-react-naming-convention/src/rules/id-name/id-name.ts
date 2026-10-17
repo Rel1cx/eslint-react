@@ -26,6 +26,7 @@ export default createRule<[], MessageID>({
 });
 
 export function create(context: RuleContext<MessageID, []>): RuleListener {
+  // Fast path: skip if `useId` is not present in the file
   if (!context.sourceCode.text.includes("useId")) return {};
   return {
     CallExpression(node: TSESTree.CallExpression) {

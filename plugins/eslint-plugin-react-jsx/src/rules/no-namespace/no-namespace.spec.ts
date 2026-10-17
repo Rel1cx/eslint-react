@@ -50,7 +50,6 @@ ruleTester.run(RULE_NAME, rule, {
         messageId: "default",
       }],
     },
-    // Self-closing with nested member expression is not possible in JSX namespace syntax
   ],
   valid: [
     "<TestComponent />",

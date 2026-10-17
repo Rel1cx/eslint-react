@@ -1,5 +1,4 @@
 import { createRule } from "@/utils/create-rule";
-import { stringify } from "@/utils/stringify";
 import { type RuleContext, type RuleFeature, type RuleListener } from "@eslint-react/eslint";
 import type { TSESTree } from "@typescript-eslint/types";
 import { getRefInitNode } from "./lib";
@@ -34,7 +33,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
     if (refInit == null) return;
     context.report({
       data: {
-        json: stringify({
+        json: JSON.stringify({
           name: node.name,
           init: context.sourceCode.getText(refInit),
         }),

@@ -1,6 +1,6 @@
 import type { Linter } from "eslint";
 
-// This rulelist should be kept in sync with `apps/website/content/docs/migration.mdx`
+// This rulelist should be kept in sync with `apps/website/content/docs/migrating-from-eslint-plugin-react.mdx`
 // Rules provided by `eslint-plugin-react` that exist in this plugin.
 // Rules provided by `@stylistic` are also omitted from this list.
 const conflictingRules = [

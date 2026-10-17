@@ -5,6 +5,12 @@ All notable changes to the `react-dom/no-unknown-property` rule will be document
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+### Fixed
+
+- Fixed a false positive where the React camelCase SVG prop `renderingIntent` was reported as an unknown property, including on code produced by this rule's own autofix for `rendering-intent`.
+
 ## [5.22.0] - 2026-09-29
 
 ### Added

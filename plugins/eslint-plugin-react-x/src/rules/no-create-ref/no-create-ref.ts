@@ -17,7 +17,7 @@ export default createRule<[], MessageID>({
       description: "Disallows 'createRef' in function components and Hooks.",
     },
     messages: {
-      default: "[Deprecated] Use 'useRef' instead.",
+      default: "Use 'useRef' instead of 'createRef' in function components and Hooks.",
     },
     schema: [],
   },

@@ -314,7 +314,8 @@ ruleTester.run(RULE_NAME, rule, {
       options: [{ allowExpressions: false }],
       output: "<div>{value}</div>",
     },
-    // Ensure allowExpressions still catches expected violations
+    // A single element child is reported even with allowExpressions: true —
+    // the option only affects expression-container children
     {
       code: "<><Foo>{moo}</Foo></>",
       errors: [
@@ -993,8 +994,66 @@ ruleTester.run(RULE_NAME, rule, {
       ],
       output: "<div />",
     },
+    // Outside JSX, a fragment whose only child is whitespace-only text cannot
+    // be unwrapped — the fix would leave an empty expression behind
+    {
+      code: "const x = <> </>;",
+      options: [{ allowExpressions: false }],
+      errors: [
+        {
+          type: AST.JSXFragment,
+          data: { reason: "contains less than two children" },
+          messageId: "default",
+        },
+      ],
+      output: null,
+    },
+    // Same when the whitespace child contains a newline (padding whitespace)
+    {
+      code: "function f() { return <>\n</>; }",
+      options: [{ allowExpressions: false }],
+      errors: [
+        {
+          type: AST.JSXFragment,
+          data: { reason: "contains less than two children" },
+          messageId: "default",
+        },
+      ],
+      output: null,
+    },
+    // Outside JSX, a fragment with a single element child is still safe to
+    // unwrap — the element moves into the surrounding expression position
+    {
+      code: "function f() { return <><Foo /></>; }",
+      errors: [
+        {
+          type: AST.JSXFragment,
+          data: { reason: "contains less than two children" },
+          messageId: "default",
+        },
+      ],
+      output: "function f() { return <Foo />; }",
+    },
+    // Outside JSX, a single expression child is reported with allowExpressions:
+    // false, but cannot be unwrapped — the bare expression would not be valid
+    // in the surrounding expression position
+    {
+      code: "function f() { return <>{value}</>; }",
+      options: [{ allowExpressions: false }],
+      errors: [
+        {
+          type: AST.JSXFragment,
+          data: { reason: "contains less than two children" },
+          messageId: "default",
+        },
+      ],
+      output: null,
+    },
   ],
   valid: [
+    // A space-only JSXText sibling (no newline) counts as a meaningful child,
+    // so the fragment is not useless
+    "const x = <><span/> </>;",
     "<><Foo /><Bar /></>",
     // Two element children
     "<><span /><span /></>",
@@ -1128,6 +1187,9 @@ ruleTester.run(RULE_NAME, rule, {
     '<Fragment key="k" />',
     // A single expression child inside a custom component is allowed by default
     "<Foo><>{value}</></Foo>",
+    // A single expression child outside JSX is allowed by default
+    // (allowExpressions: true)
+    "function f() { return <>{value}</>; }",
     // Empty fragment inside a custom component with allowEmptyFragment: true
     {
       code: "<Foo><></></Foo>",
