@@ -22,7 +22,7 @@ src/rules/<rule-name>/
 └── <rule-name>.spec.ts  # Tests
 ```
 
-Only the pattern-specific files are shown; every rule directory also contains the standard `<rule-name>.mdx`, `CHANGELOG.md`, and `<rule-name>.spec.ts` files. Fact-based rules (and a few other complex rules) additionally carry `<rule-name>.spec.md` and `<rule-name>.spec.diff.md` snapshots, and some add unit tests for individual layers (`collect.test.ts`, `effects.test.ts`, ...).
+Only the pattern-specific files are shown; every rule directory also contains the standard `<rule-name>.mdx`, `CHANGELOG.md`, and `<rule-name>.spec.ts` files. Fact-based rules (and a few other complex rules) additionally carry `<rule-name>.spec.md` and `<rule-name>.spec.diff.md` snapshots, and some add unit tests for individual layers (`collect.test.ts`, `effects.test.ts`, ...) — see Testing Each Layer in Isolation below.
 
 Add a layer only when the rule file would otherwise own that responsibility — some rules use all four layers, others stay minimal and defer judgments to later layers instead of capturing more up front.
 
@@ -47,6 +47,17 @@ Functions that turn facts into typed effect/violation objects, usually a `kind`-
 The rule file merges the rule's own collector (plus `@eslint-react/core` collectors where the rule needs them), runs the pipeline in `Program:exit`, and reports — typically ending in an exhaustive match over the effect kinds.
 
 These layer responsibilities are guidelines, not contracts — a rule using this pattern may reinterpret them when a better fit exists. Split responsibilities where it clarifies the rule, not where the template says to.
+
+## Testing Each Layer in Isolation
+
+Because every stage is a plain function with data in and data out, no stage needs the rule itself (or `RuleTester`) to be exercised — each layer can be driven directly against a code snippet, with `@local/testkit` supplying the harness (`immutability` carries one `*.test.ts` per layer as the reference example):
+
+- **`collect.ts`** — `runCollector(code, () => { const collector = createFactCollector(); return { api: collector.facts, visitor: collector.visitor }; }, (facts) => facts)` runs the collector's visitor through a real `Linter` and hands back the facts. Tests summarize them into plain shapes (kind, root name, source text via `getTextOf`) and assert with `toEqual`, so a collection regression surfaces as a diff on data, not as a missing downstream diagnostic.
+- **`origins.ts`** — `runInRule(code, (context, program) => ...)` yields a real `RuleContext` (scope manager included); tests locate the variable under scrutiny (via `findIdentifierReferences` + `findVariable`), call the resolver, and assert on the returned origin object. Because origin functions take `context` as a parameter instead of closing over rule state, they are callable from any test.
+- **`effects.ts`** — tests compose the layers: run the real collector with `runCollector`, capture the context, then call `inferX(context, facts.mutations, components)` and assert on the returned effect objects. Inference stays data-in/data-out, so each inference branch can be driven by exactly the facts meant to trigger it.
+- **`helpers.ts`** — pure helpers get plain unit tests; node-shaped inputs are fabricated with `getFirstExpression` / `getFirstNodeOfType` without a linter at all.
+
+The one-way dependency direction is what makes this practical: a layer's test only imports that layer and the ones before it, so a failing test localizes the bug to the stage under test instead of anywhere in the pipeline. The rule's `<rule-name>.spec.ts` then only needs to cover integration concerns like wiring, message mapping, and report sites, rather than re-deriving every edge case through full diagnostics.
 
 ## When to Use This Pattern
 
