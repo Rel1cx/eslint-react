@@ -1,53 +1,48 @@
-import textlintBase from "./textlint.base.json" with { type: "json" };
+import textlintConfig from "./textlint.base.json" with { type: "json" };
 
-export type TextlintPatternEntry = {
+export type PatternEntry = {
   message: string;
   pattern: string;
 };
 
-export type CompiledTextlintPattern = {
+export type CompiledPattern = {
   message: string;
   regex: RegExp;
 };
 
-export type TextlintPatternMatch = {
-  end: number;
+export type LintReport = {
   message: string;
-  start: number;
+  range: {
+    start: number;
+    end: number;
+  };
 };
 
-export function parseTextlintPattern(pattern: string): RegExp {
-  const [, source, flags] = /^\/(.*)\/([a-z]*)$/.exec(pattern) ?? [];
-  if (source == null || flags == null) return new RegExp(pattern, "g");
-  return new RegExp(source, flags.includes("g") ? flags : `${flags}g`);
-}
-
-export function compileTextlintPatterns(entries: readonly TextlintPatternEntry[]): CompiledTextlintPattern[] {
-  return entries.map(({ message, pattern }) => ({
-    message,
-    regex: parseTextlintPattern(pattern),
-  }));
-}
-
-export function loadTextlintPatterns(): CompiledTextlintPattern[] {
-  return compileTextlintPatterns(textlintBase.rules["@textlint-rule/pattern"].patterns);
-}
-
-export function matchTextlintPatterns(text: string, patterns: readonly CompiledTextlintPattern[]): TextlintPatternMatch[] {
-  const matches: TextlintPatternMatch[] = [];
-  for (const { message, regex } of patterns) {
-    regex.lastIndex = 0;
-    for (;;) {
-      const match = regex.exec(text);
-      const matched = match?.[0];
-      if (match == null || matched == null) break;
-      matches.push({
-        end: match.index + matched.length,
-        message: `${message} ("${matched}")`,
-        start: match.index,
-      });
-      if (matched.length === 0) regex.lastIndex += 1;
+export function compile({ message, pattern }: PatternEntry): CompiledPattern {
+  if (pattern.startsWith("/")) {
+    const lastSlash = pattern.lastIndexOf("/");
+    if (lastSlash > 0) {
+      const flags = pattern.slice(lastSlash + 1);
+      return {
+        message,
+        regex: new RegExp(pattern.slice(1, lastSlash), flags.includes("g") ? flags : `${flags}g`),
+      };
     }
   }
-  return matches;
+  return { message, regex: new RegExp(pattern, "g") };
+}
+
+export function loadDefaults(): CompiledPattern[] {
+  return textlintConfig.rules["@textlint-rule/pattern"].patterns.map(compile);
+}
+
+export function lint(text: string, patterns: readonly CompiledPattern[]): LintReport[] {
+  const reports: LintReport[] = [];
+  for (const { message, regex } of patterns) {
+    for (const match of text.matchAll(regex)) {
+      const start = match.index;
+      reports.push({ message: `${message} ("${match[0]}")`, range: { start, end: start + match[0].length } });
+    }
+  }
+  return reports.sort((a, b) => a.range.start - b.range.start);
 }
