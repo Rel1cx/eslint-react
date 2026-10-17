@@ -58,11 +58,11 @@ export default function HomePage() {
         <small>
           ESLint React is not affiliated with Meta Platforms, Inc. or the{" "}
           <Link
-            aria-label="Visit the official facebook/react GitHub repository"
+            aria-label="Visit the official react/react GitHub repository"
             className="underline"
-            href="https://github.com/facebook/react"
+            href="https://github.com/react/react"
           >
-            facebook/react
+            react/react
           </Link>{" "}
           project or team, nor is it endorsed or sponsored by them. This project is, and will remain,{" "}
           <Link

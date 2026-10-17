@@ -11,7 +11,7 @@ Helpers for checking `TSESTree` node types.
 | [is](variables/is.md)                                               | Check if a node is of the given type.                                                                                              |
 | [isCallExpression](variables/isCallExpression.md)                   | Check if a node is a call expression.                                                                                              |
 | [isClass](variables/isClass.md)                                     | Check if a node is a class declaration or class expression.                                                                        |
-| [isConditional](variables/isConditional.md)                         | Check if a node is a conditional expression or a control flow statement.                                                           |
+| [isConditional](variables/isConditional.md)                         | Check if a node is a conditional or logical expression, or a control flow statement.                                               |
 | [isExpression](variables/isExpression.md)                           | Check if a node is an expression node.                                                                                             |
 | [isFunction](variables/isFunction.md)                               | Check if a node is a function declaration, function expression, or arrow function expression.                                      |
 | [isFunctionOrClass](variables/isFunctionOrClass.md)                 | Check if a node is a function declaration, function expression, arrow function expression, class declaration, or class expression. |
@@ -34,7 +34,7 @@ Helpers for checking `TSESTree` node types.
 
 ## Functions
 
-| Function                                  | Description                                                                                                   |
-| ----------------------------------------- | ------------------------------------------------------------------------------------------------------------- |
-| [isDirective](functions/isDirective.md)   | Check if a node is a directive statement (ex: `"use client"`), optionally matching a specific directive name. |
-| [isIdentifier](functions/isIdentifier.md) | Check if a node is an identifier, optionally matching a specific name.                                        |
+| Function                                  | Description                                                                                                                      |
+| ----------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------- |
+| [isDirective](functions/isDirective.md)   | Check if a node is an expression statement, optionally requiring it to be a directive with a specific name (ex: `"use client"`). |
+| [isIdentifier](functions/isIdentifier.md) | Check if a node is an identifier, optionally matching a specific name.                                                           |

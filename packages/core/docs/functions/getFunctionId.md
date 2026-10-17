@@ -184,4 +184,4 @@ expressions it is more complex. This function roughly detects the same AST
 nodes as the ECMAScript spec's `IsAnonymousFunctionDefinition()` with some
 exceptions to better fit our use case.
 
-Ported from [RulesOfHooks.ts](https://github.com/facebook/react/blob/bb8a76c6cc77ea2976d690ea09f5a1b3d9b1792a/packages/eslint-plugin-react-hooks/src/rules/RulesOfHooks.ts#L860)
+Ported from [RulesOfHooks.ts](https://github.com/react/react/blob/bb8a76c6cc77ea2976d690ea09f5a1b3d9b1792a/packages/eslint-plugin-react-hooks/src/rules/RulesOfHooks.ts#L860)

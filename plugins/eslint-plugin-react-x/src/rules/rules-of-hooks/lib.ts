@@ -3,7 +3,7 @@
 // This code is a forked version of ESLints Code Path Analyzer which includes
 // support for Component Syntax.
 
-// Forked from: https://github.com/facebook/react/tree/main/packages/eslint-plugin-react-hooks/src/code-path-analysis
+// Forked from: https://github.com/react/react/tree/main/packages/eslint-plugin-react-hooks/src/code-path-analysis
 
 // MIT License
 

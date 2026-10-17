@@ -67,6 +67,7 @@ export function isFragmentElement(node: TSESTree.Node, jsxFragmentFactory: strin
 /**
  * Check if the node is a host (intrinsic / DOM) element, that is, a `JSXElement`
  * whose tag name starts with a lowercase letter (ex: `<div>` vs `<MyComponent>`).
+ * For namespaced names, the local part is checked (ex: `rect` in `<svg:rect>`).
  * @param node The node to check.
  * @returns `true` if the node is a `JSXElement` with a lowercase tag name.
  */

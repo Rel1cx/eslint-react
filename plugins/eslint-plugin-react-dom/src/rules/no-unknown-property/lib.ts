@@ -177,7 +177,7 @@ export const ATTRIBUTE_TAGS_MAP: TagsMap = {
   mozAllowFullScreen: ["iframe", "video"],
   muted: ["audio", "video"],
   noModule: ["script"],
-  // Media events allowed only on audio and video tags, see https://github.com/facebook/react/blob/256aefbea1449869620fb26f6ec695536ab453f5/CHANGELOG.md#notable-enhancements
+  // Media events allowed only on audio and video tags, see https://github.com/react/react/blob/256aefbea1449869620fb26f6ec695536ab453f5/CHANGELOG.md#notable-enhancements
   onAbort: ["audio", "video"],
   onCancel: ["dialog"],
   onCanPlay: ["audio", "video"],
@@ -934,11 +934,11 @@ export const REACT_19_ATTRIBUTE_TAGS_MAP: TagsMap = {
  * DOM properties added in React 19.3
  */
 export const REACT_19_3_PROPS: string[] = [
-  // https://github.com/facebook/react/pull/36148
+  // https://github.com/react/react/pull/36148
   "credentialless",
-  // https://github.com/facebook/react/pull/35921
+  // https://github.com/react/react/pull/35921
   "maskType",
-  // https://github.com/facebook/react/pull/34621
+  // https://github.com/react/react/pull/34621
   "onFullscreenChange",
   "onFullscreenChangeCapture",
   "onFullscreenError",

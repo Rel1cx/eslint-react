@@ -5052,7 +5052,7 @@ The old rule names will still be available until the next major update to avoid 
 ### 🐞 Fixes
 
 - fix: correct readonly checks and test cases in `prefer-read-only-props` by @Rel1cx in <https://github.com/Rel1cx/eslint-react/pull/957>
-- fix: rework `naming-convention/component-name` rule to follow [eslint-plugin-react-hooks@5.0](https://github.com/facebook/react/releases/tag/eslint-plugin-react-hooks%405.0.0) by @Rel1cx in <https://github.com/Rel1cx/eslint-react/pull/959>
+- fix: rework `naming-convention/component-name` rule to follow [eslint-plugin-react-hooks@5.0](https://github.com/react/react/releases/tag/eslint-plugin-react-hooks%405.0.0) by @Rel1cx in <https://github.com/Rel1cx/eslint-react/pull/959>
   > Component names now need to start with an uppercase letter instead of a non-lowercase letter. This means `_Button` or `_component` are no longer valid.
 - fix: `naming-convention/use-state` fails with multiple words, closes #960 by @Rel1cx in <https://github.com/Rel1cx/eslint-react/pull/961>
 
@@ -6229,7 +6229,7 @@ function useAuth() {
 ### 🪄 Improvements
 
 - Add `react/no-clone-element` to `recommended` and `recommended-legacy` presets
-- Improve rule `react/no-unstable-nested-components`, make its behavior closer to [react-hooks/no-nested-components](https://github.com/facebook/react/pull/25360)
+- Improve rule `react/no-unstable-nested-components`, make its behavior closer to [react-hooks/no-nested-components](https://github.com/react/react/pull/25360)
 - Update `@typescript-eslint`'s packages to `6.16.0`
 
 ## v0.10.1-beta.1 (2023-12-26)
@@ -6243,7 +6243,7 @@ function useAuth() {
 ### 🪄 Improvements
 
 - Add `react/no-clone-element` to `recommended` and `recommended-legacy` presets
-- Improve rule `react/no-unstable-nested-components`, make its behavior closer to [react-hooks/no-nested-components](https://github.com/facebook/react/pull/25360)
+- Improve rule `react/no-unstable-nested-components`, make its behavior closer to [react-hooks/no-nested-components](https://github.com/react/react/pull/25360)
 
 ## v0.10.0 (2023-12-21)
 

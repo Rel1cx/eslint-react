@@ -94,7 +94,7 @@ export type FunctionSemanticNode = ClientFunctionSemanticNode | ServerFunctionSe
  * nodes as the ECMAScript spec's `IsAnonymousFunctionDefinition()` with some
  * exceptions to better fit our use case.
  *
- * Ported from {@link https://github.com/facebook/react/blob/bb8a76c6cc77ea2976d690ea09f5a1b3d9b1792a/packages/eslint-plugin-react-hooks/src/rules/RulesOfHooks.ts#L860 | RulesOfHooks.ts}
+ * Ported from {@link https://github.com/react/react/blob/bb8a76c6cc77ea2976d690ea09f5a1b3d9b1792a/packages/eslint-plugin-react-hooks/src/rules/RulesOfHooks.ts#L860 | RulesOfHooks.ts}
  *
  * @param node The function node to analyze.
  * @returns The identifier node if found, `null` otherwise.

@@ -26,7 +26,7 @@ export const RE_CONSTANT_CASE = /^[A-Z][\d_A-Z]*$/u;
 
 /**
  * Regular expression for matching the `javascript:` protocol.
- * @see https://github.com/facebook/react/blob/6db7f4209e6f32ebde298a0b7451710dd6aa3e19/packages/react-dom-bindings/src/shared/sanitizeURL.js#L22
+ * @see https://github.com/react/react/blob/6db7f4209e6f32ebde298a0b7451710dd6aa3e19/packages/react-dom-bindings/src/shared/sanitizeURL.js#L22
  */
 // dprint-ignore
 // eslint-disable-next-line no-control-regex

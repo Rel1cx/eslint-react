@@ -6,7 +6,9 @@
 function isInsideCreateElementProps(context: RuleContext, node: Node): boolean;
 ```
 
-Check if the node is inside the props object (the second argument) of a `createElement` call.
+Check if the node is directly inside the props object (the second argument) of a `createElement` call,
+that is, its closest `ObjectExpression` ancestor is the props object itself. Nodes nested deeper
+(ex: inside an object nested in the props object) are not considered inside.
 
 ## Parameters
 
@@ -19,4 +21,4 @@ Check if the node is inside the props object (the second argument) of a `createE
 
 `boolean`
 
-`true` if the node is inside `createElement`'s props object.
+`true` if the node is directly inside `createElement`'s props object.

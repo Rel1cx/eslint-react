@@ -25,10 +25,11 @@ export function isIdentifier(node: TSESTree.Node, name?: string): node is TSESTr
 // Directive guards
 
 /**
- * Check if a node is a directive statement (ex: `"use client"`), optionally matching a specific directive name.
+ * Check if a node is an expression statement, optionally requiring it to be a directive
+ * with a specific name (ex: `"use client"`).
  * @param node The node to check.
- * @param name The directive name to match. When omitted, any directive matches.
- * @returns `true` if the node is a matching directive statement.
+ * @param name The directive name to match. When omitted, any expression statement matches.
+ * @returns `true` if the node is an expression statement and, when `name` is given, a directive with that name.
  */
 export function isDirective(node: TSESTree.Node, name?: string): node is TSESTreeDirective {
   return node.type === AST.ExpressionStatement && (name == null || node.directive === name);
@@ -124,7 +125,7 @@ export const isPropertyOrMethod = isOneOf([
   AST.MethodDefinition,
 ]);
 
-/** Check if a node is a conditional expression or a control flow statement. */
+/** Check if a node is a conditional or logical expression, or a control flow statement. */
 export const isConditional = isOneOf([
   AST.DoWhileStatement,
   AST.ForInStatement,

@@ -143,7 +143,7 @@ describe("isValueEqual", () => {
 
   describe("issue verification", () => {
     it("FIXED: MemberExpression computed property now uses value equality", () => {
-      // Previously `isValueEqual` used `Compare.areEqual(a.property, b.property)` for
+      // Previously `isValueEqual` used `ast.isNodeEqual(a.property, b.property)` for
       // MemberExpression properties, which is structural equality. For computed properties
       // the property nodes of `obj[1 + 1]` and `obj[2]` are structurally different
       // (BinaryExpression and Literal, respectively) even though they evaluate to the same value.
@@ -222,9 +222,9 @@ describe("isValueEqual", () => {
       expect(fact).toBe(true);
     });
 
-    it("ISSUE: resolve called with at: 0 (default) in isValueEqual but at: -1 in resolveObjectType", () => {
-      // `isValueEqual` calls `resolve(context, a)` which defaults to `at: 0` (first definition).
-      // `resolveObjectType` calls `resolve(context, node, { at: -1 })` (last definition).
+    it("ISSUE: resolveOrigin called with at: 0 (default) in isValueEqual but at: -1 in resolveObjectType", () => {
+      // `isValueEqual` calls `resolveOrigin(context, a)` which defaults to `at: 0` (first definition).
+      // `resolveObjectType` calls `resolve(context, node, { at: -1, localOnly: true })` (last definition).
       // With `var` redeclarations, these resolve to different nodes.
       const code = "var x = 1; var x = []; foo(x);";
 

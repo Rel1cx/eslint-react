@@ -94,10 +94,12 @@ export function isCreateElementChildrenArgument(context: RuleContext, node: TSES
 }
 
 /**
- * Check if the node is inside the props object (the second argument) of a `createElement` call.
+ * Check if the node is directly inside the props object (the second argument) of a `createElement` call,
+ * that is, its closest `ObjectExpression` ancestor is the props object itself. Nodes nested deeper
+ * (ex: inside an object nested in the props object) are not considered inside.
  * @param context The ESLint rule context.
  * @param node The node to check.
- * @returns `true` if the node is inside `createElement`'s props object.
+ * @returns `true` if the node is directly inside `createElement`'s props object.
  */
 export function isInsideCreateElementProps(context: RuleContext, node: TSESTree.Node): boolean {
   const call = Traverse.findParent(node, isCreateElementCall(context));
