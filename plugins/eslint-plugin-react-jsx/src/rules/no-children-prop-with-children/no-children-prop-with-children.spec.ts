@@ -444,7 +444,7 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
     },
-    // Null, 0, false, undefined, and empty expression container are meaningful
+    // Null, 0, false, and undefined are meaningful children
     {
       code: '<div children="x">{null}</div>;',
       errors: [
@@ -476,6 +476,19 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: "default",
           suggestions: [
             { messageId: "remove-children-prop", output: "<div>{false}</div>;" },
+            { messageId: "remove-children-content", output: '<div children="x"></div>;' },
+          ],
+        },
+      ],
+    },
+    // {undefined} is also a meaningful child
+    {
+      code: '<div children="x">{undefined}</div>;',
+      errors: [
+        {
+          messageId: "default",
+          suggestions: [
+            { messageId: "remove-children-prop", output: "<div>{undefined}</div>;" },
             { messageId: "remove-children-content", output: '<div children="x"></div>;' },
           ],
         },

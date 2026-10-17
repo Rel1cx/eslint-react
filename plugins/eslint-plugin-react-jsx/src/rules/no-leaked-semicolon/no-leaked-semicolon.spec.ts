@@ -292,7 +292,7 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
     },
-    // CRLF after semicolon
+    // LF after semicolon
     {
       code: tsx`<div><span />;
 </div>`,
@@ -304,6 +304,21 @@ ruleTester.run(RULE_NAME, rule, {
               messageId: "suggest",
               output: tsx`<div><span />
 </div>`,
+            },
+          ],
+        },
+      ],
+    },
+    // CRLF after semicolon
+    {
+      code: "<div><span />;\r\n</div>",
+      errors: [
+        {
+          messageId: "default",
+          suggestions: [
+            {
+              messageId: "suggest",
+              output: "<div><span />\r\n</div>",
             },
           ],
         },

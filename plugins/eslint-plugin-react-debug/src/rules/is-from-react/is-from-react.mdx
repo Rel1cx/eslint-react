@@ -25,7 +25,7 @@ This rule reports all identifiers initialized from React in JSON format. It trac
 // This rule reports named imports that originate from React.
 import { useState } from "react";
 //       ^^^^^^^^
-//       - [initialized from react] name: 'useState', import source: 'react'.
+//       - {"name":"useState","importSource":"react"}
 ```
 
 ### Default import and namespace access
@@ -34,24 +34,28 @@ import { useState } from "react";
 // This rule reports the default React import and member accesses.
 import React from "react";
 //     ^^^^^
-//     - [initialized from react] name: 'React', import source: 'react'.
+//     - {"name":"React","importSource":"react"}
 
 const Children = React.Children;
 //    ^^^^^^^^   ^^^^^ ^^^^^^^^
-//    |          |     - [initialized from react] name: 'Children', import source: 'react'.
-//    |          - [initialized from react] name: 'React', import source: 'react'.
-//    - [initialized from react] name: 'Children', import source: 'react'.
+//    |          |     - {"name":"Children","importSource":"react"}
+//    |          - {"name":"React","importSource":"react"}
+//    - {"name":"Children","importSource":"react"}
 ```
 
 ### Chained member access from React imports
 
 ```tsx
 // This rule reports identifiers derived from React through chained access.
+import { Children } from "react";
+//       ^^^^^^^^
+//       - {"name":"Children","importSource":"react"}
+
 const toArray = Children.toArray;
 //    ^^^^^^^   ^^^^^^^^ ^^^^^^^
-//    |         |        - [initialized from react] name: 'toArray', import source: 'react'.
-//    |         - [initialized from react] name: 'Children', import source: 'react'.
-//    - [initialized from react] name: 'Children', import source: 'react'.
+//    |         |        - {"name":"toArray","importSource":"react"}
+//    |         - {"name":"Children","importSource":"react"}
+//    - {"name":"toArray","importSource":"react"}
 ```
 
 ### Custom React import source
@@ -62,27 +66,31 @@ When [`settings["react-x"].importSource`](https://eslint-react.xyz/docs/configur
 // This rule respects the custom importSource setting.
 import { useState } from "@pika/react";
 //       ^^^^^^^^
-//       - [initialized from react] name: 'useState', import source: '@pika/react'.
+//       - {"name":"useState","importSource":"@pika/react"}
 ```
 
 ```tsx
 import React from "@pika/react";
 //     ^^^^^
-//     - [initialized from react] name: 'React', import source: '@pika/react'.
+//     - {"name":"React","importSource":"@pika/react"}
 
 const Children = React.Children;
 //    ^^^^^^^^   ^^^^^ ^^^^^^^^
-//    |          |     - [initialized from react] name: 'Children', import source: '@pika/react'.
-//    |          - [initialized from react] name: 'React', import source: '@pika/react'.
-//    - [initialized from react] name: 'Children', import source: '@pika/react'.
+//    |          |     - {"name":"Children","importSource":"@pika/react"}
+//    |          - {"name":"React","importSource":"@pika/react"}
+//    - {"name":"Children","importSource":"@pika/react"}
 ```
 
 ```tsx
+import { Children } from "@pika/react";
+//       ^^^^^^^^
+//       - {"name":"Children","importSource":"@pika/react"}
+
 const toArray = Children.toArray;
 //    ^^^^^^^   ^^^^^^^^ ^^^^^^^
-//    |         |        - [initialized from react] name: 'toArray', import source: '@pika/react'.
-//    |         - [initialized from react] name: 'Children', import source: '@pika/react'.
-//    - [initialized from react] name: 'Children', import source: '@pika/react'.
+//    |         |        - {"name":"toArray","importSource":"@pika/react"}
+//    |         - {"name":"Children","importSource":"@pika/react"}
+//    - {"name":"toArray","importSource":"@pika/react"}
 ```
 
 ## Resources

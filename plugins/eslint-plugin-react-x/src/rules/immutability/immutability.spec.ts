@@ -2393,6 +2393,16 @@ ruleTester.run(RULE_NAME, rule, {
         return <button onClick={() => history.push('/dashboard')} />
       }
     `,
+    // `navigate('/x')` calls the function returned by `useNavigate()`; it does
+    // not mutate any captured value.
+    tsx`
+      function Component() {
+        const router = useRouter()
+        const navigate = useNavigate()
+        router.push('/x')
+        return <button onClick={() => navigate('/x')} />
+      }
+    `,
     // https://github.com/Rel1cx/eslint-react/issues/1893
     tsx`
       import { useEffect, useRef } from "react";

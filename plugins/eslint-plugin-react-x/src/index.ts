@@ -55,11 +55,11 @@ const finalPlugin: ESLint.Plugin & { configs: Record<ConfigName, Linter.Config> 
      */
     ["disable-experimental"]: createConfig(disableExperimentalConfig),
     /**
-     * Disable rules that can be enforced by TypeScript
+     * Disable rules that require type information
      */
     ["disable-type-checked"]: createConfig(disableTypeCheckedConfig),
     /**
-     * Enforce rules that are recommended by ESLint React for general purpose React + React DOM projects
+     * Enforce rules that are recommended by ESLint React for general purpose React projects
      */
     ["recommended"]: createConfig(recommendedConfig),
     /**
@@ -67,7 +67,7 @@ const finalPlugin: ESLint.Plugin & { configs: Record<ConfigName, Linter.Config> 
      */
     ["recommended-type-checked"]: createConfig(recommendedTypeCheckedConfig),
     /**
-     * Same as the `recommended` preset but disables rules that can be enforced by TypeScript
+     * Same as the `recommended` preset
      */
     ["recommended-typescript"]: createConfig(recommendedTypeScriptConfig),
     /**
@@ -79,7 +79,7 @@ const finalPlugin: ESLint.Plugin & { configs: Record<ConfigName, Linter.Config> 
      */
     ["strict-type-checked"]: createConfig(strictTypeCheckedConfig),
     /**
-     * Same as the `strict` preset but disables rules that can be enforced by TypeScript
+     * Same as the `strict` preset
      */
     ["strict-typescript"]: createConfig(strictTypeScriptConfig),
   },

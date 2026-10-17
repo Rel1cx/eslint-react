@@ -117,6 +117,16 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [{ messageId: "invalid-ref-name" }],
     },
+    // Contrast with the computed-member-key valid cases: a plain variable
+    // assignment is a naming target, so a name without the 'Ref' suffix is reported
+    {
+      name: "Plain variable assignment without member access is still checked",
+      code: tsx`
+        import { useRef } from "react";
+        const x = useRef(null);
+      `,
+      errors: [{ messageId: "invalid-ref-name" }],
+    },
     // Other assignment targets
     {
       name: "Member expression assignment with invalid ref name",
@@ -339,6 +349,29 @@ ruleTester.run(RULE_NAME, rule, {
       `,
     },
     // Code not subject to the rule
+    {
+      name: "Computed member key using the useRef result",
+      code: tsx`
+        import { useRef } from "react";
+        const value = obj[useRef(null)];
+      `,
+    },
+    {
+      name: "Computed member key using the non-null-asserted useRef result",
+      code: tsx`
+        import { useRef } from "react";
+        const value = obj[useRef(null)!];
+      `,
+    },
+    // The TS `as` wrapper is unwrapped before the member-expression check,
+    // so a computed member key is still not treated as a naming assignment
+    {
+      name: "Computed member key using the type-casted useRef result",
+      code: tsx`
+        import { useRef } from "react";
+        const value = obj[useRef(null) as any];
+      `,
+    },
     {
       name: "Unassigned useRef call",
       code: tsx`

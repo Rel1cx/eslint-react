@@ -13,7 +13,7 @@ ruleTester.run(RULE_NAME, rule, {
           // 🔴 Bad: This will cause all state to be reset on re-renders
           const MarkdownPreview = lazy(() => import("./MarkdownPreview.js"));
           //    ^^^^^^^^^^^^^^^
-          //    - Do not declare lazy components inside other components. Instead, always declare them at the top level of your module.
+          //    - Do not declare lazy components that wrap dynamic imports inside other components or hooks. Instead, always declare them at the top level of your module.
           // ...
 
           return null;
@@ -277,6 +277,26 @@ ruleTester.run(RULE_NAME, rule, {
       const createLazyComponent = () => {
         return lazy(() => import("./DynamicComponent.js"));
       };
+    `,
+    // Lazy without a dynamic import is not tracked; only `lazy(() => import(...))` is collected
+    tsx`
+      import { lazy } from "react";
+
+      function Editor() {
+        const MarkdownPreview = lazy(() => Promise.resolve({ default: () => <div /> }));
+        return <MarkdownPreview />;
+      }
+    `,
+    // A non-`import()` promise chain is also not tracked: the rule collects
+    // lazy calls only via `ImportExpression` inside the lazy call, so this
+    // boundary is intentionally not reported
+    tsx`
+      import { lazy } from "react";
+
+      function Editor() {
+        const MarkdownPreview = lazy(() => Promise.resolve().then(() => ({ default: () => <div /> })));
+        return <MarkdownPreview />;
+      }
     `,
   ],
 });

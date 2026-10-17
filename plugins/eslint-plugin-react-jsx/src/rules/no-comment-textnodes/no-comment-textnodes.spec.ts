@@ -93,7 +93,7 @@ ruleTester.run(RULE_NAME, rule, {
       code: "<span>/*</span>",
       errors: [{ messageId: "default" }],
     },
-    // Heuristic boundary: a line starting with '//' is reported even when it is intended text (e.g. a UNC path)
+    // Heuristic boundary: a line starting with '//' is reported even when it is intended text (e.g. a POSIX-style path)
     {
       code: tsx`
         <div>

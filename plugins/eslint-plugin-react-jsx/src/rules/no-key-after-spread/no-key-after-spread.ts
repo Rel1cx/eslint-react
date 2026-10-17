@@ -28,13 +28,16 @@ export default createRule<[], MessageID>({
 });
 
 export function create(context: RuleContext<MessageID, []>): RuleListener {
-  // Fast path: skip if 'key' is never assigned in the file
+  // Fast path: skip if no 'key=' text appears in the file
   if (!/key\s*=/.test(context.sourceCode.text)) return {};
   const { jsx } = core.getJsxConfig(context);
   if (jsx !== ts.JsxEmit.ReactJSX && jsx !== ts.JsxEmit.ReactJSXDev) return {};
   return {
     JSXOpeningElement(node) {
-      // A 'key' after any spread prop falls back to createElement (deoptimization).
+      // A 'key' after a spread prop falls back to createElement (deoptimization).
+      // tsc itself exempts an inline object literal spread without nested
+      // spreads (it still emits via the JSX runtime), but this rule reports
+      // every 'key' after any spread regardless.
       for (const n of dropWhile(node.attributes, not(Check.isJSXSpreadAttribute)).filter(isAttribute("key"))) {
         context.report({ messageId: "default", node: n });
       }

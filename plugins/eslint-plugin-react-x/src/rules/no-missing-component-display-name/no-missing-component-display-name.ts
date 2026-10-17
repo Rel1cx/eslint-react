@@ -12,7 +12,7 @@ export default createRule<[], MessageID>({
   meta: {
     type: "suggestion",
     docs: {
-      description: "Enforces that all components have a 'displayName' that can be used in DevTools.",
+      description: "Enforces that anonymous components wrapped in 'memo' or 'forwardRef' have a 'displayName' that can be used in DevTools.",
     },
     messages: {
       default: "Add missing 'displayName' for component.",

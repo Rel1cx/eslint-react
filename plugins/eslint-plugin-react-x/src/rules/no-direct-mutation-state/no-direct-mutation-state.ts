@@ -45,8 +45,6 @@ function isAssignmentToThisState(node: TSESTree.AssignmentExpression) {
   return false;
 }
 
-// #endregion
-
 export function create(context: RuleContext<MessageID, []>): RuleListener {
   return {
     AssignmentExpression(node: TSESTree.AssignmentExpression) {

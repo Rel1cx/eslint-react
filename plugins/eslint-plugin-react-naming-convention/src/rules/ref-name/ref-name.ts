@@ -33,8 +33,9 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
     CallExpression(node: TSESTree.CallExpression) {
       if (!core.isUseRefLikeCall(node, additionalRefHooks)) return;
       // https://github.com/Rel1cx/eslint-react/issues/1375
-      // Skip immediate dereferences like `useRef(null).current`, including through
-      // TS wrappers like `useRef(null)!.current` or `(useRef(null) as T).current`
+      // Skip member access directly on the call, whether a dereference like
+      // `useRef(null).current` or a computed key like `obj[useRef()]`, including
+      // through TS wrappers like `useRef(null)!.current` or `(useRef(null) as T).current`
       let parent: TSESTree.Node = node.parent;
       while (Check.isTypeExpression(parent)) parent = parent.parent;
       if (parent.type === AST.MemberExpression) return;

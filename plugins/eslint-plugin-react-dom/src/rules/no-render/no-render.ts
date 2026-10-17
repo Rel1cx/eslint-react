@@ -77,7 +77,8 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
 function buildFix(context: RuleContext, node: TSESTree.CallExpression) {
   const getText = (n: TSESTree.Node) => context.sourceCode.getText(n);
   return (fixer: RuleFixer) => {
-    // `render` takes two arguments: component and container
+    // Legacy `render(element, container, callback?)` accepts an optional third
+    // callback argument; the fix only migrates the first two, so any callback is dropped
     const [arg0, arg1] = node.arguments;
     if (arg0 == null || arg1 == null) return null;
     // The fix consists of two parts:

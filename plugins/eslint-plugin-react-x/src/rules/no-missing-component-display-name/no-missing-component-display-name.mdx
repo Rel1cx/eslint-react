@@ -1,6 +1,6 @@
 ---
 title: no-missing-component-display-name
-description: Enforces that all components have a 'displayName' that can be used in DevTools.
+description: Enforces that anonymous components wrapped in 'memo' or 'forwardRef' have a 'displayName' that can be used in DevTools.
 ---
 
 **Full Name in [`eslint-plugin-react-x`](https://npmx.dev/package/eslint-plugin-react-x/v/latest)**
@@ -79,22 +79,9 @@ Button.displayName = "Button";
 
 ### Default exporting an anonymous arrow function
 
-```tsx
-// 🔴 Problem: When default-exporting an anonymous function, the component has no recognizable name in DevTools
-import React from "react";
-
-export default () => <div />;
-//             ^^^ Add missing 'displayName' for component.
-```
-
-```tsx
-// 🟢 Recommended: Change the default export to a named function declaration
-import React from "react";
-
-export default function Button() {
-  return <div />;
-}
-```
+<Callout type="info">
+  Default-exported anonymous components are **not** reported by this rule: it only targets anonymous components wrapped in `memo` or `forwardRef`, where React cannot infer a name from the surrounding code.
+</Callout>
 
 ## Resources
 

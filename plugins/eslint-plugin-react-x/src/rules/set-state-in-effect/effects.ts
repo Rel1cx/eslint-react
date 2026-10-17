@@ -57,8 +57,8 @@ export function inferViolations(context: RuleContext, facts: SetStateInEffectFac
       trackedFnCalls.push(node);
       continue;
     }
-    // Deferred setState calls (async functions, `.then` callbacks) are treated
-    // as running after the setup has returned
+    // Deferred setState calls (`.then` callbacks) are treated as running after
+    // the setup has returned
     if (enclosingFunctionKind === "deferred") continue;
     // The function synchronously containing the call: the enclosing function
     // itself, or the function an IIFE is immediately invoked in

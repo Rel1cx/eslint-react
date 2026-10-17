@@ -9,8 +9,8 @@ import { typeOf } from "./type-of";
  * @param obj the object to transform.
  * @param transform the function to transform the keys from string to string.
  * @returns the transformed object.
- * @example transformKeys({ 'foo-bar': { 'fizz-buzz': true } }, camelCase)
- * // { fooBar: { 'fizz-buzz': true } }
+ * @example transformKeys({ 'foo-bar': { 'fizz-buzz': true } }, (key) => key.replaceAll("-", "_"))
+ * // { foo_bar: { 'fizz-buzz': true } }
  */
 export function transformKeys<T>(obj: T, transform: (s: string) => string): T {
   if (typeOf(obj) !== "object") {

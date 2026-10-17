@@ -158,7 +158,7 @@ function buildFix(context: RuleContext, node: TSESTree.JSXElement, prop: TSESTre
     }
 
     // Non-self-closing: remove prop and append children before the
-    // closing tag (after any existing children content).
+    // closing tag (after any remaining children content).
     if (node.closingElement == null) return [removePropFix];
     return [
       removePropFix,

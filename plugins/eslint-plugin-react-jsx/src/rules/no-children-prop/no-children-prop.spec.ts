@@ -187,7 +187,7 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
     },
-    // 'children' alongside other props or existing content
+    // 'children' alongside other props
     {
       code: '<div children="Children" className="x" />;',
       errors: [

@@ -37,19 +37,22 @@ const finalPlugin: ESLint.Plugin & { configs: Record<ConfigName, Linter.Config> 
      */
     ["disable-experimental"]: createConfig(disableExperimentalConfig),
     /**
-     * Enforce rules that are recommended by ESLint React for general purpose React + React DOM projects
+     * Enforce rules that are recommended by ESLint React for React Server Components projects
      */
     ["recommended"]: createConfig(recommendedConfig),
     /**
-     * Same as the `recommended` preset but disables rules that can be enforced by TypeScript
+     * Same as the `recommended` preset but disables rules that can be enforced by TypeScript;
+     * currently identical to `recommended` as no rules qualify
      */
     ["recommended-typescript"]: createConfig(recommendedTypeScriptConfig),
     /**
-     * More strict version of the `recommended` preset
+     * More strict version of the `recommended` preset;
+     * currently identical to `recommended`
      */
     ["strict"]: createConfig(strictConfig),
     /**
-     * Same as the `strict` preset but disables rules that can be enforced by TypeScript
+     * Same as the `strict` preset but disables rules that can be enforced by TypeScript;
+     * currently identical to `strict` as no rules qualify
      */
     ["strict-typescript"]: createConfig(strictTypeScriptConfig),
   },

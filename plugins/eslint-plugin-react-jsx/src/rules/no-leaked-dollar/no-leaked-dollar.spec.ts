@@ -181,7 +181,8 @@ ruleTester.run(RULE_NAME, rule, {
     },
     // --- Boundary tests start here ---
     {
-      // Boundary: '$$' + expression (length === 2, value !== '$')
+      // Boundary: '$$' + expression — the text trims to '$$', not '$', so the
+      // isolated-'$' exemption does not apply.
       // Fix removes only the last '$', leaving '$' + expression which becomes valid
       code: tsx`
         const App = () => <>$$\${user.name}</>
@@ -255,7 +256,8 @@ ruleTester.run(RULE_NAME, rule, {
     },
     {
       // Boundary: expression before '$' then another expression
-      // <div>{a}\${b}</div> → JSXExpr(a), JSXText("$"), JSXExpr(b) → length === 3 → invalid
+      // <div>{a}\${b}</div> → the preceding {a} sibling is substantive, so the
+      // isolated-'$' exemption does not apply → reported
       code: tsx`
         function App() {
           return <div>{a}\${b}</div>;
@@ -375,9 +377,9 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      // Boundary: '$' with a space in between text and expression via newline
-      // Actually this should be valid because the text node ends with space, not $
-      // But let's test a variant where newline separates: parser might create separate text nodes
+      // Boundary: '$' after a newline — the JSXText is "Hello\n$": it ends with
+      // '$' but contains other text, so the isolated-'$' exemption does not
+      // apply and the leak is reported
       code: tsx`
         function App() {
           return <div>Hello
@@ -456,7 +458,7 @@ ruleTester.run(RULE_NAME, rule, {
           return <div>Hello $</div>;
       };
     `,
-    // Intentional: isolated '$' before expression with exactly 2 children
+    // Intentional: isolated '$' before expression with no other siblings
     tsx`
       function App({ price }) {
         return <div>\${price}</div>;
@@ -512,14 +514,15 @@ ruleTester.run(RULE_NAME, rule, {
         return <div>Hello $</div>;
       }
     `,
-    // Boundary: isolated '$' before expression in Fragment (exactly 2 children)
+    // Boundary: isolated '$' before expression in Fragment (no other siblings)
     tsx`
       function App({ price }) {
         return <>\${price}</>;
       }
     `,
-    // Boundary: empty expression container after '$' with exactly 2 children
-    // <div>\${}</div> → JSXText("$"), JSXExpressionContainer(null) → length === 2, value === "$" → skip
+    // Boundary: empty expression container after '$' — the container holds a
+    // JSXEmptyExpression, and with no other siblings the isolated-'$'
+    // exemption applies → skip
     tsx`
       function App() {
         return <div>\${}</div>;

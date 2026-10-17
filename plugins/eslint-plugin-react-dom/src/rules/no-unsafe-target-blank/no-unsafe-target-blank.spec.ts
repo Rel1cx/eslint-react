@@ -20,6 +20,53 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
     },
+    // Non-http(s) scheme URLs are treated as external links
+    {
+      code: '<a href="mailto:user@example.com" target="_blank"></a>',
+      errors: [
+        {
+          messageId: "default",
+          suggestions: [
+            {
+              messageId: "suggest",
+              data: { rel: 'rel="noreferrer noopener"' },
+              output: '<a rel="noreferrer noopener" href="mailto:user@example.com" target="_blank"></a>',
+            },
+          ],
+        },
+      ],
+    },
+    {
+      code: '<a href="ftp://example.com/file" target="_blank"></a>',
+      errors: [
+        {
+          messageId: "default",
+          suggestions: [
+            {
+              messageId: "suggest",
+              data: { rel: 'rel="noreferrer noopener"' },
+              output: '<a rel="noreferrer noopener" href="ftp://example.com/file" target="_blank"></a>',
+            },
+          ],
+        },
+      ],
+    },
+    // `tel:` also matches the scheme pattern (`\w+:`), so it is reported as external
+    {
+      code: '<a href="tel:+1234567890" target="_blank"></a>',
+      errors: [
+        {
+          messageId: "default",
+          suggestions: [
+            {
+              messageId: "suggest",
+              data: { rel: 'rel="noreferrer noopener"' },
+              output: '<a rel="noreferrer noopener" href="tel:+1234567890" target="_blank"></a>',
+            },
+          ],
+        },
+      ],
+    },
     {
       code: '<a href="https://react.dev" target={"_blank"}></a>',
       errors: [

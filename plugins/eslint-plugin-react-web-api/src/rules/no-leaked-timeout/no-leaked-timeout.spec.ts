@@ -139,6 +139,38 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
+      name: "reports the actual effect hook name in the message",
+      code: tsx`
+        function Example() {
+          useLayoutEffect(() => {
+            const timeoutId = setTimeout(() => {}, 1000);
+          }, []);
+        }
+      `,
+      errors: [
+        {
+          messageId: "expected-clear-timeout-in-cleanup",
+          data: { kind: "useLayoutEffect" },
+        },
+      ],
+    },
+    {
+      name: "reports the hook property name for a member callee (ex: 'React.useLayoutEffect')",
+      code: tsx`
+        function Example() {
+          React.useLayoutEffect(() => {
+            const timeoutId = setTimeout(() => {}, 1000);
+          }, []);
+        }
+      `,
+      errors: [
+        {
+          messageId: "expected-clear-timeout-in-cleanup",
+          data: { kind: "useLayoutEffect" },
+        },
+      ],
+    },
+    {
       name: "reports a 'setTimeout' created in deeply nested functions inside the setup callback",
       code: tsx`
         function Example() {

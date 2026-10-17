@@ -2,7 +2,8 @@ import { isString } from "@local/eff";
 
 /**
  * Check if a value appears to be an external link.
- * External links typically start with http(s):// or have protocol-relative format.
+ * Any absolute URL with a scheme (ex: 'https://', 'mailto:') or a protocol-relative
+ * URL (ex: '//example.com') is considered external.
  * @param value The value to check
  * @returns Whether the value represents an external link
  */

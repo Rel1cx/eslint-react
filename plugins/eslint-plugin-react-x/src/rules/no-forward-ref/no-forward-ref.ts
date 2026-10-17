@@ -72,12 +72,13 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
 }
 
 /**
- * Determine whether the given CallExpression can be safely auto-fixed by replacing
- * the usage of `forwardRef` with passing `ref` as a prop
+ * Check whether the callee refers to React's `forwardRef`, which is a prerequisite
+ * for auto-fixing the call by replacing the usage of `forwardRef` with passing
+ * `ref` as a prop
  *
  * @param context The rule context object
  * @param node The CallExpression node to check
- * @returns True if the call can be auto-fixed, false otherwise
+ * @returns True if the callee is `forwardRef` or `React.forwardRef` initialized from React, false otherwise
  */
 function couldFix(context: RuleContext, node: TSESTree.CallExpression) {
   const { importSource } = getSettingsFromContext(context);

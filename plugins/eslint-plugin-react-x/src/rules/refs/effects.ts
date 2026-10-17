@@ -170,8 +170,8 @@ function isMergeRefsCallee(
 
 /**
  * Passing a ref to an unknown function can expose its value during render.
- * Hook callbacks, mergeRefs, and the existing render-prop compatibility case
- * remain exempt.
+ * Calls to hooks (e.g. `useMyHook(ref)`), mergeRefs, and the existing
+ * render-prop compatibility case remain exempt.
  */
 export function inferRefPassViolations(
   passSites: readonly PassSiteFact[],

@@ -1,6 +1,5 @@
 import tsx from "dedent";
 
-import { stringify } from "@/utils/stringify";
 import { ruleTester } from "@local/testkit";
 import rule, { RULE_NAME } from "./hook";
 
@@ -16,7 +15,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           data: {
-            json: stringify({
+            json: JSON.stringify({
               name: "useToggle",
               hookCalls: 1,
             }),
@@ -37,7 +36,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           data: {
-            json: stringify({
+            json: JSON.stringify({
               name: "useMultipleHooks",
               hookCalls: 3,
             }),
@@ -48,7 +47,7 @@ ruleTester.run(RULE_NAME, rule, {
     },
     {
       code: tsx`
-        // 🔴 Avoid: A Hook that doesn't use Hooks
+        // A Hook that doesn't call any other Hooks — still collected and reported
         function useSorted(items) {
           return items.slice().sort();
         }
@@ -56,7 +55,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           data: {
-            json: stringify({
+            json: JSON.stringify({
               name: "useSorted",
               hookCalls: 0,
             }),
@@ -68,7 +67,7 @@ ruleTester.run(RULE_NAME, rule, {
     {
       code: tsx`
         function useClassnames(obj) {
-            // Invalid, because useClassnames doesn't use any other React Hooks.
+            // useClassnames doesn't call any other React Hooks, so hookCalls is 0.
             var k, cls='';
             for (k in obj) {
               if (obj[k]) {
@@ -82,7 +81,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           data: {
-            json: stringify({
+            json: JSON.stringify({
               name: "useClassnames",
               hookCalls: 0,
             }),
@@ -94,7 +93,7 @@ ruleTester.run(RULE_NAME, rule, {
     {
       code: tsx`
         const useClassnames = (obj) => {
-            // Invalid, because useClassnames doesn't use any other React Hooks.
+            // useClassnames doesn't call any other React Hooks, so hookCalls is 0.
             var k, cls='';
             for (k in obj) {
               if (obj[k]) {
@@ -108,7 +107,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           data: {
-            json: stringify({
+            json: JSON.stringify({
               name: "useClassnames",
               hookCalls: 0,
             }),
@@ -124,7 +123,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           data: {
-            json: stringify({
+            json: JSON.stringify({
               name: "useExpressionBody",
               hookCalls: 1,
             }),
@@ -142,7 +141,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           data: {
-            json: stringify({
+            json: JSON.stringify({
               name: "useExpressionHook",
               hookCalls: 1,
             }),
@@ -158,7 +157,7 @@ ruleTester.run(RULE_NAME, rule, {
             return [value, () => setValue(x => !x)];
         }
 
-        // 🔴 Avoid: A Hook that doesn't use Hooks
+        // A Hook that doesn't call any other Hooks — still collected and reported
         function useSorted(items) {
           return items.slice().sort();
         }
@@ -166,7 +165,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           data: {
-            json: stringify({
+            json: JSON.stringify({
               name: "useToggle",
               hookCalls: 1,
             }),
@@ -175,7 +174,7 @@ ruleTester.run(RULE_NAME, rule, {
         },
         {
           data: {
-            json: stringify({
+            json: JSON.stringify({
               name: "useSorted",
               hookCalls: 0,
             }),
@@ -198,7 +197,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           data: {
-            json: stringify({
+            json: JSON.stringify({
               name: "useNestedHook",
               hookCalls: 1,
             }),
@@ -207,7 +206,7 @@ ruleTester.run(RULE_NAME, rule, {
         },
         {
           data: {
-            json: stringify({
+            json: JSON.stringify({
               name: "useInnerHook",
               hookCalls: 0,
             }),
@@ -230,7 +229,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           data: {
-            json: stringify({
+            json: JSON.stringify({
               name: "useNestedHook",
               hookCalls: 0,
             }),
@@ -239,7 +238,7 @@ ruleTester.run(RULE_NAME, rule, {
         },
         {
           data: {
-            json: stringify({
+            json: JSON.stringify({
               name: "useInnerHook",
               hookCalls: 1,
             }),
@@ -262,7 +261,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           data: {
-            json: stringify({
+            json: JSON.stringify({
               name: "useNestedHook",
               hookCalls: 1,
             }),
@@ -280,7 +279,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           data: {
-            json: stringify({
+            json: JSON.stringify({
               name: "useData",
               hookCalls: 1,
             }),
@@ -301,7 +300,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           data: {
-            json: stringify({
+            json: JSON.stringify({
               name: "useMotionStyle",
               hookCalls: 3,
             }),

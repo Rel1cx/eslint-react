@@ -1366,6 +1366,45 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
     },
+    // The message names the actual effect hook, not a hardcoded "useEffect"
+    {
+      code: tsx`
+        import { useLayoutEffect } from "react";
+
+        function Example() {
+          useLayoutEffect(() => {
+            const handleResize = () => {};
+            window.addEventListener("resize", handleResize);
+          }, []);
+        }
+      `,
+      errors: [
+        {
+          messageId: "expected-remove-event-listener-in-cleanup",
+          data: { effectMethodKind: "useLayoutEffect" },
+        },
+      ],
+    },
+    // A member callee (ex: 'React.useLayoutEffect') is recognized and the message names
+    // the hook property, not the full member path
+    {
+      code: tsx`
+        import React from "react";
+
+        function Example() {
+          React.useLayoutEffect(() => {
+            const handleResize = () => {};
+            window.addEventListener("resize", handleResize);
+          }, []);
+        }
+      `,
+      errors: [
+        {
+          messageId: "expected-remove-event-listener-in-cleanup",
+          data: { effectMethodKind: "useLayoutEffect" },
+        },
+      ],
+    },
   ],
   valid: [
     // -------------------------------------------------------------------------
@@ -2494,6 +2533,25 @@ ruleTester.run(RULE_NAME, rule, {
             ? () => window.removeEventListener("resize", handleResize)
             : null;
         }, []);
+      }
+    `,
+    // Pins current behavior: class component lifecycle methods are out of scope;
+    // only useEffect-like callbacks are checked
+    tsx`
+      import { Component } from "react";
+
+      class Example extends Component {
+        componentDidMount() {
+          document.addEventListener("click", this.handleClick);
+        }
+
+        handleClick() {
+          console.log("clicked");
+        }
+
+        render() {
+          return null;
+        }
       }
     `,
   ],

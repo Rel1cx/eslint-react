@@ -5,7 +5,7 @@ import { DefinitionType } from "@typescript-eslint/scope-manager";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import { findVariable } from "@typescript-eslint/utils/ast-utils";
 
-/** Global functions that convert their first argument while preserving its identity as a key. */
+/** Global coercion functions whose result still derives from the array index, so a key built from it remains index-based. */
 export const KNOWN_COERCION_FUNCTIONS = new Set(["Number", "String"]);
 
 /**

@@ -1,5 +1,4 @@
 import { createRule } from "@/utils/create-rule";
-import { stringify } from "@/utils/stringify";
 import type { TSESTreeJSXElementLike } from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, type RuleListener } from "@eslint-react/eslint";
@@ -36,7 +35,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   function visit(node: TSESTreeJSXElementLike) {
     context.report({
       data: {
-        json: stringify({
+        json: JSON.stringify({
           kind: match(node)
             .with({ type: AST.JSXElement }, (n) => isFragmentElement(n, jsxConfig.jsxFragmentFactory) ? "fragment" : "element")
             .with({ type: AST.JSXFragment }, () => "fragment")

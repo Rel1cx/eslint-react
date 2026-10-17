@@ -116,7 +116,7 @@ export function createFactCollector(additionalStateHooks: RegExpLike, additional
       const entry = functionEntries.at(-1);
       // A call outside any function (ex: module scope) has no setup context
       if (entry == null) return;
-      // Calls inside async functions are treated as deferred (see getFunctionKind)
+      // Calls inside async functions are not collected (see getFunctionKind)
       if (entry.node.async) return;
       // A `useState` call declares the setter; it is not a setState usage
       if (isUseStateCall(node)) return;

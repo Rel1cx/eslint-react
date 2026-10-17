@@ -19,7 +19,8 @@ export default createRule<[], MessageID>({
   meta: {
     type: "problem",
     docs: {
-      description: "Validates that 'useMemo' is called with a callback that returns a value.",
+      description:
+        "Validates 'useMemo' usage: the result must be used and the callback must take no parameters, not be async or a generator, not reassign outer variables, and return a value.",
     },
     messages: {
       "must-return-a-value":

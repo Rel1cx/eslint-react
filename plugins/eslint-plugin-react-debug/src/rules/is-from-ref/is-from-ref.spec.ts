@@ -1,13 +1,12 @@
 import tsx from "dedent";
 
-import { stringify } from "@/utils/stringify";
 import { ruleTester } from "@local/testkit";
 import rule, { RULE_NAME } from "./is-from-ref";
 
 function refError(name: string, init: string) {
   return {
     data: {
-      json: stringify({ name, init }),
+      json: JSON.stringify({ name, init }),
     },
     messageId: "default" as const,
   };

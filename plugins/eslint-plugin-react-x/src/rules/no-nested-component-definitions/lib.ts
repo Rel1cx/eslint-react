@@ -4,7 +4,7 @@ import { type RuleContext } from "@eslint-react/eslint";
 import { findParentAttribute } from "@eslint-react/jsx";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 
-// Well-known component wrapper call checks; only wrappers whose argument is a render function are listed.
+// Well-known component wrapper call checks, matched by callee name; used to resolve the name a nested function is bound to through wrapper calls.
 /** Check if the node is a call expression to react-redux's `connect`. */
 const isConnectCall = core.isAPICall("connect");
 /** Check if the node is a call expression to Relay's `createFragmentContainer`. */
@@ -15,7 +15,7 @@ const isCreatePaginationContainerCall = core.isAPICall("createPaginationContaine
 const isCreateRefetchContainerCall = core.isAPICall("createRefetchContainer");
 /** Check if the node is a call expression to React's `forwardRef`. */
 const isForwardRefCall = core.isAPICall("forwardRef");
-/** Check if the node is a call expression to a `graphql` tag function (e.g. from Relay or Apollo). */
+/** Check if the node is a call expression to a `graphql` function (e.g. from Relay or Apollo); tagged template forms like `graphql\`...\`` do not match. */
 const isGraphqlCall = core.isAPICall("graphql");
 /** Check if the node is a call expression to React's `memo`. */
 const isMemoCall = core.isAPICall("memo");

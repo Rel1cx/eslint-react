@@ -522,42 +522,6 @@ export const PURE_FUNCS: ReadonlyMap<string, ReadonlySet<string>> = new Map([
 ]);
 
 /**
-  Known pure global constructors used with `new`
- */
-export const PURE_CTORS: ReadonlySet<string> = new Set([
-  "Array",
-  "ArrayBuffer",
-  "BigInt64Array",
-  "BigUint64Array",
-  "DataView",
-  "Error",
-  "EvalError",
-  "FinalizationRegistry",
-  "Float32Array",
-  "Float64Array",
-  "Int8Array",
-  "Int16Array",
-  "Int32Array",
-  "Map",
-  "RangeError",
-  "ReferenceError",
-  "RegExp",
-  "Set",
-  "SyntaxError",
-  "TypeError",
-  "Uint8Array",
-  "Uint8ClampedArray",
-  "Uint16Array",
-  "Uint32Array",
-  "URIError",
-  "URL",
-  "URLSearchParams",
-  "WeakMap",
-  "WeakRef",
-  "WeakSet",
-]);
-
-/**
  * The result of resolving an identifier or member expression to a builtin
  * global: the catalog object name plus an optional property path segment, e.g.
  * `Math.random` resolves to `{ object: "Math", property: "random" }` while
