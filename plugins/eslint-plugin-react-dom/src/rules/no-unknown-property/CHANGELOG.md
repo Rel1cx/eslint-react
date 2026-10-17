@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [5.28.1] - 2026-10-17
+
 ### Fixed
 
 - Fixed a false positive where the React camelCase SVG prop `renderingIntent` was reported as an unknown property, including on code produced by this rule's own autofix for `rendering-intent`.

@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [5.28.1] - 2026-10-17
+
 ### Fixed
 
 - The auto-fixer no longer unwraps fragments outside JSX whose children are all whitespace (e.g. `const x = <> </>;` or `return <>\n</>` with `allowExpressions: false`); the previous fix produced syntactically invalid JavaScript such as `const x =  ;`. These fragments are still reported, just without a fix.

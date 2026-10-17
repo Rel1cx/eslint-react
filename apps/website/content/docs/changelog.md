@@ -2,6 +2,24 @@
 title: Changelog
 ---
 
+## v5.28.1 (2026-10-17)
+
+### 🐞 Fixes
+
+- `react-dom/no-unknown-property`: fixed a false positive where the React camelCase SVG prop `renderingIntent` was reported as an unknown property, including on code produced by this rule's own autofix for `rendering-intent`. (#2055)
+- `react-jsx/no-useless-fragment`: the auto-fixer no longer unwraps fragments outside JSX whose children are all whitespace (ex: `const x = <> </>;` or `return <>\n</>` with `allowExpressions: false`); the previous fix produced syntactically invalid JavaScript such as `const x =  ;`. These fragments are still reported, just without a fix. (#2055)
+
+### 📝 Documentation
+
+- Aligned rule docs, comments, and diagnostic messages with actual behavior across the plugins. (#2055)
+
+### 🏗️ Internal
+
+- Bumped `eslint` to `10.13.0`, `pnpm` to `12.14.0`, `tsl-dx` to `0.15.0`, `@effect/language-service` to `0.87.5`, and `lucide-react` to `1.59.0`.
+- Added a TanStack Start example project.
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.28.0...v5.28.1
+
 ## v5.28.0 (2026-10-16)
 
 ### ✨ New
