@@ -8,14 +8,15 @@ export function noUnnecessaryUsePrefix(): RuleFunction {
     return merge(visitor, {
       "Program:exit"(program) {
         for (const hook of query.all(program)) {
-          if (hook.hookCalls.length === 0) {
-            context.report({
-              message: `Custom hook "${
-                hook.name ?? "unknown"
-              }" doesn't call any hooks. A custom hook should use at least one hook, otherwise it's just a regular function.`,
-              node: hook.node,
-            });
-          }
+          // Guard: skip hooks that call at least one other hook
+          if (hook.hookCalls.length > 0) continue;
+          context.report({
+            message: [
+              `Custom hook "${hook.name ?? "unknown"}" doesn't call any hooks.`,
+              "A custom hook should use at least one hook, otherwise it's just a regular function.",
+            ].join(" "),
+            node: hook.node,
+          });
         }
       },
     });

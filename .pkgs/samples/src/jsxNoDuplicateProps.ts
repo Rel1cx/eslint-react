@@ -11,23 +11,26 @@ export function jsxNoDuplicateProps(options: JsxNoDuplicatePropsOptions = {}): R
   const { ignoreCase = false } = options;
   return (context) => ({
     JSXOpeningElement(node) {
-      const seen = new Map<string, string>();
+      // Track prop names already seen on this element
+      const seen = new Set<string>();
 
       for (const attr of node.attributes) {
+        // Guard: only plain attributes with simple names can be duplicates
         if (attr.type !== "JSXAttribute") continue;
         if (attr.name.type !== "JSXIdentifier") continue;
 
         const name = ignoreCase ? attr.name.name.toLowerCase() : attr.name.name;
 
-        // Report duplicate
+        // Report: duplicate prop
         if (seen.has(name)) {
           context.report({
             message: `Duplicate prop "${attr.name.name}" found.`,
             node: attr,
           });
-        } else {
-          seen.set(name, attr.name.name);
+          continue;
         }
+
+        seen.add(name);
       }
     },
   });

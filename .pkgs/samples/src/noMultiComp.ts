@@ -9,9 +9,13 @@ export function noMultiComp(): RuleFunction {
       "Program:exit"(program) {
         const components = query.all(program);
 
+        // Report every component past the first one
         for (const { name, node } of components.slice(1)) {
           context.report({
-            message: `Declare only one component per file. Found extra component "${name ?? "anonymous"}".`,
+            message: [
+              "Declare only one component per file.",
+              `Found extra component "${name ?? "anonymous"}".`,
+            ].join(" "),
             node,
           });
         }
