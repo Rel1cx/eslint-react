@@ -63,13 +63,13 @@ ruleTester.run(RULE_NAME, rule, {
     {
       code: tsx`
         import { hydrate } from "react-dom";
-        const result = hydrate(<Component />, document.getElementById("app"));
+        const fact = hydrate(<Component />, document.getElementById("app"));
       `,
       errors: [{ messageId: "default" }],
       output: tsx`
         import { hydrateRoot } from "react-dom/client";
         import { hydrate } from "react-dom";
-        const result = hydrateRoot(document.getElementById("app"), <Component />);
+        const fact = hydrateRoot(document.getElementById("app"), <Component />);
       `,
     },
     {

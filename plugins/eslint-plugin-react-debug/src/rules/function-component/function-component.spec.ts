@@ -2204,10 +2204,10 @@ ruleTester.run(RULE_NAME, rule, {
     "const StringComponent = () => 'text';",
     "const ConditionalComponent = () => condition ? <div /> : 'loading';",
     "const ArrayComponent = () => [<div key='item' />, 'text'];",
-    "const results = allSettled.map((x) => (x.status === 'fulfilled' ? <div /> : null))",
-    "const results = allSettled.map((x) => (x.status === 'fulfilled' ? format(x.value) : null))",
-    "const results = data.flatMap((x) => x?.name || []) || []",
-    "const results = allSettled.mapLike((x) => (x.status === 'fulfilled' ? format(x.value) : null))",
+    "const fact = allSettled.map((x) => (x.status === 'fulfilled' ? <div /> : null))",
+    "const fact = allSettled.map((x) => (x.status === 'fulfilled' ? format(x.value) : null))",
+    "const fact = data.flatMap((x) => x?.name || []) || []",
+    "const fact = allSettled.mapLike((x) => (x.status === 'fulfilled' ? format(x.value) : null))",
     tsx`
       export const action = (() => {
         return null;

@@ -216,8 +216,8 @@ ruleTester.run(RULE_NAME, rule, {
       code: tsx`
         function Component({ cond, obj, items }) {
           try {
-            const result = cond && obj?.value && items.length;
-            return <div>{String(result)}</div>;
+            const fact = cond && obj?.value && items.length;
+            return <div>{String(fact)}</div>;
           } catch {
             return <div>error</div>;
           }
@@ -250,8 +250,8 @@ ruleTester.run(RULE_NAME, rule, {
       code: tsx`
         function Component({ a, b, fallback }) {
           try {
-            const result = a ?? b ?? fallback.value;
-            return <span>{result}</span>;
+            const fact = a ?? b ?? fallback.value;
+            return <span>{fact}</span>;
           } catch {
             return <span>error</span>;
           }
@@ -264,8 +264,8 @@ ruleTester.run(RULE_NAME, rule, {
       code: tsx`
         function Component({ obj, arg }) {
           try {
-            const result = obj?.method?.(arg.value);
-            return <span>{result ?? "no result"}</span>;
+            const fact = obj?.method?.(arg.value);
+            return <span>{fact ?? "no result"}</span>;
           } catch {
             return <span>error</span>;
           }
@@ -505,27 +505,27 @@ ruleTester.run(RULE_NAME, rule, {
     // try/catch in IIFE inside component (should not crash getEnclosingTryBlock)
     tsx`
       function Component() {
-        const result = (() => {
+        const fact = (() => {
           try {
             return computeValue();
           } catch (e) {
             return null;
           }
         })();
-        return <div>{result}</div>;
+        return <div>{fact}</div>;
       }
     `,
     // try/catch in non-component IIFE (should not be reported)
     tsx`
       const helper = () => {
-        const result = (() => {
+        const fact = (() => {
           try {
             return computeValue();
           } catch (e) {
             return null;
           }
         })();
-        return result;
+        return fact;
       };
     `,
     // Derived from react/compiler/packages/babel-plugin-react-compiler/src/__tests__/fixtures/compiler try-catch.js
@@ -672,7 +672,7 @@ ruleTester.run(RULE_NAME, rule, {
     // try/catch in useMemo callback returning object
     tsx`
       function Component({ value }) {
-        const result = useMemo(() => {
+        const fact = useMemo(() => {
           if (value == null) {
             return null;
           }
@@ -682,7 +682,7 @@ ruleTester.run(RULE_NAME, rule, {
             return null;
           }
         }, [value]);
-        return <div>{result}</div>;
+        return <div>{fact}</div>;
       }
     `,
     // Derived from react/compiler/packages/babel-plugin-react-compiler/src/__tests__/fixtures/compiler repro-nested-try-catch-in-usememo.js

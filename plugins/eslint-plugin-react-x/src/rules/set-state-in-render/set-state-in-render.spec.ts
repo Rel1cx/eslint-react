@@ -838,7 +838,7 @@ ruleTester.run(RULE_NAME, rule, {
 
         function Component({ value }) {
           const [count, setCount] = useState(0);
-          const result = value > 10 ? setCount(value) : null;
+          const fact = value > 10 ? setCount(value) : null;
           return <div>{count}</div>;
         }
       `,

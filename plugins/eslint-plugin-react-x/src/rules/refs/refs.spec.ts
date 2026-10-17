@@ -288,8 +288,8 @@ ruleTester.run(RULE_NAME, rule, {
       code: tsx`
         function Component() {
           const ref = useRef(null);
-          const result = ref.current && ref.current.value;
-          return <div>{result}</div>;
+          const fact = ref.current && ref.current.value;
+          return <div>{fact}</div>;
         }
       `,
       errors: [
@@ -1128,9 +1128,9 @@ ruleTester.run(RULE_NAME, rule, {
       code: tsx`
         function Component() {
           const ref = useRef(null);
-          const result = ref.current === null || true;
+          const fact = ref.current === null || true;
           ref.current = 1;
-          return <div>{String(result)}</div>;
+          return <div>{String(fact)}</div>;
         }
       `,
       errors: [

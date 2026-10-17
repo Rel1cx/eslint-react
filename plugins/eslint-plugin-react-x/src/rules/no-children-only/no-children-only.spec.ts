@@ -81,10 +81,10 @@ ruleTester.run(RULE_NAME, rule, {
         import { Children } from 'react';
 
         function SeparatorList({ children }) {
-          const result = [];
+          const fact = [];
           Children.forEach(children, (child, index) => {
-            result.push(child);
-            result.push(<hr key={index} />);
+            fact.push(child);
+            fact.push(<hr key={index} />);
           });
           // ...
         }
