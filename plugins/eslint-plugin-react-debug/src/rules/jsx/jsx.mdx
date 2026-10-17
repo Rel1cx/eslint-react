@@ -38,7 +38,7 @@ import React from "react";
 // This rule reports JSX elements and includes automatic runtime information.
 const element = <div>Hello World</div>;
 //              ^^^^^^^^^^^^^^^^^^^^^^
-//              - [jsx element] jsx: 'react-jsx', jsxFactory: 'React.createElement', jsxFragmentFactory: 'React.Fragment', jsxRuntime: 'automatic', jsxImportSource: 'react'
+//              - {"kind":"element","type":"div","jsx":"react-jsx","jsxFactory":"React.createElement","jsxFragmentFactory":"React.Fragment","jsxImportSource":"react","jsxRuntime":"automatic"}
 ```
 
 ### Classic runtime with pragma comments
@@ -54,7 +54,7 @@ import Preact from "preact";
 // This rule reports JSX elements and includes classic runtime information from pragma comments.
 const element = <div>Hello World</div>;
 //              ^^^^^^^^^^^^^^^^^^^^^^
-//              - [jsx element] jsx: 'react', jsxFactory: 'Preact.h', jsxFragmentFactory: 'Preact.Fragment', jsxRuntime: 'classic', jsxImportSource: 'preact'
+//              - {"kind":"element","type":"div","jsx":"react","jsxFactory":"Preact.h","jsxFragmentFactory":"Preact.Fragment","jsxImportSource":"preact","jsxRuntime":"classic"}
 ```
 
 ## Resources
