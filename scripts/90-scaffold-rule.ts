@@ -78,7 +78,7 @@ function generateRuleMdx(domain: PluginDomain, ruleName: string, description: st
   return [
     `---`,
     `title: ${ruleName}`,
-    `description: ${description}`,
+    `description: ${JSON.stringify(description)}`,
     `---`,
     ``,
     `**Full Name in [\`${pluginPkgName}\`](https://npmx.dev/package/${pluginPkgName}/v/latest)**`,
