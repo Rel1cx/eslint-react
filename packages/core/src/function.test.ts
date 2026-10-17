@@ -11,32 +11,32 @@ describe("isFunctionHasCallInInitPath", () => {
     const code = "const Component = (memo as any)(() => {})";
     const node = getFirstNodeOfType<TSESTree.ArrowFunctionExpression>(code, AST.ArrowFunctionExpression);
     const initPath = getFunctionInitPath(node);
-    const result = initPath != null && isFunctionHasCallInInitPath("memo", initPath);
-    expect(result).toBe(true);
+    const fact = initPath != null && isFunctionHasCallInInitPath("memo", initPath);
+    expect(fact).toBe(true);
   });
 
   it("should detect React.memo call when callee is wrapped in TSAsExpression", () => {
     const code = "const Component = (React.memo as any)(() => {})";
     const node = getFirstNodeOfType<TSESTree.ArrowFunctionExpression>(code, AST.ArrowFunctionExpression);
     const initPath = getFunctionInitPath(node);
-    const result = initPath != null && isFunctionHasCallInInitPath("memo", initPath);
-    expect(result).toBe(true);
+    const fact = initPath != null && isFunctionHasCallInInitPath("memo", initPath);
+    expect(fact).toBe(true);
   });
 
   it("should detect memo call when callee is wrapped in TSSatisfiesExpression", () => {
     const code = "const Component = (memo satisfies typeof memo)(() => {})";
     const node = getFirstNodeOfType<TSESTree.ArrowFunctionExpression>(code, AST.ArrowFunctionExpression);
     const initPath = getFunctionInitPath(node);
-    const result = initPath != null && isFunctionHasCallInInitPath("memo", initPath);
-    expect(result).toBe(true);
+    const fact = initPath != null && isFunctionHasCallInInitPath("memo", initPath);
+    expect(fact).toBe(true);
   });
 
   it("should detect memo in nested HOC init path", () => {
     const code = "const Component = memo(forwardRef(() => {}))";
     const node = getFirstNodeOfType<TSESTree.ArrowFunctionExpression>(code, AST.ArrowFunctionExpression);
     const initPath = getFunctionInitPath(node);
-    const result = initPath != null && isFunctionHasCallInInitPath("memo", initPath);
-    expect(result).toBe(true);
+    const fact = initPath != null && isFunctionHasCallInInitPath("memo", initPath);
+    expect(fact).toBe(true);
   });
 });
 

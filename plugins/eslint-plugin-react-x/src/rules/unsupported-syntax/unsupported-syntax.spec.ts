@@ -9,8 +9,8 @@ ruleTester.run(RULE_NAME, rule, {
     {
       code: tsx`
         function Component({ code }) {
-          const result = eval(code);
-          return <div>{result}</div>;
+          const fact = eval(code);
+          return <div>{fact}</div>;
         }
       `,
       errors: [{
@@ -20,8 +20,8 @@ ruleTester.run(RULE_NAME, rule, {
     {
       code: tsx`
         const Component = () => {
-          const result = eval("1 + 2");
-          return <div>{result}</div>;
+          const fact = eval("1 + 2");
+          return <div>{fact}</div>;
         };
       `,
       errors: [{
@@ -31,8 +31,8 @@ ruleTester.run(RULE_NAME, rule, {
     {
       code: tsx`
         function useMyHook(code) {
-          const result = eval(code);
-          return result;
+          const fact = eval(code);
+          return fact;
         }
       `,
       errors: [{
@@ -42,8 +42,8 @@ ruleTester.run(RULE_NAME, rule, {
     {
       code: tsx`
         function Component({ expression }) {
-          const result = eval(expression);
-          return <div>Result: {result}</div>;
+          const fact = eval(expression);
+          return <div>Result: {fact}</div>;
         }
       `,
       errors: [{
@@ -93,8 +93,8 @@ ruleTester.run(RULE_NAME, rule, {
     {
       code: tsx`
         function Component({ code }) {
-          const result = globalThis.eval(code);
-          return <div>{result}</div>;
+          const fact = globalThis.eval(code);
+          return <div>{fact}</div>;
         }
       `,
       errors: [{
@@ -104,8 +104,8 @@ ruleTester.run(RULE_NAME, rule, {
     {
       code: tsx`
         function useMyHook(code) {
-          const result = globalThis.eval(code);
-          return result;
+          const fact = globalThis.eval(code);
+          return fact;
         }
       `,
       errors: [{
@@ -132,8 +132,8 @@ ruleTester.run(RULE_NAME, rule, {
     {
       code: tsx`
         function Component({ code }) {
-          const result = (eval as Function)(code);
-          return <div>{result}</div>;
+          const fact = (eval as Function)(code);
+          return <div>{fact}</div>;
         }
       `,
       errors: [{
@@ -143,8 +143,8 @@ ruleTester.run(RULE_NAME, rule, {
     {
       code: tsx`
         function Component({ code }) {
-          const result = (globalThis as any).eval(code);
-          return <div>{result}</div>;
+          const fact = (globalThis as any).eval(code);
+          return <div>{fact}</div>;
         }
       `,
       errors: [{
@@ -172,8 +172,8 @@ ruleTester.run(RULE_NAME, rule, {
     {
       code: tsx`
         function notAComponent() {
-          const result = eval("1 + 2");
-          return result;
+          const fact = eval("1 + 2");
+          return fact;
         }
       `,
     },
@@ -373,8 +373,8 @@ ruleTester.run(RULE_NAME, rule, {
     {
       code: tsx`
         function Component() {
-          const result = (() => <div />) as any;
-          return result;
+          const fact = (() => <div />) as any;
+          return fact;
         }
       `,
     },
@@ -382,8 +382,8 @@ ruleTester.run(RULE_NAME, rule, {
     {
       code: tsx`
         function Component({ code }) {
-          const result = globalThis["eval"](code);
-          return <div>{result}</div>;
+          const fact = globalThis["eval"](code);
+          return <div>{fact}</div>;
         }
       `,
     },
@@ -391,8 +391,8 @@ ruleTester.run(RULE_NAME, rule, {
     {
       code: tsx`
         function Component({ code }) {
-          const result = globalThis[eval](code);
-          return <div>{result}</div>;
+          const fact = globalThis[eval](code);
+          return <div>{fact}</div>;
         }
       `,
     },
@@ -400,8 +400,8 @@ ruleTester.run(RULE_NAME, rule, {
     {
       code: tsx`
         function Component({ interpreter, code }) {
-          const result = interpreter.eval(code);
-          return <div>{result}</div>;
+          const fact = interpreter.eval(code);
+          return <div>{fact}</div>;
         }
       `,
     },

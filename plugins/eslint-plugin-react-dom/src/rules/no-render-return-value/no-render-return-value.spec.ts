@@ -70,14 +70,14 @@ ruleTester.run(RULE_NAME, rule, {
     {
       code: tsx`
         import { render } from "react-dom";
-        const result = (render(<div />, document.body) as any);
+        const fact = (render(<div />, document.body) as any);
       `,
       errors: [{ messageId: "default" }],
     },
     {
       code: tsx`
         import { render } from "react-dom";
-        const result = (render as any)(<div />, document.body);
+        const fact = (render as any)(<div />, document.body);
       `,
       errors: [{ messageId: "default" }],
     },
@@ -108,7 +108,7 @@ ruleTester.run(RULE_NAME, rule, {
     `,
     tsx`
       function Component() {
-        const result = condition && ReactDOM.render(<div />, document.body);
+        const fact = condition && ReactDOM.render(<div />, document.body);
       }
     `,
     // render as argument (return value not directly used by banned parent)

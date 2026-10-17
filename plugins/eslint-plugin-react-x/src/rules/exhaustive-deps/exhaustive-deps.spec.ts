@@ -95,8 +95,8 @@ ruleTester.run(RULE_NAME, rule, {
     {
       code: tsx`
         function MyComponent({ foo, bar }) {
-          const result = useMemo(() => foo + bar, [foo]);
-          return result;
+          const fact = useMemo(() => foo + bar, [foo]);
+          return fact;
         }
       `,
       errors: [
@@ -107,8 +107,8 @@ ruleTester.run(RULE_NAME, rule, {
               desc: `Update the dependencies array to be: [bar, foo]`,
               output: tsx`
                 function MyComponent({ foo, bar }) {
-                  const result = useMemo(() => foo + bar, [bar, foo]);
-                  return result;
+                  const fact = useMemo(() => foo + bar, [bar, foo]);
+                  return fact;
                 }
               `,
             },
@@ -244,8 +244,8 @@ ruleTester.run(RULE_NAME, rule, {
     {
       code: tsx`
         function MyComponent({ value }) {
-          const result = useMemo(() => value * 2);
-          return result;
+          const fact = useMemo(() => value * 2);
+          return fact;
         }
       `,
       errors: [
@@ -705,8 +705,8 @@ Learn more about data fetching with Hooks: https://react.dev/link/hooks-data-fet
     {
       code: tsx`
         function MyComponent({ a, b }) {
-          const result = useMemo(() => a + b, [a, b]);
-          return result;
+          const fact = useMemo(() => a + b, [a, b]);
+          return fact;
         }
       `,
     },

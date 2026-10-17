@@ -83,13 +83,13 @@ ruleTester.run(RULE_NAME, rule, {
     {
       code: tsx`
         import { render } from "react-dom";
-        const result = render(<Component />, document.getElementById("app"));
+        const fact = render(<Component />, document.getElementById("app"));
       `,
       errors: [{ messageId: "default" }],
       output: tsx`
         import { createRoot } from "react-dom/client";
         import { render } from "react-dom";
-        const result = createRoot(document.getElementById("app")).render(<Component />);
+        const fact = createRoot(document.getElementById("app")).render(<Component />);
       `,
     },
     {

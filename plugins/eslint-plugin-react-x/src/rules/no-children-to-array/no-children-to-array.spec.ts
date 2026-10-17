@@ -10,8 +10,8 @@ ruleTester.run(RULE_NAME, rule, {
         import React from 'react';
 
         export default function ReversedList({ children }) {
-          const result = React.Children.toArray(children);
-          result.reverse();
+          const fact = React.Children.toArray(children);
+          fact.reverse();
           // ...
         }
       `,
@@ -24,8 +24,8 @@ ruleTester.run(RULE_NAME, rule, {
         import { Children } from 'react';
 
         export default function ReversedList({ children }) {
-          const result = Children.toArray(children);
-          result.reverse();
+          const fact = Children.toArray(children);
+          fact.reverse();
           // ...
         }
       `,
@@ -38,8 +38,8 @@ ruleTester.run(RULE_NAME, rule, {
         import * as React from 'react';
 
         export default function ReversedList({ children }) {
-          const result = React.Children.toArray(children);
-          result.reverse();
+          const fact = React.Children.toArray(children);
+          fact.reverse();
           // ...
         }
       `,
@@ -52,8 +52,8 @@ ruleTester.run(RULE_NAME, rule, {
         const { Children } = require('react');
 
         export default function ReversedList({ children }) {
-          const result = Children.toArray(children);
-          result.reverse();
+          const fact = Children.toArray(children);
+          fact.reverse();
           // ...
         }
       `,
@@ -85,10 +85,10 @@ ruleTester.run(RULE_NAME, rule, {
         import { Children } from 'react';
 
         function SeparatorList({ children }) {
-          const result = [];
+          const fact = [];
           Children.forEach(children, (child, index) => {
-            result.push(child);
-            result.push(<hr key={index} />);
+            fact.push(child);
+            fact.push(<hr key={index} />);
           });
           // ...
         }

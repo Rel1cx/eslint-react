@@ -1119,8 +1119,8 @@ ruleTester.run(RULE_NAME, rule, {
           const getJSX = () => {
             return <Child x={isX}></Child>;
           };
-          const result = getJSX();
-          return result;
+          const fact = getJSX();
+          return fact;
         }
       `,
     },

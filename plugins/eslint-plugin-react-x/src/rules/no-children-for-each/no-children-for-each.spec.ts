@@ -10,10 +10,10 @@ ruleTester.run(RULE_NAME, rule, {
         import { Children } from 'react';
 
         function SeparatorList({ children }) {
-          const result = [];
+          const fact = [];
           Children.forEach(children, (child, index) => {
-            result.push(child);
-            result.push(<hr key={index} />);
+            fact.push(child);
+            fact.push(<hr key={index} />);
           });
           // ...
         }
@@ -27,10 +27,10 @@ ruleTester.run(RULE_NAME, rule, {
         import React from 'react';
 
         function SeparatorList({ children }) {
-          const result = [];
+          const fact = [];
           React.Children.forEach(children, (child, index) => {
-            result.push(child);
-            result.push(<hr key={index} />);
+            fact.push(child);
+            fact.push(<hr key={index} />);
           });
           // ...
         }
@@ -44,10 +44,10 @@ ruleTester.run(RULE_NAME, rule, {
         import * as React from 'react';
 
         function SeparatorList({ children }) {
-          const result = [];
+          const fact = [];
           React.Children.forEach(children, (child, index) => {
-            result.push(child);
-            result.push(<hr key={index} />);
+            fact.push(child);
+            fact.push(<hr key={index} />);
           });
           // ...
         }
@@ -61,10 +61,10 @@ ruleTester.run(RULE_NAME, rule, {
         const { Children } = require('react');
 
         function SeparatorList({ children }) {
-          const result = [];
+          const fact = [];
           Children.forEach(children, (child, index) => {
-            result.push(child);
-            result.push(<hr key={index} />);
+            fact.push(child);
+            fact.push(<hr key={index} />);
           });
           // ...
         }

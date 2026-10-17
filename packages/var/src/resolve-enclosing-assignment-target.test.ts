@@ -12,51 +12,51 @@ describe("resolveEnclosingAssignmentTarget", () => {
       const code = "const x = new ResizeObserver(() => {})";
       const newExpr = getFirstNodeOfType<TSESTree.NewExpression>(code, AST.NewExpression);
 
-      const result = resolveEnclosingAssignmentTarget(newExpr);
+      const fact = resolveEnclosingAssignmentTarget(newExpr);
 
-      expect(result).not.toBeNull();
-      expect(result!.type).toBe(AST.Identifier);
-      expect((result as TSESTree.Identifier).name).toBe("x");
+      expect(fact).not.toBeNull();
+      expect(fact!.type).toBe(AST.Identifier);
+      expect((fact as TSESTree.Identifier).name).toBe("x");
     });
 
     it("should return the left side for an AssignmentExpression", () => {
       const code = "let x; x = new ResizeObserver(() => {})";
       const newExpr = getFirstNodeOfType<TSESTree.NewExpression>(code, AST.NewExpression);
 
-      const result = resolveEnclosingAssignmentTarget(newExpr);
+      const fact = resolveEnclosingAssignmentTarget(newExpr);
 
-      expect(result).not.toBeNull();
-      expect(result!.type).toBe(AST.Identifier);
-      expect((result as TSESTree.Identifier).name).toBe("x");
+      expect(fact).not.toBeNull();
+      expect(fact!.type).toBe(AST.Identifier);
+      expect((fact as TSESTree.Identifier).name).toBe("x");
     });
 
     it("should return the property key for a PropertyDefinition", () => {
       const code = "class Foo { y = new ResizeObserver(() => {}) }";
       const newExpr = getFirstNodeOfType<TSESTree.NewExpression>(code, AST.NewExpression);
 
-      const result = resolveEnclosingAssignmentTarget(newExpr);
+      const fact = resolveEnclosingAssignmentTarget(newExpr);
 
-      expect(result).not.toBeNull();
-      expect(result!.type).toBe(AST.Identifier);
-      expect((result as TSESTree.Identifier).name).toBe("y");
+      expect(fact).not.toBeNull();
+      expect(fact!.type).toBe(AST.Identifier);
+      expect((fact as TSESTree.Identifier).name).toBe("y");
     });
 
     it("should return null when hitting a BlockStatement boundary", () => {
       const code = "function foo() { new ResizeObserver(() => {}) }";
       const newExpr = getFirstNodeOfType<TSESTree.NewExpression>(code, AST.NewExpression);
 
-      const result = resolveEnclosingAssignmentTarget(newExpr);
+      const fact = resolveEnclosingAssignmentTarget(newExpr);
 
-      expect(result).toBeNull();
+      expect(fact).toBeNull();
     });
 
     it("should return null when hitting the Program boundary", () => {
       const code = "new ResizeObserver(() => {})";
       const newExpr = getFirstNodeOfType<TSESTree.NewExpression>(code, AST.NewExpression);
 
-      const result = resolveEnclosingAssignmentTarget(newExpr);
+      const fact = resolveEnclosingAssignmentTarget(newExpr);
 
-      expect(result).toBeNull();
+      expect(fact).toBeNull();
     });
   });
 
@@ -66,10 +66,10 @@ describe("resolveEnclosingAssignmentTarget", () => {
       const newExpr = getFirstNodeOfType<TSESTree.NewExpression>(code, AST.NewExpression);
 
       // ExportDefaultDeclaration is now handled — it returns the declaration node.
-      const result = resolveEnclosingAssignmentTarget(newExpr);
+      const fact = resolveEnclosingAssignmentTarget(newExpr);
 
-      expect(result).not.toBeNull();
-      expect(result!.type).toBe(AST.NewExpression);
+      expect(fact).not.toBeNull();
+      expect(fact!.type).toBe(AST.NewExpression);
     });
 
     it("ISSUE: ForOfStatement — returns null from inside the for-of body due to BlockStatement boundary", () => {
@@ -92,9 +92,9 @@ describe("resolveEnclosingAssignmentTarget", () => {
       // Identifier → ExpressionStatement → BlockStatement → returns null.
       // The for-of assignment context is not reachable because BlockStatement
       // acts as a boundary.
-      const result = resolveEnclosingAssignmentTarget(itemRef!);
+      const fact = resolveEnclosingAssignmentTarget(itemRef!);
 
-      expect(result).toBeNull();
+      expect(fact).toBeNull();
     });
 
     it("Property in object literal — returns outer VariableDeclarator id instead of property key", () => {
@@ -107,12 +107,12 @@ describe("resolveEnclosingAssignmentTarget", () => {
       // The Property node type is intentionally NOT handled because downstream
       // rules (e.g. no-missing-context-display-name) rely on traversal past
       // Property to find the outer VariableDeclarator for autofix purposes.
-      const result = resolveEnclosingAssignmentTarget(newExpr);
+      const fact = resolveEnclosingAssignmentTarget(newExpr);
 
-      expect(result).not.toBeNull();
-      expect(result!.type).toBe(AST.Identifier);
+      expect(fact).not.toBeNull();
+      expect(fact!.type).toBe(AST.Identifier);
       // Returns `obj` (the VariableDeclarator's id) rather than `foo` (the Property key)
-      expect((result as TSESTree.Identifier).name).toBe("obj");
+      expect((fact as TSESTree.Identifier).name).toBe("obj");
     });
 
     it("Program case terminates traversal at the root correctly", () => {

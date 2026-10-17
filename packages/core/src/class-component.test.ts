@@ -234,36 +234,36 @@ describe("isThisSetStateCall", () => {
   it("should return true for this.setState()", () => {
     const code = "this.setState({})";
     const node = getFirstNodeOfType<TSESTree.CallExpression>(code, AST.CallExpression);
-    const result = isThisSetStateCall(node);
-    expect(result).toBe(true);
+    const fact = isThisSetStateCall(node);
+    expect(fact).toBe(true);
   });
 
   it("should return true when callee is wrapped in TSAsExpression", () => {
     const code = "(this.setState as any)({})";
     const node = getFirstNodeOfType<TSESTree.CallExpression>(code, AST.CallExpression);
-    const result = isThisSetStateCall(node);
-    expect(result).toBe(true);
+    const fact = isThisSetStateCall(node);
+    expect(fact).toBe(true);
   });
 
   it("should return true when callee is wrapped in TSSatisfiesExpression", () => {
     const code = "(this.setState satisfies typeof this.setState)({})";
     const node = getFirstNodeOfType<TSESTree.CallExpression>(code, AST.CallExpression);
-    const result = isThisSetStateCall(node);
-    expect(result).toBe(true);
+    const fact = isThisSetStateCall(node);
+    expect(fact).toBe(true);
   });
 
   it("should return false for unrelated calls", () => {
     const code = "this.forceUpdate()";
     const node = getFirstNodeOfType<TSESTree.CallExpression>(code, AST.CallExpression);
-    const result = isThisSetStateCall(node);
-    expect(result).toBe(false);
+    const fact = isThisSetStateCall(node);
+    expect(fact).toBe(false);
   });
 
   it("should return true when this is wrapped in TSAsExpression", () => {
     const code = "(this as any).setState({})";
     const node = getFirstNodeOfType<TSESTree.CallExpression>(code, AST.CallExpression);
-    const result = isThisSetStateCall(node);
-    expect(result).toBe(true);
+    const fact = isThisSetStateCall(node);
+    expect(fact).toBe(true);
   });
 
   it("should return false for a computed setState key", () => {

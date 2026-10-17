@@ -125,10 +125,10 @@ ruleTester.run(RULE_NAME, rule, {
         import { useMemo } from "react";
 
         function Component({ a, b }) {
-          const result = useMemo(function(x, y) {
+          const fact = useMemo(function(x, y) {
             return x + y;
           }, [a, b]);
-          return <div>{result}</div>;
+          return <div>{fact}</div>;
         }
       `,
       errors: [{ messageId: "no-parameters" }],
@@ -200,7 +200,7 @@ ruleTester.run(RULE_NAME, rule, {
         import { useMemo } from "react";
 
         function Component({ items }) {
-          const result = useMemo(function() {
+          const fact = useMemo(function() {
             items.forEach(item => console.log(item));
           }, [items]);
           return <div />;
@@ -720,8 +720,8 @@ ruleTester.run(RULE_NAME, rule, {
       import { useMemo } from "react";
 
       function Component({ items }) {
-        const result = useMemo(() => items.length, [items]);
-        return <div>{result}</div>;
+        const fact = useMemo(() => items.length, [items]);
+        return <div>{fact}</div>;
       }
     `,
     // Block body with explicit return value
@@ -773,7 +773,7 @@ ruleTester.run(RULE_NAME, rule, {
       import { useMemo } from "react";
 
       function Component({ items }) {
-        const result = useMemo(function() {
+        const fact = useMemo(function() {
           return items.filter(Boolean);
         }, [items]);
         return <div />;
@@ -784,10 +784,10 @@ ruleTester.run(RULE_NAME, rule, {
       import { useMemo } from "react";
 
       function Component({ items }) {
-        const result = useMemo(function() {
+        const fact = useMemo(function() {
           return items.filter(Boolean);
         }, [items]);
-        return <div>{result}</div>;
+        return <div>{fact}</div>;
       }
     `,
     // Arrow function concise body returning another arrow
@@ -1151,7 +1151,7 @@ ruleTester.run(RULE_NAME, rule, {
 
       function Component({ columns }) {
         const widths = useMemo(() => {
-          const result = [];
+          const fact = [];
           for (const column of columns) {
             let width = column.defaultWidth;
             if (typeof width === "number") {
@@ -1159,9 +1159,9 @@ ruleTester.run(RULE_NAME, rule, {
             } else {
               width = column.minWidth;
             }
-            result.push(width);
+            fact.push(width);
           }
-          return result;
+          return fact;
         }, [columns]);
         return <div>{widths.join(", ")}</div>;
       }
@@ -1204,7 +1204,7 @@ ruleTester.run(RULE_NAME, rule, {
       import { useMemo } from "react";
 
       function Component({ type, value }) {
-        const result = useMemo(() => {
+        const fact = useMemo(() => {
           switch (type) {
             case "number": {
               let n = value;
@@ -1216,7 +1216,7 @@ ruleTester.run(RULE_NAME, rule, {
             }
           }
         }, [type, value]);
-        return <div>{result}</div>;
+        return <div>{fact}</div>;
       }
     `,
     // Rule 3 valid: Reassigning outer variable inside nested function within FunctionExpression callback (findParent matches nested before stop)

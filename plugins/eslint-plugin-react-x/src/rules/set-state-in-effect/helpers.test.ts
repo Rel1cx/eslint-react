@@ -288,8 +288,8 @@ describe("isHookDecl", () => {
 describe("getSetStateCallExpression", () => {
   it("should return the parent call when the identifier is its callee", () => {
     const id = getFirstNodeOfType<TSESTree.Identifier>("setState(1);", AST.Identifier);
-    const result = getSetStateCallExpression(id);
-    expect(result.type).toBe(AST.CallExpression);
+    const fact = getSetStateCallExpression(id);
+    expect(fact.type).toBe(AST.CallExpression);
   });
 
   it("should return the identifier itself when it is not a call callee", () => {

@@ -1635,8 +1635,8 @@ ruleTester.run(RULE_NAME, rule, {
       code: tsx`
         function Component() {
           function fetch() { return "mock"; }
-          const result = fetch();
-          return <div>{result}</div>;
+          const fact = fetch();
+          return <div>{fact}</div>;
         }
       `,
     },

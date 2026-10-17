@@ -22,226 +22,226 @@ describe("createSetStateResolver", () => {
   describe("isSetStateId", () => {
     it("should match the element at index 1 of an array-destructured useState tuple", () => {
       const code = "const [data, setData] = useState(); setData; data;";
-      const results = runInRule(code, (context, program) => {
+      const fact = runInRule(code, (context, program) => {
         const resolver = createSetStateResolver(context);
         return [
           resolver.isSetStateId(findReference(program, "setData"), 1),
           resolver.isSetStateId(findReference(program, "data"), 1),
         ];
       });
-      expect(results).toEqual([true, false]);
+      expect(fact).toEqual([true, false]);
     });
 
     it("should match the binding at numeric key 1 of an object-destructured useState tuple", () => {
       const code = "const { 1: setData } = useState(); setData;";
-      const result = runInRule(code, (context, program) => {
+      const fact = runInRule(code, (context, program) => {
         const resolver = createSetStateResolver(context);
         return resolver.isSetStateId(findReference(program, "setData"), 1);
       });
-      expect(result).toBe(true);
+      expect(fact).toBe(true);
     });
 
     it("should not match the binding at numeric key 0 of an object-destructured useState tuple", () => {
       const code = "const { 0: data } = useState(); data;";
-      const result = runInRule(code, (context, program) => {
+      const fact = runInRule(code, (context, program) => {
         const resolver = createSetStateResolver(context);
         return resolver.isSetStateId(findReference(program, "data"), 1);
       });
-      expect(result).toBe(false);
+      expect(fact).toBe(false);
     });
 
     it("should match a whole-tuple binding so member access like data[1] can be resolved", () => {
       const code = "const data = useState(); data;";
-      const result = runInRule(code, (context, program) => {
+      const fact = runInRule(code, (context, program) => {
         const resolver = createSetStateResolver(context);
         return resolver.isSetStateId(findReference(program, "data"), 1);
       });
-      expect(result).toBe(true);
+      expect(fact).toBe(true);
     });
 
     it("should not match a binding initialized by a non-state hook", () => {
       const code = "const [, setData] = useFoo(); setData;";
-      const result = runInRule(code, (context, program) => {
+      const fact = runInRule(code, (context, program) => {
         const resolver = createSetStateResolver(context);
         return resolver.isSetStateId(findReference(program, "setData"), 1);
       });
-      expect(result).toBe(false);
+      expect(fact).toBe(false);
     });
 
     it("should not match an unresolvable identifier", () => {
       const code = "setData;";
-      const result = runInRule(code, (context, program) => {
+      const fact = runInRule(code, (context, program) => {
         const resolver = createSetStateResolver(context);
         return resolver.isSetStateId(findReference(program, "setData"), 1);
       });
-      expect(result).toBe(false);
+      expect(fact).toBe(false);
     });
 
     it("should match the setter of a tuple destructured with a hole", () => {
       const code = "const [, setData] = useState(); setData;";
-      const result = runInRule(code, (context, program) => {
+      const fact = runInRule(code, (context, program) => {
         const resolver = createSetStateResolver(context);
         return resolver.isSetStateId(findReference(program, "setData"), 1);
       });
-      expect(result).toBe(true);
+      expect(fact).toBe(true);
     });
 
     it("should match both bindings of an object-destructured tuple by their numeric keys", () => {
       const code = "const { 0: data, 1: setData } = useState(); data; setData;";
-      const results = runInRule(code, (context, program) => {
+      const fact = runInRule(code, (context, program) => {
         const resolver = createSetStateResolver(context);
         return [
           resolver.isSetStateId(findReference(program, "data"), 1),
           resolver.isSetStateId(findReference(program, "setData"), 1),
         ];
       });
-      expect(results).toEqual([false, true]);
+      expect(fact).toEqual([false, true]);
     });
 
     it("should match a setter destructured from a namespace state hook call", () => {
       const code = "const [, setData] = React.useState(); setData;";
-      const result = runInRule(code, (context, program) => {
+      const fact = runInRule(code, (context, program) => {
         const resolver = createSetStateResolver(context);
         return resolver.isSetStateId(findReference(program, "setData"), 1);
       });
-      expect(result).toBe(true);
+      expect(fact).toBe(true);
     });
 
     it("should not match a setter reached through an alias variable", () => {
       const code = "const [data, setData] = useState(); const alias = setData; alias;";
-      const result = runInRule(code, (context, program) => {
+      const fact = runInRule(code, (context, program) => {
         const resolver = createSetStateResolver(context);
         return resolver.isSetStateId(findReference(program, "alias"), 1);
       });
-      expect(result).toBe(false);
+      expect(fact).toBe(false);
     });
 
     it("should not match a binding initialized by a non-call expression", () => {
       const code = "const setData = foo; setData;";
-      const result = runInRule(code, (context, program) => {
+      const fact = runInRule(code, (context, program) => {
         const resolver = createSetStateResolver(context);
         return resolver.isSetStateId(findReference(program, "setData"), 1);
       });
-      expect(result).toBe(false);
+      expect(fact).toBe(false);
     });
   });
 
   describe("isSetStateCall", () => {
     it("should match a direct call of the destructured setter", () => {
       const code = "const [data, setData] = useState(); setData(1);";
-      const result = runInRule(code, (context, program) => {
+      const fact = runInRule(code, (context, program) => {
         const resolver = createSetStateResolver(context);
         return resolver.isSetStateCall(findCall(context, program, "setData"));
       });
-      expect(result).toBe(true);
+      expect(fact).toBe(true);
     });
 
     it("should match member access at index 1 on a whole-tuple binding", () => {
       const code = "const data = useState(); data[1]();";
-      const result = runInRule(code, (context, program) => {
+      const fact = runInRule(code, (context, program) => {
         const resolver = createSetStateResolver(context);
         return resolver.isSetStateCall(findCall(context, program, "data[1]"));
       });
-      expect(result).toBe(true);
+      expect(fact).toBe(true);
     });
 
     it("should not match member access at index 0 on a whole-tuple binding", () => {
       const code = "const data = useState(); data[0]();";
-      const result = runInRule(code, (context, program) => {
+      const fact = runInRule(code, (context, program) => {
         const resolver = createSetStateResolver(context);
         return resolver.isSetStateCall(findCall(context, program, "data[0]"));
       });
-      expect(result).toBe(false);
+      expect(fact).toBe(false);
     });
 
     it("should match an at(1) call on a whole-tuple binding", () => {
       const code = "const data = useState(); data.at(1)();";
-      const result = runInRule(code, (context, program) => {
+      const fact = runInRule(code, (context, program) => {
         const resolver = createSetStateResolver(context);
         return resolver.isSetStateCall(findCall(context, program, "data.at(1)("));
       });
-      expect(result).toBe(true);
+      expect(fact).toBe(true);
     });
 
     it("should not match an at(0) call on a whole-tuple binding", () => {
       const code = "const data = useState(); data.at(0)();";
-      const result = runInRule(code, (context, program) => {
+      const fact = runInRule(code, (context, program) => {
         const resolver = createSetStateResolver(context);
         return resolver.isSetStateCall(findCall(context, program, "data.at(0)("));
       });
-      expect(result).toBe(false);
+      expect(fact).toBe(false);
     });
 
     it("should not match an at() call without arguments", () => {
       const code = "const data = useState(); data.at()();";
-      const result = runInRule(code, (context, program) => {
+      const fact = runInRule(code, (context, program) => {
         const resolver = createSetStateResolver(context);
         return resolver.isSetStateCall(findCall(context, program, "data.at()("));
       });
-      expect(result).toBe(false);
+      expect(fact).toBe(false);
     });
 
     it("should not match a call of an unrelated function", () => {
       const code = "function foo() {} foo();";
-      const result = runInRule(code, (context, program) => {
+      const fact = runInRule(code, (context, program) => {
         const resolver = createSetStateResolver(context);
         return resolver.isSetStateCall(findCall(context, program, "foo"));
       });
-      expect(result).toBe(false);
+      expect(fact).toBe(false);
     });
 
     it("should match an optional call of the destructured setter", () => {
       const code = "const [data, setData] = useState(); setData?.(1);";
-      const result = runInRule(code, (context, program) => {
+      const fact = runInRule(code, (context, program) => {
         const resolver = createSetStateResolver(context);
         return resolver.isSetStateCall(findCall(context, program, "setData"));
       });
-      expect(result).toBe(true);
+      expect(fact).toBe(true);
     });
 
     it("should match an optional call of a member access at index 1", () => {
       const code = "const data = useState(); data[1]?.();";
-      const result = runInRule(code, (context, program) => {
+      const fact = runInRule(code, (context, program) => {
         const resolver = createSetStateResolver(context);
         return resolver.isSetStateCall(findCall(context, program, "data[1]"));
       });
-      expect(result).toBe(true);
+      expect(fact).toBe(true);
     });
 
     it("should not match an at(-1) call on a whole-tuple binding", () => {
       const code = "const data = useState(); data.at(-1)();";
-      const result = runInRule(code, (context, program) => {
+      const fact = runInRule(code, (context, program) => {
         const resolver = createSetStateResolver(context);
         return resolver.isSetStateCall(findCall(context, program, "data.at(-1)("));
       });
-      expect(result).toBe(false);
+      expect(fact).toBe(false);
     });
 
     it("should match an at() call whose index is a statically known variable", () => {
       const code = "const index = 1; const data = useState(); data.at(index)();";
-      const result = runInRule(code, (context, program) => {
+      const fact = runInRule(code, (context, program) => {
         const resolver = createSetStateResolver(context);
         return resolver.isSetStateCall(findCall(context, program, "data.at(index)("));
       });
-      expect(result).toBe(true);
+      expect(fact).toBe(true);
     });
 
     it("should not match an at() call whose index is not statically known", () => {
       const code = "function f(index) { const data = useState(); data.at(index)(); }";
-      const result = runInRule(code, (context, program) => {
+      const fact = runInRule(code, (context, program) => {
         const resolver = createSetStateResolver(context);
         return resolver.isSetStateCall(findCall(context, program, "data.at(index)("));
       });
-      expect(result).toBe(false);
+      expect(fact).toBe(false);
     });
 
     it("should not match a computed string-literal member access", () => {
       const code = 'const data = useState(); data["1"]();';
-      const result = runInRule(code, (context, program) => {
+      const fact = runInRule(code, (context, program) => {
         const resolver = createSetStateResolver(context);
         return resolver.isSetStateCall(findCall(context, program, 'data["1"]'));
       });
-      expect(result).toBe(false);
+      expect(fact).toBe(false);
     });
   });
 });
@@ -249,133 +249,133 @@ describe("createSetStateResolver", () => {
 describe("isInitializedFromRef", () => {
   it("should match a local initialized from ref.current", () => {
     const code = "function f() { const ref = useRef(null); const el = ref.current; sink(el); }";
-    const result = runInRule(code, (context, program) => isInitializedFromRef(context, findReference(program, "el")));
-    expect(result).toBe(true);
+    const fact = runInRule(code, (context, program) => isInitializedFromRef(context, findReference(program, "el")));
+    expect(fact).toBe(true);
   });
 
   it("should match a local initialized from a nested member expression rooted at a ref", () => {
     const code = "function f() { const ref = useRef(null); const w = ref.current.offsetWidth; sink(w); }";
-    const result = runInRule(code, (context, program) => isInitializedFromRef(context, findReference(program, "w")));
-    expect(result).toBe(true);
+    const fact = runInRule(code, (context, program) => isInitializedFromRef(context, findReference(program, "w")));
+    expect(fact).toBe(true);
   });
 
   it("should match a local rooted at another ref-derived local", () => {
     const code = "function f() { const scrollerRef = useRef(null); const scroller = scrollerRef.current; const w = scroller.clientWidth; sink(w); }";
-    const result = runInRule(code, (context, program) => isInitializedFromRef(context, findReference(program, "w")));
-    expect(result).toBe(true);
+    const fact = runInRule(code, (context, program) => isInitializedFromRef(context, findReference(program, "w")));
+    expect(fact).toBe(true);
   });
 
   it("should not match a local initialized from a plain call", () => {
     const code = "function f() { const el = foo(); sink(el); }";
-    const result = runInRule(code, (context, program) => isInitializedFromRef(context, findReference(program, "el")));
-    expect(result).toBe(false);
+    const fact = runInRule(code, (context, program) => isInitializedFromRef(context, findReference(program, "el")));
+    expect(fact).toBe(false);
   });
 
   it("should match a variable reassigned from a ref-derived value before the use", () => {
     const code = "function f() { const containerRef = useRef(null); let overflow = false; overflow = containerRef.scrollWidth > 0; sink(overflow); }";
-    const result = runInRule(code, (context, program) => isInitializedFromRef(context, findReference(program, "overflow", -1)));
-    expect(result).toBe(true);
+    const fact = runInRule(code, (context, program) => isInitializedFromRef(context, findReference(program, "overflow", -1)));
+    expect(fact).toBe(true);
   });
 
   it("should not match a variable reassigned from a ref-derived value after the use", () => {
     const code = "function f() { const ref = useRef(0); let v; sink(v); v = ref.current; }";
-    const result = runInRule(code, (context, program) => isInitializedFromRef(context, findReference(program, "v")));
-    expect(result).toBe(false);
+    const fact = runInRule(code, (context, program) => isInitializedFromRef(context, findReference(program, "v")));
+    expect(fact).toBe(false);
   });
 
   it("should not match a variable written only inside a nested function", () => {
     const code = "function f() { const ref = useRef(0); let v; const g = () => { v = ref.current; }; sink(v); }";
-    const result = runInRule(code, (context, program) => isInitializedFromRef(context, findReference(program, "v", -1)));
-    expect(result).toBe(false);
+    const fact = runInRule(code, (context, program) => isInitializedFromRef(context, findReference(program, "v", -1)));
+    expect(fact).toBe(false);
   });
 
   it("should match a parameter named ref", () => {
     const code = "function useDetect(ref) { sink(ref.current); }";
-    const result = runInRule(code, (context, program) => isInitializedFromRef(context, findReference(program, "ref")));
-    expect(result).toBe(true);
+    const fact = runInRule(code, (context, program) => isInitializedFromRef(context, findReference(program, "ref")));
+    expect(fact).toBe(true);
   });
 
   it("should match a parameter whose name ends with Ref", () => {
     const code = "function useDetect(containerRef) { sink(containerRef.current); }";
-    const result = runInRule(code, (context, program) => isInitializedFromRef(context, findReference(program, "containerRef")));
-    expect(result).toBe(true);
+    const fact = runInRule(code, (context, program) => isInitializedFromRef(context, findReference(program, "containerRef")));
+    expect(fact).toBe(true);
   });
 
   it("should not match a parameter without a ref-like name", () => {
     const code = "function f(el) { sink(el); }";
-    const result = runInRule(code, (context, program) => isInitializedFromRef(context, findReference(program, "el")));
-    expect(result).toBe(false);
+    const fact = runInRule(code, (context, program) => isInitializedFromRef(context, findReference(program, "el")));
+    expect(fact).toBe(false);
   });
 
   it("should match a parameter present in the ref-derived parameter set", () => {
     const code = "function update(el) { sink(el); }";
-    const result = runInRule(code, (context, program) => {
+    const fact = runInRule(code, (context, program) => {
       const fn = collectNodes<TSESTree.FunctionDeclaration>(program, AST.FunctionDeclaration)[0];
       const param = fn?.params[0];
       if (param == null) throw new Error("No parameter found");
       return isInitializedFromRef(context, findReference(program, "el"), new Set([param]));
     });
-    expect(result).toBe(true);
+    expect(fact).toBe(true);
   });
 
   it("should match a local initialized from a conditional expression reading a ref", () => {
     const code = "function f() { const ref = useRef(0); const v = cond ? ref.current : 0; sink(v); }";
-    const result = runInRule(code, (context, program) => isInitializedFromRef(context, findReference(program, "v")));
-    expect(result).toBe(true);
+    const fact = runInRule(code, (context, program) => isInitializedFromRef(context, findReference(program, "v")));
+    expect(fact).toBe(true);
   });
 
   it("should match a local initialized from a call reading a ref", () => {
     const code = "function f() { const ref = useRef(0); const v = measure(ref.current); sink(v); }";
-    const result = runInRule(code, (context, program) => isInitializedFromRef(context, findReference(program, "v")));
-    expect(result).toBe(true);
+    const fact = runInRule(code, (context, program) => isInitializedFromRef(context, findReference(program, "v")));
+    expect(fact).toBe(true);
   });
 
   it("should match a variable written from a ref-derived value in a branch before the use", () => {
     const code = "function f() { const ref = useRef(0); let v = 0; if (cond) { v = ref.current; } sink(v); }";
-    const result = runInRule(code, (context, program) => isInitializedFromRef(context, findReference(program, "v", -1)));
-    expect(result).toBe(true);
+    const fact = runInRule(code, (context, program) => isInitializedFromRef(context, findReference(program, "v", -1)));
+    expect(fact).toBe(true);
   });
 
   it("should match a variable written in an enclosing function before a nested-function use", () => {
     const code = "function outer() { const ref = useRef(0); let v = 0; v = ref.current; function inner() { sink(v); } }";
-    const result = runInRule(code, (context, program) => isInitializedFromRef(context, findReference(program, "v", -1)));
-    expect(result).toBe(true);
+    const fact = runInRule(code, (context, program) => isInitializedFromRef(context, findReference(program, "v", -1)));
+    expect(fact).toBe(true);
   });
 
   it("should match a variable written and used inside the same nested function", () => {
     const code = "function f() { const ref = useRef(0); let v; const g = () => { v = ref.current; sink(v); }; }";
-    const result = runInRule(code, (context, program) => isInitializedFromRef(context, findReference(program, "v", -1)));
-    expect(result).toBe(true);
+    const fact = runInRule(code, (context, program) => isInitializedFromRef(context, findReference(program, "v", -1)));
+    expect(fact).toBe(true);
   });
 
   it("should not match a variable written in a sibling nested function of the use", () => {
     const code = "function f() { const ref = useRef(0); let v; const g = () => { v = ref.current; }; const h = () => { sink(v); }; }";
-    const result = runInRule(code, (context, program) => isInitializedFromRef(context, findReference(program, "v", -1)));
-    expect(result).toBe(false);
+    const fact = runInRule(code, (context, program) => isInitializedFromRef(context, findReference(program, "v", -1)));
+    expect(fact).toBe(false);
   });
 
   it("should match a variable written at module scope before a nested-function use", () => {
     const code = "const ref = useRef(0); let v; v = ref.current; function f() { sink(v); }";
-    const result = runInRule(code, (context, program) => isInitializedFromRef(context, findReference(program, "v", -1)));
-    expect(result).toBe(true);
+    const fact = runInRule(code, (context, program) => isInitializedFromRef(context, findReference(program, "v", -1)));
+    expect(fact).toBe(true);
   });
 
   it("should not match a variable written in a nested function when the use is in the enclosing function", () => {
     const code = "function f() { const ref = useRef(0); let v; sink(v); const g = () => { v = ref.current; }; }";
-    const result = runInRule(code, (context, program) => isInitializedFromRef(context, findReference(program, "v", -1)));
-    expect(result).toBe(false);
+    const fact = runInRule(code, (context, program) => isInitializedFromRef(context, findReference(program, "v", -1)));
+    expect(fact).toBe(false);
   });
 
   it("should not match a variable reassigned from itself", () => {
     const code = "function f() { let v = 0; v = v + 1; sink(v); }";
-    const result = runInRule(code, (context, program) => isInitializedFromRef(context, findReference(program, "v", -1)));
-    expect(result).toBe(false);
+    const fact = runInRule(code, (context, program) => isInitializedFromRef(context, findReference(program, "v", -1)));
+    expect(fact).toBe(false);
   });
 
   it("should not hang on mutually-referencing assignments", () => {
     const code = "function f() { let a; let b; a = b; b = a; sink(a); }";
-    const result = runInRule(code, (context, program) => isInitializedFromRef(context, findReference(program, "a", -1)));
-    expect(result).toBe(false);
+    const fact = runInRule(code, (context, program) => isInitializedFromRef(context, findReference(program, "a", -1)));
+    expect(fact).toBe(false);
   });
 });
 
@@ -466,7 +466,7 @@ describe("isArgumentUsingRefValue", () => {
 
   it("should match a ref-derived value passed through a helper parameter", () => {
     const code = "function update(el) { setWidth(el.scrollTop); }";
-    const result = runInRule(code, (context, program) => {
+    const fact = runInRule(code, (context, program) => {
       const fn = collectNodes<TSESTree.FunctionDeclaration>(program, AST.FunctionDeclaration)[0];
       const param = fn?.params[0];
       if (param == null) throw new Error("No parameter found");
@@ -474,7 +474,7 @@ describe("isArgumentUsingRefValue", () => {
       if (arg == null) throw new Error("No argument found");
       return isArgumentUsingRefValue(context, arg, new Set([param]));
     });
-    expect(result).toBe(true);
+    expect(fact).toBe(true);
   });
 
   it("should not match an updater reading only its own parameter", () => {
@@ -565,13 +565,13 @@ describe("isRefGatedContext", () => {
 
   it("should match a setState call in a helper gated on a ref-fed parameter", () => {
     const code = "function update(el) { if (el.scrollTop === 0) { setData(1); } }";
-    const result = runInRule(code, (context, program) => {
+    const fact = runInRule(code, (context, program) => {
       const fn = collectNodes<TSESTree.FunctionDeclaration>(program, AST.FunctionDeclaration)[0];
       const param = fn?.params[0];
       if (param == null) throw new Error("No parameter found");
       return isRefGatedContext(context, findCall(context, program, "setData"), new Set([param]));
     });
-    expect(result).toBe(true);
+    expect(fact).toBe(true);
   });
 
   it("should match a setState call gated by a ref-derived local variable on the left of a logical-and", () => {
@@ -588,13 +588,13 @@ describe("isRefGatedContext", () => {
 
   it("should match a setState call in a helper gated by a ref-fed parameter on the left of a logical-and", () => {
     const code = "function update(el) { el && setData(1); }";
-    const result = runInRule(code, (context, program) => {
+    const fact = runInRule(code, (context, program) => {
       const fn = collectNodes<TSESTree.FunctionDeclaration>(program, AST.FunctionDeclaration)[0];
       const param = fn?.params[0];
       if (param == null) throw new Error("No parameter found");
       return isRefGatedContext(context, findCall(context, program, "setData"), new Set([param]));
     });
-    expect(result).toBe(true);
+    expect(fact).toBe(true);
   });
 
   it("should not match a setState call in a helper gated by a plain parameter on the left of a logical-and", () => {
