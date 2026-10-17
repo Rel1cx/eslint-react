@@ -386,8 +386,8 @@ importers:
         specifier: ^1.0.30
         version: 1.0.30(typescript@6.0.3)
       tsl-dx:
-        specifier: ^0.14.1
-        version: 0.14.1(tsl@1.0.30(typescript@6.0.3))(typescript@6.0.3)
+        specifier: ^0.15.0
+        version: 0.15.0(tsl@1.0.30(typescript@6.0.3))(typescript@6.0.3)
       typedoc:
         specifier: ^0.28.20
         version: 0.28.20(typescript@6.0.3)
@@ -649,8 +649,8 @@ importers:
         specifier: ^1.0.30
         version: 1.0.30(typescript@6.0.3)
       tsl-dx:
-        specifier: ^0.14.1
-        version: 0.14.1(tsl@1.0.30(typescript@6.0.3))(typescript@6.0.3)
+        specifier: ^0.15.0
+        version: 0.15.0(tsl@1.0.30(typescript@6.0.3))(typescript@6.0.3)
       twoslash:
         specifier: ^0.3.9
         version: 0.3.9(supports-color@9.4.0)(typescript@6.0.3)
@@ -1872,8 +1872,8 @@ importers:
         specifier: ^1.0.30
         version: 1.0.30(typescript@6.0.3)
       tsl-dx:
-        specifier: ^0.14.1
-        version: 0.14.1(tsl@1.0.30(typescript@6.0.3))(typescript@6.0.3)
+        specifier: ^0.15.0
+        version: 0.15.0(tsl@1.0.30(typescript@6.0.3))(typescript@6.0.3)
       typescript:
         specifier: 6.0.3
         version: 6.0.3
@@ -7431,8 +7431,8 @@ packages:
       unrun:
         optional: true
 
-  tsl-dx@0.14.1:
-    resolution: {integrity: sha512-GZu0i9LD65jLnAWCAacoMW0YB4xGGIkxrRdsFWDjx7AlGpBvZGUVrqJ2uVCrTYURcW6BAhAk+PE6uy3m9EgFvw==}
+  tsl-dx@0.15.0:
+    resolution: {integrity: sha512-uM71lZUr+qCs4TEMMImSaIcla3bIKrtEUDIjNM+Fi0H8EwSkQxtMX3BnawP793e6zf+pAKSVAmDvj1D8j85rHQ==}
     peerDependencies:
       tsl: ^1.0.30
       typescript: 6.0.3
@@ -13924,7 +13924,7 @@ snapshots:
       - oxc-resolver
       - vue-tsc
 
-  tsl-dx@0.14.1(tsl@1.0.30(typescript@6.0.3))(typescript@6.0.3):
+  tsl-dx@0.15.0(tsl@1.0.30(typescript@6.0.3))(typescript@6.0.3):
     dependencies:
       ts-pattern: 5.9.2
       tsl: 1.0.30(typescript@6.0.3)
