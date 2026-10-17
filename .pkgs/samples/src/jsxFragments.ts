@@ -11,6 +11,11 @@ export type JsxsFragmentsOptions = {
 export function jsxFragments(options: JsxsFragmentsOptions = {}): RuleFunction {
   const { mode = "syntax" } = options;
   return (context) => {
+    // Fast path: skip if the fragment form this mode targets is not present in the file
+    const fragmentHint = mode === "syntax" ? "Fragment" : "<>";
+    if (!context.sourceCode.text.includes(fragmentHint)) return {};
+
+    /** Report a standard-form fragment (`<Fragment>` / `<React.Fragment>`) that should use shorthand syntax. */
     function reportSyntaxPreferred(node: TSESTree.JSXOpeningElement, pattern: "React.Fragment" | "Fragment") {
       // Guard: has key prop (legitimate use of standard form)
       const hasAttributes = node.attributes.length > 0;
@@ -28,30 +33,33 @@ export function jsxFragments(options: JsxsFragmentsOptions = {}): RuleFunction {
     }
 
     return {
+      // Visitor for shorthand fragments `<>...</>`
       JSXFragment(node) {
-        if (mode === "element") {
-          context.report({
-            fix(fixer) {
-              return [
-                fixer.replaceText(node.openingFragment, "<React.Fragment>"),
-                fixer.replaceText(node.closingFragment, "</React.Fragment>"),
-              ];
-            },
-            message: "Use '<React.Fragment>...</React.Fragment>' instead of shorthand '<>...</>'.",
-            node,
-          });
-        }
+        if (mode !== "element") return;
+
+        context.report({
+          fix(fixer) {
+            return [
+              fixer.replaceText(node.openingFragment, "<React.Fragment>"),
+              fixer.replaceText(node.closingFragment, "</React.Fragment>"),
+            ];
+          },
+          message: "Use '<React.Fragment>...</React.Fragment>' instead of shorthand '<>...</>'.",
+          node,
+        });
       },
+      // Visitor for standard-form fragments `<Fragment>` and `<React.Fragment>`
       JSXOpeningElement(node) {
         const name = node.name;
 
-        if (name.type === "JSXIdentifier" && name.name === "Fragment") {
-          if (mode === "syntax") {
+        if (name.type === "JSXIdentifier") {
+          if (name.name === "Fragment" && mode === "syntax") {
             reportSyntaxPreferred(node, "Fragment");
           }
           return;
         }
 
+        // Guard: only `<React.Fragment>` member expressions are relevant below
         if (name.type !== "JSXMemberExpression") return;
         if (name.object.type !== "JSXIdentifier" || name.object.name !== "React") return;
         if (name.property.name !== "Fragment") return;

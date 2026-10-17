@@ -283,20 +283,30 @@ export type BooleanPropNamingOptions = {
   rule?: string;
 };
 
+const DEFAULT_RULE = "^(is|has|should)[A-Z]([A-Za-z0-9]?)+";
+
+/**
+ * Flattens a union type into its constituent types
+ * @param t The type to flatten
+ * @returns The flattened types
+ */
+function flattenTypes(t: ts.Type): ts.Type[] {
+  return t.isUnion() ? t.types.flatMap(flattenTypes) : [t];
+}
+
+/**
+ * Checks whether the given type is boolean or a union containing boolean
+ * @param t The type to check
+ * @returns True if the type is boolean-like, false otherwise
+ */
+function isBooleanLikeType(t: ts.Type) {
+  return flattenTypes(t).some((t) => (t.getFlags() & ts.TypeFlags.BooleanLike) > 0);
+}
+
 /** Enforce boolean prop naming convention. */
 export function booleanPropNaming(options?: BooleanPropNamingOptions): RuleFunction {
-  const DEFAULT_RULE = "^(is|has|should)[A-Z]([A-Za-z0-9]?)+";
-
   const { rule = DEFAULT_RULE } = options ?? {};
   const regex = new RegExp(rule);
-
-  function flattenTypes(t: ts.Type): ts.Type[] {
-    return t.isUnion() ? t.types.flatMap(flattenTypes) : [t];
-  }
-
-  function isBooleanLikeType(t: ts.Type) {
-    return flattenTypes(t).some(t => (t.getFlags() & ts.TypeFlags.BooleanLike) > 0);
-  }
 
   return (context, { collect }) => {
     const srv = ESLintUtils.getParserServices(context, false);
@@ -318,23 +328,22 @@ export function booleanPropNaming(options?: BooleanPropNamingOptions): RuleFunct
           for (const prop of declaredProps) {
             const propType = chk.getTypeOfSymbolAtLocation(prop, tsNode);
 
-            // Filter: must be boolean
+            // Guard: must be a boolean-like type
             if (!isBooleanLikeType(propType)) continue;
 
-            // Filter: must match naming pattern
+            // Guard: must not already match the naming pattern
             if (regex.test(prop.name)) continue;
 
+            // Guard: must have a declaration to report on
             const decls = prop.getDeclarations();
             if (decls == null || decls.length === 0) continue;
 
             const [decl] = decls;
             if (decl == null) continue;
 
+            // Report on the prop key when available
             const declNode = srv.tsNodeToESTreeNodeMap.get(decl);
-
             const node = "key" in declNode ? declNode.key : declNode;
-
-            // Report violation
             context.report({
               data: { name: prop.name, rule },
               message: `Boolean prop "{{name}}" should match "{{rule}}".`,
@@ -357,32 +366,37 @@ import type { RuleFunction } from "@eslint-react/kit";
 
 /** Require `onChange` or `readOnly` when using `checked` on `<input>`. */
 export function checkedRequiresOnchangeOrReadonly(): RuleFunction {
-  return (context) => ({
-    JSXOpeningElement(node) {
-      // Verify this is an <input> element
-      const name = node.name.type === "JSXIdentifier" ? node.name.name : null;
-      if (name !== "input") return;
+  return (context) => {
+    // Fast path: skip if `checked` is not present in the file
+    if (!context.sourceCode.text.includes("checked")) return {};
 
-      // Collect all attribute names
-      const attrs = new Set<string>();
-      for (const attr of node.attributes) {
-        if (attr.type === "JSXAttribute" && attr.name.type === "JSXIdentifier") {
-          attrs.add(attr.name.name);
+    return {
+      JSXOpeningElement(node) {
+        // Guard: only check <input> elements
+        const name = node.name.type === "JSXIdentifier" ? node.name.name : null;
+        if (name !== "input") return;
+
+        // Collect all attribute names
+        const attrs = new Set<string>();
+        for (const attr of node.attributes) {
+          if (attr.type === "JSXAttribute" && attr.name.type === "JSXIdentifier") {
+            attrs.add(attr.name.name);
+          }
         }
-      }
 
-      // Guard: must have checked attribute
-      if (!attrs.has("checked")) return;
+        // Guard: must have checked attribute
+        if (!attrs.has("checked")) return;
 
-      // Validate: requires onChange or readOnly
-      if (!attrs.has("onChange") && !attrs.has("readOnly")) {
+        // Guard: satisfied by onChange or readOnly
+        if (attrs.has("onChange") || attrs.has("readOnly")) return;
+
         context.report({
-          node,
           message: "`checked` requires `onChange` or `readOnly`.",
+          node,
         });
-      }
-    },
-  });
+      },
+    };
+  };
 }
 ```
 
@@ -408,18 +422,15 @@ export function forbidComponentProps(options: ForbidComponentPropsOptions): Rule
       const propName = node.name.type === "JSXIdentifier" ? node.name.name : null;
       if (propName == null || !forbidden.includes(propName)) return;
 
-      // Verify context is JSX opening element
-      const { parent } = node;
-
       // Extract element name
-      const elemName = parent.name.type === "JSXIdentifier" ? parent.name.name : null;
+      const elemName = node.parent.name.type === "JSXIdentifier" ? node.parent.name.name : null;
 
       // Guard: only check components (PascalCase), not DOM elements
       if (elemName == null || elemName[0] !== elemName[0]?.toUpperCase()) return;
 
       context.report({
-        node,
         message: `Prop "${propName}" is forbidden on components.`,
+        node,
       });
     },
   });
@@ -448,18 +459,15 @@ export function forbidDomProps(options: ForbidDomPropsOptions): RuleFunction {
       const propName = node.name.type === "JSXIdentifier" ? node.name.name : null;
       if (propName == null || !forbidden.includes(propName)) return;
 
-      // Verify context is JSX opening element
-      const { parent } = node;
-
       // Extract element name
-      const elemName = parent.name.type === "JSXIdentifier" ? parent.name.name : null;
+      const elemName = node.parent.name.type === "JSXIdentifier" ? node.parent.name.name : null;
 
       // Guard: only check DOM elements (lowercase), not components
       if (elemName == null || elemName[0] !== elemName[0]?.toLowerCase()) return;
 
       context.report({
-        node,
         message: `Prop "${propName}" is forbidden on DOM elements.`,
+        node,
       });
     },
   });
@@ -491,7 +499,7 @@ export function forbidElements(options: ForbidElementsOptions): RuleFunction {
       if (name == null || !forbidden.has(name)) return;
 
       // Report violation with custom message
-      context.report({ node, message: forbidden.get(name)! });
+      context.report({ message: forbidden.get(name)!, node });
     },
   });
 }
@@ -502,8 +510,10 @@ export function forbidElements(options: ForbidElementsOptions): RuleFunction {
 Enforce arrow function definitions for function components.
 
 ```ts twoslash
-import type { RuleFunction } from "@eslint-react/kit";
-import { merge } from "@eslint-react/kit";
+import { type RuleFix, type RuleFixer, type RuleFunction, merge } from "@eslint-react/kit";
+import type { TSESTree } from "@typescript-eslint/types";
+
+type RuleContext = Parameters<RuleFunction>[0];
 
 /** Enforce arrow function definitions for function components. */
 export function functionComponentDefinition(): RuleFunction {
@@ -516,42 +526,16 @@ export function functionComponentDefinition(): RuleFunction {
       {
         "Program:exit"(program) {
           for (const { node } of query.all(program)) {
-            // Guard: must not already be arrow function
+            // Guard: must not already be an arrow function
             if (node.type === "ArrowFunctionExpression") continue;
 
             context.report({
-              node,
               message: "Function components must be defined with arrow functions.",
+              node,
               suggest: [
                 {
                   desc: "Convert to arrow function.",
-                  fix(fixer) {
-                    const src = context.sourceCode;
-                    if (node.generator) return null;
-
-                    const prefix = node.async ? "async " : "";
-                    const typeParams = node.typeParameters != null ? src.getText(node.typeParameters) : "";
-                    const params = `(${node.params.map((p) => src.getText(p)).join(", ")})`;
-                    const returnType = node.returnType != null ? src.getText(node.returnType) : "";
-                    const body = src.getText(node.body);
-
-                    if (node.type === "FunctionDeclaration" && node.id != null) {
-                      // dprint-ignore
-                      return fixer.replaceText(node, `const ${node.id.name} = ${prefix}${typeParams}${params}${returnType} => ${body};`);
-                    }
-
-                    if (node.type === "FunctionExpression" && node.parent.type === "VariableDeclarator") {
-                      // dprint-ignore
-                      return fixer.replaceText(node, `${prefix}${typeParams}${params}${returnType} => ${body}`);
-                    }
-
-                    if (node.type === "FunctionExpression" && node.parent.type === "Property") {
-                      // dprint-ignore
-                      return fixer.replaceText(node.parent, `${src.getText(node.parent.key)}: ${prefix}${typeParams}${params}${returnType} => ${body}`);
-                    }
-
-                    return null;
-                  },
+                  fix: buildFix(context, node),
                 },
               ],
             });
@@ -559,6 +543,46 @@ export function functionComponentDefinition(): RuleFunction {
         },
       },
     );
+  };
+}
+
+/**
+ * Builds a fix that converts a function component into an arrow function
+ * @param context The rule context
+ * @param node The component function node
+ * @returns A fixer function that applies the conversion, or yields null when the node cannot be converted
+ */
+function buildFix(context: RuleContext, node: TSESTree.FunctionDeclaration | TSESTree.FunctionExpression) {
+  return (fixer: RuleFixer): RuleFix | null => {
+    const src = context.sourceCode;
+    // Guard: generator functions can't be converted to arrow functions
+    if (node.generator) return null;
+
+    const prefix = node.async ? "async " : "";
+    const typeParams = node.typeParameters != null ? src.getText(node.typeParameters) : "";
+    const params = `(${node.params.map((p) => src.getText(p)).join(", ")})`;
+    const returnType = node.returnType != null ? src.getText(node.returnType) : "";
+    const body = src.getText(node.body);
+
+    // `function Foo() {}` -> `const Foo = () => {};`
+    if (node.type === "FunctionDeclaration" && node.id != null) {
+      // dprint-ignore
+      return fixer.replaceText(node, `const ${node.id.name} = ${prefix}${typeParams}${params}${returnType} => ${body};`);
+    }
+
+    // `const Foo = function() {}` -> `const Foo = () => {};`
+    if (node.type === "FunctionExpression" && node.parent.type === "VariableDeclarator") {
+      // dprint-ignore
+      return fixer.replaceText(node, `${prefix}${typeParams}${params}${returnType} => ${body}`);
+    }
+
+    // `{ Foo: function() {} }` -> `{ Foo: () => {} }`
+    if (node.type === "FunctionExpression" && node.parent.type === "Property") {
+      // dprint-ignore
+      return fixer.replaceText(node.parent, `${src.getText(node.parent.key)}: ${prefix}${typeParams}${params}${returnType} => ${body}`);
+    }
+
+    return null;
   };
 }
 ```
@@ -585,9 +609,9 @@ export function jsxBooleanValue(): RuleFunction {
 
       // Report: prefer shorthand form
       context.report({
-        node,
-        message: "Omit the value for boolean attributes.",
         fix: (fixer) => fixer.removeRange([node.name.range[1], value.range[1]]),
+        message: "Omit the value for boolean attributes.",
+        node,
       });
     },
   });
@@ -612,53 +636,61 @@ export type JsxsFragmentsOptions = {
 export function jsxFragments(options: JsxsFragmentsOptions = {}): RuleFunction {
   const { mode = "syntax" } = options;
   return (context) => {
+    // Fast path: skip if the fragment form this mode targets is not present in the file
+    const fragmentHint = mode === "syntax" ? "Fragment" : "<>";
+    if (!context.sourceCode.text.includes(fragmentHint)) return {};
+
+    /** Report a standard-form fragment (`<Fragment>` / `<React.Fragment>`) that should use shorthand syntax. */
     function reportSyntaxPreferred(node: TSESTree.JSXOpeningElement, pattern: "React.Fragment" | "Fragment") {
       // Guard: has key prop (legitimate use of standard form)
       const hasAttributes = node.attributes.length > 0;
       if (hasAttributes) return;
 
       context.report({
-        node,
-        message: `Use shorthand fragment syntax '<>...</>' instead of '<${pattern}>...</${pattern}'.`,
         fix(fixer) {
           const closing = node.parent.closingElement;
           if (closing == null) return null;
           return [fixer.replaceText(node, "<>"), fixer.replaceText(closing, "</>")];
         },
+        message: `Use shorthand fragment syntax '<>...</>' instead of '<${pattern}>...</${pattern}'.`,
+        node,
       });
     }
 
     return {
+      // Visitor for shorthand fragments `<>...</>`
+      JSXFragment(node) {
+        if (mode !== "element") return;
+
+        context.report({
+          fix(fixer) {
+            return [
+              fixer.replaceText(node.openingFragment, "<React.Fragment>"),
+              fixer.replaceText(node.closingFragment, "</React.Fragment>"),
+            ];
+          },
+          message: "Use '<React.Fragment>...</React.Fragment>' instead of shorthand '<>...</>'.",
+          node,
+        });
+      },
+      // Visitor for standard-form fragments `<Fragment>` and `<React.Fragment>`
       JSXOpeningElement(node) {
         const name = node.name;
 
-        if (name.type === "JSXIdentifier" && name.name === "Fragment") {
-          if (mode === "syntax") {
+        if (name.type === "JSXIdentifier") {
+          if (name.name === "Fragment" && mode === "syntax") {
             reportSyntaxPreferred(node, "Fragment");
           }
           return;
         }
 
+        // Guard: only `<React.Fragment>` member expressions are relevant below
         if (name.type !== "JSXMemberExpression") return;
         if (name.object.type !== "JSXIdentifier" || name.object.name !== "React") return;
         if (name.property.name !== "Fragment") return;
 
         if (mode === "syntax") {
           reportSyntaxPreferred(node, "React.Fragment");
-        }
-      },
-      JSXFragment(node) {
-        if (mode === "element") {
-          context.report({
-            node,
-            message: "Use '<React.Fragment>...</React.Fragment>' instead of shorthand '<>...</>'.",
-            fix(fixer) {
-              return [
-                fixer.replaceText(node.openingFragment, "<React.Fragment>"),
-                fixer.replaceText(node.closingFragment, "</React.Fragment>"),
-              ];
-            },
-          });
         }
       },
     };
@@ -675,20 +707,20 @@ import type { RuleFunction } from "@eslint-react/kit";
 
 /** Options for {@link jsxHandlerNames}. */
 export type JsxHandlerNamesOptions = {
+  /** Whether to check inline functions (default: false). */
+  checkInlineFunction?: boolean;
   /** Prefix for event handler functions (default: "handle"). */
   eventHandlerPrefix?: string;
   /** Prefix for event handler props (default: "on"). */
   eventHandlerPropPrefix?: string;
-  /** Whether to check inline functions (default: false). */
-  checkInlineFunction?: boolean;
 };
 
 /** Enforce naming convention for JSX event handlers. */
 export function jsxHandlerNames(options: JsxHandlerNamesOptions = {}): RuleFunction {
   const {
+    checkInlineFunction = false,
     eventHandlerPrefix = "handle",
     eventHandlerPropPrefix = "on",
-    checkInlineFunction = false,
   } = options;
   const EVENT_HANDLER_REGEX = new RegExp(`^${eventHandlerPropPrefix}[A-Z]`);
   const HANDLER_FUNC_REGEX = new RegExp(`^${eventHandlerPrefix}[A-Z]`);
@@ -700,37 +732,35 @@ export function jsxHandlerNames(options: JsxHandlerNamesOptions = {}): RuleFunct
       const propName = node.name.name;
       if (!EVENT_HANDLER_REGEX.test(propName)) return;
 
+      // Guard: must have an expression container value
       const value = node.value;
-      if (value == null) return;
+      if (value?.type !== "JSXExpressionContainer") return;
 
-      if (value.type === "JSXExpressionContainer") {
-        const expression = ast.unwrap(value.expression);
+      const expression = ast.unwrap(value.expression);
 
-        // Case: direct reference (onClick={handleClick})
-        if (expression.type === "Identifier") {
-          const handlerName = expression.name;
-          if (!HANDLER_FUNC_REGEX.test(handlerName)) {
-            context.report({
-              node: expression,
-              message: `Handler function "${handlerName}" should be named "${eventHandlerPrefix}${propName.slice(eventHandlerPropPrefix.length)}..."`,
-            });
-          }
-          return;
-        }
-
-        // Case: inline function (onClick={() => {}})
-        if (expression.type === "ArrowFunctionExpression" || expression.type === "FunctionExpression") {
-          if (checkInlineFunction) {
-            context.report({
-              node: expression,
-              message: `Inline function handlers are not allowed for "${propName}". Extract it to a named "${eventHandlerPrefix}${
-                propName.slice(eventHandlerPropPrefix.length)
-              }" function.`,
-            });
-          }
-          return;
-        }
+      // Case: direct reference (onClick={handleClick})
+      if (expression.type === "Identifier") {
+        const handlerName = expression.name;
+        // Guard: handler name already follows the convention
+        if (HANDLER_FUNC_REGEX.test(handlerName)) return;
+        context.report({
+          message: `Handler function "${handlerName}" should be named "${eventHandlerPrefix}${propName.slice(eventHandlerPropPrefix.length)}..."`,
+          node: expression,
+        });
+        return;
       }
+
+      // Case: inline function (onClick={() => {}})
+      if (expression.type !== "ArrowFunctionExpression" && expression.type !== "FunctionExpression") return;
+      // Guard: inline functions are allowed unless checkInlineFunction is enabled
+      if (!checkInlineFunction) return;
+      context.report({
+        message: [
+          `Inline function handlers are not allowed for "${propName}".`,
+          `Extract it to a named "${eventHandlerPrefix}${propName.slice(eventHandlerPropPrefix.length)}" function.`,
+        ].join(" "),
+        node: expression,
+      });
     },
   });
 }
@@ -742,6 +772,7 @@ Enforce a maximum depth for JSX elements.
 
 ```ts twoslash
 import type { RuleFunction } from "@eslint-react/kit";
+import type { TSESTree } from "@typescript-eslint/types";
 
 /** Options for {@link jsxMaxDepth}. */
 export type JsxMaxDepthOptions = {
@@ -754,25 +785,36 @@ export function jsxMaxDepth(options: JsxMaxDepthOptions): RuleFunction {
   const { max } = options;
   return (context) => ({
     JSXElement(node) {
-      let depth = 0;
-      let parent: typeof node.parent | null | undefined = node.parent;
+      const depth = getJsxDepth(node);
 
-      while (parent != null) {
-        if (parent.type === "JSXElement") {
-          depth++;
-        }
-        parent = parent.parent;
-      }
+      // Guard: only report elements nested deeper than the limit
+      if (depth <= max) return;
 
-      // Check depth limit
-      if (depth > max) {
-        context.report({
-          node,
-          message: `JSX element exceeds maximum depth of ${max} (found ${depth}).`,
-        });
-      }
+      context.report({
+        message: `JSX element exceeds maximum depth of ${max} (found ${depth}).`,
+        node,
+      });
     },
   });
+}
+
+/**
+ * Count the number of JSX element ancestors of the given node
+ * @param node The JSX element to measure from
+ * @returns The number of enclosing JSX elements
+ */
+function getJsxDepth(node: TSESTree.JSXElement) {
+  let depth = 0;
+  let parent: typeof node.parent | null | undefined = node.parent;
+
+  while (parent != null) {
+    if (parent.type === "JSXElement") {
+      depth++;
+    }
+    parent = parent.parent;
+  }
+
+  return depth;
 }
 ```
 
@@ -785,30 +827,38 @@ import type { RuleFunction } from "@eslint-react/kit";
 
 /** Prevent inline functions and `.bind()` in JSX props. */
 export function jsxNoBind(): RuleFunction {
-  return (context, { ast }) => ({
-    JSXAttribute(node) {
-      const value = node.value;
+  return (context, { ast }) => {
+    /** Check whether the expression is a `.bind()` call. */
+    const isBindCall = (expr: ReturnType<typeof ast.unwrap>) => {
+      if (expr.type !== "CallExpression") return false;
+      const callee = ast.unwrap(expr.callee);
+      return callee.type === "MemberExpression"
+        && callee.property.type === "Identifier"
+        && callee.property.name === "bind";
+    };
 
-      // Guard: must be expression container
-      if (value?.type !== "JSXExpressionContainer") return;
+    return {
+      JSXAttribute(node) {
+        const value = node.value;
 
-      const expr = ast.unwrap(value.expression);
+        // Guard: must be expression container
+        if (value?.type !== "JSXExpressionContainer") return;
 
-      switch (true) {
-        case expr.type === "ArrowFunctionExpression":
-        case expr.type === "FunctionExpression":
-          context.report({ node, message: "JSX props should not use inline functions." });
-          break;
-        case expr.type === "CallExpression": {
-          const callee = ast.unwrap(expr.callee);
-          if (callee.type === "MemberExpression" && callee.property.type === "Identifier" && callee.property.name === "bind") {
-            context.report({ node, message: "JSX props should not use .bind()." });
-          }
-          break;
+        const expr = ast.unwrap(value.expression);
+
+        // Report: inline function
+        if (expr.type === "ArrowFunctionExpression" || expr.type === "FunctionExpression") {
+          context.report({ message: "JSX props should not use inline functions.", node });
+          return;
         }
-      }
-    },
-  });
+
+        // Report: .bind() call
+        if (isBindCall(expr)) {
+          context.report({ message: "JSX props should not use .bind().", node });
+        }
+      },
+    };
+  };
 }
 ```
 
@@ -830,23 +880,26 @@ export function jsxNoDuplicateProps(options: JsxNoDuplicatePropsOptions = {}): R
   const { ignoreCase = false } = options;
   return (context) => ({
     JSXOpeningElement(node) {
-      const seen = new Map<string, string>();
+      // Track prop names already seen on this element
+      const seen = new Set<string>();
 
       for (const attr of node.attributes) {
+        // Guard: only plain attributes with simple names can be duplicates
         if (attr.type !== "JSXAttribute") continue;
         if (attr.name.type !== "JSXIdentifier") continue;
 
         const name = ignoreCase ? attr.name.name.toLowerCase() : attr.name.name;
 
-        // Report duplicate
+        // Report: duplicate prop
         if (seen.has(name)) {
           context.report({
-            node: attr,
             message: `Duplicate prop "${attr.name.name}" found.`,
+            node: attr,
           });
-        } else {
-          seen.set(name, attr.name.name);
+          continue;
         }
+
+        seen.add(name);
       }
     },
   });
@@ -859,73 +912,81 @@ Disallow usage of string literals in JSX. By default requires wrapping strings i
 
 ```ts twoslash
 import type { RuleFunction } from "@eslint-react/kit";
+import type { TSESTree } from "@typescript-eslint/types";
 
 /** Options for {@link jsxNoLiterals}. */
 export type JsxNoLiteralsOptions = {
-  /** Enforces no string literals used as children, wrapped or unwrapped. */
-  noStrings?: boolean;
   /** An array of unique string values that would otherwise warn, but will be ignored. */
   allowedStrings?: string[];
   /** When `true` the rule ignores literals used in props. */
   ignoreProps?: boolean;
+  /** Enforces no string literals used as children, wrapped or unwrapped. */
+  noStrings?: boolean;
 };
 
 /** Disallow usage of string literals in JSX. */
 export function jsxNoLiterals(options: JsxNoLiteralsOptions = {}): RuleFunction {
-  const { noStrings = false, allowedStrings = [], ignoreProps = true } = options;
+  const { allowedStrings = [], ignoreProps = true, noStrings = false } = options;
   const allowedSet = new Set(allowedStrings);
-  return (context) => ({
-    Literal(node) {
-      if (typeof node.value !== "string") return;
-      const text = node.value.trim();
-      if (text === "" || allowedSet.has(text)) return;
 
-      const parent = node.parent;
-
-      if (parent.type === "JSXAttribute") {
-        if (!ignoreProps) {
-          context.report({
-            node,
-            message: `String literals are not allowed in JSX props. Use {'${text}'} instead.`,
-          });
-        }
-        return;
-      }
-
-      if (parent.type === "JSXExpressionContainer") return;
-
-      if (parent.type === "JSXElement" || parent.type === "JSXFragment") {
-        if (noStrings) {
-          context.report({
-            node,
-            message: `String literals are not allowed as JSX children.`,
-          });
-        } else {
-          context.report({
-            node,
-            message: `String literals should be wrapped in JSX expression: {'${text}'}`,
-          });
-        }
-      }
-    },
-
-    JSXText(node) {
-      const text = node.value.trim();
-      if (text === "" || allowedSet.has(text)) return;
-
+  return (context) => {
+    /** Report a string literal or JSX text used as a child, honoring the `noStrings` option. */
+    const reportLiteralInChildren = (node: TSESTree.Literal | TSESTree.JSXText, text: string) => {
       if (noStrings) {
         context.report({
-          node,
           message: `String literals are not allowed as JSX children.`,
-        });
-      } else {
-        context.report({
           node,
-          message: `String literals should be wrapped in JSX expression: {'${text}'}`,
         });
+        return;
       }
-    },
-  });
+      context.report({
+        message: `String literals should be wrapped in JSX expression: {'${text}'}`,
+        node,
+      });
+    };
+
+    return {
+      Literal(node) {
+        // Guard: only string literals are relevant
+        if (typeof node.value !== "string") return;
+        const text = node.value.trim();
+        // Guard: skip empty and allowed strings
+        if (text === "" || allowedSet.has(text)) return;
+
+        const parent = node.parent;
+
+        // Case: string literal used as a prop value
+        if (parent.type === "JSXAttribute") {
+          // Guard: literals in props are ignored unless ignoreProps is disabled
+          if (ignoreProps) return;
+          context.report({
+            message: [
+              "String literals are not allowed in JSX props.",
+              `Use {'${text}'} instead.`,
+            ].join(" "),
+            node,
+          });
+          return;
+        }
+
+        // Guard: already wrapped in an expression container
+        if (parent.type === "JSXExpressionContainer") return;
+
+        // Case: string literal used as a child of a JSX element or fragment
+        if (parent.type === "JSXElement" || parent.type === "JSXFragment") {
+          reportLiteralInChildren(node, text);
+        }
+      },
+
+      JSXText(node) {
+        const text = node.value.trim();
+        // Guard: skip empty and allowed strings
+        if (text === "" || allowedSet.has(text)) return;
+
+        reportLiteralInChildren(node, text);
+      },
+    };
+  };
 }
 ```
 
@@ -944,10 +1005,12 @@ export type JsxPascalCaseOptions = {
   allowLeadingUnderscore?: boolean;
 };
 
+/** Matches a PascalCase identifier like `MyComponent`. */
+const PASCAL_CASE_PATTERN = /^[A-Z][a-zA-Z0-9]*$/;
+
 /** Enforce PascalCase for user-defined JSX components. */
 export function jsxPascalCase(options: JsxPascalCaseOptions = {}): RuleFunction {
   const { allowAllCaps = false, allowLeadingUnderscore = false } = options;
-  const pascalCaseRegex = /^[A-Z][a-zA-Z0-9]*$/;
   return (context) => ({
     JSXOpeningElement(node) {
       const name = node.name;
@@ -960,8 +1023,8 @@ export function jsxPascalCase(options: JsxPascalCaseOptions = {}): RuleFunction 
       if (componentName.startsWith("_")) {
         if (!allowLeadingUnderscore) {
           context.report({
-            node: name,
             message: `Component name "${componentName}" should not start with an underscore.`,
+            node: name,
           });
         }
         return;
@@ -975,17 +1038,17 @@ export function jsxPascalCase(options: JsxPascalCaseOptions = {}): RuleFunction 
       if (componentName === componentName.toUpperCase()) {
         if (!allowAllCaps) {
           context.report({
-            node: name,
             message: `Component name "${componentName}" should use PascalCase, not all uppercase.`,
+            node: name,
           });
         }
         return;
       }
 
-      if (!pascalCaseRegex.test(componentName)) {
+      if (!PASCAL_CASE_PATTERN.test(componentName)) {
         context.report({
-          node: name,
           message: `Component name "${componentName}" should be in PascalCase.`,
+          node: name,
         });
       }
     },
@@ -1007,26 +1070,23 @@ export function jsxPropsNoSpreadMulti(): RuleFunction {
       const seen = new Set<string>();
 
       for (const attr of node.attributes) {
+        // Guard: only spread attributes are relevant
         if (attr.type !== "JSXSpreadAttribute") continue;
 
-        // Extract spread identifier name
+        // Use the identifier name for plain spreads, otherwise the source text as the key
         const argument = ast.unwrap(attr.argument);
-        let spreadKey: string;
-        if (argument.type === "Identifier") {
-          spreadKey = argument.name;
-        } else {
-          spreadKey = context.sourceCode.getText(attr.argument);
-        }
+        const spreadKey = argument.type === "Identifier" ? argument.name : context.sourceCode.getText(attr.argument);
 
-        // Report duplicate spread
+        // Report: duplicate spread
         if (seen.has(spreadKey)) {
           context.report({
-            node: attr,
             message: `Spreading the same expression "${spreadKey}" multiple times is not allowed.`,
+            node: attr,
           });
-        } else {
-          seen.add(spreadKey);
+          continue;
         }
+
+        seen.add(spreadKey);
       }
     },
   });
@@ -1045,8 +1105,8 @@ export function jsxPropsNoSpreading(): RuleFunction {
   return (context) => ({
     JSXSpreadAttribute(node) {
       context.report({
-        node,
         message: "Props spreading is not allowed.",
+        node,
       });
     },
   });
@@ -1059,72 +1119,79 @@ Disallow adjacent inline elements not separated by whitespace.
 
 ```ts twoslash
 import type { RuleFunction } from "@eslint-react/kit";
+import type { TSESTree } from "@typescript-eslint/types";
+
+/** Tag names of inline HTML elements. */
+const INLINE_ELEMENTS = new Set([
+  "a",
+  "abbr",
+  "acronym",
+  "b",
+  "bdi",
+  "bdo",
+  "big",
+  "br",
+  "cite",
+  "code",
+  "dfn",
+  "em",
+  "i",
+  "img",
+  "input",
+  "kbd",
+  "label",
+  "map",
+  "object",
+  "q",
+  "samp",
+  "script",
+  "select",
+  "small",
+  "span",
+  "strong",
+  "sub",
+  "sup",
+  "textarea",
+  "time",
+  "tt",
+  "var",
+]);
 
 /** Disallow adjacent inline elements not separated by whitespace. */
 export function noAdjacentInlineElements(): RuleFunction {
-  /** Set of inline HTML elements. */
-  const INLINE_ELEMENTS = new Set([
-    "a",
-    "abbr",
-    "acronym",
-    "b",
-    "bdi",
-    "bdo",
-    "big",
-    "br",
-    "cite",
-    "code",
-    "dfn",
-    "em",
-    "i",
-    "img",
-    "input",
-    "kbd",
-    "label",
-    "map",
-    "object",
-    "q",
-    "samp",
-    "script",
-    "select",
-    "small",
-    "span",
-    "strong",
-    "sub",
-    "sup",
-    "textarea",
-    "time",
-    "tt",
-    "var",
-  ]);
   return (context) => ({
     JSXElement(node) {
       const children = node.children;
 
+      // Check each pair of adjacent children
       for (let i = 0; i < children.length - 1; i++) {
-        const current = children[i];
-        const next = children[i + 1];
+        const currentName = getInlineElementName(children[i]);
+        const nextName = getInlineElementName(children[i + 1]);
 
-        // Validate first element
-        if (current?.type !== "JSXElement") continue;
-        if (current.openingElement.name.type !== "JSXIdentifier") continue;
-        const currentName = current.openingElement.name.name;
-        if (!INLINE_ELEMENTS.has(currentName)) continue;
+        // Guard: both neighbors must be inline elements
+        if (currentName == null || nextName == null) continue;
 
-        // Validate second element
-        if (next?.type !== "JSXElement") continue;
-        if (next.openingElement.name.type !== "JSXIdentifier") continue;
-        const nextName = next.openingElement.name.name;
-        if (!INLINE_ELEMENTS.has(nextName)) continue;
-
-        // Report violation
         context.report({
-          node: current,
           message: `Adjacent inline elements "${currentName}" and "${nextName}" should be separated by whitespace.`,
+          node: children[i]!,
         });
       }
     },
   });
+}
+
+/**
+ * Get the tag name of a JSX child when it is an inline element with a simple identifier name
+ * @param child The JSX child to inspect
+ * @returns The lowercase tag name, or null when the child is not an inline element
+ */
+function getInlineElementName(child: TSESTree.JSXElement["children"][number] | undefined) {
+  if (child?.type !== "JSXElement") return null;
+
+  const name = child.openingElement.name;
+  if (name.type !== "JSXIdentifier") return null;
+
+  return INLINE_ELEMENTS.has(name.name) ? name.name : null;
 }
 ```
 
@@ -1145,11 +1212,15 @@ export function noDirectAccessProps(): RuleFunction {
       "Program:exit"(program) {
         for (const { node } of query.all(program)) {
           const [props] = node.params;
+          // Guard: only check components with a plain identifier props parameter (e.g. `props`, not destructuring)
           if (props == null) continue;
           if (props.type !== "Identifier") continue;
+
           const propName = props.name;
           const propVariable = context.sourceCode.getScope(node).variables.find((v) => v.name === propName);
           const propReferences = propVariable?.references ?? [];
+
+          // Report every member access on the props object (e.g. `props.foo`)
           for (const ref of propReferences) {
             const { parent } = ref.identifier;
             if (parent.type !== "MemberExpression") continue;
@@ -1174,22 +1245,29 @@ import type { RuleFunction } from "@eslint-react/kit";
 
 /** Forbid this.setState() calls. */
 export function noSetState(): RuleFunction {
-  return (context, { ast }) => ({
-    CallExpression(node) {
-      const callee = ast.unwrap(node.callee);
-      switch (true) {
-        // Check if callee is this.setState
-        case callee.type === "MemberExpression"
-          && callee.object.type === "ThisExpression"
-          && callee.property.type === "Identifier"
-          && callee.property.name === "setState":
-          context.report({
-            node,
-            message: "This use of 'this.setState()' is not allowed.",
-          });
-      }
-    },
-  });
+  return (context, { ast }) => {
+    // Fast path: skip if `setState` is not present in the file
+    if (!context.sourceCode.text.includes("setState")) return {};
+
+    return {
+      CallExpression(node) {
+        const callee = ast.unwrap(node.callee);
+        // Guard: only match `this.setState(...)` calls
+        if (
+          callee.type !== "MemberExpression"
+          || callee.object.type !== "ThisExpression"
+          || callee.property.type !== "Identifier"
+          || callee.property.name !== "setState"
+        ) {
+          return;
+        }
+        context.report({
+          message: "This use of 'this.setState()' is not allowed.",
+          node,
+        });
+      },
+    };
+  };
 }
 ```
 
@@ -1202,23 +1280,33 @@ import type { RuleFunction } from "@eslint-react/kit";
 
 /** Disallow deprecated string refs. */
 export function noStringRefs(): RuleFunction {
-  return (context) => ({
-    JSXAttribute(node) {
-      // Check if this is a ref attribute
-      if (node.name.type !== "JSXIdentifier" || node.name.name !== "ref") {
-        return;
-      }
+  return (context) => {
+    // Fast path: skip if no `ref` attribute can be present in the file
+    if (!context.sourceCode.text.includes("ref")) return {};
 
-      // Check if the value is a string literal (string ref)
-      const value = node.value;
-      if (value?.type === "Literal" && typeof value.value === "string") {
+    return {
+      JSXAttribute(node) {
+        // Guard: only check `ref` attributes
+        if (node.name.type !== "JSXIdentifier" || node.name.name !== "ref") {
+          return;
+        }
+
+        // Guard: only string literal values are string refs
+        const value = node.value;
+        if (value?.type !== "Literal" || typeof value.value !== "string") {
+          return;
+        }
+
         context.report({
+          message: [
+            "String refs are deprecated and should not be used.",
+            "Use React.useRef() instead.",
+          ].join(" "),
           node,
-          message: `String refs are deprecated and should not be used. Use React.useRef() instead.`,
         });
-      }
-    },
-  });
+      },
+    };
+  };
 }
 ```
 
@@ -1238,10 +1326,14 @@ export function noMultiComp(): RuleFunction {
       "Program:exit"(program) {
         const components = query.all(program);
 
-        for (const { node, name } of components.slice(1)) {
+        // Report every component past the first one
+        for (const { name, node } of components.slice(1)) {
           context.report({
+            message: [
+              "Declare only one component per file.",
+              `Found extra component "${name ?? "anonymous"}".`,
+            ].join(" "),
             node,
-            message: `Declare only one component per file. Found extra component "${name ?? "anonymous"}".`,
           });
         }
       },

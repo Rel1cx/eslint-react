@@ -15,6 +15,7 @@ export function errorBoundaries(): RuleFunction {
     const fc = collect.components(context);
     const hk = collect.hooks(context);
 
+    // Track already-reported nodes to avoid duplicate reports
     const reported = new Set<TSESTree.TryStatement>();
     const useCalls = new Set<TSESTree.CallExpression>();
 
@@ -31,27 +32,35 @@ export function errorBoundaries(): RuleFunction {
           const hooks = hk.query.all(program);
           const funcs = [...comps, ...hooks];
 
+          // Report try/catch blocks that wrap a 'use' call inside a component or hook
           for (const call of useCalls) {
             const stmt = ast.findParent(call, (n) => n.type === "TryStatement");
             const func = ast.findParent(stmt, (n) => funcs.some((f) => f.node === n));
             if (stmt != null && func != null && !reported.has(stmt)) {
               context.report({
-                message:
-                  "Use an Error Boundary instead of try/catch around the 'use' hook. The 'use' hook suspends the component, and its errors can only be caught by Error Boundaries.",
+                message: [
+                  "Use an Error Boundary instead of try/catch around the 'use' hook.",
+                  "The 'use' hook suspends the component, and its errors can only be caught by Error Boundaries.",
+                ].join(" "),
                 node: stmt,
               });
               reported.add(stmt);
             }
           }
 
+          // Report try/catch blocks that wrap a JSX-like return value
           for (const { rets } of funcs) {
             for (const ret of rets) {
               if (ret == null) continue;
+              // Skip non-JSX-like return values
               if (!isJsxLike(ret)) continue;
               const stmt = ast.findParent(ret, (n) => n.type === "TryStatement");
               if (stmt != null && !reported.has(stmt)) {
                 context.report({
-                  message: "Use an Error Boundary to catch errors in child components. Try/catch can't catch errors during React's rendering process.",
+                  message: [
+                    "Use an Error Boundary to catch errors in child components.",
+                    "Try/catch can't catch errors during React's rendering process.",
+                  ].join(" "),
                   node: stmt,
                 });
                 reported.add(stmt);

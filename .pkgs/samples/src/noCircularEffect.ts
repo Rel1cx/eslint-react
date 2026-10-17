@@ -56,6 +56,7 @@ function collectEffects(hookCalls: TSESTree.CallExpression[], isEffectCall: (nod
 
 /** Finds cycles in the "effect A's setter feeds effect B's dependency array" graph via DFS. */
 function findCycles(effects: EffectNode[]): number[][] {
+  // Edge from A to B when A writes a state variable that B reads
   const adjacency: number[][] = effects.map((from) =>
     effects.reduce<number[]>((acc, to, j) => {
       if ([...from.writes].some((state) => to.reads.has(state))) acc.push(j);
@@ -114,10 +115,12 @@ export function noCircularEffect(): RuleFunction {
     const hk = collect.hooks(context);
 
     function check(hookCalls: TSESTree.CallExpression[]) {
+      // Build the read/write footprint of each effect in this scope
       const setters = collectStateSetters(hookCalls, (node) => is.useStateLikeCall(node, settings.additionalStateHooks));
       const effects = collectEffects(hookCalls, (node) => is.useEffectLikeCall(node, settings.additionalEffectHooks), setters);
       if (effects.length === 0) return;
 
+      // Track already-reported calls to avoid duplicate reports across overlapping cycles
       const reported = new Set<TSESTree.CallExpression>();
       for (const cycle of findCycles(effects)) {
         const description = describeCycle(effects, cycle);

@@ -7,26 +7,23 @@ export function jsxPropsNoSpreadMulti(): RuleFunction {
       const seen = new Set<string>();
 
       for (const attr of node.attributes) {
+        // Guard: only spread attributes are relevant
         if (attr.type !== "JSXSpreadAttribute") continue;
 
-        // Extract spread identifier name
+        // Use the identifier name for plain spreads, otherwise the source text as the key
         const argument = ast.unwrap(attr.argument);
-        let spreadKey: string;
-        if (argument.type === "Identifier") {
-          spreadKey = argument.name;
-        } else {
-          spreadKey = context.sourceCode.getText(attr.argument);
-        }
+        const spreadKey = argument.type === "Identifier" ? argument.name : context.sourceCode.getText(attr.argument);
 
-        // Report duplicate spread
+        // Report: duplicate spread
         if (seen.has(spreadKey)) {
           context.report({
             message: `Spreading the same expression "${spreadKey}" multiple times is not allowed.`,
             node: attr,
           });
-        } else {
-          seen.add(spreadKey);
+          continue;
         }
+
+        seen.add(spreadKey);
       }
     },
   });

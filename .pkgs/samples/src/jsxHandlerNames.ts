@@ -27,37 +27,35 @@ export function jsxHandlerNames(options: JsxHandlerNamesOptions = {}): RuleFunct
       const propName = node.name.name;
       if (!EVENT_HANDLER_REGEX.test(propName)) return;
 
+      // Guard: must have an expression container value
       const value = node.value;
-      if (value == null) return;
+      if (value?.type !== "JSXExpressionContainer") return;
 
-      if (value.type === "JSXExpressionContainer") {
-        const expression = ast.unwrap(value.expression);
+      const expression = ast.unwrap(value.expression);
 
-        // Case: direct reference (onClick={handleClick})
-        if (expression.type === "Identifier") {
-          const handlerName = expression.name;
-          if (!HANDLER_FUNC_REGEX.test(handlerName)) {
-            context.report({
-              message: `Handler function "${handlerName}" should be named "${eventHandlerPrefix}${propName.slice(eventHandlerPropPrefix.length)}..."`,
-              node: expression,
-            });
-          }
-          return;
-        }
-
-        // Case: inline function (onClick={() => {}})
-        if (expression.type === "ArrowFunctionExpression" || expression.type === "FunctionExpression") {
-          if (checkInlineFunction) {
-            context.report({
-              message: `Inline function handlers are not allowed for "${propName}". Extract it to a named "${eventHandlerPrefix}${
-                propName.slice(eventHandlerPropPrefix.length)
-              }" function.`,
-              node: expression,
-            });
-          }
-          return;
-        }
+      // Case: direct reference (onClick={handleClick})
+      if (expression.type === "Identifier") {
+        const handlerName = expression.name;
+        // Guard: handler name already follows the convention
+        if (HANDLER_FUNC_REGEX.test(handlerName)) return;
+        context.report({
+          message: `Handler function "${handlerName}" should be named "${eventHandlerPrefix}${propName.slice(eventHandlerPropPrefix.length)}..."`,
+          node: expression,
+        });
+        return;
       }
+
+      // Case: inline function (onClick={() => {}})
+      if (expression.type !== "ArrowFunctionExpression" && expression.type !== "FunctionExpression") return;
+      // Guard: inline functions are allowed unless checkInlineFunction is enabled
+      if (!checkInlineFunction) return;
+      context.report({
+        message: [
+          `Inline function handlers are not allowed for "${propName}".`,
+          `Extract it to a named "${eventHandlerPrefix}${propName.slice(eventHandlerPropPrefix.length)}" function.`,
+        ].join(" "),
+        node: expression,
+      });
     },
   });
 }

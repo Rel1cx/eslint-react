@@ -8,10 +8,12 @@ export type JsxPascalCaseOptions = {
   allowLeadingUnderscore?: boolean;
 };
 
+/** Matches a PascalCase identifier like `MyComponent`. */
+const PASCAL_CASE_PATTERN = /^[A-Z][a-zA-Z0-9]*$/;
+
 /** Enforce PascalCase for user-defined JSX components. */
 export function jsxPascalCase(options: JsxPascalCaseOptions = {}): RuleFunction {
   const { allowAllCaps = false, allowLeadingUnderscore = false } = options;
-  const pascalCaseRegex = /^[A-Z][a-zA-Z0-9]*$/;
   return (context) => ({
     JSXOpeningElement(node) {
       const name = node.name;
@@ -46,7 +48,7 @@ export function jsxPascalCase(options: JsxPascalCaseOptions = {}): RuleFunction 
         return;
       }
 
-      if (!pascalCaseRegex.test(componentName)) {
+      if (!PASCAL_CASE_PATTERN.test(componentName)) {
         context.report({
           message: `Component name "${componentName}" should be in PascalCase.`,
           node: name,
