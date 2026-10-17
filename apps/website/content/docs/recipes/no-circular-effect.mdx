@@ -74,6 +74,7 @@ function collectEffects(hookCalls: TSESTree.CallExpression[], isEffectCall: (nod
 
 /** Finds cycles in the "effect A's setter feeds effect B's dependency array" graph via DFS. */
 function findCycles(effects: EffectNode[]): number[][] {
+  // Edge from A to B when A writes a state variable that B reads
   const adjacency: number[][] = effects.map((from) =>
     effects.reduce<number[]>((acc, to, j) => {
       if ([...from.writes].some((state) => to.reads.has(state))) acc.push(j);
@@ -81,7 +82,7 @@ function findCycles(effects: EffectNode[]): number[][] {
     }, [])
   );
 
-  const WHITE = 0, GRAY = 1, BLACK = 2;
+  const BLACK = 2, GRAY = 1, WHITE = 0;
   const color = new Array<number>(effects.length).fill(WHITE);
   const stack: number[] = [];
   const seen = new Set<string>();
@@ -132,10 +133,12 @@ export function noCircularEffect(): RuleFunction {
     const hk = collect.hooks(context);
 
     function check(hookCalls: TSESTree.CallExpression[]) {
+      // Build the read/write footprint of each effect in this scope
       const setters = collectStateSetters(hookCalls, (node) => is.useStateLikeCall(node, settings.additionalStateHooks));
       const effects = collectEffects(hookCalls, (node) => is.useEffectLikeCall(node, settings.additionalEffectHooks), setters);
       if (effects.length === 0) return;
 
+      // Track already-reported calls to avoid duplicate reports across overlapping cycles
       const reported = new Set<TSESTree.CallExpression>();
       for (const cycle of findCycles(effects)) {
         const description = describeCycle(effects, cycle);
@@ -144,8 +147,8 @@ export function noCircularEffect(): RuleFunction {
           if (reported.has(call)) continue;
           reported.add(call);
           context.report({
-            node: call,
             message: `This effect is part of a circular update chain that may cause an infinite render loop: ${description}.`,
+            node: call,
           });
         }
       }
@@ -156,8 +159,12 @@ export function noCircularEffect(): RuleFunction {
       hk.visitor,
       {
         "Program:exit"(program) {
-          for (const { hookCalls } of fc.query.all(program)) check(hookCalls);
-          for (const { hookCalls } of hk.query.all(program)) check(hookCalls);
+          for (const { hookCalls } of fc.query.all(program)) {
+            check(hookCalls.filter((call): call is TSESTree.CallExpression => call.type === "CallExpression"));
+          }
+          for (const { hookCalls } of hk.query.all(program)) {
+            check(hookCalls.filter((call): call is TSESTree.CallExpression => call.type === "CallExpression"));
+          }
         },
       },
     );

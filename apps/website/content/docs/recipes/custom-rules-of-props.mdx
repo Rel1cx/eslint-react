@@ -32,10 +32,11 @@ export function noDuplicateProps(options: noDuplicatePropsOptions = {}): RuleFun
   const { ignoreCase = false } = options;
   return (context) => ({
     JSXOpeningElement(node) {
-      const seen = new Map<string, string>();
+      // Track prop names already seen on this element
+      const seen = new Set<string>();
 
-      // ─── Check each attribute ──────────────────────
       for (const attr of node.attributes) {
+        // Guard: only plain attributes with simple names can be duplicates
         if (attr.type !== "JSXAttribute") continue;
         if (attr.name.type !== "JSXIdentifier") continue;
 
@@ -47,9 +48,10 @@ export function noDuplicateProps(options: noDuplicatePropsOptions = {}): RuleFun
             node: attr,
             message: `Duplicate prop "${attr.name.name}" found.`,
           });
-        } else {
-          seen.set(name, attr.name.name);
+          continue;
         }
+
+        seen.add(name);
       }
     },
   });
@@ -122,11 +124,15 @@ export function noDirectAccessProps(): RuleFunction {
       "Program:exit"(program) {
         for (const { node } of query.all(program)) {
           const [props] = node.params;
+          // Guard: only check components with a plain identifier props parameter (e.g. `props`, not destructuring)
           if (props == null) continue;
           if (props.type !== "Identifier") continue;
+
           const propName = props.name;
           const propVariable = context.sourceCode.getScope(node).variables.find((v) => v.name === propName);
           const propReferences = propVariable?.references ?? [];
+
+          // Report every member access on the props object (e.g. `props.foo`)
           for (const ref of propReferences) {
             const { parent } = ref.identifier;
             if (parent.type !== "MemberExpression") continue;
