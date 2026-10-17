@@ -57,7 +57,7 @@
     "update:website": "nub ./scripts/12-update-website.ts"
   },
   "devDependencies": {
-    "@effect/language-service": "^0.87.4",
+    "@effect/language-service": "^0.87.5",
     "@effect/platform-node": "^4.0.5",
     "@local/configs": "workspace:*",
     "@local/eff": "workspace:*",
