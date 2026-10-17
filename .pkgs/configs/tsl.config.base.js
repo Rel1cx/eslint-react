@@ -1,17 +1,17 @@
 import { globSync } from "tinyglobby";
 import { core, defineConfig, defineRule } from "tsl";
 import { noDuplicateExports, noDuplicateImports, noMultilineTemplateExpressionWithoutAutoDedent, noUnsafeAs, nullish } from "tsl-dx";
-import { loadTextlintPatterns, matchTextlintPatterns } from "./textlint.js";
-const textlintPatterns = loadTextlintPatterns();
+import * as TextLint from "./textlint.js";
+const defaultPatterns = TextLint.loadDefaults();
 export const textlint = defineRule(() => ({
     name: "@local/configs/textlint",
     createData() {
-        return { patterns: textlintPatterns };
+        return { patterns: defaultPatterns };
     },
     visitor: {
         SourceFile(context, node) {
-            for (const { end, message, start } of matchTextlintPatterns(node.text, context.data.patterns)) {
-                context.report({ end, message, start });
+            for (const { message, range } of TextLint.lint(node.text, context.data.patterns)) {
+                context.report({ message, ...range });
             }
         },
     },

@@ -87,8 +87,16 @@ const p11tGroups = {
             elementNamePattern: "^(name$|meta$|title$|description$)",
             groupName: "meta",
         },
+        {
+            elementNamePattern: "^(above|before|first|front|from|head|left|lower|min|open|prev|start|top|up)$",
+            groupName: "head",
+        },
+        {
+            elementNamePattern: "^(below|after|last|back|to|tail|right|upper|max|close|next|end|bottom|down)$",
+            groupName: "tail",
+        },
     ],
-    groups: ["id", "type", "meta", "unknown"],
+    groups: ["id", "type", "meta", "head", "tail", "unknown"],
 };
 export function buildIgnoreConfig(gitignore, extra) {
     return [

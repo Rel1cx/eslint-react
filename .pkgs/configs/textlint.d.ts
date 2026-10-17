@@ -1,17 +1,18 @@
-export type TextlintPatternEntry = {
+export type PatternEntry = {
     message: string;
     pattern: string;
 };
-export type CompiledTextlintPattern = {
+export type CompiledPattern = {
     message: string;
     regex: RegExp;
 };
-export type TextlintPatternMatch = {
-    end: number;
+export type LintReport = {
     message: string;
-    start: number;
+    range: {
+        start: number;
+        end: number;
+    };
 };
-export declare function parseTextlintPattern(pattern: string): RegExp;
-export declare function compileTextlintPatterns(entries: readonly TextlintPatternEntry[]): CompiledTextlintPattern[];
-export declare function loadTextlintPatterns(): CompiledTextlintPattern[];
-export declare function matchTextlintPatterns(text: string, patterns: readonly CompiledTextlintPattern[]): TextlintPatternMatch[];
+export declare function compile({ message, pattern }: PatternEntry): CompiledPattern;
+export declare function loadDefaults(): CompiledPattern[];
+export declare function lint(text: string, patterns: readonly CompiledPattern[]): LintReport[];
