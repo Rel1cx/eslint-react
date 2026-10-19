@@ -25,16 +25,10 @@ export function jsxMaxDepth(options: JsxMaxDepthOptions): RuleFunction {
   });
 }
 
-/**
- * Count the number of JSX element ancestors of the given node
- * @param node The JSX element to measure from
- * @returns The number of enclosing JSX elements
- */
-function getJsxDepth(node: TSESTree.JSXElement) {
+function getJsxDepth({ parent }: TSESTree.Node) {
   let depth = 0;
-  let parent: typeof node.parent | null | undefined = node.parent;
 
-  while (parent != null) {
+  while (parent != null && parent.type !== "Program") {
     if (parent.type === "JSXElement") {
       depth++;
     }
