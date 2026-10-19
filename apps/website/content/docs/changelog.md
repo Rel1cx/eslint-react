@@ -2,6 +2,26 @@
 title: Changelog
 ---
 
+## v5.28.2 (2026-10-19)
+
+### 🐞 Fixes
+
+- Website: fixed a build failure caused by an unquoted `: ` sequence in the YAML frontmatter description of the `react-x/use-memo` doc; the rule scaffold script now emits a YAML-safe quoted description so scaffolded rules cannot reintroduce the issue.
+
+### 📝 Documentation
+
+- Aligned the `react-debug/jsx` rule doc messages with the actual JSON report format.
+- Corrected the documented minimum ESLint version to `10.0.0` in the READMEs and getting-started guides.
+- Documented per-layer isolated testing in the fact-based rule implementation patterns guide.
+- Generalized the `isAPI`/`isAPICall` docs and updated the custom rule samples to use `is.APICall`. (#2059)
+
+### 🏗️ Internal
+
+- Added unit tests for the `react-x` immutability rule modules (`collect`, `effects`, `helpers`, `origins`). (#2056)
+- Bumped the `postcss` override to `8.5.31`.
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.28.1...v5.28.2
+
 ## v5.28.1 (2026-10-17)
 
 ### 🐞 Fixes

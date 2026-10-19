@@ -60,7 +60,7 @@ overrides:
   # Transitive dependency via eslint 10.8.0, @typescript-eslint/typescript-estree 8.71.2 and nx 23.1.0
   minimatch: "^10.2.6"
   next: "16.4.2"
-  postcss: "^8.5.30"
+  postcss: "^8.5.31"
   react-dom: "^19.3.1"
   react: "^19.3.1"
   # Transitive dependency via nx 23.1.0 and others
