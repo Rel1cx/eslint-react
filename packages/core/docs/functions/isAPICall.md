@@ -6,13 +6,13 @@
 function isAPICall(api: string): ReturnType;
 ```
 
-Check if the node is a call expression to a specific React API.
+Check if the node is a call expression to a specific API.
 
 ## Parameters
 
-| Parameter | Type     | Description                          |
-| --------- | -------- | ------------------------------------ |
-| `api`     | `string` | The React API name to check against. |
+| Parameter | Type     | Description                    |
+| --------- | -------- | ------------------------------ |
+| `api`     | `string` | The API name to check against. |
 
 ## Returns
 
