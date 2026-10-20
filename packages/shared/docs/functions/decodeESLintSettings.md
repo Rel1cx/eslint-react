@@ -3,10 +3,10 @@
 # Function: decodeESLintSettings()
 
 ```ts
-function decodeESLintSettings(settings: unknown): 
+function decodeESLintSettings(settings: unknown):
   | {
-  react-x?: unknown;
-}
+    "react-x"?: unknown;
+  }
   | undefined;
 ```
 
@@ -21,7 +21,7 @@ Decode the ESLint settings, falling back to the defaults when invalid.
 ## Returns
 
 \| \{
-`react-x?`: `unknown`;
+`"react-x"?`: `unknown`;
 \}
 \| `undefined`
 

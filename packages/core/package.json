@@ -40,8 +40,8 @@
     "@eslint-react/eslint": "workspace:*",
     "@eslint-react/shared": "workspace:*",
     "@eslint-react/var": "workspace:*",
-    "@typescript-eslint/types": "^8.71.2",
-    "@typescript-eslint/utils": "^8.71.2",
+    "@typescript-eslint/types": "^8.72.0",
+    "@typescript-eslint/utils": "^8.72.0",
     "ts-pattern": "^5.9.2"
   },
   "devDependencies": {
@@ -50,7 +50,7 @@
     "@local/testkit": "workspace:*",
     "@tsconfig/node20": "^20.1.10",
     "@types/node": "^20.19.43",
-    "@typescript-eslint/typescript-estree": "^8.71.2",
+    "@typescript-eslint/typescript-estree": "^8.72.0",
     "dedent": "^1.7.2",
     "eslint": "^10.13.0",
     "tsdown": "^0.23.1",

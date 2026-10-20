@@ -4,10 +4,10 @@
 
 ```ts
 const DEFAULT_ESLINT_SETTINGS: {
-  react-x: {
-     importSource: "react";
-     polymorphicPropName: "as";
-     version: "detect";
+  "react-x": {
+    importSource: "react";
+    polymorphicPropName: "as";
+    version: "detect";
   };
 };
 ```

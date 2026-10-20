@@ -3,7 +3,7 @@
 # Variable: Class
 
 ```ts
-const Class: () => Pipeable;
+const Class: new() => Pipeable;
 ```
 
 Provides a base constructor whose instances implement the standard `Pipeable.pipe`

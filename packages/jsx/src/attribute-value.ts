@@ -127,11 +127,6 @@ function resolveJsxAttribute(context: RuleContext, node: TSESTree.JSXAttribute):
       } as const satisfies AttributeValue;
     }
 
-    // @typescript-eslint/parser tolerates a fragment in attribute value
-    // position (ex: `<div attr=<></> />`) even though the TSESTree union
-    // excludes `JSXFragment`; reported as "element" so the parser-tolerated
-    // shape cannot fall through to `undefined`.
-    // @ts-expect-error -- TS2678: `JSXFragment` is not part of the declared value union
     case AST.JSXFragment: {
       return {
         kind: "element",

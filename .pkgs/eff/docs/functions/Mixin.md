@@ -3,7 +3,7 @@
 # Function: Mixin()
 
 ```ts
-function Mixin<TBase extends (...args: readonly any[]) => any>(klass: TBase): TBase & PipeableConstructor;
+function Mixin<TBase extends new(...args: readonly any[]) => any>(klass: TBase): TBase & PipeableConstructor;
 ```
 
 Returns a subclass of the provided class that adds the standard `pipe`
@@ -21,9 +21,9 @@ method delegates to `pipeArguments`.
 
 ## Type Parameters
 
-| Type Parameter                                                                             |
-| ------------------------------------------------------------------------------------------ |
-| <a id="type-parameter-tbase"></a> `TBase` _extends_ (...`args`: readonly `any`[]) => `any` |
+| Type Parameter                                                                                 |
+| ---------------------------------------------------------------------------------------------- |
+| <a id="type-parameter-tbase"></a> `TBase` _extends_ new (...`args`: readonly `any`[]) => `any` |
 
 ## Parameters
 
