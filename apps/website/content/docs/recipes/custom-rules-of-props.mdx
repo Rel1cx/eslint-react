@@ -335,7 +335,7 @@ export function noMixingControlledAndUncontrolledProps(): RuleFunction {
       for (const [controlled, uncontrolled] of CONTROLLED_PAIRS) {
         if (!props.has(controlled) || !props.has(uncontrolled)) continue;
 
-        const attrNode = node.attributes.find(
+        const attrNode = node.attributes.findLast(
           (a) =>
             a.type === "JSXAttribute"
             && a.name.type !== "JSXNamespacedName"

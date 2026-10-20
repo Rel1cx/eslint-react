@@ -2,10 +2,9 @@ import { createRule } from "@/utils/create-rule";
 import { Check } from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, type RuleListener, merge } from "@eslint-react/eslint";
-import { getElementFullType } from "@eslint-react/jsx";
+import { getElementFullType, isAttribute } from "@eslint-react/jsx";
 import { getSettingsFromContext } from "@eslint-react/shared";
 import { resolveObjectType } from "@eslint-react/var";
-import { hasProperty } from "@local/eff";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import { compare } from "compare-versions";
 import { getHumanReadableKind, isContextName } from "./lib";
@@ -49,19 +48,13 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         const selfName = fullName.split(".").at(-1);
         if (selfName == null) return;
         if (!isContextName(selfName, isReact18OrBelow)) return;
-        const attribute = node
-          .attributes
-          .find((attribute) =>
-            attribute.type === AST.JSXAttribute
-            && attribute.name.name === "value"
-          );
-        if (attribute == null || !hasProperty(attribute, "value")) return;
-        const value = attribute.value;
-        if (value?.type !== AST.JSXExpressionContainer) return;
-        if (value.expression.type === AST.JSXEmptyExpression) return;
+        const attribute = node.attributes.findLast(isAttribute("value"));
+        if (attribute?.value?.type !== AST.JSXExpressionContainer) return;
+        const { expression } = attribute.value;
+        if (expression.type === AST.JSXEmptyExpression) return;
         // Defer resolution to `Program:exit` where the enclosing component is
         // known and can serve as the resolution boundary.
-        valueExpressions.push(value.expression);
+        valueExpressions.push(expression);
       },
       "Program:exit"(program) {
         // Innermost components first so each value expression is attributed to
