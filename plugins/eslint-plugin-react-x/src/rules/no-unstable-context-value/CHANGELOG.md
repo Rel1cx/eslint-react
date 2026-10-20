@@ -5,6 +5,17 @@ All notable changes to the `react-x/no-unstable-context-value` rule will be docu
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [5.28.3] - 2026-10-20
+
+### Added
+
+- Identifier resolution for the `value` prop is now bounded by the enclosing component scope: values constructed in the component's render scope but referenced from nested callbacks (e.g. `items.map((item) => <Context.Provider value={foo}>)`) are now detected, while values declared outside the component (e.g. module-level constants, which are stable across renders) are treated as stable. (#2060)
+- Class declarations are now recognized as per-render constructions, so `class Foo {}` declared in a component body and passed as a context value is now reported. (#2060)
+
+### Fixed
+
+- In nested components, the provider is now attributed to the innermost enclosing component, so each unstable value is reported only once. (#2060)
+
 ## [5.2.3-beta.0] - 2026-04-14
 
 ### Changed

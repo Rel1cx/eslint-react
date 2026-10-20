@@ -2,6 +2,24 @@
 title: Changelog
 ---
 
+## v5.28.3 (2026-10-20)
+
+### ✨ New
+
+- Identifier resolution is now bounded by the enclosing component scope, so render-scoped values referenced from nested callbacks (ex: `items.map((item) => <Context.Provider value={foo}>)`) are now detected, values declared outside the component (ex: module-level constants) are treated as stable, and nested components report each value only once, attributed to the innermost component. (#2060) Affected rules:
+  - `react-x/no-unstable-context-value`
+  - `react-x/no-unstable-default-props`
+- Class declarations (ex: `class Foo {}` in a component body) are now recognized as per-render constructions, so using one as a context value or default prop is now reported. (#2060) Affected rules:
+  - `react-x/no-unstable-context-value`
+  - `react-x/no-unstable-default-props`
+
+### 🏗️ Internal
+
+- `@eslint-react/var`: `resolve` and `resolveObjectType` now accept a `boundary` option that bounds scope-chain traversal to an enclosing component or hook; `resolveObjectType` also resolves `ClassDeclaration` nodes. (#2060)
+- Bumped `typescript-eslint` to `8.72.0`, `fumadocs-core` and `fumadocs-ui` to `16.17.7`, `fumadocs-mdx` to `15.4.8`, `lucide-react` to `1.60.0`, and `typedoc-plugin-markdown` to `4.14.1`.
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.28.2...v5.28.3
+
 ## v5.28.2 (2026-10-19)
 
 ### 🐞 Fixes

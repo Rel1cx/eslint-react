@@ -5,6 +5,17 @@ All notable changes to the `react-x/no-unstable-default-props` rule will be docu
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [5.28.3] - 2026-10-20
+
+### Added
+
+- Destructuring declarators are now attributed to the closest enclosing component and identifier resolution is bounded by that component's scope, so default values constructed in the component's render scope but destructured inside nested callbacks (e.g. in a `render` closure) are now detected. (#2060)
+- Class declarations are now recognized as per-render constructions, so `class Foo {}` declared in a component body and used as a default prop value is now reported. (#2060)
+
+### Fixed
+
+- In nested components, the destructuring is now attributed to the innermost component, so it is reported only once even when an outer component's props parameter has the same name. (#2060)
+
 ## [5.6.0] - 2026-04-29
 
 ### Fixed
