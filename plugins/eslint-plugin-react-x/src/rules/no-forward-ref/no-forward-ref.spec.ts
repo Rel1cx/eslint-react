@@ -659,6 +659,47 @@ ruleTester.run(RULE_NAME, rule, {
         },
       },
     },
+    {
+      code: tsx`
+        import React from "react";
+
+        type ButtonProps = {
+          children: React.ReactNode;
+          onClick: () => void;
+        };
+
+        const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(function Button({ children }: ButtonProps, ref) {
+          return <button type="button" ref={ref}>{children}</button>;
+        });
+      `,
+      errors: [
+        {
+          messageId: "default",
+          suggestions: [
+            {
+              messageId: "suggest",
+              output: tsx`
+                import React from "react";
+
+                type ButtonProps = {
+                  children: React.ReactNode;
+                  onClick: () => void;
+                };
+
+                const Button = function Button({ ref, children }: ButtonProps & { ref?: React.RefObject<HTMLButtonElement | null> }) {
+                  return <button type="button" ref={ref}>{children}</button>;
+                };
+              `,
+            },
+          ],
+        },
+      ],
+      settings: {
+        "react-x": {
+          version: "19.0.0",
+        },
+      },
+    },
   ],
   valid: [
     {
