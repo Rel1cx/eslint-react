@@ -4,10 +4,14 @@
 
 ### ✨ New
 
-- Identifier resolution is now bounded by the enclosing component scope, so render-scoped values referenced from nested callbacks (ex: `items.map((item) => <Context.Provider value={foo}>)`) are now detected, values declared outside the component (ex: module-level constants) are treated as stable, and nested components report each value only once, attributed to the innermost component. (#2060) Affected rules:
+- Identifier resolution is now bounded by the enclosing component scope, so render-scoped values referenced from nested callbacks (ex: `items.map((item) => <Context.Provider value={foo}>)`) are now detected, values declared outside the component (ex: module-level constants) are treated as stable, and nested components report each value only once, attributed to the innermost component. (#2060)
+
+  Affected rules:
   - `react-x/no-unstable-context-value`
   - `react-x/no-unstable-default-props`
-- Class declarations (ex: `class Foo {}` in a component body) are now recognized as per-render constructions, so using one as a context value or default prop is now reported. (#2060) Affected rules:
+- Class declarations (ex: `class Foo {}` in a component body) are now recognized as per-render constructions, so using one as a context value or default prop is now reported. (#2060)
+
+  Affected rules:
   - `react-x/no-unstable-context-value`
   - `react-x/no-unstable-default-props`
 
@@ -60,7 +64,9 @@
 
 ### ✨ New
 
-- `@eslint-react/eslint-plugin`: the general-purpose presets now enable JSX syntax support via `languageOptions.parserOptions.ecmaFeatures.jsx: true`, so you no longer need to configure it yourself. (#2049) Affected presets:
+- `@eslint-react/eslint-plugin`: the general-purpose presets now enable JSX syntax support via `languageOptions.parserOptions.ecmaFeatures.jsx: true`, so you no longer need to configure it yourself. (#2049)
+
+  Affected presets:
   - `recommended`
   - `recommended-typescript`
   - `recommended-type-checked`
@@ -116,11 +122,15 @@
 
 ### 🐞 Fixes
 
-- Lifecycle methods defined as class properties (ex: `componentDidMount = () => { this.setState(...) }`, including type-expression-wrapped values) are now reported just like the method shorthand form. (#2039) Affected rules:
+- Lifecycle methods defined as class properties (ex: `componentDidMount = () => { this.setState(...) }`, including type-expression-wrapped values) are now reported just like the method shorthand form. (#2039)
+
+  Affected rules:
   - `react-x/no-set-state-in-component-did-mount`
   - `react-x/no-set-state-in-component-did-update`
   - `react-x/no-set-state-in-component-will-update`
-- Effect cleanups are now recognized when the `useEffect` call is nested in an outer `return` (ex: `return useEffect(() => () => { ... })`), so resources released there are no longer reported as leaked. (#2039) Affected rules:
+- Effect cleanups are now recognized when the `useEffect` call is nested in an outer `return` (ex: `return useEffect(() => () => { ... })`), so resources released there are no longer reported as leaked. (#2039)
+
+  Affected rules:
   - `react-web-api/no-leaked-event-listener`
   - `react-web-api/no-leaked-fetch`
   - `react-web-api/no-leaked-intersection-observer`
@@ -190,11 +200,15 @@
 
 ### 🐞 Fixes
 
-- The name lookup now stops at function boundaries, so expression-bodied factory functions and custom hooks (ex: `export const useAnchor = () => useRef(null)`) are no longer misreported; calls inside JSX expressions, computed keys, or class static blocks no longer fall back to the outer variable. (#2029) Closes #2026. Affected rules:
+- The name lookup now stops at function boundaries, so expression-bodied factory functions and custom hooks (ex: `export const useAnchor = () => useRef(null)`) are no longer misreported; calls inside JSX expressions, computed keys, or class static blocks no longer fall back to the outer variable. (#2029) Closes #2026.
+
+  Affected rules:
   - `react-naming-convention/context-name`
   - `react-naming-convention/id-name`
   - `react-naming-convention/ref-name`
-- The name lookup no longer crosses containers or derived values (ex: `const refs = [useRef(null)]`, `const n = useRef(0) + 1`), so such calls are no longer reported on the enclosing variable; sequence expressions check only the last value, and unresolvable computed keys (ex: `{ [key]: useRef(null) }`) no longer fall back to the outer variable. (#2030) Affected rules:
+- The name lookup no longer crosses containers or derived values (ex: `const refs = [useRef(null)]`, `const n = useRef(0) + 1`), so such calls are no longer reported on the enclosing variable; sequence expressions check only the last value, and unresolvable computed keys (ex: `{ [key]: useRef(null) }`) no longer fall back to the outer variable. (#2030)
+
+  Affected rules:
   - `react-naming-convention/context-name`
   - `react-naming-convention/id-name`
   - `react-naming-convention/ref-name`
@@ -205,7 +219,9 @@
 
 ### 🐞 Fixes
 
-- An enclosing object literal property key now takes precedence over the outer assignment target when statically known (ex: `const refs = { myRef: useRef(0) }`); computed keys with string literals (ex: `refs["value"] = useRef(null)`) are now checked, and unresolvable computed keys are no longer reported. (#2028) Affected rules:
+- An enclosing object literal property key now takes precedence over the outer assignment target when statically known (ex: `const refs = { myRef: useRef(0) }`); computed keys with string literals (ex: `refs["value"] = useRef(null)`) are now checked, and unresolvable computed keys are no longer reported. (#2028)
+
+  Affected rules:
   - `react-naming-convention/context-name`
   - `react-naming-convention/id-name`
   - `react-naming-convention/ref-name`
@@ -237,7 +253,9 @@
 
 ### 🏗️ Internal
 
-- Renamed the internal suggestion message id from `"replace"` to `"suggest"`. Affected rules:
+- Renamed the internal suggestion message id from `"replace"` to `"suggest"`.
+
+  Affected rules:
   - `react-x/no-context-provider`
   - `react-x/no-forward-ref`
   - `react-x/no-use-context`
@@ -284,7 +302,9 @@
 
 - Disabled test isolation in the vitest config.
 - Reordered `react-web-api/no-leaked-event-listener` test specs from typical cases to edge cases. (#2015)
-- Unified `KNOWN_`-prefixed constant names. (#2014) Affected rules:
+- Unified `KNOWN_`-prefixed constant names. (#2014)
+
+  Affected rules:
   - `react-x/no-array-index-key`
   - `react-x/no-missing-key`
 - Bumped `effect` to `4.0.2`, `@effect/platform-node` to `4.0.2`, `nx` to `23.3.0`, `vite` to `8.3.4`, `lucide-react` to `1.53.0`, and `pnpm` to `12.10.1`.
@@ -326,7 +346,9 @@
 - `react-web-api/no-leaked-fetch`: signal alias chains are now resolved recursively, so fetches with aliased signals correctly pair with their cleanup `abort` call. (#1997)
 - `react-web-api/no-leaked-event-listener`: bare global `addEventListener(...)` calls now pair with matching `removeEventListener(...)` cleanup calls. (#1996)
 - `react-web-api/no-leaked-event-listener`: a `signal` destructured from `new AbortController()` is now recognized. (#2001)
-- `disconnect()` / `unobserve(...)` now only count as cleanup in the cleanup phase; `useRef`-held observer instances are tracked; `unobserve(...)` inside the observer callback no longer pairs with `observe(...)`. (#2002, #2003) Affected rules:
+- `disconnect()` / `unobserve(...)` now only count as cleanup in the cleanup phase; `useRef`-held observer instances are tracked; `unobserve(...)` inside the observer callback no longer pairs with `observe(...)`. (#2002, #2003)
+
+  Affected rules:
   - `react-web-api/no-leaked-resize-observer`
   - `react-web-api/no-leaked-intersection-observer`
 
@@ -351,7 +373,9 @@
 ### 🏗️ Internal
 
 - Self-linted rule implementations with `eslint-plugin-eslint-plugin`, removing redundant empty `defaultOptions` declarations and enforcing `meta.defaultOptions` for rules with options. (#1993) Thanks to @rakleed and @Rel1cx!
-- Minor code cleanups. Thanks to @Rel1cx! Affected rules:
+- Minor code cleanups. Thanks to @Rel1cx!
+
+  Affected rules:
   - `react-web-api/no-leaked-intersection-observer`
   - `react-x/no-create-ref`
   - `react-x/no-nested-lazy-component-declarations`
@@ -410,7 +434,9 @@
 ### 🏗️ Internal
 
 - `@local/eff`: added predicate combinators and type guards synced with effect, and migrated call sites across the workspace to them. (#1989)
-- Reworked to the fact-based implementation pattern — fact collection (`collect.ts`), provenance resolution (`origins.ts`), and violation inference (`effects.ts`) are now separate modules, with `lib.ts` replaced by a pure-AST `helpers.ts`; `set-state-in-effect` again classifies a hook name configured as both `additionalStateHooks` and `additionalEffectHooks` as a state hook first. (#1983, #1985, #1986) Affected rules:
+- Reworked to the fact-based implementation pattern — fact collection (`collect.ts`), provenance resolution (`origins.ts`), and violation inference (`effects.ts`) are now separate modules, with `lib.ts` replaced by a pure-AST `helpers.ts`; `set-state-in-effect` again classifies a hook name configured as both `additionalStateHooks` and `additionalEffectHooks` as a state hook first. (#1983, #1985, #1986)
+
+  Affected rules:
   - `react-x/set-state-in-effect`
   - `react-x/set-state-in-render`
   - `react-x/use-memo`
@@ -440,7 +466,9 @@
 ### 🐞 Fixes
 
 - Added the missing `react-x/static-components` rule to the `disable-experimental` preset. (#1980)
-- Fixed type imports (`RuleFeature` is now imported from `@eslint-react/eslint` instead of `@eslint-react/shared`). Affected rules:
+- Fixed type imports (`RuleFeature` is now imported from `@eslint-react/eslint` instead of `@eslint-react/shared`).
+
+  Affected rules:
   - `react-x/exhaustive-deps`
   - `react-x/rules-of-hooks`
 
@@ -583,7 +611,9 @@
 
 ### 🐞 Fixes
 
-- Fixed missed reports where a timer, fetch controller, or observer created in one effect was treated as cleaned up because an unrelated cleanup in another effect referenced a different variable with the same name; identifier matching now resolves both sides to their variables by scope instead of comparing names only. (#1969) Affected rules:
+- Fixed missed reports where a timer, fetch controller, or observer created in one effect was treated as cleaned up because an unrelated cleanup in another effect referenced a different variable with the same name; identifier matching now resolves both sides to their variables by scope instead of comparing names only. (#1969)
+
+  Affected rules:
   - `react-web-api/no-leaked-timeout`
   - `react-web-api/no-leaked-interval`
   - `react-web-api/no-leaked-fetch`
@@ -592,7 +622,9 @@
 
 ### 🏗️ Internal
 
-- Simplified the `react-web-api` leaked-resource rules by replacing manual function-context stack tracking with `Traverse.findParent` ancestor lookup, and added boundary tests covering deeply nested callbacks, cross-effect pairing, and wrapped or referenced setup callbacks. (#1969) Affected rules:
+- Simplified the `react-web-api` leaked-resource rules by replacing manual function-context stack tracking with `Traverse.findParent` ancestor lookup, and added boundary tests covering deeply nested callbacks, cross-effect pairing, and wrapped or referenced setup callbacks. (#1969)
+
+  Affected rules:
   - `react-web-api/no-leaked-timeout`
   - `react-web-api/no-leaked-interval`
   - `react-web-api/no-leaked-fetch`
@@ -688,7 +720,9 @@
 
 ### 🐞 Fixes
 
-- Fixed false negatives in the JSX element resolver used by the `react-dom` rules: polymorphic components written as member expressions (e.g. `<motion.div as="button">`) were mistaken for host elements, so the polymorphic prop was ignored and these rules skipped them entirely; they are now resolved through the polymorphic prop and checked like the underlying DOM element. String values of the polymorphic prop are also normalized to lowercase, so `as="BUTTON"` is treated as `button`. Affected rules:
+- Fixed false negatives in the JSX element resolver used by the `react-dom` rules: polymorphic components written as member expressions (e.g. `<motion.div as="button">`) were mistaken for host elements, so the polymorphic prop was ignored and these rules skipped them entirely; they are now resolved through the polymorphic prop and checked like the underlying DOM element. String values of the polymorphic prop are also normalized to lowercase, so `as="BUTTON"` is treated as `button`.
+
+  Affected rules:
   - `react-dom/no-missing-button-type`
   - `react-dom/no-missing-iframe-sandbox`
   - `react-dom/no-unsafe-iframe-sandbox`
@@ -1037,7 +1071,9 @@
 ### 🐞 Fixes
 
 - `@eslint-react/ast`: removed `Extract.getPropertyName` and added `Extract.getCalleeName` for simpler callee name resolution. (#1905)
-- Rules that match calls by method name no longer treat computed string-literal property access as a static match (e.g. `obj["foo"]()` is no longer resolved to `"foo"`). This avoids relying on the runtime value of computed keys and aligns callee matching across the codebase. Affected rules:
+- Rules that match calls by method name no longer treat computed string-literal property access as a static match (e.g. `obj["foo"]()` is no longer resolved to `"foo"`). This avoids relying on the runtime value of computed keys and aligns callee matching across the codebase.
+
+  Affected rules:
   - `react-dom/no-dangerously-set-innerhtml`
   - `react-dom/no-find-dom-node`
   - `react-dom/no-flush-sync`
@@ -1320,7 +1356,9 @@
 
 ### 🐞 Fixes
 
-- Fixed an issue where several rules treated computed identifier keys in spread props (e.g. `<div {...{ [key]: value }} />`) as static prop names. The actual property name is the runtime value of the variable; computed string literal keys are still recognized. Affected rules:
+- Fixed an issue where several rules treated computed identifier keys in spread props (e.g. `<div {...{ [key]: value }} />`) as static prop names. The actual property name is the runtime value of the variable; computed string literal keys are still recognized.
+
+  Affected rules:
   - `react-x/no-missing-key`
   - `react-jsx/no-children-prop-with-children`
   - `react-jsx/no-children-prop`
