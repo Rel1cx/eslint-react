@@ -18,7 +18,7 @@ type ObjectType =
   }
   | {
     kind: "class";
-    node: TSESTree.ClassExpression;
+    node: TSESTree.ClassDeclaration | TSESTree.ClassExpression;
   }
   | {
     kind: "instance";

@@ -1,6 +1,6 @@
 import type { RuleContext } from "@eslint-react/eslint";
 import { hasProperty } from "@local/eff";
-import { DefinitionType } from "@typescript-eslint/scope-manager";
+import { DefinitionType, type Scope, type Variable } from "@typescript-eslint/scope-manager";
 import type { TSESTree } from "@typescript-eslint/types";
 import { findVariable } from "@typescript-eslint/utils/ast-utils";
 
@@ -31,7 +31,12 @@ import { findVariable } from "@typescript-eslint/utils/ast-utils";
  * - `localOnly`: If `true`, only consider variables declared in the same scope as the identifier
  *   (this will miss variables declared in an outer scope). When `false` (default), traverse the
  *   scope chain upward via `findVariable` so that references to outer-scope bindings are resolved
- *   correctly.
+ *   correctly. Ignored when `boundary` is set.
+ * - `boundary`: A node (typically the enclosing component or hook function) that bounds the
+ *   scope-chain traversal. The identifier is resolved only if its binding is declared in a scope
+ *   between the identifier's own scope and the boundary's scope (inclusive); bindings declared
+ *   outside the boundary (e.g. module-level constants, which are stable across renders) are
+ *   treated as unresolvable. The boundary node must be an ancestor of `node`.
  * @returns The resolved node, or `null` if the identifier cannot be resolved to a value node.
  *
  * For origin/pedigree tracking that maps destructured bindings to the declarator's
@@ -42,12 +47,15 @@ export function resolve(
   node: TSESTree.Identifier,
   options?: Partial<{
     at: number;
+    boundary: TSESTree.Node;
     localOnly: boolean;
   }>,
 ): TSESTree.Node | null {
-  const { at = 0, localOnly = false } = options ?? {};
+  const { at = 0, boundary, localOnly = false } = options ?? {};
   const scope = context.sourceCode.getScope(node);
-  const variable = localOnly
+  const variable = boundary != null
+    ? findVariableWithinBoundary(scope, node.name, context.sourceCode.getScope(boundary))
+    : localOnly
     ? scope.set.get(node.name)
     : findVariable(scope, node);
   if (variable == null) return null;
@@ -112,4 +120,18 @@ export function resolve(
     default:
       return null;
   }
+}
+
+/**
+ * Walk the scope chain upward from `scope`, returning the variable bound to `name`,
+ * but never looking beyond `boundaryScope`. Returns `null` when the binding is not found
+ * before the boundary is reached.
+ */
+function findVariableWithinBoundary(scope: Scope | null, name: string, boundaryScope: Scope): Variable | null {
+  while (scope != null) {
+    const variable = scope.set.get(name);
+    if (variable != null || scope === boundaryScope) return variable ?? null;
+    scope = scope.upper;
+  }
+  return null;
 }

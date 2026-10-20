@@ -236,6 +236,77 @@ ruleTester.run(RULE_NAME, rule, {
         },
       },
     },
+    // The provider is nested inside a callback, but the value is constructed in
+    // the component scope — it still changes on every render.
+    {
+      code: tsx`
+        function App({ items }) {
+          const foo = {}
+          return <div>{items.map((item) => <Context.Provider value={foo}>{item}</Context.Provider>)}</div>;
+        }
+      `,
+      errors: [{
+        data: {
+          kind: "object expression",
+          suggestion: "Consider wrapping it in a useMemo hook.",
+        },
+        messageId: "unstable-context-value",
+      }],
+    },
+    // A class declaration is a per-render construction as well.
+    {
+      code: tsx`
+        function App() {
+          class Foo {}
+          return <Context.Provider value={Foo}></Context.Provider>;
+        }
+      `,
+      errors: [{
+        data: {
+          kind: "class declaration",
+          suggestion: "Consider wrapping it in a useMemo hook.",
+        },
+        messageId: "unstable-context-value",
+      }],
+    },
+    // Nested components: the provider belongs to the innermost component and
+    // must be reported only once.
+    {
+      code: tsx`
+        function Outer() {
+          function Inner() {
+            const foo = {}
+            return <Context.Provider value={foo}></Context.Provider>;
+          }
+          return <Inner />;
+        }
+      `,
+      errors: [{
+        data: {
+          kind: "object expression",
+          suggestion: "Consider wrapping it in a useMemo hook.",
+        },
+        messageId: "unstable-context-value",
+      }],
+    },
+    // Member access on a component-scoped construction, referenced from a
+    // nested callback — resolution must thread the boundary through the
+    // MemberExpression branch.
+    {
+      code: tsx`
+        function App({ items }) {
+          const styles = { container: {} }
+          return <div>{items.map((item) => <Context.Provider value={styles.container}>{item}</Context.Provider>)}</div>;
+        }
+      `,
+      errors: [{
+        data: {
+          kind: "object expression",
+          suggestion: "Consider wrapping it in a useMemo hook.",
+        },
+        messageId: "unstable-context-value",
+      }],
+    },
   ],
   valid: [
     {
@@ -453,6 +524,38 @@ ruleTester.run(RULE_NAME, rule, {
           compilationMode: "annotation",
         },
       },
+    },
+    // The value is declared at module level (stable across renders), even though
+    // it is referenced from a callback nested inside the component.
+    {
+      code: tsx`
+        const foo = {}
+        function App({ items }) {
+          return <div>{items.map((item) => <Context.Provider value={foo}>{item}</Context.Provider>)}</div>;
+        }
+      `,
+    },
+    // The value is declared in an outer component's render scope. It is outside
+    // the inner component's resolution boundary, so it is not reported here.
+    {
+      code: tsx`
+        function Outer() {
+          const foo = {}
+          function Inner() {
+            return <Context.Provider value={foo}></Context.Provider>;
+          }
+          return <Inner />;
+        }
+      `,
+    },
+    // Providers inside custom hooks are not collected (hooks are not components).
+    {
+      code: tsx`
+        function useFoo() {
+          const foo = {}
+          return <Context.Provider value={foo}></Context.Provider>;
+        }
+      `,
     },
   ],
 });
