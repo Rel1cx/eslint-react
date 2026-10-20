@@ -1,9 +1,9 @@
-[@local/testkit](../README.md) / createRuleTesterForJsxEmit
+[@local/testkit](../README.md) / createRuleTesterForJSXEmit
 
-# Function: createRuleTesterForJsxEmit()
+# Function: createRuleTesterForJSXEmit()
 
 ```ts
-function createRuleTesterForJsxEmit(jsxEmit: JsxEmit): RuleTester;
+function createRuleTesterForJSXEmit(jsxEmit: JsxEmit): RuleTester;
 ```
 
 Creates a `RuleTester` pinned to the tsconfig for the given JSX emit mode,

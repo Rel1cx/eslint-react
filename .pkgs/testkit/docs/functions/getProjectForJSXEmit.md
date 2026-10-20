@@ -1,9 +1,9 @@
-[@local/testkit](../README.md) / getProjectForJsxEmit
+[@local/testkit](../README.md) / getProjectForJSXEmit
 
-# Function: getProjectForJsxEmit()
+# Function: getProjectForJSXEmit()
 
 ```ts
-function getProjectForJsxEmit(jsxEmit: JsxEmit):
+function getProjectForJSXEmit(jsxEmit: JsxEmit):
   | "tsconfig.json"
   | "tsconfig.jsx-react.json"
   | "tsconfig.jsx-react-native.json"

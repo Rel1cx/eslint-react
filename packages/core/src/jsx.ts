@@ -9,40 +9,40 @@ import { isCreateElementCall } from "./api";
 /**
  * BitFlags for configuring JSX detection behavior.
  *
- * Used by `isJsxLike` to control which AST node kinds are considered
+ * Used by `isJSXLike` to control which AST node kinds are considered
  * "JSX-like". Combine flags with the `|` operator.
  */
-export type JsxDetectionHint = bigint;
+export type JSXDetectionHint = bigint;
 
 /* eslint-disable perfectionist/sort-objects */
 /**
  * Hints for JSX detection.
  */
-export const JsxDetectionHint = {
+export const JSXDetectionHint = {
   /** No hints set. */
   None: 0n,
   /** Do not treat `null` values as JSX-like. */
-  DoNotIncludeJsxWithNullValue: 1n << 0n,
+  DoNotIncludeJSXWithNullValue: 1n << 0n,
   /** Do not treat number values as JSX-like. */
-  DoNotIncludeJsxWithNumberValue: 1n << 1n,
+  DoNotIncludeJSXWithNumberValue: 1n << 1n,
   /** Do not treat bigint values as JSX-like. */
-  DoNotIncludeJsxWithBigIntValue: 1n << 2n,
+  DoNotIncludeJSXWithBigIntValue: 1n << 2n,
   /** Do not treat string values as JSX-like. */
-  DoNotIncludeJsxWithStringValue: 1n << 3n,
+  DoNotIncludeJSXWithStringValue: 1n << 3n,
   /** Do not treat boolean values as JSX-like. */
-  DoNotIncludeJsxWithBooleanValue: 1n << 4n,
+  DoNotIncludeJSXWithBooleanValue: 1n << 4n,
   /** Do not treat undefined values as JSX-like. */
-  DoNotIncludeJsxWithUndefinedValue: 1n << 5n,
+  DoNotIncludeJSXWithUndefinedValue: 1n << 5n,
   /** Do not treat empty array values as JSX-like. */
-  DoNotIncludeJsxWithEmptyArrayValue: 1n << 6n,
+  DoNotIncludeJSXWithEmptyArrayValue: 1n << 6n,
   /** Do not treat `createElement` calls as JSX-like. */
-  DoNotIncludeJsxWithCreateElementValue: 1n << 7n,
+  DoNotIncludeJSXWithCreateElementValue: 1n << 7n,
   /** Require all array elements to be JSX-like for the array to be JSX-like. */
-  RequireAllArrayElementsToBeJsx: 1n << 8n,
+  RequireAllArrayElementsToBeJSX: 1n << 8n,
   /** Require both sides of a logical expression to be JSX-like. */
-  RequireBothSidesOfLogicalExpressionToBeJsx: 1n << 9n,
+  RequireBothSidesOfLogicalExpressionToBeJSX: 1n << 9n,
   /** Require both branches of a conditional expression to be JSX-like. */
-  RequireBothBranchesOfConditionalExpressionToBeJsx: 1n << 10n,
+  RequireBothBranchesOfConditionalExpressionToBeJSX: 1n << 10n,
 } as const;
 /* eslint-enable perfectionist/sort-objects */
 
@@ -56,17 +56,17 @@ export const JsxDetectionHint = {
  * they are unrenderable (strings and numbers are renderable since
  * React 16).
  */
-export const DEFAULT_JSX_DETECTION_HINT: JsxDetectionHint = 0n
-  | JsxDetectionHint.DoNotIncludeJsxWithNumberValue
-  | JsxDetectionHint.DoNotIncludeJsxWithBigIntValue
-  | JsxDetectionHint.DoNotIncludeJsxWithBooleanValue
-  | JsxDetectionHint.DoNotIncludeJsxWithStringValue
-  | JsxDetectionHint.DoNotIncludeJsxWithUndefinedValue;
+export const DEFAULT_JSX_DETECTION_HINT: JSXDetectionHint = 0n
+  | JSXDetectionHint.DoNotIncludeJSXWithNumberValue
+  | JSXDetectionHint.DoNotIncludeJSXWithBigIntValue
+  | JSXDetectionHint.DoNotIncludeJSXWithBooleanValue
+  | JSXDetectionHint.DoNotIncludeJSXWithStringValue
+  | JSXDetectionHint.DoNotIncludeJSXWithUndefinedValue;
 
 /**
  * Check if the node represents JSX-like content based on heuristics.
  *
- * The detection behavior is configurable through {@link JsxDetectionHint}
+ * The detection behavior is configurable through {@link JSXDetectionHint}
  * bit-flags so that callers can opt individual value kinds in or out.
  *
  * Identifiers are resolved to their definitions via scope analysis;
@@ -80,14 +80,14 @@ export const DEFAULT_JSX_DETECTION_HINT: JsxDetectionHint = 0n
  *
  * @example
  * ```ts
- * import { isJsxLike } from "@eslint-react/core";
+ * import { isJSXLike } from "@eslint-react/core";
  *
- * if (isJsxLike(context, node)) {
+ * if (isJSXLike(context, node)) {
  *   // node looks like it evaluates to a React element
  * }
  * ```
  */
-export function isJsxLike(context: RuleContext, node: TSESTree.Node | null, hint: JsxDetectionHint = DEFAULT_JSX_DETECTION_HINT): boolean {
+export function isJSXLike(context: RuleContext, node: TSESTree.Node | null, hint: JSXDetectionHint = DEFAULT_JSX_DETECTION_HINT): boolean {
   const seen = new Set<TSESTree.Identifier>();
   function visit(node: TSESTree.Node | null): boolean {
     if (node == null) return false;
@@ -108,36 +108,36 @@ export function isJsxLike(context: RuleContext, node: TSESTree.Node | null, hint
 
       case AST.Literal: {
         return match(node.value)
-          .with(P.nullish, () => !(hint & JsxDetectionHint.DoNotIncludeJsxWithNullValue))
-          .with(P.boolean, () => !(hint & JsxDetectionHint.DoNotIncludeJsxWithBooleanValue))
-          .with(P.string, () => !(hint & JsxDetectionHint.DoNotIncludeJsxWithStringValue))
-          .with(P.number, () => !(hint & JsxDetectionHint.DoNotIncludeJsxWithNumberValue))
-          .with(P.bigint, () => !(hint & JsxDetectionHint.DoNotIncludeJsxWithBigIntValue))
+          .with(P.nullish, () => !(hint & JSXDetectionHint.DoNotIncludeJSXWithNullValue))
+          .with(P.boolean, () => !(hint & JSXDetectionHint.DoNotIncludeJSXWithBooleanValue))
+          .with(P.string, () => !(hint & JSXDetectionHint.DoNotIncludeJSXWithStringValue))
+          .with(P.number, () => !(hint & JSXDetectionHint.DoNotIncludeJSXWithNumberValue))
+          .with(P.bigint, () => !(hint & JSXDetectionHint.DoNotIncludeJSXWithBigIntValue))
           .with(P.instanceOf(RegExp), () => false)
           .exhaustive();
       }
 
       case AST.TemplateLiteral:
-        return !(hint & JsxDetectionHint.DoNotIncludeJsxWithStringValue);
+        return !(hint & JSXDetectionHint.DoNotIncludeJSXWithStringValue);
 
       case AST.ArrayExpression: {
         if (node.elements.length === 0) {
-          return !(hint & JsxDetectionHint.DoNotIncludeJsxWithEmptyArrayValue);
+          return !(hint & JSXDetectionHint.DoNotIncludeJSXWithEmptyArrayValue);
         }
-        return hint & JsxDetectionHint.RequireAllArrayElementsToBeJsx
+        return hint & JSXDetectionHint.RequireAllArrayElementsToBeJSX
           ? node.elements.every(visit)
           : node.elements.some(visit);
       }
 
       case AST.LogicalExpression: {
-        if (hint & JsxDetectionHint.RequireBothSidesOfLogicalExpressionToBeJsx) {
+        if (hint & JSXDetectionHint.RequireBothSidesOfLogicalExpressionToBeJSX) {
           return visit(node.left) && visit(node.right);
         }
         return visit(node.left) || visit(node.right);
       }
 
       case AST.ConditionalExpression: {
-        if (hint & JsxDetectionHint.RequireBothBranchesOfConditionalExpressionToBeJsx) {
+        if (hint & JSXDetectionHint.RequireBothBranchesOfConditionalExpressionToBeJSX) {
           return visit(node.consequent) && visit(node.alternate);
         }
         return visit(node.consequent) || visit(node.alternate);
@@ -148,7 +148,7 @@ export function isJsxLike(context: RuleContext, node: TSESTree.Node | null, hint
         return visit(node.expressions.at(-1) ?? null);
 
       case AST.CallExpression: {
-        if (hint & JsxDetectionHint.DoNotIncludeJsxWithCreateElementValue) {
+        if (hint & JSXDetectionHint.DoNotIncludeJSXWithCreateElementValue) {
           return false;
         }
         return isCreateElementCall(context, node);
@@ -159,7 +159,7 @@ export function isJsxLike(context: RuleContext, node: TSESTree.Node | null, hint
         // `undefined` shadows the global value; only an unbound `undefined`
         // refers to the global undefined value.
         if (node.name === "undefined" && findVariable(context.sourceCode.getScope(node), node) == null) {
-          return !(hint & JsxDetectionHint.DoNotIncludeJsxWithUndefinedValue);
+          return !(hint & JSXDetectionHint.DoNotIncludeJSXWithUndefinedValue);
         }
         // Guard against circular variable definitions (e.g. `var a = b; var b = a;`)
         // by tracking the identifiers on the current resolution path only;

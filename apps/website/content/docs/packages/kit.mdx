@@ -356,7 +356,7 @@ hint.component.DoNotIncludeFunctionDefinedAsObjectMethod;
 hint.component.DoNotIncludeFunctionDefinedAsClassMethod;
 hint.component.DoNotIncludeFunctionDefinedAsArrayMapCallback;
 hint.component.DoNotIncludeFunctionDefinedAsArbitraryCallExpressionCallback;
-// … and more (inherits all JsxDetectionHint flags)
+// … and more (inherits all JSXDetectionHint flags)
 ```
 
 **Customization example:**
@@ -539,7 +539,7 @@ function version(major = "19"): RuleFunction {
     import eslintReactKit, { type RuleFunction, merge } from "@eslint-react/kit";
     import type { TSESTree } from "@typescript-eslint/types";
 
-    function isJsxLike(node: TSESTree.Node | null): boolean {
+    function isJSXLike(node: TSESTree.Node | null): boolean {
       if (node == null) return false;
       return node.type === "JSXElement" || node.type === "JSXFragment";
     }
@@ -585,7 +585,7 @@ function version(major = "19"): RuleFunction {
               for (const { rets } of funcs) {
                 for (const ret of rets) {
                   if (ret == null) continue;
-                  if (!isJsxLike(ret)) continue;
+                  if (!isJSXLike(ret)) continue;
                   const stmt = ast.findParent(ret, (n) => n.type === "TryStatement");
                   if (stmt != null && !reported.has(stmt)) {
                     context.report({

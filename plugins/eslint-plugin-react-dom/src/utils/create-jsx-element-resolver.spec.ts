@@ -1,7 +1,7 @@
 import tsx from "dedent";
 
 import { ruleTester } from "@local/testkit";
-import { createJsxElementResolver } from "./create-jsx-element-resolver";
+import { createJSXElementResolver } from "./create-jsx-element-resolver";
 import { createRule } from "./create-rule";
 
 const RULE_NAME = "jsx-element-resolver-test";
@@ -24,7 +24,7 @@ const testRule = createRule<[], "default">({
   },
   name: RULE_NAME,
   create(context) {
-    const resolver = createJsxElementResolver(context);
+    const resolver = createJSXElementResolver(context);
     return {
       JSXElement(node) {
         context.report({

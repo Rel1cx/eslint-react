@@ -13,7 +13,7 @@ import {
   isFunctionWithLooseComponentName,
 } from "./function-component";
 import { isHookCall, isHookTag } from "./hook";
-import { isJsxLike } from "./jsx";
+import { isJSXLike } from "./jsx";
 
 interface FunctionEntry extends FunctionComponentSemanticNode {
   isFunctionComponentDefinition: boolean;
@@ -106,7 +106,7 @@ export function getFunctionComponentCollector(
       if (body.type === AST.BlockStatement) return;
       entry.rets.push(body);
       if (!entry.isFunctionComponentDefinition) return;
-      if (!components.has(entry.key) && !isJsxLike(context, body, hint)) return;
+      if (!components.has(entry.key) && !isJSXLike(context, body, hint)) return;
       components.set(entry.key, entry);
     },
     ...collectDisplayName
@@ -136,7 +136,7 @@ export function getFunctionComponentCollector(
       entry.rets.push(node.argument);
       if (!entry.isFunctionComponentDefinition) return;
       const { argument } = node;
-      if (!components.has(entry.key) && !isJsxLike(context, argument, hint)) return;
+      if (!components.has(entry.key) && !isJSXLike(context, argument, hint)) return;
       components.set(entry.key, entry);
     },
     TaggedTemplateExpression(node: TSESTree.TaggedTemplateExpression) {

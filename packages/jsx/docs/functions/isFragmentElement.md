@@ -15,7 +15,7 @@ configured factory, so `<React.Fragment>` matches `"React.Fragment"` and
 `<Fragment>` matches `"Fragment"`.
 
 The factory is a required parameter (no implicit `"React.Fragment"` default) so
-that callers always pass the project-configured pragma — see `getJsxConfig` in
+that callers always pass the project-configured pragma — see `getJSXConfig` in
 `@eslint-react/core` — and cannot silently use the wrong factory under a custom
 JSX runtime (ex: Preact). Note the self-name comparison is a heuristic: any
 `<*.Fragment>` member expression matches, regardless of the qualifier.

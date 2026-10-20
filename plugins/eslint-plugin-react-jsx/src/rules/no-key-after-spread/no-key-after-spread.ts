@@ -30,7 +30,7 @@ export default createRule<[], MessageID>({
 export function create(context: RuleContext<MessageID, []>): RuleListener {
   // Fast path: skip if no 'key=' text appears in the file
   if (!/key\s*=/.test(context.sourceCode.text)) return {};
-  const { jsx } = core.getJsxConfig(context);
+  const { jsx } = core.getJSXConfig(context);
   if (jsx !== ts.JsxEmit.ReactJSX && jsx !== ts.JsxEmit.ReactJSXDev) return {};
   return {
     JSXOpeningElement(node) {

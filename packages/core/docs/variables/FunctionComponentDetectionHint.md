@@ -12,18 +12,18 @@ FunctionComponentDetectionHint: {
   DoNotIncludeFunctionDefinedAsClassMethod: bigint;
   DoNotIncludeFunctionDefinedAsClassProperty: bigint;
   DoNotIncludeFunctionDefinedAsObjectMethod: bigint;
-  DoNotIncludeJsxWithBigIntValue: bigint;
-  DoNotIncludeJsxWithBooleanValue: bigint;
-  DoNotIncludeJsxWithCreateElementValue: bigint;
-  DoNotIncludeJsxWithEmptyArrayValue: bigint;
-  DoNotIncludeJsxWithNullValue: bigint;
-  DoNotIncludeJsxWithNumberValue: bigint;
-  DoNotIncludeJsxWithStringValue: bigint;
-  DoNotIncludeJsxWithUndefinedValue: bigint;
+  DoNotIncludeJSXWithBigIntValue: bigint;
+  DoNotIncludeJSXWithBooleanValue: bigint;
+  DoNotIncludeJSXWithCreateElementValue: bigint;
+  DoNotIncludeJSXWithEmptyArrayValue: bigint;
+  DoNotIncludeJSXWithNullValue: bigint;
+  DoNotIncludeJSXWithNumberValue: bigint;
+  DoNotIncludeJSXWithStringValue: bigint;
+  DoNotIncludeJSXWithUndefinedValue: bigint;
   None: 0n;
-  RequireAllArrayElementsToBeJsx: bigint;
-  RequireBothBranchesOfConditionalExpressionToBeJsx: bigint;
-  RequireBothSidesOfLogicalExpressionToBeJsx: bigint;
+  RequireAllArrayElementsToBeJSX: bigint;
+  RequireBothBranchesOfConditionalExpressionToBeJSX: bigint;
+  RequireBothSidesOfLogicalExpressionToBeJSX: bigint;
 }
 ```
 
@@ -41,15 +41,15 @@ Hints for component collector.
 | <a id="property-donotincludefunctiondefinedasclassmethod"></a> `DoNotIncludeFunctionDefinedAsClassMethod`                                         | `bigint` | -             | Exclude functions defined as class methods from component detection.                                 |
 | <a id="property-donotincludefunctiondefinedasclassproperty"></a> `DoNotIncludeFunctionDefinedAsClassProperty`                                     | `bigint` | -             | Exclude functions defined as class properties from component detection.                              |
 | <a id="property-donotincludefunctiondefinedasobjectmethod"></a> `DoNotIncludeFunctionDefinedAsObjectMethod`                                       | `bigint` | -             | Exclude functions defined as object methods from component detection.                                |
-| <a id="property-donotincludejsxwithbigintvalue"></a> `DoNotIncludeJsxWithBigIntValue`                                                             | `bigint` | -             | Do not treat bigint values as JSX-like.                                                              |
-| <a id="property-donotincludejsxwithbooleanvalue"></a> `DoNotIncludeJsxWithBooleanValue`                                                           | `bigint` | -             | Do not treat boolean values as JSX-like.                                                             |
-| <a id="property-donotincludejsxwithcreateelementvalue"></a> `DoNotIncludeJsxWithCreateElementValue`                                               | `bigint` | -             | Do not treat `createElement` calls as JSX-like.                                                      |
-| <a id="property-donotincludejsxwithemptyarrayvalue"></a> `DoNotIncludeJsxWithEmptyArrayValue`                                                     | `bigint` | -             | Do not treat empty array values as JSX-like.                                                         |
-| <a id="property-donotincludejsxwithnullvalue"></a> `DoNotIncludeJsxWithNullValue`                                                                 | `bigint` | -             | Do not treat `null` values as JSX-like.                                                              |
-| <a id="property-donotincludejsxwithnumbervalue"></a> `DoNotIncludeJsxWithNumberValue`                                                             | `bigint` | -             | Do not treat number values as JSX-like.                                                              |
-| <a id="property-donotincludejsxwithstringvalue"></a> `DoNotIncludeJsxWithStringValue`                                                             | `bigint` | -             | Do not treat string values as JSX-like.                                                              |
-| <a id="property-donotincludejsxwithundefinedvalue"></a> `DoNotIncludeJsxWithUndefinedValue`                                                       | `bigint` | -             | Do not treat undefined values as JSX-like.                                                           |
+| <a id="property-donotincludejsxwithbigintvalue"></a> `DoNotIncludeJSXWithBigIntValue`                                                             | `bigint` | -             | Do not treat bigint values as JSX-like.                                                              |
+| <a id="property-donotincludejsxwithbooleanvalue"></a> `DoNotIncludeJSXWithBooleanValue`                                                           | `bigint` | -             | Do not treat boolean values as JSX-like.                                                             |
+| <a id="property-donotincludejsxwithcreateelementvalue"></a> `DoNotIncludeJSXWithCreateElementValue`                                               | `bigint` | -             | Do not treat `createElement` calls as JSX-like.                                                      |
+| <a id="property-donotincludejsxwithemptyarrayvalue"></a> `DoNotIncludeJSXWithEmptyArrayValue`                                                     | `bigint` | -             | Do not treat empty array values as JSX-like.                                                         |
+| <a id="property-donotincludejsxwithnullvalue"></a> `DoNotIncludeJSXWithNullValue`                                                                 | `bigint` | -             | Do not treat `null` values as JSX-like.                                                              |
+| <a id="property-donotincludejsxwithnumbervalue"></a> `DoNotIncludeJSXWithNumberValue`                                                             | `bigint` | -             | Do not treat number values as JSX-like.                                                              |
+| <a id="property-donotincludejsxwithstringvalue"></a> `DoNotIncludeJSXWithStringValue`                                                             | `bigint` | -             | Do not treat string values as JSX-like.                                                              |
+| <a id="property-donotincludejsxwithundefinedvalue"></a> `DoNotIncludeJSXWithUndefinedValue`                                                       | `bigint` | -             | Do not treat undefined values as JSX-like.                                                           |
 | <a id="property-none"></a> `None`                                                                                                                 | `0n`     | `0n`          | No hints set.                                                                                        |
-| <a id="property-requireallarrayelementstobejsx"></a> `RequireAllArrayElementsToBeJsx`                                                             | `bigint` | -             | Require all array elements to be JSX-like for the array to be JSX-like.                              |
-| <a id="property-requirebothbranchesofconditionalexpressiontobejsx"></a> `RequireBothBranchesOfConditionalExpressionToBeJsx`                       | `bigint` | -             | Require both branches of a conditional expression to be JSX-like.                                    |
-| <a id="property-requirebothsidesoflogicalexpressiontobejsx"></a> `RequireBothSidesOfLogicalExpressionToBeJsx`                                     | `bigint` | -             | Require both sides of a logical expression to be JSX-like.                                           |
+| <a id="property-requireallarrayelementstobejsx"></a> `RequireAllArrayElementsToBeJSX`                                                             | `bigint` | -             | Require all array elements to be JSX-like for the array to be JSX-like.                              |
+| <a id="property-requirebothbranchesofconditionalexpressiontobejsx"></a> `RequireBothBranchesOfConditionalExpressionToBeJSX`                       | `bigint` | -             | Require both branches of a conditional expression to be JSX-like.                                    |
+| <a id="property-requirebothsidesoflogicalexpressiontobejsx"></a> `RequireBothSidesOfLogicalExpressionToBeJSX`                                     | `bigint` | -             | Require both sides of a logical expression to be JSX-like.                                           |

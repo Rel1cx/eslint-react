@@ -3,7 +3,7 @@
 # Variable: DEFAULT\_JSX\_DETECTION\_HINT
 
 ```ts
-const DEFAULT_JSX_DETECTION_HINT: JsxDetectionHint;
+const DEFAULT_JSX_DETECTION_HINT: JSXDetectionHint;
 ```
 
 Default JSX detection hint.

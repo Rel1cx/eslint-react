@@ -1,5 +1,5 @@
 import { createRule } from "@/utils/create-rule";
-import { removeJsxAttribute } from "@/utils/remove-jsx-attribute";
+import { removeJSXAttribute } from "@/utils/remove-jsx-attribute";
 import { Check } from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, type RuleListener } from "@eslint-react/eslint";
@@ -97,7 +97,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
 function getChildrenText(context: RuleContext, attribute: TSESTree.JSXAttribute): string | null {
   const { value } = attribute;
   if (value?.type === AST.Literal) {
-    return escapeJsxText(String(value.value));
+    return escapeJSXText(String(value.value));
   }
   if (value?.type === AST.JSXExpressionContainer && value.expression.type !== AST.JSXEmptyExpression) {
     const exprText = context.sourceCode.getText(value.expression);
@@ -111,7 +111,7 @@ function getChildrenText(context: RuleContext, attribute: TSESTree.JSXAttribute)
  * @param text The raw string value
  * @returns The escaped text safe for insertion as JSX content
  */
-function escapeJsxText(text: string): string {
+function escapeJSXText(text: string): string {
   return text
     .replaceAll("&", "&amp;")
     .replaceAll("<", "&lt;")
@@ -132,7 +132,7 @@ function buildFix(context: RuleContext, node: TSESTree.JSXElement, prop: TSESTre
   return (fixer) => {
     const sourceCode = context.sourceCode;
     const { openingElement } = node;
-    const removePropFix = removeJsxAttribute(context, fixer, prop);
+    const removePropFix = removeJSXAttribute(context, fixer, prop);
 
     if (openingElement.selfClosing) {
       const tagName = sourceCode.getText(openingElement.name);

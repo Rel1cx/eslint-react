@@ -1,6 +1,6 @@
-[@eslint-react/core](../README.md) / JsxConfig
+[@eslint-react/core](../README.md) / JSXConfig
 
-# Interface: JsxConfig
+# Interface: JSXConfig
 
 Resolved JSX configuration derived from compiler options and / or pragma
 annotations found in the source file.

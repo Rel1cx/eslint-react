@@ -31,7 +31,7 @@ export default createRule<[], MessageID>({
 });
 
 export function create(context: RuleContext<MessageID, []>): RuleListener {
-  const jsxConfig = core.getJsxConfig(context);
+  const jsxConfig = core.getJSXConfig(context);
   function visit(node: TSESTreeJSXElementLike) {
     context.report({
       data: {

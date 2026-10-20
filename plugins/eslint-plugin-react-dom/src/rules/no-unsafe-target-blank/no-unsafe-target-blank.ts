@@ -1,4 +1,4 @@
-import { createJsxElementResolver } from "@/utils/create-jsx-element-resolver";
+import { createJSXElementResolver } from "@/utils/create-jsx-element-resolver";
 import { createRule } from "@/utils/create-rule";
 import { type ReportFixFunction, type RuleContext, type RuleFeature, type RuleListener } from "@eslint-react/eslint";
 import { findAttribute, getAttributeStaticValue } from "@eslint-react/jsx";
@@ -65,7 +65,7 @@ export default createRule<Options, MessageID>({
 
 export function create(context: RuleContext<MessageID, Options>): RuleListener {
   const { allowReferrer = false } = context.options[0] ?? defaultOptions[0];
-  const resolver = createJsxElementResolver(context);
+  const resolver = createJSXElementResolver(context);
 
   const requiredRelValue = allowReferrer ? "noopener" : "noreferrer noopener";
   const requiredRelAttribute = `rel="${requiredRelValue}"`;

@@ -67,7 +67,7 @@ export function create(context: RuleContext<MessageID, Options>, [option]: Optio
     allowEmptyFragment: option.allowEmptyFragment ?? false,
     allowExpressions: option.allowExpressions ?? true,
   };
-  const { jsxFragmentFactory } = core.getJsxConfig(context);
+  const { jsxFragmentFactory } = core.getJSXConfig(context);
 
   return {
     JSXElement(node) {
@@ -132,8 +132,8 @@ function isContentUseless(node: TSESTreeJSXElementLike, options: ResolvedOptions
   // silently turn the text into an identifier reference (ex:
   // `content={<>text</>}` → `content={text}`), and multi-word text would
   // not even parse.
-  const insideJsx = Check.isJSXElementOrFragment(node.parent);
-  if (allowExpressions && !insideJsx && node.children.length === 1 && node.children[0]?.type === AST.JSXText) {
+  const insideJSX = Check.isJSXElementOrFragment(node.parent);
+  if (allowExpressions && !insideJSX && node.children.length === 1 && node.children[0]?.type === AST.JSXText) {
     return false;
   }
 

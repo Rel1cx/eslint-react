@@ -17,7 +17,7 @@ import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
  * @param context The ESLint rule context
  * @returns An object with a resolve method to determine the element type
  */
-export function createJsxElementResolver(context: RuleContext) {
+export function createJSXElementResolver(context: RuleContext) {
   const { polymorphicPropName } = getSettingsFromContext(context);
   return {
     /**

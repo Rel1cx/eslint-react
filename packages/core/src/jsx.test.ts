@@ -3,7 +3,7 @@ import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import { simpleTraverse } from "@typescript-eslint/typescript-estree";
 import { describe, expect, it } from "vitest";
 
-import { JsxDetectionHint, isJsxLike } from "./jsx";
+import { JSXDetectionHint, isJSXLike } from "./jsx";
 
 /**
  * Parses `code` and returns the expression of the last top-level
@@ -15,16 +15,16 @@ function parseLastExpression(code: string) {
   return { context, node: getLastExpression(code) };
 }
 
-function run(code: string, hint?: JsxDetectionHint): boolean {
+function run(code: string, hint?: JSXDetectionHint): boolean {
   const { context, node } = parseLastExpression(code);
-  return isJsxLike(context, node, hint);
+  return isJSXLike(context, node, hint);
 }
 
-describe("isJsxLike", () => {
+describe("isJSXLike", () => {
   describe("null and JSX nodes", () => {
     it("should return false for null node", () => {
       const { context } = parseLastExpression("1;");
-      expect(isJsxLike(context, null)).toBe(false);
+      expect(isJSXLike(context, null)).toBe(false);
     });
 
     it.each([
@@ -58,21 +58,21 @@ describe("isJsxLike", () => {
       ["'foo';"],
       ["true;"],
       ["`template`;"],
-    ])("with JsxDetectionHint.None every literal is JSX-like: %s", (code) => {
-      expect(run(code, JsxDetectionHint.None)).toBe(true);
+    ])("with JSXDetectionHint.None every literal is JSX-like: %s", (code) => {
+      expect(run(code, JSXDetectionHint.None)).toBe(true);
     });
 
-    it("should respect DoNotIncludeJsxWithNullValue", () => {
-      expect(run("null;", JsxDetectionHint.DoNotIncludeJsxWithNullValue)).toBe(false);
+    it("should respect DoNotIncludeJSXWithNullValue", () => {
+      expect(run("null;", JSXDetectionHint.DoNotIncludeJSXWithNullValue)).toBe(false);
     });
 
     it("should treat template literals as string values", () => {
-      expect(run("`template`;", JsxDetectionHint.DoNotIncludeJsxWithStringValue)).toBe(false);
+      expect(run("`template`;", JSXDetectionHint.DoNotIncludeJSXWithStringValue)).toBe(false);
     });
 
-    it("should return false for regex literals even with JsxDetectionHint.None", () => {
+    it("should return false for regex literals even with JSXDetectionHint.None", () => {
       // RegExp literals have an object value that is not null.
-      expect(run("/foo/;", JsxDetectionHint.None)).toBe(false);
+      expect(run("/foo/;", JSXDetectionHint.None)).toBe(false);
     });
   });
 
@@ -81,8 +81,8 @@ describe("isJsxLike", () => {
       expect(run("undefined;")).toBe(false);
     });
 
-    it("should be included with JsxDetectionHint.None", () => {
-      expect(run("undefined;", JsxDetectionHint.None)).toBe(true);
+    it("should be included with JSXDetectionHint.None", () => {
+      expect(run("undefined;", JSXDetectionHint.None)).toBe(true);
     });
   });
 
@@ -91,8 +91,8 @@ describe("isJsxLike", () => {
       expect(run("[];")).toBe(true);
     });
 
-    it("should respect DoNotIncludeJsxWithEmptyArrayValue", () => {
-      expect(run("[];", JsxDetectionHint.DoNotIncludeJsxWithEmptyArrayValue)).toBe(false);
+    it("should respect DoNotIncludeJSXWithEmptyArrayValue", () => {
+      expect(run("[];", JSXDetectionHint.DoNotIncludeJSXWithEmptyArrayValue)).toBe(false);
     });
 
     it("should return true if some element is JSX-like by default", () => {
@@ -103,17 +103,17 @@ describe("isJsxLike", () => {
       expect(run("[0, 'foo'];")).toBe(false);
     });
 
-    it("should respect RequireAllArrayElementsToBeJsx", () => {
+    it("should respect RequireAllArrayElementsToBeJSX", () => {
       const hint = 0n
-        | JsxDetectionHint.DoNotIncludeJsxWithNumberValue
-        | JsxDetectionHint.RequireAllArrayElementsToBeJsx;
+        | JSXDetectionHint.DoNotIncludeJSXWithNumberValue
+        | JSXDetectionHint.RequireAllArrayElementsToBeJSX;
       expect(run("[<div />, 0];", hint)).toBe(false);
       expect(run("[<div />, <span />];", hint)).toBe(true);
     });
 
     it("should treat array holes as not JSX-like", () => {
       expect(run("[, <div />];")).toBe(true);
-      expect(run("[, <div />];", JsxDetectionHint.RequireAllArrayElementsToBeJsx)).toBe(false);
+      expect(run("[, <div />];", JSXDetectionHint.RequireAllArrayElementsToBeJSX)).toBe(false);
     });
   });
 
@@ -126,9 +126,9 @@ describe("isJsxLike", () => {
       expect(run(code)).toBe(expected);
     });
 
-    it("should respect RequireBothSidesOfLogicalExpressionToBeJsx", () => {
-      const hint = JsxDetectionHint.RequireBothSidesOfLogicalExpressionToBeJsx
-        | JsxDetectionHint.DoNotIncludeJsxWithNumberValue;
+    it("should respect RequireBothSidesOfLogicalExpressionToBeJSX", () => {
+      const hint = JSXDetectionHint.RequireBothSidesOfLogicalExpressionToBeJSX
+        | JSXDetectionHint.DoNotIncludeJSXWithNumberValue;
       expect(run("0 && <div />;", hint)).toBe(false);
       expect(run("<a /> || <b />;", hint)).toBe(true);
     });
@@ -143,9 +143,9 @@ describe("isJsxLike", () => {
       expect(run(code)).toBe(expected);
     });
 
-    it("should respect RequireBothBranchesOfConditionalExpressionToBeJsx", () => {
-      const hint = JsxDetectionHint.RequireBothBranchesOfConditionalExpressionToBeJsx
-        | JsxDetectionHint.DoNotIncludeJsxWithNumberValue;
+    it("should respect RequireBothBranchesOfConditionalExpressionToBeJSX", () => {
+      const hint = JSXDetectionHint.RequireBothBranchesOfConditionalExpressionToBeJSX
+        | JSXDetectionHint.DoNotIncludeJSXWithNumberValue;
       expect(run("x ? <div /> : 0;", hint)).toBe(false);
       expect(run("x ? <div /> : <span />;", hint)).toBe(true);
     });
@@ -194,8 +194,8 @@ describe("isJsxLike", () => {
       expect(run(code)).toBe(expected);
     });
 
-    it("should respect DoNotIncludeJsxWithCreateElementValue", () => {
-      const hint = JsxDetectionHint.DoNotIncludeJsxWithCreateElementValue;
+    it("should respect DoNotIncludeJSXWithCreateElementValue", () => {
+      const hint = JSXDetectionHint.DoNotIncludeJSXWithCreateElementValue;
       expect(run("createElement('div');", hint)).toBe(false);
       expect(run("React.createElement('div');", hint)).toBe(false);
     });
@@ -214,7 +214,7 @@ describe("isJsxLike", () => {
     });
 
     it("treats any createElement call as JSX-like (current heuristic)", () => {
-      // This documents the current loose behavior: isJsxLike does not verify
+      // This documents the current loose behavior: isJSXLike does not verify
       // that createElement comes from React, so user-defined createElement
       // functions are also considered JSX-like.
       expect(run("const createElement = () => {}; createElement('div');")).toBe(true);
@@ -258,16 +258,16 @@ describe("isJsxLike", () => {
         },
       }, true);
       expect(xRefs).toHaveLength(1);
-      expect(isJsxLike(context, xRefs[0]!)).toBe(false);
+      expect(isJSXLike(context, xRefs[0]!)).toBe(false);
     });
 
-    it("should resolve a twice-referenced alias under RequireAllArrayElementsToBeJsx", () => {
-      const hint = JsxDetectionHint.RequireAllArrayElementsToBeJsx;
+    it("should resolve a twice-referenced alias under RequireAllArrayElementsToBeJSX", () => {
+      const hint = JSXDetectionHint.RequireAllArrayElementsToBeJSX;
       expect(run("const el = <div />; const alias = el; [alias, alias];", hint)).toBe(true);
     });
 
-    it("should resolve a twice-referenced alias under RequireBothBranchesOfConditionalExpressionToBeJsx", () => {
-      const hint = JsxDetectionHint.RequireBothBranchesOfConditionalExpressionToBeJsx;
+    it("should resolve a twice-referenced alias under RequireBothBranchesOfConditionalExpressionToBeJSX", () => {
+      const hint = JSXDetectionHint.RequireBothBranchesOfConditionalExpressionToBeJSX;
       expect(run("const el = <div />; const alias = el; x ? alias : alias;", hint)).toBe(true);
     });
 

@@ -1,9 +1,9 @@
-[@eslint-react/core](../README.md) / getJsxConfig
+[@eslint-react/core](../README.md) / getJSXConfig
 
-# Function: getJsxConfig()
+# Function: getJSXConfig()
 
 ```ts
-function getJsxConfig(context: RuleContext): Required<JsxConfig>;
+function getJSXConfig(context: RuleContext): Required<JSXConfig>;
 ```
 
 Get the fully‑merged JSX configuration for the current file.
@@ -21,6 +21,6 @@ This is the main entry‑point most consumers should use.
 
 ## Returns
 
-[`Required`](https://www.typescriptlang.org/docs/handbook/utility-types.html#requiredtype)\<[`JsxConfig`](../interfaces/JsxConfig.md)\>
+[`Required`](https://www.typescriptlang.org/docs/handbook/utility-types.html#requiredtype)\<[`JSXConfig`](../interfaces/JSXConfig.md)\>
 
-Fully‑populated, merged `JsxConfig`.
+Fully‑populated, merged `JSXConfig`.

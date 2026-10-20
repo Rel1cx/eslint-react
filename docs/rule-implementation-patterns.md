@@ -113,7 +113,7 @@ ruleTester.run(RULE_NAME, rule, {
 });
 ```
 
-Type-aware rules use `ruleTesterWithTypes`; JSX-emit-sensitive rules use `createRuleTesterForJsxEmit(jsxEmit)`.
+Type-aware rules use `ruleTesterWithTypes`; JSX-emit-sensitive rules use `createRuleTesterForJSXEmit(jsxEmit)`.
 
 ## Registration
 

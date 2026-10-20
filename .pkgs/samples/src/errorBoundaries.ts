@@ -1,7 +1,7 @@
 import { type RuleFunction, merge } from "@eslint-react/kit";
 import type { TSESTree } from "@typescript-eslint/types";
 
-function isJsxLike(node: TSESTree.Node | null): boolean {
+function isJSXLike(node: TSESTree.Node | null): boolean {
   if (node == null) return false;
   return node.type === "JSXElement" || node.type === "JSXFragment";
 }
@@ -53,7 +53,7 @@ export function errorBoundaries(): RuleFunction {
             for (const ret of rets) {
               if (ret == null) continue;
               // Skip non-JSX-like return values
-              if (!isJsxLike(ret)) continue;
+              if (!isJSXLike(ret)) continue;
               const stmt = ast.findParent(ret, (n) => n.type === "TryStatement");
               if (stmt != null && !reported.has(stmt)) {
                 context.report({
