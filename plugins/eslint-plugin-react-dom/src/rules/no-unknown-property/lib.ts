@@ -1,5 +1,6 @@
 // Ported from https://github.com/jsx-eslint/eslint-plugin-react/blob/master/lib/rules/no-unknown-property.js
 import { type RuleContext } from "@eslint-react/eslint";
+import { isAttribute } from "@eslint-react/jsx";
 import { getSettingsFromContext } from "@eslint-react/shared";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import { type CompareOperator, compare } from "compare-versions";
@@ -1031,11 +1032,7 @@ export function getAttributeTagsMap(context: RuleContext<string, unknown[]>): Ta
 export function isValidHTMLTagInJSX(childNode: TSESTree.JSXAttribute): boolean {
   const tagConvention = /^[a-z][^-]*$/;
   if (childNode.parent.name.type === AST.JSXIdentifier && tagConvention.test(childNode.parent.name.name)) {
-    return !childNode.parent.attributes.some((attrNode) =>
-      attrNode.type === AST.JSXAttribute
-      && attrNode.name.type === AST.JSXIdentifier
-      && attrNode.name.name === "is"
-    );
+    return !childNode.parent.attributes.some(isAttribute("is"));
   }
   return false;
 }

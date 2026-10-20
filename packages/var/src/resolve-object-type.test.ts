@@ -62,6 +62,17 @@ describe("resolveObjectType", () => {
       expect(fact!.kind).toBe("class");
     });
 
+    it("ClassDeclaration → kind: 'class'", () => {
+      const code = "class Foo {}";
+      const fact = runInRule(code, (context, ast) => {
+        const node = getFirstNodeOfType<TSESTree.ClassDeclaration>(ast, AST.ClassDeclaration);
+        expect(node).toBeDefined();
+        return resolveObjectType(context, node);
+      });
+      expect(fact).not.toBeNull();
+      expect(fact!.kind).toBe("class");
+    });
+
     it("NewExpression → kind: 'instance'", () => {
       const code = "const x = new Foo();";
       const fact = runInRule(code, (context, ast) => {
@@ -501,6 +512,71 @@ describe("resolveObjectType", () => {
         return resolveObjectType(context, node);
       });
       expect(fact).toBeNull();
+    });
+
+    it("Identifier bound to a ClassDeclaration → kind: 'class'", () => {
+      const code = "class Foo {} Foo;";
+      const fact = runInRule(code, (context, ast) => {
+        const node = collectNodes<TSESTree.Identifier>(ast, AST.Identifier).findLast((n) => n.name === "Foo");
+        expect(node).toBeDefined();
+        return resolveObjectType(context, node);
+      });
+      expect(fact).not.toBeNull();
+      expect(fact!.kind).toBe("class");
+    });
+  });
+
+  describe("boundary option", () => {
+    it("Identifier in a nested scope resolves to a binding declared inside the boundary", () => {
+      const code = "function outer() { const x = []; function inner() { return x; } }";
+      const fact = runInRule(code, (context, ast) => {
+        const boundary = getFirstNodeOfType<TSESTree.FunctionDeclaration>(ast, AST.FunctionDeclaration);
+        expect(boundary).toBeDefined();
+        const node = collectNodes<TSESTree.Identifier>(ast, AST.Identifier).findLast((n) => n.name === "x");
+        expect(node).toBeDefined();
+        // Without a boundary the outer-scope binding is not resolved (local-only)
+        expect(resolveObjectType(context, node)).toBeNull();
+        return resolveObjectType(context, node, { boundary });
+      });
+      expect(fact).not.toBeNull();
+      expect(fact!.kind).toBe("array");
+    });
+
+    it("Identifier bound outside the boundary → null (stable module-level value)", () => {
+      const code = "const x = []; function outer() { return x; }";
+      const fact = runInRule(code, (context, ast) => {
+        const boundary = getFirstNodeOfType<TSESTree.FunctionDeclaration>(ast, AST.FunctionDeclaration);
+        expect(boundary).toBeDefined();
+        const node = collectNodes<TSESTree.Identifier>(ast, AST.Identifier).findLast((n) => n.name === "x");
+        expect(node).toBeDefined();
+        return resolveObjectType(context, node, { boundary });
+      });
+      expect(fact).toBeNull();
+    });
+
+    it("Identifier bound to a parameter of the boundary function → null", () => {
+      const code = "function outer(props) { function inner() { return props; } }";
+      const fact = runInRule(code, (context, ast) => {
+        const boundary = getFirstNodeOfType<TSESTree.FunctionDeclaration>(ast, AST.FunctionDeclaration);
+        expect(boundary).toBeDefined();
+        const node = collectNodes<TSESTree.Identifier>(ast, AST.Identifier).findLast((n) => n.name === "props");
+        expect(node).toBeDefined();
+        return resolveObjectType(context, node, { boundary });
+      });
+      expect(fact).toBeNull();
+    });
+
+    it("Identifier resolves a binding in a block scope between the identifier and the boundary", () => {
+      const code = "function outer() { if (true) { const x = {}; function inner() { return x; } } }";
+      const fact = runInRule(code, (context, ast) => {
+        const boundary = getFirstNodeOfType<TSESTree.FunctionDeclaration>(ast, AST.FunctionDeclaration);
+        expect(boundary).toBeDefined();
+        const node = collectNodes<TSESTree.Identifier>(ast, AST.Identifier).findLast((n) => n.name === "x");
+        expect(node).toBeDefined();
+        return resolveObjectType(context, node, { boundary });
+      });
+      expect(fact).not.toBeNull();
+      expect(fact!.kind).toBe("plain");
     });
   });
 });

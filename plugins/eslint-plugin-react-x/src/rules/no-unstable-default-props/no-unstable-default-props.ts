@@ -1,10 +1,9 @@
 import { createRule } from "@/utils/create-rule";
-import { Check, Extract, type TSESTreeFunction, Traverse } from "@eslint-react/ast";
+import { Check, Extract } from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, type RuleListener, merge } from "@eslint-react/eslint";
 import { getSettingsFromContext, toRegExp } from "@eslint-react/shared";
 import { resolveObjectType } from "@eslint-react/var";
-import { getOrInsertComputed } from "@local/eff";
 import { AST_NODE_TYPES as AST, TSESTree } from "@typescript-eslint/types";
 import type { JSONSchema4 } from "@typescript-eslint/utils/json-schema";
 import { match } from "ts-pattern";
@@ -63,18 +62,27 @@ export function create(context: RuleContext<MessageID, Options>, [options]: Opti
   if (compilationMode === "annotation" && context.sourceCode.ast.body.some((stmt) => Check.isDirective(stmt, "use memo"))) return {};
   const { api, visitor } = core.getFunctionComponentCollector(context);
 
-  const declarators = new WeakMap<TSESTreeFunction, ObjectDestructuringVariableDeclarator[]>();
+  const declarators: ObjectDestructuringVariableDeclarator[] = [];
   const { safeDefaultProps = [] } = options;
   const safePatterns = safeDefaultProps.map((s) => toRegExp(s));
 
   return merge(visitor, {
     [SEL_OBJECT_DESTRUCTURING_VARIABLE_DECLARATOR](node: ObjectDestructuringVariableDeclarator) {
-      const enclosingFunction = Traverse.findParent(node, Check.isFunction);
-      if (enclosingFunction == null) return;
-      getOrInsertComputed(declarators, enclosingFunction, () => []).push(node);
+      declarators.push(node);
     },
     "Program:exit"(program) {
-      for (const { node: component } of api.getAllComponents(program)) {
+      // Innermost components first so each destructuring declarator is
+      // attributed to the closest enclosing component and reported only once.
+      const components = api
+        .getAllComponents(program)
+        .map(({ node }) => node)
+        .sort((a, b) => (a.range[1] - a.range[0]) - (b.range[1] - b.range[0]));
+      const innermostComponentOf = (node: TSESTree.Node) =>
+        components.find((component) =>
+          component.range[0] <= node.range[0]
+          && node.range[1] <= component.range[1]
+        );
+      for (const component of components) {
         const { params } = component;
         const [props] = params;
         if (props == null) {
@@ -83,9 +91,12 @@ export function create(context: RuleContext<MessageID, Options>, [options]: Opti
         const properties = match(props)
           .with({ type: AST.ObjectPattern }, ({ properties }) => properties)
           .with({ type: AST.Identifier }, ({ name }) => {
-            return declarators.get(component)
-              ?.filter((d) => d.init.name === name)
-              .flatMap((d) => d.id.properties) ?? [];
+            return declarators
+              .filter((d) =>
+                d.init.name === name
+                && innermostComponentOf(d) === component
+              )
+              .flatMap((d) => d.id.properties);
           })
           .otherwise(() => []);
         for (const prop of properties) {
@@ -94,7 +105,7 @@ export function create(context: RuleContext<MessageID, Options>, [options]: Opti
           }
           const { value } = prop;
           const { right } = value;
-          const construction = resolveObjectType(context, value);
+          const construction = resolveObjectType(context, value, { boundary: component });
           if (construction == null) {
             continue;
           }

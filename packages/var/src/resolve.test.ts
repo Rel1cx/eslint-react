@@ -1,4 +1,4 @@
-import { findIdentifierReferences, runInRule } from "@local/testkit";
+import { findIdentifierReferences, getFirstNodeOfType, runInRule } from "@local/testkit";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import { describe, expect, it } from "vitest";
 
@@ -358,5 +358,49 @@ describe("resolve", () => {
     });
     expect(facts).toHaveLength(1);
     expect(facts[0]?.resolved).toBeNull();
+  });
+
+  describe("boundary option", () => {
+    it("should resolve a binding declared inside the boundary from a nested scope", () => {
+      const code = "function outer() { const x = 42; function inner() { x; } }";
+      const facts = runInRule(code, (context, ast) => {
+        const boundary = getFirstNodeOfType<TSESTree.FunctionDeclaration>(ast, AST.FunctionDeclaration);
+        expect(boundary).toBeDefined();
+        const refs = findIdentifierReferences(ast, "x");
+        const ref = refs[refs.length - 1]!;
+        return [resolve(context, ref, { boundary })];
+      });
+      expect(facts).toHaveLength(1);
+      const node = facts[0];
+      expect(node).not.toBeNull();
+      expect(node?.type).toBe(AST.Literal);
+      expect((node as TSESTree.Literal | undefined)?.value).toBe(42);
+    });
+
+    it("should return null for a binding declared outside the boundary", () => {
+      const code = "const x = 99; function outer() { x; }";
+      const facts = runInRule(code, (context, ast) => {
+        const boundary = getFirstNodeOfType<TSESTree.FunctionDeclaration>(ast, AST.FunctionDeclaration);
+        expect(boundary).toBeDefined();
+        const refs = findIdentifierReferences(ast, "x");
+        const ref = refs[refs.length - 1]!;
+        return [{ resolved: resolve(context, ref, { boundary }) }];
+      });
+      expect(facts).toHaveLength(1);
+      expect(facts[0]?.resolved).toBeNull();
+    });
+
+    it("should return null for a parameter of the boundary function", () => {
+      const code = "function outer(p) { function inner() { p; } }";
+      const facts = runInRule(code, (context, ast) => {
+        const boundary = getFirstNodeOfType<TSESTree.FunctionDeclaration>(ast, AST.FunctionDeclaration);
+        expect(boundary).toBeDefined();
+        const refs = findIdentifierReferences(ast, "p");
+        const ref = refs[refs.length - 1]!;
+        return [{ resolved: resolve(context, ref, { boundary }) }];
+      });
+      expect(facts).toHaveLength(1);
+      expect(facts[0]?.resolved).toBeNull();
+    });
   });
 });
