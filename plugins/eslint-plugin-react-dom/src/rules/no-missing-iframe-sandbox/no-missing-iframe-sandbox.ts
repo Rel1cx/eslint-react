@@ -1,4 +1,4 @@
-import { createJsxElementResolver } from "@/utils/create-jsx-element-resolver";
+import { createJSXElementResolver } from "@/utils/create-jsx-element-resolver";
 import { createRule } from "@/utils/create-rule";
 import { type RuleContext, type RuleFeature, type RuleListener } from "@eslint-react/eslint";
 import { findAttribute, resolveAttributeValue } from "@eslint-react/jsx";
@@ -33,7 +33,7 @@ export default createRule<[], MessageID>({
 });
 
 export function create(context: RuleContext<MessageID, []>): RuleListener {
-  const resolver = createJsxElementResolver(context);
+  const resolver = createJSXElementResolver(context);
 
   return {
     JSXElement(node) {

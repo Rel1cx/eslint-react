@@ -9,7 +9,7 @@ import { isRenderMethodCallback } from "./class-component";
 import { isCreateElementChildrenArgument } from "./create-element";
 import { type FunctionID, type FunctionInitPath, getFunctionId, isFunctionHasCallInInitPath } from "./function";
 import type { HookCall } from "./hook";
-import { JsxDetectionHint } from "./jsx";
+import { JSXDetectionHint } from "./jsx";
 import type { SemanticNode } from "./semantic";
 
 // #region Types
@@ -205,7 +205,7 @@ export type FunctionComponentDetectionHint = bigint;
  * Hints for component collector.
  */
 export const FunctionComponentDetectionHint = {
-  ...JsxDetectionHint,
+  ...JSXDetectionHint,
 
   /** Exclude functions defined as class methods from component detection. */
   DoNotIncludeFunctionDefinedAsClassMethod: 1n << 11n,
@@ -231,19 +231,19 @@ export const FunctionComponentDetectionHint = {
  * Default component detection hint.
  */
 export const DEFAULT_COMPONENT_DETECTION_HINT = 0n
-  | FunctionComponentDetectionHint.DoNotIncludeJsxWithBigIntValue
-  | FunctionComponentDetectionHint.DoNotIncludeJsxWithBooleanValue
-  | FunctionComponentDetectionHint.DoNotIncludeJsxWithNumberValue
-  | FunctionComponentDetectionHint.DoNotIncludeJsxWithStringValue
-  | FunctionComponentDetectionHint.DoNotIncludeJsxWithUndefinedValue
+  | FunctionComponentDetectionHint.DoNotIncludeJSXWithBigIntValue
+  | FunctionComponentDetectionHint.DoNotIncludeJSXWithBooleanValue
+  | FunctionComponentDetectionHint.DoNotIncludeJSXWithNumberValue
+  | FunctionComponentDetectionHint.DoNotIncludeJSXWithStringValue
+  | FunctionComponentDetectionHint.DoNotIncludeJSXWithUndefinedValue
   | FunctionComponentDetectionHint.DoNotIncludeFunctionDefinedAsArbitraryCallExpressionCallback
   | FunctionComponentDetectionHint.DoNotIncludeFunctionDefinedAsArrayExpressionElement
   | FunctionComponentDetectionHint.DoNotIncludeFunctionDefinedAsArrayFlatMapCallback
   | FunctionComponentDetectionHint.DoNotIncludeFunctionDefinedAsArrayMapCallback
   | FunctionComponentDetectionHint.DoNotIncludeFunctionDefinedAsArrayPatternElement
-  | FunctionComponentDetectionHint.RequireAllArrayElementsToBeJsx
-  | FunctionComponentDetectionHint.RequireBothBranchesOfConditionalExpressionToBeJsx
-  | FunctionComponentDetectionHint.RequireBothSidesOfLogicalExpressionToBeJsx;
+  | FunctionComponentDetectionHint.RequireAllArrayElementsToBeJSX
+  | FunctionComponentDetectionHint.RequireBothBranchesOfConditionalExpressionToBeJSX
+  | FunctionComponentDetectionHint.RequireBothSidesOfLogicalExpressionToBeJSX;
 
 /**
  * Check if the function node is a valid React component definition.

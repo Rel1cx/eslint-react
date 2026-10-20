@@ -28,13 +28,13 @@ export default createRule<[], MessageID>({
 
 export function create(context: RuleContext<MessageID, []>): RuleListener {
   // Configuration hints to optimize component detection accuracy and performance
-  const hint = core.FunctionComponentDetectionHint.DoNotIncludeJsxWithNumberValue
-    | core.FunctionComponentDetectionHint.DoNotIncludeJsxWithBooleanValue
-    | core.FunctionComponentDetectionHint.DoNotIncludeJsxWithNullValue
-    | core.FunctionComponentDetectionHint.DoNotIncludeJsxWithStringValue
-    | core.FunctionComponentDetectionHint.DoNotIncludeJsxWithUndefinedValue
-    | core.FunctionComponentDetectionHint.RequireBothSidesOfLogicalExpressionToBeJsx
-    | core.FunctionComponentDetectionHint.RequireBothBranchesOfConditionalExpressionToBeJsx
+  const hint = core.FunctionComponentDetectionHint.DoNotIncludeJSXWithNumberValue
+    | core.FunctionComponentDetectionHint.DoNotIncludeJSXWithBooleanValue
+    | core.FunctionComponentDetectionHint.DoNotIncludeJSXWithNullValue
+    | core.FunctionComponentDetectionHint.DoNotIncludeJSXWithStringValue
+    | core.FunctionComponentDetectionHint.DoNotIncludeJSXWithUndefinedValue
+    | core.FunctionComponentDetectionHint.RequireBothSidesOfLogicalExpressionToBeJSX
+    | core.FunctionComponentDetectionHint.RequireBothBranchesOfConditionalExpressionToBeJSX
     | core.FunctionComponentDetectionHint.DoNotIncludeFunctionDefinedAsArrayPatternElement
     | core.FunctionComponentDetectionHint.DoNotIncludeFunctionDefinedAsArrayExpressionElement
     | core.FunctionComponentDetectionHint.DoNotIncludeFunctionDefinedAsArrayMapCallback

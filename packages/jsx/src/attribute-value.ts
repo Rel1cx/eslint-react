@@ -35,9 +35,9 @@ export type AttributeValue =
  */
 export function resolveAttributeValue(context: RuleContext, attribute: TSESTreeJSXAttributeLike, name?: string): AttributeValue {
   if (attribute.type === AST.JSXAttribute) {
-    return resolveJsxAttribute(context, attribute);
+    return resolveJSXAttribute(context, attribute);
   }
-  return resolveJsxSpreadAttribute(context, attribute, name);
+  return resolveJSXSpreadAttribute(context, attribute, name);
 }
 
 /**
@@ -71,7 +71,7 @@ export function getAttributeStaticValue(context: RuleContext, element: TSESTree.
 
 // #region Internal Resolvers
 
-function resolveJsxAttribute(context: RuleContext, node: TSESTree.JSXAttribute): AttributeValue {
+function resolveJSXAttribute(context: RuleContext, node: TSESTree.JSXAttribute): AttributeValue {
   const scope = context.sourceCode.getScope(node);
 
   // Boolean attribute, no value means `true` (ex: `<input disabled />`).
@@ -152,7 +152,7 @@ function resolveJsxAttribute(context: RuleContext, node: TSESTree.JSXAttribute):
   }
 }
 
-function resolveJsxSpreadAttribute(context: RuleContext, node: TSESTree.JSXSpreadAttribute, name?: string): AttributeValue {
+function resolveJSXSpreadAttribute(context: RuleContext, node: TSESTree.JSXSpreadAttribute, name?: string): AttributeValue {
   const getProperty = (propertyName: string): unknown => {
     const property = findSpreadProperty(context, node.argument, propertyName);
     if (property == null) return undefined;

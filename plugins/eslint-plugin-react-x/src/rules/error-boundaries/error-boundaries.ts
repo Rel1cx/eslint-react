@@ -33,13 +33,13 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   // Fast path: skip if `try` is not present in the file
   if (!context.sourceCode.text.includes("try")) return {};
 
-  const hint = core.JsxDetectionHint.DoNotIncludeJsxWithNullValue
-    | core.JsxDetectionHint.DoNotIncludeJsxWithNumberValue
-    | core.JsxDetectionHint.DoNotIncludeJsxWithBigIntValue
-    | core.JsxDetectionHint.DoNotIncludeJsxWithStringValue
-    | core.JsxDetectionHint.DoNotIncludeJsxWithBooleanValue
-    | core.JsxDetectionHint.DoNotIncludeJsxWithUndefinedValue
-    | core.JsxDetectionHint.DoNotIncludeJsxWithEmptyArrayValue;
+  const hint = core.JSXDetectionHint.DoNotIncludeJSXWithNullValue
+    | core.JSXDetectionHint.DoNotIncludeJSXWithNumberValue
+    | core.JSXDetectionHint.DoNotIncludeJSXWithBigIntValue
+    | core.JSXDetectionHint.DoNotIncludeJSXWithStringValue
+    | core.JSXDetectionHint.DoNotIncludeJSXWithBooleanValue
+    | core.JSXDetectionHint.DoNotIncludeJSXWithUndefinedValue
+    | core.JSXDetectionHint.DoNotIncludeJSXWithEmptyArrayValue;
 
   const fc = core.getFunctionComponentCollector(context);
   const hc = core.getHookCollector(context);
@@ -75,7 +75,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
           for (const ret of rets) {
             if (ret == null) continue;
             // Skip non-JSX-like return values https://github.com/Rel1cx/eslint-react/issues/1614
-            if (!core.isJsxLike(context, ret, hint)) continue;
+            if (!core.isJSXLike(context, ret, hint)) continue;
             const stmt = Traverse.findEnclosingTryBlock(ret);
             if (stmt != null && !reported.has(stmt)) {
               context.report({

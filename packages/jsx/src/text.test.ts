@@ -5,7 +5,7 @@ import { describe, expect, it } from "vitest";
 
 import { collapseMultilineText, isEmptyStringExpression, isPaddingWhitespace, isWhitespaceText } from "./text";
 
-function parseJsx(code: string): TSESTreeJSXElementLike {
+function parseJSX(code: string): TSESTreeJSXElementLike {
   return getNodeInRule<TSESTreeJSXElementLike>(code, ":matches(JSXElement, JSXFragment)").node;
 }
 
@@ -32,26 +32,26 @@ describe("collapseMultilineText", () => {
 
 describe("isPaddingWhitespace", () => {
   it("matches whitespace text containing a newline", () => {
-    const child = parseJsx("<div>\n  <span />\n</div>;").children[0];
+    const child = parseJSX("<div>\n  <span />\n</div>;").children[0];
     expect(child?.type).toBe(AST.JSXText);
     if (child == null) return;
     expect(isPaddingWhitespace(child)).toBe(true);
   });
 
   it("does not match same-line whitespace", () => {
-    const child = parseJsx("<div> <span /></div>;").children[0];
+    const child = parseJSX("<div> <span /></div>;").children[0];
     if (child == null) throw new Error("expected child");
     expect(isPaddingWhitespace(child)).toBe(false);
   });
 
   it("does not match non-text nodes", () => {
-    const child = parseJsx("<div><span /></div>;").children[0];
+    const child = parseJSX("<div><span /></div>;").children[0];
     if (child == null) throw new Error("expected child");
     expect(isPaddingWhitespace(child)).toBe(false);
   });
 
   it("matches CRLF whitespace padding", () => {
-    const child = parseJsx("<div>\r\n  <span />\r\n</div>;").children[0];
+    const child = parseJSX("<div>\r\n  <span />\r\n</div>;").children[0];
     if (child == null) throw new Error("expected child");
     expect(isPaddingWhitespace(child)).toBe(true);
   });
@@ -59,19 +59,19 @@ describe("isPaddingWhitespace", () => {
 
 describe("isWhitespaceText", () => {
   it("matches any whitespace-only text", () => {
-    const child = parseJsx("<div> <span /></div>;").children[0];
+    const child = parseJSX("<div> <span /></div>;").children[0];
     if (child == null) throw new Error("expected child");
     expect(isWhitespaceText(child)).toBe(true);
   });
 
   it("matches newline-containing whitespace", () => {
-    const child = parseJsx("<div>\n  <span />\n</div>;").children[0];
+    const child = parseJSX("<div>\n  <span />\n</div>;").children[0];
     if (child == null) throw new Error("expected child");
     expect(isWhitespaceText(child)).toBe(true);
   });
 
   it("does not match meaningful text", () => {
-    const child = parseJsx("<div>x</div>;").children[0];
+    const child = parseJSX("<div>x</div>;").children[0];
     if (child == null) throw new Error("expected child");
     expect(isWhitespaceText(child)).toBe(false);
   });
@@ -80,7 +80,7 @@ describe("isWhitespaceText", () => {
     // For `<div>&nbsp;</div>` the raw is "&nbsp;" while the value is the
     // decoded "\u00a0"; neither is padding, matching React's behavior of
     // rendering the entity as a text node.
-    const child = parseJsx("<div>&nbsp;</div>;").children[0];
+    const child = parseJSX("<div>&nbsp;</div>;").children[0];
     if (child?.type !== AST.JSXText) throw new Error("expected JSXText");
     expect(child.raw).not.toBe(child.value);
     expect(isWhitespaceText(child)).toBe(false);
@@ -89,19 +89,19 @@ describe("isWhitespaceText", () => {
 
 describe("isEmptyStringExpression", () => {
   it("matches an empty string expression", () => {
-    const child = parseJsx('<div>{""}</div>;').children[0];
+    const child = parseJSX('<div>{""}</div>;').children[0];
     if (child == null) throw new Error("expected child");
     expect(isEmptyStringExpression(child)).toBe(true);
   });
 
   it("does not match a non-empty string expression", () => {
-    const child = parseJsx('<div>{"x"}</div>;').children[0];
+    const child = parseJSX('<div>{"x"}</div>;').children[0];
     if (child == null) throw new Error("expected child");
     expect(isEmptyStringExpression(child)).toBe(false);
   });
 
   it("does not match text nodes", () => {
-    const child = parseJsx("<div>x</div>;").children[0];
+    const child = parseJSX("<div>x</div>;").children[0];
     if (child == null) throw new Error("expected child");
     expect(isEmptyStringExpression(child)).toBe(false);
   });

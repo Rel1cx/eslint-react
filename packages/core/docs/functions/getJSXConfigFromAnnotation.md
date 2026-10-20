@@ -1,9 +1,9 @@
-[@eslint-react/core](../README.md) / getJsxConfigFromAnnotation
+[@eslint-react/core](../README.md) / getJSXConfigFromAnnotation
 
-# Function: getJsxConfigFromAnnotation()
+# Function: getJSXConfigFromAnnotation()
 
 ```ts
-function getJsxConfigFromAnnotation(context: RuleContext): JsxConfig;
+function getJSXConfigFromAnnotation(context: RuleContext): JSXConfig;
 ```
 
 Extract JSX configuration from `@jsx`, `@jsxFrag`, `@jsxRuntime` and
@@ -20,6 +20,6 @@ repeated calls from different rules analysing the same file are free.
 
 ## Returns
 
-[`JsxConfig`](../interfaces/JsxConfig.md)
+[`JSXConfig`](../interfaces/JSXConfig.md)
 
-Partial `JsxConfig` containing only the values found in pragmas.
+Partial `JSXConfig` containing only the values found in pragmas.

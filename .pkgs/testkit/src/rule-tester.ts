@@ -40,7 +40,7 @@ export const ruleTesterWithTypes = new RuleTester({
   languageOptions: defaultLanguageOptionsWithTypes,
 });
 
-export function getProjectForJsxEmit(jsxEmit: ts.JsxEmit) {
+export function getProjectForJSXEmit(jsxEmit: ts.JsxEmit) {
   switch (jsxEmit) {
     case ts.JsxEmit.None:
     case ts.JsxEmit.ReactJSX:
@@ -59,13 +59,13 @@ export function getProjectForJsxEmit(jsxEmit: ts.JsxEmit) {
  * Creates a `RuleTester` pinned to the tsconfig for the given JSX emit mode,
  * replacing per-spec hand-rolled `new RuleTester({...})` instances.
  */
-export function createRuleTesterForJsxEmit(jsxEmit: ts.JsxEmit): RuleTester {
+export function createRuleTesterForJSXEmit(jsxEmit: ts.JsxEmit): RuleTester {
   return new RuleTester({
     languageOptions: {
       ...defaultLanguageOptionsWithTypes,
       parserOptions: {
         ...defaultLanguageOptionsWithTypes.parserOptions,
-        project: getProjectForJsxEmit(jsxEmit),
+        project: getProjectForJSXEmit(jsxEmit),
         projectService: false,
       },
     },

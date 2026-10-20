@@ -39,13 +39,13 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   // functions with one-sided conditional or logical JSX returns, and functions
   // defined as array destructuring pattern elements, in array literals, or in
   // `array.map` callbacks are not components
-  const hint = core.FunctionComponentDetectionHint.DoNotIncludeJsxWithNumberValue
-    | core.FunctionComponentDetectionHint.DoNotIncludeJsxWithBooleanValue
-    | core.FunctionComponentDetectionHint.DoNotIncludeJsxWithNullValue
-    | core.FunctionComponentDetectionHint.DoNotIncludeJsxWithStringValue
-    | core.FunctionComponentDetectionHint.DoNotIncludeJsxWithUndefinedValue
-    | core.FunctionComponentDetectionHint.RequireBothSidesOfLogicalExpressionToBeJsx
-    | core.FunctionComponentDetectionHint.RequireBothBranchesOfConditionalExpressionToBeJsx
+  const hint = core.FunctionComponentDetectionHint.DoNotIncludeJSXWithNumberValue
+    | core.FunctionComponentDetectionHint.DoNotIncludeJSXWithBooleanValue
+    | core.FunctionComponentDetectionHint.DoNotIncludeJSXWithNullValue
+    | core.FunctionComponentDetectionHint.DoNotIncludeJSXWithStringValue
+    | core.FunctionComponentDetectionHint.DoNotIncludeJSXWithUndefinedValue
+    | core.FunctionComponentDetectionHint.RequireBothSidesOfLogicalExpressionToBeJSX
+    | core.FunctionComponentDetectionHint.RequireBothBranchesOfConditionalExpressionToBeJSX
     | core.FunctionComponentDetectionHint.DoNotIncludeFunctionDefinedAsArrayPatternElement
     | core.FunctionComponentDetectionHint.DoNotIncludeFunctionDefinedAsArrayExpressionElement
     | core.FunctionComponentDetectionHint.DoNotIncludeFunctionDefinedAsArrayMapCallback;

@@ -1,9 +1,9 @@
-[@eslint-react/core](../README.md) / getJsxConfigFromCompilerOptions
+[@eslint-react/core](../README.md) / getJSXConfigFromCompilerOptions
 
-# Function: getJsxConfigFromCompilerOptions()
+# Function: getJSXConfigFromCompilerOptions()
 
 ```ts
-function getJsxConfigFromCompilerOptions(context: RuleContext): Required<JsxConfig>;
+function getJSXConfigFromCompilerOptions(context: RuleContext): Required<JSXConfig>;
 ```
 
 Read JSX configuration from the TypeScript compiler options exposed by the
@@ -20,6 +20,6 @@ available (e.g. when the file is parsed without type information).
 
 ## Returns
 
-[`Required`](https://www.typescriptlang.org/docs/handbook/utility-types.html#requiredtype)\<[`JsxConfig`](../interfaces/JsxConfig.md)\>
+[`Required`](https://www.typescriptlang.org/docs/handbook/utility-types.html#requiredtype)\<[`JSXConfig`](../interfaces/JSXConfig.md)\>
 
-Fully‑populated `JsxConfig` derived from compiler options.
+Fully‑populated `JSXConfig` derived from compiler options.

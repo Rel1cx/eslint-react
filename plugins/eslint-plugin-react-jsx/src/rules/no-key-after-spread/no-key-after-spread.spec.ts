@@ -1,4 +1,4 @@
-import { createRuleTesterForJsxEmit, ruleTester } from "@local/testkit";
+import { createRuleTesterForJSXEmit, ruleTester } from "@local/testkit";
 import tsx from "dedent";
 import { JsxEmit } from "typescript";
 import rule, { RULE_NAME } from "./no-key-after-spread";
@@ -139,9 +139,9 @@ ruleTester.run(RULE_NAME, rule, {
 });
 
 // Test with classic runtime (from tsconfig) - deoptimization should NOT apply
-const ruleTesterWithJsxClassicRuntime = createRuleTesterForJsxEmit(JsxEmit.React);
+const ruleTesterWithJSXClassicRuntime = createRuleTesterForJSXEmit(JsxEmit.React);
 
-ruleTesterWithJsxClassicRuntime.run(`${RULE_NAME} (classic runtime)`, rule, {
+ruleTesterWithJSXClassicRuntime.run(`${RULE_NAME} (classic runtime)`, rule, {
   invalid: [
     // '@jsxRuntime automatic' pragma overrides the classic tsconfig setting
     {
@@ -169,9 +169,9 @@ ruleTesterWithJsxClassicRuntime.run(`${RULE_NAME} (classic runtime)`, rule, {
 });
 
 // Test with react-native runtime (from tsconfig) - classic-family emit, deoptimization should NOT apply
-const ruleTesterWithJsxReactNativeRuntime = createRuleTesterForJsxEmit(JsxEmit.ReactNative);
+const ruleTesterWithJSXReactNativeRuntime = createRuleTesterForJSXEmit(JsxEmit.ReactNative);
 
-ruleTesterWithJsxReactNativeRuntime.run(`${RULE_NAME} (react-native runtime)`, rule, {
+ruleTesterWithJSXReactNativeRuntime.run(`${RULE_NAME} (react-native runtime)`, rule, {
   invalid: [],
   valid: [
     tsx`
@@ -183,9 +183,9 @@ ruleTesterWithJsxReactNativeRuntime.run(`${RULE_NAME} (react-native runtime)`, r
 });
 
 // Test with automatic runtime (from tsconfig) - deoptimization SHOULD apply
-const ruleTesterWithJsxAutomaticRuntime = createRuleTesterForJsxEmit(JsxEmit.ReactJSX);
+const ruleTesterWithJSXAutomaticRuntime = createRuleTesterForJSXEmit(JsxEmit.ReactJSX);
 
-ruleTesterWithJsxAutomaticRuntime.run(`${RULE_NAME} (automatic runtime)`, rule, {
+ruleTesterWithJSXAutomaticRuntime.run(`${RULE_NAME} (automatic runtime)`, rule, {
   invalid: [
     {
       code: tsx`

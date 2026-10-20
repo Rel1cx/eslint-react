@@ -6,53 +6,53 @@ import { describe, expect, it } from "vitest";
 import { isElement, isFragmentElement, isHostElement } from "./element-is";
 import { getElementFullType, getElementSelfType } from "./element-type";
 
-function parseJsx(code: string): TSESTreeJSXElementLike {
+function parseJSX(code: string): TSESTreeJSXElementLike {
   return getNodeInRule<TSESTreeJSXElementLike>(code, ":matches(JSXElement, JSXFragment)").node;
 }
 
 describe("getElementFullType", () => {
   it("returns the tag name for simple elements", () => {
-    expect(getElementFullType(parseJsx("<div />;"))).toBe("div");
+    expect(getElementFullType(parseJSX("<div />;"))).toBe("div");
   });
 
   it("returns the qualified name for member expressions", () => {
-    expect(getElementFullType(parseJsx("<Foo.Bar.Baz />;"))).toBe("Foo.Bar.Baz");
+    expect(getElementFullType(parseJSX("<Foo.Bar.Baz />;"))).toBe("Foo.Bar.Baz");
   });
 
   it("returns the qualified name for React.Fragment", () => {
-    expect(getElementFullType(parseJsx("<React.Fragment />;"))).toBe("React.Fragment");
+    expect(getElementFullType(parseJSX("<React.Fragment />;"))).toBe("React.Fragment");
   });
 
   it("returns the namespaced name", () => {
-    expect(getElementFullType(parseJsx("<xml:space />;"))).toBe("xml:space");
+    expect(getElementFullType(parseJSX("<xml:space />;"))).toBe("xml:space");
   });
 
   it("returns an empty string for fragments", () => {
-    expect(getElementFullType(parseJsx("<></>;"))).toBe("");
+    expect(getElementFullType(parseJSX("<></>;"))).toBe("");
   });
 });
 
 describe("getElementSelfType", () => {
   it("returns the last segment of a member expression", () => {
-    expect(getElementSelfType(parseJsx("<Foo.Bar.Baz />;"))).toBe("Baz");
+    expect(getElementSelfType(parseJSX("<Foo.Bar.Baz />;"))).toBe("Baz");
   });
 
   it("returns the tag name for simple elements", () => {
-    expect(getElementSelfType(parseJsx("<div />;"))).toBe("div");
+    expect(getElementSelfType(parseJSX("<div />;"))).toBe("div");
   });
 
   it("returns an empty string for fragments", () => {
-    expect(getElementSelfType(parseJsx("<></>;"))).toBe("");
+    expect(getElementSelfType(parseJSX("<></>;"))).toBe("");
   });
 });
 
 describe("isElement", () => {
   it("matches any JSX element without a test", () => {
-    expect(isElement(parseJsx("<div />;"))).toBe(true);
+    expect(isElement(parseJSX("<div />;"))).toBe(true);
   });
 
   it("does not match null or non-JSX nodes", () => {
-    const node = parseJsx("<div />;");
+    const node = parseJSX("<div />;");
     expect(isElement(null)).toBe(false);
     expect(isElement(undefined)).toBe(false);
     if (node.type !== AST.JSXElement) throw new Error("expected element");
@@ -60,25 +60,25 @@ describe("isElement", () => {
   });
 
   it("matches against a string test", () => {
-    const node = parseJsx("<div />;");
+    const node = parseJSX("<div />;");
     expect(isElement(node, "div")).toBe(true);
     expect(isElement(node, "span")).toBe(false);
   });
 
   it("matches against an array test", () => {
-    const node = parseJsx("<div />;");
+    const node = parseJSX("<div />;");
     expect(isElement(node, ["span", "div"])).toBe(true);
     expect(isElement(node, ["span", "a"])).toBe(false);
   });
 
   it("matches against a function test", () => {
-    const node = parseJsx("<Foo.Bar />;");
+    const node = parseJSX("<Foo.Bar />;");
     expect(isElement(node, (type) => type.startsWith("Foo"))).toBe(true);
     expect(isElement(node, (type) => type === "div")).toBe(false);
   });
 
   it("matches fragments", () => {
-    const node = parseJsx("<></>;");
+    const node = parseJSX("<></>;");
     expect(isElement(node)).toBe(true);
     expect(isElement(node, "")).toBe(true);
   });
@@ -86,46 +86,46 @@ describe("isElement", () => {
 
 describe("isFragmentElement", () => {
   it("matches the shorthand fragment syntax", () => {
-    expect(isFragmentElement(parseJsx("<></>;"), "React.Fragment")).toBe(true);
+    expect(isFragmentElement(parseJSX("<></>;"), "React.Fragment")).toBe(true);
   });
 
   it("matches <Fragment> with the React.Fragment factory", () => {
-    expect(isFragmentElement(parseJsx("<Fragment />;"), "React.Fragment")).toBe(true);
+    expect(isFragmentElement(parseJSX("<Fragment />;"), "React.Fragment")).toBe(true);
   });
 
   it("matches <React.Fragment> with the React.Fragment factory", () => {
-    expect(isFragmentElement(parseJsx("<React.Fragment />;"), "React.Fragment")).toBe(true);
+    expect(isFragmentElement(parseJSX("<React.Fragment />;"), "React.Fragment")).toBe(true);
   });
 
   it("matches a custom factory", () => {
-    expect(isFragmentElement(parseJsx("<Preact.Fragment />;"), "Preact.Fragment")).toBe(true);
+    expect(isFragmentElement(parseJSX("<Preact.Fragment />;"), "Preact.Fragment")).toBe(true);
   });
 
   it("compares only the self name segment of the factory", () => {
     // The heuristic matches any `<*.Fragment>` regardless of the qualifier.
-    expect(isFragmentElement(parseJsx("<Preact.Fragment />;"), "React.Fragment")).toBe(true);
-    expect(isFragmentElement(parseJsx("<Foo />;"), "React.Fragment")).toBe(false);
+    expect(isFragmentElement(parseJSX("<Preact.Fragment />;"), "React.Fragment")).toBe(true);
+    expect(isFragmentElement(parseJSX("<Foo />;"), "React.Fragment")).toBe(false);
   });
 });
 
 describe("isHostElement", () => {
   it("matches lowercase tag names", () => {
-    expect(isHostElement(parseJsx("<div />;"))).toBe(true);
+    expect(isHostElement(parseJSX("<div />;"))).toBe(true);
   });
 
   it("does not match capitalized components", () => {
-    expect(isHostElement(parseJsx("<Foo />;"))).toBe(false);
+    expect(isHostElement(parseJSX("<Foo />;"))).toBe(false);
   });
 
   it("does not match member expressions", () => {
-    expect(isHostElement(parseJsx("<Foo.bar />;"))).toBe(false);
+    expect(isHostElement(parseJSX("<Foo.bar />;"))).toBe(false);
   });
 
   it("matches lowercase namespaced names", () => {
-    expect(isHostElement(parseJsx("<svg:rect />;"))).toBe(true);
+    expect(isHostElement(parseJSX("<svg:rect />;"))).toBe(true);
   });
 
   it("does not match fragments", () => {
-    expect(isHostElement(parseJsx("<></>;"))).toBe(false);
+    expect(isHostElement(parseJSX("<></>;"))).toBe(false);
   });
 });

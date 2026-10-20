@@ -1,5 +1,5 @@
 import { createRule } from "@/utils/create-rule";
-import { removeJsxAttribute } from "@/utils/remove-jsx-attribute";
+import { removeJSXAttribute } from "@/utils/remove-jsx-attribute";
 import * as core from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, type RuleListener } from "@eslint-react/eslint";
 import { findAttribute, hasChildren } from "@eslint-react/jsx";
@@ -67,7 +67,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         suggest: [
           {
             fix(fixer) {
-              return removeJsxAttribute(context, fixer, prop);
+              return removeJSXAttribute(context, fixer, prop);
             },
             messageId: "remove-children-prop",
           },

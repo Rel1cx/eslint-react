@@ -2,14 +2,14 @@ import { runInRule } from "@local/testkit";
 import ts from "typescript";
 import { describe, expect, it } from "vitest";
 
-import { getJsxConfig, getJsxConfigFromAnnotation, getJsxConfigFromCompilerOptions } from "./jsx-config";
+import { getJSXConfig, getJSXConfigFromAnnotation, getJSXConfigFromCompilerOptions } from "./jsx-config";
 
-describe("getJsxConfigFromCompilerOptions", () => {
+describe("getJSXConfigFromCompilerOptions", () => {
   it("should fall back to React defaults when no compiler options are available", () => {
     runInRule("const a = 1;", (context) => {
       // Parsed without type information, so parserServices.program is null.
       expect(context.sourceCode.parserServices?.program).toBeNull();
-      expect(getJsxConfigFromCompilerOptions(context)).toEqual({
+      expect(getJSXConfigFromCompilerOptions(context)).toEqual({
         jsx: ts.JsxEmit.ReactJSX,
         jsxFactory: "React.createElement",
         jsxFragmentFactory: "React.Fragment",
@@ -19,10 +19,10 @@ describe("getJsxConfigFromCompilerOptions", () => {
   });
 });
 
-describe("getJsxConfigFromAnnotation", () => {
+describe("getJSXConfigFromAnnotation", () => {
   it("should return an empty config when the file has no pragma comments", () => {
     runInRule("const a = 1;", (context) => {
-      expect(getJsxConfigFromAnnotation(context)).toEqual({});
+      expect(getJSXConfigFromAnnotation(context)).toEqual({});
     });
   });
 
@@ -35,7 +35,7 @@ describe("getJsxConfigFromAnnotation", () => {
       "const a = 1;",
     ].join("\n");
     runInRule(code, (context) => {
-      expect(getJsxConfigFromAnnotation(context)).toEqual({
+      expect(getJSXConfigFromAnnotation(context)).toEqual({
         jsx: ts.JsxEmit.React,
         jsxFactory: "h",
         jsxFragmentFactory: "Fragment",
@@ -54,7 +54,7 @@ describe("getJsxConfigFromAnnotation", () => {
       "const a = 1;",
     ].join("\n");
     runInRule(code, (context) => {
-      const config = getJsxConfigFromAnnotation(context);
+      const config = getJSXConfigFromAnnotation(context);
       expect(config.jsxFactory).toBe("h");
       expect(config.jsxFragmentFactory).toBe("Fragment");
     });
@@ -70,7 +70,7 @@ describe("getJsxConfigFromAnnotation", () => {
       "const a = 1;",
     ].join("\n");
     runInRule(code, (context) => {
-      const config = getJsxConfigFromAnnotation(context);
+      const config = getJSXConfigFromAnnotation(context);
       expect(config.jsx).toBe(ts.JsxEmit.ReactJSX);
       expect(config.jsxImportSource).toBe("react");
     });
@@ -78,7 +78,7 @@ describe("getJsxConfigFromAnnotation", () => {
 
   it("should map '@jsxRuntime automatic' to ts.JsxEmit.ReactJSX", () => {
     runInRule("/* @jsxRuntime automatic */\nconst a = 1;", (context) => {
-      expect(getJsxConfigFromAnnotation(context).jsx).toBe(ts.JsxEmit.ReactJSX);
+      expect(getJSXConfigFromAnnotation(context).jsx).toBe(ts.JsxEmit.ReactJSX);
     });
   });
 
@@ -87,31 +87,31 @@ describe("getJsxConfigFromAnnotation", () => {
     // "classic" nor "automatic", leaving `jsx` unset so the compiler-option
     // defaults apply when the config is merged.
     runInRule("/* @jsxRuntime bogus */\nconst a = 1;", (context) => {
-      expect(getJsxConfigFromAnnotation(context)).toEqual({});
+      expect(getJSXConfigFromAnnotation(context)).toEqual({});
     });
   });
 
   it("should pick up @jsxFrag in a file whose only pragma is @jsxFrag", () => {
-    // Guards the fast path in getJsxConfigFromAnnotation: the '@jsx' substring
+    // Guards the fast path in getJSXConfigFromAnnotation: the '@jsx' substring
     // check must not skip files that only contain '@jsxFrag'/'@jsxRuntime'/etc.
     runInRule("/* @jsxFrag Fragment */\nconst a = 1;", (context) => {
-      expect(getJsxConfigFromAnnotation(context)).toEqual({ jsxFragmentFactory: "Fragment" });
+      expect(getJSXConfigFromAnnotation(context)).toEqual({ jsxFragmentFactory: "Fragment" });
     });
   });
 
   it("should cache the result per sourceCode instance", () => {
     runInRule("/* @jsx h */\nconst a = 1;", (context) => {
-      const first = getJsxConfigFromAnnotation(context);
-      const second = getJsxConfigFromAnnotation(context);
+      const first = getJSXConfigFromAnnotation(context);
+      const second = getJSXConfigFromAnnotation(context);
       expect(second).toBe(first);
     });
   });
 });
 
-describe("getJsxConfig", () => {
+describe("getJSXConfig", () => {
   it("should merge pragma annotations over the compiler-option defaults", () => {
     runInRule("/* @jsx h */\nconst a = 1;", (context) => {
-      expect(getJsxConfig(context)).toEqual({
+      expect(getJSXConfig(context)).toEqual({
         jsx: ts.JsxEmit.ReactJSX,
         jsxFactory: "h",
         jsxFragmentFactory: "React.Fragment",
@@ -122,7 +122,7 @@ describe("getJsxConfig", () => {
 
   it("should cache the merged result per sourceCode instance", () => {
     runInRule("const a = 1;", (context) => {
-      expect(getJsxConfig(context)).toBe(getJsxConfig(context));
+      expect(getJSXConfig(context)).toBe(getJSXConfig(context));
     });
   });
 });

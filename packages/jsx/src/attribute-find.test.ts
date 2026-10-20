@@ -5,7 +5,7 @@ import { describe, expect, it } from "vitest";
 
 import { findAttribute, findParentAttribute, findSpreadProperty } from "./attribute-find";
 
-function parseJsxElement(code: string): { context: RuleContext; element: TSESTree.JSXElement } {
+function parseJSXElement(code: string): { context: RuleContext; element: TSESTree.JSXElement } {
   const { context, node } = getNodeInRule<TSESTree.JSXElement>(code, "JSXElement");
   return { context, element: node };
 }
@@ -20,25 +20,25 @@ function getSpreadArgument(element: TSESTree.JSXElement, index = 0): TSESTree.Ex
 
 describe("findAttribute", () => {
   it("finds a direct attribute", () => {
-    const { context, element } = parseJsxElement('<div className="x" />;');
+    const { context, element } = parseJSXElement('<div className="x" />;');
     const attr = findAttribute(context, element, "className");
     expect(attr?.type).toBe(AST.JSXAttribute);
   });
 
   it("finds a property inside a spread object expression", () => {
-    const { context, element } = parseJsxElement("<div {...{ className: 'x' }} />;");
+    const { context, element } = parseJSXElement("<div {...{ className: 'x' }} />;");
     const attr = findAttribute(context, element, "className");
     expect(attr?.type).toBe(AST.JSXSpreadAttribute);
   });
 
   it("finds a property behind a string literal key in a spread object", () => {
-    const { context, element } = parseJsxElement('<div {...{ "className": "x" }} />;');
+    const { context, element } = parseJSXElement('<div {...{ "className": "x" }} />;');
     const attr = findAttribute(context, element, "className");
     expect(attr?.type).toBe(AST.JSXSpreadAttribute);
   });
 
   it("finds a property inside a spread identifier resolving to an object expression", () => {
-    const { context, element } = parseJsxElement(
+    const { context, element } = parseJSXElement(
       "const props = { className: 'x' }; <div {...props} />;",
     );
     const attr = findAttribute(context, element, "className");
@@ -46,7 +46,7 @@ describe("findAttribute", () => {
   });
 
   it("finds a property nested in multiple object expression spreads", () => {
-    const { context, element } = parseJsxElement(
+    const { context, element } = parseJSXElement(
       "<div {...{ ...{ ...{ className: 'x' } } }} />;",
     );
     const attr = findAttribute(context, element, "className");
@@ -54,7 +54,7 @@ describe("findAttribute", () => {
   });
 
   it("finds a property nested in multiple identifier spreads", () => {
-    const { context, element } = parseJsxElement(
+    const { context, element } = parseJSXElement(
       "const inner = { className: 'x' };"
         + "const middle = { ...inner };"
         + "const props = { ...middle };"
@@ -65,19 +65,19 @@ describe("findAttribute", () => {
   });
 
   it("returns undefined when the attribute is not present", () => {
-    const { context, element } = parseJsxElement("<div />;");
+    const { context, element } = parseJSXElement("<div />;");
     const attr = findAttribute(context, element, "className");
     expect(attr).toBeUndefined();
   });
 
   it("returns undefined when the spread argument does not resolve to an object", () => {
-    const { context, element } = parseJsxElement("const props = null; <div {...props} />;");
+    const { context, element } = parseJSXElement("const props = null; <div {...props} />;");
     const attr = findAttribute(context, element, "className");
     expect(attr).toBeUndefined();
   });
 
   it("respects later-props-win semantics", () => {
-    const { context, element } = parseJsxElement(
+    const { context, element } = parseJSXElement(
       "const props = { className: 'first' }; <div {...props} className=\"second\" />;",
     );
     const attr = findAttribute(context, element, "className");
@@ -85,7 +85,7 @@ describe("findAttribute", () => {
   });
 
   it("respects later-props-win semantics when the spread comes last", () => {
-    const { context, element } = parseJsxElement(
+    const { context, element } = parseJSXElement(
       "const props = { className: 'second' }; <div className=\"first\" {...props} />;",
     );
     const attr = findAttribute(context, element, "className");
@@ -93,7 +93,7 @@ describe("findAttribute", () => {
   });
 
   it("falls back to an earlier explicit attribute when a later spread cannot be resolved", () => {
-    const { context, element } = parseJsxElement(
+    const { context, element } = parseJSXElement(
       'declare const rest: { [k: string]: unknown }; <div className="explicit" {...rest} />;',
     );
     // Documented heuristic: the unresolvable spread may still override the
@@ -103,13 +103,13 @@ describe("findAttribute", () => {
   });
 
   it("returns the last matching attribute when the name is duplicated", () => {
-    const { context, element } = parseJsxElement('<div id="a" id="b" />;');
+    const { context, element } = parseJSXElement('<div id="a" id="b" />;');
     const attr = findAttribute(context, element, "id");
     expect(attr).toBe(element.openingElement.attributes[1]);
   });
 
   it("returns the last matching spread attribute when the property is duplicated", () => {
-    const { context, element } = parseJsxElement(
+    const { context, element } = parseJSXElement(
       "<div {...{ id: 'a' }} {...{ id: 'b' }} />;",
     );
     const attr = findAttribute(context, element, "id");
@@ -117,7 +117,7 @@ describe("findAttribute", () => {
   });
 
   it("does not infinite loop on circular spread references", () => {
-    const { context, element } = parseJsxElement(
+    const { context, element } = parseJSXElement(
       "const a = {};"
         + "const b = { ...a };"
         + "Object.assign(a, { ...b });"
@@ -129,7 +129,7 @@ describe("findAttribute", () => {
 
 describe("findParentAttribute", () => {
   it("finds the enclosing attribute from a nested expression", () => {
-    const { element } = parseJsxElement('<div className={foo} id="y" />;');
+    const { element } = parseJSXElement('<div className={foo} id="y" />;');
     const attr = element.openingElement.attributes[0];
     if (attr?.type !== AST.JSXAttribute || attr.value?.type !== AST.JSXExpressionContainer) {
       throw new Error("unexpected attribute shape");
@@ -139,7 +139,7 @@ describe("findParentAttribute", () => {
   });
 
   it("filters candidates with the predicate", () => {
-    const { element } = parseJsxElement('<div className={foo} id="y" />;');
+    const { element } = parseJSXElement('<div className={foo} id="y" />;');
     const attr = element.openingElement.attributes[0];
     if (attr?.type !== AST.JSXAttribute || attr.value?.type !== AST.JSXExpressionContainer) {
       throw new Error("unexpected attribute shape");
@@ -152,14 +152,14 @@ describe("findParentAttribute", () => {
   });
 
   it("returns undefined when no attribute ancestor exists", () => {
-    const { element } = parseJsxElement("<div />;");
+    const { element } = parseJSXElement("<div />;");
     expect(findParentAttribute(element)).toBeUndefined();
   });
 });
 
 describe("findSpreadProperty", () => {
   it("finds a property in an inline object expression", () => {
-    const { context, element } = parseJsxElement("<div {...{ a: 1, b: 2 }} />;");
+    const { context, element } = parseJSXElement("<div {...{ a: 1, b: 2 }} />;");
     const prop = findSpreadProperty(context, getSpreadArgument(element), "a");
     expect(prop?.value.type).toBe(AST.Literal);
     if (prop?.value.type === AST.Literal) {
@@ -168,7 +168,7 @@ describe("findSpreadProperty", () => {
   });
 
   it("later properties win over earlier ones", () => {
-    const { context, element } = parseJsxElement("<div {...{ ...{ a: 1 }, a: 2 }} />;");
+    const { context, element } = parseJSXElement("<div {...{ ...{ a: 1 }, a: 2 }} />;");
     const prop = findSpreadProperty(context, getSpreadArgument(element), "a");
     expect(prop?.value.type).toBe(AST.Literal);
     if (prop?.value.type === AST.Literal) {
@@ -177,7 +177,7 @@ describe("findSpreadProperty", () => {
   });
 
   it("later spreads win over earlier properties", () => {
-    const { context, element } = parseJsxElement("<div {...{ a: 2, ...{ a: 1 } }} />;");
+    const { context, element } = parseJSXElement("<div {...{ a: 2, ...{ a: 1 } }} />;");
     const prop = findSpreadProperty(context, getSpreadArgument(element), "a");
     expect(prop?.value.type).toBe(AST.Literal);
     if (prop?.value.type === AST.Literal) {
@@ -186,25 +186,25 @@ describe("findSpreadProperty", () => {
   });
 
   it("matches string literal keys", () => {
-    const { context, element } = parseJsxElement('<div {...{ "a": 1 }} />;');
+    const { context, element } = parseJSXElement('<div {...{ "a": 1 }} />;');
     const prop = findSpreadProperty(context, getSpreadArgument(element), "a");
     expect(prop?.type).toBe(AST.Property);
   });
 
   it("matches statically evaluable computed keys", () => {
-    const { context, element } = parseJsxElement('<div {...{ ["a" + "b"]: 1 }} />;');
+    const { context, element } = parseJSXElement('<div {...{ ["a" + "b"]: 1 }} />;');
     const prop = findSpreadProperty(context, getSpreadArgument(element), "ab");
     expect(prop?.type).toBe(AST.Property);
   });
 
   it("skips computed keys that are not statically evaluable", () => {
-    const { context, element } = parseJsxElement("<div {...{ [foo]: 1 }} />;");
+    const { context, element } = parseJSXElement("<div {...{ [foo]: 1 }} />;");
     const prop = findSpreadProperty(context, getSpreadArgument(element), "foo");
     expect(prop).toBeUndefined();
   });
 
   it("follows identifier aliases", () => {
-    const { context, element } = parseJsxElement(
+    const { context, element } = parseJSXElement(
       "const a = { k: 1 }; const b = a; <div {...b} />;",
     );
     const prop = findSpreadProperty(context, getSpreadArgument(element), "k");
@@ -215,7 +215,7 @@ describe("findSpreadProperty", () => {
   });
 
   it("does not infinite loop on circular aliases", () => {
-    const { context, element } = parseJsxElement(
+    const { context, element } = parseJSXElement(
       "const a = b; const b = a; <div {...a} />;",
     );
     expect(() => findSpreadProperty(context, getSpreadArgument(element), "k")).not.toThrow();
@@ -223,7 +223,7 @@ describe("findSpreadProperty", () => {
   });
 
   it("resolves a property reachable through two spread chains (diamond)", () => {
-    const { context, element } = parseJsxElement(
+    const { context, element } = parseJSXElement(
       "const inner = { k: 1 };"
         + "const left = { ...inner, l: 1 };"
         + "const right = { ...inner, r: 2 };"

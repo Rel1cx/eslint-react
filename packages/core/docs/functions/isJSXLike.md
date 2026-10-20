@@ -1,14 +1,14 @@
-[@eslint-react/core](../README.md) / isJsxLike
+[@eslint-react/core](../README.md) / isJSXLike
 
-# Function: isJsxLike()
+# Function: isJSXLike()
 
 ```ts
-function isJsxLike(context: RuleContext, node: Node | null, hint?: bigint): boolean;
+function isJSXLike(context: RuleContext, node: Node | null, hint?: bigint): boolean;
 ```
 
 Check if the node represents JSX-like content based on heuristics.
 
-The detection behavior is configurable through [JsxDetectionHint](../variables/JsxDetectionHint.md)
+The detection behavior is configurable through [JSXDetectionHint](../variables/JSXDetectionHint.md)
 bit-flags so that callers can opt individual value kinds in or out.
 
 Identifiers are resolved to their definitions via scope analysis;
@@ -32,9 +32,9 @@ Whether the node is considered JSX-like.
 ## Example
 
 ```ts
-import { isJsxLike } from "@eslint-react/core";
+import { isJSXLike } from "@eslint-react/core";
 
-if (isJsxLike(context, node)) {
+if (isJSXLike(context, node)) {
   // node looks like it evaluates to a React element
 }
 ```

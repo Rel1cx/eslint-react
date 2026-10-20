@@ -209,8 +209,8 @@ ruleTester.run(RULE_NAME, rule, {
       code: tsx`
         function MyComponent() {
           return (
-            <SomeJsx>
-              <SomeMoreJsx />
+            <SomeJSX>
+              <SomeMoreJSX />
 
               {(() => {
                 const filteredThings = things.filter(callback);
@@ -222,8 +222,8 @@ ruleTester.run(RULE_NAME, rule, {
                 return filteredThings.map((thing) => <Thing key={thing.id} data={thing} />);
               })()}
 
-              <SomeMoreJsx />
-            </SomeJsx>
+              <SomeMoreJSX />
+            </SomeJSX>
           );
         }
       `,
@@ -268,11 +268,11 @@ ruleTester.run(RULE_NAME, rule, {
           })();
 
           return (
-            <SomeJsx>
-              <SomeMoreJsx />
+            <SomeJSX>
+              <SomeMoreJSX />
               {someThings}
-              <SomeMoreJsx />
-            </SomeJsx>
+              <SomeMoreJSX />
+            </SomeJSX>
           );
         }
       `,
@@ -291,11 +291,11 @@ ruleTester.run(RULE_NAME, rule, {
           }, [things]);
 
           return (
-            <SomeJsx>
-              <SomeMoreJsx />
+            <SomeJSX>
+              <SomeMoreJSX />
               {someThings}
-              <SomeMoreJsx />
-            </SomeJsx>
+              <SomeMoreJSX />
+            </SomeJSX>
           );
         }
       `,
@@ -314,11 +314,11 @@ ruleTester.run(RULE_NAME, rule, {
           }, [things]);
 
           return (
-            <SomeJsx>
-              <SomeMoreJsx />
+            <SomeJSX>
+              <SomeMoreJSX />
               {thingsList}
-              <SomeMoreJsx />
-            </SomeJsx>
+              <SomeMoreJSX />
+            </SomeJSX>
           );
         }
       `,
@@ -337,11 +337,11 @@ ruleTester.run(RULE_NAME, rule, {
           })();
 
           return (
-            <SomeJsx>
-              <SomeMoreJsx />
+            <SomeJSX>
+              <SomeMoreJSX />
               {thingsList}
-              <SomeMoreJsx />
-            </SomeJsx>
+              <SomeMoreJSX />
+            </SomeJSX>
           );
         }
       `,
