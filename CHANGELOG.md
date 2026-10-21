@@ -1,5 +1,27 @@
 # Changelog
 
+## v5.28.4 (2026-10-21)
+
+### 🐞 Fixes
+
+- Reverted the component-scope-bounded identifier resolution introduced in v5.28.3, including the per-component single-report attribution; class declarations in a component body remain recognized as per-render constructions. (#2062)
+
+  Affected rules:
+  - `react-x/no-unstable-context-value`
+  - `react-x/no-unstable-default-props`
+
+### 📝 Documentation
+
+- Updated the AST Explorer links across the website docs and recipes.
+
+### 🏗️ Internal
+
+- `@eslint-react/var`: removed the `boundary` option from `resolve` and `resolveObjectType`, and the `ClassDeclaration` resolution in `resolveObjectType`, following the revert. (#2062)
+- Renamed the `Jsx`-prefixed `@eslint-react/core` exports to all-caps `JSX` (ex: `JsxConfig` → `JSXConfig`, `isJsxLike` → `isJSXLike`). (#2061)
+- Bumped `fumadocs-mdx` to `15.4.9`.
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.28.3...v5.28.4
+
 ## v5.28.3 (2026-10-20)
 
 ### ✨ New
