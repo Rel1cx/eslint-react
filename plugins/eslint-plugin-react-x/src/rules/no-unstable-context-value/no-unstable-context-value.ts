@@ -1,11 +1,12 @@
 import { createRule } from "@/utils/create-rule";
-import { Check } from "@eslint-react/ast";
+import { Check, type TSESTreeFunction, Traverse } from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, type RuleListener, merge } from "@eslint-react/eslint";
 import { getElementFullType, isAttribute } from "@eslint-react/jsx";
 import { getSettingsFromContext } from "@eslint-react/shared";
-import { resolveObjectType } from "@eslint-react/var";
-import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
+import { type ObjectType, resolveObjectType } from "@eslint-react/var";
+import { getOrInsertComputed } from "@local/eff";
+import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 import { compare } from "compare-versions";
 import { getHumanReadableKind, isContextName } from "./lib";
 
@@ -38,7 +39,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   if (compilationMode === "annotation" && context.sourceCode.ast.body.some((stmt) => Check.isDirective(stmt, "use memo"))) return {};
   const isReact18OrBelow = compare(version, "19.0.0", "<");
   const { api, visitor } = core.getFunctionComponentCollector(context);
-  const valueExpressions: TSESTree.Expression[] = [];
+  const constructions = new WeakMap<TSESTreeFunction, ObjectType[]>();
 
   return merge(
     visitor,
@@ -48,48 +49,36 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         const selfName = fullName.split(".").at(-1);
         if (selfName == null) return;
         if (!isContextName(selfName, isReact18OrBelow)) return;
+        const enclosingFunction = Traverse.findParent(node, Check.isFunction);
+        if (enclosingFunction == null) return;
+        if (compilationMode === "annotation" && core.isFunctionHasDirective(enclosingFunction, "use memo")) return;
         const attribute = node.attributes.findLast(isAttribute("value"));
         if (attribute?.value?.type !== AST.JSXExpressionContainer) return;
-        const { expression } = attribute.value;
-        if (expression.type === AST.JSXEmptyExpression) return;
-        // Defer resolution to `Program:exit` where the enclosing component is
-        // known and can serve as the resolution boundary.
-        valueExpressions.push(expression);
+        const valueExpression = attribute.value.expression;
+        const construction = resolveObjectType(context, valueExpression);
+        if (construction == null) return;
+        if (core.isHookCall(construction.node)) {
+          return;
+        }
+        getOrInsertComputed(constructions, enclosingFunction, () => []).push(construction);
       },
       "Program:exit"(program) {
-        // Innermost components first so each value expression is attributed to
-        // the closest enclosing component and reported only once.
-        const components = api
-          .getAllComponents(program)
-          .filter(({ directives }) =>
-            compilationMode !== "annotation"
-            || !directives.some((d) => d.directive === "use memo")
-          )
-          .map(({ node }) => node)
-          .sort((a, b) => (a.range[1] - a.range[0]) - (b.range[1] - b.range[0]));
-        for (const valueExpression of valueExpressions) {
-          const component = components.find((node) =>
-            node.range[0] <= valueExpression.range[0]
-            && valueExpression.range[1] <= node.range[1]
-          );
-          if (component == null) continue;
-          const construction = resolveObjectType(context, valueExpression, { boundary: component });
-          if (construction == null) continue;
-          if (core.isHookCall(construction.node)) {
-            continue;
+        for (const { directives, node: component } of api.getAllComponents(program)) {
+          if (compilationMode === "annotation" && directives.some((d) => d.directive === "use memo")) continue;
+          for (const construction of constructions.get(component) ?? []) {
+            const { kind, node: constructionNode } = construction;
+            const suggestion = kind === "function"
+              ? "Consider wrapping it in a useCallback hook."
+              : "Consider wrapping it in a useMemo hook.";
+            context.report({
+              data: {
+                kind: getHumanReadableKind(constructionNode),
+                suggestion,
+              },
+              messageId: "unstable-context-value",
+              node: constructionNode,
+            });
           }
-          const { kind, node: constructionNode } = construction;
-          const suggestion = kind === "function"
-            ? "Consider wrapping it in a useCallback hook."
-            : "Consider wrapping it in a useMemo hook.";
-          context.report({
-            data: {
-              kind: getHumanReadableKind(constructionNode),
-              suggestion,
-            },
-            messageId: "unstable-context-value",
-            node: constructionNode,
-          });
         }
       },
     },
