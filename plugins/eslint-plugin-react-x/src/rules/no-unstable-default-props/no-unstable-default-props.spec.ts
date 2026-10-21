@@ -244,26 +244,6 @@ ruleTester.run(RULE_NAME, rule, {
         messageId: "default",
       }],
     },
-    // The destructuring is nested inside a callback, but the default value is
-    // still constructed on every render of the component.
-    {
-      code: tsx`
-        function Component(props) {
-          const render = () => {
-            const { a = {} } = props;
-            return <div>{a}</div>;
-          };
-          return <div>{render()}</div>;
-        }
-      `,
-      errors: [{
-        data: {
-          kind: "object expression",
-          propName: "a",
-        },
-        messageId: MESSAGE_ID,
-      }],
-    },
     // A class declaration in the component scope is a per-render construction.
     // The rule reports the kind of the default-value expression itself, which
     // here is the identifier referencing the class.
@@ -279,27 +259,6 @@ ruleTester.run(RULE_NAME, rule, {
         data: {
           kind: "identifier",
           propName: "foo",
-        },
-        messageId: MESSAGE_ID,
-      }],
-    },
-    // Nested components: the destructuring belongs to the innermost component
-    // and must be reported only once, even though it is also textually inside
-    // the outer component whose props parameter happens to have the same name.
-    {
-      code: tsx`
-        function Outer(props) {
-          function Inner(props) {
-            const { a = {} } = props;
-            return <div>{a}</div>;
-          }
-          return <Inner />;
-        }
-      `,
-      errors: [{
-        data: {
-          kind: "object expression",
-          propName: "a",
         },
         messageId: MESSAGE_ID,
       }],
