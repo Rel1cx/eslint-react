@@ -33,6 +33,7 @@ title: Changelog
   Affected rules:
   - `react-x/no-unstable-context-value`
   - `react-x/no-unstable-default-props`
+
 - Class declarations (ex: `class Foo {}` in a component body) are now recognized as per-render constructions, so using one as a context value or default prop is now reported. (#2060)
 
   Affected rules:
@@ -152,6 +153,7 @@ title: Changelog
   - `react-x/no-set-state-in-component-did-mount`
   - `react-x/no-set-state-in-component-did-update`
   - `react-x/no-set-state-in-component-will-update`
+
 - Effect cleanups are now recognized when the `useEffect` call is nested in an outer `return` (ex: `return useEffect(() => () => { ... })`), so resources released there are no longer reported as leaked. (#2039)
 
   Affected rules:
@@ -230,6 +232,7 @@ title: Changelog
   - `react-naming-convention/context-name`
   - `react-naming-convention/id-name`
   - `react-naming-convention/ref-name`
+
 - The name lookup no longer crosses containers or derived values (ex: `const refs = [useRef(null)]`, `const n = useRef(0) + 1`), so such calls are no longer reported on the enclosing variable; sequence expressions check only the last value, and unresolvable computed keys (ex: `{ [key]: useRef(null) }`) no longer fall back to the outer variable. (#2030)
 
   Affected rules:
@@ -249,6 +252,7 @@ title: Changelog
   - `react-naming-convention/context-name`
   - `react-naming-convention/id-name`
   - `react-naming-convention/ref-name`
+
 - `react-naming-convention/ref-name`: immediate dereferences of the `useRef` result through TypeScript type wrappers (ex: `(useRef(null) as { current: null }).current`, `useRef(null)!.current`) are no longer reported, extending the #1375 fix. (#2028)
 
 **Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.26.2...v5.26.3
@@ -283,6 +287,7 @@ title: Changelog
   - `react-x/no-context-provider`
   - `react-x/no-forward-ref`
   - `react-x/no-use-context`
+
 - `react-x/immutability`: moved context-dependent helpers from `helpers.ts` into `origins.ts` and `effects.ts` to match the fact-based implementation pattern.
 - `react-x/globals`: moved `resolveToFunction` from `helpers.ts` to `origins.ts`.
 - Bumped `effect` to `4.0.3`, `tsl-dx` to `0.14.1`, `@tsconfig/node20` to `20.1.10`, and `@types/node` to `20.19.43`.
@@ -331,6 +336,7 @@ title: Changelog
   Affected rules:
   - `react-x/no-array-index-key`
   - `react-x/no-missing-key`
+
 - Bumped `effect` to `4.0.2`, `@effect/platform-node` to `4.0.2`, `nx` to `23.3.0`, `vite` to `8.3.4`, `lucide-react` to `1.53.0`, and `pnpm` to `12.10.1`.
 
 **Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.24.9...v5.24.10
@@ -404,6 +410,7 @@ title: Changelog
   - `react-x/no-create-ref`
   - `react-x/no-nested-lazy-component-declarations`
   - `react-x/use-state`
+
 - Bumped `effect` to `4.0.1`, `pnpm` to `12.9.1`, `fumadocs-core` and `fumadocs-ui` to `16.16.1`, `lucide-react` to `1.52.0`, `tsl-dx` to `0.14.0`, and `tinybench` to `6.2.0`. Thanks to @Rel1cx!
 
 **Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.24.4...v5.24.5
@@ -464,6 +471,7 @@ title: Changelog
   - `react-x/set-state-in-effect`
   - `react-x/set-state-in-render`
   - `react-x/use-memo`
+
 - `react-x/use-state`: aligned the nested-expression collectors' visitor keys to callee-first order, matching `eslint-visitor-keys`; no behavior change. (#1988)
 - Migrated package unit tests to the shared `@local/testkit` helpers. (#1987)
 - Renamed message ids to kebab-case across all plugins. (#1984)
@@ -655,6 +663,7 @@ title: Changelog
   - `react-web-api/no-leaked-event-listener`
   - `react-web-api/no-leaked-resize-observer`
   - `react-web-api/no-leaked-intersection-observer`
+
 - `@eslint-react/var`: `isAssignmentTargetEqual` no longer short-circuits same-name identifiers through structural equality; identifier pairs are compared with scope-aware value equality. (#1969)
 - `react-x/no-unused-class-component-members`: removed the manual class and method context stacks; the enclosing class and method are now resolved at the hit point with `Traverse.findParent` ancestor lookup, and the per-class member definition/usage maps are initialized lazily. (#1970)
 
@@ -1105,6 +1114,7 @@ title: Changelog
   - `react-web-api/no-leaked-fetch`
   - `react-x/globals`
   - `react-x/immutability`
+
 - `core.isJsxLike`: no longer treats `React['createElement']` calls as JSX-like, since the callee is accessed through a computed member expression.
 
 ### 🏗️ Internal
@@ -1397,6 +1407,7 @@ title: Changelog
   - `react-dom/no-void-elements-with-children`
   - `react-web-api/no-leaked-event-listener`
   - `react-web-api/no-leaked-fetch`
+
 - Fixed `react-x/unsupported-syntax` to no longer report IIFEs in JSX. This makes the rule consistent with the upstream [`react-hooks/unsupported-syntax`](https://react.dev/reference/eslint-plugin-react-hooks/lints/unsupported-syntax) and removes the `iife` message.
 
 ### ✨ New
