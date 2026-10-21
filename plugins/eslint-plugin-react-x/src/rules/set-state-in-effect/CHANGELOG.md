@@ -5,6 +5,13 @@ All notable changes to the `react-x/set-state-in-effect` rule will be documented
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+### Fixed
+
+- Call-site arguments of a helper invoked from the effect setup now map onto the parameters of a helper wrapped in `useCallback` as well (ex: `measure(ref.current)` where `measure = useCallback((el) => { setWidth(el.offsetWidth); }, [])`) — previously the mapping stopped at the hook call, so the ref-derived parameter exemption only applied to plain functions.
+- A helper call made behind a ref-derived guard in the setup (a ref-gated `if`, conditional expression, short-circuit operand, or early-return guard) now exempts the `setState` calls it reaches, as it would a `setState` call written in its place (ex: `if (!anchorRef.current) return; commitPosition(0, true);`). Each call site is judged on its own, so the same helper called before the guard stays reported, as does a plain value passed through a helper's parameter outside any guard (ex: `commitPosition(0, false)` in an `!isOpen` branch).
+
 ## [5.26.5] - 2026-10-13
 
 ### Fixed

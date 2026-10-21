@@ -135,14 +135,26 @@ export function inferViolations(context: RuleContext, facts: SetStateInEffectFac
     return args0 != null && isArgumentUsingRefValue(context, args0, refParams);
   };
 
+  // The function whose parameters a helper call's arguments land in: the
+  // helper itself, or the callback of the `useCallback` wrapping it
+  // (ex: `const measure = useCallback((el) => ..., [])`)
+  const getHelperFunction = (callee: TSESTree.Identifier): TSESTreeFunction | null => {
+    const origin = resolveOrigin(context, callee);
+    if (Check.isFunction(origin)) return origin;
+    if (!core.isUseCallbackCall(context, origin)) return null;
+    const callback = origin.arguments.at(0);
+    if (callback == null || callback.type === AST.SpreadElement) return null;
+    const unwrapped = Extract.unwrap(callback);
+    return Check.isFunction(unwrapped) ? unwrapped : null;
+  };
+
   // A helper invoked from the setup receives its values through parameters:
   // when the call-site argument is ref-derived, the corresponding parameter is
   // treated as ref-derived inside the helper regardless of its name
   // (ex: `updateEdges(ref.current)` where `updateEdges = (el) => ...`)
   const getRefDerivedParams = (call: TSESTree.CallExpression, callee: TSESTree.Identifier) => {
-    const origin = resolveOrigin(context, callee);
+    const origin = getHelperFunction(callee);
     if (origin == null) return undefined;
-    if (!Check.isFunction(origin)) return undefined;
     const refParams = new Set<TSESTree.Node>();
     origin.params.forEach((param, index) => {
       // Resolve the parameter identifier, including defaulted parameters
@@ -195,6 +207,10 @@ export function inferViolations(context: RuleContext, facts: SetStateInEffectFac
     if (!Check.isIdentifier(unwrappedCallee)) {
       continue;
     }
+    // A helper call behind a ref-derived guard is gated the same way a
+    // setState call written in its place would be
+    // (ex: `if (!anchorRef.current) return; commitPosition(0, true);`)
+    if (isRefGatedContext(context, trackedCall)) continue;
     const refParams = getRefDerivedParams(trackedCall, unwrappedCallee);
     for (const setStateCall of getSetStateCalls(unwrappedCallee)) {
       if (isExemptSetStateCall(setStateCall, refParams)) continue;
