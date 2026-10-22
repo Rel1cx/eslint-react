@@ -1124,10 +1124,10 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [{ messageId: "default" }],
     },
-    // FIXME false positive: the setState arguments are parameters of a helper that the
-    // setup only ever feeds with DOM measurements, but the rule cannot map call-site
-    // arguments to parameter positions (and here some call sites also pass literals).
-    // Should become valid once call-site-sensitive argument mapping is supported.
+    // Each call of a helper is judged by its own call site, as if its setState
+    // calls were written there: the calls behind the `listboxRef`/`anchorRef`
+    // guard are ref-gated and the measured offset is ref-derived, so only the
+    // `!isOpen` reset is reported, as `setOffset(0)` would be if written inline.
     // Distilled from facebook/astryx packages/core/src/Selector/hooks.ts (commitPosition).
     {
       name: "setState with measurement values passed through a helper's parameters",
@@ -1162,18 +1162,15 @@ ruleTester.run(RULE_NAME, rule, {
           return { offset, isPositioned };
         }
       `,
-      // Reported once per call site in the setup, for each setState in the helper
       errors: [
-        { messageId: "default" },
-        { messageId: "default" },
-        { messageId: "default" },
-        { messageId: "default" },
-        { messageId: "default" },
-        { messageId: "default" },
+        { data: { name: "setOffset" }, messageId: "default" },
+        { data: { name: "setIsPositioned" }, messageId: "default" },
       ],
     },
-    // FIXME false positive: same parameter-mediation limitation with a single call site.
-    // Should become valid once call-site-sensitive argument mapping is supported.
+    // A literal passed through a helper's parameter is still a literal: this is
+    // `setSettledLayoutOffset(Math.max(0, 42))` in the setup, which is reported
+    // inline too. (In the source, this call is a reopen reset that sits next to
+    // inline resets already suppressed for this rule.)
     // Distilled from facebook/astryx packages/core/src/BottomSheet/useSheetGestures.ts
     // (recordSettledLayoutOffset).
     {
@@ -1832,28 +1829,51 @@ ruleTester.run(RULE_NAME, rule, {
         { data: { name: "setAtTop" }, messageId: "default" },
       ],
     },
-    // One-hop boundary: a helper wrapped in useCallback resolves to the hook
-    // call, whose parameters are not the callback's parameters, so call-site
-    // arguments are not mapped.
+    // Call-site arguments map onto a useCallback-wrapped helper's parameters
+    // too, so a plain argument still reaches setState as a plain value
     {
-      name: "setState in a useCallback-wrapped helper fed ref.current",
+      name: "setState in a useCallback-wrapped helper fed a plain argument",
       code: tsx`
-        import { useCallback, useEffect, useRef, useState } from "react";
+        import { useCallback, useEffect, useState } from "react";
 
         function Component() {
-          const scrollRef = useRef(null);
           const [width, setWidth] = useState(0);
           const measure = useCallback((el) => {
             setWidth(el.offsetWidth);
           }, []);
           useEffect(() => {
-            measure(scrollRef.current);
+            measure(document.body);
           }, []);
           return null;
         }
       `,
       errors: [
         { data: { name: "setWidth" }, messageId: "default" },
+      ],
+    },
+    // Only the helper call behind the ref guard is gated; the one before it
+    // runs unconditionally
+    {
+      name: "setState in a helper called both before and behind a ref guard",
+      code: tsx`
+        import { useEffect, useRef, useState } from "react";
+
+        function Component() {
+          const ref = useRef(null);
+          const [count, setCount] = useState(0);
+          const reset = () => {
+            setCount(0);
+          };
+          useEffect(() => {
+            reset();
+            if (!ref.current) return;
+            reset();
+          }, []);
+          return null;
+        }
+      `,
+      errors: [
+        { data: { name: "setCount" }, messageId: "default" },
       ],
     },
     // The param-rooted `.current` heuristic applies to parameters only; a
@@ -3682,6 +3702,84 @@ ruleTester.run(RULE_NAME, rule, {
             updateEdges(scrollRef.current);
           }, []);
           return null;
+        }
+      `,
+    },
+    // The mapping reaches through useCallback to the wrapped callback's
+    // parameters
+    {
+      name: "setState in a useCallback-wrapped helper fed ref.current",
+      code: tsx`
+        import { useCallback, useEffect, useRef, useState } from "react";
+
+        function Component() {
+          const scrollRef = useRef(null);
+          const [width, setWidth] = useState(0);
+          const measure = useCallback((el) => {
+            setWidth(el.offsetWidth);
+          }, []);
+          useEffect(() => {
+            measure(scrollRef.current);
+          }, []);
+          return null;
+        }
+      `,
+    },
+    {
+      name: "setState in a useCallback-wrapped function expression fed ref.current",
+      code: tsx`
+        import { useCallback, useEffect, useRef, useState } from "react";
+
+        function Component() {
+          const scrollRef = useRef(null);
+          const [width, setWidth] = useState(0);
+          const measure = useCallback(function (el) {
+            setWidth(el.offsetWidth);
+          }, []);
+          useEffect(() => {
+            measure(scrollRef.current);
+          }, []);
+          return null;
+        }
+      `,
+    },
+    // A helper call made where a setState call would be ref-gated is gated
+    // the same way, whatever it passes
+    {
+      name: "setState in a helper called inside a ref-gated if statement",
+      code: tsx`
+        import { useEffect, useRef, useState } from "react";
+
+        function Component() {
+          const ref = useRef(null);
+          const [count, setCount] = useState(0);
+          const reset = () => {
+            setCount(0);
+          };
+          useEffect(() => {
+            if (ref.current) {
+              reset();
+            }
+          }, []);
+          return null;
+        }
+      `,
+    },
+    {
+      name: "setState in a useCallback-wrapped helper called behind an early-return ref guard",
+      code: tsx`
+        import { useCallback, useLayoutEffect, useState } from "react";
+
+        function useOffset({ anchorRef }) {
+          const [offset, setOffset] = useState(0);
+          const commit = useCallback((next) => {
+            setOffset(next);
+          }, []);
+          useLayoutEffect(() => {
+            if (!anchorRef.current) return;
+            commit(0);
+          }, [commit]);
+          return offset;
         }
       `,
     },
