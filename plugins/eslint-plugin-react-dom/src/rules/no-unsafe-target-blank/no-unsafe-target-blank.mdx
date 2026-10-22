@@ -1,6 +1,6 @@
 ---
 title: no-unsafe-target-blank
-description: Disallows 'target="_blank"' without 'rel="noreferrer noopener"'.
+description: Disallows 'target="_blank"' without 'rel="noreferrer"'.
 ---
 
 **Full Name in `eslint-plugin-react-dom`**
@@ -27,7 +27,7 @@ react-dom/no-unsafe-target-blank
 
 ## Rule Details
 
-When using `target="_blank"` on links without `rel="noreferrer noopener"`, the opened page could historically access the `window.opener` property of the original page, a security vulnerability known as tabnabbing. Modern browsers (Chrome 88+, Firefox 79+, Safari 12.1+) now implicitly treat `target="_blank"` as `rel="noopener"`, so `window.opener` is no longer accessible. Explicitly adding `rel="noreferrer"` is still recommended: it covers older browsers and also hides the `Referer` header from the linked page, which improves privacy.
+When using `target="_blank"` on links without `rel="noreferrer"`, the opened page could historically access the `window.opener` property of the original page, a security vulnerability known as tabnabbing. Modern browsers (Chrome 88+, Firefox 79+, Safari 12.1+) now implicitly treat `target="_blank"` as `rel="noopener"`, so `window.opener` is no longer accessible. Explicitly adding `rel="noreferrer"` is still recommended: per the HTML spec it implies `noopener`, and it also hides the `Referer` header from the linked page, which improves privacy.
 
 ## Examples
 
@@ -48,8 +48,8 @@ function MyComponent() {
 ```tsx
 function MyComponent() {
   return (
-    // 🟢 Recommended: Always add rel="noreferrer noopener" when using target="_blank"
-    <a href="https://eslint-react.xyz" target="_blank" rel="noreferrer noopener">
+    // 🟢 Recommended: Always add rel="noreferrer" when using target="_blank"
+    <a href="https://eslint-react.xyz" target="_blank" rel="noreferrer">
       Example
     </a>
   );
@@ -68,7 +68,7 @@ type Options = {
 
 #### `allowReferrer`
 
-When set to `true`, `rel="noopener"` alone is accepted and the suggested fix adds `rel="noopener"` instead of `rel="noreferrer noopener"`. This preserves the `Referer` header while still requiring an explicit token that prevents tabnabbing.
+When set to `true`, `rel="noopener"` alone is accepted and the suggested fix adds `rel="noopener"` instead of `rel="noreferrer"`. This preserves the `Referer` header while still requiring an explicit token that prevents tabnabbing.
 
 Default: `false`
 
