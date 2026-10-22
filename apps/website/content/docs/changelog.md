@@ -6,8 +6,12 @@ title: Changelog
 
 ### 🐞 Fixes
 
-- `react-x/set-state-in-effect`: the ref-derived parameter exemption now also applies to helpers wrapped in `useCallback` (ex: `measure(ref.current)` where `measure = useCallback((el) => { setWidth(el.offsetWidth); }, [])`). (#2065)
-- `react-x/set-state-in-effect`: a helper call behind a ref-derived guard (`if`, ternary, short-circuit, or early return) now exempts the `setState` calls it reaches, as a `setState` written in its place would be (ex: `if (!anchorRef.current) return; commitPosition(0, true);`); call sites are judged individually. (#2065)
+- `react-x/set-state-in-effect`: the ref-derived parameter exemption now also applies to helpers wrapped in `useCallback` (ex: `measure(ref.current)` where `measure = useCallback((el) => { setWidth(el.offsetWidth); }, [])`). (#2065) Thanks to @amhunt!
+- `react-x/set-state-in-effect`: a helper call behind a ref-derived guard (`if`, ternary, short-circuit, or early return) now exempts the `setState` calls it reaches, as a `setState` written in its place would be (ex: `if (!anchorRef.current) return; commitPosition(0, true);`); call sites are judged individually. (#2065) Thanks to @amhunt!
+
+### New Contributors
+
+- **Andrew Hunt** (@amhunt) made their first contribution in #2065.
 
 **Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.28.5...v5.28.6
 
