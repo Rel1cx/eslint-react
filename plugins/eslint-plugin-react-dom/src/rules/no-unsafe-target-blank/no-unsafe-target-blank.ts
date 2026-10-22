@@ -49,7 +49,7 @@ export default createRule<Options, MessageID>({
     type: "problem",
     defaultOptions: [...defaultOptions],
     docs: {
-      description: "Disallows 'target=\"_blank\"' without 'rel=\"noreferrer noopener\"'.",
+      description: "Disallows 'target=\"_blank\"' without 'rel=\"noreferrer\"'.",
     },
     fixable: "code",
     hasSuggestions: true,
@@ -67,7 +67,7 @@ export function create(context: RuleContext<MessageID, Options>): RuleListener {
   const { allowReferrer = false } = context.options[0] ?? defaultOptions[0];
   const resolver = createJSXElementResolver(context);
 
-  const requiredRelValue = allowReferrer ? "noopener" : "noreferrer noopener";
+  const requiredRelValue = allowReferrer ? "noopener" : "noreferrer";
   const requiredRelAttribute = `rel="${requiredRelValue}"`;
 
   function buildSuggest(fix: ReportFixFunction): ReportDescriptor<MessageID>["suggest"] & {} {

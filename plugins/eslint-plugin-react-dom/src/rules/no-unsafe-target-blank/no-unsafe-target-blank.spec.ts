@@ -13,8 +13,8 @@ ruleTester.run(RULE_NAME, rule, {
           suggestions: [
             {
               messageId: "suggest",
-              data: { rel: 'rel="noreferrer noopener"' },
-              output: '<a rel="noreferrer noopener" href="https://react.dev" target="_blank"></a>',
+              data: { rel: 'rel="noreferrer"' },
+              output: '<a rel="noreferrer" href="https://react.dev" target="_blank"></a>',
             },
           ],
         },
@@ -29,8 +29,8 @@ ruleTester.run(RULE_NAME, rule, {
           suggestions: [
             {
               messageId: "suggest",
-              data: { rel: 'rel="noreferrer noopener"' },
-              output: '<a rel="noreferrer noopener" href="mailto:user@example.com" target="_blank"></a>',
+              data: { rel: 'rel="noreferrer"' },
+              output: '<a rel="noreferrer" href="mailto:user@example.com" target="_blank"></a>',
             },
           ],
         },
@@ -44,8 +44,8 @@ ruleTester.run(RULE_NAME, rule, {
           suggestions: [
             {
               messageId: "suggest",
-              data: { rel: 'rel="noreferrer noopener"' },
-              output: '<a rel="noreferrer noopener" href="ftp://example.com/file" target="_blank"></a>',
+              data: { rel: 'rel="noreferrer"' },
+              output: '<a rel="noreferrer" href="ftp://example.com/file" target="_blank"></a>',
             },
           ],
         },
@@ -60,8 +60,8 @@ ruleTester.run(RULE_NAME, rule, {
           suggestions: [
             {
               messageId: "suggest",
-              data: { rel: 'rel="noreferrer noopener"' },
-              output: '<a rel="noreferrer noopener" href="tel:+1234567890" target="_blank"></a>',
+              data: { rel: 'rel="noreferrer"' },
+              output: '<a rel="noreferrer" href="tel:+1234567890" target="_blank"></a>',
             },
           ],
         },
@@ -75,8 +75,8 @@ ruleTester.run(RULE_NAME, rule, {
           suggestions: [
             {
               messageId: "suggest",
-              data: { rel: 'rel="noreferrer noopener"' },
-              output: '<a rel="noreferrer noopener" href="https://react.dev" target={"_blank"}></a>',
+              data: { rel: 'rel="noreferrer"' },
+              output: '<a rel="noreferrer" href="https://react.dev" target={"_blank"}></a>',
             },
           ],
         },
@@ -90,8 +90,8 @@ ruleTester.run(RULE_NAME, rule, {
           suggestions: [
             {
               messageId: "suggest",
-              data: { rel: 'rel="noreferrer noopener"' },
-              output: '<a href="https://react.dev" target="_blank" rel="noreferrer noopener"></a>',
+              data: { rel: 'rel="noreferrer"' },
+              output: '<a href="https://react.dev" target="_blank" rel="noreferrer"></a>',
             },
           ],
         },
@@ -106,8 +106,8 @@ ruleTester.run(RULE_NAME, rule, {
           suggestions: [
             {
               messageId: "suggest",
-              data: { rel: 'rel="noreferrer noopener"' },
-              output: '<a href="https://react.dev" target="_blank" rel="noreferrer noopener"></a>',
+              data: { rel: 'rel="noreferrer"' },
+              output: '<a href="https://react.dev" target="_blank" rel="noreferrer"></a>',
             },
           ],
         },
@@ -122,8 +122,8 @@ ruleTester.run(RULE_NAME, rule, {
           suggestions: [
             {
               messageId: "suggest",
-              data: { rel: 'rel="noreferrer noopener"' },
-              output: '<a href="https://react.dev" target="_blank" rel="noreferrer noopener"></a>',
+              data: { rel: 'rel="noreferrer"' },
+              output: '<a href="https://react.dev" target="_blank" rel="noreferrer"></a>',
             },
           ],
         },
@@ -140,10 +140,10 @@ ruleTester.run(RULE_NAME, rule, {
           suggestions: [
             {
               messageId: "suggest",
-              data: { rel: 'rel="noreferrer noopener"' },
+              data: { rel: 'rel="noreferrer"' },
               output: tsx`
                 const props = { href: "https://react.dev", target: "_blank" };
-                const a = <a rel="noreferrer noopener" {...props}></a>;
+                const a = <a rel="noreferrer" {...props}></a>;
               `,
             },
           ],
@@ -158,8 +158,8 @@ ruleTester.run(RULE_NAME, rule, {
           suggestions: [
             {
               messageId: "suggest",
-              data: { rel: 'rel="noreferrer noopener"' },
-              output: '<PolyComponent rel="noreferrer noopener" as="a" href="https://react.dev" target="_blank"></PolyComponent>',
+              data: { rel: 'rel="noreferrer"' },
+              output: '<PolyComponent rel="noreferrer" as="a" href="https://react.dev" target="_blank"></PolyComponent>',
             },
           ],
         },
@@ -178,8 +178,8 @@ ruleTester.run(RULE_NAME, rule, {
           suggestions: [
             {
               messageId: "suggest",
-              data: { rel: 'rel="noreferrer noopener"' },
-              output: '<PolyComponent rel="noreferrer noopener" component="a" href="https://react.dev" target="_blank"></PolyComponent>',
+              data: { rel: 'rel="noreferrer"' },
+              output: '<PolyComponent rel="noreferrer" component="a" href="https://react.dev" target="_blank"></PolyComponent>',
             },
           ],
         },
@@ -202,10 +202,10 @@ ruleTester.run(RULE_NAME, rule, {
           suggestions: [
             {
               messageId: "suggest",
-              data: { rel: 'rel="noreferrer noopener"' },
+              data: { rel: 'rel="noreferrer"' },
               output: tsx`
                 const props = { as: "a" };
-                <Box rel="noreferrer noopener" {...props} href="https://react.dev" target="_blank"></Box>;
+                <Box rel="noreferrer" {...props} href="https://react.dev" target="_blank"></Box>;
               `,
             },
           ],
@@ -221,8 +221,8 @@ ruleTester.run(RULE_NAME, rule, {
           suggestions: [
             {
               messageId: "suggest",
-              data: { rel: 'rel="noreferrer noopener"' },
-              output: '<motion.div rel="noreferrer noopener" as="a" href="https://react.dev" target="_blank"></motion.div>',
+              data: { rel: 'rel="noreferrer"' },
+              output: '<motion.div rel="noreferrer" as="a" href="https://react.dev" target="_blank"></motion.div>',
             },
           ],
         },
@@ -242,8 +242,8 @@ ruleTester.run(RULE_NAME, rule, {
           suggestions: [
             {
               messageId: "suggest",
-              data: { rel: 'rel="noreferrer noopener"' },
-              output: '<PolyComponent rel="noreferrer noopener" as="A" href="https://react.dev" target="_blank"></PolyComponent>',
+              data: { rel: 'rel="noreferrer"' },
+              output: '<PolyComponent rel="noreferrer" as="A" href="https://react.dev" target="_blank"></PolyComponent>',
             },
           ],
         },
@@ -263,8 +263,8 @@ ruleTester.run(RULE_NAME, rule, {
           suggestions: [
             {
               messageId: "suggest",
-              data: { rel: 'rel="noreferrer noopener"' },
-              output: '<a href="https://react.dev" target="_blank" rel="noreferrer noopener"></a>',
+              data: { rel: 'rel="noreferrer"' },
+              output: '<a href="https://react.dev" target="_blank" rel="noreferrer"></a>',
             },
           ],
         },
@@ -316,7 +316,7 @@ ruleTester.run(RULE_NAME, rule, {
     //       suggestions: [
     //         {
     //           messageId: "suggest",
-    //           output: '<Link href="https://react.dev" target="_blank" rel="noreferrer noopener"></Link>',
+    //           output: '<Link href="https://react.dev" target="_blank" rel="noreferrer"></Link>',
     //         },
     //       ],
     //     },
@@ -344,7 +344,7 @@ ruleTester.run(RULE_NAME, rule, {
     //         {
     //           messageId: "suggest",
     //           output: tsx`
-    //             const a = <a rel="noreferrer noopener" href="https://react.dev" target="_blank"></a>;
+    //             const a = <a rel="noreferrer" href="https://react.dev" target="_blank"></a>;
     //             const b = <Link to="https://react.dev" target="_blank"></Link>;
     //           `,
     //         },
@@ -384,7 +384,7 @@ ruleTester.run(RULE_NAME, rule, {
     //         {
     //           messageId: "suggest",
     //           output: tsx`
-    //             const a = <Link rel="noreferrer noopener" href="https://react.dev" target="_blank"></Link>;
+    //             const a = <Link rel="noreferrer" href="https://react.dev" target="_blank"></Link>;
     //             const b = <LinkButton href="https://react.dev" target="_blank" relation="noopener"></LinkButton>;
     //           `,
     //         },
@@ -485,7 +485,7 @@ ruleTester.run(RULE_NAME, rule, {
     //         {
     //           messageId: "suggest",
     //           output: tsx`
-    //             const a = <Link rel="noreferrer noopener" href="https://react.dev"></Link>;
+    //             const a = <Link rel="noreferrer" href="https://react.dev"></Link>;
     //           `,
     //         },
     //       ],
