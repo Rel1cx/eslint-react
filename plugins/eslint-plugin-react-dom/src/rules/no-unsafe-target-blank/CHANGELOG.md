@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- The suggested fix now adds `rel="noreferrer"` instead of `rel="noreferrer noopener"`, since `noreferrer` already implies `noopener` per the HTML spec. Values combining both tokens remain valid. Closes #2067.
+
 ## [5.25.0] - 2026-10-11
 
 ### Added

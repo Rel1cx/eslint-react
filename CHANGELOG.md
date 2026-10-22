@@ -1,5 +1,18 @@
 # Changelog
 
+## v5.28.5 (2026-10-22)
+
+### ✨ New
+
+- `react-dom/no-unsafe-target-blank`: the suggested fix now adds `rel="noreferrer"` instead of `rel="noreferrer noopener"`, since `noreferrer` already implies `noopener` per the HTML spec; values combining both tokens remain valid. (#2068)
+
+### 🏗️ Internal
+
+- Removed redundant transitive dependency overrides. (#2064)
+- Bumped `vite` to `8.3.5` and `lucide-react` to `1.61.0`.
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.28.4...v5.28.5
+
 ## v5.28.4 (2026-10-21)
 
 ### 🐞 Fixes
