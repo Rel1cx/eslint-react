@@ -92,7 +92,7 @@ function App() {
 
 ### Non-rendering operations
 
-Try/catch is perfectly valid for synchronous operations like `JSON.parse`, `localStorage` access, or data transformations that happen before JSX is returned. It is also valid inside event handlers and effects. The rule only flags try/catch blocks that wrap JSX return statements or `use` hook calls inside component functions.
+Try/catch is perfectly valid for synchronous operations like `JSON.parse`, `localStorage` access, or data transformations that happen before JSX is returned. It is also valid inside event handlers and effects. The rule only flags try/catch blocks inside a component or hook whose `try` block returns JSX, creates JSX outside a function nested in it, or calls the `use` hook.
 
 ```tsx
 // 🔵 OK: Synchronous data processing
