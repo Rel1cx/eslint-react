@@ -7,7 +7,7 @@
 - **Implementation commit**: `cdad818d0c2e5d5006769950cdeca71717c52950`
 - **React commit**: `7c6ac13e19fef500b7f669a16bbd01ecc95965ca`
 - **Last verified**: `2026-10-12`
-- **Recent implementation changes**: `c02e9cd8dda91049391e733f2bb13f4367cddc99` added `Traverse.hasParent` and `Traverse.hasEnclosingTryBlock` shortcuts; this is a behavior-preserving API addition and does not affect the reported limitations.
+- **Recent implementation changes**: `c02e9cd8dda91049391e733f2bb13f4367cddc99` added `Traverse.hasParent` and `Traverse.hasEnclosingTryBlock` shortcuts; this is a behavior-preserving API addition and does not affect the reported limitations. The rule now also checks every `JSXElement` / `JSXFragment` created in a try body of a collected component or hook, which closes the variable-assignment gap (#1760).
 - **React package**: `compiler/packages/babel-plugin-react-compiler`
 - **Implementation sources/tests**:
   - `error-boundaries.ts`
@@ -26,11 +26,11 @@
 
 **Source — React pass.** `validateNoJSXInTryStatement(fn)` iterates `fn.body.blocks`, maintains an `activeTryBlocks` stack, and reports every `JsxExpression` or `JsxFragment` instruction encountered while that stack is non-empty. The pass is only run when `outputMode` is `'lint'` (facebook/react#35216).
 
-**Source — IMPL.** The rule collects function components and hooks, then checks JSX-like values from their collected `rets`. It does not visit every JSX creation site. Separately, it collects `use()` calls and reports those that are in a matching try body belonging to a collected component or hook.
+**Source — IMPL.** The rule collects function components and hooks, then checks two JSX candidate sets: JSX-like values from their collected `rets`, and every `JSXElement` / `JSXFragment` node whose nearest enclosing function is a collected component or hook. Separately, it collects `use()` calls and reports those that are in a matching try body belonging to a collected component or hook.
 
-**Fixture.** React's `invalid-jsx-in-try-with-catch.js` assigns `<div />` to a variable inside a try body. This is an explicit compiler error case; it is not the return-value shape inspected by the IMPL.
+**Fixture.** React's `invalid-jsx-in-try-with-catch.js` assigns `<div />` to a variable inside a try body, and `invalid-jsx-in-catch-in-outer-try-with-catch.js` assigns JSX in an inner catch inside an outer try. Both are covered by IMPL invalid tests.
 
-**Inference.** The IMPL's JSX candidate set is narrower than the pass's instruction-level JSX scan. The IMPL also adds `try-catch-with-use`, which has no counterpart in this React pass.
+**Inference.** For a function the collectors detect, the IMPL's JSX node scan covers the pass's instruction-level `JsxExpression` / `JsxFragment` scan, with one report per `TryStatement` instead of one per JSX instruction. The collectors are narrower than the compiler's component detection: a function such as `let el; try { el = <div /> } catch {} return el;` is not collected, so it is not reported. JSX in a `useMemo` callback is not covered either (see §3). The IMPL's candidate set is wider in one direction: through `rets`, a JSX-like value returned from a try body is reported even when the JSX was created outside the try. The IMPL also adds `try-catch-with-use`, which has no counterpart in this React pass.
 
 ## 2. Try ancestry, catch, and finally
 
@@ -54,13 +54,13 @@ The IMPL's remaining `Traverse.findParent` use checks whether a matched `use()` 
 
 ## 3. Function scope and nested callbacks
 
-**Source — IMPL.** The rule's JSX checks are driven by `rets` supplied by the function-component and hook collectors, rather than by a recursive scan of all nested function bodies.
+**Source — IMPL.** The JSX node scan reports a JSX node only when its nearest enclosing function is a collected component or hook and the matched `TryStatement` belongs to that same function. JSX inside a callback or function declaration defined in a try body is therefore not reported. The `rets` check has no such boundary: a nested function that is itself collected as a component (for example `Inner = () => <div />` assigned inside the outer component's try body) is reported against the outer try.
 
-**Source — React pass.** One invocation scans only the blocks of the supplied `HIRFunction`; this pass does not recursively traverse lowered nested functions.
+**Source — React pass.** One invocation scans only the blocks of the supplied `HIRFunction`; this pass does not recursively traverse lowered nested functions. `Entrypoint/Pipeline.ts` calls it once, on the top-level `hir`, after the earlier passes have lowered it. JSX created in a `useMemo` callback inside a try body is reported by the compiler and not by the IMPL; an immediately invoked arrow in the same position is reported by neither (checked with `eslint-plugin-react-hooks` 7.1.1).
 
 **Fixture boundary.** The reviewed React fixtures cover try/catch, catch inside an outer try, and the two finally TODOs. None contains a nested callback.
 
-**Inference boundary.** Current pass source and fixtures do not prove how the compiler pipeline handles JSX inside a nested callback. In particular, this report does not assert that the compiler must report such a case; that would require pipeline/lowering evidence or a dedicated fixture.
+**Inference boundary.** Apart from `useMemo` callbacks, current pass source and fixtures do not prove how the compiler pipeline handles JSX inside a nested callback. In particular, this report does not assert that the compiler must report such a case; that would require pipeline/lowering evidence or a dedicated fixture.
 
 ## 4. Message mapping
 

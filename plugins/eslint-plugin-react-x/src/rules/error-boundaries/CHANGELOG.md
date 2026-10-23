@@ -5,6 +5,12 @@ All notable changes to the `react-x/error-boundaries` rule will be documented in
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+### Fixed
+
+- JSX created in the `try` block of a component or hook is now reported even when it is not returned from that block (ex: `let el; try { el = <div />; } catch { return null; } return el;`), matching React Compiler's `ValidateNoJSXInTryStatement`. JSX inside a callback or helper function nested in the `try` block is still allowed. Closes #1760.
+
 ## [5.6.0] - 2026-04-29
 
 ### Fixed

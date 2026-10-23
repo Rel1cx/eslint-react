@@ -1,5 +1,5 @@
 import { createRule } from "@/utils/create-rule";
-import { Traverse } from "@eslint-react/ast";
+import { Check, Traverse } from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, type RuleListener, merge } from "@eslint-react/eslint";
 import { type TSESTree } from "@typescript-eslint/types";
@@ -47,11 +47,18 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   // Track already-reported nodes to avoid duplicate reports
   const reported = new Set<TSESTree.TryStatement>();
   const useCalls = new Set<TSESTree.CallExpression>();
+  const jsxs = new Set<TSESTree.JSXElement | TSESTree.JSXFragment>();
 
   return merge(
     fc.visitor,
     hc.visitor,
     {
+      JSXElement(node) {
+        jsxs.add(node);
+      },
+      JSXFragment(node) {
+        jsxs.add(node);
+      },
       CallExpression(node) {
         if (!core.isUseCall(context, node)) return;
         useCalls.add(node);
@@ -84,6 +91,23 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
               });
               reported.add(stmt);
             }
+          }
+        }
+        for (const jsx of jsxs) {
+          const stmt = Traverse.findEnclosingTryBlock(jsx);
+          // Only JSX created by the component or hook itself, not by functions nested in it
+          const func = Traverse.findParent(jsx, Check.isFunction);
+          if (
+            stmt != null
+            && !reported.has(stmt)
+            && Traverse.findParent(stmt, Check.isFunction) === func
+            && funcs.some((f) => f.node === func)
+          ) {
+            context.report({
+              messageId: "try-catch-with-jsx",
+              node: stmt,
+            });
+            reported.add(stmt);
           }
         }
       },
