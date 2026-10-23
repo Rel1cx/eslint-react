@@ -1,5 +1,3 @@
-import { Check, Extract } from "@eslint-react/ast";
-import * as core from "@eslint-react/core";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import { simpleTraverse } from "@typescript-eslint/typescript-estree";
 
@@ -56,34 +54,6 @@ export function getNestedIdentifiers(node: TSESTree.Node): readonly TSESTree.Ide
 }
 
 /**
- * Check if a node is a variable declarator whose initializer is a hook call
- * (ex: `const f = useCallback(...)`)
- * @param node The node to check
- * @returns `true` if the node declares a variable initialized by a hook call
- */
-export function isHookDecl(node: TSESTree.Node): node is TSESTree.VariableDeclarator & { init: TSESTree.CallExpression } {
-  if (node.type !== AST.VariableDeclarator) return false;
-  if (!Check.isIdentifier(node.id)) return false;
-  const init = node.init;
-  if (init == null) return false;
-  if (init.type !== AST.CallExpression) return false;
-  const name = Extract.getCalleeName(init);
-  return name != null && core.isHookName(name);
-}
-
-/**
- * Check if a call expression is a `.then(...)` call
- * (ex: `fetch(url).then(...)`)
- * @param node The call expression to check
- * @returns `true` if the call is a `.then` call
- */
-export function isThenCall(node: TSESTree.CallExpression) {
-  const callee = Extract.unwrap(node.callee);
-  return callee.type === AST.MemberExpression
-    && Extract.getCalleeName(node) === "then";
-}
-
-/**
  * Check if a statement terminates the control flow of its block
  * (a `return`/`throw`, or a block containing one)
  * @param node The node to check
@@ -93,30 +63,4 @@ export function isTerminatingStatement(node: TSESTree.Node): boolean {
   if (node.type === AST.ReturnStatement || node.type === AST.ThrowStatement) return true;
   if (node.type === AST.BlockStatement) return node.body.some(isTerminatingStatement);
   return false;
-}
-
-/**
- * Get the display name of a setState call reference for reporting.
- * @param node The setState call node (CallExpression or Identifier)
- * @param getText The source text getter
- * @returns The fully qualified name of the call
- */
-export function getCallName(node: TSESTree.CallExpression | TSESTree.Identifier, getText: (node: TSESTree.Node) => string) {
-  if (node.type === AST.CallExpression) {
-    return Extract.getFullyQualifiedName(node.callee, getText);
-  }
-  return Extract.getFullyQualifiedName(node, getText);
-}
-
-/**
- * Get the actual CallExpression node from a setState call reference.
- * When the node is an Identifier that is the callee of a CallExpression,
- * returns the parent CallExpression; otherwise returns the node itself.
- * @param node The setState call node (CallExpression or Identifier)
- * @returns The actual CallExpression node, or the node itself if it is not the callee of a CallExpression
- */
-export function getSetStateCallExpression(node: TSESTree.CallExpression | TSESTree.Identifier): TSESTree.CallExpression | TSESTree.Identifier {
-  return Check.isIdentifier(node) && node.parent.type === AST.CallExpression && node.parent.callee === node
-    ? node.parent
-    : node;
 }
