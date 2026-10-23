@@ -2,6 +2,22 @@
 title: Changelog
 ---
 
+## v5.28.7 (2026-10-23)
+
+### 🐞 Fixes
+
+- `react-x/purity`: now reports `Date` calls during render, including `Date()`, `Date(arg)`, and `window.Date()`; unlike `new Date(arg)`, `Date(arg)` ignores its arguments and always returns the current time. (#2071) Thanks to @aki05162525!
+
+### 🏗️ Internal
+
+- Bumped `effect` and `@effect/platform-node` to `4.0.6`, `@tanstack/react-router` to `1.170.46`, `@tanstack/react-start` to `1.169.4`, and `eslint-plugin-de-morgan` to `2.3.0`.
+
+### New Contributors
+
+- **TAKAGI AKIHIRO** (@aki05162525) made their first contribution in #2071.
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.28.6...v5.28.7
+
 ## v5.28.6 (2026-10-22)
 
 ### 🐞 Fixes
