@@ -5,6 +5,12 @@ All notable changes to the `react-x/purity` rule will be documented in this file
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+### Fixed
+
+- Calling `Date` as a function (ex: `Date()`, `window.Date()`) during render is now reported. Unlike `new Date(arg)`, `Date(arg)` ignores its arguments and always returns the current time, so it is reported with arguments too. (#1761)
+
 ## [5.21.3] - 2026-09-29
 
 ### Removed

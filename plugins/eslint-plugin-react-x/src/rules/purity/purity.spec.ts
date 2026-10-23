@@ -290,6 +290,37 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [{ messageId: "default" }],
     },
     // -------------------------------------------------------------------------
+    // `Date` called as a function (without `new`)
+    // -------------------------------------------------------------------------
+    {
+      code: tsx`
+        function Component() {
+          const now = Date();
+          return <div>{now}</div>;
+        }
+      `,
+      errors: [{ messageId: "default" }],
+    },
+    // Unlike `new Date(arg)`, `Date(arg)` ignores its arguments and returns the current time
+    {
+      code: tsx`
+        function Component() {
+          const now = Date("2020-01-01");
+          return <div>{now}</div>;
+        }
+      `,
+      errors: [{ messageId: "default" }],
+    },
+    {
+      code: tsx`
+        function Component() {
+          const now = window.Date();
+          return <div>{now}</div>;
+        }
+      `,
+      errors: [{ messageId: "default" }],
+    },
+    // -------------------------------------------------------------------------
     // Impure constructor calls in function components
     // -------------------------------------------------------------------------
     // `Date` is a member of IMPURE_CTORS, so `new Date()` during render is flagged
