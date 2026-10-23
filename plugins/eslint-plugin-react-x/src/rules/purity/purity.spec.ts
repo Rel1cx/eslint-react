@@ -1691,6 +1691,25 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
     },
+    // Unknown segments in the middle stop the resolution
+    {
+      code: tsx`
+        function Component() {
+          window.myLibrary.fetch("x");
+          return null;
+        }
+      `,
+    },
+    // Computed member segments are not resolved
+    {
+      code: tsx`
+        function Component() {
+          const fetch = "String";
+          window[fetch](1);
+          return null;
+        }
+      `,
+    },
     // Constructor member aliases are trusted only for known catalog objects
     {
       code: tsx`

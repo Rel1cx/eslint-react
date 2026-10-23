@@ -566,9 +566,13 @@ function getDestructuredPropertyName(pattern: TSESTree.ObjectPattern, name: TSES
  * `window.Math.random` resolves to `{ object: "Math", property: "random" }`.
  * Intermediate segments are followed only while they name known catalog
  * objects (`window`, `Math`, ...), so unknown-global chains like
- * `foo.Math.random` do not resolve.
+ * `foo.Math.random` or `window.myLibrary.fetch` do not resolve. Computed
+ * member segments (`window[fetch]`) do not resolve either.
  */
 export function resolveBuiltinMember(context: RuleContext, node: TSESTree.MemberExpression, seen = new Set<string>()): BuiltinResolution | null {
+  for (let current: TSESTree.Node = node; current.type === AST.MemberExpression; current = Extract.unwrap(current.object)) {
+    if (current.computed) return null;
+  }
   const chain = Extract.getMemberChain(node);
   const rootId = chain.at(0);
   if (rootId == null || !Check.isIdentifier(rootId)) return null;
@@ -580,7 +584,7 @@ export function resolveBuiltinMember(context: RuleContext, node: TSESTree.Member
   const names = segments.map((segment) => segment.name);
   if (isCatalogObject(object)) {
     for (const name of names.slice(0, -1)) {
-      if (!isCatalogObject(name)) break;
+      if (!isCatalogObject(name)) return null;
       object = name;
     }
   }

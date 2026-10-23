@@ -5,6 +5,12 @@ All notable changes to the `react-x/purity` rule will be documented in this file
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [5.28.8] - Unreleased
+
+### Fixed
+
+- Builtin member resolution no longer follows computed member segments (ex: `window[fetch]` with a local `fetch`) or chains with unknown segments in the middle (ex: `window.myLibrary.fetch`), preventing false reports of calls that are not builtin globals. (#2070)
+
 ## [5.28.7] - 2026-10-23
 
 ### Fixed
