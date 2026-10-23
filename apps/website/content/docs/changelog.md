@@ -2,6 +2,18 @@
 title: Changelog
 ---
 
+## v5.28.8 (2026-10-23)
+
+### 🐞 Fixes
+
+- `react-x/purity`: builtin member resolution no longer follows computed or unknown middle segments (ex: `window[fetch]`, `window.myLibrary.fetch`), preventing false reports of non-builtin calls. (#2074)
+
+### 🏗️ Internal
+
+- `@eslint-react/eslint`: added dual-purpose `getText` for direct or callback-style source text extraction, replacing repeated `context.sourceCode.getText` wrappers across packages. (#2073)
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.28.7...v5.28.8
+
 ## v5.28.7 (2026-10-23)
 
 ### 🐞 Fixes
