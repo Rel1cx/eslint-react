@@ -1,5 +1,5 @@
 import { Extract, type TSESTreeClass } from "@eslint-react/ast";
-import type { RuleContext } from "@eslint-react/eslint";
+import { type RuleContext, getText } from "@eslint-react/eslint";
 import type { TSESTree } from "@typescript-eslint/types";
 import type { ESLintUtils } from "@typescript-eslint/utils";
 import { getClassId } from "./class";
@@ -28,12 +28,11 @@ export declare namespace getClassComponentCollector {
 export function getClassComponentCollector(context: RuleContext): getClassComponentCollector.ReturnType {
   const components = new Map<number, ClassComponentSemanticNode>();
 
-  const getText = (n: TSESTree.Node) => context.sourceCode.getText(n);
   const collect = (node: TSESTreeClass) => {
     if (!isClassComponent(node)) return;
     const id = getClassId(node);
     const key = node.range[0];
-    const name = id == null ? null : Extract.getFullyQualifiedName(id, getText);
+    const name = id == null ? null : Extract.getFullyQualifiedName(id, getText(context));
     components.set(
       key,
       {

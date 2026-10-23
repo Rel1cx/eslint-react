@@ -1,12 +1,11 @@
+import { getText } from "@eslint-react/eslint";
 import { type TestRuleContext, collectNodes, findIdentifierReferences, runInRule } from "@local/testkit";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import { describe, expect, it } from "vitest";
-
 import { createSetStateResolver, isArgumentUsingRefValue, isInitializedFromRef, isRefGatedContext } from "./origins";
 
 function findCall(context: TestRuleContext, program: TSESTree.Program, textPrefix: string) {
-  const call = collectNodes<TSESTree.CallExpression>(program, AST.CallExpression)
-    .find((node) => context.sourceCode.getText(node).startsWith(textPrefix));
+  const call = collectNodes<TSESTree.CallExpression>(program, AST.CallExpression).find((node) => getText(context, node).startsWith(textPrefix));
   if (call == null) throw new Error(`No call starting with "${textPrefix}" found`);
   return call;
 }

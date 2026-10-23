@@ -1,11 +1,10 @@
 // Ported from https://github.com/jsx-eslint/eslint-plugin-react/blob/master/lib/rules/no-unknown-property.js
 import { createRule } from "@/utils/create-rule";
-import { type RuleContext, type RuleFeature, type RuleListener } from "@eslint-react/eslint";
+import { type RuleContext, type RuleFeature, type RuleListener, getText } from "@eslint-react/eslint";
 import {
   getAttributeTagsMap,
   getStandardName,
   getTagName,
-  getText,
   has,
   hasUpperCaseCharacter,
   isValidAriaAttribute,

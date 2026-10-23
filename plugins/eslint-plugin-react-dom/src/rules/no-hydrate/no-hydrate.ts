@@ -1,6 +1,6 @@
 import { createRule } from "@/utils/create-rule";
 import { Check, Extract } from "@eslint-react/ast";
-import { type RuleContext, type RuleFeature, type RuleFixer, type RuleListener } from "@eslint-react/eslint";
+import { type RuleContext, type RuleFeature, type RuleFixer, type RuleListener, getText } from "@eslint-react/eslint";
 import { getSettingsFromContext } from "@eslint-react/shared";
 import { createImportLookup } from "@eslint-react/var";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
@@ -72,7 +72,6 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
 
 // Replaces `hydrate(element, container)` with `hydrateRoot(container, element)`
 function buildFix(context: RuleContext, node: TSESTree.CallExpression) {
-  const getText = (n: TSESTree.Node) => context.sourceCode.getText(n);
   return (fixer: RuleFixer) => {
     const [arg0, arg1] = node.arguments;
     if (arg0 == null || arg1 == null) return null;
@@ -81,7 +80,7 @@ function buildFix(context: RuleContext, node: TSESTree.CallExpression) {
       // 1. Add the new import for `hydrateRoot`
       fixer.insertTextBefore(context.sourceCode.ast, 'import { hydrateRoot } from "react-dom/client";\n'),
       // 2. Replace `hydrate(element, container)` with `hydrateRoot(container, element)`; note that the arguments are swapped
-      fixer.replaceText(node, `hydrateRoot(${getText(arg1)}, ${getText(arg0)})`),
+      fixer.replaceText(node, `hydrateRoot(${getText(context, arg1)}, ${getText(context, arg0)})`),
     ];
   };
 }

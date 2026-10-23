@@ -1,5 +1,5 @@
 import { Check, type TSESTreeFunction } from "@eslint-react/ast";
-import type { RuleContext } from "@eslint-react/eslint";
+import { type RuleContext, getText } from "@eslint-react/eslint";
 import type { TSESTree } from "@typescript-eslint/types";
 import type { CallEdgeFact, GlobalsFacts } from "./collect";
 import { isGlobalVariable, resolveGlobalOrigin, resolveToFunction } from "./origins";
@@ -42,7 +42,7 @@ export function inferGlobalMutations(context: RuleContext, facts: GlobalsFacts):
     if (origin == null) continue;
     pushEffect(write.enclosingFunction, {
       kind: "property",
-      name: context.sourceCode.getText(write.target),
+      name: getText(context, write.target),
       method: null,
       node: write.node,
     });

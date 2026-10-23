@@ -3,6 +3,7 @@ import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import { findVariable } from "@typescript-eslint/utils/ast-utils";
 import { describe, expect, it } from "vitest";
 
+import { getText } from "@eslint-react/eslint";
 import {
   classifyFrozenOrigin,
   getStateHookName,
@@ -24,15 +25,13 @@ function getVariable(context: TestRuleContext, program: TSESTree.Program, name: 
 }
 
 function findCall(context: TestRuleContext, program: TSESTree.Program, textPrefix: string) {
-  const call = collectNodes<TSESTree.CallExpression>(program, AST.CallExpression)
-    .find((node) => context.sourceCode.getText(node).startsWith(textPrefix));
+  const call = collectNodes<TSESTree.CallExpression>(program, AST.CallExpression).find((node) => getText(context, node).startsWith(textPrefix));
   if (call == null) throw new Error(`No call starting with "${textPrefix}" found`);
   return call;
 }
 
 function findMember(context: TestRuleContext, program: TSESTree.Program, text: string) {
-  const member = collectNodes<TSESTree.MemberExpression>(program, AST.MemberExpression)
-    .find((node) => context.sourceCode.getText(node) === text);
+  const member = collectNodes<TSESTree.MemberExpression>(program, AST.MemberExpression).find((node) => getText(context, node) === text);
   if (member == null) throw new Error(`No member expression "${text}" found`);
   return member;
 }

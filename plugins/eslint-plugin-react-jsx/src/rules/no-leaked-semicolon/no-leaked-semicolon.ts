@@ -1,6 +1,6 @@
 import { createRule } from "@/utils/create-rule";
 import { Check } from "@eslint-react/ast";
-import { type RuleContext, type RuleFeature, type RuleListener } from "@eslint-react/eslint";
+import { type RuleContext, type RuleFeature, type RuleListener, getText } from "@eslint-react/eslint";
 
 export const RULE_NAME = "no-leaked-semicolon";
 
@@ -35,7 +35,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   return {
     JSXText(node) {
       if (!Check.isJSXElementOrFragment(node.parent)) return;
-      if (!/^;+[ \t]*(?:\r\n|\r|\n)/u.test(context.sourceCode.getText(node))) return;
+      if (!/^;+[ \t]*(?:\r\n|\r|\n)/u.test(getText(context, node))) return;
       context.report({
         messageId: "default",
         node,

@@ -1,6 +1,6 @@
 import { createRule } from "@/utils/create-rule";
 import { Check } from "@eslint-react/ast";
-import { type RuleContext, type RuleFeature, type RuleListener } from "@eslint-react/eslint";
+import { type RuleContext, type RuleFeature, type RuleListener, getText } from "@eslint-react/eslint";
 
 export const RULE_NAME = "no-comment-textnodes";
 
@@ -27,7 +27,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   return {
     JSXText(node) {
       if (!Check.isJSXElementOrFragment(node.parent)) return;
-      if (!/^\s*\/(?:\/|\*)/mu.test(context.sourceCode.getText(node))) return;
+      if (!/^\s*\/(?:\/|\*)/mu.test(getText(context, node))) return;
       context.report({ messageId: "default", node });
     },
   };

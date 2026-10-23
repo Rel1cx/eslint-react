@@ -1,7 +1,7 @@
 import { createRule } from "@/utils/create-rule";
 import { Check, type TSESTreeJSXElementLike } from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
-import { type RuleContext, type RuleFeature, type RuleListener } from "@eslint-react/eslint";
+import { type RuleContext, type RuleFeature, type RuleListener, getText } from "@eslint-react/eslint";
 import { collapseMultilineText, getChildren, hasAnyAttribute, isFragmentElement, isHostElement, isWhitespaceText } from "@eslint-react/jsx";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 import type { JSONSchema4 } from "@typescript-eslint/utils/json-schema";
@@ -194,7 +194,7 @@ function buildFix(context: RuleContext, node: TSESTreeJSXElementLike): ((fixer: 
         const cleaned = collapseMultilineText(child.value);
         if (cleaned != null) text += cleaned;
       } else {
-        text += sourceCode.getText(child);
+        text += getText(context, child);
       }
     }
 

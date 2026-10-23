@@ -1,7 +1,7 @@
 import { createRule } from "@/utils/create-rule";
 import { Check, Extract, type TSESTreeFunction } from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
-import { type RuleContext, type RuleFeature, type RuleListener } from "@eslint-react/eslint";
+import { type RuleContext, type RuleFeature, type RuleListener, getText } from "@eslint-react/eslint";
 import { getSettingsFromContext } from "@eslint-react/shared";
 import { isInitializedFromReact } from "@eslint-react/var";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
@@ -132,7 +132,6 @@ function buildFix(context: RuleContext, node: TSESTree.CallExpression): (fixer: 
  * @returns An array of fixes for the component's signature
  */
 function buildFixForComponentProps(context: RuleContext, fixer: RuleFixer, node: TSESTreeFunction, typeArguments: TSESTree.TypeNode[]) {
-  const getText = (node: TSESTree.Node) => context.sourceCode.getText(node);
   const [arg0, arg1] = node.params;
   const [typeArg0, typeArg1] = typeArguments;
   if (arg0 == null) {
@@ -141,8 +140,8 @@ function buildFixForComponentProps(context: RuleContext, fixer: RuleFixer, node:
     if (typeArg0 == null || typeArg1 == null) {
       return [];
     }
-    const typeArg0Text = getText(typeArg0);
-    const typeArg1Text = getText(typeArg1);
+    const typeArg0Text = getText(context, typeArg0);
+    const typeArg1Text = getText(context, typeArg1);
     return [
       fixer.insertTextAfter(openParen, `{ ref }: ${typeArg1Text} & { ref?: React.RefObject<${typeArg0Text} | null> }`),
     ];
@@ -150,7 +149,7 @@ function buildFixForComponentProps(context: RuleContext, fixer: RuleFixer, node:
   // Determines how to spread or list props from the first argument
   const fixedArg0Text = match(arg0)
     .with({ type: AST.Identifier }, (n) => `...${n.name}`)
-    .with({ type: AST.ObjectPattern }, (n) => n.properties.map(getText).join(", "))
+    .with({ type: AST.ObjectPattern }, (n) => n.properties.map(getText(context)).join(", "))
     .otherwise(() => null);
   // Determines the new `ref` prop text
   const fixedArg1Text = match(arg1)
@@ -179,8 +178,8 @@ function buildFixForComponentProps(context: RuleContext, fixer: RuleFixer, node:
     ] as const;
   }
   // If type arguments exist, update props and add types
-  const typeArg0Text = getText(typeArg0);
-  const typeArg1Text = getText(typeArg1);
+  const typeArg0Text = getText(context, typeArg0);
+  const typeArg1Text = getText(context, typeArg1);
   return [
     fixer.replaceText(
       arg0,

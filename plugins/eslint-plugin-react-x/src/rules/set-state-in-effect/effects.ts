@@ -1,6 +1,6 @@
 import { Check, Extract, type TSESTreeFunction, Traverse } from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
-import type { RuleContext } from "@eslint-react/eslint";
+import { type RuleContext, getText } from "@eslint-react/eslint";
 import { getSettingsFromContext } from "@eslint-react/shared";
 import { resolveOrigin } from "@eslint-react/var";
 import { getOrInsertComputed, or } from "@local/eff";
@@ -28,7 +28,6 @@ export type SetStateViolation = {
 export function inferViolations(context: RuleContext, facts: SetStateInEffectFacts): SetStateViolation[] {
   const { additionalEffectHooks } = getSettingsFromContext(context);
   const resolver = createSetStateResolver(context);
-  const getText = (n: TSESTree.Node) => context.sourceCode.getText(n);
 
   const isUseEffectCall = (node: TSESTree.Node) => core.isUseEffectLikeCall(node, additionalEffectHooks);
   const isUseStateOrThenCall = or(resolver.isUseStateCall, isThenCall);
@@ -75,7 +74,7 @@ export function inferViolations(context: RuleContext, facts: SetStateInEffectFac
       if (isArgumentUsingRefValue(context, args0)) continue;
       if (isRefGatedContext(context, node)) continue;
       violations.push({
-        name: getText(Extract.unwrap(node.callee)),
+        name: getText(context, Extract.unwrap(node.callee)),
         node,
       });
       continue;
@@ -215,7 +214,7 @@ export function inferViolations(context: RuleContext, facts: SetStateInEffectFac
     for (const setStateCall of getSetStateCalls(unwrappedCallee)) {
       if (isExemptSetStateCall(setStateCall, refParams)) continue;
       violations.push({
-        name: getCallName(setStateCall, getText),
+        name: getCallName(setStateCall, getText(context)),
         node: setStateCall,
       });
     }
@@ -226,7 +225,7 @@ export function inferViolations(context: RuleContext, facts: SetStateInEffectFac
     for (const setStateCall of getSetStateCalls(id)) {
       if (isExemptSetStateCall(setStateCall)) continue;
       violations.push({
-        name: getCallName(setStateCall, getText),
+        name: getCallName(setStateCall, getText(context)),
         node: setStateCall,
       });
     }

@@ -1,5 +1,5 @@
 import { Extract } from "@eslint-react/ast";
-import type { RuleContext } from "@eslint-react/eslint";
+import { type RuleContext, getText } from "@eslint-react/eslint";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 
 export declare namespace isAPI {
@@ -21,19 +21,18 @@ export declare namespace isAPI {
  * or as `(context)` to get a `(node) => boolean` predicate (ex: for use in array filters).
  */
 export function isAPI(api: string): isAPI.ReturnType {
-  const func = (context: RuleContext, node: null | TSESTree.Node) => {
+  function impl(context: RuleContext, node: null | TSESTree.Node) {
     if (node == null) return false;
     const expr = Extract.unwrap(node);
-    const getText = (n: TSESTree.Node) => context.sourceCode.getText(n);
     // Get the fully qualified name of the unwrapped expression
-    const name = Extract.getFullyQualifiedName(expr, getText);
+    const name = Extract.getFullyQualifiedName(expr, getText(context));
     // Check if the fully qualified name equals the API or ends with `.${api}`
     return name === api || name.endsWith(`.${api}`);
-  };
+  }
   function dual(context: RuleContext, node: null | TSESTree.Node): boolean;
   function dual(context: RuleContext): (node: null | TSESTree.Node) => boolean;
   function dual(context: RuleContext, ...rest: [] | [null | TSESTree.Node]) {
-    return rest.length === 1 ? func(context, rest[0]) : (node: null | TSESTree.Node) => func(context, node);
+    return rest.length === 1 ? impl(context, rest[0]) : (node: null | TSESTree.Node) => impl(context, node);
   }
   return dual;
 }
@@ -53,15 +52,15 @@ export declare namespace isAPICall {
  * or as `(context)` to get a `(node) => node is TSESTree.CallExpression` predicate (ex: for use in array filters).
  */
 export function isAPICall(api: string): isAPICall.ReturnType {
-  const func = (context: RuleContext, node: null | TSESTree.Node): node is TSESTree.CallExpression => {
+  function impl(context: RuleContext, node: null | TSESTree.Node): node is TSESTree.CallExpression {
     if (node == null) return false;
     if (node.type !== AST.CallExpression) return false;
     return isAPI(api)(context, Extract.unwrap(node.callee));
-  };
+  }
   function dual(context: RuleContext, node: null | TSESTree.Node): node is TSESTree.CallExpression;
   function dual(context: RuleContext): (node: null | TSESTree.Node) => node is TSESTree.CallExpression;
   function dual(context: RuleContext, ...rest: [] | [null | TSESTree.Node]) {
-    return rest.length === 1 ? func(context, rest[0]) : (node: null | TSESTree.Node): node is TSESTree.CallExpression => func(context, node);
+    return rest.length === 1 ? impl(context, rest[0]) : (node: null | TSESTree.Node): node is TSESTree.CallExpression => impl(context, node);
   }
   return dual;
 }

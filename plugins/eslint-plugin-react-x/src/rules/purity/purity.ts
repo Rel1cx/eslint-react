@@ -1,7 +1,7 @@
 import { createRule } from "@/utils/create-rule";
 import { Check, Extract, type TSESTreeFunction, Traverse } from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
-import { type RuleContext, type RuleFeature, type RuleListener, merge } from "@eslint-react/eslint";
+import { type RuleContext, type RuleFeature, type RuleListener, getText, merge } from "@eslint-react/eslint";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import { IMPURE_CTORS, IMPURE_FUNCS, hasUseClientDirective, isCatalogObject, resolveBuiltinMember, resolveBuiltinObjectName } from "./lib";
 
@@ -103,7 +103,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
           if (!isClientModule && func.async && comps.some((comp) => comp.node === func)) continue;
           context.report({
             data: {
-              name: context.sourceCode.getText(node),
+              name: getText(context, node),
             },
             messageId: "default",
             node,

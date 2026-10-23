@@ -2,7 +2,7 @@ import { createRule } from "@/utils/create-rule";
 import { removeJSXAttribute } from "@/utils/remove-jsx-attribute";
 import { Check } from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
-import { type RuleContext, type RuleFeature, type RuleListener } from "@eslint-react/eslint";
+import { type RuleContext, type RuleFeature, type RuleListener, getText } from "@eslint-react/eslint";
 import { findAttribute, hasChildren } from "@eslint-react/jsx";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import type { RuleFix, RuleFixer } from "@typescript-eslint/utils/ts-eslint";
@@ -100,7 +100,7 @@ function getChildrenText(context: RuleContext, attribute: TSESTree.JSXAttribute)
     return escapeJSXText(String(value.value));
   }
   if (value?.type === AST.JSXExpressionContainer && value.expression.type !== AST.JSXEmptyExpression) {
-    const exprText = context.sourceCode.getText(value.expression);
+    const exprText = getText(context, value.expression);
     return Check.isJSXElementOrFragment(value.expression) ? exprText : `{${exprText}}`;
   }
   return null;
@@ -130,15 +130,14 @@ function escapeJSXText(text: string): string {
  */
 function buildFix(context: RuleContext, node: TSESTree.JSXElement, prop: TSESTree.JSXAttribute, childrenText: string): (fixer: RuleFixer) => RuleFix[] {
   return (fixer) => {
-    const sourceCode = context.sourceCode;
     const { openingElement } = node;
     const removePropFix = removeJSXAttribute(context, fixer, prop);
 
     if (openingElement.selfClosing) {
-      const tagName = sourceCode.getText(openingElement.name);
+      const tagName = getText(context, openingElement.name);
 
       // Locate the self-closing marker `/>` inside the opening element
-      const elementText = sourceCode.getText(openingElement);
+      const elementText = getText(context, openingElement);
       const selfCloseOffset = elementText.lastIndexOf("/>");
       const selfCloseStart = openingElement.range[0] + selfCloseOffset;
 
@@ -147,7 +146,7 @@ function buildFix(context: RuleContext, node: TSESTree.JSXElement, prop: TSESTre
       // trailing space before `>`.
       let wsStart = selfCloseStart;
       // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-      while (wsStart > prop.range[1] && /\s/.test(sourceCode.text[wsStart - 1]!)) {
+      while (wsStart > prop.range[1] && /\s/.test(context.sourceCode.text[wsStart - 1]!)) {
         wsStart--;
       }
 
