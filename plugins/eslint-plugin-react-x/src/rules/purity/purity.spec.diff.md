@@ -3,10 +3,10 @@
 ## Verification metadata
 
 - **IMPL**: `purity.ts` + `lib.ts` (ESLint rule)
-- **SPEC**: `purity.spec.md` (current React Compiler behavior)
-- **Implementation commit**: `14f1d8edf9ad36c30095ad5c8470ab6a1a2103de`
-- **React commit**: `b618bbb4422693bbb8d387180687b3f510300f42`
-- **Last verified**: `2026-10-12`
+- **SPEC**: React Compiler behavior at the pinned React commit, verified directly from the sources and fixtures below
+- **Implementation commit**: `c3318d07024f01e4c869304ee638a42bbf435272`
+- **React commit**: `9ffcb463b0ab01a42e781d4dc2e00f3a1b97a188`
+- **Last verified**: `2026-10-23`
 - **React package**: `compiler/packages/babel-plugin-react-compiler`
 - **Implementation sources/tests**:
   - `purity.ts`
@@ -26,7 +26,7 @@
 
 ### React Compiler
 
-The active check is part of `inferMutationAliasingEffects`, which `Pipeline.ts` invokes. With `validateNoImpureFunctionsInRender` enabled, an impure function signature creates an `ErrorCategory.Purity` diagnostic at the call location. Since facebook/react#37576 the condition is `signature.impure && validateNoImpureFunctionsInRender && (!signature.impureIfNoArgs || args.length === 0)`: signatures flagged `impureIfNoArgs` (currently only `Date` in `Globals.ts`) are impure only for zero-argument calls, so `new Date()` is reported while `new Date(timestamp)` is not.
+The active check is part of `inferMutationAliasingEffects`, which `Pipeline.ts` invokes. With `validateNoImpureFunctionsInRender` enabled, an impure function signature creates an `ErrorCategory.Purity` diagnostic at the call location. Since facebook/react#37576 the condition is `signature.impure && validateNoImpureFunctionsInRender && (!signature.impureIfNoArgs || args.length === 0)`: signatures flagged `impureIfNoArgs` (currently only `Date` in `Globals.ts`) are impure only for zero-argument calls. Because ordinary and constructor calls share the `Date` signature, `Date()` and `new Date()` are reported while `Date(timestamp)` and `new Date(timestamp)` are not.
 
 `ValidateNoImpureFunctionsInRender.ts` contains a similar standalone HIR scan, but `Pipeline.ts` does not import or call it. It is an unwired alternative, not the active pass.
 
@@ -40,13 +40,14 @@ Detection is driven by `IMPURE_FUNCS` and `IMPURE_CTORS`. The pure catalogues in
 
 ## 2. Catalogue and name resolution
 
-- **React**: the active source condition is `signature.impure`, gated by `impureIfNoArgs` for zero-argument-only signatures. The verified React fixtures cover `Date.now`, `performance.now`, and `Math.random` (`error.invalid-impure-functions-in-render`), plus zero-argument `new Date()` as an error and `new Date(timestamp)` as valid (`error.invalid-new-date-in-render`, `valid-new-date-from-timestamp`).
-- **ESLint**: only names present in `IMPURE_FUNCS` or `IMPURE_CTORS` are candidates.
+- **React**: the active source condition is `signature.impure`, gated by `impureIfNoArgs` for zero-argument-only signatures. The verified React fixtures cover `Date.now`, `performance.now`, and `Math.random` (`error.invalid-impure-functions-in-render`), plus zero-argument `new Date()` as an error and `new Date(timestamp)` as valid (`error.invalid-new-date-in-render`, `valid-new-date-from-timestamp`). The shared `Date` signature also allows `Date(timestamp)`, although the cited fixtures do not cover that case.
+- **React `IntersectionObserver`**: `Globals.ts` gives the constructor an explicit non-impure signature with a frozen callback and read-only options. Constructing an observer is therefore not rejected by this purity check; observation starts only with a later `observe()` call.
+- **ESLint**: only names present in `IMPURE_FUNCS` or `IMPURE_CTORS` are candidates. `Date` is present in both the `globalThis` and `window` impure-function catalogues, so `Date()`, `Date(arg)`, and `window.Date()` are all reported.
 - **ESLint aliases**: `resolveBuiltinObjectName` returns a builtin object name plus an optional property path. It follows simple variable-initializer chains to a global root (`const M = Math`), member-function aliases (`const random = Math.random`, `const { random } = Math`), and intermediate catalog objects (`window.Math.random`). Unknown-global roots are not followed through catalog object names, and constructor member aliases are trusted only for known catalog objects.
 - **ESLint shadowing**: parameters, imports, function declarations, and other local definitions do not resolve as built-ins; implicit or unresolved globals do.
-- **ESLint constructors**: constructors in `IMPURE_CTORS` are reported, except `new Date(arg)` is allowed when at least one argument is present; zero-argument `new Date()` is reported.
+- **ESLint constructors**: resolved identifier constructors in `IMPURE_CTORS`, including `IntersectionObserver`, are reported, except `new Date(arg)` is allowed when at least one argument is present; zero-argument `new Date()` is reported. Direct member-expression callees such as `new window.WebSocket()` are not resolved or reported, although the equivalent identifier alias is.
 
-**Verdict**: The `new Date(arg)` exception now matches upstream behavior: since facebook/react#37576 the compiler treats zero-argument `new Date()` as impure via the `impureIfNoArgs` signature flag while allowing `new Date(timestamp)`. Alias and shadowing behaviors remain explicit ESLint behaviors with no corresponding upstream fixture coverage.
+**Verdict**: The `new Date(arg)` exception matches upstream behavior, but `Date(arg)` intentionally differs. JavaScript ignores arguments to non-constructor `Date` calls and returns the current time, so ESLint's report is semantically correct; upstream's shared `impureIfNoArgs` signature produces a false negative there. Conversely, upstream's non-impure `IntersectionObserver` signature better reflects construction-only semantics: creating a fresh observer does not start observation or invoke its callback, while ESLint's constructor deny-list is stricter than render-purity semantics require. The direct member-expression constructor gap is an ESLint name-resolution limitation, not a semantic distinction. Alias and shadowing behaviors remain explicit ESLint behaviors with no corresponding upstream fixture coverage.
 
 ## 3. Reporting
 
@@ -73,18 +74,21 @@ There is no current upstream dual-location diagnostic to reproduce. The React ex
 ### Source-verified
 
 - React's active branch, option gate, `impureIfNoArgs` zero-argument gate, signature check, `Purity` category, reason, and single call location.
-- React's `Date` global signature in `Globals.ts` carries `impure: true` with `impureIfNoArgs: true` and canonical name `Date`.
+- React's `Date` global signature in `Globals.ts` carries `impure: true` with `impureIfNoArgs: true` and canonical name `Date`. Because the signature is shared by ordinary and constructor calls, the source condition allows both `Date(arg)` and `new Date(arg)`.
+- React's `IntersectionObserver` global signature is not impure, freezes its callback for later delivery, and reads its options.
 - The standalone React validator is present but not connected to `Pipeline.ts`.
 - ESLint's use of `IMPURE_FUNCS` / `IMPURE_CTORS` for detection, indirect use of the pure catalogues via `isCatalogObject`, component-hook ownership check, Server Component exemption, alias resolution, shadowing handling, and `new Date(arg)` exception.
+- ESLint reports `Date(arg)`, includes `IntersectionObserver` in `IMPURE_CTORS`, and skips direct member-expression constructor callees such as `new window.WebSocket()`.
 
 ### Fixture-verified
 
 - React reports exactly one call-site error each for `Date.now`, `performance.now`, and `Math.random` in `error.invalid-impure-functions-in-render`.
 - React reports zero-argument `new Date()`, `new Date().getTime()`, and `new Date().getFullYear()` in `error.invalid-new-date-in-render`, and compiles `new Date(timestamp)` without error in `valid-new-date-from-timestamp`.
-- ESLint tests cover those direct calls as well as its own alias, shadowing, constructor, nested-function, and Server Component / `use client` behavior.
+- ESLint tests cover those direct calls, `Date()` and `Date(arg)` without `new`, and its own alias, shadowing, constructor, nested-function, and Server Component / `use client` behavior.
 
 ### Not locked by the cited React fixtures
 
+- React behavior for non-constructor `Date(arg)` or `IntersectionObserver` construction
 - React behavior for aliases, shadowed globals, nested helpers, or callbacks
 - React's complete impure-signature catalogue beyond the `Date`, `performance`, and `Math` entries exercised by fixtures
 - Behavioral equivalence between the active inference branch and the unwired standalone validator
