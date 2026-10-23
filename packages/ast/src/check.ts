@@ -87,6 +87,15 @@ export const isExpression = isOneOf([
 
 // Statement guards
 
+/** Check if a node is a loop statement. */
+export const isLoopStatement = isOneOf([
+  AST.DoWhileStatement,
+  AST.ForInStatement,
+  AST.ForOfStatement,
+  AST.ForStatement,
+  AST.WhileStatement,
+]);
+
 /** Check if a node is a return statement. */
 export const isReturnStatement = is(AST.ReturnStatement);
 
