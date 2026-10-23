@@ -1,3 +1,4 @@
+import type { TSESTree } from "@typescript-eslint/types";
 import * as ESLintUtils from "@typescript-eslint/utils/eslint-utils";
 import type { ReportDescriptor, RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import type { RuleContext } from "./types";
@@ -8,6 +9,21 @@ function getDocsUrl(ruleName: string) {
 
 /** The rule creator that generates documentation URLs for ESLint React rules. */
 export const createRule = ESLintUtils.RuleCreator(getDocsUrl);
+
+/**
+ * Gets the source text of the given node or token.
+ * Can be used as `(context, node)` to get the text directly,
+ * or as `(context)` to get a `(node) => string` function (ex: for use in array callbacks).
+ * @param context The ESLint rule context.
+ * @param node The node or token to get the text of.
+ * @returns The source text of the node, or a function that returns it.
+ */
+export function getText(context: RuleContext, node: TSESTree.Node | TSESTree.Token): string;
+export function getText(context: RuleContext): (node: TSESTree.Node | TSESTree.Token) => string;
+export function getText(context: RuleContext, ...rest: [] | [TSESTree.Node | TSESTree.Token]) {
+  if (rest.length === 1) return context.sourceCode.getText(rest[0]);
+  return (node: TSESTree.Node | TSESTree.Token) => context.sourceCode.getText(node);
+}
 
 /**
  * Creates a report function for the given rule context.

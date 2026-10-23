@@ -1,7 +1,7 @@
 import { createRule } from "@/utils/create-rule";
 import { Check, type TSESTreeClass, type TSESTreeMethodOrPropertyDefinition, Traverse } from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
-import { type RuleContext, type RuleFeature, type RuleListener } from "@eslint-react/eslint";
+import { type RuleContext, type RuleFeature, type RuleListener, getText } from "@eslint-react/eslint";
 import { getOrInsertComputed } from "@local/eff";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import { KNOWN_HOST_CONVENTION_METHODS, LIFECYCLE_METHODS, isExportedClass, isPublicMethod } from "./lib";
@@ -73,7 +73,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       // Report members that are defined but not used
       context.report({
         data: {
-          className: id != null ? context.sourceCode.getText(id) : "Component",
+          className: id != null ? getText(context, id) : "Component",
           methodName,
         },
         messageId: "default",

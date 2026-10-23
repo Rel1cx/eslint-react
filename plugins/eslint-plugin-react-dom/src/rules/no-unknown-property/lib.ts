@@ -1122,13 +1122,3 @@ export function getStandardName(name: string, context: RuleContext<string, unkno
   }
   return getDOMPropertyNames(context).find((element) => element.toLowerCase() === name.toLowerCase()) ?? null;
 }
-
-/**
- * Gets text of a node
- * @param context ESLint context
- * @param node Node to get text from
- * @returns Node's text
- */
-export function getText(context: RuleContext<string, unknown[]>, node: TSESTree.JSXIdentifier | TSESTree.JSXNamespacedName): string {
-  return context.sourceCode.getText(node);
-}

@@ -1,6 +1,6 @@
 import { createRule } from "@/utils/create-rule";
 import type { TSESTreeJSXElementLike } from "@eslint-react/ast";
-import { type RuleContext, type RuleFeature, type RuleListener } from "@eslint-react/eslint";
+import { type RuleContext, type RuleFeature, type RuleListener, getText } from "@eslint-react/eslint";
 import { isEmptyStringExpression, isWhitespaceText } from "@eslint-react/jsx";
 import { or } from "@local/eff";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
@@ -50,7 +50,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         && node.children.every((sibling, siblingIndex) => siblingIndex === index || siblingIndex === index + 1 || isNonSubstantiveChild(sibling))
       ) continue;
       // Only report a literal '$' at the end of the raw text node.
-      const rawText = context.sourceCode.getText(child);
+      const rawText = getText(context, child);
       if (!rawText.endsWith("$")) continue;
       const dollarStart = child.range[1] - 1;
       const dollarEnd = child.range[1];

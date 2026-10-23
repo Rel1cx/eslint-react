@@ -1,5 +1,5 @@
 import { Extract, type TSESTreeFunction, Traverse } from "@eslint-react/ast";
-import type { RuleContext } from "@eslint-react/eslint";
+import { type RuleContext, getText } from "@eslint-react/eslint";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import type { ESLintUtils } from "@typescript-eslint/utils";
 import { type FunctionDisplayNameAssignment, SEL_FUNCTION_DISPLAY_NAME_ASSIGNMENT, getFunctionDirectives, getFunctionInitPath } from "./function";
@@ -52,7 +52,6 @@ export function getFunctionComponentCollector(
   const functionEntries: FunctionEntry[] = [];
   const components = new Map<number, FunctionComponentSemanticNode>();
 
-  const getText = (n: TSESTree.Node) => context.sourceCode.getText(n);
   const getCurrentEntry = () => functionEntries.at(-1) ?? null;
   const onFunctionEnter = (node: TSESTreeFunction) => {
     const key = node.range[0];
@@ -60,7 +59,7 @@ export function getFunctionComponentCollector(
     const isExportDefault = exp != null;
     const isExportDefaultDeclaration = exp != null && Extract.unwrap(exp.declaration) === node;
     const id = getFunctionComponentId(context, node);
-    const name = id == null ? null : Extract.getFullyQualifiedName(id, getText);
+    const name = id == null ? null : Extract.getFullyQualifiedName(id, getText(context));
     const initPath = getFunctionInitPath(node);
     const directives = getFunctionDirectives(node);
     const entry = {

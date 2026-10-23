@@ -1,6 +1,6 @@
 import { createRule } from "@/utils/create-rule";
 import * as core from "@eslint-react/core";
-import { type RuleContext, type RuleFeature, type RuleListener, merge } from "@eslint-react/eslint";
+import { type RuleContext, type RuleFeature, type RuleListener, getText, merge } from "@eslint-react/eslint";
 
 export const RULE_NAME = "function-component";
 
@@ -44,7 +44,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
                 name: name ?? "anonymous",
                 displayName: displayName == null
                   ? "none"
-                  : context.sourceCode.getText(displayName),
+                  : getText(context, displayName),
                 forwardRef: (flag & core.FunctionComponentFlag.ForwardRef) > 0n,
                 hookCalls: hookCalls.length,
                 memo: (flag & core.FunctionComponentFlag.Memo) > 0n,

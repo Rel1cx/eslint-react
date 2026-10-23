@@ -1,7 +1,7 @@
 import { createRule } from "@/utils/create-rule";
 import { Check } from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
-import { type RuleContext, type RuleFeature, type RuleListener, getConstrainedTypeAtLocation, report } from "@eslint-react/eslint";
+import { type RuleContext, type RuleFeature, type RuleListener, getConstrainedTypeAtLocation, getText, report } from "@eslint-react/eslint";
 import { getSettingsFromContext } from "@eslint-react/shared";
 import { flow } from "@local/eff";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
@@ -97,7 +97,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         // Specifically check for 'NaN', which is a falsy value that gets rendered
         if (Check.isIdentifier(left, "NaN") || getStaticValue(left, initialScope)?.value === "NaN") {
           return {
-            data: { value: context.sourceCode.getText(left) },
+            data: { value: getText(context, left) },
             messageId: "default",
             node: left,
           } as const;
@@ -118,7 +118,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
 
         // If the left side is not valid, report an error
         return {
-          data: { value: context.sourceCode.getText(left) },
+          data: { value: getText(context, left) },
           messageId: "default",
           node: left,
         } as const;

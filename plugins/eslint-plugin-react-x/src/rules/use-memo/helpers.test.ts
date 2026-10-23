@@ -188,8 +188,7 @@ describe("getNestedReturnStatements", () => {
 });
 
 function resultUsed(code: string): boolean {
-  const node = collectNodes<TSESTree.CallExpression>(code, AST.CallExpression)
-    .find((n) => n.callee.type === AST.Identifier && n.callee.name === "useMemo");
+  const node = collectNodes<TSESTree.CallExpression>(code, AST.CallExpression).find((n) => n.callee.type === AST.Identifier && n.callee.name === "useMemo");
   if (node == null) throw new Error(`No useMemo call found in: ${code}`);
   return isResultUsed(node);
 }

@@ -1,6 +1,6 @@
 import { createRule } from "@/utils/create-rule";
 import { Check, Extract } from "@eslint-react/ast";
-import { type RuleContext, type RuleFeature, type RuleFixer, type RuleListener } from "@eslint-react/eslint";
+import { type RuleContext, type RuleFeature, type RuleFixer, type RuleListener, getText } from "@eslint-react/eslint";
 import { getSettingsFromContext } from "@eslint-react/shared";
 import { createImportLookup } from "@eslint-react/var";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
@@ -75,7 +75,6 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
 
 // Replaces `render(element, container)` with `createRoot(container).render(element)`
 function buildFix(context: RuleContext, node: TSESTree.CallExpression) {
-  const getText = (n: TSESTree.Node) => context.sourceCode.getText(n);
   return (fixer: RuleFixer) => {
     // Legacy `render(element, container, callback?)` accepts an optional third
     // callback argument; the fix only migrates the first two, so any callback is dropped
@@ -86,7 +85,7 @@ function buildFix(context: RuleContext, node: TSESTree.CallExpression) {
       // 1. Add the new import for `createRoot`
       fixer.insertTextBefore(context.sourceCode.ast, 'import { createRoot } from "react-dom/client";\n'),
       // 2. Replace `render(element, container)` with `createRoot(container).render(element)`; note that the arguments are swapped
-      fixer.replaceText(node, `createRoot(${getText(arg1)}).render(${getText(arg0)})`),
+      fixer.replaceText(node, `createRoot(${getText(context, arg1)}).render(${getText(context, arg0)})`),
     ];
   };
 }

@@ -1,5 +1,5 @@
 import { Extract, type TSESTreeFunction } from "@eslint-react/ast";
-import type { RuleContext } from "@eslint-react/eslint";
+import { type RuleContext, getText } from "@eslint-react/eslint";
 import { getOrInsertComputed } from "@local/eff";
 import type { TSESTree } from "@typescript-eslint/types";
 import type { SetStateInRenderFacts } from "./collect";
@@ -21,7 +21,6 @@ export type SetStateViolation = {
  */
 export function inferViolations(context: RuleContext, facts: SetStateInRenderFacts): SetStateViolation[] {
   const resolver = createSetStateResolver(context);
-  const getText = (n: TSESTree.Node) => context.sourceCode.getText(n);
 
   // Collect the start positions of early returns per component so that a
   // setState call positioned after one is known to be conditionally guarded
@@ -44,7 +43,7 @@ export function inferViolations(context: RuleContext, facts: SetStateInRenderFac
       ?.some((pos) => pos < node.range[0]) === true;
     if (isGuardedByEarlyReturn) continue;
     violations.push({
-      name: getText(Extract.unwrap(node.callee)),
+      name: getText(context, Extract.unwrap(node.callee)),
       node,
     });
   }
