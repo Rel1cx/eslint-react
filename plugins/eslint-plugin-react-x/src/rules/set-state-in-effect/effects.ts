@@ -1,5 +1,6 @@
 import { Extract, type TSESTreeFunction } from "@eslint-react/ast";
 import type { RuleContext } from "@eslint-react/eslint";
+import { getOrInsertComputed } from "@local/eff";
 import type { TSESTree } from "@typescript-eslint/types";
 import type { SetStateInEffectFacts } from "./collect";
 import { type ValueTarget, createSetStateResolver } from "./origins";
@@ -18,12 +19,10 @@ type InvocationState = {
 
 export function inferViolations(context: RuleContext, facts: SetStateInEffectFacts): SetStateViolation[] {
   if (facts.effectRoots.length === 0) return [];
-  const resolver = createSetStateResolver(context);
+  const resolver = createSetStateResolver(context, facts);
   const callsByFunction = new Map<TSESTreeFunction, TSESTree.CallExpression[]>();
   for (const fact of facts.calls) {
-    const calls = callsByFunction.get(fact.enclosingFunction) ?? [];
-    calls.push(fact.node);
-    callsByFunction.set(fact.enclosingFunction, calls);
+    getOrInsertComputed(callsByFunction, fact.enclosingFunction, () => []).push(fact.node);
   }
 
   const queue: InvocationState[] = [];
@@ -33,7 +32,7 @@ export function inferViolations(context: RuleContext, facts: SetStateInEffectFac
   const enqueue = (state: InvocationState) => {
     if (state.fn.async) return;
     const refParamsKey = [...state.refParams]
-      .map((node) => node.range[0])
+      .map((n) => n.range[0])
       .sort((a, b) => a - b)
       .join(",");
     const key = `${String(state.fn.range[0])}:${state.inheritedRefGate ? "gated" : "plain"}:${refParamsKey}`;

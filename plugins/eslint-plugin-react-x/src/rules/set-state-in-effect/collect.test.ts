@@ -127,4 +127,10 @@ describe("createFactCollector", () => {
     const facts = collectFacts("useEffect();");
     expect(facts.effectRoots).toHaveLength(0);
   });
+
+  it("collects JSX ref expressions but not other attributes", () => {
+    const code = "const C = () => <div ref={setNode} callback={setOther} />;";
+    const facts = collectFacts(code);
+    expect(facts.jsxRefExprs.map((node) => code.slice(node.range[0], node.range[1]))).toEqual(["setNode"]);
+  });
 });

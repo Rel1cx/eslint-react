@@ -3,10 +3,11 @@ import * as core from "@eslint-react/core";
 import { type RuleContext, getText } from "@eslint-react/eslint";
 import { getSettingsFromContext } from "@eslint-react/shared";
 import { resolveOrigin } from "@eslint-react/var";
-import { and, hasProperty } from "@local/eff";
+import { and, hasProperty, memoize } from "@local/eff";
 import { DefinitionType } from "@typescript-eslint/scope-manager";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import { findVariable } from "@typescript-eslint/utils/ast-utils";
+import type { SetStateInEffectFacts } from "./collect";
 import {
   getConditionalBranch,
   getIdentifiers,
@@ -18,11 +19,18 @@ import {
   uniqueTargets,
 } from "./helpers";
 
+const EMPTY_FACTS: SetStateInEffectFacts = {
+  calls: [],
+  effectRoots: [],
+  jsxRefExprs: [],
+};
+
 export type ValueTarget =
   | { kind: "function"; node: TSESTreeFunction }
   | { kind: "setter"; node: TSESTree.Node };
 
 type Variable = NonNullable<ReturnType<typeof findVariable>>;
+type VariableDefinition = Variable["defs"][number];
 type RefParams = ReadonlySet<TSESTree.Node>;
 type RefValueMode = "argument" | "initializer";
 type RefInitializerCandidate = {
@@ -32,17 +40,45 @@ type RefInitializerCandidate = {
   value: TSESTree.Node;
 };
 
-export function createSetStateResolver(context: RuleContext) {
+export function createSetStateResolver(context: RuleContext, facts: SetStateInEffectFacts = EMPTY_FACTS) {
   const { additionalRefHooks, additionalStateHooks } = getSettingsFromContext(context);
-  const returnsByFunction = new WeakMap<TSESTreeFunction, readonly TSESTree.Node[]>();
+  const getReturnExpressions = memoize(findReturnExpressions);
+
+  function isUseRefCall(node: TSESTree.Node): boolean {
+    return core.isUseRefLikeCall(node, additionalRefHooks);
+  }
 
   function isUseStateCall(node: TSESTree.Node): boolean {
     return core.isUseStateLikeCall(node, additionalStateHooks);
   }
 
-  function isUseRefCall(node: TSESTree.Node): boolean {
-    return core.isUseRefLikeCall(node, additionalRefHooks);
+  function getStateSetterVariable(definition: VariableDefinition): Variable | null {
+    if (definition.type !== DefinitionType.Variable || definition.node.init == null) return null;
+    const pattern = definition.node.id;
+    if (pattern.type !== AST.ArrayPattern || pattern.elements[0] !== definition.name) return null;
+    const init = Extract.unwrap(definition.node.init);
+    if (init.type !== AST.CallExpression || !isUseStateCall(init)) return null;
+    const setter = pattern.elements[1];
+    if (setter?.type !== AST.Identifier) return null;
+    return findVariable(context.sourceCode.getScope(setter), setter) ?? null;
   }
+
+  function isJsxRefTargetForSetter(target: ValueTarget, setterVariable: Variable): boolean {
+    if (target.kind === "setter") {
+      if (!Check.isIdentifier(target.node)) return false;
+      return findVariable(context.sourceCode.getScope(target.node), target.node) === setterVariable;
+    }
+    if (target.node.async) return false;
+    return setterVariable.references.some((r) => Traverse.hasParent(r.identifier, (n) => n === target.node));
+  }
+
+  const isStateHeldDomNode = memoize((variable: Variable): boolean =>
+    variable.defs.some((definition) => {
+      const setterVariable = getStateSetterVariable(definition);
+      if (setterVariable == null) return false;
+      return facts.jsxRefExprs.some((e) => resolveValues(e).some((t) => isJsxRefTargetForSetter(t, setterVariable)));
+    })
+  );
 
   function isSetStateId(id: TSESTree.Identifier) {
     const initNode = resolveOrigin(context, id);
@@ -50,7 +86,7 @@ export function createSetStateResolver(context: RuleContext) {
     const initNodeParent = initNode.parent;
     if (!hasProperty(initNodeParent, "id")) return false;
     if (initNodeParent.id?.type !== AST.ArrayPattern) return false;
-    return initNodeParent.id.elements.findIndex((element) => element != null && Check.isIdentifier(element, id.name)) === 1;
+    return initNodeParent.id.elements.findIndex((e) => e != null && Check.isIdentifier(e, id.name)) === 1;
   }
 
   function isSetStateExpression(node: TSESTree.Node): boolean {
@@ -60,14 +96,6 @@ export function createSetStateResolver(context: RuleContext) {
 
   function isSetStateCall(node: TSESTree.CallExpression) {
     return isSetStateExpression(node.callee);
-  }
-
-  function getReturnExpressions(fn: TSESTreeFunction): readonly TSESTree.Node[] {
-    const cached = returnsByFunction.get(fn);
-    if (cached != null) return cached;
-    const returns = findReturnExpressions(fn);
-    returnsByFunction.set(fn, returns);
-    return returns;
   }
 
   function resolveValues(node: TSESTree.Node, seen = new Set<Variable>()): ValueTarget[] {
@@ -125,7 +153,7 @@ export function createSetStateResolver(context: RuleContext) {
   }
 
   function getSetterName(node: TSESTree.Node) {
-    return Extract.getFullyQualifiedName(node, (part) => getText(context, part));
+    return Extract.getFullyQualifiedName(node, getText(context));
   }
 
   function getRefDerivedParams(call: TSESTree.CallExpression, fn: TSESTreeFunction, currentRefParams: RefParams = new Set()) {
@@ -149,9 +177,10 @@ export function createSetStateResolver(context: RuleContext) {
     const key = `${String(variable.identifiers.at(0)?.range[0] ?? variable.name)}:${String(id.range[0])}`;
     if (seen.has(key)) return false;
     seen.add(key);
+    if (isStateHeldDomNode(variable)) return true;
     const candidates: RefInitializerCandidate[] = [];
     const addCandidate = (value: TSESTree.Node, previous?: TSESTree.Identifier) => {
-      if (value.range[1] > id.range[0] || candidates.some((candidate) => candidate.value === value)) return;
+      if (value.range[1] > id.range[0] || candidates.some((c) => c.value === value)) return;
       candidates.push({
         branch: getConditionalBranch(value),
         position: value.range[1],
@@ -166,11 +195,11 @@ export function createSetStateResolver(context: RuleContext) {
     for (const reference of variable.references) {
       if (!reference.isWrite() || reference.writeExpr == null) continue;
       // dprint-ignore
-      if (reference.init === true && variable.defs.some((definition) => definition.type === DefinitionType.Parameter && refParams?.has(definition.name) === true)) {
+      if (reference.init === true && variable.defs.some((d) => d.type === DefinitionType.Parameter && refParams?.has(d.name) === true)) {
         continue;
       }
       const writeExpr = reference.writeExpr;
-      if (Traverse.hasParent(writeExpr, and(Check.isFunction, (fn) => !Traverse.hasParent(id, (node) => node === fn)))) {
+      if (Traverse.hasParent(writeExpr, and(Check.isFunction, (fn) => !Traverse.hasParent(id, (n) => n === fn)))) {
         continue;
       }
       const parent = reference.identifier.parent;
@@ -187,14 +216,14 @@ export function createSetStateResolver(context: RuleContext) {
       if (candidate.branch == null) {
         survivingCandidates.length = 0;
       } else {
-        const previousIndex = survivingCandidates.findIndex((other) => other.branch === candidate.branch);
+        const previousIndex = survivingCandidates.findIndex((o) => o.branch === candidate.branch);
         if (previousIndex >= 0) survivingCandidates.splice(previousIndex, 1);
       }
       survivingCandidates.push(candidate);
     }
     if (survivingCandidates.length > 0) {
-      return survivingCandidates.some((candidate) =>
-        (candidate.previous != null && isInitializedFromRef(candidate.previous, refParams, seen)) || isRefValue(candidate.value, refParams, seen, "initializer")
+      return survivingCandidates.some((c) =>
+        (c.previous != null && isInitializedFromRef(c.previous, refParams, seen)) || isRefValue(c.value, refParams, seen, "initializer")
       );
     }
     // dprint-ignore
@@ -236,11 +265,11 @@ export function createSetStateResolver(context: RuleContext) {
           if (seen.has(key)) continue;
           seen.add(key);
           const childRefParams = getRefDerivedParams(expression, target.node, refParams);
-          if (getReturnExpressions(target.node).some((returnExpression) => isRefValue(returnExpression, childRefParams, seen, mode))) {
+          if (getReturnExpressions(target.node).some((r) => isRefValue(r, childRefParams, seen, mode))) {
             return true;
           }
         }
-        return isRefValue(expression.callee, refParams, seen, mode) || expression.arguments.some((argument) => isRefValue(argument, refParams, seen, mode));
+        return isRefValue(expression.callee, refParams, seen, mode) || expression.arguments.some((a) => isRefValue(a, refParams, seen, mode));
       }
       case AST.BinaryExpression:
       case AST.LogicalExpression:
@@ -253,17 +282,17 @@ export function createSetStateResolver(context: RuleContext) {
           || isRefValue(expression.consequent, refParams, seen, mode)
           || isRefValue(expression.alternate, refParams, seen, mode);
       case AST.SequenceExpression:
-        return expression.expressions.some((part) => isRefValue(part, refParams, seen, mode));
+        return expression.expressions.some((p) => isRefValue(p, refParams, seen, mode));
       case AST.TemplateLiteral:
-        return expression.expressions.some((part) => isRefValue(part, refParams, seen, mode));
+        return expression.expressions.some((p) => isRefValue(p, refParams, seen, mode));
       case AST.TaggedTemplateExpression:
         return isRefValue(expression.tag, refParams, seen, mode) || isRefValue(expression.quasi, refParams, seen, mode);
       case AST.ObjectExpression:
-        return expression.properties.some((part) => isRefValue(part, refParams, seen, mode));
+        return expression.properties.some((p) => isRefValue(p, refParams, seen, mode));
       case AST.Property:
         return isRefValue(expression.value, refParams, seen, mode);
       case AST.ArrayExpression:
-        return expression.elements.some((element) => element != null && isRefValue(element, refParams, seen, mode));
+        return expression.elements.some((e) => e != null && isRefValue(e, refParams, seen, mode));
       case AST.SpreadElement:
       case AST.AssignmentExpression:
       case AST.AwaitExpression:
@@ -282,8 +311,8 @@ export function createSetStateResolver(context: RuleContext) {
     const seen = new Set<string>();
     if (isRefValue(node, refParams, seen, "argument")) return true;
     const expression = Extract.unwrap(node);
-    return Check.isFunction(expression)
-      && context.sourceCode.getScope(expression.body).references.some((reference) => isRefValue(reference.identifier, refParams, seen, "argument"));
+    if (!Check.isFunction(expression)) return false;
+    return context.sourceCode.getScope(expression.body).references.some((r) => isRefValue(r.identifier, refParams, seen, "argument"));
   }
 
   function isRefInExpression(node: TSESTree.Node, refParams?: RefParams) {
@@ -306,7 +335,7 @@ export function createSetStateResolver(context: RuleContext) {
           if (child === current.right && isRefInExpression(current.left, refParams)) return true;
           break;
         case AST.BlockStatement: {
-          const index = current.body.findIndex((statement) => statement === child);
+          const index = current.body.findIndex((s) => s === child);
           for (const statement of current.body.slice(0, Math.max(0, index))) {
             if (statement.type !== AST.IfStatement) continue;
             if (!isRefInExpression(statement.test, refParams)) continue;

@@ -1,8 +1,11 @@
 import { getText } from "@eslint-react/eslint";
-import { type TestRuleContext, collectNodes, findIdentifierReferences, runInRule } from "@local/testkit";
+import { type TestRuleContext, collectNodes, findIdentifierReferences, runCollector, runInRule } from "@local/testkit";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import { describe, expect, it } from "vitest";
+import { createFactCollector } from "./collect";
 import { createSetStateResolver, isArgumentUsingRefValue, isInitializedFromRef, isRefGatedContext } from "./origins";
+
+const NO_ADDITIONAL_HOOKS = { test: () => false };
 
 function findCall(context: TestRuleContext, program: TSESTree.Program, textPrefix: string) {
   const call = collectNodes<TSESTree.CallExpression>(program, AST.CallExpression).find((node) => getText(context, node).startsWith(textPrefix));
@@ -15,6 +18,22 @@ function findReference(program: TSESTree.Program, name: string, index = 0) {
   const ref = refs.at(index) ?? refs.at(-1);
   if (ref == null) throw new Error(`No reference to "${name}" found`);
   return ref;
+}
+
+function isStateHeldElement(code: string): boolean {
+  let context: TestRuleContext | null = null;
+  return runCollector(
+    code,
+    (ctx) => {
+      context = ctx;
+      const collector = createFactCollector(NO_ADDITIONAL_HOOKS, NO_ADDITIONAL_HOOKS);
+      return { api: collector.facts, visitor: collector.visitor };
+    },
+    (facts) => {
+      if (context == null) throw new Error("The rule context was not captured");
+      return createSetStateResolver(context, facts).isInitializedFromRef(findReference(context.sourceCode.ast, "element"));
+    },
+  );
 }
 
 describe("createSetStateResolver", () => {
@@ -157,6 +176,24 @@ describe("createSetStateResolver", () => {
       const code = "const a = b; const b = a; a;";
       const fact = runInRule(code, (context, program) => createSetStateResolver(context).resolveValues(findReference(program, "a")));
       expect(fact).toEqual([]);
+    });
+  });
+
+  describe("isInitializedFromRef with callback refs", () => {
+    it("should match state whose setter is passed directly to a JSX ref", () => {
+      const code = "function C() { const [element, setElement] = useState(null); sink(element); return <div ref={setElement} />; }";
+      expect(isStateHeldElement(code)).toBe(true);
+    });
+
+    it("should match state written by a useCallback passed to a JSX ref", () => {
+      const code =
+        "function C() { const [element, setElement] = useState(null); const elementRef = useCallback((node) => setElement(node), []); sink(element); return <div ref={elementRef} />; }";
+      expect(isStateHeldElement(code)).toBe(true);
+    });
+
+    it("should not match state whose setter is passed to another JSX attribute", () => {
+      const code = "function C() { const [element, setElement] = useState(null); sink(element); return <div callback={setElement} />; }";
+      expect(isStateHeldElement(code)).toBe(false);
     });
   });
 });

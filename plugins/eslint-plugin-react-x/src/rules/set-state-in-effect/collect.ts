@@ -2,7 +2,7 @@ import type { TSESTreeFunction } from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
 import type { RuleListener } from "@eslint-react/eslint";
 import type { RegExpLike } from "@eslint-react/shared";
-import type { TSESTree } from "@typescript-eslint/types";
+import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 
 export type EffectRootFact = {
   node: TSESTree.CallExpression;
@@ -17,12 +17,14 @@ export type CallFact = {
 export type SetStateInEffectFacts = {
   calls: CallFact[];
   effectRoots: EffectRootFact[];
+  jsxRefExprs: TSESTree.Node[];
 };
 
 export function createFactCollector(additionalStateHooks: RegExpLike, additionalEffectHooks: RegExpLike) {
   const facts: SetStateInEffectFacts = {
     calls: [],
     effectRoots: [],
+    jsxRefExprs: [],
   };
   const functionEntries: TSESTreeFunction[] = [];
 
@@ -35,6 +37,11 @@ export function createFactCollector(additionalStateHooks: RegExpLike, additional
     },
     ":function:exit"() {
       functionEntries.pop();
+    },
+    JSXAttribute(node: TSESTree.JSXAttribute) {
+      if (node.name.type !== AST.JSXIdentifier || node.name.name !== "ref") return;
+      if (node.value?.type !== AST.JSXExpressionContainer) return;
+      facts.jsxRefExprs.push(node.value.expression);
     },
     CallExpression(node: TSESTree.CallExpression) {
       if (isUseStateCall(node)) return;

@@ -1072,39 +1072,6 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [{ messageId: "default" }],
     },
-    // FIXME false positive: the measured element is a DOM node held in state (written by a
-    // callback ref), which the ref-name heuristic cannot recognize as a measurement source.
-    // Should become valid once state-held DOM elements are treated like ref-derived sources.
-    // Distilled from facebook/astryx packages/core/src/hooks/useScrollableArea.ts.
-    {
-      name: "setState with measurements of a DOM element held in state",
-      code: tsx`
-        import { useCallback, useLayoutEffect, useState } from "react";
-
-        function useScrollableArea() {
-          const [viewport, setViewport] = useState(null);
-          const [measured, setMeasured] = useState(null);
-          const viewportRef = useCallback((node) => {
-            setViewport((current) => (current === node ? current : node));
-          }, []);
-          useLayoutEffect(() => {
-            if (viewport == null) {
-              return;
-            }
-            const measure = () => {
-              const next = {
-                inline: viewport.scrollWidth > viewport.clientWidth,
-                block: viewport.scrollHeight > viewport.clientHeight,
-              };
-              setMeasured((current) => (current === next ? current : next));
-            };
-            measure();
-          }, [viewport]);
-          return measured;
-        }
-      `,
-      errors: [{ messageId: "default" }],
-    },
     // The indirect setB diagnostic is at helper() on line 10, immediately
     // before the direct setA diagnostic on line 11.
     {
@@ -2076,6 +2043,51 @@ ruleTester.run(RULE_NAME, rule, {
     },
   ],
   valid: [
+    {
+      name: "setState with measurements of a DOM element stored in state by a callback ref",
+      code: tsx`
+        function Example() {
+          const [viewport, setViewport] = useState<HTMLDivElement | null>(null);
+          const [measured, setMeasured] = useState(false);
+
+          useEffect(() => {
+            if (viewport == null) return;
+            setMeasured(viewport.getBoundingClientRect().width > 0);
+          }, [viewport]);
+
+          return <div ref={setViewport} />;
+        }
+      `,
+    },
+    // Distilled from facebook/astryx packages/core/src/hooks/useScrollableArea.ts.
+    {
+      name: "setState with measurements of a DOM element held in state",
+      code: tsx`
+        import { useCallback, useLayoutEffect, useState } from "react";
+
+        function useScrollableArea() {
+          const [viewport, setViewport] = useState(null);
+          const [measured, setMeasured] = useState(null);
+          const viewportRef = useCallback((node) => {
+            setViewport((current) => (current === node ? current : node));
+          }, []);
+          useLayoutEffect(() => {
+            if (viewport == null) {
+              return;
+            }
+            const measure = () => {
+              const next = {
+                inline: viewport.scrollWidth > viewport.clientWidth,
+                block: viewport.scrollHeight > viewport.clientHeight,
+              };
+              setMeasured((current) => (current === next ? current : next));
+            };
+            measure();
+          }, [viewport]);
+          return <div ref={viewportRef} />;
+        }
+      `,
+    },
     {
       name: "setState in promise callback",
       code: tsx`

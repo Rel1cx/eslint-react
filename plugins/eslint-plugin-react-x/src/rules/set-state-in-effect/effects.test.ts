@@ -393,4 +393,22 @@ describe("inferViolations", () => {
       "function C() { const ref = useRef(0); const [data, setData] = useState(0); useEffect(() => { let next = ref.current; if (cond) { next = 0; } setData(next); }, []); }";
     expect(inferViolationNames(code)).toEqual([]);
   });
+
+  it("should allow measurements of a DOM node stored in state by a callback ref", () => {
+    const code =
+      "function C() { const [node, setNode] = useState(null); const [width, setWidth] = useState(0); useEffect(() => { setWidth(node.getBoundingClientRect().width); }, [node]); return <div ref={setNode} />; }";
+    expect(inferViolationNames(code)).toEqual([]);
+  });
+
+  it("should allow measurements passed through a helper from a named callback ref state", () => {
+    const code =
+      "function C() { const [node, setNode] = useState(null); const [width, setWidth] = useState(0); const nodeRef = useCallback((value) => setNode(value), []); const measure = (el) => setWidth(el.offsetWidth); useEffect(() => { measure(node); }, [node]); return <div ref={nodeRef} />; }";
+    expect(inferViolationNames(code)).toEqual([]);
+  });
+
+  it("should report measurements derived from state not populated by a callback ref", () => {
+    const code =
+      "function C() { const [node, setNode] = useState(null); const [width, setWidth] = useState(0); useEffect(() => { setWidth(node.getBoundingClientRect().width); }, [node]); return <div callback={setNode} />; }";
+    expect(inferViolationNames(code)).toEqual(["setWidth"]);
+  });
 });
