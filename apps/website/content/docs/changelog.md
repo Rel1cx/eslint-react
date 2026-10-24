@@ -2,6 +2,26 @@
 title: Changelog
 ---
 
+## v5.30.0-beta.0 (2026-10-25)
+
+### ✨ New
+
+- `react-x/set-state-in-effect`: reworked around explicit effect roots and a synchronous call graph with recursive value resolution, unifying stable aliases, multi-level helpers, named setups, and nested IIFEs. Indirect reports now target the effect-side trigger and deduplicate by setter sink; async functions remain deferred (documented limitation). (#2075)
+
+### 🐞 Fixes
+
+- `react-x/set-state-in-effect`: TypeScript-wrapped setups are now resolved correctly. (#2075)
+- `react-x/set-state-in-effect`: timer or event callbacks nested in `useCallback`/`useEffectEvent` are no longer treated as synchronous setters. (#2075)
+- `react-x/set-state-in-effect`: expanded ref provenance to TypeScript assertions, computed member keys, and resolvable local getters. Plain same-branch overwrites now clear earlier ref exemptions, guard-test setters cannot self-exempt, and ref guards propagate through synchronous helpers and IIFEs. (#2075)
+- `react-x/set-state-in-effect`: direct and indirect zero-argument setters now use the same reporting policy, and nested effect setups no longer discard the outer setup's remaining analysis. (#2075)
+
+### 🏗️ Internal
+
+- `@eslint-react/ast`: added the `Check.isLoopStatement` helper; `@eslint-react/core`: narrowed the accepted node types of hook detection helpers. (#2075)
+- Bumped `next` to `16.4.3`, `fumadocs-core` and `fumadocs-ui` to `16.17.8`, `fumadocs-mdx` to `15.4.10`, `fumadocs-typescript` to `5.6.0`, `tsdown` to `0.23.2`, `nx` to `23.3.1`, and `eslint-plugin-package-json` to `1.11.0`.
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.28.8...v5.30.0-beta.0
+
 ## v5.28.8 (2026-10-24)
 
 ### 🐞 Fixes
