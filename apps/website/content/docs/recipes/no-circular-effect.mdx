@@ -129,13 +129,14 @@ function describeCycle(effects: EffectNode[], cycle: number[]): string {
 /** Detect circular `set` function and dependency patterns across `useEffect`-like hooks in the same component or hook. */
 export function noCircularEffect(): RuleFunction {
   return (context, { collect, is, settings }) => {
+    const { additionalEffectHooks, additionalStateHooks } = settings;
     const fc = collect.components(context);
     const hk = collect.hooks(context);
 
     function check(hookCalls: TSESTree.CallExpression[]) {
       // Build the read/write footprint of each effect in this scope
-      const setters = collectStateSetters(hookCalls, (node) => is.useStateLikeCall(node, settings.additionalStateHooks));
-      const effects = collectEffects(hookCalls, (node) => is.useEffectLikeCall(node, settings.additionalEffectHooks), setters);
+      const setters = collectStateSetters(hookCalls, (n) => n.type === "CallExpression" && is.useStateLikeCall(n, additionalStateHooks));
+      const effects = collectEffects(hookCalls, (n) => n.type === "CallExpression" && is.useEffectLikeCall(n, additionalEffectHooks), setters);
       if (effects.length === 0) return;
 
       // Track already-reported calls to avoid duplicate reports across overlapping cycles

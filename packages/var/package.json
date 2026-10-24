@@ -51,7 +51,7 @@
     "@types/node": "^20.19.43",
     "@typescript-eslint/typescript-estree": "^8.72.0",
     "eslint": "^10.13.0",
-    "tsdown": "^0.23.1",
+    "tsdown": "^0.23.2",
     "typescript": "6.0.3",
     "vitest": "^5.0.5"
   },
