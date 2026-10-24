@@ -2,13 +2,13 @@ import { type ParseCodeOptions, fixturePath, getFirstExpression, getFirstNodeOfT
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import { describe, expect, it } from "vitest";
 
-import { getNestedIdentifiers, isTerminatingStatement } from "./helpers";
+import { getIdentifiers, isTerminatingStatement } from "./helpers";
 
 function getNames(node: TSESTree.Node): string[] {
-  return getNestedIdentifiers(node).map((id) => id.name);
+  return getIdentifiers(node).map((id) => id.name);
 }
 
-describe("getNestedIdentifiers", () => {
+describe("getIdentifiers", () => {
   it("should collect the node itself when it is an identifier", () => {
     expect(getNames(getFirstExpression("foo;"))).toEqual(["foo"]);
   });

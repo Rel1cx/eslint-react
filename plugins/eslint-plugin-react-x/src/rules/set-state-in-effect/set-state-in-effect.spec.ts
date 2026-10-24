@@ -1226,7 +1226,7 @@ ruleTester.run(RULE_NAME, rule, {
         { data: { name: "setData" }, messageId: "default" },
       ],
     },
-    // getNestedIdentifiers never visits non-computed member properties, so a
+    // getIdentifiers never visits non-computed member properties, so a
     // ref-looking name in property position does not make the test ref-gated.
     {
       name: "setState gated by a ref-looking non-computed member property",
@@ -1247,7 +1247,7 @@ ruleTester.run(RULE_NAME, rule, {
         { data: { name: "setData" }, messageId: "default" },
       ],
     },
-    // getNestedIdentifiers never descends into function bodies, so a ref read
+    // getIdentifiers never descends into function bodies, so a ref read
     // inside a callback nested in the test does not make the test ref-gated.
     {
       name: "setState gated by a test whose only ref read is inside a nested callback",

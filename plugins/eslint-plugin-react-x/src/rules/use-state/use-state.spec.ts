@@ -526,7 +526,7 @@ ruleTester.run(RULE_NAME, rule, {
     },
     {
       name: "call with a member expression callee is skipped, but calls in its arguments are reported",
-      // list.map(...) is collected by getNestedCallExpressions but skipped by the rule
+      // list.map(...) is collected by getCallExpressions but skipped by the rule
       // because its callee is a MemberExpression (no "name"); the inner fn() is reported.
       code: `import { useState } from "react"; useState(list.map(fn()))`,
       errors: [
@@ -887,7 +887,7 @@ ruleTester.run(RULE_NAME, rule, {
       options: [{ enforceSetterName: false }],
     },
     // --- Lazy initialization: complex nested structures (valid) ---
-    // A call with a member expression callee is collected by getNestedCallExpressions but
+    // A call with a member expression callee is collected by getCallExpressions but
     // skipped by the rule because its callee has no "name" property.
     "const [mapped, setMapped] = useState(items.map(transform));",
     // Same, and function bodies are never descended into, so transform(x) is not visited.
@@ -898,7 +898,7 @@ ruleTester.run(RULE_NAME, rule, {
     "const [state, setState] = useState({ [getKey()]: value });",
     // Extra destructured elements beyond the value/setter pair are ignored.
     "const [state, setState, extra] = useState(0);",
-    // A new expression with a member expression callee is collected by getNestedNewExpressions
+    // A new expression with a member expression callee is collected by getNewExpressions
     // but skipped by the rule because its callee has no "name" property.
     {
       code: "useState(new ns.Foo())",

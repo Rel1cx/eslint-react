@@ -9,7 +9,7 @@ import { hasProperty } from "@local/eff";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import type { JSONSchema4 } from "@typescript-eslint/utils/json-schema";
 import { snakeCase } from "string-ts";
-import { LAZY_INIT_ALLOW_LIST, getNestedCallExpressions, getNestedNewExpressions } from "./lib";
+import { LAZY_INIT_ALLOW_LIST, getCallExpressions, getNewExpressions } from "./lib";
 
 export const RULE_NAME = "use-state";
 
@@ -97,7 +97,7 @@ export function create(context: RuleContext<MessageID, Options>): RuleListener {
         const [useStateInput] = node.arguments;
         if (useStateInput != null) {
           // Check for `new` expressions, e.g., `new MyClass()`
-          for (const expr of getNestedNewExpressions(useStateInput)) {
+          for (const expr of getNewExpressions(useStateInput)) {
             if (!hasProperty(expr.callee, "name")) continue;
             // Ignore primitive wrappers like `new String('foo')`
             if (LAZY_INIT_ALLOW_LIST.includes(expr.callee.name)) continue;
@@ -106,7 +106,7 @@ export function create(context: RuleContext<MessageID, Options>): RuleListener {
             context.report({ messageId: "invalid-initialization", node: expr });
           }
           // Check for function call expressions, e.g., `myFunction()`
-          for (const expr of getNestedCallExpressions(useStateInput)) {
+          for (const expr of getCallExpressions(useStateInput)) {
             if (!hasProperty(expr.callee, "name")) continue;
             // Ignore other React hooks
             if (core.isHookName(expr.callee.name)) continue;

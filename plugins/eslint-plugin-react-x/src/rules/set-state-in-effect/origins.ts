@@ -7,7 +7,16 @@ import { and, hasProperty } from "@local/eff";
 import { DefinitionType } from "@typescript-eslint/scope-manager";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import { findVariable } from "@typescript-eslint/utils/ast-utils";
-import { getNestedIdentifiers, isTerminatingStatement } from "./helpers";
+import {
+  getConditionalBranch,
+  getIdentifiers,
+  getParameterId,
+  getRefSourceName,
+  getReturnExpressions as findReturnExpressions,
+  isRefLikeName,
+  isTerminatingStatement,
+  uniqueTargets,
+} from "./helpers";
 
 export type ValueTarget =
   | { kind: "function"; node: TSESTreeFunction }
@@ -16,6 +25,12 @@ export type ValueTarget =
 type Variable = NonNullable<ReturnType<typeof findVariable>>;
 type RefParams = ReadonlySet<TSESTree.Node>;
 type RefValueMode = "argument" | "initializer";
+type RefInitializerCandidate = {
+  branch: TSESTree.Node | null;
+  position: number;
+  previous?: TSESTree.Identifier | undefined;
+  value: TSESTree.Node;
+};
 
 export function createSetStateResolver(context: RuleContext) {
   const { additionalRefHooks, additionalStateHooks } = getSettingsFromContext(context);
@@ -50,49 +65,7 @@ export function createSetStateResolver(context: RuleContext) {
   function getReturnExpressions(fn: TSESTreeFunction): readonly TSESTree.Node[] {
     const cached = returnsByFunction.get(fn);
     if (cached != null) return cached;
-    if (fn.type === AST.ArrowFunctionExpression && fn.body.type !== AST.BlockStatement) {
-      const returns = [fn.body] as const;
-      returnsByFunction.set(fn, returns);
-      return returns;
-    }
-    const returns: TSESTree.Node[] = [];
-    const visitStatements = (statements: readonly TSESTree.Statement[]) => {
-      for (const statement of statements) {
-        switch (statement.type) {
-          case AST.ReturnStatement:
-            if (statement.argument != null) returns.push(statement.argument);
-            break;
-          case AST.BlockStatement:
-            visitStatements(statement.body);
-            break;
-          case AST.IfStatement:
-            visitStatements([statement.consequent]);
-            if (statement.alternate != null) visitStatements([statement.alternate]);
-            break;
-          case AST.SwitchStatement:
-            for (const switchCase of statement.cases) visitStatements(switchCase.consequent);
-            break;
-          case AST.TryStatement:
-            visitStatements([statement.block]);
-            if (statement.handler != null) visitStatements([statement.handler.body]);
-            if (statement.finalizer != null) visitStatements([statement.finalizer]);
-            break;
-          case AST.DoWhileStatement:
-          case AST.ForInStatement:
-          case AST.ForOfStatement:
-          case AST.ForStatement:
-          case AST.LabeledStatement:
-          case AST.WhileStatement:
-          case AST.WithStatement:
-            visitStatements([statement.body]);
-            break;
-          default:
-            break;
-        }
-      }
-    };
-    if (fn.body.type !== AST.BlockStatement) return [];
-    visitStatements(fn.body.body);
+    const returns = findReturnExpressions(fn);
     returnsByFunction.set(fn, returns);
     return returns;
   }
@@ -101,35 +74,45 @@ export function createSetStateResolver(context: RuleContext) {
     const expression = Extract.unwrap(node);
     if (isSetStateExpression(expression)) return [{ kind: "setter", node: expression }];
     if (Check.isFunction(expression)) return [{ kind: "function", node: expression }];
-    if (Check.isIdentifier(expression)) {
-      const variable = findVariable(context.sourceCode.getScope(expression), expression);
-      if (variable == null || seen.has(variable)) return [];
-      const definition = variable.defs.length === 1 ? variable.defs[0] : null;
-      if (definition == null || definition.type === DefinitionType.Parameter || definition.type === DefinitionType.ImportBinding) {
+    switch (expression.type) {
+      case AST.Identifier:
+        return resolveIdentifierValues(expression, seen);
+      case AST.ConditionalExpression:
+        return uniqueTargets([
+          ...resolveValues(expression.consequent, new Set(seen)),
+          ...resolveValues(expression.alternate, new Set(seen)),
+        ]);
+      case AST.CallExpression:
+        return resolveCallValues(expression, seen);
+      default:
         return [];
-      }
-      if (definition.type === DefinitionType.FunctionName) {
-        return Check.isFunction(definition.node) ? [{ kind: "function", node: definition.node }] : [];
-      }
-      if (definition.type !== DefinitionType.Variable) return [];
-      if (definition.node.id !== definition.name || definition.node.init == null) return [];
-      if (definition.node.parent.kind !== "const") return [];
-      seen.add(variable);
-      return resolveValues(definition.node.init, seen);
     }
-    if (expression.type === AST.ConditionalExpression) {
-      return uniqueTargets([
-        ...resolveValues(expression.consequent, new Set(seen)),
-        ...resolveValues(expression.alternate, new Set(seen)),
-      ]);
+  }
+
+  function resolveIdentifierValues(id: TSESTree.Identifier, seen: Set<Variable>): ValueTarget[] {
+    const variable = findVariable(context.sourceCode.getScope(id), id);
+    if (variable == null || seen.has(variable)) return [];
+    const definition = variable.defs.length === 1 ? variable.defs[0] : null;
+    if (definition == null || definition.type === DefinitionType.Parameter || definition.type === DefinitionType.ImportBinding) {
+      return [];
     }
-    if (expression.type !== AST.CallExpression) return [];
-    const [argument] = expression.arguments;
+    if (definition.type === DefinitionType.FunctionName) {
+      return Check.isFunction(definition.node) ? [{ kind: "function", node: definition.node }] : [];
+    }
+    if (definition.type !== DefinitionType.Variable) return [];
+    if (definition.node.id !== definition.name || definition.node.init == null) return [];
+    if (definition.node.parent.kind !== "const") return [];
+    seen.add(variable);
+    return resolveValues(definition.node.init, seen);
+  }
+
+  function resolveCallValues(call: TSESTree.CallExpression, seen: Set<Variable>): ValueTarget[] {
+    const [argument] = call.arguments;
     if (argument == null || argument.type === AST.SpreadElement) return [];
-    if (core.isUseCallbackCall(context, expression) || Extract.getCalleeName(expression) === "useEffectEvent") {
+    if (core.isUseCallbackCall(context, call) || Extract.getCalleeName(call) === "useEffectEvent") {
       return resolveValues(argument, seen);
     }
-    if (!core.isUseMemoCall(context, expression)) return [];
+    if (!core.isUseMemoCall(context, call)) return [];
     const factories = resolveValues(argument, seen);
     const targets: ValueTarget[] = [];
     for (const factory of factories) {
@@ -147,40 +130,17 @@ export function createSetStateResolver(context: RuleContext) {
 
   function getRefDerivedParams(call: TSESTree.CallExpression, fn: TSESTreeFunction, currentRefParams: RefParams = new Set()) {
     const refParams = new Set(currentRefParams);
-    const parameterIds = fn.params.map((param) =>
-      param.type === AST.Identifier
-        ? param
-        : param.type === AST.AssignmentPattern && param.left.type === AST.Identifier
-        ? param.left
-        : null
-    );
+    const parameterIds = fn.params.map(getParameterId);
     for (const id of parameterIds) {
       if (id != null) refParams.delete(id);
     }
-    parameterIds.forEach((id, index) => {
-      if (id == null) return;
+    for (const [index, id] of parameterIds.entries()) {
+      if (id == null) continue;
       const argument = call.arguments.at(index);
-      if (argument == null || argument.type === AST.SpreadElement) return;
+      if (argument == null || argument.type === AST.SpreadElement) continue;
       if (isArgumentUsingRefValue(argument, currentRefParams)) refParams.add(id);
-    });
-    return refParams;
-  }
-
-  function getConditionalBranch(node: TSESTree.Node): TSESTree.Node | null {
-    let child: TSESTree.Node = node;
-    let current: TSESTree.Node | undefined = node.parent;
-    while (current != null && !Check.isFunction(current)) {
-      if (current.type === AST.IfStatement && (child === current.consequent || child === current.alternate)) return child;
-      if (current.type === AST.ConditionalExpression && (child === current.consequent || child === current.alternate)) return child;
-      if (current.type === AST.LogicalExpression && child === current.right) return child;
-      if (current.type === AST.SwitchCase) return current;
-      if (Check.isLoopStatement(current) && child === current.body) {
-        return child;
-      }
-      child = current;
-      current = current.parent;
     }
-    return null;
+    return refParams;
   }
 
   function isInitializedFromRef(id: TSESTree.Identifier, refParams?: RefParams, seen = new Set<string>()): boolean {
@@ -189,12 +149,7 @@ export function createSetStateResolver(context: RuleContext) {
     const key = `${String(variable.identifiers.at(0)?.range[0] ?? variable.name)}:${String(id.range[0])}`;
     if (seen.has(key)) return false;
     seen.add(key);
-    const candidates: {
-      branch: TSESTree.Node | null;
-      position: number;
-      previous?: TSESTree.Identifier | undefined;
-      value: TSESTree.Node;
-    }[] = [];
+    const candidates: RefInitializerCandidate[] = [];
     const addCandidate = (value: TSESTree.Node, previous?: TSESTree.Identifier) => {
       if (value.range[1] > id.range[0] || candidates.some((candidate) => candidate.value === value)) return;
       candidates.push({
@@ -210,10 +165,8 @@ export function createSetStateResolver(context: RuleContext) {
     }
     for (const reference of variable.references) {
       if (!reference.isWrite() || reference.writeExpr == null) continue;
-      if (
-        reference.init === true
-        && variable.defs.some((definition) => definition.type === DefinitionType.Parameter && refParams?.has(definition.name) === true)
-      ) {
+      // dprint-ignore
+      if (reference.init === true && variable.defs.some((definition) => definition.type === DefinitionType.Parameter && refParams?.has(definition.name) === true)) {
         continue;
       }
       const writeExpr = reference.writeExpr;
@@ -228,22 +181,24 @@ export function createSetStateResolver(context: RuleContext) {
         : undefined;
       addCandidate(writeExpr, previous);
     }
-    const surviving: typeof candidates = [];
+    const survivingCandidates: RefInitializerCandidate[] = [];
     for (const candidate of [...candidates].sort((a, b) => a.position - b.position)) {
+      // An unconditional assignment invalidates all earlier branches
       if (candidate.branch == null) {
-        surviving.length = 0;
+        survivingCandidates.length = 0;
       } else {
-        const previousIndex = surviving.findIndex((other) => other.branch === candidate.branch);
-        if (previousIndex >= 0) surviving.splice(previousIndex, 1);
+        const previousIndex = survivingCandidates.findIndex((other) => other.branch === candidate.branch);
+        if (previousIndex >= 0) survivingCandidates.splice(previousIndex, 1);
       }
-      surviving.push(candidate);
+      survivingCandidates.push(candidate);
     }
-    if (surviving.length > 0) {
-      return surviving
-        .some((s) => (s.previous != null && isInitializedFromRef(s.previous, refParams, seen)) || isRefValue(s.value, refParams, seen, "initializer"));
+    if (survivingCandidates.length > 0) {
+      return survivingCandidates.some((candidate) =>
+        (candidate.previous != null && isInitializedFromRef(candidate.previous, refParams, seen)) || isRefValue(candidate.value, refParams, seen, "initializer")
+      );
     }
-    return variable.defs
-      .some((d) => d.type === DefinitionType.Parameter && (refParams?.has(d.name) === true || (d.name.type === AST.Identifier && isRefLikeName(d.name.name))));
+    // dprint-ignore
+    return variable.defs.some((d) => d.type === DefinitionType.Parameter && (refParams?.has(d.name) === true || (d.name.type === AST.Identifier && isRefLikeName(d.name.name))));
   }
 
   function isRefValue(node: TSESTree.Node, refParams: RefParams | undefined, seen: Set<string>, mode: RefValueMode): boolean {
@@ -255,12 +210,7 @@ export function createSetStateResolver(context: RuleContext) {
       case AST.MemberExpression: {
         const property = Extract.unwrap(expression.property);
         const object = Extract.unwrap(expression.object);
-        if (
-          !expression.computed
-          && Check.isIdentifier(property, "current")
-          && object.type === AST.Identifier
-          && isParameterId(object)
-        ) {
+        if (!expression.computed && Check.isIdentifier(property, "current") && object.type === AST.Identifier && isParameterId(object)) {
           return true;
         }
         if (mode === "initializer") {
@@ -337,7 +287,7 @@ export function createSetStateResolver(context: RuleContext) {
   }
 
   function isRefInExpression(node: TSESTree.Node, refParams?: RefParams) {
-    return getNestedIdentifiers(node).some((id) => isInitializedFromRef(id, refParams));
+    return getIdentifiers(node).some((id) => isInitializedFromRef(id, refParams));
   }
 
   function isRefGatedContext(node: TSESTree.Node, refParams?: RefParams): boolean {
@@ -345,25 +295,24 @@ export function createSetStateResolver(context: RuleContext) {
     let current: TSESTree.Node | undefined = node.parent;
     while (current != null) {
       if (Check.isFunction(current)) break;
-      if (current.type === AST.IfStatement && (child === current.consequent || child === current.alternate) && isRefInExpression(current.test, refParams)) {
-        return true;
-      }
-      if (
-        current.type === AST.ConditionalExpression
-        && (child === current.consequent || child === current.alternate)
-        && isRefInExpression(current.test, refParams)
-      ) {
-        return true;
-      }
-      if (current.type === AST.LogicalExpression && child === current.right && isRefInExpression(current.left, refParams)) {
-        return true;
-      }
-      if (current.type === AST.BlockStatement) {
-        const index = current.body.findIndex((statement) => statement === child);
-        for (const statement of current.body.slice(0, Math.max(0, index))) {
-          if (statement.type !== AST.IfStatement) continue;
-          if (!isRefInExpression(statement.test, refParams)) continue;
-          if (isTerminatingStatement(statement.consequent)) return true;
+      switch (current.type) {
+        case AST.IfStatement:
+        case AST.ConditionalExpression:
+          if ((child === current.consequent || child === current.alternate) && isRefInExpression(current.test, refParams)) {
+            return true;
+          }
+          break;
+        case AST.LogicalExpression:
+          if (child === current.right && isRefInExpression(current.left, refParams)) return true;
+          break;
+        case AST.BlockStatement: {
+          const index = current.body.findIndex((statement) => statement === child);
+          for (const statement of current.body.slice(0, Math.max(0, index))) {
+            if (statement.type !== AST.IfStatement) continue;
+            if (!isRefInExpression(statement.test, refParams)) continue;
+            if (isTerminatingStatement(statement.consequent)) return true;
+          }
+          break;
         }
       }
       child = current;
@@ -387,33 +336,6 @@ export function createSetStateResolver(context: RuleContext) {
     isUseStateCall,
     resolveValues,
   } as const;
-}
-
-function uniqueTargets(targets: readonly ValueTarget[]) {
-  const seen = new Set<string>();
-  return targets.filter((target) => {
-    const key = `${target.kind}:${String(target.node.range[0])}`;
-    if (seen.has(key)) return false;
-    seen.add(key);
-    return true;
-  });
-}
-
-function isRefLikeName(name: string) {
-  return name === "ref" || name.endsWith("Ref");
-}
-
-function getRefSourceName(node: TSESTree.Node): string | null {
-  switch (node.type) {
-    case AST.Identifier:
-      return node.name;
-    case AST.MemberExpression: {
-      const property = Extract.unwrap(node.property);
-      return !node.computed && property.type === AST.Identifier ? property.name : null;
-    }
-    default:
-      return null;
-  }
 }
 
 export function isInitializedFromRef(context: RuleContext, id: TSESTree.Identifier, refParams?: RefParams) {
