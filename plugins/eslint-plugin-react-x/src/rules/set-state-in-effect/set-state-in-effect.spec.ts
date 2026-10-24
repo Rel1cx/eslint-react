@@ -675,96 +675,6 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      name: "setState via array index",
-      code: tsx`
-        import { useEffect, useState } from "react";
-
-        function Component() {
-          const data = useState(0);
-          useEffect(() => {
-            data[1](1);
-          }, []);
-          return null;
-        }
-      `,
-      errors: [
-        {
-          data: {
-            name: "data[1]",
-          },
-          messageId: "default",
-        },
-      ],
-    },
-    {
-      name: "setState via .at() method",
-      code: tsx`
-        import { useEffect, useState } from "react";
-
-        function Component() {
-          const data = useState(0);
-          useEffect(() => {
-            data.at(1)(1);
-          }, []);
-          return null;
-        }
-      `,
-      errors: [
-        {
-          data: {
-            name: "data.at(1)",
-          },
-          messageId: "default",
-        },
-      ],
-    },
-    {
-      name: "setState via .at() with variable",
-      code: tsx`
-        import { useEffect, useState } from "react";
-
-        const index = 1;
-        function Component() {
-          const data = useState(0);
-          useEffect(() => {
-            data.at(index)(1);
-          }, []);
-          return null;
-        }
-      `,
-      errors: [
-        {
-          data: {
-            name: "data.at(index)",
-          },
-          messageId: "default",
-        },
-      ],
-    },
-    {
-      name: "setState via bracket notation with variable",
-      code: tsx`
-        import { useEffect, useState } from "react";
-
-        const index = 1;
-        function Component() {
-          const data = useState(0);
-          useEffect(() => {
-            data[index](1);
-          }, []);
-          return null;
-        }
-      `,
-      errors: [
-        {
-          data: {
-            name: "data[index]",
-          },
-          messageId: "default",
-        },
-      ],
-    },
-    {
       name: "setState with custom hook",
       code: tsx`
         function Component() {
@@ -992,17 +902,6 @@ ruleTester.run(RULE_NAME, rule, {
           const [count, setCount] = useState(0);
           useEffect(() => {
             (setCount as any)(1);
-          }, []);
-        }
-      `,
-      errors: [{ messageId: "default" }],
-    },
-    {
-      code: tsx`
-        function Component() {
-          const state = useState(0);
-          useEffect(() => {
-            (state.at(1) as any)(1);
           }, []);
         }
       `,
@@ -1307,28 +1206,6 @@ ruleTester.run(RULE_NAME, rule, {
         { data: { name: "setData" }, messageId: "default", line: 9, column: 5 },
       ],
     },
-    // The tuple-index setter form is also recognized when reached indirectly
-    // through a function invoked from the setup.
-    {
-      name: "setState via array index reached indirectly",
-      code: tsx`
-        import { useEffect, useState } from "react";
-
-        function Component() {
-          const data = useState(0);
-          const helper = () => {
-            data[1](1);
-          };
-          useEffect(() => {
-            helper();
-          }, []);
-          return null;
-        }
-      `,
-      errors: [
-        { data: { name: "data[1]" }, messageId: "default" },
-      ],
-    },
     // The setup argument is resolved independently of the dependency array,
     // including when the dependencies contain computed member accesses.
     {
@@ -1593,25 +1470,6 @@ ruleTester.run(RULE_NAME, rule, {
             for (const _ of gen()) {
               // drive the generator
             }
-          }, []);
-          return null;
-        }
-      `,
-      errors: [
-        { data: { name: "setData" }, messageId: "default" },
-      ],
-    },
-    // `const { 1: setData } = useState()` destructures the tuple by numeric key,
-    // so the name is still recognized as the setter.
-    {
-      name: "setState via object-pattern destructuring with numeric key 1",
-      code: tsx`
-        import { useEffect, useState } from "react";
-
-        function Component() {
-          const { 1: setData } = useState(0);
-          useEffect(() => {
-            setData(1);
           }, []);
           return null;
         }
@@ -3113,21 +2971,6 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
     },
-    {
-      name: "calling setter at index 0",
-      code: tsx`
-        import { useEffect, useState } from "react";
-
-        const index = 0;
-        function Component() {
-          const data = useState(() => 0);
-          useEffect(() => {
-            data.at(index)();
-          }, []);
-          return null;
-        }
-      `,
-    },
     // useEffect with a plain function identifier (not setState) should not crash
     {
       name: "useEffect with plain function identifier",
@@ -3651,22 +3494,6 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
     },
-    // `const { 0: data } = useState()` binds the state value, not the setter:
-    // object-pattern destructuring only counts as a setter at numeric key 1.
-    {
-      name: "state value via object-pattern destructuring with numeric key 0",
-      code: tsx`
-        import { useEffect, useState } from "react";
-
-        function Component() {
-          const { 0: logData } = useState(() => () => 0);
-          useEffect(() => {
-            logData();
-          }, []);
-          return null;
-        }
-      `,
-    },
     // Setup value resolution does not follow arbitrary member expressions, so
     // a function stored as an object property is not an Effect setup target.
     {
@@ -3682,21 +3509,6 @@ ruleTester.run(RULE_NAME, rule, {
             },
           };
           useEffect(setups.main, []);
-          return null;
-        }
-      `,
-    },
-    // Only the literal index 1 names the setter; a negative index does not.
-    {
-      name: "data.at(-1)() is not recognized as the setter",
-      code: tsx`
-        import { useEffect, useState } from "react";
-
-        function Component() {
-          const data = useState(0);
-          useEffect(() => {
-            data.at(-1)(1);
-          }, []);
           return null;
         }
       `,

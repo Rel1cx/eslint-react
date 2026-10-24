@@ -93,11 +93,6 @@ describe("inferViolations", () => {
     expect(inferViolationNames(code)).toEqual([]);
   });
 
-  it("should report a member-style setState call with its qualified name", () => {
-    const code = "function C() { const data = useState(0); useEffect(() => { data[1](1); }, []); }";
-    expect(inferViolationNames(code)).toEqual(["data[1]"]);
-  });
-
   it("should not report a setState call whose argument is derived from a ref", () => {
     const code = "function C() { const ref = useRef(null); const [w, setW] = useState(0); useEffect(() => { setW(ref.current.offsetWidth); }, []); }";
     expect(inferViolationNames(code)).toEqual([]);
@@ -138,21 +133,6 @@ describe("inferViolations", () => {
   it("should report a setter destructured from a tuple with a hole", () => {
     const code = "function C() { const [, setData] = useState(0); useEffect(() => { setData(1); }, []); }";
     expect(inferViolationNames(code)).toEqual(["setData"]);
-  });
-
-  it("should report a setter destructured by numeric key from an object pattern", () => {
-    const code = "function C() { const { 1: setData } = useState(0); useEffect(() => { setData(1); }, []); }";
-    expect(inferViolationNames(code)).toEqual(["setData"]);
-  });
-
-  it("should not report the state value destructured by numeric key 0", () => {
-    const code = "function C() { const { 0: data } = useState(0); useEffect(() => { data(1); }, []); }";
-    expect(inferViolationNames(code)).toEqual([]);
-  });
-
-  it("should report an at(1) setState call with its qualified name", () => {
-    const code = "function C() { const data = useState(0); useEffect(() => { data.at(1)(1); }, []); }";
-    expect(inferViolationNames(code)).toEqual(["data.at(1)"]);
   });
 
   it("should report setState calls in both branches of a conditional expression", () => {

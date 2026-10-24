@@ -6,7 +6,7 @@ import { resolveOrigin } from "@eslint-react/var";
 import { and, hasProperty } from "@local/eff";
 import { DefinitionType } from "@typescript-eslint/scope-manager";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
-import { findVariable, getStaticValue } from "@typescript-eslint/utils/ast-utils";
+import { findVariable } from "@typescript-eslint/utils/ast-utils";
 import { getNestedIdentifiers, isTerminatingStatement } from "./helpers";
 
 export type ValueTarget =
@@ -29,47 +29,18 @@ export function createSetStateResolver(context: RuleContext) {
     return core.isUseRefLikeCall(node, additionalRefHooks);
   }
 
-  function isSetStateId(id: TSESTree.Identifier, at?: number) {
+  function isSetStateId(id: TSESTree.Identifier) {
     const initNode = resolveOrigin(context, id);
     if (initNode?.type !== AST.CallExpression || !isUseStateCall(initNode)) return false;
-    const variableNodeParent = initNode.parent;
-    if (!hasProperty(variableNodeParent, "id")) return true;
-    if (variableNodeParent.id?.type === AST.ObjectPattern) {
-      return variableNodeParent.id.properties.some((property) =>
-        property.type === AST.Property
-        && property.key.type === AST.Literal
-        && property.key.value === (at ?? 1)
-        && Check.isIdentifier(property.value, id.name)
-      );
-    }
-    if (variableNodeParent.id?.type !== AST.ArrayPattern) return true;
-    return variableNodeParent.id.elements.findIndex((element) => element != null && Check.isIdentifier(element, id.name)) === at;
+    const initNodeParent = initNode.parent;
+    if (!hasProperty(initNodeParent, "id")) return false;
+    if (initNodeParent.id?.type !== AST.ArrayPattern) return false;
+    return initNodeParent.id.elements.findIndex((element) => element != null && Check.isIdentifier(element, id.name)) === 1;
   }
 
   function isSetStateExpression(node: TSESTree.Node): boolean {
     const expression = Extract.unwrap(node);
-    switch (expression.type) {
-      case AST.Identifier:
-        return isSetStateId(expression, 1);
-      case AST.MemberExpression: {
-        const object = Extract.unwrap(expression.object);
-        if (!Check.isIdentifier(object)) return false;
-        const propertyValue = getStaticValue(expression.property, context.sourceCode.getScope(expression))?.value;
-        return propertyValue === 1 && isSetStateId(object, 1);
-      }
-      case AST.CallExpression: {
-        const callee = Extract.unwrap(expression.callee);
-        if (callee.type !== AST.MemberExpression || Extract.getCalleeName(expression) !== "at") return false;
-        const object = Extract.unwrap(callee.object);
-        if (!Check.isIdentifier(object)) return false;
-        const [index] = expression.arguments;
-        if (index == null) return false;
-        const indexValue = getStaticValue(index, context.sourceCode.getScope(expression))?.value;
-        return indexValue === 1 && isSetStateId(object);
-      }
-      default:
-        return false;
-    }
+    return Check.isIdentifier(expression) && isSetStateId(expression);
   }
 
   function isSetStateCall(node: TSESTree.CallExpression) {
@@ -402,8 +373,7 @@ export function createSetStateResolver(context: RuleContext) {
   }
 
   function isParameterId(id: TSESTree.Identifier) {
-    const variable = findVariable(context.sourceCode.getScope(id), id);
-    return variable?.defs.some((definition) => definition.type === DefinitionType.Parameter) ?? false;
+    return findVariable(context.sourceCode.getScope(id), id)?.defs.some((d) => d.type === DefinitionType.Parameter) ?? false;
   }
 
   return {

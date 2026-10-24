@@ -24,45 +24,18 @@ describe("createSetStateResolver", () => {
       const fact = runInRule(code, (context, program) => {
         const resolver = createSetStateResolver(context);
         return [
-          resolver.isSetStateId(findReference(program, "setData"), 1),
-          resolver.isSetStateId(findReference(program, "data"), 1),
+          resolver.isSetStateId(findReference(program, "setData")),
+          resolver.isSetStateId(findReference(program, "data")),
         ];
       });
       expect(fact).toEqual([true, false]);
-    });
-
-    it("should match the binding at numeric key 1 of an object-destructured useState tuple", () => {
-      const code = "const { 1: setData } = useState(); setData;";
-      const fact = runInRule(code, (context, program) => {
-        const resolver = createSetStateResolver(context);
-        return resolver.isSetStateId(findReference(program, "setData"), 1);
-      });
-      expect(fact).toBe(true);
-    });
-
-    it("should not match the binding at numeric key 0 of an object-destructured useState tuple", () => {
-      const code = "const { 0: data } = useState(); data;";
-      const fact = runInRule(code, (context, program) => {
-        const resolver = createSetStateResolver(context);
-        return resolver.isSetStateId(findReference(program, "data"), 1);
-      });
-      expect(fact).toBe(false);
-    });
-
-    it("should match a whole-tuple binding so member access like data[1] can be resolved", () => {
-      const code = "const data = useState(); data;";
-      const fact = runInRule(code, (context, program) => {
-        const resolver = createSetStateResolver(context);
-        return resolver.isSetStateId(findReference(program, "data"), 1);
-      });
-      expect(fact).toBe(true);
     });
 
     it("should not match a binding initialized by a non-state hook", () => {
       const code = "const [, setData] = useFoo(); setData;";
       const fact = runInRule(code, (context, program) => {
         const resolver = createSetStateResolver(context);
-        return resolver.isSetStateId(findReference(program, "setData"), 1);
+        return resolver.isSetStateId(findReference(program, "setData"));
       });
       expect(fact).toBe(false);
     });
@@ -71,7 +44,7 @@ describe("createSetStateResolver", () => {
       const code = "setData;";
       const fact = runInRule(code, (context, program) => {
         const resolver = createSetStateResolver(context);
-        return resolver.isSetStateId(findReference(program, "setData"), 1);
+        return resolver.isSetStateId(findReference(program, "setData"));
       });
       expect(fact).toBe(false);
     });
@@ -80,28 +53,16 @@ describe("createSetStateResolver", () => {
       const code = "const [, setData] = useState(); setData;";
       const fact = runInRule(code, (context, program) => {
         const resolver = createSetStateResolver(context);
-        return resolver.isSetStateId(findReference(program, "setData"), 1);
+        return resolver.isSetStateId(findReference(program, "setData"));
       });
       expect(fact).toBe(true);
-    });
-
-    it("should match both bindings of an object-destructured tuple by their numeric keys", () => {
-      const code = "const { 0: data, 1: setData } = useState(); data; setData;";
-      const fact = runInRule(code, (context, program) => {
-        const resolver = createSetStateResolver(context);
-        return [
-          resolver.isSetStateId(findReference(program, "data"), 1),
-          resolver.isSetStateId(findReference(program, "setData"), 1),
-        ];
-      });
-      expect(fact).toEqual([false, true]);
     });
 
     it("should match a setter destructured from a namespace state hook call", () => {
       const code = "const [, setData] = React.useState(); setData;";
       const fact = runInRule(code, (context, program) => {
         const resolver = createSetStateResolver(context);
-        return resolver.isSetStateId(findReference(program, "setData"), 1);
+        return resolver.isSetStateId(findReference(program, "setData"));
       });
       expect(fact).toBe(true);
     });
@@ -110,7 +71,7 @@ describe("createSetStateResolver", () => {
       const code = "const [data, setData] = useState(); const alias = setData; alias;";
       const fact = runInRule(code, (context, program) => {
         const resolver = createSetStateResolver(context);
-        return resolver.isSetStateId(findReference(program, "alias"), 1);
+        return resolver.isSetStateId(findReference(program, "alias"));
       });
       expect(fact).toBe(false);
     });
@@ -119,7 +80,7 @@ describe("createSetStateResolver", () => {
       const code = "const setData = foo; setData;";
       const fact = runInRule(code, (context, program) => {
         const resolver = createSetStateResolver(context);
-        return resolver.isSetStateId(findReference(program, "setData"), 1);
+        return resolver.isSetStateId(findReference(program, "setData"));
       });
       expect(fact).toBe(false);
     });
@@ -133,51 +94,6 @@ describe("createSetStateResolver", () => {
         return resolver.isSetStateCall(findCall(context, program, "setData"));
       });
       expect(fact).toBe(true);
-    });
-
-    it("should match member access at index 1 on a whole-tuple binding", () => {
-      const code = "const data = useState(); data[1]();";
-      const fact = runInRule(code, (context, program) => {
-        const resolver = createSetStateResolver(context);
-        return resolver.isSetStateCall(findCall(context, program, "data[1]"));
-      });
-      expect(fact).toBe(true);
-    });
-
-    it("should not match member access at index 0 on a whole-tuple binding", () => {
-      const code = "const data = useState(); data[0]();";
-      const fact = runInRule(code, (context, program) => {
-        const resolver = createSetStateResolver(context);
-        return resolver.isSetStateCall(findCall(context, program, "data[0]"));
-      });
-      expect(fact).toBe(false);
-    });
-
-    it("should match an at(1) call on a whole-tuple binding", () => {
-      const code = "const data = useState(); data.at(1)();";
-      const fact = runInRule(code, (context, program) => {
-        const resolver = createSetStateResolver(context);
-        return resolver.isSetStateCall(findCall(context, program, "data.at(1)("));
-      });
-      expect(fact).toBe(true);
-    });
-
-    it("should not match an at(0) call on a whole-tuple binding", () => {
-      const code = "const data = useState(); data.at(0)();";
-      const fact = runInRule(code, (context, program) => {
-        const resolver = createSetStateResolver(context);
-        return resolver.isSetStateCall(findCall(context, program, "data.at(0)("));
-      });
-      expect(fact).toBe(false);
-    });
-
-    it("should not match an at() call without arguments", () => {
-      const code = "const data = useState(); data.at()();";
-      const fact = runInRule(code, (context, program) => {
-        const resolver = createSetStateResolver(context);
-        return resolver.isSetStateCall(findCall(context, program, "data.at()("));
-      });
-      expect(fact).toBe(false);
     });
 
     it("should not match a call of an unrelated function", () => {
@@ -196,51 +112,6 @@ describe("createSetStateResolver", () => {
         return resolver.isSetStateCall(findCall(context, program, "setData"));
       });
       expect(fact).toBe(true);
-    });
-
-    it("should match an optional call of a member access at index 1", () => {
-      const code = "const data = useState(); data[1]?.();";
-      const fact = runInRule(code, (context, program) => {
-        const resolver = createSetStateResolver(context);
-        return resolver.isSetStateCall(findCall(context, program, "data[1]"));
-      });
-      expect(fact).toBe(true);
-    });
-
-    it("should not match an at(-1) call on a whole-tuple binding", () => {
-      const code = "const data = useState(); data.at(-1)();";
-      const fact = runInRule(code, (context, program) => {
-        const resolver = createSetStateResolver(context);
-        return resolver.isSetStateCall(findCall(context, program, "data.at(-1)("));
-      });
-      expect(fact).toBe(false);
-    });
-
-    it("should match an at() call whose index is a statically known variable", () => {
-      const code = "const index = 1; const data = useState(); data.at(index)();";
-      const fact = runInRule(code, (context, program) => {
-        const resolver = createSetStateResolver(context);
-        return resolver.isSetStateCall(findCall(context, program, "data.at(index)("));
-      });
-      expect(fact).toBe(true);
-    });
-
-    it("should not match an at() call whose index is not statically known", () => {
-      const code = "function f(index) { const data = useState(); data.at(index)(); }";
-      const fact = runInRule(code, (context, program) => {
-        const resolver = createSetStateResolver(context);
-        return resolver.isSetStateCall(findCall(context, program, "data.at(index)("));
-      });
-      expect(fact).toBe(false);
-    });
-
-    it("should not match a computed string-literal member access", () => {
-      const code = 'const data = useState(); data["1"]();';
-      const fact = runInRule(code, (context, program) => {
-        const resolver = createSetStateResolver(context);
-        return resolver.isSetStateCall(findCall(context, program, 'data["1"]'));
-      });
-      expect(fact).toBe(false);
     });
   });
 
