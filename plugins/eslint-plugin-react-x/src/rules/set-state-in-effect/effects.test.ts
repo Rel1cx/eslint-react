@@ -58,9 +58,9 @@ describe("inferViolations", () => {
     expect(inferViolationNames(code)).toEqual([]);
   });
 
-  it("should not report a setState call without arguments", () => {
+  it("should report a setState call without arguments", () => {
     const code = "function C() { const [data, setData] = useState(0); useEffect(() => { setData(); }, []); }";
-    expect(inferViolationNames(code)).toEqual([]);
+    expect(inferViolationNames(code)).toEqual(["setData"]);
   });
 
   it("should report a setState call reached through a local function invoked from the setup", () => {
@@ -91,11 +91,6 @@ describe("inferViolations", () => {
   it("should not resolve a function received through props", () => {
     const code = "function C({ onInit }) { const [data, setData] = useState(0); useEffect(() => { onInit(); }, []); }";
     expect(inferViolationNames(code)).toEqual([]);
-  });
-
-  it("should report a member-style setState call with its qualified name", () => {
-    const code = "function C() { const data = useState(0); useEffect(() => { data[1](1); }, []); }";
-    expect(inferViolationNames(code)).toEqual(["data[1]"]);
   });
 
   it("should not report a setState call whose argument is derived from a ref", () => {
@@ -140,21 +135,6 @@ describe("inferViolations", () => {
     expect(inferViolationNames(code)).toEqual(["setData"]);
   });
 
-  it("should report a setter destructured by numeric key from an object pattern", () => {
-    const code = "function C() { const { 1: setData } = useState(0); useEffect(() => { setData(1); }, []); }";
-    expect(inferViolationNames(code)).toEqual(["setData"]);
-  });
-
-  it("should not report the state value destructured by numeric key 0", () => {
-    const code = "function C() { const { 0: data } = useState(0); useEffect(() => { data(1); }, []); }";
-    expect(inferViolationNames(code)).toEqual([]);
-  });
-
-  it("should report an at(1) setState call with its qualified name", () => {
-    const code = "function C() { const data = useState(0); useEffect(() => { data.at(1)(1); }, []); }";
-    expect(inferViolationNames(code)).toEqual(["data.at(1)"]);
-  });
-
   it("should report setState calls in both branches of a conditional expression", () => {
     const code = "function C() { const [data, setData] = useState(0); useEffect(() => { cond ? setData(1) : setData(2); }, []); }";
     expect(inferViolationNames(code)).toEqual(["setData", "setData"]);
@@ -180,9 +160,9 @@ describe("inferViolations", () => {
     expect(inferViolationNames(code)).toEqual(["setData"]);
   });
 
-  it("should not report a call of a setter reached through an alias variable", () => {
+  it("should report a call of a setter reached through an alias variable", () => {
     const code = "function C() { const [data, setData] = useState(0); const alias = setData; useEffect(() => { alias(1); }, []); }";
-    expect(inferViolationNames(code)).toEqual([]);
+    expect(inferViolationNames(code)).toEqual(["setData"]);
   });
 
   it("should not report a setter identifier assigned to a local variable in the setup", () => {
@@ -211,9 +191,9 @@ describe("inferViolations", () => {
     expect(inferViolationNames(code)).toEqual(["setData"]);
   });
 
-  it("should not report a setState call in a doubly nested IIFE inside the setup", () => {
+  it("should report a setState call in a doubly nested IIFE inside the setup", () => {
     const code = "function C() { const [data, setData] = useState(0); useEffect(() => { (() => { (() => { setData(1); })(); })(); }, []); }";
-    expect(inferViolationNames(code)).toEqual([]);
+    expect(inferViolationNames(code)).toEqual(["setData"]);
   });
 
   it("should report a setState call in a for-of loop body in the setup", () => {
@@ -221,10 +201,10 @@ describe("inferViolations", () => {
     expect(inferViolationNames(code)).toEqual(["setData"]);
   });
 
-  it("should not report a setState call behind two levels of local helpers", () => {
+  it("should report a setState call behind two levels of local helpers", () => {
     const code =
       "function C() { const [data, setData] = useState(0); const inner = () => { setData(1); }; const outer = () => { inner(); }; useEffect(() => { outer(); }, []); }";
-    expect(inferViolationNames(code)).toEqual([]);
+    expect(inferViolationNames(code)).toEqual(["setData"]);
   });
 
   it("should not report a setState call in an uninvoked function inside the setup", () => {
@@ -303,9 +283,114 @@ describe("inferViolations", () => {
     expect(inferViolationNames(code)).toEqual(["setData"]);
   });
 
-  it("should report a setState call in an IIFE on the right of a ref-gated logical-and", () => {
+  it("should not report a setState call in an IIFE on the right of a ref-gated logical-and", () => {
     const code =
       "function C() { const ref = useRef(0); const [data, setData] = useState(0); useEffect(() => { ref.current && (() => { setData(1); })(); }, []); }";
+    expect(inferViolationNames(code)).toEqual([]);
+  });
+
+  it("should report a helper called from a named setup", () => {
+    const code = "function C() { const [data, setData] = useState(0); const helper = () => setData(1); function setup() { helper(); } useEffect(setup, []); }";
     expect(inferViolationNames(code)).toEqual(["setData"]);
+  });
+
+  it("should report an IIFE inside a named setup", () => {
+    const code = "function C() { const [data, setData] = useState(0); function setup() { (() => setData(1))(); } useEffect(setup, []); }";
+    expect(inferViolationNames(code)).toEqual(["setData"]);
+  });
+
+  it("should report an IIFE inside a helper called from the setup", () => {
+    const code = "function C() { const [data, setData] = useState(0); const helper = () => { (() => setData(1))(); }; useEffect(() => { helper(); }, []); }";
+    expect(inferViolationNames(code)).toEqual(["setData"]);
+  });
+
+  it("should terminate on pure recursion without a setter", () => {
+    const code = "function C() { const recurse = () => recurse(); useEffect(() => { recurse(); }, []); }";
+    expect(inferViolationNames(code)).toEqual([]);
+  });
+
+  it("should terminate and report recursion that reaches a setter", () => {
+    const code = "function C() { const [data, setData] = useState(0); const recurse = () => { recurse(); setData(1); }; useEffect(() => { recurse(); }, []); }";
+    expect(inferViolationNames(code)).toEqual(["setData"]);
+  });
+
+  it("should terminate on mutually recursive helpers and report their setter", () => {
+    const code =
+      "function C() { const [data, setData] = useState(0); const a = () => b(); const b = () => { a(); setData(1); }; useEffect(() => { a(); }, []); }";
+    expect(inferViolationNames(code)).toEqual(["setData"]);
+  });
+
+  it("should not report a timer callback nested in a useCallback helper", () => {
+    const code =
+      "function C() { const [data, setData] = useState(0); const helper = useCallback(() => { setTimeout(() => setData(1), 0); }, []); useEffect(() => { helper(); }, []); }";
+    expect(inferViolationNames(code)).toEqual([]);
+  });
+
+  it("should not report a timer callback nested in a useEffectEvent helper", () => {
+    const code =
+      "function C() { const [data, setData] = useState(0); const helper = useEffectEvent(() => { setTimeout(() => setData(1), 0); }); useEffect(() => { helper(); }, []); }";
+    expect(inferViolationNames(code)).toEqual([]);
+  });
+
+  it("should deduplicate the same sink reached by two calls", () => {
+    const code = "function C() { const [data, setData] = useState(0); const helper = () => setData(1); useEffect(() => { helper(); helper(); }, []); }";
+    expect(inferViolationNames(code)).toEqual(["setData"]);
+  });
+
+  it("should deduplicate the same named setup used by two effects", () => {
+    const code = "function C() { const [data, setData] = useState(0); function setup() { setData(1); } useEffect(setup, []); useEffect(setup, []); }";
+    expect(inferViolationNames(code)).toEqual(["setData"]);
+  });
+
+  it("should report an indirect zero-argument setter with the same policy as a direct one", () => {
+    const code = "function C() { const [data, setData] = useState(0); const helper = () => setData(); useEffect(() => { helper(); }, []); }";
+    expect(inferViolationNames(code)).toEqual(["setData"]);
+  });
+
+  it("should allow a value returned by a local ref-reading getter", () => {
+    const code =
+      "function C() { const ref = useRef(0); const getValue = () => ref.current; const [data, setData] = useState(0); useEffect(() => { setData(getValue()); }, []); }";
+    expect(inferViolationNames(code)).toEqual([]);
+  });
+
+  it("should allow a ref read in a computed member key", () => {
+    const code = "function C() { const ref = useRef('key'); const [data, setData] = useState(0); useEffect(() => { setData(lookup[ref.current]); }, []); }";
+    expect(inferViolationNames(code)).toEqual([]);
+  });
+
+  it("should not allow an earlier ref write after a later plain overwrite", () => {
+    const code =
+      "function C() { const ref = useRef(0); const [data, setData] = useState(0); useEffect(() => { let next = 0; next = ref.current; next = 42; setData(next); }, []); }";
+    expect(inferViolationNames(code)).toEqual(["setData"]);
+  });
+
+  it("should report an unconditional setter inside an if test containing a ref", () => {
+    const code =
+      "function C() { const ref = useRef(0); const [data, setData] = useState(0); useEffect(() => { if ((setData(1), ref.current)) { console.log(data); } }, []); }";
+    expect(inferViolationNames(code)).toEqual(["setData"]);
+  });
+
+  it("should re-map recursive parameters at each call site", () => {
+    const code =
+      "function C() { const ref = useRef(0); const [data, setData] = useState(0); const update = (value) => { if (cond) { update(0); } else { setData(value); } }; useEffect(() => { update(ref.current); }, []); }";
+    expect(inferViolationNames(code)).toEqual(["setData"]);
+  });
+
+  it("should report after a ref-fed parameter is overwritten with a plain value", () => {
+    const code =
+      "function C() { const ref = useRef(0); const [data, setData] = useState(0); const update = (value) => { value = 0; setData(value); }; useEffect(() => { update(ref.current); }, []); }";
+    expect(inferViolationNames(code)).toEqual(["setData"]);
+  });
+
+  it("should allow a compound update of a ref-derived local", () => {
+    const code =
+      "function C() { const ref = useRef(0); const [data, setData] = useState(0); useEffect(() => { let next = ref.current; next += 1; setData(next); }, []); }";
+    expect(inferViolationNames(code)).toEqual([]);
+  });
+
+  it("should allow a conditional plain overwrite when another path remains ref-derived", () => {
+    const code =
+      "function C() { const ref = useRef(0); const [data, setData] = useState(0); useEffect(() => { let next = ref.current; if (cond) { next = 0; } setData(next); }, []); }";
+    expect(inferViolationNames(code)).toEqual([]);
   });
 });

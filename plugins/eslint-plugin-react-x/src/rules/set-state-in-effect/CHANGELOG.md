@@ -5,6 +5,19 @@ All notable changes to the `react-x/set-state-in-effect` rule will be documented
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+### Changed
+
+- Reworked the rule around explicit effect roots, recursive value resolution, and a synchronous call graph. Stable aliases, multi-level helpers, named setups, and nested IIFEs now share one resolution path; indirect diagnostics point to the effect-side trigger and are deduplicated by the actual setter sink. Async functions remain deferred as a documented limitation.
+
+### Fixed
+
+- TypeScript-wrapped setups are resolved correctly.
+- Timer or event callbacks nested in `useCallback`/`useEffectEvent` are no longer treated as synchronous setters.
+- Ref provenance now covers TypeScript assertions, computed member keys, and resolvable local getters; later plain overwrites in the same branch no longer inherit an earlier ref exemption, setters inside guard tests cannot exempt themselves, and ref guards propagate through synchronous helper calls and IIFEs.
+- Direct and indirect zero-argument setters now use the same reporting policy, and nested effect setups no longer discard the outer setup's remaining analysis.
+
 ## [5.28.6] - 2026-10-22
 
 ### Fixed

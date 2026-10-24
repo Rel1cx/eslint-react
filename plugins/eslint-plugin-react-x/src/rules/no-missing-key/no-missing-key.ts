@@ -5,7 +5,7 @@ import { type RuleContext, type RuleFeature, type RuleListener } from "@eslint-r
 import { hasAttribute } from "@eslint-react/jsx";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import type { ReportDescriptor } from "@typescript-eslint/utils/ts-eslint";
-import { KNOWN_CALLBACK_POSITIONS, getNestedReturnStatements } from "./lib";
+import { KNOWN_CALLBACK_POSITIONS, getReturnStatements } from "./lib";
 
 export const RULE_NAME = "no-missing-key";
 
@@ -100,7 +100,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
     if (node.body.type !== AST.BlockStatement) {
       return visitItemExpression(node.body);
     }
-    return getNestedReturnStatements(node.body)
+    return getReturnStatements(node.body)
       .flatMap((stmt) => stmt.argument == null ? [] : visitItemExpression(stmt.argument));
   }
 

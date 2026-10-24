@@ -1,5 +1,4 @@
-import { Check, Extract } from "@eslint-react/ast";
-import * as core from "@eslint-react/core";
+import { Check, Extract, type TSESTreeFunction } from "@eslint-react/ast";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import { simpleTraverse } from "@typescript-eslint/typescript-estree";
 
@@ -41,7 +40,7 @@ const IDENTIFIER_VISITOR_KEYS = {
  * @param node The node to get the nested identifiers from
  * @returns All nested identifiers
  */
-export function getNestedIdentifiers(node: TSESTree.Node): readonly TSESTree.Identifier[] {
+export function getIdentifiers(node: TSESTree.Node): readonly TSESTree.Identifier[] {
   const identifiers: TSESTree.Identifier[] = [];
   simpleTraverse(node, {
     enter(node, parent) {
@@ -56,34 +55,6 @@ export function getNestedIdentifiers(node: TSESTree.Node): readonly TSESTree.Ide
 }
 
 /**
- * Check if a node is a variable declarator whose initializer is a hook call
- * (ex: `const f = useCallback(...)`)
- * @param node The node to check
- * @returns `true` if the node declares a variable initialized by a hook call
- */
-export function isHookDecl(node: TSESTree.Node): node is TSESTree.VariableDeclarator & { init: TSESTree.CallExpression } {
-  if (node.type !== AST.VariableDeclarator) return false;
-  if (!Check.isIdentifier(node.id)) return false;
-  const init = node.init;
-  if (init == null) return false;
-  if (init.type !== AST.CallExpression) return false;
-  const name = Extract.getCalleeName(init);
-  return name != null && core.isHookName(name);
-}
-
-/**
- * Check if a call expression is a `.then(...)` call
- * (ex: `fetch(url).then(...)`)
- * @param node The call expression to check
- * @returns `true` if the call is a `.then` call
- */
-export function isThenCall(node: TSESTree.CallExpression) {
-  const callee = Extract.unwrap(node.callee);
-  return callee.type === AST.MemberExpression
-    && Extract.getCalleeName(node) === "then";
-}
-
-/**
  * Check if a statement terminates the control flow of its block
  * (a `return`/`throw`, or a block containing one)
  * @param node The node to check
@@ -95,28 +66,105 @@ export function isTerminatingStatement(node: TSESTree.Node): boolean {
   return false;
 }
 
-/**
- * Get the display name of a setState call reference for reporting.
- * @param node The setState call node (CallExpression or Identifier)
- * @param getText The source text getter
- * @returns The fully qualified name of the call
- */
-export function getCallName(node: TSESTree.CallExpression | TSESTree.Identifier, getText: (node: TSESTree.Node) => string) {
-  if (node.type === AST.CallExpression) {
-    return Extract.getFullyQualifiedName(node.callee, getText);
-  }
-  return Extract.getFullyQualifiedName(node, getText);
+export function getReturnExpressions(fn: TSESTreeFunction): readonly TSESTree.Node[] {
+  if (fn.type === AST.ArrowFunctionExpression && fn.body.type !== AST.BlockStatement) return [fn.body];
+  const returns: TSESTree.Node[] = [];
+  const visitStatements = (statements: readonly TSESTree.Statement[]) => {
+    for (const statement of statements) {
+      switch (statement.type) {
+        case AST.ReturnStatement:
+          if (statement.argument != null) returns.push(statement.argument);
+          break;
+        case AST.BlockStatement:
+          visitStatements(statement.body);
+          break;
+        case AST.IfStatement:
+          visitStatements([statement.consequent]);
+          if (statement.alternate != null) visitStatements([statement.alternate]);
+          break;
+        case AST.SwitchStatement:
+          for (const switchCase of statement.cases) visitStatements(switchCase.consequent);
+          break;
+        case AST.TryStatement:
+          visitStatements([statement.block]);
+          if (statement.handler != null) visitStatements([statement.handler.body]);
+          if (statement.finalizer != null) visitStatements([statement.finalizer]);
+          break;
+        case AST.DoWhileStatement:
+        case AST.ForInStatement:
+        case AST.ForOfStatement:
+        case AST.ForStatement:
+        case AST.LabeledStatement:
+        case AST.WhileStatement:
+        case AST.WithStatement:
+          visitStatements([statement.body]);
+          break;
+        default:
+          break;
+      }
+    }
+  };
+  if (fn.body.type !== AST.BlockStatement) return [];
+  visitStatements(fn.body.body);
+  return returns;
 }
 
-/**
- * Get the actual CallExpression node from a setState call reference.
- * When the node is an Identifier that is the callee of a CallExpression,
- * returns the parent CallExpression; otherwise returns the node itself.
- * @param node The setState call node (CallExpression or Identifier)
- * @returns The actual CallExpression node, or the node itself if it is not the callee of a CallExpression
- */
-export function getSetStateCallExpression(node: TSESTree.CallExpression | TSESTree.Identifier): TSESTree.CallExpression | TSESTree.Identifier {
-  return Check.isIdentifier(node) && node.parent.type === AST.CallExpression && node.parent.callee === node
-    ? node.parent
-    : node;
+export function getConditionalBranch(node: TSESTree.Node): TSESTree.Node | null {
+  let child: TSESTree.Node = node;
+  let current: TSESTree.Node | undefined = node.parent;
+  while (current != null && !Check.isFunction(current)) {
+    if (Check.isLoopStatement(current) && child === current.body) return child;
+    switch (current.type) {
+      case AST.IfStatement:
+      case AST.ConditionalExpression:
+        if (child === current.consequent || child === current.alternate) return child;
+        break;
+      case AST.LogicalExpression:
+        if (child === current.right) return child;
+        break;
+      case AST.SwitchCase:
+        return current;
+    }
+    child = current;
+    current = current.parent;
+  }
+  return null;
+}
+
+export function uniqueTargets<T extends { kind: string; node: TSESTree.Node }>(targets: readonly T[]): T[] {
+  const seen = new Set<string>();
+  return targets.filter((target) => {
+    const key = `${target.kind}:${String(target.node.range[0])}`;
+    if (seen.has(key)) return false;
+    seen.add(key);
+    return true;
+  });
+}
+
+export function isRefLikeName(name: string) {
+  return name === "ref" || name.endsWith("Ref");
+}
+
+export function getParameterId(param: TSESTree.Parameter): TSESTree.Identifier | null {
+  switch (param.type) {
+    case AST.Identifier:
+      return param;
+    case AST.AssignmentPattern:
+      return param.left.type === AST.Identifier ? param.left : null;
+    default:
+      return null;
+  }
+}
+
+export function getRefSourceName(node: TSESTree.Node): string | null {
+  switch (node.type) {
+    case AST.Identifier:
+      return node.name;
+    case AST.MemberExpression: {
+      const property = Extract.unwrap(node.property);
+      return !node.computed && property.type === AST.Identifier ? property.name : null;
+    }
+    default:
+      return null;
+  }
 }

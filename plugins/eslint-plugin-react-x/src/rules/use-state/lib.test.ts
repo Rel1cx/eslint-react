@@ -2,17 +2,17 @@ import { getFirstExpression, getFirstNodeOfType, getTextOf } from "@local/testki
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import { describe, expect, it } from "vitest";
 
-import { getNestedCallExpressions, getNestedNewExpressions } from "./lib";
+import { getCallExpressions, getNewExpressions } from "./lib";
 
 function getCallTexts(code: string, node: TSESTree.Node): string[] {
-  return getNestedCallExpressions(node).map((n) => getTextOf(code, n));
+  return getCallExpressions(node).map((n) => getTextOf(code, n));
 }
 
 function getNewTexts(code: string, node: TSESTree.Node): string[] {
-  return getNestedNewExpressions(node).map((n) => getTextOf(code, n));
+  return getNewExpressions(node).map((n) => getTextOf(code, n));
 }
 
-describe("getNestedCallExpressions", () => {
+describe("getCallExpressions", () => {
   it("should collect the root itself when it is a call expression", () => {
     const code = "foo();";
     expect(getCallTexts(code, getFirstExpression(code))).toEqual(["foo()"]);
@@ -230,7 +230,7 @@ describe("getNestedCallExpressions", () => {
   });
 });
 
-describe("getNestedNewExpressions", () => {
+describe("getNewExpressions", () => {
   it("should collect the root itself when it is a new expression", () => {
     const code = "new Foo();";
     expect(getNewTexts(code, getFirstExpression(code))).toEqual(["new Foo()"]);

@@ -22,6 +22,7 @@ Helpers for checking `TSESTree` node types.
 | [isJSXFragment](variables/isJSXFragment.md)                         | Check if a node is a JSX fragment.                                                                                                 |
 | [isJSXSpreadAttribute](variables/isJSXSpreadAttribute.md)           | Check if a node is a JSX spread attribute.                                                                                         |
 | [isJSXTagNameExpression](variables/isJSXTagNameExpression.md)       | Check if a node can appear as a JSX tag name.                                                                                      |
+| [isLoopStatement](variables/isLoopStatement.md)                     | Check if a node is a loop statement.                                                                                               |
 | [isMemberExpression](variables/isMemberExpression.md)               | Check if a node is a member expression.                                                                                            |
 | [isObjectExpression](variables/isObjectExpression.md)               | Check if a node is an object expression.                                                                                           |
 | [isOneOf](variables/isOneOf.md)                                     | Check if a node is one of the given types.                                                                                         |

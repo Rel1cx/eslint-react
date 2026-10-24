@@ -40,7 +40,7 @@ export function isResultUsed(node: TSESTree.CallExpression): boolean {
  * @param node The AST node
  * @returns The nested return statements in the node
  */
-export function getNestedReturnStatements(node: TSESTree.Node): readonly TSESTree.ReturnStatement[] {
+export function getReturnStatements(node: TSESTree.Node): readonly TSESTree.ReturnStatement[] {
   const statements: TSESTree.ReturnStatement[] = [];
   // If the node is not inside a function, boundary will be null
   // and no return statements will be collected (as expected)

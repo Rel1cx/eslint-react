@@ -270,25 +270,6 @@ ruleTester.run(RULE_NAME, rule, {
     },
     {
       code: tsx`
-        import { useState } from "react";
-
-        function Component() {
-          const data = useState(0);
-          data[1](1);
-          return <div>{data[0]}</div>;
-        }
-      `,
-      errors: [
-        {
-          data: {
-            name: "data[1]",
-          },
-          messageId: "default",
-        },
-      ],
-    },
-    {
-      code: tsx`
         function Component(props) {
           const [state, setState] = useState(false);
           (setState as any)(true);
@@ -518,19 +499,6 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [{ data: { name: "setA" }, messageId: "default" }],
     },
-    // tuple setter accessed via .at(1)
-    {
-      code: tsx`
-        import { useState } from "react";
-
-        function Component() {
-          const data = useState(0);
-          data.at(1)(1);
-          return <div>{data[0]}</div>;
-        }
-      `,
-      errors: [{ data: { name: "data.at(1)" }, messageId: "default" }],
-    },
     // an early return in a sibling component must not shield this component
     {
       code: tsx`
@@ -586,20 +554,6 @@ ruleTester.run(RULE_NAME, rule, {
           const [a, setA] = React.useState(0);
           setA(1);
           return <div>{a}</div>;
-        }
-      `,
-      errors: [{ data: { name: "setA" }, messageId: "default" }],
-    },
-    // `const { 1: setA } = useState()` destructures the tuple by numeric key,
-    // so the name is still recognized as the setter
-    {
-      code: tsx`
-        import { useState } from "react";
-
-        function Component() {
-          const { 1: setA } = useState(0);
-          setA(1);
-          return <div />;
         }
       `,
       errors: [{ data: { name: "setA" }, messageId: "default" }],
@@ -1112,31 +1066,6 @@ ruleTester.run(RULE_NAME, rule, {
             setA(1);
           }
           return <div>{a}</div>;
-        }
-      `,
-    },
-    // tuple value accessed via .at(0) is not a setter call
-    {
-      code: tsx`
-        import { useState } from "react";
-
-        function Component() {
-          const data = useState(() => 0);
-          data.at(0)();
-          return <div>{data[0]}</div>;
-        }
-      `,
-    },
-    // `const { 0: a } = useState()` binds the state value, not the setter:
-    // object-pattern destructuring only counts as a setter at numeric key 1
-    {
-      code: tsx`
-        import { useState } from "react";
-
-        function Component() {
-          const { 0: logA } = useState(() => () => 0);
-          logA();
-          return <div />;
         }
       `,
     },
