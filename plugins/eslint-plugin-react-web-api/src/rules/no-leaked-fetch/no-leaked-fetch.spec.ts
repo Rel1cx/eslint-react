@@ -62,6 +62,39 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
     },
+    {
+      code: tsx`
+        function Example() {
+          useEffect(() => {
+            self.fetch("/api/user");
+          }, []);
+        }
+      `,
+      errors: [
+        {
+          messageId: "expected-abort-controller",
+        },
+      ],
+    },
+    // A `fetch` declared in another scope does not shadow the global one here
+    {
+      code: tsx`
+        function helper() {
+          function fetch() {}
+          return fetch;
+        }
+        function Example() {
+          useEffect(() => {
+            fetch("/api/user");
+          }, []);
+        }
+      `,
+      errors: [
+        {
+          messageId: "expected-abort-controller",
+        },
+      ],
+    },
     // Cleanup returns a non-function, so the fetch is never aborted
     {
       code: tsx`
@@ -722,6 +755,60 @@ ruleTester.run(RULE_NAME, rule, {
           const ctrl = new AbortController();
           globalThis.fetch("/api/user", { signal: ctrl.signal });
           return () => ctrl.abort();
+        }, []);
+      }
+    `,
+    // A local function named `fetch` shadows the global one
+    tsx`
+      import { useEffect } from "react";
+
+      function Example() {
+        function fetch() {}
+        useEffect(() => {
+          fetch();
+        }, []);
+      }
+    `,
+    // A method named `fetch` on an unrelated object is not the global one
+    tsx`
+      import { useEffect } from "react";
+
+      function Example() {
+        const api = { fetch: (url: string) => url };
+        useEffect(() => {
+          api.fetch("/api/user");
+        }, []);
+      }
+    `,
+    // An imported `fetch` is not the global one and is out of scope for this rule
+    tsx`
+      import { useEffect } from "react";
+      import fetch from "node-fetch";
+
+      function Example() {
+        useEffect(() => {
+          fetch("/api/user");
+        }, []);
+      }
+    `,
+    tsx`
+      import { useEffect } from "react";
+      import { fetch } from "undici";
+
+      function Example() {
+        useEffect(() => {
+          fetch("/api/user");
+        }, []);
+      }
+    `,
+    // A local `window` shadows the global object
+    tsx`
+      import { useEffect } from "react";
+
+      function Example() {
+        const window = { fetch: (url: string) => url };
+        useEffect(() => {
+          window.fetch("/api/user");
         }, []);
       }
     `,
