@@ -1,9 +1,8 @@
 import { createRule } from "@/utils/create-rule";
 import { removeJSXAttribute } from "@/utils/remove-jsx-attribute";
 import { Check } from "@eslint-react/ast";
-import * as core from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, type RuleListener, getText } from "@eslint-react/eslint";
-import { findAttribute, hasChildren } from "@eslint-react/jsx";
+import { findAttribute, getCreateElementChildrenArguments, getCreateElementProp, hasChildren } from "@eslint-react/jsx";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import type { RuleFix, RuleFixer } from "@typescript-eslint/utils/ts-eslint";
 
@@ -38,12 +37,12 @@ export default createRule<[], MessageID>({
 export function create(context: RuleContext<MessageID, []>): RuleListener {
   return {
     CallExpression(node) {
-      const prop = core.getCreateElementProp(context, node, "children");
+      const prop = getCreateElementProp(context, node, "children");
       if (prop == null) return;
 
       // `createElement(type, props, ...children)` already has conflicting
       // children content; that case belongs to 'no-children-prop-with-children'
-      if (core.getCreateElementChildrenArguments(context, node).length > 0) return;
+      if (getCreateElementChildrenArguments(context, node).length > 0) return;
 
       context.report({
         messageId: "default",

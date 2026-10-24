@@ -2,6 +2,7 @@ import { createRule } from "@/utils/create-rule";
 import { Check, Traverse } from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, type RuleListener, merge } from "@eslint-react/eslint";
+import { isInsideCreateElementProps } from "@eslint-react/jsx";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import { getWrapperCallBoundName, isInsideJSXAttributeValue, isInsideRenderMethod } from "./lib";
 
@@ -83,7 +84,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
             continue;
           }
           // Check if the component is defined inside the props of a `createElement` call
-          if (core.isInsideCreateElementProps(context, component)) {
+          if (isInsideCreateElementProps(context, component)) {
             context.report({
               data: {
                 suggestion: "Move it to the top level or pass it as a prop.",

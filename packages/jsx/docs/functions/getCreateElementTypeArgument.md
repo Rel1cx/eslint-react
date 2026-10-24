@@ -1,4 +1,4 @@
-[@eslint-react/core](../README.md) / getCreateElementTypeArgument
+[@eslint-react/jsx](../README.md) / getCreateElementTypeArgument
 
 # Function: getCreateElementTypeArgument()
 

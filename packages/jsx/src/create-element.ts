@@ -1,7 +1,12 @@
 import { Check, Extract, Traverse } from "@eslint-react/ast";
-import type { RuleContext } from "@eslint-react/eslint";
+import { type RuleContext, getText } from "@eslint-react/eslint";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
-import { isCreateElementCall } from "./api";
+
+function isCreateElementCall(context: RuleContext, node: null | TSESTree.Node): node is TSESTree.CallExpression {
+  if (node?.type !== AST.CallExpression) return false;
+  const name = Extract.getFullyQualifiedName(Extract.unwrap(node.callee), getText(context));
+  return name === "createElement" || name.endsWith(".createElement");
+}
 
 // #region Argument Extraction
 
@@ -58,7 +63,7 @@ export function getCreateElementChildrenArguments(context: RuleContext, node: nu
  *
  * @example
  * ```ts
- * import { getCreateElementProp } from "@eslint-react/core";
+ * import { getCreateElementProp } from "@eslint-react/jsx";
  *
  * const childrenProp = getCreateElementProp(context, node, "children");
  * ```
@@ -102,7 +107,7 @@ export function isCreateElementChildrenArgument(context: RuleContext, node: TSES
  * @returns `true` if the node is directly inside `createElement`'s props object.
  */
 export function isInsideCreateElementProps(context: RuleContext, node: TSESTree.Node): boolean {
-  const call = Traverse.findParent(node, isCreateElementCall(context));
+  const call = Traverse.findParent(node, (parent): parent is TSESTree.CallExpression => isCreateElementCall(context, parent));
   if (call == null) return false;
   // The props object is the second argument of createElement
   const prop = Traverse.findParent(node, Check.isObjectExpression);

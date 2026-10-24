@@ -1,8 +1,7 @@
 import { createRule } from "@/utils/create-rule";
 import { removeJSXAttribute } from "@/utils/remove-jsx-attribute";
-import * as core from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, type RuleListener } from "@eslint-react/eslint";
-import { findAttribute, hasChildren } from "@eslint-react/jsx";
+import { findAttribute, getCreateElementChildrenArguments, getCreateElementProp, hasChildren } from "@eslint-react/jsx";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 
 export const RULE_NAME = "no-children-prop-with-children";
@@ -38,12 +37,12 @@ export default createRule<[], MessageID>({
 export function create(context: RuleContext<MessageID, []>): RuleListener {
   return {
     CallExpression(node) {
-      const prop = core.getCreateElementProp(context, node, "children");
+      const prop = getCreateElementProp(context, node, "children");
       if (prop == null) return;
 
       // `createElement(type, props, ...children)` treats arguments after the
       // props object as children content; without them there is no conflict
-      if (core.getCreateElementChildrenArguments(context, node).length === 0) return;
+      if (getCreateElementChildrenArguments(context, node).length === 0) return;
 
       context.report({
         messageId: "default",

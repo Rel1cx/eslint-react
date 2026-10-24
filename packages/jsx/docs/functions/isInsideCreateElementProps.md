@@ -1,4 +1,4 @@
-[@eslint-react/core](../README.md) / isInsideCreateElementProps
+[@eslint-react/jsx](../README.md) / isInsideCreateElementProps
 
 # Function: isInsideCreateElementProps()
 
