@@ -38,6 +38,7 @@
   "dependencies": {
     "@eslint-react/ast": "workspace:*",
     "@eslint-react/eslint": "workspace:*",
+    "@eslint-react/jsx": "workspace:*",
     "@eslint-react/shared": "workspace:*",
     "@eslint-react/var": "workspace:*",
     "@typescript-eslint/types": "^8.72.0",

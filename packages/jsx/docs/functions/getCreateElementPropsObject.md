@@ -1,4 +1,4 @@
-[@eslint-react/core](../README.md) / getCreateElementPropsObject
+[@eslint-react/jsx](../README.md) / getCreateElementPropsObject
 
 # Function: getCreateElementPropsObject()
 

@@ -1,4 +1,4 @@
-[@eslint-react/core](../README.md) / getCreateElementProp
+[@eslint-react/jsx](../README.md) / getCreateElementProp
 
 # Function: getCreateElementProp()
 
@@ -28,7 +28,7 @@ The matching `Property` node, or `null` when the call has no static property wit
 ## Example
 
 ```ts
-import { getCreateElementProp } from "@eslint-react/core";
+import { getCreateElementProp } from "@eslint-react/jsx";
 
 const childrenProp = getCreateElementProp(context, node, "children");
 ```

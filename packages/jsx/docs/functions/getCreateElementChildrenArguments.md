@@ -1,4 +1,4 @@
-[@eslint-react/core](../README.md) / getCreateElementChildrenArguments
+[@eslint-react/jsx](../README.md) / getCreateElementChildrenArguments
 
 # Function: getCreateElementChildrenArguments()
 

@@ -1,4 +1,4 @@
-[@eslint-react/core](../README.md) / isCreateElementChildrenArgument
+[@eslint-react/jsx](../README.md) / isCreateElementChildrenArgument
 
 # Function: isCreateElementChildrenArgument()
 

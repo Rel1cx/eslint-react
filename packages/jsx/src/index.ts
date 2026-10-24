@@ -4,6 +4,14 @@ export { getAttributeName, isAttribute } from "./attribute-name";
 export { type AttributeValue, getAttributeStaticValue, getAttributeValue, resolveAttributeValue } from "./attribute-value";
 
 export { getChildren, hasChildren } from "./children";
+export {
+  getCreateElementChildrenArguments,
+  getCreateElementProp,
+  getCreateElementPropsObject,
+  getCreateElementTypeArgument,
+  isCreateElementChildrenArgument,
+  isInsideCreateElementProps,
+} from "./create-element";
 
 export { type ElementTest, isElement, isFragmentElement, isHostElement } from "./element-is";
 export { getElementFullType, getElementSelfType } from "./element-type";
