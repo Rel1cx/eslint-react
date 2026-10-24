@@ -3,16 +3,16 @@
 # Function: isUseEffectCleanupCallback()
 
 ```ts
-function isUseEffectCleanupCallback(node: Node | null): boolean;
+function isUseEffectCleanupCallback(node: Node): boolean;
 ```
 
 Check if the node is the cleanup callback returned by a useEffect-like setup callback.
 
 ## Parameters
 
-| Parameter | Type             | Description            |
-| --------- | ---------------- | ---------------------- |
-| `node`    | `Node` \| `null` | The AST node to check. |
+| Parameter | Type   | Description            |
+| --------- | ------ | ---------------------- |
+| `node`    | `Node` | The AST node to check. |
 
 ## Returns
 

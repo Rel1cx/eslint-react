@@ -17,7 +17,7 @@ export function createSetStateResolver(context: RuleContext) {
   const { additionalStateHooks } = getSettingsFromContext(context);
 
   function isUseStateCall(node: TSESTree.Node): boolean {
-    return core.isUseStateLikeCall(node, additionalStateHooks);
+    return node.type === AST.CallExpression && core.isUseStateLikeCall(node, additionalStateHooks);
   }
 
   function isSetStateId(id: TSESTree.Identifier) {

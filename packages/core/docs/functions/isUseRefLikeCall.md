@@ -3,7 +3,7 @@
 # Function: isUseRefLikeCall()
 
 ```ts
-function isUseRefLikeCall(node: Node | null, additionalRefHooks?: RegExpLike): node is CallExpression;
+function isUseRefLikeCall(node: CallExpression, additionalRefHooks?: RegExpLike): boolean;
 ```
 
 Check if the node is a useRef-like call (ex: `useRef` or a custom ref hook).
@@ -12,11 +12,11 @@ Check if the node is a useRef-like call (ex: `useRef` or a custom ref hook).
 
 | Parameter             | Type             | Description                                                              |
 | --------------------- | ---------------- | ------------------------------------------------------------------------ |
-| `node`                | `Node` \| `null` | The AST node to check.                                                   |
+| `node`                | `CallExpression` | The AST node to check.                                                   |
 | `additionalRefHooks?` | `RegExpLike`     | Regex pattern matching custom hooks that should be treated as ref hooks. |
 
 ## Returns
 
-`node is CallExpression`
+`boolean`
 
 `true` if the node is a useRef-like call.

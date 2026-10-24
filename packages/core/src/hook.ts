@@ -75,8 +75,7 @@ export function isHookId(id: TSESTree.Node): id is TSESTree.Identifier | TSESTre
  * @param tag The expression node to check.
  * @returns `true` if the expression is a hook identifier or member expression with hook name, `false` otherwise.
  */
-export function isHookTag(tag: TSESTree.Node | null): boolean {
-  if (tag == null) return false;
+export function isHookTag(tag: TSESTree.Node) {
   return isHookId(Extract.unwrap(tag));
 }
 
@@ -89,8 +88,7 @@ export function isHookTag(tag: TSESTree.Node | null): boolean {
  * @param node The function node to check.
  * @returns `true` if the function is a hook definition.
  */
-export function isHookDefinition(node: TSESTreeFunction | null) {
-  if (node == null) return false;
+export function isHookDefinition(node: TSESTreeFunction) {
   const id = getFunctionId(node);
   switch (id?.type) {
     case AST.Identifier:
@@ -107,9 +105,7 @@ export function isHookDefinition(node: TSESTreeFunction | null) {
  * @param node The node to check.
  * @returns `true` if the node is a React Hook call, `false` otherwise.
  */
-export function isHookCall(node: TSESTree.Node | null): node is TSESTree.CallExpression {
-  if (node == null) return false;
-  if (node.type !== AST.CallExpression) return false;
+export function isHookCall(node: TSESTree.CallExpression) {
   const name = Extract.getCalleeName(node);
   if (name == null) return false;
   return isHookName(name);
@@ -121,9 +117,7 @@ export function isHookCall(node: TSESTree.Node | null): node is TSESTree.CallExp
  * @param additionalRefHooks Regex pattern matching custom hooks that should be treated as ref hooks.
  * @returns `true` if the node is a useRef-like call.
  */
-export function isUseRefLikeCall(node: TSESTree.Node | null, additionalRefHooks: RegExpLike = { test: constFalse }): node is TSESTree.CallExpression {
-  if (node == null) return false;
-  if (node.type !== AST.CallExpression) return false;
+export function isUseRefLikeCall(node: TSESTree.CallExpression, additionalRefHooks: RegExpLike = { test: constFalse }) {
   const name = Extract.getCalleeName(node);
   if (name == null) return false;
   return name === "useRef" || additionalRefHooks.test(name);
@@ -135,9 +129,7 @@ export function isUseRefLikeCall(node: TSESTree.Node | null, additionalRefHooks:
  * @param additionalStateHooks Regex pattern matching custom hooks that should be treated as state hooks.
  * @returns `true` if the node is a useState-like call.
  */
-export function isUseStateLikeCall(node: TSESTree.Node | null, additionalStateHooks: RegExpLike = { test: constFalse }): node is TSESTree.CallExpression {
-  if (node == null) return false;
-  if (node.type !== AST.CallExpression) return false;
+export function isUseStateLikeCall(node: TSESTree.CallExpression, additionalStateHooks: RegExpLike = { test: constFalse }) {
   const name = Extract.getCalleeName(node);
   if (name == null) return false;
   return name === "useState" || additionalStateHooks.test(name);
@@ -149,9 +141,7 @@ export function isUseStateLikeCall(node: TSESTree.Node | null, additionalStateHo
  * @param additionalEffectHooks Regex pattern matching custom hooks that should be treated as effect hooks.
  * @returns `true` if the node is a useEffect-like call.
  */
-export function isUseEffectLikeCall(node: TSESTree.Node | null, additionalEffectHooks: RegExpLike = { test: constFalse }): node is TSESTree.CallExpression {
-  if (node == null) return false;
-  if (node.type !== AST.CallExpression) return false;
+export function isUseEffectLikeCall(node: TSESTree.CallExpression, additionalEffectHooks: RegExpLike = { test: constFalse }) {
   const name = Extract.getCalleeName(node);
   if (name == null) return false;
   return /^use\w*Effect$/u.test(name) || additionalEffectHooks.test(name);
@@ -166,8 +156,7 @@ export function isUseEffectLikeCall(node: TSESTree.Node | null, additionalEffect
  * @param node The AST node to check.
  * @returns `true` if the node is a useEffect setup callback.
  */
-export function isUseEffectSetupCallback(node: TSESTree.Node | null) {
-  if (node == null) return false;
+export function isUseEffectSetupCallback(node: TSESTree.Node) {
   const expr = Extract.unwrap(node);
   const call = Traverse.findParent(expr, not(Check.isTypeOrChainExpression));
   if (call?.type !== AST.CallExpression) return false;
@@ -181,8 +170,7 @@ export function isUseEffectSetupCallback(node: TSESTree.Node | null) {
  * @param node The AST node to check.
  * @returns `true` if the node is a useEffect cleanup callback.
  */
-export function isUseEffectCleanupCallback(node: TSESTree.Node | null) {
-  if (node == null) return false;
+export function isUseEffectCleanupCallback(node: TSESTree.Node) {
   const expr = Extract.unwrap(node);
   const func = Traverse.findParent(expr, Check.isFunction);
   if (func == null || !isUseEffectSetupCallback(func)) return false;

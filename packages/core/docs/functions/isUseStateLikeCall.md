@@ -3,7 +3,7 @@
 # Function: isUseStateLikeCall()
 
 ```ts
-function isUseStateLikeCall(node: Node | null, additionalStateHooks?: RegExpLike): node is CallExpression;
+function isUseStateLikeCall(node: CallExpression, additionalStateHooks?: RegExpLike): boolean;
 ```
 
 Check if the node is a useState-like call (ex: `useState` or a custom state hook).
@@ -12,11 +12,11 @@ Check if the node is a useState-like call (ex: `useState` or a custom state hook
 
 | Parameter               | Type             | Description                                                                |
 | ----------------------- | ---------------- | -------------------------------------------------------------------------- |
-| `node`                  | `Node` \| `null` | The AST node to check.                                                     |
+| `node`                  | `CallExpression` | The AST node to check.                                                     |
 | `additionalStateHooks?` | `RegExpLike`     | Regex pattern matching custom hooks that should be treated as state hooks. |
 
 ## Returns
 
-`node is CallExpression`
+`boolean`
 
 `true` if the node is a useState-like call.

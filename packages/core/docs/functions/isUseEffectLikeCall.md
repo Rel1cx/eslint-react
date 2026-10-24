@@ -3,7 +3,7 @@
 # Function: isUseEffectLikeCall()
 
 ```ts
-function isUseEffectLikeCall(node: Node | null, additionalEffectHooks?: RegExpLike): node is CallExpression;
+function isUseEffectLikeCall(node: CallExpression, additionalEffectHooks?: RegExpLike): boolean;
 ```
 
 Check if the node is a useEffect-like call (ex: `useEffect`, `useLayoutEffect`, or a custom effect hook).
@@ -12,11 +12,11 @@ Check if the node is a useEffect-like call (ex: `useEffect`, `useLayoutEffect`, 
 
 | Parameter                | Type             | Description                                                                 |
 | ------------------------ | ---------------- | --------------------------------------------------------------------------- |
-| `node`                   | `Node` \| `null` | The AST node to check.                                                      |
+| `node`                   | `CallExpression` | The AST node to check.                                                      |
 | `additionalEffectHooks?` | `RegExpLike`     | Regex pattern matching custom hooks that should be treated as effect hooks. |
 
 ## Returns
 
-`node is CallExpression`
+`boolean`
 
 `true` if the node is a useEffect-like call.

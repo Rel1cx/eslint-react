@@ -112,10 +112,6 @@ describe("isHookDefinition", () => {
     expect(found).toBe(true);
   });
 
-  it("should return false for null", () => {
-    expect(isHookDefinition(null)).toBe(false);
-  });
-
   it("should return true for function assigned to a member expression with a hook name", () => {
     const code = "obj.useFoo = function() {};";
     let found = false;
@@ -164,10 +160,6 @@ describe("isHookCall", () => {
     expect(isHookCall(node)).toBe(expected);
   });
 
-  it("should return false for null", () => {
-    expect(isHookCall(null)).toBe(false);
-  });
-
   it("should return true for hook call with callee wrapped in TSAsExpression", () => {
     const code = "(useState as any)()";
     const node = getFirstNodeOfType<TSESTree.CallExpression>(code, AST.CallExpression);
@@ -197,10 +189,6 @@ describe("isHookTag", () => {
     const node = getFirstNodeOfType<TSESTree.TaggedTemplateExpression>(code, AST.TaggedTemplateExpression);
     expect(isHookTag(node.tag)).toBe(expected);
   });
-
-  it("should return false for null", () => {
-    expect(isHookTag(null)).toBe(false);
-  });
 });
 
 describe("isUseEffectLikeCall", () => {
@@ -222,10 +210,6 @@ describe("isUseEffectLikeCall", () => {
     const node = getFirstNodeOfType<TSESTree.CallExpression>(code, AST.CallExpression);
     expect(isUseEffectLikeCall(node, /^useCustomEffect$/u)).toBe(true);
   });
-
-  it("should return false for null", () => {
-    expect(isUseEffectLikeCall(null)).toBe(false);
-  });
 });
 
 describe("isUseStateLikeCall", () => {
@@ -245,10 +229,6 @@ describe("isUseStateLikeCall", () => {
     const node = getFirstNodeOfType<TSESTree.CallExpression>(code, AST.CallExpression);
     expect(isUseStateLikeCall(node, /^useCustomState$/u)).toBe(true);
   });
-
-  it("should return false for null", () => {
-    expect(isUseStateLikeCall(null)).toBe(false);
-  });
 });
 
 describe("isUseEffectSetupCallback", () => {
@@ -262,10 +242,6 @@ describe("isUseEffectSetupCallback", () => {
     const code = "useEffect(() => {}, [])";
     const node = getFirstNodeOfType<TSESTree.ArrayExpression>(code, AST.ArrayExpression);
     expect(isUseEffectSetupCallback(node)).toBe(false);
-  });
-
-  it("should return false for null", () => {
-    expect(isUseEffectSetupCallback(null)).toBe(false);
   });
 
   it("should return true when the setup callback is wrapped in a type expression", () => {
@@ -302,10 +278,6 @@ describe("isUseEffectCleanupCallback", () => {
       },
     }, true);
     expect(found).toBe(true);
-  });
-
-  it("should return false for null", () => {
-    expect(isUseEffectCleanupCallback(null)).toBe(false);
   });
 
   it("should return false for cleanup function returned via variable reference", () => {

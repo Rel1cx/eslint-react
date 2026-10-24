@@ -64,8 +64,8 @@ export interface RuleToolkit {
     componentDecl: (node: TSESTreeFunction, hint: bigint) => boolean;
     componentName: typeof core.isFunctionComponentName;
     componentNameLoose: typeof core.isFunctionComponentNameLoose;
-    componentWrapperCall: (node: TSESTree.Node) => boolean;
-    componentWrapperCallback: (node: TSESTree.Node) => boolean;
+    componentWrapperCall: (node: TSESTree.CallExpression) => boolean;
+    componentWrapperCallback: (node: TSESTreeFunction) => boolean;
     createContextCall: (node: null | TSESTree.Node) => node is TSESTree.CallExpression;
     createElementCall: (node: null | TSESTree.Node) => node is TSESTree.CallExpression;
     createRefCall: (node: null | TSESTree.Node) => node is TSESTree.CallExpression;

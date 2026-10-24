@@ -45,11 +45,11 @@ export function createSetStateResolver(context: RuleContext, facts: SetStateInEf
   const getReturnExpressions = memoize(findReturnExpressions);
 
   function isUseRefCall(node: TSESTree.Node): boolean {
-    return core.isUseRefLikeCall(node, additionalRefHooks);
+    return node.type === AST.CallExpression && core.isUseRefLikeCall(node, additionalRefHooks);
   }
 
   function isUseStateCall(node: TSESTree.Node): boolean {
-    return core.isUseStateLikeCall(node, additionalStateHooks);
+    return node.type === AST.CallExpression && core.isUseStateLikeCall(node, additionalStateHooks);
   }
 
   function getStateSetterVariable(definition: VariableDefinition): Variable | null {

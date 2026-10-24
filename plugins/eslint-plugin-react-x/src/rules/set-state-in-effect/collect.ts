@@ -28,8 +28,8 @@ export function createFactCollector(additionalStateHooks: RegExpLike, additional
   };
   const functionEntries: TSESTreeFunction[] = [];
 
-  const isUseStateCall = (node: TSESTree.Node): boolean => core.isUseStateLikeCall(node, additionalStateHooks);
-  const isUseEffectCall = (node: TSESTree.Node): boolean => core.isUseEffectLikeCall(node, additionalEffectHooks);
+  const isUseStateCall = (node: TSESTree.Node) => node.type === AST.CallExpression && core.isUseStateLikeCall(node, additionalStateHooks);
+  const isUseEffectCall = (node: TSESTree.Node) => node.type === AST.CallExpression && core.isUseEffectLikeCall(node, additionalEffectHooks);
 
   const visitor: RuleListener = {
     ":function"(node: TSESTreeFunction) {

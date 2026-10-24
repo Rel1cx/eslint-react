@@ -3,16 +3,16 @@
 # ~~Function: isPureComponent()~~
 
 ```ts
-function isPureComponent(node: Node): boolean;
+function isPureComponent(node: TSESTreeClass): boolean;
 ```
 
 Check if the node is a pure component (extends `PureComponent`).
 
 ## Parameters
 
-| Parameter | Type   | Description            |
-| --------- | ------ | ---------------------- |
-| `node`    | `Node` | The AST node to check. |
+| Parameter | Type            | Description            |
+| --------- | --------------- | ---------------------- |
+| `node`    | `TSESTreeClass` | The AST node to check. |
 
 ## Returns
 

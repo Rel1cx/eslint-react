@@ -98,7 +98,7 @@ export function create(context: RuleContext<MessageID, Options>, [options]: Opti
           if (construction == null) {
             continue;
           }
-          if (core.isHookCall(construction.node)) {
+          if (construction.node.type === AST.CallExpression && core.isHookCall(construction.node)) {
             continue;
           }
           if (safePatterns.length > 0) {

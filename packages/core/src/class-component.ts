@@ -70,8 +70,8 @@ export function isClassComponent(node: TSESTree.Node): node is TSESTreeClass {
  * @returns `true` if the node is a pure component.
  * @deprecated Class components are legacy. This function exists only to support legacy rules.
  */
-export function isPureComponent(node: TSESTree.Node) {
-  if (hasProperty(node, "superClass") && node.superClass != null) {
+export function isPureComponent(node: TSESTreeClass) {
+  if (node.superClass != null) {
     const re = /^PureComponent$/u;
     switch (true) {
       case Check.isIdentifier(node.superClass):

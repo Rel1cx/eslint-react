@@ -97,8 +97,7 @@ export function getFunctionComponentFlagFromInitPath(initPath: FunctionComponent
  * @param node The node to check.
  * @returns `true` if the node is a call expression for a component wrapper.
  */
-export function isFunctionComponentWrapperCall(context: RuleContext, node: TSESTree.Node) {
-  if (node.type !== AST.CallExpression) return false;
+export function isFunctionComponentWrapperCall(context: RuleContext, node: TSESTree.CallExpression) {
   return isMemoCall(context, node) || isForwardRefCall(context, node);
 }
 
@@ -108,8 +107,7 @@ export function isFunctionComponentWrapperCall(context: RuleContext, node: TSEST
  * @param node The node to check.
  * @returns `true` if the node is a callback function passed to a component wrapper.
  */
-export function isFunctionComponentWrapperCallback(context: RuleContext, node: TSESTree.Node) {
-  if (!Check.isFunction(node)) return false;
+export function isFunctionComponentWrapperCallback(context: RuleContext, node: TSESTreeFunction) {
   let argument: TSESTree.Node = node;
   let parent = node.parent;
   while (Check.isTypeExpression(parent)) {
