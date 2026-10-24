@@ -2,13 +2,13 @@ import { collectNodes, getFirstNodeOfType } from "@local/testkit";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import tsx from "dedent";
 import { describe, expect, it } from "vitest";
-import { getNestedReturnStatements, isResultUsed } from "./helpers";
+import { getReturnStatements, isResultUsed } from "./helpers";
 
 function countReturns(node: TSESTree.Node): number {
-  return getNestedReturnStatements(node).length;
+  return getReturnStatements(node).length;
 }
 
-describe("getNestedReturnStatements", () => {
+describe("getReturnStatements", () => {
   it("should collect returns in the body of a function root", () => {
     const node = getFirstNodeOfType<TSESTree.FunctionDeclaration>("function f() { return 1; }", AST.FunctionDeclaration);
     expect(countReturns(node)).toBe(1);
