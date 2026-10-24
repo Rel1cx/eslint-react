@@ -42,6 +42,12 @@ re-runs on a dependency change. If the resolved handler calls `setState` or
 writes to a ref the component reads, the UI will display data for a component
 instance that no longer exists, or overwrite fresh data with stale data.
 
+The rule only checks calls to the global `fetch`: a bare `fetch(...)` or
+`window.fetch(...)` / `globalThis.fetch(...)` / `self.fetch(...)`. Calls that
+resolve to a user declaration, such as a local function named `fetch`, an
+imported `fetch` (ex: from `node-fetch` or `undici`), or a `fetch` method on
+another object, are not checked.
+
 ## Examples
 
 ### Starting fetch without an AbortController

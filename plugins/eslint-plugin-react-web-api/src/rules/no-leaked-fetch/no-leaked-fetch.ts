@@ -5,6 +5,7 @@ import { type RuleContext, type RuleFeature, type RuleListener } from "@eslint-r
 import { isAssignmentTargetEqual, resolveOrigin } from "@eslint-react/var";
 import { or } from "@local/eff";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
+import { findVariable } from "@typescript-eslint/utils/ast-utils";
 import { P, isMatching, match } from "ts-pattern";
 import { resolveToObjectExpression } from "./lib";
 
@@ -41,10 +42,40 @@ type AbortEntry = {
 
 const isUseEffectCallback = or(isUseEffectSetupCallback, isUseEffectCleanupCallback);
 
-function getCallKind(node: TSESTree.CallExpression): CallKind {
-  const name = Extract.getCalleeName(node);
-  if (name != null && isMatching(P.union("fetch", "abort"))(name)) {
-    return name;
+// Whether the identifier refers to a global binding rather than a user declaration (ex: a local
+// function, a variable or an import)
+function isGlobalReference(context: RuleContext, node: TSESTree.Identifier) {
+  const variable = findVariable(context.sourceCode.getScope(node), node);
+  return variable == null || variable.defs.length === 0;
+}
+
+// Whether the callee refers to the global `fetch`: a bare `fetch(...)` or a call on the global
+// object (`window.fetch(...)`, `globalThis.fetch(...)`, `self.fetch(...)`), unless shadowed
+function isGlobalFetch(context: RuleContext, node: TSESTree.CallExpression) {
+  const callee = Extract.unwrap(node.callee);
+  switch (callee.type) {
+    case AST.Identifier:
+      return callee.name === "fetch" && isGlobalReference(context, callee);
+    case AST.MemberExpression: {
+      if (callee.computed || !Check.isIdentifier(callee.property) || callee.property.name !== "fetch") {
+        return false;
+      }
+      const object = Extract.unwrap(callee.object);
+      return object.type === AST.Identifier
+        && isMatching(P.union("window", "globalThis", "self"))(object.name)
+        && isGlobalReference(context, object);
+    }
+    default:
+      return false;
+  }
+}
+
+function getCallKind(context: RuleContext, node: TSESTree.CallExpression): CallKind {
+  if (isGlobalFetch(context, node)) {
+    return "fetch";
+  }
+  if (Extract.getCalleeName(node) === "abort") {
+    return "abort";
   }
   return "other";
 }
@@ -139,7 +170,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   const abortEntries: AbortEntry[] = [];
   return {
     ["CallExpression"](node) {
-      match(getCallKind(node))
+      match(getCallKind(context, node))
         .with("fetch", () => {
           // Only consider the innermost function: a `fetch` inside a nested non-effect function
           // (e.g. an event handler) is not managed by the effect's lifecycle
