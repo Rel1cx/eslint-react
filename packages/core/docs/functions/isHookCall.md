@@ -3,7 +3,7 @@
 # Function: isHookCall()
 
 ```ts
-function isHookCall(node: Node | null): node is CallExpression;
+function isHookCall(node: CallExpression): boolean;
 ```
 
 Check if the node is a React Hook call by its name.
@@ -12,10 +12,10 @@ Check if the node is a React Hook call by its name.
 
 | Parameter | Type             | Description        |
 | --------- | ---------------- | ------------------ |
-| `node`    | `Node` \| `null` | The node to check. |
+| `node`    | `CallExpression` | The node to check. |
 
 ## Returns
 
-`node is CallExpression`
+`boolean`
 
 `true` if the node is a React Hook call, `false` otherwise.

@@ -1,356 +1,380 @@
-import { Check, Extract, Traverse } from "@eslint-react/ast";
+import { Check, Extract, type TSESTreeFunction, Traverse } from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
-import type { RuleContext } from "@eslint-react/eslint";
+import { type RuleContext, getText } from "@eslint-react/eslint";
 import { getSettingsFromContext } from "@eslint-react/shared";
 import { resolveOrigin } from "@eslint-react/var";
-import { and, hasProperty } from "@local/eff";
+import { and, hasProperty, memoize } from "@local/eff";
 import { DefinitionType } from "@typescript-eslint/scope-manager";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
-import { findVariable, getStaticValue } from "@typescript-eslint/utils/ast-utils";
-import { getNestedIdentifiers, isTerminatingStatement } from "./helpers";
+import { findVariable } from "@typescript-eslint/utils/ast-utils";
+import type { SetStateInEffectFacts } from "./collect";
+import {
+  getConditionalBranch,
+  getIdentifiers,
+  getParameterId,
+  getRefSourceName,
+  getReturnExpressions as findReturnExpressions,
+  isRefLikeName,
+  isTerminatingStatement,
+  uniqueTargets,
+} from "./helpers";
 
-/**
- * Create a resolver that answers whether an identifier or call originates from
- * a `useState`-like hook's setter function (the element at index 1 of the
- * returned tuple).
- * @param context The rule context
- * @returns The setState provenance resolver
- */
-export function createSetStateResolver(context: RuleContext) {
-  const { additionalStateHooks } = getSettingsFromContext(context);
+const EMPTY_FACTS: SetStateInEffectFacts = {
+  calls: [],
+  effectRoots: [],
+  jsxRefExprs: [],
+};
 
-  function isUseStateCall(node: TSESTree.Node): boolean {
-    return core.isUseStateLikeCall(node, additionalStateHooks);
+export type ValueTarget =
+  | { kind: "function"; node: TSESTreeFunction }
+  | { kind: "setter"; node: TSESTree.Node };
+
+type Variable = NonNullable<ReturnType<typeof findVariable>>;
+type VariableDefinition = Variable["defs"][number];
+type RefParams = ReadonlySet<TSESTree.Node>;
+type RefValueMode = "argument" | "initializer";
+type RefInitializerCandidate = {
+  branch: TSESTree.Node | null;
+  position: number;
+  previous?: TSESTree.Identifier | undefined;
+  value: TSESTree.Node;
+};
+
+export function createSetStateResolver(context: RuleContext, facts: SetStateInEffectFacts = EMPTY_FACTS) {
+  const { additionalRefHooks, additionalStateHooks } = getSettingsFromContext(context);
+  const getReturnExpressions = memoize(findReturnExpressions);
+
+  function isUseRefCall(node: TSESTree.Node): boolean {
+    return node.type === AST.CallExpression && core.isUseRefLikeCall(node, additionalRefHooks);
   }
 
-  function isSetStateId(id: TSESTree.Identifier, at?: number) {
+  function isUseStateCall(node: TSESTree.Node): boolean {
+    return node.type === AST.CallExpression && core.isUseStateLikeCall(node, additionalStateHooks);
+  }
+
+  function getStateSetterVariable(definition: VariableDefinition): Variable | null {
+    if (definition.type !== DefinitionType.Variable || definition.node.init == null) return null;
+    const pattern = definition.node.id;
+    if (pattern.type !== AST.ArrayPattern || pattern.elements[0] !== definition.name) return null;
+    const init = Extract.unwrap(definition.node.init);
+    if (init.type !== AST.CallExpression || !isUseStateCall(init)) return null;
+    const setter = pattern.elements[1];
+    if (setter?.type !== AST.Identifier) return null;
+    return findVariable(context.sourceCode.getScope(setter), setter) ?? null;
+  }
+
+  function isJsxRefTargetForSetter(target: ValueTarget, setterVariable: Variable): boolean {
+    if (target.kind === "setter") {
+      if (!Check.isIdentifier(target.node)) return false;
+      return findVariable(context.sourceCode.getScope(target.node), target.node) === setterVariable;
+    }
+    if (target.node.async) return false;
+    return setterVariable.references.some((r) => Traverse.hasParent(r.identifier, (n) => n === target.node));
+  }
+
+  const isStateHeldDomNode = memoize((variable: Variable): boolean =>
+    variable.defs.some((definition) => {
+      const setterVariable = getStateSetterVariable(definition);
+      if (setterVariable == null) return false;
+      return facts.jsxRefExprs.some((e) => resolveValues(e).some((t) => isJsxRefTargetForSetter(t, setterVariable)));
+    })
+  );
+
+  function isSetStateId(id: TSESTree.Identifier) {
     const initNode = resolveOrigin(context, id);
-    if (initNode == null) return false;
-    if (initNode.type !== AST.CallExpression) return false;
-    if (!isUseStateCall(initNode)) return false;
-    const variableNodeParent = initNode.parent;
-    // The call is not part of a variable declaration, so no destructuring
-    // pattern constrains the setter position (ex: `data = useState()`)
-    if (!hasProperty(variableNodeParent, "id")) {
-      return true;
-    }
-    // `const { 1: setData } = useState()` destructures the tuple by numeric key
-    if (variableNodeParent.id?.type === AST.ObjectPattern) {
-      return variableNodeParent.id.properties.some((p) =>
-        p.type === AST.Property
-        && p.key.type === AST.Literal
-        && p.key.value === (at ?? 1)
-        && Check.isIdentifier(p.value, id.name)
-      );
-    }
-    // Any other binding form (ex: `const data = useState()`) binds the whole
-    // tuple, so the identifier may carry the setter
-    if (variableNodeParent.id?.type !== AST.ArrayPattern) {
-      return true;
-    }
-    // `const [data, setData] = useState()` destructures the tuple by position
-    return variableNodeParent
-      .id
-      .elements
-      .findIndex((e) => e != null && Check.isIdentifier(e, id.name)) === at;
+    if (initNode?.type !== AST.CallExpression || !isUseStateCall(initNode)) return false;
+    const initNodeParent = initNode.parent;
+    if (!hasProperty(initNodeParent, "id")) return false;
+    if (initNodeParent.id?.type !== AST.ArrayPattern) return false;
+    return initNodeParent.id.elements.findIndex((e) => e != null && Check.isIdentifier(e, id.name)) === 1;
+  }
+
+  function isSetStateExpression(node: TSESTree.Node): boolean {
+    const expression = Extract.unwrap(node);
+    return Check.isIdentifier(expression) && isSetStateId(expression);
   }
 
   function isSetStateCall(node: TSESTree.CallExpression) {
-    const callee = Extract.unwrap(node.callee);
-    switch (callee.type) {
-      // const data = useState();
-      // data.at(1)();
-      case AST.CallExpression: {
-        const innerCallee = Extract.unwrap(callee.callee);
-        if (innerCallee.type !== AST.MemberExpression) {
-          return false;
-        }
-        if (!hasProperty(innerCallee.object, "name")) {
-          return false;
-        }
-        const isAt = Extract.getCalleeName(callee) === "at";
-        if (!isAt) {
-          return false;
-        }
-        const [index] = callee.arguments;
-        if (index == null) {
-          return false;
-        }
-        const indexScope = context.sourceCode.getScope(node);
-        const indexValue = getStaticValue(index, indexScope)?.value;
-        return indexValue === 1 && isSetStateId(innerCallee.object);
-      }
-      // const [data, setData] = useState();
-      // setData();
-      case AST.Identifier: {
-        return isSetStateId(callee, 1);
-      }
-      // const data = useState();
-      // data[1]();
-      case AST.MemberExpression: {
-        if (!hasProperty(callee.object, "name")) {
-          return false;
-        }
-        const property = callee.property;
-        const propertyScope = context.sourceCode.getScope(node);
-        const propertyValue = getStaticValue(property, propertyScope)?.value;
-        return propertyValue === 1 && isSetStateId(callee.object, 1);
-      }
-      default: {
-        return false;
-      }
-    }
+    return isSetStateExpression(node.callee);
   }
 
-  return { isSetStateCall, isSetStateId, isUseStateCall } as const;
-}
-
-/**
- * Check whether an identifier's value is derived from a ref, either through
- * its declaration initializer or through an assignment that lexically
- * precedes the use
- * @param context The rule context
- * @param id The identifier to check
- * @param refParams Parameters treated as ref-derived because the call site of
- * their function passed a ref-derived argument
- * @param seen Identifier names already visited, to prevent infinite recursion
- * @returns `true` if the identifier's value is derived from a ref
- */
-export function isInitializedFromRef(context: RuleContext, id: TSESTree.Identifier, refParams?: ReadonlySet<TSESTree.Node>, seen = new Set<string>()): boolean {
-  const name = id.name;
-  if (seen.has(name)) return false;
-  seen.add(name);
-  const variable = findVariable(context.sourceCode.getScope(id), name);
-  for (const def of variable?.defs ?? []) {
-    if (def.type === DefinitionType.Parameter) {
-      // A parameter fed a ref-derived argument at the call site of its
-      // function counts as ref-derived (ex: `updateEdges(ref.current)` where
-      // `updateEdges = (el) => ...`)
-      if (refParams?.has(def.name) === true) {
-        return true;
-      }
-      // A parameter named `ref`/`xxxRef` is treated as a ref by the same naming
-      // heuristic used for member-chain roots (ex: `function useDetect(ref) { ... ref.current ... }`)
-      if (def.name.type === AST.Identifier && (def.name.name === "ref" || def.name.name.endsWith("Ref"))) {
-        return true;
-      }
-      continue;
-    }
-    const { node } = def;
-    if (node.type !== AST.VariableDeclarator) continue;
-    const init = node.init == null ? null : Extract.unwrap(node.init);
-    if (init == null) continue;
-    if (isExpressionFromRef(context, init, refParams, seen)) return true;
-  }
-  // A ref-derived value may also reach the binding through an assignment
-  // statement rather than the declaration initializer:
-  // let overflow = false;
-  // if (container) { overflow = container.scrollWidth > container.clientWidth; }
-  // setIsOverflow(overflow);
-  for (const reference of variable?.references ?? []) {
-    if (!reference.isWrite()) continue;
-    const writeExpr = reference.writeExpr == null ? null : Extract.unwrap(reference.writeExpr);
-    if (writeExpr == null) continue;
-    // Only a write that lexically precedes the use can flow into it
-    if (writeExpr.range[1] > id.range[0]) continue;
-    // The write must run before the use: a write inside a nested function
-    // (e.g. an event callback defined in the setup) has not executed when the
-    // use runs, so only writes in the use's own function or an ancestor count
-    if (Traverse.hasParent(writeExpr, and(Check.isFunction, (n) => !Traverse.hasParent(id, (m) => m === n)))) continue;
-    if (isExpressionFromRef(context, writeExpr, refParams, seen)) return true;
-  }
-  return false;
-}
-
-function isExpressionFromRef(context: RuleContext, init: TSESTree.Node, refParams: ReadonlySet<TSESTree.Node> | undefined, seen: Set<string>): boolean {
-  const { additionalRefHooks } = getSettingsFromContext(context);
-  // const identifier = useRef();
-  if (init.type === AST.CallExpression && core.isUseRefLikeCall(init, additionalRefHooks)) {
-    return true;
-  }
-  if (init.type === AST.MemberExpression) {
-    // const identifier = anotherRef.current;
-    // const identifier = containerRef.current.offsetWidth;
-    let current: TSESTree.Node = init;
-    // Walk the member chain; a `<ref-named>.current` link marks the value
-    // as read from a ref (ex: `popover.contentRef.current`)
-    while (current.type === AST.MemberExpression) {
-      const property = Extract.unwrap(current.property);
-      const object: TSESTree.Node = Extract.unwrap(current.object);
-      if (!current.computed && Check.isIdentifier(property, "current")) {
-        const sourceName = getRefSourceName(object);
-        if (sourceName === "ref" || sourceName?.endsWith("Ref") === true) {
-          return true;
-        }
-        // A `.current` read rooted at a parameter marks the parameter as a
-        // ref-like object passed via props (ex: `anchor?.current` where
-        // `anchor` is a RefObject prop)
-        if (object.type === AST.Identifier && isParameterId(context, object)) {
-          return true;
-        }
-      }
-      current = object;
-    }
-    // const identifier = containerRef.foo; (rooted at a ref-named identifier)
-    if (Check.isIdentifier(current) && (current.name === "ref" || current.name.endsWith("Ref"))) {
-      return true;
-    }
-    // Fall back to tracing the identifiers used inside the chain so a
-    // ref-rooted local still counts (ex: `scroller.clientWidth` where
-    // `const scroller = scrollerRef.current`)
-    return getNestedIdentifiers(init).some((id) => isInitializedFromRef(context, id, refParams, seen));
-  }
-  // Trace through arbitrary expressions so a ref read reaching the binding
-  // via an intermediate computation still counts:
-  // const dv = visible - prevVisible.current;
-  return getNestedIdentifiers(init).some((id) => isInitializedFromRef(context, id, refParams, seen));
-}
-
-/**
- * Check if the setState call is using a ref value, which is safe to use in an effect (ex: `setState(ref.current.scrollTop)`)
- * @param context The rule context
- * @param node The setState call argument to check
- * @param refParams Parameters treated as ref-derived because the call site of
- * their function passed a ref-derived argument
- * @returns `true` if the argument value is derived from a ref
- */
-export function isArgumentUsingRefValue(context: RuleContext, node: TSESTree.CallExpressionArgument, refParams?: ReadonlySet<TSESTree.Node>) {
-  const isUsingRefValue = (n: TSESTree.Node): boolean => {
-    switch (n.type) {
+  function resolveValues(node: TSESTree.Node, seen = new Set<Variable>()): ValueTarget[] {
+    const expression = Extract.unwrap(node);
+    if (isSetStateExpression(expression)) return [{ kind: "setter", node: expression }];
+    if (Check.isFunction(expression)) return [{ kind: "function", node: expression }];
+    switch (expression.type) {
       case AST.Identifier:
-        return isInitializedFromRef(context, n, refParams);
+        return resolveIdentifierValues(expression, seen);
+      case AST.ConditionalExpression:
+        return uniqueTargets([
+          ...resolveValues(expression.consequent, new Set(seen)),
+          ...resolveValues(expression.alternate, new Set(seen)),
+        ]);
+      case AST.CallExpression:
+        return resolveCallValues(expression, seen);
+      default:
+        return [];
+    }
+  }
+
+  function resolveIdentifierValues(id: TSESTree.Identifier, seen: Set<Variable>): ValueTarget[] {
+    const variable = findVariable(context.sourceCode.getScope(id), id);
+    if (variable == null || seen.has(variable)) return [];
+    const definition = variable.defs.length === 1 ? variable.defs[0] : null;
+    if (definition == null || definition.type === DefinitionType.Parameter || definition.type === DefinitionType.ImportBinding) {
+      return [];
+    }
+    if (definition.type === DefinitionType.FunctionName) {
+      return Check.isFunction(definition.node) ? [{ kind: "function", node: definition.node }] : [];
+    }
+    if (definition.type !== DefinitionType.Variable) return [];
+    if (definition.node.id !== definition.name || definition.node.init == null) return [];
+    if (definition.node.parent.kind !== "const") return [];
+    seen.add(variable);
+    return resolveValues(definition.node.init, seen);
+  }
+
+  function resolveCallValues(call: TSESTree.CallExpression, seen: Set<Variable>): ValueTarget[] {
+    const [argument] = call.arguments;
+    if (argument == null || argument.type === AST.SpreadElement) return [];
+    if (core.isUseCallbackCall(context, call) || Extract.getCalleeName(call) === "useEffectEvent") {
+      return resolveValues(argument, seen);
+    }
+    if (!core.isUseMemoCall(context, call)) return [];
+    const factories = resolveValues(argument, seen);
+    const targets: ValueTarget[] = [];
+    for (const factory of factories) {
+      if (factory.kind !== "function" || factory.node.async) continue;
+      for (const returnExpression of getReturnExpressions(factory.node)) {
+        targets.push(...resolveValues(returnExpression, new Set(seen)));
+      }
+    }
+    return uniqueTargets(targets);
+  }
+
+  function getSetterName(node: TSESTree.Node) {
+    return Extract.getFullyQualifiedName(node, getText(context));
+  }
+
+  function getRefDerivedParams(call: TSESTree.CallExpression, fn: TSESTreeFunction, currentRefParams: RefParams = new Set()) {
+    const refParams = new Set(currentRefParams);
+    const parameterIds = fn.params.map(getParameterId);
+    for (const id of parameterIds) {
+      if (id != null) refParams.delete(id);
+    }
+    for (const [index, id] of parameterIds.entries()) {
+      if (id == null) continue;
+      const argument = call.arguments.at(index);
+      if (argument == null || argument.type === AST.SpreadElement) continue;
+      if (isArgumentUsingRefValue(argument, currentRefParams)) refParams.add(id);
+    }
+    return refParams;
+  }
+
+  function isInitializedFromRef(id: TSESTree.Identifier, refParams?: RefParams, seen = new Set<string>()): boolean {
+    const variable = findVariable(context.sourceCode.getScope(id), id);
+    if (variable == null) return false;
+    const key = `${String(variable.identifiers.at(0)?.range[0] ?? variable.name)}:${String(id.range[0])}`;
+    if (seen.has(key)) return false;
+    seen.add(key);
+    if (isStateHeldDomNode(variable)) return true;
+    const candidates: RefInitializerCandidate[] = [];
+    const addCandidate = (value: TSESTree.Node, previous?: TSESTree.Identifier) => {
+      if (value.range[1] > id.range[0] || candidates.some((c) => c.value === value)) return;
+      candidates.push({
+        branch: getConditionalBranch(value),
+        position: value.range[1],
+        previous,
+        value,
+      });
+    };
+    for (const definition of variable.defs) {
+      if (definition.type !== DefinitionType.Variable || definition.node.init == null) continue;
+      addCandidate(definition.node.init);
+    }
+    for (const reference of variable.references) {
+      if (!reference.isWrite() || reference.writeExpr == null) continue;
+      // dprint-ignore
+      if (reference.init === true && variable.defs.some((d) => d.type === DefinitionType.Parameter && refParams?.has(d.name) === true)) {
+        continue;
+      }
+      const writeExpr = reference.writeExpr;
+      if (Traverse.hasParent(writeExpr, and(Check.isFunction, (fn) => !Traverse.hasParent(id, (n) => n === fn)))) {
+        continue;
+      }
+      const parent = reference.identifier.parent;
+      const previous = parent.type === AST.AssignmentExpression
+          && parent.operator !== "="
+          && Extract.unwrap(parent.left) === reference.identifier
+        ? reference.identifier
+        : undefined;
+      addCandidate(writeExpr, previous);
+    }
+    const survivingCandidates: RefInitializerCandidate[] = [];
+    for (const candidate of [...candidates].sort((a, b) => a.position - b.position)) {
+      // An unconditional assignment invalidates all earlier branches
+      if (candidate.branch == null) {
+        survivingCandidates.length = 0;
+      } else {
+        const previousIndex = survivingCandidates.findIndex((o) => o.branch === candidate.branch);
+        if (previousIndex >= 0) survivingCandidates.splice(previousIndex, 1);
+      }
+      survivingCandidates.push(candidate);
+    }
+    if (survivingCandidates.length > 0) {
+      return survivingCandidates.some((c) =>
+        (c.previous != null && isInitializedFromRef(c.previous, refParams, seen)) || isRefValue(c.value, refParams, seen, "initializer")
+      );
+    }
+    // dprint-ignore
+    return variable.defs.some((d) => d.type === DefinitionType.Parameter && (refParams?.has(d.name) === true || (d.name.type === AST.Identifier && isRefLikeName(d.name.name))));
+  }
+
+  function isRefValue(node: TSESTree.Node, refParams: RefParams | undefined, seen: Set<string>, mode: RefValueMode): boolean {
+    const expression = Extract.unwrap(node);
+    if (isUseRefCall(expression)) return true;
+    switch (expression.type) {
+      case AST.Identifier:
+        return isInitializedFromRef(expression, refParams, seen);
       case AST.MemberExpression: {
-        // A `.current` read rooted at a parameter marks the parameter as a
-        // ref-like object passed via props (ex: `anchor?.current` where
-        // `anchor` is a RefObject prop)
-        const property = Extract.unwrap(n.property);
-        if (
-          !n.computed
-          && Check.isIdentifier(property, "current")
-          && n.object.type === AST.Identifier
-          && isParameterId(context, n.object)
-        ) {
+        const property = Extract.unwrap(expression.property);
+        const object = Extract.unwrap(expression.object);
+        if (!expression.computed && Check.isIdentifier(property, "current") && object.type === AST.Identifier && isParameterId(object)) {
           return true;
         }
-        return isUsingRefValue(n.object);
+        if (mode === "initializer") {
+          let current: TSESTree.Node = expression;
+          while (current.type === AST.MemberExpression) {
+            const currentProperty = Extract.unwrap(current.property);
+            const currentObject: TSESTree.Node = Extract.unwrap(current.object);
+            if (!current.computed && Check.isIdentifier(currentProperty, "current")) {
+              const sourceName = getRefSourceName(currentObject);
+              if (sourceName != null && isRefLikeName(sourceName)) return true;
+              if (currentObject.type === AST.Identifier && isParameterId(currentObject)) return true;
+            }
+            current = currentObject;
+          }
+          if (Check.isIdentifier(current) && isRefLikeName(current.name)) return true;
+        }
+        return isRefValue(expression.object, refParams, seen, mode) || (expression.computed && isRefValue(expression.property, refParams, seen, mode));
       }
-      case AST.CallExpression:
-        return isUsingRefValue(n.callee) || getNestedIdentifiers(n).some(isUsingRefValue);
-      // setState(ref.current?.scrollTop): optional chaining wraps the chain in a ChainExpression
-      case AST.ChainExpression:
-        return isUsingRefValue(n.expression);
+      case AST.CallExpression: {
+        for (const target of resolveValues(expression.callee)) {
+          if (target.kind !== "function" || target.node.async) continue;
+          const key = `getter:${String(target.node.range[0])}`;
+          if (seen.has(key)) continue;
+          seen.add(key);
+          const childRefParams = getRefDerivedParams(expression, target.node, refParams);
+          if (getReturnExpressions(target.node).some((r) => isRefValue(r, childRefParams, seen, mode))) {
+            return true;
+          }
+        }
+        return isRefValue(expression.callee, refParams, seen, mode) || expression.arguments.some((a) => isRefValue(a, refParams, seen, mode));
+      }
       case AST.BinaryExpression:
       case AST.LogicalExpression:
-        return isUsingRefValue(n.left) || isUsingRefValue(n.right);
+        return isRefValue(expression.left, refParams, seen, mode) || isRefValue(expression.right, refParams, seen, mode);
       case AST.UnaryExpression:
       case AST.UpdateExpression:
-        return isUsingRefValue(n.argument);
+        return isRefValue(expression.argument, refParams, seen, mode);
       case AST.ConditionalExpression:
-        return isUsingRefValue(n.consequent) || isUsingRefValue(n.alternate);
+        return (mode === "initializer" && isRefValue(expression.test, refParams, seen, mode))
+          || isRefValue(expression.consequent, refParams, seen, mode)
+          || isRefValue(expression.alternate, refParams, seen, mode);
       case AST.SequenceExpression:
-        return n.expressions.some(isUsingRefValue);
+        return expression.expressions.some((p) => isRefValue(p, refParams, seen, mode));
       case AST.TemplateLiteral:
-        return n.expressions.some(isUsingRefValue);
+        return expression.expressions.some((p) => isRefValue(p, refParams, seen, mode));
       case AST.TaggedTemplateExpression:
-        return isUsingRefValue(n.tag) || isUsingRefValue(n.quasi);
+        return isRefValue(expression.tag, refParams, seen, mode) || isRefValue(expression.quasi, refParams, seen, mode);
       case AST.ObjectExpression:
-        return n.properties.some(isUsingRefValue);
+        return expression.properties.some((p) => isRefValue(p, refParams, seen, mode));
       case AST.Property:
-        return isUsingRefValue(n.value);
+        return isRefValue(expression.value, refParams, seen, mode);
       case AST.ArrayExpression:
-        return n.elements.some((element) => element != null && isUsingRefValue(element));
+        return expression.elements.some((e) => e != null && isRefValue(e, refParams, seen, mode));
       case AST.SpreadElement:
-        return isUsingRefValue(n.argument);
       case AST.AssignmentExpression:
-        return isUsingRefValue(n.right);
+      case AST.AwaitExpression:
+        return isRefValue(
+          expression.type === AST.AssignmentExpression ? expression.right : expression.argument,
+          refParams,
+          seen,
+          mode,
+        );
       default:
         return false;
     }
-  };
-  // Case 1: setState(ref.current.scrollTop);
-  if (isUsingRefValue(node)) return true;
-  // Case 2: setState(() => ref.current.scrollTop);
-  return Check.isFunction(node)
-    && context.sourceCode
-      .getScope(node.body)
-      .references
-      .some((r) => isUsingRefValue(r.identifier));
-}
+  }
 
-/**
- * Check if a setState call is inside a conditional block whose test expression
- * is derived from a ref value (e.g. `if (prevRef.current !== value) setState(...)`),
- * or on the right side of a short-circuit operator whose left operand is
- * ref-derived (e.g. `ref.current && setState(...)`).
- * @param context The ESLint rule context
- * @param node The AST node to check
- * @param refParams Parameters treated as ref-derived because the call site of
- * their function passed a ref-derived argument
- * @returns `true` if the node is inside a ref-gated conditional block
- */
-export function isRefGatedContext(context: RuleContext, node: TSESTree.Node, refParams?: ReadonlySet<TSESTree.Node>): boolean {
-  let child: TSESTree.Node = node;
-  let current: TSESTree.Node | undefined = node.parent;
-  while (current != null) {
-    if (Check.isFunction(current)) break;
-    if (current.type === AST.IfStatement) {
-      if (isRefInExpression(context, current.test, refParams)) return true;
-    }
-    if (current.type === AST.ConditionalExpression) {
-      if (isRefInExpression(context, current.test, refParams)) return true;
-    }
-    if (current.type === AST.LogicalExpression && child === current.right) {
-      // The right side of a short-circuit operator runs only when the left
-      // operand's value selects it, so a ref-derived left gates it too:
-      // ref.current && setState(...)
-      if (isRefInExpression(context, current.left, refParams)) return true;
-    }
-    if (current.type === AST.BlockStatement) {
-      // A preceding early-return guard gates the rest of the block as well:
-      // if (prevRef.current === value) return;
-      // setState(...);
-      const index = current.body.findIndex((statement) => statement === child);
-      for (const statement of current.body.slice(0, Math.max(0, index))) {
-        if (statement.type !== AST.IfStatement) continue;
-        if (!isRefInExpression(context, statement.test, refParams)) continue;
-        if (isTerminatingStatement(statement.consequent)) return true;
+  function isArgumentUsingRefValue(node: TSESTree.CallExpressionArgument, refParams?: RefParams) {
+    const seen = new Set<string>();
+    if (isRefValue(node, refParams, seen, "argument")) return true;
+    const expression = Extract.unwrap(node);
+    if (!Check.isFunction(expression)) return false;
+    return context.sourceCode.getScope(expression.body).references.some((r) => isRefValue(r.identifier, refParams, seen, "argument"));
+  }
+
+  function isRefInExpression(node: TSESTree.Node, refParams?: RefParams) {
+    return getIdentifiers(node).some((id) => isInitializedFromRef(id, refParams));
+  }
+
+  function isRefGatedContext(node: TSESTree.Node, refParams?: RefParams): boolean {
+    let child: TSESTree.Node = node;
+    let current: TSESTree.Node | undefined = node.parent;
+    while (current != null) {
+      if (Check.isFunction(current)) break;
+      switch (current.type) {
+        case AST.IfStatement:
+        case AST.ConditionalExpression:
+          if ((child === current.consequent || child === current.alternate) && isRefInExpression(current.test, refParams)) {
+            return true;
+          }
+          break;
+        case AST.LogicalExpression:
+          if (child === current.right && isRefInExpression(current.left, refParams)) return true;
+          break;
+        case AST.BlockStatement: {
+          const index = current.body.findIndex((s) => s === child);
+          for (const statement of current.body.slice(0, Math.max(0, index))) {
+            if (statement.type !== AST.IfStatement) continue;
+            if (!isRefInExpression(statement.test, refParams)) continue;
+            if (isTerminatingStatement(statement.consequent)) return true;
+          }
+          break;
+        }
       }
+      child = current;
+      current = current.parent;
     }
-    child = current;
-    current = current.parent;
+    return false;
   }
-  return false;
-}
 
-function isRefInExpression(context: RuleContext, node: TSESTree.Node, refParams?: ReadonlySet<TSESTree.Node>): boolean {
-  return getNestedIdentifiers(node).some((id) => isInitializedFromRef(context, id, refParams));
-}
-
-/**
- * Check if an identifier resolves to a function parameter (ex: a prop of the
- * enclosing component).
- */
-function isParameterId(context: RuleContext, id: TSESTree.Identifier): boolean {
-  const variable = findVariable(context.sourceCode.getScope(id), id);
-  return variable?.defs.some((def) => def.type === DefinitionType.Parameter) ?? false;
-}
-
-/**
- * Get the name that identifies the source of a `.current` member access.
- * @param node The object of the member expression
- * @returns The identifier name, the last property name of a member chain, or null
- */
-function getRefSourceName(node: TSESTree.Node): string | null {
-  switch (node.type) {
-    case AST.Identifier:
-      return node.name;
-    case AST.MemberExpression: {
-      const property = Extract.unwrap(node.property);
-      return !node.computed && property.type === AST.Identifier
-        ? property.name
-        : null;
-    }
-    default:
-      return null;
+  function isParameterId(id: TSESTree.Identifier) {
+    return findVariable(context.sourceCode.getScope(id), id)?.defs.some((d) => d.type === DefinitionType.Parameter) ?? false;
   }
+
+  return {
+    getRefDerivedParams,
+    getSetterName,
+    isArgumentUsingRefValue,
+    isInitializedFromRef,
+    isRefGatedContext,
+    isSetStateCall,
+    isSetStateId,
+    isUseStateCall,
+    resolveValues,
+  } as const;
+}
+
+export function isInitializedFromRef(context: RuleContext, id: TSESTree.Identifier, refParams?: RefParams) {
+  return createSetStateResolver(context).isInitializedFromRef(id, refParams);
+}
+
+export function isArgumentUsingRefValue(context: RuleContext, node: TSESTree.CallExpressionArgument, refParams?: RefParams) {
+  return createSetStateResolver(context).isArgumentUsingRefValue(node, refParams);
+}
+
+export function isRefGatedContext(context: RuleContext, node: TSESTree.Node, refParams?: RefParams) {
+  return createSetStateResolver(context).isRefGatedContext(node, refParams);
 }

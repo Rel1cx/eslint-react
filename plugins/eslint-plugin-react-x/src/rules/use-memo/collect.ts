@@ -2,7 +2,7 @@ import { Check, Extract, type TSESTreeFunction, Traverse } from "@eslint-react/a
 import type { RuleListener } from "@eslint-react/eslint";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import { simpleTraverse } from "@typescript-eslint/typescript-estree";
-import { getNestedReturnStatements, isResultUsed } from "./helpers";
+import { getReturnStatements, isResultUsed } from "./helpers";
 
 /**
  * A direct write to an identifier (x = …) observed in a useMemo callback body,
@@ -89,7 +89,7 @@ export function createFactCollector(isUseMemoCall: (node: null | TSESTree.Node) 
         callbackArg,
         isResultUsed: isResultUsed(node),
         node,
-        returnStatements: callbackFunction != null ? getNestedReturnStatements(callbackFunction) : [],
+        returnStatements: callbackFunction != null ? getReturnStatements(callbackFunction) : [],
         writes: callbackFunction != null ? collectWrites(callbackFunction) : [],
       });
     },

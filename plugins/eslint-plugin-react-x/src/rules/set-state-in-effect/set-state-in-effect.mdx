@@ -145,9 +145,26 @@ function Component() {
 }
 ```
 
-### Indirect setState calls are allowed
+### Synchronous helper calls are checked
 
-The rule does not flag indirect calls, such as inside event handlers, async functions, or timers. These run outside of the synchronous effect execution and do not cause the same immediate re-render problem.
+The rule follows synchronous calls through local functions, stable aliases, IIFEs, and values wrapped in `useCallback`, `useMemo`, or `useEffectEvent`. This includes multi-level helper chains and named effect setups. Indirect diagnostics point to the call or setup argument that triggers the update from the effect.
+
+```tsx
+// 🔴 Problem: a synchronous helper chain updates state
+function Component() {
+  const [data, setData] = useState(0);
+  const update = () => setData(1);
+  const run = () => update();
+
+  useEffect(() => {
+    run(); // reported here, with setData identified in the message
+  }, []);
+}
+```
+
+### Deferred and uninvoked callbacks are allowed
+
+The rule does not flag setters inside uninvoked callbacks, such as event handlers, async functions, or timers. These run outside of the synchronous effect execution and do not cause the same immediate re-render problem.
 
 ```tsx
 // 🔵 OK: setState in an event handler
@@ -187,6 +204,8 @@ function RemoteContent() {
 The rule does not flag synchronous `setState` calls when the new state value is derived from a ref. Measuring a DOM node after render (for example with `getBoundingClientRect()`) is a legitimate use of an effect, because the measurement is only available once the DOM exists and cannot be computed during rendering.
 
 Ref-derived values are recognized in many shapes: direct `ref.current` reads, member and call chains (e.g. `ref.current.getBoundingClientRect().height`), optional chaining (e.g. `ref.current?.offsetWidth`), local variables initialized from a ref or reassigned from one before the use, updater functions (e.g. `setState(() => ref.current)`), refs passed as parameters named `ref` or ending in `Ref`, `.current` reads on ref-like props (e.g. an `anchor` prop holding a `RefObject`), and parameters of a helper invoked from the effect whose call-site argument is ref-derived (e.g. `updateEdges(ref.current)` where `updateEdges = (el) => ...`, including helpers wrapped in `useCallback`). A helper called behind a ref-derived guard (e.g. after `if (!ref.current) return;`) is treated like a `setState` call in the same place.
+
+TypeScript assertions, computed member reads such as `lookup[ref.current]`, and values returned by resolvable local getters are traced as well. A later plain assignment in the same execution branch replaces an earlier ref-derived assignment instead of retaining the exemption indefinitely.
 
 ```tsx
 // 🟢 Recommended: measure a DOM node in an effect and store the result in state

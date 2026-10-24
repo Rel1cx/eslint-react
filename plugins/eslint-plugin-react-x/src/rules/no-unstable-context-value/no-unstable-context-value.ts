@@ -57,7 +57,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         const valueExpression = attribute.value.expression;
         const construction = resolveObjectType(context, valueExpression);
         if (construction == null) return;
-        if (core.isHookCall(construction.node)) {
+        if (construction.node.type === AST.CallExpression && core.isHookCall(construction.node)) {
           return;
         }
         getOrInsertComputed(constructions, enclosingFunction, () => []).push(construction);

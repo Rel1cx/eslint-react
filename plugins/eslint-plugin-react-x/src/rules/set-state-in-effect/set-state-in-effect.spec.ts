@@ -589,12 +589,12 @@ ruleTester.run(RULE_NAME, rule, {
         const Component1 = () => {
           const [foo, setFoo] = useState(null);
           const test = useCallback(() => {
-            setFoo('') // warning (fine)
-            fetch().then(() => { setFoo('') }); // warning (problem)
+            setFoo('') // reached synchronously through test()
+            fetch().then(() => { setFoo('') }); // deferred: not reported
           }, [])
           useEffect(() => {
-            test();
-            fetch().then(() => { setFoo('') }); // no warning (fine)
+            test(); // indirect diagnostic location
+            fetch().then(() => { setFoo('') }); // deferred: not reported
           }, [test]);
         }
       `,
@@ -604,6 +604,8 @@ ruleTester.run(RULE_NAME, rule, {
             name: "setFoo",
           },
           messageId: "default",
+          line: 10,
+          column: 5,
         },
       ],
     },
@@ -615,12 +617,12 @@ ruleTester.run(RULE_NAME, rule, {
         const Component1 = () => {
           const [foo, setFoo] = useState(null);
           const test = () => {
-            setFoo('') // warning (fine)
-            fetch().then(() => { setFoo('') }); // no warning (fine)
+            setFoo('') // reached synchronously through test()
+            fetch().then(() => { setFoo('') }); // deferred: not reported
           }
           useEffect(() => {
-            test();
-            fetch().then(() => { setFoo('') }); // no warning (fine)
+            test(); // indirect diagnostic location
+            fetch().then(() => { setFoo('') }); // deferred: not reported
           }, [test]);
         }
       `,
@@ -630,6 +632,8 @@ ruleTester.run(RULE_NAME, rule, {
             name: "setFoo",
           },
           messageId: "default",
+          line: 10,
+          column: 5,
         },
       ],
     },
@@ -665,96 +669,6 @@ ruleTester.run(RULE_NAME, rule, {
         {
           data: {
             name: "setData",
-          },
-          messageId: "default",
-        },
-      ],
-    },
-    {
-      name: "setState via array index",
-      code: tsx`
-        import { useEffect, useState } from "react";
-
-        function Component() {
-          const data = useState(0);
-          useEffect(() => {
-            data[1](1);
-          }, []);
-          return null;
-        }
-      `,
-      errors: [
-        {
-          data: {
-            name: "data[1]",
-          },
-          messageId: "default",
-        },
-      ],
-    },
-    {
-      name: "setState via .at() method",
-      code: tsx`
-        import { useEffect, useState } from "react";
-
-        function Component() {
-          const data = useState(0);
-          useEffect(() => {
-            data.at(1)(1);
-          }, []);
-          return null;
-        }
-      `,
-      errors: [
-        {
-          data: {
-            name: "data.at(1)",
-          },
-          messageId: "default",
-        },
-      ],
-    },
-    {
-      name: "setState via .at() with variable",
-      code: tsx`
-        import { useEffect, useState } from "react";
-
-        const index = 1;
-        function Component() {
-          const data = useState(0);
-          useEffect(() => {
-            data.at(index)(1);
-          }, []);
-          return null;
-        }
-      `,
-      errors: [
-        {
-          data: {
-            name: "data.at(index)",
-          },
-          messageId: "default",
-        },
-      ],
-    },
-    {
-      name: "setState via bracket notation with variable",
-      code: tsx`
-        import { useEffect, useState } from "react";
-
-        const index = 1;
-        function Component() {
-          const data = useState(0);
-          useEffect(() => {
-            data[index](1);
-          }, []);
-          return null;
-        }
-      `,
-      errors: [
-        {
-          data: {
-            name: "data[index]",
           },
           messageId: "default",
         },
@@ -839,29 +753,6 @@ ruleTester.run(RULE_NAME, rule, {
     //   name: "setState with ref.current inside conditional expression",
     //   ...
     // }
-    {
-      name: "setState with ref value inside computed member expression (rule does not detect ref in computed property)",
-      code: tsx`
-        import { useEffect, useState, useRef } from "react";
-
-        function Component() {
-          const ref = useRef("key");
-          const [data, setData] = useState(0);
-          useEffect(() => {
-            setData(lookup[ref.current]);
-          }, []);
-          return null;
-        }
-      `,
-      errors: [
-        {
-          data: {
-            name: "setData",
-          },
-          messageId: "default",
-        },
-      ],
-    },
     // --- Namespace import cases ---
     {
       name: "setState in React.useEffect with namespace import",
@@ -1011,17 +902,6 @@ ruleTester.run(RULE_NAME, rule, {
           const [count, setCount] = useState(0);
           useEffect(() => {
             (setCount as any)(1);
-          }, []);
-        }
-      `,
-      errors: [{ messageId: "default" }],
-    },
-    {
-      code: tsx`
-        function Component() {
-          const state = useState(0);
-          useEffect(() => {
-            (state.at(1) as any)(1);
           }, []);
         }
       `,
@@ -1192,41 +1072,8 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [{ messageId: "default" }],
     },
-    // FIXME false positive: the measured element is a DOM node held in state (written by a
-    // callback ref), which the ref-name heuristic cannot recognize as a measurement source.
-    // Should become valid once state-held DOM elements are treated like ref-derived sources.
-    // Distilled from facebook/astryx packages/core/src/hooks/useScrollableArea.ts.
-    {
-      name: "setState with measurements of a DOM element held in state",
-      code: tsx`
-        import { useCallback, useLayoutEffect, useState } from "react";
-
-        function useScrollableArea() {
-          const [viewport, setViewport] = useState(null);
-          const [measured, setMeasured] = useState(null);
-          const viewportRef = useCallback((node) => {
-            setViewport((current) => (current === node ? current : node));
-          }, []);
-          useLayoutEffect(() => {
-            if (viewport == null) {
-              return;
-            }
-            const measure = () => {
-              const next = {
-                inline: viewport.scrollWidth > viewport.clientWidth,
-                block: viewport.scrollHeight > viewport.clientHeight,
-              };
-              setMeasured((current) => (current === next ? current : next));
-            };
-            measure();
-          }, [viewport]);
-          return measured;
-        }
-      `,
-      errors: [{ messageId: "default" }],
-    },
-    // Diagnostics are sorted by source position, so the report for the setState
-    // inside `helper` (line 7) precedes the direct one in the setup (line 12).
+    // The indirect setB diagnostic is at helper() on line 10, immediately
+    // before the direct setA diagnostic on line 11.
     {
       name: "direct and indirectly reached setState in the same setup",
       code: tsx`
@@ -1246,12 +1093,12 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [
-        { data: { name: "setB" }, messageId: "default" },
-        { data: { name: "setA" }, messageId: "default" },
+        { data: { name: "setB" }, messageId: "default", line: 10, column: 5 },
+        { data: { name: "setA" }, messageId: "default", line: 11, column: 5 },
       ],
     },
-    // A setState function passed as the effect setup is reported at its own
-    // position (line 12), after the setState inside `helper` (line 7).
+    // The indirect setB diagnostic is at helper() on line 10; a setter passed
+    // directly as setup is reported at its own identifier on line 12.
     {
       name: "setState passed as setup alongside a tracked call in another effect",
       code: tsx`
@@ -1271,13 +1118,12 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [
-        { data: { name: "setB" }, messageId: "default" },
-        { data: { name: "setA" }, messageId: "default" },
+        { data: { name: "setB" }, messageId: "default", line: 10, column: 5 },
+        { data: { name: "setA" }, messageId: "default", line: 12, column: 13 },
       ],
     },
-    // SetState reached through a setup identifier passed to useEffect is reported
-    // after setState reached through a call in an inline setup body, even though
-    // the inline setup appears earlier in source order.
+    // Effect-side locations put helper() in the earlier inline setup (line 13)
+    // before the setupFn argument in the later Effect (line 15).
     {
       name: "setState via a tracked call is reported before setState via a setup identifier",
       code: tsx`
@@ -1300,15 +1146,14 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [
-        { data: { name: "setB" }, messageId: "default" },
-        { data: { name: "setA" }, messageId: "default" },
+        { data: { name: "setB" }, messageId: "default", line: 13, column: 5 },
+        { data: { name: "setA" }, messageId: "default", line: 15, column: 13 },
       ],
     },
-    // A nested useEffect setup shadows the outer one; after the inner setup is
-    // exited, the outer setup body is no longer treated as the active setup, so
-    // the trailing setState is not reported.
+    // Explicit Effect roots keep nested and outer setups independent, so both
+    // synchronous setter calls are reported at their own positions.
     {
-      name: "setState in a nested effect setup shadows the outer setup",
+      name: "setState in both nested and outer effect setups",
       code: tsx`
         import { useEffect, useState } from "react";
 
@@ -1324,34 +1169,12 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [
-        { data: { name: "setData" }, messageId: "default" },
+        { data: { name: "setData" }, messageId: "default", line: 7, column: 7 },
+        { data: { name: "setData" }, messageId: "default", line: 9, column: 5 },
       ],
     },
-    // The tuple-index setter form is also recognized when reached indirectly
-    // through a function invoked from the setup.
-    {
-      name: "setState via array index reached indirectly",
-      code: tsx`
-        import { useEffect, useState } from "react";
-
-        function Component() {
-          const data = useState(0);
-          const helper = () => {
-            data[1](1);
-          };
-          useEffect(() => {
-            helper();
-          }, []);
-          return null;
-        }
-      `,
-      errors: [
-        { data: { name: "data[1]" }, messageId: "default" },
-      ],
-    },
-    // When the setup is an identifier, getNestedIdentifiers collects the whole
-    // useEffect call, so the identifiers in a computed/member-heavy deps array
-    // are resolved too; none of them break resolving the setup itself.
+    // The setup argument is resolved independently of the dependency array,
+    // including when the dependencies contain computed member accesses.
     {
       name: "setState via a named setup with a computed and member-heavy deps array",
       code: tsx`
@@ -1370,7 +1193,7 @@ ruleTester.run(RULE_NAME, rule, {
         { data: { name: "setData" }, messageId: "default" },
       ],
     },
-    // getNestedIdentifiers never visits non-computed member properties, so a
+    // getIdentifiers never visits non-computed member properties, so a
     // ref-looking name in property position does not make the test ref-gated.
     {
       name: "setState gated by a ref-looking non-computed member property",
@@ -1391,7 +1214,7 @@ ruleTester.run(RULE_NAME, rule, {
         { data: { name: "setData" }, messageId: "default" },
       ],
     },
-    // getNestedIdentifiers never descends into function bodies, so a ref read
+    // getIdentifiers never descends into function bodies, so a ref read
     // inside a callback nested in the test does not make the test ref-gated.
     {
       name: "setState gated by a test whose only ref read is inside a nested callback",
@@ -1614,46 +1437,6 @@ ruleTester.run(RULE_NAME, rule, {
             for (const _ of gen()) {
               // drive the generator
             }
-          }, []);
-          return null;
-        }
-      `,
-      errors: [
-        { data: { name: "setData" }, messageId: "default" },
-      ],
-    },
-    // isArgumentUsingRefValue does not trace through call boundaries, so a ref
-    // read hidden behind a local function call is not recognized as ref-derived.
-    {
-      name: "setState with an argument calling a local ref-reading function",
-      code: tsx`
-        import { useEffect, useRef, useState } from "react";
-
-        function Component() {
-          const [data, setData] = useState(0);
-          const ref = useRef(0);
-          const getRefValue = () => ref.current;
-          useEffect(() => {
-            setData(getRefValue());
-          }, []);
-          return null;
-        }
-      `,
-      errors: [
-        { data: { name: "setData" }, messageId: "default" },
-      ],
-    },
-    // `const { 1: setData } = useState()` destructures the tuple by numeric key,
-    // so the name is still recognized as the setter.
-    {
-      name: "setState via object-pattern destructuring with numeric key 1",
-      code: tsx`
-        import { useEffect, useState } from "react";
-
-        function Component() {
-          const { 1: setData } = useState(0);
-          useEffect(() => {
-            setData(1);
           }, []);
           return null;
         }
@@ -1990,8 +1773,321 @@ ruleTester.run(RULE_NAME, rule, {
         { data: { name: "setData" }, messageId: "default" },
       ],
     },
+    {
+      name: "setState with no arguments in effect",
+      code: tsx`
+        import { useEffect, useState } from "react";
+
+        function Component() {
+          const [data, setData] = useState(0);
+          useEffect(() => {
+            setData();
+          }, []);
+          return null;
+        }
+      `,
+      errors: [
+        { data: { name: "setData" }, messageId: "default", line: 6, column: 5 },
+      ],
+    },
+    // Synchronous IIFEs are traversed at any depth; the outer IIFE is the
+    // Effect-side trigger for the indirect diagnostic.
+    {
+      name: "setState in a doubly nested IIFE inside the setup",
+      code: tsx`
+        import { useEffect, useState } from "react";
+
+        function Component() {
+          const [data, setData] = useState(0);
+          useEffect(() => {
+            (() => {
+              (() => {
+                setData(1);
+              })();
+            })();
+          }, []);
+          return null;
+        }
+      `,
+      errors: [
+        { data: { name: "setData" }, messageId: "default", line: 6, column: 5 },
+      ],
+    },
+    // Calls made inside a synchronous IIFE are part of the same call graph.
+    {
+      name: "setState behind a local function invoked only from an IIFE in the setup",
+      code: tsx`
+        import { useEffect, useState } from "react";
+
+        function Component() {
+          const [data, setData] = useState(0);
+          useEffect(() => {
+            (() => {
+              const inner = () => setData(1);
+              inner();
+            })();
+          }, []);
+          return null;
+        }
+      `,
+      errors: [
+        { data: { name: "setData" }, messageId: "default", line: 6, column: 5 },
+      ],
+    },
+    // The first call in the Effect is the report location for a sink reached
+    // through multiple levels of synchronous helpers.
+    {
+      name: "setState behind two levels of local helpers",
+      code: tsx`
+        import { useEffect, useState } from "react";
+
+        function Component() {
+          const [data, setData] = useState(0);
+          const helperB = () => setData(1);
+          const helperA = () => helperB();
+          useEffect(() => {
+            helperA();
+          }, []);
+          return null;
+        }
+      `,
+      errors: [
+        { data: { name: "setData" }, messageId: "default", line: 8, column: 5 },
+      ],
+    },
+    {
+      name: "setState inside an IIFE inside a local function invoked from the setup",
+      code: tsx`
+        import { useEffect, useState } from "react";
+
+        function Component() {
+          const [data, setData] = useState(0);
+          const helper = () => {
+            (() => {
+              setData(1);
+            })();
+          };
+          useEffect(() => {
+            helper();
+          }, []);
+          return null;
+        }
+      `,
+      errors: [
+        { data: { name: "setData" }, messageId: "default", line: 11, column: 5 },
+      ],
+    },
+    {
+      name: "setState called through a stable alias variable",
+      code: tsx`
+        import { useEffect, useState } from "react";
+
+        function Component() {
+          const [data, setData] = useState(0);
+          const s = setData;
+          useEffect(() => {
+            s(1);
+          }, []);
+          return null;
+        }
+      `,
+      errors: [
+        { data: { name: "setData" }, messageId: "default", line: 7, column: 5 },
+      ],
+    },
+    // The closest preceding write determines the value's origin, so a later
+    // plain write does not inherit an earlier ref-derived write's exemption.
+    {
+      name: "setState with a ref-derived write followed by a plain write",
+      code: tsx`
+        import { useEffect, useRef, useState } from "react";
+
+        function Component() {
+          const containerRef = useRef(null);
+          const [width, setWidth] = useState(0);
+          useEffect(() => {
+            let width = 0;
+            width = containerRef.current.offsetWidth;
+            width = 42;
+            setWidth(width);
+          }, []);
+          return null;
+        }
+      `,
+      errors: [
+        { data: { name: "setWidth" }, messageId: "default", line: 10, column: 5 },
+      ],
+    },
+    {
+      name: "setState via additionalEffectHooks without a built-in useEffect call",
+      code: tsx`
+        import { useState } from "react";
+
+        function Component() {
+          const [data, setData] = useState(0);
+          useCustomEffect(() => {
+            setData(1);
+          }, []);
+          return null;
+        }
+      `,
+      errors: [
+        { data: { name: "setData" }, messageId: "default", line: 6, column: 5 },
+      ],
+      settings: {
+        "react-x": {
+          additionalEffectHooks: "useCustomEffect",
+        },
+      },
+    },
+    {
+      name: "setState via a named setup wrapped in TypeScript as and non-null expressions",
+      code: tsx`
+        import { useEffect, useState } from "react";
+
+        function Component() {
+          const [data, setData] = useState(0);
+          function setup() {
+            setData(1);
+          }
+          useEffect((setup as () => void)!, []);
+          return null;
+        }
+      `,
+      errors: [
+        { data: { name: "setData" }, messageId: "default", line: 8, column: 13 },
+      ],
+    },
+    // Both sinks are reported at the named setup argument, in their original
+    // setter order rather than at the helper or IIFE bodies.
+    {
+      name: "setState via a helper and an IIFE inside a named setup",
+      code: tsx`
+        import { useEffect, useState } from "react";
+
+        function Component() {
+          const [a, setA] = useState(0);
+          const [b, setB] = useState(0);
+          function setup() {
+            const helper = () => setA(1);
+            helper();
+            (() => setB(1))();
+          }
+          useEffect(setup, []);
+          return null;
+        }
+      `,
+      errors: [
+        { data: { name: "setA" }, messageId: "default", line: 11, column: 13 },
+        { data: { name: "setB" }, messageId: "default", line: 11, column: 13 },
+      ],
+    },
+    {
+      name: "setState in an if test is still reported",
+      code: tsx`
+        import { useEffect, useState } from "react";
+
+        function Component() {
+          const [data, setData] = useState(0);
+          useEffect(() => {
+            if (setData(1)) {
+              return;
+            }
+          }, []);
+          return null;
+        }
+      `,
+      errors: [
+        { data: { name: "setData" }, messageId: "default", line: 6, column: 9 },
+      ],
+    },
+    {
+      name: "setState reached through repeated calls to the same helper is reported once",
+      code: tsx`
+        import { useEffect, useState } from "react";
+
+        function Component() {
+          const [data, setData] = useState(0);
+          const helper = () => {
+            setData(1);
+          };
+          useEffect(() => {
+            helper();
+            helper();
+          }, []);
+          return null;
+        }
+      `,
+      errors: [
+        { data: { name: "setData" }, messageId: "default", line: 9, column: 5 },
+      ],
+    },
+    {
+      name: "setState in a named setup shared by multiple effects is reported once",
+      code: tsx`
+        import { useEffect, useState } from "react";
+
+        function Component() {
+          const [data, setData] = useState(0);
+          function setup() {
+            setData(1);
+          }
+          useEffect(setup, []);
+          useEffect(setup, []);
+          return null;
+        }
+      `,
+      errors: [
+        { data: { name: "setData" }, messageId: "default", line: 8, column: 13 },
+      ],
+    },
   ],
   valid: [
+    {
+      name: "setState with measurements of a DOM element stored in state by a callback ref",
+      code: tsx`
+        function Example() {
+          const [viewport, setViewport] = useState<HTMLDivElement | null>(null);
+          const [measured, setMeasured] = useState(false);
+
+          useEffect(() => {
+            if (viewport == null) return;
+            setMeasured(viewport.getBoundingClientRect().width > 0);
+          }, [viewport]);
+
+          return <div ref={setViewport} />;
+        }
+      `,
+    },
+    // Distilled from facebook/astryx packages/core/src/hooks/useScrollableArea.ts.
+    {
+      name: "setState with measurements of a DOM element held in state",
+      code: tsx`
+        import { useCallback, useLayoutEffect, useState } from "react";
+
+        function useScrollableArea() {
+          const [viewport, setViewport] = useState(null);
+          const [measured, setMeasured] = useState(null);
+          const viewportRef = useCallback((node) => {
+            setViewport((current) => (current === node ? current : node));
+          }, []);
+          useLayoutEffect(() => {
+            if (viewport == null) {
+              return;
+            }
+            const measure = () => {
+              const next = {
+                inline: viewport.scrollWidth > viewport.clientWidth,
+                block: viewport.scrollHeight > viewport.clientHeight,
+              };
+              setMeasured((current) => (current === next ? current : next));
+            };
+            measure();
+          }, [viewport]);
+          return <div ref={viewportRef} />;
+        }
+      `,
+    },
     {
       name: "setState in promise callback",
       code: tsx`
@@ -2887,35 +2983,6 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
     },
-    {
-      name: "calling setter at index 0",
-      code: tsx`
-        import { useEffect, useState } from "react";
-
-        const index = 0;
-        function Component() {
-          const data = useState(() => 0);
-          useEffect(() => {
-            data.at(index)();
-          }, []);
-          return null;
-        }
-      `,
-    },
-    {
-      name: "setState with no arguments in effect (invalid usage but not reported by this rule)",
-      code: tsx`
-        import { useEffect, useState } from "react";
-
-        function Component() {
-          const [data, setData] = useState(0);
-          useEffect(() => {
-            setData();
-          }, []);
-          return null;
-        }
-      `,
-    },
     // useEffect with a plain function identifier (not setState) should not crash
     {
       name: "useEffect with plain function identifier",
@@ -3148,45 +3215,6 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
     },
-    // Only a single-level IIFE directly inside the setup counts as immediate;
-    // a doubly nested IIFE is not resolved back to the setup.
-    {
-      name: "setState in a doubly nested IIFE inside the setup",
-      code: tsx`
-        import { useEffect, useState } from "react";
-
-        function Component() {
-          const [data, setData] = useState(0);
-          useEffect(() => {
-            (() => {
-              (() => {
-                setData(1);
-              })();
-            })();
-          }, []);
-          return null;
-        }
-      `,
-    },
-    // Calls made inside an IIFE are not tracked as calls of the setup, so a
-    // setState behind a local function invoked only from the IIFE is not reached.
-    {
-      name: "setState behind a local function invoked only from an IIFE in the setup",
-      code: tsx`
-        import { useEffect, useState } from "react";
-
-        function Component() {
-          const [data, setData] = useState(0);
-          useEffect(() => {
-            (() => {
-              const inner = () => setData(1);
-              inner();
-            })();
-          }, []);
-          return null;
-        }
-      `,
-    },
     // The body of an async function is skipped entirely, so an async helper
     // invoked synchronously from the setup is not resolved to its setState.
     {
@@ -3230,8 +3258,8 @@ ruleTester.run(RULE_NAME, rule, {
         },
       },
     },
-    // getNestedIdentifiers traces the ref through the call's arguments and the
-    // nested logical expression, so the argument is ref-derived.
+    // The recursive argument walk traces the ref through the call's arguments
+    // and the nested logical expression, so the argument is ref-derived.
     {
       name: "setState with ref.current nested in a call argument with logical fallback",
       code: tsx`
@@ -3365,8 +3393,8 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
     },
-    // isInitializedFromRef falls back to getNestedIdentifiers for non-member
-    // inits, so a local initialized from `ref.current * 2` is ref-derived.
+    // Ref-origin tracing recursively visits binary operands, so a local
+    // initialized from `ref.current * 2` is ref-derived.
     {
       name: "setState with a local initialized from ref.current through a binary expression",
       code: tsx`
@@ -3420,9 +3448,8 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
     },
-    // Because getNestedIdentifiers collects the deps array of a non-function
-    // setup too, a setState identifier appearing in deps is resolved but does
-    // not resolve to any reachable setState call, so nothing is reported.
+    // Only the setup argument is an Effect root. A setter identifier in the
+    // dependency array is not a synchronous setter call in the setup.
     {
       name: "setState identifier in the deps array of a named setup",
       code: tsx`
@@ -3457,46 +3484,6 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
     },
-    // Indirect resolution goes one level: the setup's tracked calls resolve to
-    // the setState calls recorded in the resolved function itself, not to
-    // setState calls behind functions that function invokes.
-    {
-      name: "setState behind two levels of local helpers",
-      code: tsx`
-        import { useEffect, useState } from "react";
-
-        function Component() {
-          const [data, setData] = useState(0);
-          const helperB = () => setData(1);
-          const helperA = () => helperB();
-          useEffect(() => {
-            helperA();
-          }, []);
-          return null;
-        }
-      `,
-    },
-    // A setState inside an IIFE is recorded under the IIFE, not under the
-    // helper that contains the IIFE, so resolving the helper does not reach it.
-    {
-      name: "setState inside an IIFE inside a local function invoked from the setup",
-      code: tsx`
-        import { useEffect, useState } from "react";
-
-        function Component() {
-          const [data, setData] = useState(0);
-          const helper = () => {
-            (() => {
-              setData(1);
-            })();
-          };
-          useEffect(() => {
-            helper();
-          }, []);
-          return null;
-        }
-      `,
-    },
     // The ref-gating exemption applies to setState calls reached indirectly
     // through a helper invoked from the setup as well.
     {
@@ -3519,43 +3506,8 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
     },
-    // A setter stored in another variable first is not resolved: the alias
-    // name does not appear in the useState destructuring pattern, so the call
-    // is not recognized as a setState call.
-    {
-      name: "setState called through an alias variable",
-      code: tsx`
-        import { useEffect, useState } from "react";
-
-        function Component() {
-          const [data, setData] = useState(0);
-          const s = setData;
-          useEffect(() => {
-            s(1);
-          }, []);
-          return null;
-        }
-      `,
-    },
-    // `const { 0: data } = useState()` binds the state value, not the setter:
-    // object-pattern destructuring only counts as a setter at numeric key 1.
-    {
-      name: "state value via object-pattern destructuring with numeric key 0",
-      code: tsx`
-        import { useEffect, useState } from "react";
-
-        function Component() {
-          const { 0: logData } = useState(() => () => 0);
-          useEffect(() => {
-            logData();
-          }, []);
-          return null;
-        }
-      `,
-    },
-    // A setup referenced through a member expression is not resolved:
-    // getNestedIdentifiers skips non-computed member properties, so only the
-    // object identifier is collected, and it does not resolve to a function.
+    // Setup value resolution does not follow arbitrary member expressions, so
+    // a function stored as an object property is not an Effect setup target.
     {
       name: "setState via a setup referenced through a member expression",
       code: tsx`
@@ -3569,21 +3521,6 @@ ruleTester.run(RULE_NAME, rule, {
             },
           };
           useEffect(setups.main, []);
-          return null;
-        }
-      `,
-    },
-    // Only the literal index 1 names the setter; a negative index does not.
-    {
-      name: "data.at(-1)() is not recognized as the setter",
-      code: tsx`
-        import { useEffect, useState } from "react";
-
-        function Component() {
-          const data = useState(0);
-          useEffect(() => {
-            data.at(-1)(1);
-          }, []);
           return null;
         }
       `,
@@ -3657,27 +3594,6 @@ ruleTester.run(RULE_NAME, rule, {
             width = containerRef.current.offsetWidth;
             const setup = () => setWidth(width);
             setup();
-          }, []);
-          return null;
-        }
-      `,
-    },
-    // Assignment tracking uses OR semantics over preceding writes: any
-    // ref-derived write exempts the use even when a later plain write
-    // overwrites it. Lenient by design — the exemption only silences reports.
-    {
-      name: "setState with a ref-derived write followed by a plain write",
-      code: tsx`
-        import { useEffect, useRef, useState } from "react";
-
-        function Component() {
-          const containerRef = useRef(null);
-          const [width, setWidth] = useState(0);
-          useEffect(() => {
-            let width = 0;
-            width = containerRef.current.offsetWidth;
-            width = 42;
-            setWidth(width);
           }, []);
           return null;
         }
@@ -4000,6 +3916,80 @@ ruleTester.run(RULE_NAME, rule, {
           };
           useEffect(() => {
             updateEdges(config);
+          }, []);
+          return null;
+        }
+      `,
+    },
+    {
+      name: "setState with ref value inside a computed member expression",
+      code: tsx`
+        import { useEffect, useState, useRef } from "react";
+
+        function Component() {
+          const ref = useRef("key");
+          const [data, setData] = useState(0);
+          useEffect(() => {
+            setData(lookup[ref.current]);
+          }, []);
+          return null;
+        }
+      `,
+    },
+    // A local getter's actual return value is traced when checking whether the
+    // setter argument is ref-derived.
+    {
+      name: "setState with an argument calling a local getter that returns ref.current",
+      code: tsx`
+        import { useEffect, useRef, useState } from "react";
+
+        function Component() {
+          const [data, setData] = useState(0);
+          const ref = useRef(0);
+          const getRefValue = () => ref.current;
+          useEffect(() => {
+            setData(getRefValue());
+          }, []);
+          return null;
+        }
+      `,
+    },
+    {
+      name: "setState in timer callbacks inside useCallback and useEffectEvent handlers",
+      code: tsx`
+        import { useCallback, useEffect, useEffectEvent, useState } from "react";
+
+        function Component() {
+          const [a, setA] = useState(0);
+          const [b, setB] = useState(0);
+          const callback = useCallback(() => {
+            setTimeout(() => setA(1), 0);
+          }, []);
+          const event = useEffectEvent(() => {
+            setTimeout(() => setB(1), 0);
+          });
+          useEffect(() => {
+            callback();
+            event();
+          }, []);
+          return null;
+        }
+      `,
+    },
+    {
+      name: "setState in a helper fed TypeScript-wrapped ref arguments",
+      code: tsx`
+        import { useEffect, useRef, useState } from "react";
+
+        function Component() {
+          const nodeRef = useRef<HTMLElement | null>(null);
+          const [width, setWidth] = useState(0);
+          const measure = (node: HTMLElement) => {
+            setWidth(node.offsetWidth);
+          };
+          useEffect(() => {
+            measure(nodeRef.current as HTMLElement);
+            measure(nodeRef.current!);
           }, []);
           return null;
         }

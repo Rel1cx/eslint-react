@@ -18,8 +18,8 @@ export const KNOWN_CALLBACK_POSITIONS = new Map<string, number>([
  * @param node The AST node
  * @returns The nested return statements in the node
  */
-export function getNestedReturnStatements(node: TSESTree.Node): readonly TSESTree.ReturnStatement[] {
-  const statements: TSESTree.ReturnStatement[] = [];
+export function getReturnStatements(node: TSESTree.Node): readonly TSESTree.ReturnStatement[] {
+  const stmts: TSESTree.ReturnStatement[] = [];
   // If the node is not inside a function, boundary will be null
   // and no return statements will be collected (as expected)
   const boundary = Check.isFunction(node)
@@ -33,8 +33,8 @@ export function getNestedReturnStatements(node: TSESTree.Node): readonly TSESTre
       if (Traverse.hasParent(node, Check.isFunction, (n) => n === boundary)) {
         return;
       }
-      statements.push(node);
+      stmts.push(node);
     },
   });
-  return statements;
+  return stmts;
 }

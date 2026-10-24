@@ -62,7 +62,7 @@ const EXPRESSION_VISITOR_KEYS = {
  * node, and it will return an array of all nested expressions of type AST.
  */
 // dprint-ignore
-function getNestedExpressionsOfType<TNodeType extends AST>(type: TNodeType): (node: TSESTree.Node) => Extract<TSESTree.Node, { type: TNodeType }>[] {
+function getExpressionsOfType<TNodeType extends AST>(type: TNodeType): (node: TSESTree.Node) => Extract<TSESTree.Node, { type: TNodeType }>[] {
   const isNodeOfType = Check.is(type);
   const recurse = (node: TSESTree.Node): Extract<TSESTree.Node, { type: TNodeType }>[] => {
     const expressions: Extract<TSESTree.Node, { type: TNodeType }>[] = [];
@@ -84,11 +84,11 @@ function getNestedExpressionsOfType<TNodeType extends AST>(type: TNodeType): (no
  * @param node The node to get the nested new expressions from
  * @returns All nested new expressions
  */
-export const getNestedNewExpressions = getNestedExpressionsOfType(AST.NewExpression);
+export const getNewExpressions = getExpressionsOfType(AST.NewExpression);
 
 /**
  * Get all nested call expressions in a expression like node
  * @param node The node to get the nested call expressions from
  * @returns All nested call expressions
  */
-export const getNestedCallExpressions = getNestedExpressionsOfType(AST.CallExpression);
+export const getCallExpressions = getExpressionsOfType(AST.CallExpression);

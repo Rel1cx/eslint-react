@@ -59,7 +59,7 @@ export function createFactCollector(context: RuleContext) {
   const componentFnStack: TSESTreeFunction[] = [];
 
   function isUseStateCall(node: TSESTree.Node): boolean {
-    return core.isUseStateLikeCall(node, additionalStateHooks);
+    return node.type === AST.CallExpression && core.isUseStateLikeCall(node, additionalStateHooks);
   }
 
   /**

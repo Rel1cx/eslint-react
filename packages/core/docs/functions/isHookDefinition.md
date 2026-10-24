@@ -3,16 +3,16 @@
 # Function: isHookDefinition()
 
 ```ts
-function isHookDefinition(node: TSESTreeFunction | null): boolean;
+function isHookDefinition(node: TSESTreeFunction): boolean;
 ```
 
 Check if the function node is a hook definition based on its name.
 
 ## Parameters
 
-| Parameter | Type                         | Description                 |
-| --------- | ---------------------------- | --------------------------- |
-| `node`    | `TSESTreeFunction` \| `null` | The function node to check. |
+| Parameter | Type               | Description                 |
+| --------- | ------------------ | --------------------------- |
+| `node`    | `TSESTreeFunction` | The function node to check. |
 
 ## Returns
 
