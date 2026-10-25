@@ -6,7 +6,7 @@ title: Changelog
 
 ### ✨ New
 
-- `react-x/unstable-exhaustive-deps`: new experimental rule forked from `exhaustive-deps`; its `hooks` option (modeled on Biome's `useExhaustiveDependencies`) checks custom Hooks with the callback/deps array at any position via `closureIndex`/`dependenciesIndex`, and marks a Hook's result (`true`) or returned-array positions as stable via `stableResult` (`boolean | number | number[]` only; Biome's `string[]` form unsupported yet). Without `hooks` it reports the same problems as `exhaustive-deps`, so enable only one; it is disabled in `disable-experimental`. (#1698, #2078) Thanks to @dgesteves!
+- `react-x/unstable-exhaustive-deps`: new experimental rule forked from `exhaustive-deps`. Its `hooks` option (modeled on Biome's `useExhaustiveDependencies`) configures custom Hooks via `closureIndex`/`dependenciesIndex` and stable results via `stableResult`. (#1698, #2078) Thanks to @dgesteves!
 
 ### 📝 Documentation
 
@@ -54,7 +54,7 @@ title: Changelog
 
 ### ✨ New
 
-- `react-x/set-state-in-effect`: reworked around explicit effect roots and a synchronous call graph with recursive value resolution. Stable aliases, multi-level helpers, named setups, IIFEs, and `useCallback`/`useMemo`/`useEffectEvent` wrappers now share one resolution path; indirect diagnostics point at the effect-side trigger and dedupe by setter sink. Async functions remain deferred (documented limitation). (#2075)
+- `react-x/set-state-in-effect`: reworked around explicit effect roots and a synchronous call graph with recursive value resolution, unifying stable aliases, multi-level helpers, named setups, IIFEs, and `useCallback`/`useMemo`/`useEffectEvent` wrappers under one path. Indirect diagnostics point at the effect-side trigger and dedupe by setter sink; async functions stay deferred (documented limitation). (#2075)
 
 ### 🐞 Fixes
 
