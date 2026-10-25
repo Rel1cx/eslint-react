@@ -322,6 +322,82 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [{ messageId: "try-catch-with-use" }],
     },
+    // Derived from react/compiler/packages/babel-plugin-react-compiler/src/__tests__/fixtures/compiler invalid-jsx-in-try-with-catch.js
+    // JSX is assigned in try but returned outside try
+    {
+      code: tsx`
+        function Component(props) {
+          let el;
+          try {
+            el = <div />;
+          } catch {
+            return null;
+          }
+          return el;
+        }
+      `,
+      errors: [{ messageId: "try-catch-with-jsx" }],
+    },
+    // Derived from react/compiler/packages/babel-plugin-react-compiler/src/__tests__/fixtures/compiler invalid-jsx-in-catch-in-outer-try-with-catch.js
+    // JSX is assigned in a catch block nested inside an outer try
+    {
+      code: tsx`
+        function Component(props) {
+          let el;
+          try {
+            let value;
+            try {
+              value = identity(props.foo);
+            } catch {
+              el = <div value={value} />;
+            }
+          } catch {
+            return null;
+          }
+          return el;
+        }
+      `,
+      errors: [{ messageId: "try-catch-with-jsx" }],
+    },
+    // JSX is declared in try and then returned from try - one report per try
+    {
+      code: tsx`
+        function Component() {
+          try {
+            const el = <div />;
+            return el;
+          } catch {}
+        }
+      `,
+      errors: [{ messageId: "try-catch-with-jsx" }],
+    },
+    // Nested JSX elements created in one try are reported once
+    {
+      code: tsx`
+        function Component() {
+          let el;
+          try {
+            el = <div><span /></div>;
+          } catch {
+            return null;
+          }
+          return el;
+        }
+      `,
+      errors: [{ messageId: "try-catch-with-jsx" }],
+    },
+    // JSX is passed as an argument inside a hook's try
+    {
+      code: tsx`
+        function useToast() {
+          try {
+            show(<></>);
+          } catch {}
+          return null;
+        }
+      `,
+      errors: [{ messageId: "try-catch-with-jsx" }],
+    },
   ],
   valid: [
     // No try/catch at all
@@ -639,19 +715,6 @@ ruleTester.run(RULE_NAME, rule, {
         return object.foo();
       }
     `,
-    // Derived from react/compiler/packages/babel-plugin-react-compiler/src/__tests__/fixtures/compiler invalid-jsx-in-try-with-catch.js
-    // JSX is assigned in try but returned outside try - not caught by this rule
-    tsx`
-      function Component(props) {
-        let el;
-        try {
-          el = <div />;
-        } catch {
-          return null;
-        }
-        return el;
-      }
-    `,
     // Derived from react/compiler/packages/babel-plugin-react-compiler/src/__tests__/fixtures/compiler repro-preds-undefined-try-catch-return-primitive.js
     // try/catch in useMemo callback returning primitive
     tsx`
@@ -702,6 +765,80 @@ ruleTester.run(RULE_NAME, rule, {
             return "";
           }
         }, [text]);
+      }
+    `,
+    // JSX inside functions defined in try - the try belongs to the component, not to the nested function
+    tsx`
+      function Component({ items }) {
+        let rows;
+        try {
+          const renderRow = (item) => <Row item={item} />;
+          function renderEmpty() {
+            return <Empty />;
+          }
+          rows = items.length > 0 ? items.map(renderRow) : renderEmpty();
+        } catch {
+          rows = null;
+        }
+        return <div>{rows}</div>;
+      }
+    `,
+    // JSX in a hook defined in the try of a non-component function - the try does not belong to the hook
+    tsx`
+      function createStore() {
+        try {
+          function useStore() {
+            track(<Marker />);
+            return null;
+          }
+          return useStore;
+        } catch {
+          return null;
+        }
+      }
+    `,
+    // Not collected as a component (the catch falls through to an undefined return), so not reported, while React Compiler reports it
+    tsx`
+      function Component() {
+        let el;
+        try {
+          el = <div />;
+        } catch {}
+        return el;
+      }
+    `,
+    // JSX in a useMemo callback in the try body is not reported, while React Compiler reports it
+    tsx`
+      function Component() {
+        let el;
+        try {
+          el = useMemo(() => <div />, []);
+        } catch {
+          return null;
+        }
+        return el;
+      }
+    `,
+    // JSX created in the catch block is not in the try body
+    tsx`
+      function Component() {
+        try {
+          load();
+        } catch {
+          return <Fallback />;
+        }
+        return <div />;
+      }
+    `,
+    // JSX created in the finally block is not in the try body
+    tsx`
+      function Component() {
+        try {
+          load();
+        } finally {
+          log(<Done />);
+        }
+        return <div />;
       }
     `,
   ],
