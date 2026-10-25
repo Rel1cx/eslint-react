@@ -25,8 +25,3 @@ The following local adaptations have been made to this fork:
   - `closureIndex` and `dependenciesIndex` check custom Hooks with the callback and the dependencies array at any position. Both must be set, and they must differ.
   - `stableResult` marks the result of a Hook (`true`), or some positions of its returned array (an index or an array of indices), as stable. Only `boolean | number | number[]` are supported; Biome's `string[]` form for object properties is not supported yet.
 - The fork also carries local fixes to dependency analysis and autofix behavior; see [`CHANGELOG.md`](./CHANGELOG.md).
-
-### Notes
-
-- This rule is experimental (`EXP`) and is disabled by the `disable-experimental` preset.
-- Without the `hooks` option, this rule reports the same problems as `exhaustive-deps`; do not enable both.

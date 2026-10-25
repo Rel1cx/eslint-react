@@ -2,6 +2,26 @@
 title: Changelog
 ---
 
+## v5.30.0-beta.3 (2026-10-26)
+
+### ✨ New
+
+- `react-x/unstable-exhaustive-deps`: new experimental rule forked from `exhaustive-deps`; its `hooks` option (modeled on Biome's `useExhaustiveDependencies`) checks custom Hooks with the callback/deps array at any position via `closureIndex`/`dependenciesIndex`, and marks a Hook's result (`true`) or returned-array positions as stable via `stableResult` (`boolean | number | number[]` only; Biome's `string[]` form unsupported yet). Without `hooks` it reports the same problems as `exhaustive-deps`, so enable only one; it is disabled in `disable-experimental`. (#1698, #2078) Thanks to @dgesteves!
+
+### 📝 Documentation
+
+- Added documentation and a README for `react-x/unstable-exhaustive-deps`, covering the `hooks` option, examples, and the fork's local adaptations. (#2078, #2081)
+
+### 🏗️ Internal
+
+- `@local/testkit`: added a `verifyAndFix` helper for testing rules with autofixes. (#2078)
+
+### New Contributors
+
+- **Diogo Esteves** (@dgesteves) made their first contribution in #2078.
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.30.0-beta.2...v5.30.0-beta.3
+
 ## v5.30.0-beta.2 (2026-10-25)
 
 ### 🐞 Fixes
