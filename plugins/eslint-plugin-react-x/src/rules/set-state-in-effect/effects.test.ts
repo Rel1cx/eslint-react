@@ -98,6 +98,11 @@ describe("inferViolations", () => {
     expect(inferViolationNames(code)).toEqual([]);
   });
 
+  it("should not report a setter call with a ref-derived value beyond the first argument", () => {
+    const code = "function C() { const ref = useRef(0); const [data, setData] = useState(0); useEffect(() => { setData(0, ref.current); }, []); }";
+    expect(inferViolationNames(code)).toEqual([]);
+  });
+
   it("should not report a setState call gated by a ref-derived condition", () => {
     const code = "function C() { const ref = useRef(0); const [data, setData] = useState(0); useEffect(() => { if (ref.current > 0) { setData(1); } }, []); }";
     expect(inferViolationNames(code)).toEqual([]);
@@ -138,6 +143,17 @@ describe("inferViolations", () => {
   it("should report setState calls in both branches of a conditional expression", () => {
     const code = "function C() { const [data, setData] = useState(0); useEffect(() => { cond ? setData(1) : setData(2); }, []); }";
     expect(inferViolationNames(code)).toEqual(["setData", "setData"]);
+  });
+
+  it("should report every setter a conditional callee may call", () => {
+    const code = "function C({ cond }) { const [a, setA] = useState(0); const [b, setB] = useState(0); useEffect(() => { (cond ? setA : setB)(1); }, []); }";
+    expect(inferViolationNames(code)).toEqual(["setA", "setB"]);
+  });
+
+  it("should report every setter returned by a useMemo selector", () => {
+    const code =
+      "function C({ cond }) { const [a, setA] = useState(0); const [b, setB] = useState(0); const set = useMemo(() => (cond ? setA : setB), [cond]); useEffect(() => { set(1); }, []); }";
+    expect(inferViolationNames(code)).toEqual(["setA", "setB"]);
   });
 
   it("should not report a setState call on the right of a logical-and with a ref read on the left", () => {
@@ -269,6 +285,92 @@ describe("inferViolations", () => {
     const code =
       "function C() { const ref = useRef(0); const [data, setData] = useState(0); const update = () => { ref.current && setData(1); }; useEffect(() => { update(); }, []); }";
     expect(inferViolationNames(code)).toEqual([]);
+  });
+
+  it("should inherit a ref gate through a chain of helper calls", () => {
+    const code =
+      "function C() { const ref = useRef(0); const [data, setData] = useState(0); const inner = () => setData(1); const outer = () => inner(); useEffect(() => { if (ref.current) { outer(); } }, []); }";
+    expect(inferViolationNames(code)).toEqual([]);
+  });
+
+  it("should inherit a ref gate for a useMemo-returned helper", () => {
+    const code =
+      "function C() { const ref = useRef(0); const [data, setData] = useState(0); const helper = useMemo(() => () => setData(1), []); useEffect(() => { if (ref.current) { helper(); } }, []); }";
+    expect(inferViolationNames(code)).toEqual([]);
+  });
+
+  it("should report a helper invocation outside the ref gate that exempts another invocation", () => {
+    const code =
+      "function C() { const ref = useRef(0); const [data, setData] = useState(0); const helper = () => setData(1); useEffect(() => { if (ref.current) { helper(); } helper(); }, []); }";
+    expect(inferViolationNames(code)).toEqual(["setData"]);
+  });
+
+  it("should not report a setState call behind an early-return guard inside a try block", () => {
+    const code =
+      "function C() { const ref = useRef(0); const [data, setData] = useState(0); useEffect(() => { try { if (!ref.current) return; } finally {} setData(1); }, []); }";
+    expect(inferViolationNames(code)).toEqual([]);
+  });
+
+  it("should not report a setState call behind an early-return guard in the same switch case", () => {
+    const code =
+      "function C({ kind }) { const ref = useRef(0); const [data, setData] = useState(0); useEffect(() => { switch (kind) { case 1: if (!ref.current) return; setData(1); break; } }, []); }";
+    expect(inferViolationNames(code)).toEqual([]);
+  });
+
+  it("should not report a setState call after a ref-gated else branch that terminates", () => {
+    const code =
+      "function C() { const ref = useRef(0); const [data, setData] = useState(0); useEffect(() => { if (ref.current) { log(); } else { return; } setData(1); }, []); }";
+    expect(inferViolationNames(code)).toEqual([]);
+  });
+
+  it("should not report a setState call inside a while loop with a ref-derived condition", () => {
+    const code = "function C() { const ref = useRef(0); const [data, setData] = useState(0); useEffect(() => { while (ref.current) { setData(1); } }, []); }";
+    expect(inferViolationNames(code)).toEqual([]);
+  });
+
+  it("should not report a setState call fed by a synchronous IIFE write", () => {
+    const code =
+      "function C() { const ref = useRef(0); const [data, setData] = useState(0); useEffect(() => { let next = 0; (() => { next = ref.current; })(); setData(next); }, []); }";
+    expect(inferViolationNames(code)).toEqual([]);
+  });
+
+  it("should not report a setState call fed by a branch inside a synchronous IIFE", () => {
+    const code =
+      "function C({ cond }) { const ref = useRef(0); const [data, setData] = useState(0); useEffect(() => { let next = 0; (() => { if (cond) { next = ref.current; } else { next = 0; } })(); setData(next); }, []); }";
+    expect(inferViolationNames(code)).toEqual([]);
+  });
+
+  it("should report a setState call fed by an IIFE write in an instance class field", () => {
+    const code =
+      "function C() { const ref = useRef(0); const [data, setData] = useState(0); useEffect(() => { let next = 0; next = 42; class Box { field = (() => { next = ref.current; })(); } setData(next); }, []); }";
+    expect(inferViolationNames(code)).toEqual(["setData"]);
+  });
+
+  it("should report a setState call fed by an IIFE assigned over the variable", () => {
+    const code =
+      "function C() { const ref = useRef(0); const [data, setData] = useState(0); useEffect(() => { let next = 0; next = (() => { next = ref.current; return 0; })(); setData(next); }, []); }";
+    expect(inferViolationNames(code)).toEqual(["setData"]);
+  });
+
+  it("should report a setState call in a for init clause with a ref-derived test", () => {
+    const code = "function C() { const ref = useRef(0); const [data, setData] = useState(0); useEffect(() => { for (setData(1); ref.current;) {} }, []); }";
+    expect(inferViolationNames(code)).toEqual(["setData"]);
+  });
+
+  it("should not report a setState call in a for update clause with a ref-derived test", () => {
+    const code = "function C() { const ref = useRef(0); const [data, setData] = useState(0); useEffect(() => { for (; ref.current; setData(1)) {} }, []); }";
+    expect(inferViolationNames(code)).toEqual([]);
+  });
+
+  it("should not report a setState call after a ref-gated terminator in a finally block", () => {
+    const code =
+      "function C() { const ref = useRef(0); const [data, setData] = useState(0); useEffect(() => { try { foo(); } finally { if (!ref.current) return; } setData(1); }, []); }";
+    expect(inferViolationNames(code)).toEqual([]);
+  });
+
+  it("should report duplicate setter calls at one effect trigger only once", () => {
+    const code = "function C() { const [data, setData] = useState(0); const update = () => { setData(1); setData(2); }; useEffect(() => { update(); }, []); }";
+    expect(inferViolationNames(code)).toEqual(["setData"]);
   });
 
   it("should not report a setState call gated by a ref-fed parameter on the left of a logical-and in a helper", () => {

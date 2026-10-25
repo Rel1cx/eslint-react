@@ -1,5 +1,5 @@
 import { getText } from "@eslint-react/eslint";
-import { type TestRuleContext, collectNodes, findIdentifierReferences, runCollector, runInRule } from "@local/testkit";
+import { type TestRuleContext, collectNodes, findIdentifierReferences, fixturePath, runCollector, runInRule } from "@local/testkit";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import { describe, expect, it } from "vitest";
 import { createFactCollector } from "./collect";
@@ -376,6 +376,100 @@ describe("isInitializedFromRef", () => {
     });
     expect(fact).toBe(false);
   });
+
+  it("should match a variable written inside a synchronously invoked IIFE", () => {
+    const code = "function f() { const ref = useRef(0); let v = 0; (() => { v = ref.current; })(); sink(v); }";
+    const fact = runInRule(code, (context, program) => isInitializedFromRef(context, findReference(program, "v", -1)));
+    expect(fact).toBe(true);
+  });
+
+  it("should match a variable written inside a nested synchronously invoked IIFE", () => {
+    const code = "function f() { const ref = useRef(0); let v = 0; (() => { (() => { v = ref.current; })(); })(); sink(v); }";
+    const fact = runInRule(code, (context, program) => isInitializedFromRef(context, findReference(program, "v", -1)));
+    expect(fact).toBe(true);
+  });
+
+  it("should match a variable written inside a TypeScript-wrapped IIFE", () => {
+    const code = "function f() { const ref = useRef(0); let v = 0; ((() => { v = ref.current; }) as () => void)(); sink(v); }";
+    const fact = runInRule(
+      code,
+      (context, program) => isInitializedFromRef(context, findReference(program, "v", -1)),
+      { filePath: fixturePath("file.ts") },
+    );
+    expect(fact).toBe(true);
+  });
+
+  it("should not match a variable written inside an async IIFE", () => {
+    const code = "function f() { const ref = useRef(0); let v = 0; (async () => { v = ref.current; })(); sink(v); }";
+    const fact = runInRule(code, (context, program) => isInitializedFromRef(context, findReference(program, "v", -1)));
+    expect(fact).toBe(false);
+  });
+
+  it("should not match a variable written inside a generator IIFE", () => {
+    const code = "function f() { const ref = useRef(0); let v = 0; (function* () { v = ref.current; })(); sink(v); }";
+    const fact = runInRule(code, (context, program) => isInitializedFromRef(context, findReference(program, "v", -1)));
+    expect(fact).toBe(false);
+  });
+
+  it("should not match a variable written inside an IIFE that runs after the use", () => {
+    const code = "function f() { const ref = useRef(0); let v = 0; sink(v); (() => { v = ref.current; })(); }";
+    const fact = runInRule(code, (context, program) => isInitializedFromRef(context, findReference(program, "v")));
+    expect(fact).toBe(false);
+  });
+
+  it("should not match a variable written inside an IIFE nested in a non-invoked function", () => {
+    const code = "function f() { const ref = useRef(0); let v = 0; const g = () => { (() => { v = ref.current; })(); }; sink(v); }";
+    const fact = runInRule(code, (context, program) => isInitializedFromRef(context, findReference(program, "v", -1)));
+    expect(fact).toBe(false);
+  });
+
+  it("should let a plain write after a synchronous IIFE replace the ref-derived value", () => {
+    const code = "function f() { const ref = useRef(0); let v = 0; (() => { v = ref.current; })(); v = 42; sink(v); }";
+    const fact = runInRule(code, (context, program) => isInitializedFromRef(context, findReference(program, "v", -1)));
+    expect(fact).toBe(false);
+  });
+
+  it("should keep a ref write from a synchronous IIFE after an earlier plain write", () => {
+    const code = "function f() { const ref = useRef(0); let v = 0; v = 42; (() => { v = ref.current; })(); sink(v); }";
+    const fact = runInRule(code, (context, program) => isInitializedFromRef(context, findReference(program, "v", -1)));
+    expect(fact).toBe(true);
+  });
+
+  it("should keep the branch of a conditional synchronous IIFE", () => {
+    const code = "function f() { const ref = useRef(0); let v = 0; if (cond) { (() => { v = ref.current; })(); } sink(v); }";
+    const fact = runInRule(code, (context, program) => isInitializedFromRef(context, findReference(program, "v", -1)));
+    expect(fact).toBe(true);
+  });
+
+  it("should keep the internal branches of a synchronous IIFE in either order", () => {
+    const check = (code: string) => runInRule(code, (context, program) => isInitializedFromRef(context, findReference(program, "v", -1)));
+    expect(check("function f() { const ref = useRef(0); let v = 0; (() => { if (cond) { v = ref.current; } else { v = 0; } })(); sink(v); }")).toBe(true);
+    expect(check("function f() { const ref = useRef(0); let v = 0; (() => { if (cond) { v = 0; } else { v = ref.current; } })(); sink(v); }")).toBe(true);
+  });
+
+  it("should not match a variable written inside an IIFE in an instance class field", () => {
+    const code = "function f() { const ref = useRef(0); let v = 0; v = 42; class C { field = (() => { v = ref.current; })(); } sink(v); }";
+    const fact = runInRule(code, (context, program) => isInitializedFromRef(context, findReference(program, "v", -1)));
+    expect(fact).toBe(false);
+  });
+
+  it("should match a variable written inside an IIFE in a static class field", () => {
+    const code = "function f() { const ref = useRef(0); let v = 0; class C { static field = (() => { v = ref.current; })(); } sink(v); }";
+    const fact = runInRule(code, (context, program) => isInitializedFromRef(context, findReference(program, "v", -1)));
+    expect(fact).toBe(true);
+  });
+
+  it("should not match a variable written inside an IIFE in a parameter default", () => {
+    const code = "function f() { const ref = useRef(0); let v = 0; const g = (x = (() => { v = ref.current; })()) => x; sink(v); }";
+    const fact = runInRule(code, (context, program) => isInitializedFromRef(context, findReference(program, "v", -1)));
+    expect(fact).toBe(false);
+  });
+
+  it("should order an outer assignment after the IIFE it invokes", () => {
+    const code = "function f() { const ref = useRef(0); let v = 0; v = (() => { v = ref.current; return 0; })(); sink(v); }";
+    const fact = runInRule(code, (context, program) => isInitializedFromRef(context, findReference(program, "v", -1)));
+    expect(fact).toBe(false);
+  });
 });
 
 describe("isArgumentUsingRefValue", () => {
@@ -634,5 +728,66 @@ describe("isRefGatedContext", () => {
 
   it("should not let a setter inside an if test gate itself", () => {
     expect(check("function f() { const ref = useRef(0); if ((setData(1), ref.current)) { console.log('x'); } }")).toBe(false);
+  });
+
+  it("should match a setState call after a ref-gated early return inside a try block", () => {
+    expect(check("function f() { const ref = useRef(0); try { if (!ref.current) return; } finally {} setData(1); }")).toBe(true);
+  });
+
+  it("should not match a setState call after a try guard whose catch can continue", () => {
+    expect(check("function f() { const ref = useRef(0); try { if (!ref.current) return; } catch {} setData(1); }")).toBe(false);
+  });
+
+  it("should match a setState call after a try guard whose catch terminates", () => {
+    expect(check("function f() { const ref = useRef(0); try { if (!ref.current) return; } catch { return; } setData(1); }")).toBe(true);
+  });
+
+  it("should match a setState call after a ref-gated early return inside a bare block", () => {
+    expect(check("function f() { const ref = useRef(0); { if (!ref.current) return; } setData(1); }")).toBe(true);
+  });
+
+  it("should match a setState call after a ref-gated early return in the same switch case", () => {
+    expect(check("function f({ kind }) { const ref = useRef(0); switch (kind) { case 1: if (!ref.current) return; setData(1); break; } }")).toBe(true);
+  });
+
+  it("should match a setState call after a ref-gated break in the same switch case", () => {
+    expect(check("function f({ kind }) { const ref = useRef(0); while (kind) { switch (kind) { case 1: if (!ref.current) break; setData(1); break; } } }"))
+      .toBe(true);
+  });
+
+  it("should match a setState call after a ref-gated else branch that terminates", () => {
+    expect(check("function f() { const ref = useRef(0); if (ref.current) { log(); } else { return; } setData(1); }")).toBe(true);
+  });
+
+  it("should match a setState call inside a while loop with a ref-derived condition", () => {
+    expect(check("function f() { const ref = useRef(0); while (ref.current) { setData(1); } }")).toBe(true);
+  });
+
+  it("should match a setState call inside a for loop with a ref-derived condition", () => {
+    expect(check("function f() { const ref = useRef(0); for (; ref.current;) { setData(1); } }")).toBe(true);
+  });
+
+  it("should not match a setState call inside a do-while loop with a ref-derived condition", () => {
+    expect(check("function f() { const ref = useRef(0); do { setData(1); } while (ref.current); }")).toBe(false);
+  });
+
+  it("should match a setState call in a for update clause with a ref-derived test", () => {
+    expect(check("function f() { const ref = useRef(0); for (; ref.current; setData(1)) {} }")).toBe(true);
+  });
+
+  it("should not match a setState call in a for init clause with a ref-derived test", () => {
+    expect(check("function f() { const ref = useRef(0); for (setData(1); ref.current;) {} }")).toBe(false);
+  });
+
+  it("should match a setState call after a ref-gated terminator in a finally block", () => {
+    expect(check("function f() { const ref = useRef(0); try { foo(); } finally { if (!ref.current) return; } setData(1); }")).toBe(true);
+  });
+
+  it("should match a setState call after a ref-gated finally when the catch can continue", () => {
+    expect(check("function f() { const ref = useRef(0); try { foo(); } catch { log(); } finally { if (!ref.current) return; } setData(1); }")).toBe(true);
+  });
+
+  it("should not match a setState call after a try whose catch can continue without a finally guard", () => {
+    expect(check("function f() { const ref = useRef(0); try { if (!ref.current) return; } catch { log(); } setData(1); }")).toBe(false);
   });
 });

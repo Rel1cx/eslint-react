@@ -1,8 +1,8 @@
-import { Collect } from "@eslint-react/ast";
+import { Collect, Extract, type TSESTreeFunction } from "@eslint-react/ast";
 import { type ParseCodeOptions, fixturePath, getFirstExpression, getFirstNodeOfType } from "@local/testkit";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import { describe, expect, it } from "vitest";
-import { isTerminatingStatement } from "./helpers";
+import { getImmediateInvocation, isTerminatingStatement } from "./helpers";
 
 function getNames(node: TSESTree.Node): string[] {
   return Collect.getIdentifiers(node).map((id) => id.name);
@@ -233,6 +233,11 @@ describe("isTerminatingStatement", () => {
     expect(isTerminatingStatement(getFirstNodeOfType<TSESTree.ThrowStatement>("function f() { throw 1; }", AST.ThrowStatement))).toBe(true);
   });
 
+  it("should match break and continue statements", () => {
+    expect(isTerminatingStatement(getFirstNodeOfType<TSESTree.BreakStatement>("while (a) { break; }", AST.BreakStatement))).toBe(true);
+    expect(isTerminatingStatement(getFirstNodeOfType<TSESTree.ContinueStatement>("while (a) { continue; }", AST.ContinueStatement))).toBe(true);
+  });
+
   it("should match a block containing a terminating statement", () => {
     const outer = getFirstNodeOfType<TSESTree.BlockStatement>("function f() { if (a) { return 1; } }", AST.BlockStatement);
     expect(isTerminatingStatement(outer)).toBe(false);
@@ -243,5 +248,62 @@ describe("isTerminatingStatement", () => {
   it("should not match an if statement whose consequent returns", () => {
     const ifStatement = getFirstNodeOfType<TSESTree.IfStatement>("function f() { if (a) return 1; }", AST.IfStatement);
     expect(isTerminatingStatement(ifStatement)).toBe(false);
+  });
+
+  it("should match an if statement whose branches both terminate", () => {
+    const ifStatement = getFirstNodeOfType<TSESTree.IfStatement>("function f() { if (a) return 1; else throw new Error(); }", AST.IfStatement);
+    expect(isTerminatingStatement(ifStatement)).toBe(true);
+  });
+});
+
+describe("getImmediateInvocation", () => {
+  function getInvocation(code: string, type: TSESTreeFunction["type"], options: ParseCodeOptions = {}) {
+    const expression = getFirstExpression(code, options);
+    const fn = getFirstNodeOfType<TSESTreeFunction>(expression, type);
+    return { fn, expression: Extract.unwrap(expression) };
+  }
+
+  it("should match a directly invoked arrow function", () => {
+    const { fn, expression } = getInvocation("(() => { sink(); })();", AST.ArrowFunctionExpression);
+    expect(getImmediateInvocation(fn)).toBe(expression);
+  });
+
+  it("should match a directly invoked function expression", () => {
+    const { fn, expression } = getInvocation("(function () { sink(); })();", AST.FunctionExpression);
+    expect(getImmediateInvocation(fn)).toBe(expression);
+  });
+
+  it("should match an optionally invoked function", () => {
+    const { fn, expression } = getInvocation("(() => { sink(); })?.();", AST.ArrowFunctionExpression);
+    expect(getImmediateInvocation(fn)).toBe(expression);
+  });
+
+  it("should match a TypeScript-wrapped invocation", () => {
+    const { fn, expression } = getInvocation(
+      "((() => { sink(); }) as () => void)();",
+      AST.ArrowFunctionExpression,
+      { filePath: fixturePath("file.ts") },
+    );
+    expect(getImmediateInvocation(fn)).toBe(expression);
+  });
+
+  it("should not match a function referenced by a variable", () => {
+    const fn = getFirstNodeOfType<TSESTree.ArrowFunctionExpression>("const f = () => {}; f();", AST.ArrowFunctionExpression);
+    expect(getImmediateInvocation(fn)).toBeNull();
+  });
+
+  it("should not match a function invoked through a conditional callee", () => {
+    const fn = getFirstNodeOfType<TSESTree.ArrowFunctionExpression>("(cond ? () => {} : () => {})();", AST.ArrowFunctionExpression);
+    expect(getImmediateInvocation(fn)).toBeNull();
+  });
+
+  it("should not match a function invoked as a constructor", () => {
+    const fn = getFirstNodeOfType<TSESTree.FunctionExpression>("new (function () {})();", AST.FunctionExpression);
+    expect(getImmediateInvocation(fn)).toBeNull();
+  });
+
+  it("should not match a function invoked through a member call", () => {
+    const fn = getFirstNodeOfType<TSESTree.ArrowFunctionExpression>("(() => {}).call(null);", AST.ArrowFunctionExpression);
+    expect(getImmediateInvocation(fn)).toBeNull();
   });
 });
