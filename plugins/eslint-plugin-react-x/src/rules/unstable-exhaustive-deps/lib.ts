@@ -3,7 +3,9 @@ import { DefinitionType, type ScopeVariable } from "@typescript-eslint/scope-man
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 
 /**
- * An entry of the `hooks` option, same shape as the `hooks` option of Biome's `useExhaustiveDependencies` rule
+ * An entry of the `hooks` option, based on the `hooks` option of Biome's `useExhaustiveDependencies` rule.
+ *
+ * Note: Biome's `string[]` form of `stableResult` (stable object properties) is not supported yet.
  */
 export interface HookOption {
   /** The name of the Hook */
@@ -71,17 +73,37 @@ export function getReactiveHookConfig(node: TSESTree.CallExpression, configs: Ho
  */
 export function isConfiguredStableHookValue(variable: ScopeVariable, configs: HookConfigs): boolean {
   if (configs.stable.size === 0) return false;
-  const def = variable.defs.at(0);
-  if (def?.type !== DefinitionType.Variable || def.node.init == null) return false;
-  const init = Extract.unwrap(def.node.init);
-  if (init.type !== AST.CallExpression) return false;
-  const name = Extract.getCalleeName(init);
-  const stableResult = name == null ? null : configs.stable.get(name);
-  if (stableResult == null) return false;
-  const { id } = def.node;
+  let matchedNode: TSESTree.VariableDeclarator | null = null;
+  let stableResult: true | ReadonlySet<number> | null = null;
+  let initializerCount = 0;
+  for (const def of variable.defs) {
+    if (def.type !== DefinitionType.Variable || def.node.init == null) continue;
+    initializerCount++;
+    const init = Extract.unwrap(def.node.init);
+    if (init.type !== AST.CallExpression) continue;
+    const name = Extract.getCalleeName(init);
+    if (name == null) continue;
+    const config = configs.stable.get(name);
+    if (config == null) continue;
+    // More than one configured Hook initializer makes the value ambiguous.
+    if (matchedNode != null) return false;
+    matchedNode = def.node;
+    stableResult = config;
+  }
+  // A `var` redeclaration with multiple initializers is not a single stable binding.
+  if (initializerCount !== 1) return false;
+  if (matchedNode == null || stableResult == null) return false;
+  // A write after initialization (a reassignment) makes the value unstable.
+  // `init` is also true for default values, which are not reassignments.
+  if (variable.references.some((reference) => reference.isWrite() && reference.init !== true)) return false;
+  const { id } = matchedNode;
   if (stableResult === true) return id.type === AST.Identifier;
   if (id.type !== AST.ArrayPattern) return false;
-  const identifier = variable.identifiers.at(0);
-  const index = id.elements.findIndex((element) => element != null && element === identifier);
+  const index = id.elements.findIndex((element) => {
+    if (element == null) return false;
+    // Defaults (for example, `[value, setter = noop]`) wrap the binding in an AssignmentPattern.
+    const binding = element.type === AST.AssignmentPattern ? element.left : element;
+    return variable.identifiers.some((identifier) => identifier === binding);
+  });
   return index !== -1 && stableResult.has(index);
 }

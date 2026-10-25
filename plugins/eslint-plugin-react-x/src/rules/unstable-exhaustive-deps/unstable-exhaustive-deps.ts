@@ -8,8 +8,9 @@
 //   - `getAdditionalEffectHooksFromSettings` replaced by `getSettingsFromContext`
 //     from `@eslint-react/shared`, reading `additionalEffectHooks` from
 //     the `react-x` settings namespace.
-//   - Added the `hooks` option (same shape as the `hooks` option of Biome's
-//     `useExhaustiveDependencies` rule), see `./lib.ts`:
+//   - Added the `hooks` option (based on the `hooks` option of Biome's
+//     `useExhaustiveDependencies` rule; `stableResult` currently supports
+//     `boolean | number | number[]`, not Biome's `string[]` form), see `./lib.ts`:
 //     - `closureIndex` and `dependenciesIndex` make the rule check custom
 //       Hooks with the closure and the dependencies array at any position.
 //     - `stableResult` marks the result of a Hook, or some positions of its
@@ -242,6 +243,8 @@ const rule = {
       reactiveHookName: string,
       isEffect: boolean,
       isAutoDepsHook: boolean,
+      callExpression: CallExpression,
+      dependenciesIndex: number,
     ): void {
       if (isEffect && node.async) {
         reportProblem({
@@ -323,10 +326,16 @@ const rule = {
         if (!isArray(resolved.defs)) {
           return false;
         }
-        const def = resolved.defs[0];
-        if (def == null) {
+        // A `var` redeclaration may leave an initializer-less declarator first.
+        const initializers = resolved.defs.filter((definition) =>
+          definition.type === "Variable"
+          && definition.node.type === "VariableDeclarator"
+          && definition.node.init != null
+        );
+        if (initializers.length !== 1) {
           return false;
         }
+        const def = initializers[0];
         // Look for `let stuff = ...`
         const defNode: VariableDeclarator = def.node;
         if (defNode.type !== "VariableDeclarator") {
@@ -406,30 +415,30 @@ const rule = {
           || name === "useReducer"
           || name === "useActionState"
         ) {
-          // Only consider second value in initializing tuple stable.
+          const isActionState = name === "useActionState";
+          // `useActionState` returns `[state, formAction, isPending]` in React 19.
           if (
             id.type === "ArrayPattern"
-            && id.elements.length === 2
+            && (isActionState ? id.elements.length >= 2 : id.elements.length === 2)
             && isArray(resolved.identifiers)
           ) {
+            const firstElement = id.elements[0]?.type === "AssignmentPattern" ? id.elements[0].left : id.elements[0];
+            const secondElement = id.elements[1]?.type === "AssignmentPattern" ? id.elements[1].left : id.elements[1];
             // Is second tuple value the same reference we're checking?
-            if (id.elements[1] === resolved.identifiers[0]) {
+            if (resolved.identifiers.some((identifier) => identifier === secondElement)) {
               if (name === "useState") {
                 const references = resolved.references;
-                let writeCount = 0;
                 for (const reference of references) {
-                  if (reference.isWrite()) {
-                    writeCount++;
-                  }
-                  if (writeCount > 1) {
+                  // Initializers and default values are not reassignments.
+                  if (reference.isWrite() && reference.init !== true) {
                     return false;
                   }
-                  setStateCallSites.set(reference.identifier, id.elements[0]);
+                  setStateCallSites.set(reference.identifier, firstElement);
                 }
               }
               // Setter is stable.
               return true;
-            } else if (id.elements[0] === resolved.identifiers[0]) {
+            } else if (resolved.identifiers.some((identifier) => identifier === firstElement)) {
               if (name === "useState") {
                 const references = resolved.references;
                 for (const reference of references) {
@@ -447,8 +456,9 @@ const rule = {
             && id.elements.length === 2
             && Array.isArray(resolved.identifiers)
           ) {
+            const secondElement = id.elements[1]?.type === "AssignmentPattern" ? id.elements[1].left : id.elements[1];
             // Is second tuple value the same reference we're checking?
-            if (id.elements[1] === resolved.identifiers[0]) {
+            if (resolved.identifiers.some((identifier) => identifier === secondElement)) {
               // Setter is stable.
               return true;
             }
@@ -766,29 +776,53 @@ const rule = {
             externalDependencies: new Set<string>(),
             isEffect: true,
           });
-          reportProblem({
+          const suggestedDependenciesText = `[${suggestedDependencies.join(", ")}]`;
+          const dependenciesArgument = callExpression.arguments[dependenciesIndex];
+          // Only spreads before or at the slot make the static position unreliable.
+          const hasSpreadArgumentBeforeOrAtDependencies = callExpression.arguments
+            .slice(0, dependenciesIndex + 1)
+            .some(argument => argument?.type === "SpreadElement");
+          let fix = null;
+          if (!hasSpreadArgumentBeforeOrAtDependencies) {
+            if (
+              dependenciesArgument?.type === "Identifier"
+              && dependenciesArgument.name === "undefined"
+            ) {
+              // Replace the explicit `undefined` placeholder in the configured slot.
+              fix = (fixer) => fixer.replaceText(dependenciesArgument, suggestedDependenciesText);
+            } else if (
+              dependenciesArgument == null
+              && dependenciesIndex === callExpression.arguments.length
+            ) {
+              // Append before the call's closing paren so parenthesized last
+              // arguments (and trailing commas) keep the new array outside them.
+              const closeParen = getSourceCode().getLastToken(callExpression);
+              if (closeParen != null && closeParen.value === ")") {
+                const tokenBeforeCloseParen = getSourceCode().getTokenBefore(closeParen);
+                fix = tokenBeforeCloseParen?.value === ","
+                  ? (fixer) => fixer.insertTextAfter(tokenBeforeCloseParen, ` ${suggestedDependenciesText}`)
+                  : (fixer) => fixer.insertTextBefore(closeParen, `, ${suggestedDependenciesText}`);
+              }
+            }
+          }
+          const dependenciesArgumentText = dependenciesIndex === 1
+            ? "as a second argument"
+            : `as the dependencies argument (index ${dependenciesIndex})`;
+          const problem = {
             node: reactiveHook,
             message: `React Hook ${reactiveHookName} contains a call to '${setStateInsideEffectWithoutDeps}'. `
               + `Without a list of dependencies, this can lead to an infinite chain of updates. `
-              + `To fix this, pass [`
-              + suggestedDependencies.join(", ")
-              + `] as a second argument to the ${reactiveHookName} Hook.`,
-            suggest: [
+              + `To fix this, pass ${suggestedDependenciesText} ${dependenciesArgumentText} to the ${reactiveHookName} Hook.`,
+          };
+          if (fix != null) {
+            problem.suggest = [
               {
-                desc: `Add dependencies array: [${
-                  suggestedDependencies.join(
-                    ", ",
-                  )
-                }]`,
-                fix(fixer) {
-                  return fixer.insertTextAfter(
-                    node,
-                    `, [${suggestedDependencies.join(", ")}]`,
-                  );
-                },
+                desc: `Add dependencies array: ${suggestedDependenciesText}`,
+                fix,
               },
-            ],
-          });
+            ];
+          }
+          reportProblem(problem);
         }
         return;
       }
@@ -1361,7 +1395,8 @@ const rule = {
       const reactiveHook = node.callee;
       const nodeWithoutNamespace = getNodeWithoutReactNamespace(reactiveHook);
       const reactiveHookName = configuredHook?.name ?? ("name" in nodeWithoutNamespace ? nodeWithoutNamespace.name : "");
-      const maybeNode = node.arguments[configuredHook ? configuredHook.dependenciesIndex : callbackIndex + 1];
+      const dependenciesIndex = configuredHook ? configuredHook.dependenciesIndex : callbackIndex + 1;
+      const maybeNode = node.arguments[dependenciesIndex];
       const declaredDependenciesNode = maybeNode
           && !(maybeNode.type === "Identifier" && maybeNode.name === "undefined")
         ? maybeNode
@@ -1372,6 +1407,18 @@ const rule = {
       // then the hook will not work and React will throw a TypeError.
       // So no need to check for dependency inclusion.
       if (!callback) {
+        // Configured Hooks may legitimately omit the closure (for example, an
+        // optional callback or one supplied through another mechanism). Biome
+        // produces an empty capture list here, so skip the call instead of
+        // reporting a built-in-Hook-specific error. Keep the built-in error when
+        // the configured name is a built-in Hook and its own callback is missing.
+        if (configuredHook) {
+          const builtInCallbackIndex = getReactiveHookCallbackIndex(reactiveHook, { additionalHooks: undefined });
+          const builtInCallback = builtInCallbackIndex === -1 ? null : node.arguments[builtInCallbackIndex];
+          if (builtInCallbackIndex === -1 || builtInCallback != null) {
+            return;
+          }
+        }
         reportProblem({
           node: reactiveHook,
           message: `React Hook ${reactiveHookName} requires an effect callback. `
@@ -1433,6 +1480,8 @@ const rule = {
             reactiveHookName,
             isEffect,
             isAutoDepsHook,
+            node,
+            dependenciesIndex,
           );
           return; // Handled
         case "Identifier":
@@ -1492,6 +1541,8 @@ const rule = {
                 reactiveHookName,
                 isEffect,
                 isAutoDepsHook,
+                node,
+                dependenciesIndex,
               );
               return; // Handled
             case "VariableDeclarator":
@@ -1512,6 +1563,8 @@ const rule = {
                     reactiveHookName,
                     isEffect,
                     isAutoDepsHook,
+                    node,
+                    dependenciesIndex,
                   );
                   return; // Handled
               }
@@ -1519,6 +1572,11 @@ const rule = {
           }
           break; // Unhandled
         default:
+          // Configured Hooks may pass dynamic or non-function closures; do not
+          // report the built-in unknown-dependencies error for them.
+          if (configuredHook) {
+            return;
+          }
           // useEffect(generateEffectBody(), []);
           reportProblem({
             node: reactiveHook,
@@ -2021,6 +2079,10 @@ function getReactiveHookCallbackIndex(calleeNode: Expression | Super, options?: 
           } else {
             throw error;
           }
+        }
+        // A shared RegExp with the `g` or `y` flag is stateful across `.test` calls.
+        if (options.additionalHooks instanceof RegExp) {
+          options.additionalHooks.lastIndex = 0;
         }
         return options.additionalHooks.test(name) ? 0 : -1;
       } else {

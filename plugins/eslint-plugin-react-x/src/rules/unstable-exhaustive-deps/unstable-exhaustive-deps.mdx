@@ -32,7 +32,7 @@ This rule is a fork of [`exhaustive-deps`](/docs/rules/exhaustive-deps) with an 
 
 Without the `hooks` option, it reports the same problems as `exhaustive-deps`. Enable one of the two rules, not both.
 
-The `hooks` option has the same shape as the [`hooks` option](https://biomejs.dev/linter/rules/use-exhaustive-dependencies/#hooks) of Biome's `useExhaustiveDependencies` rule.
+The `hooks` option is based on the [`hooks` option](https://biomejs.dev/linter/rules/use-exhaustive-dependencies/#hooks) of Biome's `useExhaustiveDependencies` rule. It currently supports `name`, `closureIndex`, `dependenciesIndex`, and the `boolean | number | number[]` forms of `stableResult`. Biome's `string[]` form for stable object properties is not supported yet.
 
 ## Examples
 
@@ -131,12 +131,13 @@ type Options = {
 
 A list of custom Hooks. Each entry accepts the following properties:
 
-- `name`: The name of the Hook. It matches calls like `useQuery()` and `lib.useQuery()`.
+- `name`: The name of the Hook. It matches calls like `useQuery()` and `lib.useQuery()`. Only dot access is supported; computed member access is not resolved.
 - `closureIndex`: The position of the callback, starting from zero (ex: `0` for `useEffect`).
 - `dependenciesIndex`: The position of the dependencies array, starting from zero (ex: `1` for `useEffect`).
 - `stableResult`: Marks the values returned by the Hook as stable, so they are not required as dependencies:
   - `true`: The returned value is stable (ex: `useRef`).
   - A position, or an array of positions: The values at those positions of the returned array are stable (ex: `1` or `[1]` for `useState`).
+  - Biome's `string[]` form for stable object properties is not supported yet.
 
 `closureIndex` and `dependenciesIndex` must be set together, and the Hook is only checked when they are different. A Hook configured this way is checked at these positions even if it is a built-in Hook or matches `additionalHooks`.
 
