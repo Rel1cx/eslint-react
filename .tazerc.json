@@ -1,6 +1,5 @@
 {
   "$schema": "https://raw.githubusercontent.com/antfu-collective/taze/refs/heads/main/schema.json",
-  "exclude": ["zod", "why-is-node-running"],
   "ignorePaths": ["testing"],
   "includeLocked": true,
   "install": false,
