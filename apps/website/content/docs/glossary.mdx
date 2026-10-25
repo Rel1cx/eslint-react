@@ -7,19 +7,19 @@ description: "A collection of terms and concepts used in ESLint React"
 
 ### Project Config
 
-The configuration file specifies the root files and the compiler options required to compile the project.
+A configuration file that specifies a project's root files and compiler options.
 
-For TypeScript or JavaScript files, the Project Config is typically named `tsconfig.json` or `jsconfig.json` and is located in the root of a project.
+For TypeScript and JavaScript files, the Project Config is typically a `tsconfig.json` or `jsconfig.json` file located in the project root.
 
-For MDX files, the Project Config is the `"mdx"` property in the `tsconfig.json` or `jsconfig.json` file.
+For MDX files, the Project Config is specified by the `"mdx"` property in a `tsconfig.json` or `jsconfig.json` file.
 
-ESLint React uses the Project Config to provide information (e.g., [JSX Transform](/docs/configuration/configure-project-config#jsx-transform)) about the code it is linting.
+ESLint React uses the Project Config to obtain information about the code being linted, such as the [JSX Transform](/docs/configuration/configure-project-config#jsx-transform).
 
 ### Project Rules
 
-Custom ESLint rules built with [`@eslint-react/kit`](/docs/packages/kit) to enforce project-specific conventions and requirements. Unlike built-in rules, Project Rules are owned by your team and can be tailored to match your specific coding standards.
+Custom ESLint rules built with [`@eslint-react/kit`](/docs/packages/kit) to enforce project-specific conventions and requirements. Unlike built-in rules, Project Rules are owned by your team and can be tailored to your coding standards.
 
-Project Rules are defined as functions that return a rule implementation, and are registered using the `eslintReactKit().use()` builder API. The rule name is automatically derived from the function name (e.g., `functionComponentDefinition` → `@eslint-react/kit/function-component-definition`).
+Project Rules are functions that return rule implementations and are registered using the `eslintReactKit().use()` builder API. A rule's name is automatically derived from its function name (e.g., `functionComponentDefinition` → `@eslint-react/kit/function-component-definition`).
 
 See [Configure Project Rules](/docs/configuration/configure-project-rules) for setup instructions and [Recipes](/docs/recipes) for ready-to-use examples.
 
