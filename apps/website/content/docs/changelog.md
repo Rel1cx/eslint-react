@@ -2,6 +2,15 @@
 title: Changelog
 ---
 
+## v5.30.0-beta.1 (2026-10-25)
+
+### 🏗️ Internal
+
+- Moved the `createElement` helpers from `@eslint-react/core` to `@eslint-react/jsx`. (#2077)
+- Bumped `zod` to `4.6.7`.
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.30.0-beta.0...v5.30.0-beta.1
+
 ## v5.30.0-beta.0 (2026-10-25)
 
 ### ✨ New
