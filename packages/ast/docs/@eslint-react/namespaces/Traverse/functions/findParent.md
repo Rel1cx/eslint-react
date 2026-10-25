@@ -10,6 +10,9 @@ function findParent<T extends Node>(node: Node | null, test: Predicate<T>, stop?
 
 Walk up the AST from `node` to find the nearest ancestor matching a predicate.
 
+This function relies on the `parent` pointers attached by the parser or by
+`simpleTraverse` with `setParentPointers` enabled.
+
 ### Type Parameters
 
 | Type Parameter                                     |
@@ -37,6 +40,9 @@ function findParent(node: Node | null, test: NodePredicate, stop?: NodePredicate
 ```
 
 Walk up the AST from `node` to find the nearest ancestor matching a predicate.
+
+This function relies on the `parent` pointers attached by the parser or by
+`simpleTraverse` with `setParentPointers` enabled.
 
 ### Parameters
 

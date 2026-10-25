@@ -1,7 +1,6 @@
-import { Check } from "@eslint-react/ast";
+import { Check, Traverse } from "@eslint-react/ast";
 import { createMockContext, getFirstNodeOfType, parseCode } from "@local/testkit";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
-import { simpleTraverse } from "@typescript-eslint/typescript-estree";
 import { describe, expect, it } from "vitest";
 
 import { getFunctionInitPath } from "./function";
@@ -107,25 +106,27 @@ describe("isFunctionComponentWrapperCallback", () => {
     ["custom(() => {})", false],
   ])("isFunctionComponentWrapperCallback(%s) === %s", (code, expected) => {
     let found = false;
-    simpleTraverse(parseCode(code).ast, {
+    Traverse.simpleTraverse(parseCode(code).ast, {
       enter(node) {
         if (Check.isFunction(node)) {
           expect(isFunctionComponentWrapperCallback(context, node)).toBe(expected);
           found = true;
         }
       },
-    }, true);
+      setParentPointers: true,
+    });
     expect(found).toBe(true);
   });
 
   it("treats only the first argument of memo() as a wrapper callback", () => {
     const code = "memo(() => <div />, () => true)";
     const fns: TSESTree.ArrowFunctionExpression[] = [];
-    simpleTraverse(parseCode(code).ast, {
+    Traverse.simpleTraverse(parseCode(code).ast, {
       enter(node) {
         if (node.type === AST.ArrowFunctionExpression) fns.push(node);
       },
-    }, true);
+      setParentPointers: true,
+    });
     expect(fns).toHaveLength(2);
     expect(isFunctionComponentWrapperCallback(context, fns[0]!)).toBe(true);
     expect(isFunctionComponentWrapperCallback(context, fns[1]!)).toBe(false);
@@ -148,7 +149,7 @@ describe("getFunctionComponentId", () => {
     ["const Component = memo(forwardRef(() => {}))", AST.ArrowFunctionExpression, "Component"],
   ])("should get function component id for %s", (code, expectedType, expectedName) => {
     let found = false;
-    simpleTraverse(parseCode(code).ast, {
+    Traverse.simpleTraverse(parseCode(code).ast, {
       enter(node) {
         if (Check.isFunction(node) && node.type === expectedType) {
           const id = getFunctionComponentId(context, node);
@@ -159,7 +160,8 @@ describe("getFunctionComponentId", () => {
           found = true;
         }
       },
-    }, true);
+      setParentPointers: true,
+    });
     expect(found).toBe(true);
   });
 });
@@ -174,21 +176,22 @@ describe("isFunctionWithLooseComponentName", () => {
     ["const helper = () => {}", false],
   ])("isFunctionWithLooseComponentName(%s) === %s", (code, expected) => {
     let found = false;
-    simpleTraverse(parseCode(code).ast, {
+    Traverse.simpleTraverse(parseCode(code).ast, {
       enter(node) {
         if (Check.isFunction(node)) {
           expect(isFunctionWithLooseComponentName(context, node)).toBe(expected);
           found = true;
         }
       },
-    }, true);
+      setParentPointers: true,
+    });
     expect(found).toBe(true);
   });
 
   it("should allow none when specified", () => {
     const code = "memo(() => {})";
     let found = false;
-    simpleTraverse(parseCode(code).ast, {
+    Traverse.simpleTraverse(parseCode(code).ast, {
       enter(node) {
         if (Check.isFunction(node)) {
           expect(isFunctionWithLooseComponentName(context, node, true)).toBe(true);
@@ -196,7 +199,8 @@ describe("isFunctionWithLooseComponentName", () => {
           found = true;
         }
       },
-    }, true);
+      setParentPointers: true,
+    });
     expect(found).toBe(true);
   });
 });
@@ -212,21 +216,22 @@ describe("isFunctionComponentDefinition", () => {
     ["const helper = () => 1", false],
   ])("isFunctionComponentDefinition(%s) === %s", (code, expected) => {
     let found = false;
-    simpleTraverse(parseCode(code).ast, {
+    Traverse.simpleTraverse(parseCode(code).ast, {
       enter(node) {
         if (Check.isFunction(node)) {
           expect(isFunctionComponentDefinition(context, node, DEFAULT_COMPONENT_DETECTION_HINT)).toBe(expected);
           found = true;
         }
       },
-    }, true);
+      setParentPointers: true,
+    });
     expect(found).toBe(true);
   });
 
   it("should exclude functions defined as object methods when hint is set", () => {
     const code = "const obj = { Component() { return <div /> } }";
     let found = false;
-    simpleTraverse(parseCode(code).ast, {
+    Traverse.simpleTraverse(parseCode(code).ast, {
       enter(node) {
         if (Check.isFunction(node)) {
           const hintWithExclude = DEFAULT_COMPONENT_DETECTION_HINT
@@ -239,14 +244,15 @@ describe("isFunctionComponentDefinition", () => {
           found = true;
         }
       },
-    }, true);
+      setParentPointers: true,
+    });
     expect(found).toBe(true);
   });
 
   it("should exclude functions defined as class methods when hint is set", () => {
     const code = "class Foo { Component() { return <div /> } }";
     let found = false;
-    simpleTraverse(parseCode(code).ast, {
+    Traverse.simpleTraverse(parseCode(code).ast, {
       enter(node) {
         if (Check.isFunction(node)) {
           const hintWithExclude = DEFAULT_COMPONENT_DETECTION_HINT
@@ -255,14 +261,15 @@ describe("isFunctionComponentDefinition", () => {
           found = true;
         }
       },
-    }, true);
+      setParentPointers: true,
+    });
     expect(found).toBe(true);
   });
 
   it("should exclude functions defined as class properties when hint is set", () => {
     const code = "class Foo { Component = () => { return <div /> } }";
     let found = false;
-    simpleTraverse(parseCode(code).ast, {
+    Traverse.simpleTraverse(parseCode(code).ast, {
       enter(node) {
         if (Check.isFunction(node)) {
           const hintWithExclude = DEFAULT_COMPONENT_DETECTION_HINT
@@ -275,28 +282,30 @@ describe("isFunctionComponentDefinition", () => {
           found = true;
         }
       },
-    }, true);
+      setParentPointers: true,
+    });
     expect(found).toBe(true);
   });
 
   it("should exclude functions in JSX expression containers", () => {
     const code = "const x = <div onClick={() => <div />} />";
     let found = false;
-    simpleTraverse(parseCode(code).ast, {
+    Traverse.simpleTraverse(parseCode(code).ast, {
       enter(node) {
         if (Check.isFunction(node)) {
           expect(isFunctionComponentDefinition(context, node, DEFAULT_COMPONENT_DETECTION_HINT)).toBe(false);
           found = true;
         }
       },
-    }, true);
+      setParentPointers: true,
+    });
     expect(found).toBe(true);
   });
 
   it("does not exclude named callbacks in arbitrary calls even when hint is set", () => {
     const code = "const x = someHelper(function Component() { return <div /> })";
     let found = false;
-    simpleTraverse(parseCode(code).ast, {
+    Traverse.simpleTraverse(parseCode(code).ast, {
       enter(node) {
         if (Check.isFunction(node)) {
           const hintWithExclude = DEFAULT_COMPONENT_DETECTION_HINT
@@ -305,14 +314,15 @@ describe("isFunctionComponentDefinition", () => {
           found = true;
         }
       },
-    }, true);
+      setParentPointers: true,
+    });
     expect(found).toBe(true);
   });
 
   it("excludes named callbacks in array map calls when hint is set (unlike the arbitrary call case)", () => {
     const code = "const x = items.map(function Item() { return <div /> })";
     let found = false;
-    simpleTraverse(parseCode(code).ast, {
+    Traverse.simpleTraverse(parseCode(code).ast, {
       enter(node) {
         if (Check.isFunction(node)) {
           const hintWithExclude = DEFAULT_COMPONENT_DETECTION_HINT
@@ -321,14 +331,15 @@ describe("isFunctionComponentDefinition", () => {
           found = true;
         }
       },
-    }, true);
+      setParentPointers: true,
+    });
     expect(found).toBe(true);
   });
 
   it("excludes anonymous callbacks in array map calls when hint is set", () => {
     const code = "const x = items.map(() => <div />)";
     let found = false;
-    simpleTraverse(parseCode(code).ast, {
+    Traverse.simpleTraverse(parseCode(code).ast, {
       enter(node) {
         if (Check.isFunction(node)) {
           const hintWithExclude = DEFAULT_COMPONENT_DETECTION_HINT
@@ -337,14 +348,15 @@ describe("isFunctionComponentDefinition", () => {
           found = true;
         }
       },
-    }, true);
+      setParentPointers: true,
+    });
     expect(found).toBe(true);
   });
 
   it("includes named callbacks in array map calls when hint is not set", () => {
     const code = "const x = items.map(function Item() { return <div /> })";
     let found = false;
-    simpleTraverse(parseCode(code).ast, {
+    Traverse.simpleTraverse(parseCode(code).ast, {
       enter(node) {
         if (Check.isFunction(node)) {
           const hintWithoutExclude = DEFAULT_COMPONENT_DETECTION_HINT
@@ -353,7 +365,8 @@ describe("isFunctionComponentDefinition", () => {
           found = true;
         }
       },
-    }, true);
+      setParentPointers: true,
+    });
     expect(found).toBe(true);
   });
 });

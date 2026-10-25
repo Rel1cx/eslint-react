@@ -1,6 +1,6 @@
+import { Traverse } from "@eslint-react/ast";
 import { createScopeContext, getLastExpression, parseCode } from "@local/testkit";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
-import { simpleTraverse } from "@typescript-eslint/typescript-estree";
 import { describe, expect, it } from "vitest";
 
 import { JSXDetectionHint, isJSXLike } from "./jsx";
@@ -250,13 +250,14 @@ describe("isJSXLike", () => {
       const parsed = parseCode(code);
       const context = createScopeContext(parsed, code);
       const xRefs: TSESTree.Identifier[] = [];
-      simpleTraverse(parsed.ast, {
+      Traverse.simpleTraverse(parsed.ast, {
         enter(node, parent) {
           if (node.type === AST.Identifier && node.name === "x" && parent?.type === AST.ReturnStatement) {
             xRefs.push(node);
           }
         },
-      }, true);
+        setParentPointers: true,
+      });
       expect(xRefs).toHaveLength(1);
       expect(isJSXLike(context, xRefs[0]!)).toBe(false);
     });

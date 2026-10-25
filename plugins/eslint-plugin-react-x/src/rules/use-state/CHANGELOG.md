@@ -5,6 +5,16 @@ All notable changes to the `react-x/use-state` rule will be documented in this f
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [5.30.0-beta.2] - 2026-10-25
+
+### Changed
+
+- Nested call and `new` expression collection now uses the shared `Collect.getCallExpressions` and `Collect.getNewExpressions` helpers from `@eslint-react/ast`; the rule-local visitor-key tables were removed. (#2080)
+
+### Fixed
+
+- Calls in computed object property keys (ex: `useState({ [getKey()]: value })`) and JSX subtrees are now detected by the lazy-initialization check instead of being missed. (#2080)
+
 ## [5.24.0] - 2026-10-04
 
 ### Changed

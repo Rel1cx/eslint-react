@@ -1,7 +1,6 @@
-import { Check } from "@eslint-react/ast";
+import { Check, Traverse } from "@eslint-react/ast";
 import { getFirstNodeOfType, parseCode } from "@local/testkit";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
-import { simpleTraverse } from "@typescript-eslint/typescript-estree";
 import { describe, expect, it } from "vitest";
 
 import { getClassId } from "./class";
@@ -13,7 +12,7 @@ describe("getClassId", () => {
     ["const Component = class Named {}", "Named"],
   ])("should get class id for %s", (code, expectedName) => {
     let found = false;
-    simpleTraverse(parseCode(code).ast, {
+    Traverse.simpleTraverse(parseCode(code).ast, {
       enter(node) {
         if (Check.isClass(node)) {
           const id = getClassId(node);
@@ -24,7 +23,8 @@ describe("getClassId", () => {
           found = true;
         }
       },
-    }, true);
+      setParentPointers: true,
+    });
     expect(found).toBe(true);
   });
 

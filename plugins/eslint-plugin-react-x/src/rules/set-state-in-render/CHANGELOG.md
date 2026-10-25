@@ -5,6 +5,12 @@ All notable changes to the `react-x/set-state-in-render` rule will be documented
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [5.30.0-beta.0] - 2026-10-25
+
+### Changed
+
+- Setters are now recognized only as the second element of a `useState` array destructuring (ex: `const [, setData] = useState()`); tuple-index access (`data[1]()`, `data.at(1)()`) and object-pattern numeric keys are no longer recognized. (#2075)
+
 ## [5.24.7] - 2026-10-07
 
 ### Fixed

@@ -1,7 +1,6 @@
-import { Check } from "@eslint-react/ast";
+import { Check, Traverse } from "@eslint-react/ast";
 import { getFirstNodeOfType, parseCode } from "@local/testkit";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
-import { simpleTraverse } from "@typescript-eslint/typescript-estree";
 import { describe, expect, it } from "vitest";
 
 import { getFunctionDirectives, getFunctionId, getFunctionInitPath, isFunctionEmpty, isFunctionHasCallInInitPath, isFunctionHasDirective } from "./function";
@@ -58,7 +57,7 @@ describe("getFunctionId", () => {
     ["const Component = (() => {}) satisfies FunctionComponent", AST.ArrowFunctionExpression, "Component"],
   ])("should get function id for %s", (code, expectedType, expectedName) => {
     let found = false;
-    simpleTraverse(parseCode(code).ast, {
+    Traverse.simpleTraverse(parseCode(code).ast, {
       enter(node) {
         if (Check.isFunction(node) && node.type === expectedType) {
           const id = getFunctionId(node);
@@ -69,7 +68,8 @@ describe("getFunctionId", () => {
           found = true;
         }
       },
-    }, true);
+      setParentPointers: true,
+    });
     expect(found).toBe(true);
   });
 
@@ -133,7 +133,7 @@ describe("getFunctionInitPath", () => {
     ["const Component = (() => {}) as any", AST.ArrowFunctionExpression, true],
   ])("should get init path for %s", (code, expectedType, expectedNotNull) => {
     let found = false;
-    simpleTraverse(parseCode(code).ast, {
+    Traverse.simpleTraverse(parseCode(code).ast, {
       enter(node) {
         if (Check.isFunction(node) && node.type === expectedType) {
           const initPath = getFunctionInitPath(node);
@@ -145,7 +145,8 @@ describe("getFunctionInitPath", () => {
           found = true;
         }
       },
-    }, true);
+      setParentPointers: true,
+    });
     expect(found).toBe(true);
   });
 
@@ -218,14 +219,15 @@ describe("isFunctionEmpty", () => {
     ["const NotEmpty = () => 1", false],
   ])("isFunctionEmpty(%s) === %s", (code, expected) => {
     let found = false;
-    simpleTraverse(parseCode(code).ast, {
+    Traverse.simpleTraverse(parseCode(code).ast, {
       enter(node) {
         if (Check.isFunction(node)) {
           expect(isFunctionEmpty(node)).toBe(expected);
           found = true;
         }
       },
-    }, true);
+      setParentPointers: true,
+    });
     expect(found).toBe(true);
   });
 });
@@ -234,7 +236,7 @@ describe("getFunctionDirectives", () => {
   it("should extract 'use strict' directive", () => {
     const code = `function Foo() { "use strict"; return 1; }`;
     let found = false;
-    simpleTraverse(parseCode(code).ast, {
+    Traverse.simpleTraverse(parseCode(code).ast, {
       enter(node) {
         if (Check.isFunction(node)) {
           const directives = getFunctionDirectives(node);
@@ -243,28 +245,30 @@ describe("getFunctionDirectives", () => {
           found = true;
         }
       },
-    }, true);
+      setParentPointers: true,
+    });
     expect(found).toBe(true);
   });
 
   it("should return empty array for arrow function with expression body", () => {
     const code = "const Foo = () => 1";
     let found = false;
-    simpleTraverse(parseCode(code).ast, {
+    Traverse.simpleTraverse(parseCode(code).ast, {
       enter(node) {
         if (Check.isFunction(node)) {
           expect(getFunctionDirectives(node)).toHaveLength(0);
           found = true;
         }
       },
-    }, true);
+      setParentPointers: true,
+    });
     expect(found).toBe(true);
   });
 
   it("should extract multiple directives", () => {
     const code = `function Foo() { "use strict"; "use client"; return 1; }`;
     let found = false;
-    simpleTraverse(parseCode(code).ast, {
+    Traverse.simpleTraverse(parseCode(code).ast, {
       enter(node) {
         if (Check.isFunction(node)) {
           const directives = getFunctionDirectives(node);
@@ -274,21 +278,23 @@ describe("getFunctionDirectives", () => {
           found = true;
         }
       },
-    }, true);
+      setParentPointers: true,
+    });
     expect(found).toBe(true);
   });
 
   it("should not treat a string literal statement after other statements as a directive", () => {
     const code = `function Foo() { bar(); "use strict"; }`;
     let found = false;
-    simpleTraverse(parseCode(code).ast, {
+    Traverse.simpleTraverse(parseCode(code).ast, {
       enter(node) {
         if (Check.isFunction(node)) {
           expect(getFunctionDirectives(node)).toHaveLength(0);
           found = true;
         }
       },
-    }, true);
+      setParentPointers: true,
+    });
     expect(found).toBe(true);
   });
 });
@@ -297,7 +303,7 @@ describe("isFunctionHasDirective", () => {
   it("should detect 'use strict'", () => {
     const code = `function Foo() { "use strict"; }`;
     let found = false;
-    simpleTraverse(parseCode(code).ast, {
+    Traverse.simpleTraverse(parseCode(code).ast, {
       enter(node) {
         if (Check.isFunction(node)) {
           expect(isFunctionHasDirective(node, "use strict")).toBe(true);
@@ -305,7 +311,8 @@ describe("isFunctionHasDirective", () => {
           found = true;
         }
       },
-    }, true);
+      setParentPointers: true,
+    });
     expect(found).toBe(true);
   });
 });

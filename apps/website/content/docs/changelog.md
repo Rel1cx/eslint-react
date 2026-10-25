@@ -2,23 +2,57 @@
 title: Changelog
 ---
 
+## v5.30.0-beta.2 (2026-10-25)
+
+### 🐞 Fixes
+
+- `react-x/use-state`: calls in computed object property keys (ex: `useState({ [getKey()]: value })`) and JSX subtrees are now detected by the lazy-initialization check instead of being missed. (#2080)
+
+### 📝 Documentation
+
+- Added a TanStack Redact example. (#2079)
+- Improved the FAQ, glossary, and examples pages.
+
+### 🏗️ Internal
+
+- `@eslint-react/ast`: added the `Collect` namespace (`getIdentifiers`, `getCallExpressions`, `getNewExpressions`, `getReturnStatements`, `getReturnExpressions`) and a lightweight `Traverse.simpleTraverse` that does not depend on `@typescript-eslint/typescript-estree`; adopted by the `react-x/no-missing-key`, `react-x/set-state-in-effect`, `react-x/use-memo`, and `react-x/use-state` rules. (#2080)
+- `react-x/set-state-in-effect`: identifier collection now also visits computed property keys, rest elements, and JSX expression containers when resolving ref provenance. (#2080)
+- Removed the now-unused `@typescript-eslint/typescript-estree` dependency from `@eslint-react/ast`, `@eslint-react/core`, `@eslint-react/var`, and `eslint-plugin-react-x`. (#2080)
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.30.0-beta.1...v5.30.0-beta.2
+
+## v5.30.0-beta.1 (2026-10-25)
+
+### 🏗️ Internal
+
+- Moved the `createElement` helpers from `@eslint-react/core` to `@eslint-react/jsx`. (#2077)
+- Bumped `zod` to `4.6.7`.
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.30.0-beta.0...v5.30.0-beta.1
+
 ## v5.30.0-beta.0 (2026-10-25)
 
 ### ✨ New
 
-- `react-x/set-state-in-effect`: reworked around explicit effect roots and a synchronous call graph with recursive value resolution, unifying stable aliases, multi-level helpers, named setups, and nested IIFEs. Indirect reports now target the effect-side trigger and deduplicate by setter sink; async functions remain deferred (documented limitation). (#2075)
+- `react-x/set-state-in-effect`: reworked around explicit effect roots and a synchronous call graph with recursive value resolution. Stable aliases, multi-level helpers, named setups, IIFEs, and `useCallback`/`useMemo`/`useEffectEvent` wrappers now share one resolution path; indirect diagnostics point at the effect-side trigger and dedupe by setter sink. Async functions remain deferred (documented limitation). (#2075)
 
 ### 🐞 Fixes
 
-- `react-x/set-state-in-effect`: TypeScript-wrapped setups are now resolved correctly. (#2075)
+- `react-x/set-state-in-effect`: TypeScript-wrapped setups (ex: `useEffect((setup as () => void)!, [])`) are now resolved correctly. (#2075)
+- `react-x/set-state-in-effect`: zero-argument setters called directly in the setup (ex: `setData()`) are now reported, matching indirect calls. (#2075)
 - `react-x/set-state-in-effect`: timer or event callbacks nested in `useCallback`/`useEffectEvent` are no longer treated as synchronous setters. (#2075)
-- `react-x/set-state-in-effect`: expanded ref provenance to TypeScript assertions, computed member keys, and resolvable local getters. Plain same-branch overwrites now clear earlier ref exemptions, guard-test setters cannot self-exempt, and ref guards propagate through synchronous helpers and IIFEs. (#2075)
-- `react-x/set-state-in-effect`: direct and indirect zero-argument setters now use the same reporting policy, and nested effect setups no longer discard the outer setup's remaining analysis. (#2075)
+- `react-x/set-state-in-effect`: ref provenance now also covers TypeScript assertions, computed member keys, local getters, and state-held DOM nodes from callback refs; same-branch plain writes replace earlier ref-derived writes, guard-test setters cannot self-exempt, and ref guards propagate through helpers and IIFEs. (#2075)
+- `react-x/set-state-in-effect`: nested and outer effect setups are now analyzed independently. (#2075)
+
+### 📝 Documentation
+
+- `react-x/set-state-in-effect`: documented synchronous helper calls, deferred callbacks, and expanded ref-derived value rules. (#2075)
 
 ### 🏗️ Internal
 
-- `@eslint-react/ast`: added the `Check.isLoopStatement` helper; `@eslint-react/core`: narrowed the accepted node types of hook detection helpers. (#2075)
-- Bumped `next` to `16.4.3`, `fumadocs-core` and `fumadocs-ui` to `16.17.8`, `fumadocs-mdx` to `15.4.10`, `fumadocs-typescript` to `5.6.0`, `tsdown` to `0.23.2`, `nx` to `23.3.1`, and `eslint-plugin-package-json` to `1.11.0`.
+- `react-x/set-state-in-effect`, `react-x/set-state-in-render`: setters are now recognized only as the second element of a `useState` array destructuring; tuple-index access (`data[1]()`, `data.at(1)()`, `data[index]()`) and object-pattern numeric keys are no longer detected. (#2075)
+- `@eslint-react/ast`: added `Check.isLoopStatement`; `@eslint-react/core` and `@eslint-react/kit`: narrowed the accepted node types of hook/component detection helpers and matching `RuleToolkit.is` signatures, and updated the custom-rule sample. (#2075)
+- Bumped `next` to `16.4.3`, the `fumadocs` packages, `tsdown` to `0.23.2`, `nx` to `23.3.1`, `eslint-plugin-package-json` to `1.11.0`, and `preact` to `11.0.2`.
 
 **Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.28.8...v5.30.0-beta.0
 

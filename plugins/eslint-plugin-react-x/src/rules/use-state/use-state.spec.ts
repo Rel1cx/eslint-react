@@ -492,9 +492,10 @@ ruleTester.run(RULE_NAME, rule, {
       options: [{ enforceAssignment: false }],
     },
     {
-      name: "computed property keys are not visited but property values are",
+      name: "computed property keys and property values are both visited",
       code: `import { useState } from "react"; useState({ [getKey()]: getValue() })`,
       errors: [
+        { type: AST.CallExpression, messageId: "invalid-initialization", column: 47 },
         { type: AST.CallExpression, messageId: "invalid-initialization", column: 58 },
       ],
       options: [{ enforceAssignment: false }],
@@ -894,8 +895,8 @@ ruleTester.run(RULE_NAME, rule, {
     "const [doubled, setDoubled] = useState([1, 2].map((x) => transform(x)));",
     // Everything nested inside a `use()` call is exempt, including new expressions.
     "const [foo, setFoo] = useState(use(new Foo()));",
-    // Computed property keys are never visited, so getKey() does not report.
-    "const [state, setState] = useState({ [getKey()]: value });",
+    // Computed property keys are visited; a non-call key does not report.
+    "const [state, setState] = useState({ [key]: value });",
     // Extra destructured elements beyond the value/setter pair are ignored.
     "const [state, setState, extra] = useState(0);",
     // A new expression with a member expression callee is collected by getNewExpressions
