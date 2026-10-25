@@ -47,6 +47,7 @@ export const projects = [
   { owner: "TanStack", repo: "store" },
   { owner: "TanStack", repo: "table" },
   { owner: "tennaproject", repo: "tenna-editor" },
+  { owner: "tldraw", repo: "obsidian-plugin" },
   { owner: "toss", repo: "suspensive" },
   { owner: "vatger", repo: "atciss" },
   { owner: "xbmc", repo: "kodi-tv" },
