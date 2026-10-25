@@ -22,7 +22,7 @@ export type TestRuleContext = RuleContext<string, readonly unknown[]>;
  */
 export type RuleRunOptions = Pick<ParseCodeOptions, "filePath" | "jsx" | "sourceType">;
 
-function getTestRuleLanguageOptions(options: RuleRunOptions) {
+export function getTestRuleLanguageOptions(options: RuleRunOptions) {
   const { jsx = true, sourceType } = options;
   return {
     parser: tsParser,
