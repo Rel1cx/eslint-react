@@ -269,9 +269,13 @@ export function createSetStateResolver(context: RuleContext, facts: SetStateInEf
       case AST.UpdateExpression:
         return isRefValue(expression.argument, refParams, seen, mode);
       case AST.ConditionalExpression:
-        return (mode === "initializer" && isRefValue(expression.test, refParams, seen, mode))
-          || isRefValue(expression.consequent, refParams, seen, mode)
-          || isRefValue(expression.alternate, refParams, seen, mode);
+        return [
+          mode === "initializer"
+            ? expression.test
+            : null,
+          expression.consequent,
+          expression.alternate,
+        ].some((e) => e != null && isRefValue(e, refParams, seen, mode));
       case AST.SequenceExpression:
         return expression.expressions.some((p) => isRefValue(p, refParams, seen, mode));
       case AST.TemplateLiteral:
