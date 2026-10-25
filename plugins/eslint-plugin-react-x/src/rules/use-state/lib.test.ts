@@ -1,15 +1,14 @@
+import { Collect } from "@eslint-react/ast";
 import { getFirstExpression, getFirstNodeOfType, getTextOf } from "@local/testkit";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import { describe, expect, it } from "vitest";
 
-import { getCallExpressions, getNewExpressions } from "./lib";
-
 function getCallTexts(code: string, node: TSESTree.Node): string[] {
-  return getCallExpressions(node).map((n) => getTextOf(code, n));
+  return Collect.getCallExpressions(node).map((n) => getTextOf(code, n));
 }
 
 function getNewTexts(code: string, node: TSESTree.Node): string[] {
-  return getNewExpressions(node).map((n) => getTextOf(code, n));
+  return Collect.getNewExpressions(node).map((n) => getTextOf(code, n));
 }
 
 describe("getCallExpressions", () => {
@@ -38,10 +37,10 @@ describe("getCallExpressions", () => {
     expect(getCallTexts(code, getFirstExpression(code))).toEqual(["foo[bar()]()", "bar()"]);
   });
 
-  it("should visit if statement test, consequent, and alternate", () => {
+  it("should visit only the if statement test", () => {
     const code = "if (foo()) bar(); else baz();";
     const node = getFirstNodeOfType<TSESTree.IfStatement>(code, AST.IfStatement);
-    expect(getCallTexts(code, node)).toEqual(["foo()", "bar()", "baz()"]);
+    expect(getCallTexts(code, node)).toEqual(["foo()"]);
   });
 
   it("should not descend into block statements", () => {
@@ -50,10 +49,10 @@ describe("getCallExpressions", () => {
     expect(getCallTexts(code, node)).toEqual(["foo()"]);
   });
 
-  it("should follow else-if chains through alternate", () => {
+  it("should not follow else-if alternates", () => {
     const code = "if (a) b(); else if (c()) d();";
     const node = getFirstNodeOfType<TSESTree.IfStatement>(code, AST.IfStatement);
-    expect(getCallTexts(code, node)).toEqual(["b()", "c()", "d()"]);
+    expect(getCallTexts(code, node)).toEqual([]);
   });
 
   it("should not descend into switch statements", () => {
@@ -62,16 +61,16 @@ describe("getCallExpressions", () => {
     expect(getCallTexts(code, node)).toEqual([]);
   });
 
-  it("should visit switch case test and consequent list", () => {
+  it("should visit only the switch case test", () => {
     const code = "switch (x) { case foo(): bar(); break; }";
     const node = getFirstNodeOfType<TSESTree.SwitchCase>(code, AST.SwitchCase);
-    expect(getCallTexts(code, node)).toEqual(["foo()", "bar()"]);
+    expect(getCallTexts(code, node)).toEqual(["foo()"]);
   });
 
-  it("should skip the null test of a default switch case", () => {
+  it("should not visit the consequent of a default switch case", () => {
     const code = "switch (x) { default: baz(); }";
     const node = getFirstNodeOfType<TSESTree.SwitchCase>(code, AST.SwitchCase);
-    expect(getCallTexts(code, node)).toEqual(["baz()"]);
+    expect(getCallTexts(code, node)).toEqual([]);
   });
 
   it("should visit while and do-while tests but not their bodies", () => {
@@ -133,10 +132,10 @@ describe("getCallExpressions", () => {
     expect(getCallTexts(code, node)).toEqual([]);
   });
 
-  it("should not descend into JSX elements", () => {
+  it("should visit calls inside JSX elements", () => {
     const code = "<div>{foo()}</div>;";
     const node = getFirstNodeOfType<TSESTree.JSXElement>(code, AST.JSXElement);
-    expect(getCallTexts(code, node)).toEqual([]);
+    expect(getCallTexts(code, node)).toEqual(["foo()"]);
   });
 
   it("should visit JSX expression containers and spread children", () => {
@@ -174,9 +173,9 @@ describe("getCallExpressions", () => {
     expect(getNewTexts(code, node)).toEqual(["new Qux(quux())"]);
   });
 
-  it("should skip computed property keys but visit their values", () => {
+  it("should visit computed property keys and their values", () => {
     const code = "({ [k()]: v() });";
-    expect(getCallTexts(code, getFirstExpression(code))).toEqual(["v()"]);
+    expect(getCallTexts(code, getFirstExpression(code))).toEqual(["k()", "v()"]);
   });
 
   it("should visit the callee before the arguments in mixed computed member chains", () => {
@@ -263,8 +262,8 @@ describe("getNewExpressions", () => {
     expect(getNewTexts(code, getFirstExpression(code))).toEqual(["new Foo"]);
   });
 
-  it("should skip computed property keys but visit their values", () => {
+  it("should visit computed property keys and their values", () => {
     const code = "({ [new K()]: new V() });";
-    expect(getNewTexts(code, getFirstExpression(code))).toEqual(["new V()"]);
+    expect(getNewTexts(code, getFirstExpression(code))).toEqual(["new K()", "new V()"]);
   });
 });

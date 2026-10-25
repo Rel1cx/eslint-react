@@ -1,4 +1,4 @@
-import { Check, Extract, type TSESTreeFunction, Traverse } from "@eslint-react/ast";
+import { Check, Collect, Extract, type TSESTreeFunction, Traverse } from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
 import { type RuleContext, getText } from "@eslint-react/eslint";
 import { getSettingsFromContext } from "@eslint-react/shared";
@@ -8,16 +8,7 @@ import { DefinitionType } from "@typescript-eslint/scope-manager";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import { findVariable } from "@typescript-eslint/utils/ast-utils";
 import type { SetStateInEffectFacts } from "./collect";
-import {
-  getConditionalBranch,
-  getIdentifiers,
-  getParameterId,
-  getRefSourceName,
-  getReturnExpressions as findReturnExpressions,
-  isRefLikeName,
-  isTerminatingStatement,
-  uniqueTargets,
-} from "./helpers";
+import { getConditionalBranch, getParameterId, getRefSourceName, isRefLikeName, isTerminatingStatement, uniqueTargets } from "./helpers";
 
 const EMPTY_FACTS: SetStateInEffectFacts = {
   calls: [],
@@ -42,7 +33,7 @@ type RefInitializerCandidate = {
 
 export function createSetStateResolver(context: RuleContext, facts: SetStateInEffectFacts = EMPTY_FACTS) {
   const { additionalRefHooks, additionalStateHooks } = getSettingsFromContext(context);
-  const getReturnExpressions = memoize(findReturnExpressions);
+  const getReturnExpressions = memoize(Collect.getReturnExpressions);
 
   function isUseRefCall(node: TSESTree.Node): boolean {
     return node.type === AST.CallExpression && core.isUseRefLikeCall(node, additionalRefHooks);
@@ -316,7 +307,7 @@ export function createSetStateResolver(context: RuleContext, facts: SetStateInEf
   }
 
   function isRefInExpression(node: TSESTree.Node, refParams?: RefParams) {
-    return getIdentifiers(node).some((id) => isInitializedFromRef(id, refParams));
+    return Collect.getIdentifiers(node).some((id) => isInitializedFromRef(id, refParams));
   }
 
   function isRefGatedContext(node: TSESTree.Node, refParams?: RefParams): boolean {
