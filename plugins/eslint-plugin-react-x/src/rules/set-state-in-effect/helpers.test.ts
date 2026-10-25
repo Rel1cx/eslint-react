@@ -2,7 +2,7 @@ import { Collect, Extract, type TSESTreeFunction } from "@eslint-react/ast";
 import { type ParseCodeOptions, fixturePath, getFirstExpression, getFirstNodeOfType } from "@local/testkit";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import { describe, expect, it } from "vitest";
-import { getImmediateInvocation, isTerminatingStatement } from "./helpers";
+import { getImmediateInvocation } from "./helpers";
 
 function getNames(node: TSESTree.Node): string[] {
   return Collect.getIdentifiers(node).map((id) => id.name);
@@ -224,35 +224,6 @@ describe("getIdentifiers", () => {
       "l",
       "n",
     ]);
-  });
-});
-
-describe("isTerminatingStatement", () => {
-  it("should match return and throw statements", () => {
-    expect(isTerminatingStatement(getFirstNodeOfType<TSESTree.ReturnStatement>("function f() { return 1; }", AST.ReturnStatement))).toBe(true);
-    expect(isTerminatingStatement(getFirstNodeOfType<TSESTree.ThrowStatement>("function f() { throw 1; }", AST.ThrowStatement))).toBe(true);
-  });
-
-  it("should match break and continue statements", () => {
-    expect(isTerminatingStatement(getFirstNodeOfType<TSESTree.BreakStatement>("while (a) { break; }", AST.BreakStatement))).toBe(true);
-    expect(isTerminatingStatement(getFirstNodeOfType<TSESTree.ContinueStatement>("while (a) { continue; }", AST.ContinueStatement))).toBe(true);
-  });
-
-  it("should match a block containing a terminating statement", () => {
-    const outer = getFirstNodeOfType<TSESTree.BlockStatement>("function f() { if (a) { return 1; } }", AST.BlockStatement);
-    expect(isTerminatingStatement(outer)).toBe(false);
-    const inner = getFirstNodeOfType<TSESTree.BlockStatement>("{ return 1; }", AST.BlockStatement);
-    expect(isTerminatingStatement(inner)).toBe(true);
-  });
-
-  it("should not match an if statement whose consequent returns", () => {
-    const ifStatement = getFirstNodeOfType<TSESTree.IfStatement>("function f() { if (a) return 1; }", AST.IfStatement);
-    expect(isTerminatingStatement(ifStatement)).toBe(false);
-  });
-
-  it("should match an if statement whose branches both terminate", () => {
-    const ifStatement = getFirstNodeOfType<TSESTree.IfStatement>("function f() { if (a) return 1; else throw new Error(); }", AST.IfStatement);
-    expect(isTerminatingStatement(ifStatement)).toBe(true);
   });
 });
 

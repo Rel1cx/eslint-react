@@ -2,13 +2,14 @@
 
 ## Namespaces
 
-| Namespace                                               | Description                                               |
-| ------------------------------------------------------- | --------------------------------------------------------- |
-| [Check](@eslint-react/namespaces/Check/README.md)       | Helpers for checking `TSESTree` node types.               |
-| [Collect](@eslint-react/namespaces/Collect/README.md)   | Helpers for collecting `TSESTree` nodes.                  |
-| [Compare](@eslint-react/namespaces/Compare/README.md)   | Helpers for comparing `TSESTree` nodes structurally.      |
-| [Extract](@eslint-react/namespaces/Extract/README.md)   | Helpers for extracting information from `TSESTree` nodes. |
-| [Traverse](@eslint-react/namespaces/Traverse/README.md) | Helpers for traversing `TSESTree` nodes.                  |
+| Namespace                                               | Description                                                  |
+| ------------------------------------------------------- | ------------------------------------------------------------ |
+| [Analyze](@eslint-react/namespaces/Analyze/README.md)   | Helpers for analyzing control flow of `TSESTree` statements. |
+| [Check](@eslint-react/namespaces/Check/README.md)       | Helpers for checking `TSESTree` node types.                  |
+| [Collect](@eslint-react/namespaces/Collect/README.md)   | Helpers for collecting `TSESTree` nodes.                     |
+| [Compare](@eslint-react/namespaces/Compare/README.md)   | Helpers for comparing `TSESTree` nodes structurally.         |
+| [Extract](@eslint-react/namespaces/Extract/README.md)   | Helpers for extracting information from `TSESTree` nodes.    |
+| [Traverse](@eslint-react/namespaces/Traverse/README.md) | Helpers for traversing `TSESTree` nodes.                     |
 
 ## Type Aliases
 

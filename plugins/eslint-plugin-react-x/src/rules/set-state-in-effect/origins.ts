@@ -1,4 +1,4 @@
-import { Check, Collect, Extract, type TSESTreeFunction, Traverse } from "@eslint-react/ast";
+import { Analyze, Check, Collect, Extract, type TSESTreeFunction, Traverse } from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
 import { type RuleContext, getText } from "@eslint-react/eslint";
 import { getSettingsFromContext } from "@eslint-react/shared";
@@ -8,15 +8,7 @@ import { DefinitionType } from "@typescript-eslint/scope-manager";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import { findVariable } from "@typescript-eslint/utils/ast-utils";
 import type { SetStateInEffectFacts } from "./collect";
-import {
-  getConditionalBranch,
-  getImmediateInvocation,
-  getParameterId,
-  getRefSourceName,
-  isRefLikeName,
-  isTerminatingStatement,
-  uniqueTargets,
-} from "./helpers";
+import { getConditionalBranch, getImmediateInvocation, getParameterId, getRefSourceName, isRefLikeName, uniqueTargets } from "./helpers";
 
 const EMPTY_FACTS: SetStateInEffectFacts = {
   calls: [],
@@ -398,8 +390,8 @@ export function createSetStateResolver(context: RuleContext, facts: SetStateInEf
     switch (statement.type) {
       case AST.IfStatement:
         return isRefInExpression(statement.test, refParams)
-          && (isTerminatingStatement(statement.consequent)
-            || (statement.alternate != null && isTerminatingStatement(statement.alternate)));
+          && (Analyze.isTerminatingStatement(statement.consequent)
+            || (statement.alternate != null && Analyze.isTerminatingStatement(statement.alternate)));
       case AST.BlockStatement:
         return hasRefGatedTerminator(statement.body, refParams);
       case AST.TryStatement: {
@@ -409,7 +401,7 @@ export function createSetStateResolver(context: RuleContext, facts: SetStateInEf
         if (statement.finalizer != null && hasRefGatedTerminator(statement.finalizer.body, refParams)) {
           return true;
         }
-        if (statement.handler != null && !isTerminatingStatement(statement.handler.body)) return false;
+        if (statement.handler != null && !Analyze.isTerminatingStatement(statement.handler.body)) return false;
         return hasRefGatedTerminator(statement.block.body, refParams);
       }
       default:

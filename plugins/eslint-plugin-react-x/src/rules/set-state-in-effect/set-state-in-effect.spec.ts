@@ -4304,5 +4304,25 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
     },
+    {
+      name: "setState behind a ref-gated if whose try always returns",
+      code: tsx`
+        import { useEffect, useRef, useState } from "react";
+
+        function Component() {
+          const ref = useRef(0);
+          const [data, setData] = useState(0);
+          useEffect(() => {
+            if (ref.current) {
+              try {
+                return;
+              } finally {}
+            }
+            setData(1);
+          }, []);
+          return null;
+        }
+      `,
+    },
   ],
 });

@@ -749,6 +749,70 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [{ messageId: "duplicate-ref-init" }],
     },
+    // A conditional return in the non-null branch does not terminate the guard
+    {
+      code: tsx`
+        function Component({ strict }) {
+          const ref = useRef(null);
+          if (ref.current !== null) {
+            if (strict) {
+              return <div>{ref.current}</div>;
+            }
+          }
+          ref.current = createValue();
+          return <div />;
+        }
+      `,
+      errors: [{ messageId: "write-during-render" }],
+    },
+    // The terminating statement must be the last statement of the branch
+    {
+      code: tsx`
+        function Component() {
+          const ref = useRef(null);
+          if (ref.current !== null) {
+            return <div>{ref.current}</div>;
+            console.log("unreachable");
+          }
+          ref.current = createValue();
+          return <div />;
+        }
+      `,
+      errors: [{ messageId: "write-during-render" }],
+    },
+    // try/finally termination is not analyzed by the shared predicate
+    {
+      code: tsx`
+        function Component() {
+          const ref = useRef(null);
+          if (ref.current !== null) {
+            try {
+              return <div>{ref.current}</div>;
+            } finally {}
+          }
+          ref.current = createValue();
+          return <div />;
+        }
+      `,
+      errors: [{ messageId: "write-during-render" }],
+    },
+    // A switch whose entry paths all return is not analyzed by the shared predicate
+    {
+      code: tsx`
+        function Component({ kind }) {
+          const ref = useRef(null);
+          if (ref.current !== null) {
+            switch (kind) {
+              default:
+                return <div>{ref.current}</div>;
+            }
+          }
+          ref.current = createValue();
+          return <div />;
+        }
+      `,
+      errors: [{ messageId: "write-during-render" }],
+    },
     // Truthiness is not a null guard: initialized refs may legitimately contain falsy values
     {
       code: tsx`
@@ -2260,6 +2324,34 @@ ruleTester.run(RULE_NAME, rule, {
             return <div>{ref.current}</div>;
           }
           ref.current = computeValue();
+          return <div />;
+        }
+      `,
+    },
+    // Inverted lazy init with a throwing non-null branch
+    {
+      code: tsx`
+        function Component() {
+          const ref = useRef(null);
+          if (ref.current !== null) throw new Error("already initialized");
+          ref.current = createValue();
+          return <div />;
+        }
+      `,
+    },
+    // Inverted lazy init with a nested if whose branches both terminate
+    {
+      code: tsx`
+        function Component({ strict }) {
+          const ref = useRef(null);
+          if (ref.current !== null) {
+            if (strict) {
+              return <div>{ref.current}</div>;
+            } else {
+              throw new Error("already initialized");
+            }
+          }
+          ref.current = createValue();
           return <div />;
         }
       `,

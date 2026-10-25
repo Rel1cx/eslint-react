@@ -2,29 +2,6 @@ import { Check, Extract, type TSESTreeFunction } from "@eslint-react/ast";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 
 /**
- * Check if a statement terminates the control flow of its block
- * (a `return`/`throw`/`break`/`continue`, a block containing one, or an `if`
- * whose branches both terminate)
- * @param node The node to check
- * @returns `true` if the statement terminates the control flow
- */
-export function isTerminatingStatement(node: TSESTree.Node): boolean {
-  switch (node.type) {
-    case AST.ReturnStatement:
-    case AST.ThrowStatement:
-    case AST.BreakStatement:
-    case AST.ContinueStatement:
-      return true;
-    case AST.BlockStatement:
-      return node.body.some(isTerminatingStatement);
-    case AST.IfStatement:
-      return node.alternate != null && isTerminatingStatement(node.consequent) && isTerminatingStatement(node.alternate);
-    default:
-      return false;
-  }
-}
-
-/**
  * Find the call expression that immediately invokes a function expression
  * (an IIFE), looking through TypeScript and chain wrappers around the callee.
  * @param fn The function node to check
