@@ -1,4 +1,4 @@
-import { Check, Extract, type TSESTreeFunction } from "@eslint-react/ast";
+import { Analyze, Check, Extract, type TSESTreeFunction } from "@eslint-react/ast";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 
 const SYNC_ARRAY_CALLBACKS = new Set([
@@ -215,25 +215,6 @@ export function getGuardDisposition(node: TSESTree.MemberExpression, getNullBran
   return null;
 }
 
-/** Return whether every path through a statement exits the current function. */
-function isUnconditionallyTerminating(statement: TSESTree.Statement): boolean {
-  switch (statement.type) {
-    case AST.ReturnStatement:
-    case AST.ThrowStatement:
-      return true;
-    case AST.BlockStatement: {
-      const last = statement.body.at(-1);
-      return last != null && isUnconditionallyTerminating(last);
-    }
-    case AST.IfStatement:
-      return statement.alternate != null
-        && isUnconditionallyTerminating(statement.consequent)
-        && isUnconditionallyTerminating(statement.alternate);
-    default:
-      return false;
-  }
-}
-
 export function isAfterTerminatingNonNullGuard(node: TSESTree.MemberExpression, getNullBranch: GetNullBranch): boolean {
   let statement: TSESTree.Node = node;
   while (statement.parent?.type !== AST.BlockStatement) {
@@ -248,7 +229,7 @@ export function isAfterTerminatingNonNullGuard(node: TSESTree.MemberExpression, 
     const nullBranch = getNullBranch(sibling.test);
     if (nullBranch == null) continue;
     const nonNullBranch = nullBranch === "alternate" ? sibling.consequent : sibling.alternate;
-    return nonNullBranch != null && isUnconditionallyTerminating(nonNullBranch);
+    return nonNullBranch != null && Analyze.isUnconditionallyTerminating(nonNullBranch);
   }
   return false;
 }

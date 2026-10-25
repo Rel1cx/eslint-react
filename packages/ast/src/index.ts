@@ -6,6 +6,8 @@ export * as Compare from "./compare";
 export * as Collect from "./collect";
 /** Helpers for extracting information from `TSESTree` nodes. */
 export * as Extract from "./extract";
+/** Helpers for analyzing control flow of `TSESTree` statements. */
+export * as Analyze from "./analyze";
 /** Helpers for traversing `TSESTree` nodes. */
 export * as Traverse from "./traverse";
 /** Helpers for typing `TSESTree` nodes. */

@@ -790,4 +790,8 @@ describe("isRefGatedContext", () => {
   it("should not match a setState call after a try whose catch can continue without a finally guard", () => {
     expect(check("function f() { const ref = useRef(0); try { if (!ref.current) return; } catch { log(); } setData(1); }")).toBe(false);
   });
+
+  it("should match a setState call after a ref-gated if whose try always returns", () => {
+    expect(check("function f() { const ref = useRef(0); if (ref.current) { try { return; } finally {} } setData(1); }")).toBe(true);
+  });
 });

@@ -373,6 +373,12 @@ describe("inferViolations", () => {
     expect(inferViolationNames(code)).toEqual(["setData"]);
   });
 
+  it("should not report a setState call behind a ref-gated try that always returns", () => {
+    const code =
+      "function C() { const ref = useRef(0); const [data, setData] = useState(0); useEffect(() => { if (ref.current) { try { return; } finally {} } setData(1); }, []); }";
+    expect(inferViolationNames(code)).toEqual([]);
+  });
+
   it("should not report a setState call gated by a ref-fed parameter on the left of a logical-and in a helper", () => {
     const code =
       "function C() { const ref = useRef(null); const [data, setData] = useState(0); const update = (el) => { el && setData(1); }; useEffect(() => { update(ref.current); }, []); }";
