@@ -1725,31 +1725,6 @@ ruleTester.run(RULE_NAME, rule, {
         { data: { name: "setWidth" }, messageId: "default" },
       ],
     },
-    // A write inside a nested function is excluded even when that function is
-    // invoked immediately before the use; the write tracing does not account
-    // for immediate invocation.
-    {
-      name: "setState with a variable written from a ref measurement inside an IIFE",
-      code: tsx`
-        import { useEffect, useRef, useState } from "react";
-
-        function Component() {
-          const containerRef = useRef(null);
-          const [width, setWidth] = useState(0);
-          useEffect(() => {
-            let width = 0;
-            (() => {
-              width = containerRef.current.offsetWidth;
-            })();
-            setWidth(width);
-          }, []);
-          return null;
-        }
-      `,
-      errors: [
-        { data: { name: "setWidth" }, messageId: "default" },
-      ],
-    },
     // Mutually-referencing assignments are not ref-derived; the recursion
     // terminates via the `seen` set instead of looping.
     {
@@ -2040,6 +2015,108 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         { data: { name: "setData" }, messageId: "default", line: 8, column: 13 },
       ],
+    },
+    {
+      name: "setState through a conditional callee reports every possible setter",
+      code: tsx`
+        import { useEffect, useState } from "react";
+
+        function Component({ cond }) {
+          const [a, setA] = useState(0);
+          const [b, setB] = useState(0);
+          useEffect(() => {
+            (cond ? setA : setB)(1);
+          }, []);
+          return null;
+        }
+      `,
+      errors: [
+        { data: { name: "setA" }, messageId: "default" },
+        { data: { name: "setB" }, messageId: "default" },
+      ],
+    },
+    {
+      name: "setState through a useMemo selector reports every possible setter",
+      code: tsx`
+        import { useEffect, useMemo, useState } from "react";
+
+        function Component({ cond }) {
+          const [a, setA] = useState(0);
+          const [b, setB] = useState(0);
+          const set = useMemo(() => (cond ? setA : setB), [cond]);
+          useEffect(() => {
+            set(1);
+          }, []);
+          return null;
+        }
+      `,
+      errors: [
+        { data: { name: "setA" }, messageId: "default" },
+        { data: { name: "setB" }, messageId: "default" },
+      ],
+    },
+    {
+      name: "setState fed by an IIFE write in an instance class field",
+      code: tsx`
+        import { useEffect, useRef, useState } from "react";
+
+        function Component() {
+          const ref = useRef(0);
+          const [data, setData] = useState(0);
+          useEffect(() => {
+            let next = 0;
+            next = 42;
+            class Box {
+              field = (() => {
+                next = ref.current;
+              })();
+            }
+            setData(next);
+          }, []);
+          return null;
+        }
+      `,
+      errors: [{ data: { name: "setData" }, messageId: "default" }],
+    },
+    {
+      name: "setState fed by an IIFE assigned over the variable",
+      code: tsx`
+        import { useEffect, useRef, useState } from "react";
+
+        function Component() {
+          const ref = useRef(0);
+          const [data, setData] = useState(0);
+          useEffect(() => {
+            let next = 0;
+            next = (() => {
+              next = ref.current;
+              return 0;
+            })();
+            setData(next);
+          }, []);
+          return null;
+        }
+      `,
+      errors: [{ data: { name: "setData" }, messageId: "default" }],
+    },
+    {
+      name: "duplicate setter calls reached through one helper are reported once",
+      code: tsx`
+        import { useEffect, useState } from "react";
+
+        function Component() {
+          const [data, setData] = useState(0);
+          const update = () => {
+            setData(1);
+            setData(2);
+          };
+          useEffect(() => {
+            update();
+          }, []);
+          return null;
+        }
+      `,
+      errors: [{ data: { name: "setData" }, messageId: "default" }],
     },
   ],
   valid: [
@@ -3990,6 +4067,238 @@ ruleTester.run(RULE_NAME, rule, {
           useEffect(() => {
             measure(nodeRef.current as HTMLElement);
             measure(nodeRef.current!);
+          }, []);
+          return null;
+        }
+      `,
+    },
+    {
+      name: "setState with a ref-derived value beyond the first argument of a custom setter",
+      code: tsx`
+        import { useEffect, useRef, useState } from "react";
+
+        function Component() {
+          const ref = useRef(0);
+          const [value, setValue] = useCustomState(0);
+          useEffect(() => {
+            setValue(0, ref.current);
+          }, []);
+          return null;
+        }
+      `,
+      settings: {
+        "react-x": {
+          additionalStateHooks: "useCustomState",
+        },
+      },
+    },
+    {
+      name: "setState in a helper chain behind a ref-gated if statement",
+      code: tsx`
+        import { useEffect, useRef, useState } from "react";
+
+        function Component() {
+          const ref = useRef(0);
+          const [data, setData] = useState(0);
+          const inner = () => {
+            setData(1);
+          };
+          const outer = () => {
+            inner();
+          };
+          useEffect(() => {
+            if (ref.current) {
+              outer();
+            }
+          }, []);
+          return null;
+        }
+      `,
+    },
+    {
+      name: "setState in a useMemo-returned helper behind a ref-gated if statement",
+      code: tsx`
+        import { useEffect, useMemo, useRef, useState } from "react";
+
+        function Component() {
+          const ref = useRef(0);
+          const [data, setData] = useState(0);
+          const helper = useMemo(() => () => {
+            setData(1);
+          }, []);
+          useEffect(() => {
+            if (ref.current) {
+              helper();
+            }
+          }, []);
+          return null;
+        }
+      `,
+    },
+    {
+      name: "setState in an IIFE on the right of a ref-gated logical-and",
+      code: tsx`
+        import { useEffect, useRef, useState } from "react";
+
+        function Component() {
+          const ref = useRef(0);
+          const [data, setData] = useState(0);
+          useEffect(() => {
+            ref.current && (() => {
+              setData(1);
+            })();
+          }, []);
+          return null;
+        }
+      `,
+    },
+    {
+      name: "setState with a variable written from a ref measurement inside an IIFE",
+      code: tsx`
+        import { useEffect, useRef, useState } from "react";
+
+        function Component() {
+          const containerRef = useRef(null);
+          const [width, setWidth] = useState(0);
+          useEffect(() => {
+            let width = 0;
+            (() => {
+              width = containerRef.current.offsetWidth;
+            })();
+            setWidth(width);
+          }, []);
+          return null;
+        }
+      `,
+    },
+    {
+      name: "setState behind an early-return guard inside a try block",
+      code: tsx`
+        import { useEffect, useRef, useState } from "react";
+
+        function Component() {
+          const ref = useRef(0);
+          const [data, setData] = useState(0);
+          useEffect(() => {
+            try {
+              if (!ref.current) return;
+            } finally {}
+            setData(1);
+          }, []);
+          return null;
+        }
+      `,
+    },
+    {
+      name: "setState behind an early-return guard inside a switch case",
+      code: tsx`
+        import { useEffect, useRef, useState } from "react";
+
+        function Component({ kind }) {
+          const ref = useRef(0);
+          const [data, setData] = useState(0);
+          useEffect(() => {
+            switch (kind) {
+              case 1:
+                if (!ref.current) return;
+                setData(1);
+                break;
+            }
+          }, []);
+          return null;
+        }
+      `,
+    },
+    {
+      name: "setState behind a ref-gated else branch that terminates",
+      code: tsx`
+        import { useEffect, useRef, useState } from "react";
+
+        function Component() {
+          const ref = useRef(0);
+          const [data, setData] = useState(0);
+          useEffect(() => {
+            if (ref.current) {
+              log();
+            } else {
+              return;
+            }
+            setData(1);
+          }, []);
+          return null;
+        }
+      `,
+    },
+    {
+      name: "setState inside a while loop with a ref-derived condition",
+      code: tsx`
+        import { useEffect, useRef, useState } from "react";
+
+        function Component() {
+          const ref = useRef(0);
+          const [data, setData] = useState(0);
+          useEffect(() => {
+            while (ref.current) {
+              setData(1);
+            }
+          }, []);
+          return null;
+        }
+      `,
+    },
+    {
+      name: "setState in a for update clause with a ref-derived test",
+      code: tsx`
+        import { useEffect, useRef, useState } from "react";
+
+        function Component() {
+          const ref = useRef(0);
+          const [data, setData] = useState(0);
+          useEffect(() => {
+            for (; ref.current; setData(1)) {}
+          }, []);
+          return null;
+        }
+      `,
+    },
+    {
+      name: "setState behind a ref-gated terminator in a finally block",
+      code: tsx`
+        import { useEffect, useRef, useState } from "react";
+
+        function Component() {
+          const ref = useRef(0);
+          const [data, setData] = useState(0);
+          useEffect(() => {
+            try {
+              log();
+            } finally {
+              if (!ref.current) return;
+            }
+            setData(1);
+          }, []);
+          return null;
+        }
+      `,
+    },
+    {
+      name: "setState with a value written in a branch inside a synchronous IIFE",
+      code: tsx`
+        import { useEffect, useRef, useState } from "react";
+
+        function Component({ cond }) {
+          const ref = useRef(0);
+          const [data, setData] = useState(0);
+          useEffect(() => {
+            let next = 0;
+            (() => {
+              if (cond) {
+                next = ref.current;
+              } else {
+                next = 0;
+              }
+            })();
+            setData(next);
           }, []);
           return null;
         }

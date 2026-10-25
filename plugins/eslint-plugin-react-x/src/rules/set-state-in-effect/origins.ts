@@ -3,12 +3,20 @@ import * as core from "@eslint-react/core";
 import { type RuleContext, getText } from "@eslint-react/eslint";
 import { getSettingsFromContext } from "@eslint-react/shared";
 import { resolveOrigin } from "@eslint-react/var";
-import { and, hasProperty, memoize } from "@local/eff";
+import { hasProperty, memoize } from "@local/eff";
 import { DefinitionType } from "@typescript-eslint/scope-manager";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import { findVariable } from "@typescript-eslint/utils/ast-utils";
 import type { SetStateInEffectFacts } from "./collect";
-import { getConditionalBranch, getParameterId, getRefSourceName, isRefLikeName, isTerminatingStatement, uniqueTargets } from "./helpers";
+import {
+  getConditionalBranch,
+  getImmediateInvocation,
+  getParameterId,
+  getRefSourceName,
+  isRefLikeName,
+  isTerminatingStatement,
+  uniqueTargets,
+} from "./helpers";
 
 const EMPTY_FACTS: SetStateInEffectFacts = {
   calls: [],
@@ -26,9 +34,15 @@ type RefParams = ReadonlySet<TSESTree.Node>;
 type RefValueMode = "argument" | "initializer";
 type RefInitializerCandidate = {
   branch: TSESTree.Node | null;
+  order: number;
   position: number;
   previous?: TSESTree.Identifier | undefined;
   value: TSESTree.Node;
+};
+type WriteVisibility = {
+  branch: TSESTree.Node | null;
+  node: TSESTree.Node;
+  order: number;
 };
 
 export function createSetStateResolver(context: RuleContext, facts: SetStateInEffectFacts = EMPTY_FACTS) {
@@ -162,6 +176,59 @@ export function createSetStateResolver(context: RuleContext, facts: SetStateInEf
     return refParams;
   }
 
+  /**
+   * Check if an invocation is evaluated only when its surrounding construct
+   * runs later (an instance class field's initializer or a parameter default)
+   * rather than in the enclosing statement flow.
+   */
+  function isDeferredInvocation(invocation: TSESTree.CallExpression): boolean {
+    let current: TSESTree.Node | undefined = invocation.parent;
+    while (current != null) {
+      if (Check.isFunction(current)) return false;
+      switch (current.type) {
+        case AST.AssignmentPattern:
+          return true;
+        case AST.PropertyDefinition: {
+          if (current.static) return false;
+          const value = current.value;
+          return value != null && (value === invocation || Traverse.hasParent(invocation, (n) => n === value));
+        }
+        default:
+          current = current.parent;
+      }
+    }
+    return false;
+  }
+
+  /**
+   * Find where and when a write becomes visible to `id`.
+   *
+   * A write in the same execution flow as the read is located at the write
+   * itself. A write inside an immediately invoked function is located at the
+   * invocation, since it runs synchronously when the call runs. Internal
+   * branches of such a write take precedence over the invocation's branch, and
+   * the write is ordered before a write whose right-hand side is the same
+   * invocation. Writes inside other nested (or deferred) functions are not
+   * visible to the read.
+   */
+  function getVisibleWriteLocation(value: TSESTree.Node, id: TSESTree.Identifier): WriteVisibility | null {
+    let branch = getConditionalBranch(value);
+    let node = value;
+    let order = 1;
+    let boundary = Traverse.findParent(value, Check.isFunction);
+    while (boundary != null) {
+      if (Traverse.hasParent(id, (n) => n === boundary)) return { branch, node, order };
+      if (boundary.async || boundary.generator) return null;
+      const invocation = getImmediateInvocation(boundary);
+      if (invocation == null || isDeferredInvocation(invocation)) return null;
+      branch ??= getConditionalBranch(invocation);
+      node = invocation;
+      order = 0;
+      boundary = Traverse.findParent(invocation, Check.isFunction);
+    }
+    return { branch, node, order };
+  }
+
   function isInitializedFromRef(id: TSESTree.Identifier, refParams?: RefParams, seen = new Set<string>()): boolean {
     const variable = findVariable(context.sourceCode.getScope(id), id);
     if (variable == null) return false;
@@ -170,11 +237,16 @@ export function createSetStateResolver(context: RuleContext, facts: SetStateInEf
     seen.add(key);
     if (isStateHeldDomNode(variable)) return true;
     const candidates: RefInitializerCandidate[] = [];
-    const addCandidate = (value: TSESTree.Node, previous?: TSESTree.Identifier) => {
-      if (value.range[1] > id.range[0] || candidates.some((c) => c.value === value)) return;
+    const addCandidate = (
+      value: TSESTree.Node,
+      visibility: WriteVisibility = { branch: getConditionalBranch(value), node: value, order: 1 },
+      previous?: TSESTree.Identifier,
+    ) => {
+      if (visibility.node.range[1] > id.range[0] || candidates.some((c) => c.value === value)) return;
       candidates.push({
-        branch: getConditionalBranch(value),
-        position: value.range[1],
+        branch: visibility.branch,
+        order: visibility.order,
+        position: visibility.node.range[1],
         previous,
         value,
       });
@@ -190,19 +262,18 @@ export function createSetStateResolver(context: RuleContext, facts: SetStateInEf
         continue;
       }
       const writeExpr = reference.writeExpr;
-      if (Traverse.hasParent(writeExpr, and(Check.isFunction, (fn) => !Traverse.hasParent(id, (n) => n === fn)))) {
-        continue;
-      }
+      const visibility = getVisibleWriteLocation(writeExpr, id);
+      if (visibility == null) continue;
       const parent = reference.identifier.parent;
       const previous = parent.type === AST.AssignmentExpression
           && parent.operator !== "="
           && Extract.unwrap(parent.left) === reference.identifier
         ? reference.identifier
         : undefined;
-      addCandidate(writeExpr, previous);
+      addCandidate(writeExpr, visibility, previous);
     }
     const survivingCandidates: RefInitializerCandidate[] = [];
-    for (const candidate of [...candidates].sort((a, b) => a.position - b.position)) {
+    for (const candidate of [...candidates].sort((a, b) => a.position - b.position || a.order - b.order)) {
       // An unconditional assignment invalidates all earlier branches
       if (candidate.branch == null) {
         survivingCandidates.length = 0;
@@ -314,6 +385,48 @@ export function createSetStateResolver(context: RuleContext, facts: SetStateInEf
     return Collect.getIdentifiers(node).some((id) => isInitializedFromRef(id, refParams));
   }
 
+  /**
+   * Check if a statement guarantees that control leaves the block when a
+   * ref-derived condition holds, so the statements after it only run when the
+   * gate has the opposite outcome.
+   */
+  function hasRefGatedTerminator(statements: readonly TSESTree.Statement[], refParams?: RefParams): boolean {
+    return statements.some((statement) => isRefGatedTerminator(statement, refParams));
+  }
+
+  function isRefGatedTerminator(statement: TSESTree.Statement, refParams?: RefParams): boolean {
+    switch (statement.type) {
+      case AST.IfStatement:
+        return isRefInExpression(statement.test, refParams)
+          && (isTerminatingStatement(statement.consequent)
+            || (statement.alternate != null && isTerminatingStatement(statement.alternate)));
+      case AST.BlockStatement:
+        return hasRefGatedTerminator(statement.body, refParams);
+      case AST.TryStatement: {
+        // A `finally` block always runs. A catch that can complete normally may
+        // swallow an exception thrown before the guard, so the try block only
+        // gates when there is no catch or the catch itself terminates
+        if (statement.finalizer != null && hasRefGatedTerminator(statement.finalizer.body, refParams)) {
+          return true;
+        }
+        if (statement.handler != null && !isTerminatingStatement(statement.handler.body)) return false;
+        return hasRefGatedTerminator(statement.block.body, refParams);
+      }
+      default:
+        return false;
+    }
+  }
+
+  function hasRefGatedEarlyExit(statements: readonly TSESTree.Statement[], child: TSESTree.Node, refParams?: RefParams): boolean {
+    const index = statements.findIndex((statement) => statement === child);
+    if (index < 0) return false;
+    for (let i = 0; i < index; i++) {
+      const statement = statements[i];
+      if (statement != null && isRefGatedTerminator(statement, refParams)) return true;
+    }
+    return false;
+  }
+
   function isRefGatedContext(node: TSESTree.Node, refParams?: RefParams): boolean {
     let child: TSESTree.Node = node;
     let current: TSESTree.Node | undefined = node.parent;
@@ -329,15 +442,24 @@ export function createSetStateResolver(context: RuleContext, facts: SetStateInEf
         case AST.LogicalExpression:
           if (child === current.right && isRefInExpression(current.left, refParams)) return true;
           break;
-        case AST.BlockStatement: {
-          const index = current.body.findIndex((s) => s === child);
-          for (const statement of current.body.slice(0, Math.max(0, index))) {
-            if (statement.type !== AST.IfStatement) continue;
-            if (!isRefInExpression(statement.test, refParams)) continue;
-            if (isTerminatingStatement(statement.consequent)) return true;
+        case AST.WhileStatement:
+          if (child === current.body && isRefInExpression(current.test, refParams)) return true;
+          break;
+        case AST.ForStatement:
+          if (
+            (child === current.body || child === current.update)
+            && current.test != null
+            && isRefInExpression(current.test, refParams)
+          ) {
+            return true;
           }
           break;
-        }
+        case AST.BlockStatement:
+          if (hasRefGatedEarlyExit(current.body, child, refParams)) return true;
+          break;
+        case AST.SwitchCase:
+          if (hasRefGatedEarlyExit(current.consequent, child, refParams)) return true;
+          break;
       }
       child = current;
       current = current.parent;

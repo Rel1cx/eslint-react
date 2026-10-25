@@ -27,7 +27,10 @@ export function inferViolations(context: RuleContext, facts: SetStateInEffectFac
 
   const queue: InvocationState[] = [];
   const visited = new Set<string>();
-  const violations = new Map<TSESTree.Node, SetStateViolation>();
+  // Dedupe by effect-side report location and setter name: sinks reported at
+  // the same trigger collapse to one, while different setters each get a
+  // report
+  const violations = new Map<string, SetStateViolation>();
 
   const enqueue = (state: InvocationState) => {
     if (state.fn.async) return;
@@ -41,18 +44,17 @@ export function inferViolations(context: RuleContext, facts: SetStateInEffectFac
     queue.push(state);
   };
 
-  const report = (sink: TSESTree.Node, setter: Extract<ValueTarget, { kind: "setter" }>, reportNode: TSESTree.Node) => {
-    if (violations.has(sink)) return;
-    violations.set(sink, {
-      name: resolver.getSetterName(setter.node),
-      node: reportNode,
-    });
+  const report = (setter: Extract<ValueTarget, { kind: "setter" }>, reportNode: TSESTree.Node) => {
+    const name = resolver.getSetterName(setter.node);
+    const key = `${String(reportNode.range[0])}:${String(reportNode.range[1])}:${name}`;
+    getOrInsertComputed(violations, key, () => ({ name, node: reportNode }));
   };
 
   const isExemptCall = (call: TSESTree.CallExpression, state: InvocationState) => {
     if (state.inheritedRefGate || resolver.isRefGatedContext(call, state.refParams)) return true;
-    const argument = call.arguments.at(0);
-    return argument != null && resolver.isArgumentUsingRefValue(argument, state.refParams);
+    // React setters take one value, but custom state hooks may accept more; a
+    // ref-derived value in any position makes the update ref-derived
+    return call.arguments.some((argument) => resolver.isArgumentUsingRefValue(argument, state.refParams));
   };
 
   for (const root of [...facts.effectRoots].sort((a, b) => a.node.range[0] - b.node.range[0])) {
@@ -61,7 +63,7 @@ export function inferViolations(context: RuleContext, facts: SetStateInEffectFac
     for (const target of resolver.resolveValues(setup)) {
       if (target.kind === "setter") {
         if (!resolver.isRefGatedContext(setup)) {
-          report(target.node, target, setup);
+          report(target, setup);
         }
         continue;
       }
@@ -83,7 +85,7 @@ export function inferViolations(context: RuleContext, facts: SetStateInEffectFac
       for (const target of resolver.resolveValues(call.callee)) {
         if (target.kind === "setter") {
           if (!isExemptCall(call, state)) {
-            report(call, target, state.reportNode ?? call);
+            report(target, state.reportNode ?? call);
           }
           continue;
         }

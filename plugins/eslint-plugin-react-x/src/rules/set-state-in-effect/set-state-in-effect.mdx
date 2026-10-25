@@ -285,6 +285,10 @@ Custom ref, state, and effect hooks can also be configured via shared ESLint set
 }
 ```
 
+<Callout type="warn">
+  For performance reasons, the rule only analyzes files whose source text contains a `use…Effect` hook name. An `additionalEffectHooks` pattern that matches hooks without the `Effect` suffix (for example, `useCustom`) is therefore only effective in files that also mention a `use…Effect` hook; a file that only uses such a hook is skipped.
+</Callout>
+
 ## Resources
 
 - [Rule Source](https://github.com/Rel1cx/eslint-react/tree/main/plugins/eslint-plugin-react-x/src/rules/set-state-in-effect/set-state-in-effect.ts)

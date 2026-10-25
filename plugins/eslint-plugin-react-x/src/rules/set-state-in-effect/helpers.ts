@@ -1,16 +1,41 @@
-import { Check, Extract } from "@eslint-react/ast";
+import { Check, Extract, type TSESTreeFunction } from "@eslint-react/ast";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 
 /**
  * Check if a statement terminates the control flow of its block
- * (a `return`/`throw`, or a block containing one)
+ * (a `return`/`throw`/`break`/`continue`, a block containing one, or an `if`
+ * whose branches both terminate)
  * @param node The node to check
  * @returns `true` if the statement terminates the control flow
  */
 export function isTerminatingStatement(node: TSESTree.Node): boolean {
-  if (node.type === AST.ReturnStatement || node.type === AST.ThrowStatement) return true;
-  if (node.type === AST.BlockStatement) return node.body.some(isTerminatingStatement);
-  return false;
+  switch (node.type) {
+    case AST.ReturnStatement:
+    case AST.ThrowStatement:
+    case AST.BreakStatement:
+    case AST.ContinueStatement:
+      return true;
+    case AST.BlockStatement:
+      return node.body.some(isTerminatingStatement);
+    case AST.IfStatement:
+      return node.alternate != null && isTerminatingStatement(node.consequent) && isTerminatingStatement(node.alternate);
+    default:
+      return false;
+  }
+}
+
+/**
+ * Find the call expression that immediately invokes a function expression
+ * (an IIFE), looking through TypeScript and chain wrappers around the callee.
+ * @param fn The function node to check
+ * @returns The invoking call expression, or `null` when the function is not
+ * immediately invoked at its definition site
+ */
+export function getImmediateInvocation(fn: TSESTreeFunction): TSESTree.CallExpression | null {
+  let parent = fn.parent;
+  while (Check.isTypeOrChainExpression(parent)) parent = parent.parent;
+  if (parent.type !== AST.CallExpression) return null;
+  return Extract.unwrap(parent.callee) === fn ? parent : null;
 }
 
 export function getConditionalBranch(node: TSESTree.Node): TSESTree.Node | null {
