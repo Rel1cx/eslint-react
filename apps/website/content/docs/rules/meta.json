@@ -51,6 +51,7 @@
     "set-state-in-effect",
     "set-state-in-render",
     "static-components",
+    "unstable-exhaustive-deps",
     "unsupported-syntax",
     "use-memo",
     "use-state",

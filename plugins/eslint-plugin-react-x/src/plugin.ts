@@ -50,6 +50,7 @@ import rulesOfHooks from "./rules/rules-of-hooks/rules-of-hooks";
 import setStateInEffect from "./rules/set-state-in-effect/set-state-in-effect";
 import setStateInRender from "./rules/set-state-in-render/set-state-in-render";
 import staticComponents from "./rules/static-components/static-components";
+import unstableExhaustiveDeps from "./rules/unstable-exhaustive-deps/unstable-exhaustive-deps";
 import unsupportedSyntax from "./rules/unsupported-syntax/unsupported-syntax";
 import useMemo from "./rules/use-memo/use-memo";
 import useState from "./rules/use-state/use-state";
@@ -111,6 +112,7 @@ export const plugin = {
     "set-state-in-effect": setStateInEffect,
     "set-state-in-render": setStateInRender,
     "static-components": staticComponents,
+    "unstable-exhaustive-deps": unstableExhaustiveDeps,
     "unsupported-syntax": unsupportedSyntax,
     "use-memo": useMemo,
     "use-state": useState,

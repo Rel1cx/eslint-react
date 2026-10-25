@@ -68,6 +68,7 @@ export default defineConfig({
       "**/build/**",
       "src/rules/exhaustive-deps/*.ts",
       "src/rules/rules-of-hooks/*.ts",
+      "src/rules/unstable-exhaustive-deps/unstable-exhaustive-deps.ts",
     ], { ignore: ["**/node_modules/**"] }),
   ],
   rules: [

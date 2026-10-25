@@ -1,0 +1,178 @@
+---
+title: unstable-exhaustive-deps
+description: Verifies the list of dependencies for Hooks like `useEffect` and similar, with support for custom Hooks and stable Hook results.
+---
+
+<Callout type="warn">
+  This rule is experimental and may change in the future or be removed. Its options may not be compatible with a future upstream solution in `eslint-plugin-react-hooks`.
+</Callout>
+
+**Full Name in [`eslint-plugin-react-x`](https://npmx.dev/package/eslint-plugin-react-x/v/latest)**
+
+```plain copy
+react-x/unstable-exhaustive-deps
+```
+
+**Full Name in [`@eslint-react/eslint-plugin`](https://npmx.dev/package/@eslint-react/eslint-plugin/v/latest)**
+
+```plain copy
+@eslint-react/unstable-exhaustive-deps
+```
+
+**Features**
+
+`⚙️` `🔧` `🧪`
+
+## Rule Details
+
+This rule is a fork of [`exhaustive-deps`](/docs/rules/exhaustive-deps) with an additional `hooks` option, which lets you configure:
+
+- Custom Hooks whose dependencies should be checked, with the callback and the dependencies array at any position.
+- Custom Hooks that return stable values (like the setter returned by `useState`), so those values are not required as dependencies.
+
+Without the `hooks` option, it reports the same problems as `exhaustive-deps`. Enable one of the two rules, not both.
+
+The `hooks` option has the same shape as the [`hooks` option](https://biomejs.dev/linter/rules/use-exhaustive-dependencies/#hooks) of Biome's `useExhaustiveDependencies` rule.
+
+## Examples
+
+### Custom Hooks with a dependencies array
+
+```json
+{
+  "react-x/unstable-exhaustive-deps": ["warn", {
+    "hooks": [
+      { "name": "useCustomEffect", "closureIndex": 0, "dependenciesIndex": 1 },
+      { "name": "useQuery", "closureIndex": 2, "dependenciesIndex": 1 }
+    ]
+  }]
+}
+```
+
+```tsx
+// 🔴 Problem: 'userId' is missing from the dependency arrays
+function MyComponent({ userId }) {
+  useCustomEffect(() => {
+    sendAnalytics(userId);
+  }, []);
+
+  const user = useQuery("user", [], () => fetchUser(userId));
+}
+```
+
+```tsx
+// 🟢 Recommended: Include all dependencies
+function MyComponent({ userId }) {
+  useCustomEffect(() => {
+    sendAnalytics(userId);
+  }, [userId]);
+
+  const user = useQuery("user", [userId], () => fetchUser(userId));
+}
+```
+
+### Custom Hooks with stable results
+
+```json
+{
+  "react-x/unstable-exhaustive-deps": ["warn", {
+    "hooks": [
+      { "name": "useDispatch", "stableResult": true },
+      { "name": "useRecoilState", "stableResult": [1] }
+    ]
+  }]
+}
+```
+
+```tsx
+// 🟢 Recommended: 'dispatch' and 'setCount' are stable, so they don't need to be listed
+function MyComponent() {
+  const dispatch = useDispatch();
+  const [count, setCount] = useRecoilState(countState);
+
+  const reset = useCallback(() => {
+    dispatch(resetAction());
+    setCount(0);
+  }, []);
+}
+```
+
+```tsx
+// 🔴 Problem: 'count' is not stable, so it is missing from the dependency array
+function MyComponent() {
+  const [count, setCount] = useRecoilState(countState);
+
+  useEffect(() => {
+    setCount(count + 1);
+  }, []);
+}
+```
+
+## Options
+
+### Rule Options
+
+This rule accepts an optional configuration object:
+
+```ts
+type Options = {
+  additionalHooks?: string;
+  enableDangerousAutofixThisMayCauseInfiniteLoops?: boolean;
+  hooks?: {
+    name: string;
+    closureIndex?: number;
+    dependenciesIndex?: number;
+    stableResult?: boolean | number | number[];
+  }[];
+};
+```
+
+#### `hooks`
+
+A list of custom Hooks. Each entry accepts the following properties:
+
+- `name`: The name of the Hook. It matches calls like `useQuery()` and `lib.useQuery()`.
+- `closureIndex`: The position of the callback, starting from zero (ex: `0` for `useEffect`).
+- `dependenciesIndex`: The position of the dependencies array, starting from zero (ex: `1` for `useEffect`).
+- `stableResult`: Marks the values returned by the Hook as stable, so they are not required as dependencies:
+  - `true`: The returned value is stable (ex: `useRef`).
+  - A position, or an array of positions: The values at those positions of the returned array are stable (ex: `1` or `[1]` for `useState`).
+
+`closureIndex` and `dependenciesIndex` must be set together, and the Hook is only checked when they are different. A Hook configured this way is checked at these positions even if it is a built-in Hook or matches `additionalHooks`.
+
+#### `additionalHooks`
+
+Same as the [`additionalHooks`](/docs/rules/exhaustive-deps#additionalhooks) option of `exhaustive-deps`. Hooks matched by it are checked with the callback as the first argument and the dependencies array as the second argument.
+
+#### `enableDangerousAutofixThisMayCauseInfiniteLoops`
+
+Same as the [`enableDangerousAutofixThisMayCauseInfiniteLoops`](/docs/rules/exhaustive-deps#enabledangerousautofixthismaycauseinfiniteloops) option of `exhaustive-deps`.
+
+Default: `false`
+
+### Shared Settings
+
+Like `exhaustive-deps`, this rule reads custom effect Hooks from the `additionalEffectHooks` shared setting when `additionalHooks` is not set:
+
+```json
+{
+  "settings": {
+    "react-x": {
+      "additionalEffectHooks": "/^(useMyEffect|useCustomEffect)$/u"
+    }
+  }
+}
+```
+
+## Resources
+
+- [Rule Source](https://github.com/Rel1cx/eslint-react/tree/main/plugins/eslint-plugin-react-x/src/rules/unstable-exhaustive-deps/unstable-exhaustive-deps.ts)
+- [Test Source](https://github.com/Rel1cx/eslint-react/tree/main/plugins/eslint-plugin-react-x/src/rules/unstable-exhaustive-deps/unstable-exhaustive-deps.spec.ts)
+- [Rule Changelog](https://github.com/Rel1cx/eslint-react/tree/main/plugins/eslint-plugin-react-x/src/rules/unstable-exhaustive-deps/CHANGELOG.md)
+
+## Further Reading
+
+- [React Docs: `exhaustive-deps` Lint Rule](https://react.dev/reference/eslint-plugin-react-hooks/lints/exhaustive-deps)
+- [React Docs: Removing Effect Dependencies](https://react.dev/learn/removing-effect-dependencies)
+- [Biome Docs: `useExhaustiveDependencies`](https://biomejs.dev/linter/rules/use-exhaustive-dependencies/)
+- [facebook/react#16873: Allow configuring custom Hooks as "static"](https://github.com/facebook/react/issues/16873)
