@@ -1,11 +1,11 @@
+import { Collect } from "@eslint-react/ast";
 import { type ParseCodeOptions, fixturePath, getFirstExpression, getFirstNodeOfType } from "@local/testkit";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import { describe, expect, it } from "vitest";
-
-import { getIdentifiers, isTerminatingStatement } from "./helpers";
+import { isTerminatingStatement } from "./helpers";
 
 function getNames(node: TSESTree.Node): string[] {
-  return getIdentifiers(node).map((id) => id.name);
+  return Collect.getIdentifiers(node).map((id) => id.name);
 }
 
 describe("getIdentifiers", () => {
@@ -37,8 +37,9 @@ describe("getIdentifiers", () => {
     expect(getNames(getFirstExpression("({ a });"))).toEqual(["a"]);
   });
 
-  it("should never visit property keys, even computed ones", () => {
-    expect(getNames(getFirstExpression("({ [k]: v });"))).toEqual(["v"]);
+  it("should visit computed property keys but not non-computed ones", () => {
+    expect(getNames(getFirstExpression("({ [k]: v });"))).toEqual(["k", "v"]);
+    expect(getNames(getFirstExpression("({ k: v });"))).toEqual(["v"]);
   });
 
   it("should collect pattern defaults through object patterns", () => {
@@ -46,9 +47,9 @@ describe("getIdentifiers", () => {
     expect(getNames(pattern)).toEqual(["a", "b"]);
   });
 
-  it("should not descend into rest elements of patterns", () => {
+  it("should visit rest element identifiers in patterns", () => {
     const pattern = getFirstNodeOfType<TSESTree.ArrayPattern>("const [first, ...rest] = x;", AST.ArrayPattern);
-    expect(getNames(pattern)).toEqual(["first"]);
+    expect(getNames(pattern)).toEqual(["first", "rest"]);
   });
 
   it("should skip the property of non-computed member access", () => {
@@ -125,8 +126,8 @@ describe("getIdentifiers", () => {
     expect(getNames(getFirstExpression("[...a];"))).toEqual(["a"]);
   });
 
-  it("should visit import expression sources", () => {
-    expect(getNames(getFirstExpression("import(source);", { sourceType: "module" }))).toEqual(["source"]);
+  it("should visit import expression sources and options", () => {
+    expect(getNames(getFirstExpression("import(source, options);", { sourceType: "module" }))).toEqual(["source", "options"]);
   });
 
   it("should not descend into function bodies or params", () => {
@@ -142,8 +143,8 @@ describe("getIdentifiers", () => {
     expect(getNames(getFirstExpression("(class extends Base {});"))).toEqual([]);
   });
 
-  it("should not descend into JSX", () => {
-    expect(getNames(getFirstExpression("(<div attr={a}>{b}</div>);"))).toEqual([]);
+  it("should visit identifiers inside JSX expression containers", () => {
+    expect(getNames(getFirstExpression("(<div attr={a}>{b}</div>);"))).toEqual(["a", "b"]);
   });
 
   it("should visit for-in left and right but not the body", () => {

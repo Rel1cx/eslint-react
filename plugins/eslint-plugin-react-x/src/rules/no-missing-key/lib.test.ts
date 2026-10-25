@@ -1,11 +1,11 @@
+import { Collect } from "@eslint-react/ast";
 import { getFirstNodeOfType } from "@local/testkit";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import tsx from "dedent";
 import { describe, expect, it } from "vitest";
-import { getReturnStatements } from "./lib";
 
 function countReturns(node: TSESTree.Node): number {
-  return getReturnStatements(node).length;
+  return Collect.getReturnStatements(node).length;
 }
 
 describe("getReturnStatements", () => {

@@ -1,11 +1,11 @@
 import { createRule } from "@/utils/create-rule";
-import { Check, Extract, type TSESTreeFunction, type TSESTreeJSXElementLike } from "@eslint-react/ast";
+import { Check, Collect, Extract, type TSESTreeFunction, type TSESTreeJSXElementLike } from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, type RuleListener } from "@eslint-react/eslint";
 import { hasAttribute } from "@eslint-react/jsx";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import type { ReportDescriptor } from "@typescript-eslint/utils/ts-eslint";
-import { KNOWN_CALLBACK_POSITIONS, getReturnStatements } from "./lib";
+import { KNOWN_CALLBACK_POSITIONS } from "./lib";
 
 export const RULE_NAME = "no-missing-key";
 
@@ -97,11 +97,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
    * @returns The report descriptors for the violations found.
    */
   function visitIteratorCallback(node: TSESTreeFunction): Descriptor[] {
-    if (node.body.type !== AST.BlockStatement) {
-      return visitItemExpression(node.body);
-    }
-    return getReturnStatements(node.body)
-      .flatMap((stmt) => stmt.argument == null ? [] : visitItemExpression(stmt.argument));
+    return Collect.getReturnExpressions(node).flatMap(visitItemExpression);
   }
 
   return {

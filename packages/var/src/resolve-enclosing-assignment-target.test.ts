@@ -1,7 +1,6 @@
-import { Check } from "@eslint-react/ast";
+import { Check, Traverse } from "@eslint-react/ast";
 import { getFirstNodeOfType, parseCode } from "@local/testkit";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
-import { simpleTraverse } from "@typescript-eslint/typescript-estree";
 import { describe, expect, it } from "vitest";
 
 import { resolveEnclosingAssignmentTarget } from "./resolve-enclosing-assignment-target";
@@ -79,13 +78,14 @@ describe("resolveEnclosingAssignmentTarget", () => {
       // Find the `item` Identifier reference inside the for-of body (ExpressionStatement),
       // not the declaration site in the VariableDeclarator.
       let itemRef: TSESTree.Identifier | null = null;
-      simpleTraverse(ast, {
+      Traverse.simpleTraverse(ast, {
         enter(node, parent) {
           if (Check.isIdentifier(node, "item") && parent?.type === AST.ExpressionStatement) {
             itemRef = node;
           }
         },
-      }, true);
+        setParentPointers: true,
+      });
       expect(itemRef).not.toBeNull();
 
       // Starting from the `item` reference in the body, the function walks up:
@@ -128,11 +128,12 @@ describe("resolveEnclosingAssignmentTarget", () => {
       // self-referencing parent would cause infinite recursion in the
       // default branch.
       const allNodes: TSESTree.Node[] = [];
-      simpleTraverse(ast, {
+      Traverse.simpleTraverse(ast, {
         enter(node) {
           allNodes.push(node);
         },
-      }, true);
+        setParentPointers: true,
+      });
 
       expect(allNodes.length).toBeGreaterThan(0);
 

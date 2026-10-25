@@ -1,6 +1,6 @@
+import { Traverse } from "@eslint-react/ast";
 import { createMockContext, getFirstNodeOfType, getLastExpression, parseCode } from "@local/testkit";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
-import { simpleTraverse } from "@typescript-eslint/typescript-estree";
 import { describe, expect, it } from "vitest";
 
 import { isAPI, isAPICall, isCreateElementCall } from "./api";
@@ -219,7 +219,7 @@ describe("isAPI (actual export)", () => {
     const parsed = parseCode(code);
     const context = createMockContext({ code });
     let result: boolean | null = null;
-    simpleTraverse(parsed.ast, {
+    Traverse.simpleTraverse(parsed.ast, {
       enter(node) {
         const parent = node.parent;
         if (
@@ -229,7 +229,8 @@ describe("isAPI (actual export)", () => {
           result = isAPI(api)(context, node);
         }
       },
-    }, true);
+      setParentPointers: true,
+    });
     expect(result).toBe(expected);
   }
 

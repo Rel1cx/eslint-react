@@ -1098,12 +1098,12 @@ importers:
       '@typescript-eslint/types':
         specifier: ^8.72.0
         version: 8.72.0
-      '@typescript-eslint/typescript-estree':
-        specifier: ^8.72.0
-        version: 8.72.0(supports-color@9.4.0)(typescript@6.0.3)
       '@typescript-eslint/utils':
         specifier: ^8.72.0
         version: 8.72.0(eslint@10.13.0(jiti@2.7.0)(supports-color@9.4.0))(supports-color@9.4.0)(typescript@6.0.3)
+      '@typescript-eslint/visitor-keys':
+        specifier: ^8.72.0
+        version: 8.72.0
     devDependencies:
       '@local/configs':
         specifier: workspace:*
@@ -1175,9 +1175,6 @@ importers:
       '@types/node':
         specifier: ^20.19.43
         version: 20.19.43
-      '@typescript-eslint/typescript-estree':
-        specifier: ^8.72.0
-        version: 8.72.0(supports-color@9.4.0)(typescript@6.0.3)
       dedent:
         specifier: ^1.7.2
         version: 1.7.2
@@ -1390,9 +1387,6 @@ importers:
       '@types/node':
         specifier: ^20.19.43
         version: 20.19.43
-      '@typescript-eslint/typescript-estree':
-        specifier: ^8.72.0
-        version: 8.72.0(supports-color@9.4.0)(typescript@6.0.3)
       eslint:
         specifier: ^10.13.0
         version: 10.13.0(jiti@2.7.0)(supports-color@9.4.0)
@@ -1844,9 +1838,6 @@ importers:
       '@typescript-eslint/types':
         specifier: ^8.72.0
         version: 8.72.0
-      '@typescript-eslint/typescript-estree':
-        specifier: ^8.72.0
-        version: 8.72.0(supports-color@9.4.0)(typescript@6.0.3)
       '@typescript-eslint/utils':
         specifier: ^8.72.0
         version: 8.72.0(eslint@10.13.0(jiti@2.7.0)(supports-color@9.4.0))(supports-color@9.4.0)(typescript@6.0.3)

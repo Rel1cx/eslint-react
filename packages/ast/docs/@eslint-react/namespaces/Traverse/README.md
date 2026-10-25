@@ -4,6 +4,12 @@
 
 Helpers for traversing `TSESTree` nodes.
 
+## Type Aliases
+
+| Type Alias                                                     | Description                   |
+| -------------------------------------------------------------- | ----------------------------- |
+| [SimpleTraverseOptions](type-aliases/SimpleTraverseOptions.md) | Options for `simpleTraverse`. |
+
 ## Functions
 
 | Function                                                    | Description                                                                                              |
@@ -12,3 +18,4 @@ Helpers for traversing `TSESTree` nodes.
 | [findParent](functions/findParent.md)                       | Walk up the AST from `node` to find the nearest ancestor matching a predicate.                           |
 | [hasEnclosingTryBlock](functions/hasEnclosingTryBlock.md)   | Check whether the given node is enclosed by the `try` block (not `catch`/`finally`) of a `TryStatement`. |
 | [hasParent](functions/hasParent.md)                         | Check whether `node` has an ancestor matching a predicate.                                               |
+| [simpleTraverse](functions/simpleTraverse.md)               | Walk the AST from `root`, calling `enter` before and `leave` after a node's children.                    |

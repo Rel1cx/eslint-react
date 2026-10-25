@@ -57,7 +57,7 @@ Two implementation boundaries are shared by the current SPEC pass rather than be
 
 The SPEC enforces this only when `validateNoVoidUseMemo` is enabled. At the verified React commit, `hasNonVoidReturn` returns true for a HIR return terminal whose `returnVariant` is `Explicit` or `Implicit`; it does not inspect whether the source return has a value. Therefore `useMemo(() => { return; })` passes this check. This is source-verified and fixture-verified: `useMemo-empty-return.expect.md` contains successfully compiled output with no `VoidUseMemo` diagnostic.
 
-The IMPL always enforces this rule. It treats arrow-function concise bodies as valid and uses `getReturnStatements` from `helpers.ts` for block bodies, requiring at least one return whose `argument != null`. An empty `return;` is treated as not returning a value.
+The IMPL always enforces this rule. It treats arrow-function concise bodies as valid and uses `Collect.getReturnStatements` from `@eslint-react/ast` for block bodies, requiring at least one return whose `argument != null`. An empty `return;` is treated as not returning a value.
 
 **Verdict**: The IMPL lacks the `validateNoVoidUseMemo` toggle and intentionally differs from the verified React empty-return behavior.
 
