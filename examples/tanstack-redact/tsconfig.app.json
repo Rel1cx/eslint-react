@@ -1,0 +1,14 @@
+{
+  "extends": [
+    "@tsconfig/strictest/tsconfig.json",
+    "@tsconfig/vite-react/tsconfig.json"
+  ],
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.tsx"
+  ],
+  "compilerOptions": {
+    "jsx": "react-jsx",
+    "jsxImportSource": "@tanstack/redact"
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "extends": [
+    "@tsconfig/strictest/tsconfig.json",
+    "@tsconfig/node20/tsconfig.json"
+  ],
+  "compilerOptions": {
+    "incremental": false,
+    "skipLibCheck": true,
+    "module": "nodenext",
+    "moduleDetection": "force",
+    "moduleResolution": "nodenext",
+    "resolveJsonModule": true,
+    "allowJs": true,
+    "noEmit": true
+  },
+  "include": [
+    "*.ts",
+    "*.cts",
+    "*.mts",
+    "*.d.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist",
+    "src",
+    "benchmark"
+  ]
+}
