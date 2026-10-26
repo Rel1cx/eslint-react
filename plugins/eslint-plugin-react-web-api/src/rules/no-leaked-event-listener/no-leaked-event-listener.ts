@@ -2,7 +2,7 @@ import { createRule } from "@/utils/create-rule";
 import { Check, Compare, Extract, Traverse } from "@eslint-react/ast";
 import { getFunctionId, isUseEffectCleanupCallback, isUseEffectSetupCallback } from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, type RuleListener } from "@eslint-react/eslint";
-import { isInitializedFromReactNative, isValueEqual } from "@eslint-react/var";
+import { isInitializedFromReactNative, isProvenanceEqual } from "@eslint-react/var";
 import { getOrInsertComputed, isString, or } from "@local/eff";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import { findVariable } from "@typescript-eslint/utils/ast-utils";
@@ -209,7 +209,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
     if (aPhase !== "setup") {
       return false;
     }
-    if (!isSameObject(aCallee, rCallee) || !Compare.isEqual(aListener, rListener) || !isValueEqual(context, aType, rType) || aCapture !== rCapture) {
+    if (!isSameObject(aCallee, rCallee) || !Compare.isEqual(aListener, rListener) || !isProvenanceEqual(context, aType, rType) || aCapture !== rCapture) {
       return false;
     }
     if (rPhase === "cleanup") {

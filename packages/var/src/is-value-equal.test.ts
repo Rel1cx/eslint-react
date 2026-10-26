@@ -60,6 +60,30 @@ describe("isValueEqual", () => {
       expect(fact).toBe(false);
     });
 
+    it("should return true for references to the same configured global", () => {
+      // Configured globals have no scope-manager definition; identity still
+      // comes from the shared variable object.
+      const code = "/* global EVENT */\nfoo(EVENT); bar(EVENT);";
+      const fact = runInRule(code, (context, ast) => {
+        const refs = findIdentifierReferences(ast, "EVENT");
+        expect(refs).toHaveLength(2);
+        return isValueEqual(context, refs[0]!, refs[1]!);
+      });
+      expect(fact).toBe(true);
+    });
+
+    it("should return false for references to different configured globals", () => {
+      const code = "/* global FIRST, SECOND */\nfoo(FIRST); bar(SECOND);";
+      const fact = runInRule(code, (context, ast) => {
+        const first = findIdentifierReferences(ast, "FIRST");
+        const second = findIdentifierReferences(ast, "SECOND");
+        expect(first).toHaveLength(1);
+        expect(second).toHaveLength(1);
+        return isValueEqual(context, first[0]!, second[0]!);
+      });
+      expect(fact).toBe(false);
+    });
+
     it("should return true for simple MemberExpression equality", () => {
       const code = "const obj = {}; foo(obj.a); bar(obj.a);";
       const fact = runInRule(code, (context, ast) => {
@@ -68,76 +92,6 @@ describe("isValueEqual", () => {
         return isValueEqual(context, members[0]!, members[1]!);
       });
       expect(fact).toBe(true);
-    });
-  });
-
-  describe("callback parameters (resolveOrigin contract)", () => {
-    // isValueEqual resolves parameter identifiers via `resolveOrigin`, which maps a
-    // parameter to its containing function. Two parameters at the same position of
-    // callbacks passed to structurally equal callees are considered value-equal.
-    it("should return true for same-position parameters of callbacks passed to equal callees", () => {
-      const code = [
-        "xs.forEach((a) => foo(a));",
-        "xs.forEach((b) => bar(b));",
-      ].join("\n");
-      const fact = runInRule(code, (context, ast) => {
-        const aRefs = findIdentifierReferences(ast, "a");
-        const bRefs = findIdentifierReferences(ast, "b");
-        const aRef = aRefs.find((r) => r.parent.type === AST.CallExpression);
-        const bRef = bRefs.find((r) => r.parent.type === AST.CallExpression);
-        expect(aRef).toBeDefined();
-        expect(bRef).toBeDefined();
-        return isValueEqual(context, aRef!, bRef!);
-      });
-      expect(fact).toBe(true);
-    });
-
-    it("should return false for same-position parameters of callbacks passed to different callees", () => {
-      const code = [
-        "xs.forEach((a) => foo(a));",
-        "xs.map((b) => bar(b));",
-      ].join("\n");
-      const fact = runInRule(code, (context, ast) => {
-        const aRefs = findIdentifierReferences(ast, "a");
-        const bRefs = findIdentifierReferences(ast, "b");
-        const aRef = aRefs.find((r) => r.parent.type === AST.CallExpression);
-        const bRef = bRefs.find((r) => r.parent.type === AST.CallExpression);
-        expect(aRef).toBeDefined();
-        expect(bRef).toBeDefined();
-        return isValueEqual(context, aRef!, bRef!);
-      });
-      expect(fact).toBe(false);
-    });
-
-    it("should return false for different-position parameters of the same callback", () => {
-      const code = "xs.forEach((a, b) => { foo(a); bar(b); });";
-      const fact = runInRule(code, (context, ast) => {
-        const aRefs = findIdentifierReferences(ast, "a");
-        const bRefs = findIdentifierReferences(ast, "b");
-        const aRef = aRefs.find((r) => r.parent.type === AST.CallExpression);
-        const bRef = bRefs.find((r) => r.parent.type === AST.CallExpression);
-        expect(aRef).toBeDefined();
-        expect(bRef).toBeDefined();
-        return isValueEqual(context, aRef!, bRef!);
-      });
-      expect(fact).toBe(false);
-    });
-
-    it("should return false for parameters of non-callback functions", () => {
-      const code = [
-        "function f(a) { foo(a); }",
-        "function h(b) { bar(b); }",
-      ].join("\n");
-      const fact = runInRule(code, (context, ast) => {
-        const aRefs = findIdentifierReferences(ast, "a");
-        const bRefs = findIdentifierReferences(ast, "b");
-        const aRef = aRefs.find((r) => r.parent.type === AST.CallExpression);
-        const bRef = bRefs.find((r) => r.parent.type === AST.CallExpression);
-        expect(aRef).toBeDefined();
-        expect(bRef).toBeDefined();
-        return isValueEqual(context, aRef!, bRef!);
-      });
-      expect(fact).toBe(false);
     });
   });
 
@@ -162,63 +116,6 @@ describe("isValueEqual", () => {
       });
       // Fixed: computed properties now use isValueEqual instead of isNodeEqual,
       // so obj[1 + 1] and obj[2] are correctly recognized as equal.
-      expect(fact).toBe(true);
-    });
-
-    it("FIXED: ForOfStatement same statement — destructured variables are not equal", () => {
-      // When both variables come from the SAME for-of statement (e.g. `[a, b]`),
-      // they are different bindings and should not be considered equal.
-      // The fix falls back to variable identity (`aVar === bVar`) for same-statement cases.
-      const code = [
-        "function test() {",
-        "  const items = [[1, 2]];",
-        "  for (const [a, b] of items) {",
-        "    foo(a);",
-        "    bar(b);",
-        "  }",
-        "}",
-      ].join("\n");
-
-      const fact = runInRule(code, (context, ast) => {
-        const aRefs = findIdentifierReferences(ast, "a");
-        const bRefs = findIdentifierReferences(ast, "b");
-        const aRef = aRefs.find((r) => r.parent.type === AST.CallExpression);
-        const bRef = bRefs.find((r) => r.parent.type === AST.CallExpression);
-        expect(aRef).toBeDefined();
-        expect(bRef).toBeDefined();
-        return isValueEqual(context, aRef!, bRef!);
-      });
-      // Fixed: same for-of statement falls back to variable identity,
-      // so `a` and `b` are correctly recognized as different.
-      expect(fact).toBe(false);
-    });
-
-    it("ForOfStatement different statements — variables iterating the same source are equal", () => {
-      // When variables come from DIFFERENT for-of statements that iterate the
-      // same source, they represent the same values and should be equal.
-      // This is the case in addEventListener/removeEventListener cleanup patterns.
-      const code = [
-        "function test() {",
-        "  const events = ['click', 'keydown'];",
-        "  for (const event of events) {",
-        "    foo(event);",
-        "  }",
-        "  for (const evt of events) {",
-        "    bar(evt);",
-        "  }",
-        "}",
-      ].join("\n");
-
-      const fact = runInRule(code, (context, ast) => {
-        const eventRefs = findIdentifierReferences(ast, "event");
-        const evtRefs = findIdentifierReferences(ast, "evt");
-        const eventRef = eventRefs.find((r) => r.parent.type === AST.CallExpression);
-        const evtRef = evtRefs.find((r) => r.parent.type === AST.CallExpression);
-        expect(eventRef).toBeDefined();
-        expect(evtRef).toBeDefined();
-        return isValueEqual(context, eventRef!, evtRef!);
-      });
-      // Different for-of statements iterating the same source → equal
       expect(fact).toBe(true);
     });
 
@@ -250,6 +147,38 @@ describe("isValueEqual", () => {
       expect(fact.lastType).toBe(AST.ArrayExpression);
       // They are different nodes, demonstrating the inconsistency
       expect(fact.areDifferent).toBe(true);
+    });
+  });
+
+  describe("regular expression literals", () => {
+    it("should return true for regex literals with the same pattern and flags", () => {
+      const code = "foo(/abc/g); bar(/abc/g);";
+      const fact = runInRule(code, (context, ast) => {
+        const literals = collectNodes<TSESTree.Literal>(ast, AST.Literal);
+        expect(literals).toHaveLength(2);
+        return isValueEqual(context, literals[0]!, literals[1]!);
+      });
+      expect(fact).toBe(true);
+    });
+
+    it("should return false for regex literals with different flags", () => {
+      const code = "foo(/abc/g); bar(/abc/i);";
+      const fact = runInRule(code, (context, ast) => {
+        const literals = collectNodes<TSESTree.Literal>(ast, AST.Literal);
+        expect(literals).toHaveLength(2);
+        return isValueEqual(context, literals[0]!, literals[1]!);
+      });
+      expect(fact).toBe(false);
+    });
+
+    it("should return false when a regex literal is compared to a string literal", () => {
+      const code = 'foo(/abc/); bar("/abc/");';
+      const fact = runInRule(code, (context, ast) => {
+        const literals = collectNodes<TSESTree.Literal>(ast, AST.Literal);
+        expect(literals).toHaveLength(2);
+        return isValueEqual(context, literals[0]!, literals[1]!);
+      });
+      expect(fact).toBe(false);
     });
   });
 });

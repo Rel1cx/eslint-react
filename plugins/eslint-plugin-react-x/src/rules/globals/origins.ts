@@ -1,6 +1,6 @@
 import { Check, Extract, type TSESTreeFunction } from "@eslint-react/ast";
 import type { RuleContext } from "@eslint-react/eslint";
-import { resolveOrigin } from "@eslint-react/var";
+import { resolveOriginChain } from "@eslint-react/var";
 import { DefinitionType, ScopeType } from "@typescript-eslint/scope-manager";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import { findVariable } from "@typescript-eslint/utils/ast-utils";
@@ -46,12 +46,11 @@ export function resolveGlobalOrigin(context: RuleContext, node: TSESTree.Express
 }
 
 /** Resolve a direct call target, following simple function aliases. */
-export function resolveToFunction(context: RuleContext, node: TSESTree.Node, seen = new Set<TSESTree.Node>()): TSESTreeFunction | null {
+export function resolveToFunction(context: RuleContext, node: TSESTree.Node): TSESTreeFunction | null {
   const expression = Extract.unwrap(node);
   if (Check.isFunction(expression)) return expression;
-  if (!Check.isIdentifier(expression) || seen.has(expression)) return null;
-  seen.add(expression);
-  const resolved = resolveOrigin(context, expression);
-  if (resolved == null) return null;
-  return resolveToFunction(context, resolved, seen);
+  if (!Check.isIdentifier(expression)) return null;
+  const origin = resolveOriginChain(context, expression);
+  const unwrapped = origin == null ? null : Extract.unwrap(origin);
+  return unwrapped != null && Check.isFunction(unwrapped) ? unwrapped : null;
 }

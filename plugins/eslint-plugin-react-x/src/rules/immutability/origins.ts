@@ -2,7 +2,7 @@ import { Check, Extract, type TSESTreeFunction } from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
 import type { RuleContext } from "@eslint-react/eslint";
 import { getSettingsFromContext } from "@eslint-react/shared";
-import { resolveOrigin } from "@eslint-react/var";
+import { resolveOriginChain } from "@eslint-react/var";
 import { DefinitionType } from "@typescript-eslint/scope-manager";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import { findVariable } from "@typescript-eslint/utils/ast-utils";
@@ -50,13 +50,13 @@ export function resolveVariableOrigin(
   return source == null ? variable : resolveVariableOrigin(context, source, mode, seen);
 }
 
-export function resolveToFunctionNode(context: RuleContext, node: TSESTree.Node, seen: Set<TSESTree.Node> = new Set()): TSESTreeFunction | null {
+export function resolveToFunctionNode(context: RuleContext, node: TSESTree.Node): TSESTreeFunction | null {
   const expr = Extract.unwrap(node);
   if (Check.isFunction(expr)) return expr;
-  if (!Check.isIdentifier(expr) || seen.has(expr)) return null;
-  seen.add(expr);
-  const resolved = resolveOrigin(context, expr);
-  return resolved == null ? null : resolveToFunctionNode(context, resolved, seen);
+  if (!Check.isIdentifier(expr)) return null;
+  const origin = resolveOriginChain(context, expr);
+  const unwrapped = origin == null ? null : Extract.unwrap(origin);
+  return unwrapped != null && Check.isFunction(unwrapped) ? unwrapped : null;
 }
 
 // #endregion

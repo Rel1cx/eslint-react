@@ -1,7 +1,7 @@
 import { Check, Compare, Extract } from "@eslint-react/ast";
 import type { RuleContext } from "@eslint-react/eslint";
 import type { TSESTree } from "@typescript-eslint/types";
-import { isValueEqual } from "./is-value-equal";
+import { isProvenanceEqual } from "./is-provenance-equal";
 
 /**
  * Check if two assignment targets are equal, either directly or by their values.
@@ -11,13 +11,13 @@ import { isValueEqual } from "./is-value-equal";
  * @returns `true` if the assignment targets are equal.
  * @internal
  */
-export function isAssignmentTargetEqual(context: RuleContext, a: TSESTree.Node, b: TSESTree.Node) {
+export function isAssignmentTargetEqual(context: RuleContext, a: TSESTree.Node, b: TSESTree.Node): boolean {
   const unwrappedA = Check.isTypeExpression(a) ? Extract.unwrap(a) : a;
   const unwrappedB = Check.isTypeExpression(b) ? Extract.unwrap(b) : b;
   // Same-name identifiers in different scopes are different variables,
   // so they must be compared by scope-aware value equality, not by name.
   if (Check.isIdentifier(unwrappedA) && Check.isIdentifier(unwrappedB)) {
-    return isValueEqual(context, unwrappedA, unwrappedB);
+    return isProvenanceEqual(context, unwrappedA, unwrappedB);
   }
-  return Compare.isEqual(unwrappedA, unwrappedB) || isValueEqual(context, unwrappedA, unwrappedB);
+  return Compare.isEqual(unwrappedA, unwrappedB) || isProvenanceEqual(context, unwrappedA, unwrappedB);
 }

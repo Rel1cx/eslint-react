@@ -19,14 +19,14 @@ Return every import entry, in source order.
 
 #### Returns
 
-readonly [`ImportEntry`](ImportEntry.md)[]
+readonly [`ImportEntry`](../type-aliases/ImportEntry.md)[]
 
 ---
 
 ### binding()
 
 ```ts
-binding(local: string): ImportEntry | undefined;
+binding(local: string): ImportEntry | null;
 ```
 
 Look up the import entry a local name is bound to.
@@ -39,9 +39,9 @@ Look up the import entry a local name is bound to.
 
 #### Returns
 
-[`ImportEntry`](ImportEntry.md) \| `undefined`
+[`ImportEntry`](../type-aliases/ImportEntry.md) \| `null`
 
-The matching entry, or `undefined` if the name is not imported.
+The matching entry, or `null` if the name is not imported.
 
 ---
 
@@ -55,13 +55,13 @@ Look up all local bindings of a given imported export name.
 
 #### Parameters
 
-| Parameter | Type     | Description                                                 |
-| --------- | -------- | ----------------------------------------------------------- |
-| `name`    | `string` | The imported export name (`"default"` for default imports). |
+| Parameter | Type     | Description                                                                             |
+| --------- | -------- | --------------------------------------------------------------------------------------- |
+| `name`    | `string` | The imported export name (`"default"` for default imports, `""` for namespace imports). |
 
 #### Returns
 
-readonly [`ImportEntry`](ImportEntry.md)[]
+readonly [`ImportEntry`](../type-aliases/ImportEntry.md)[]
 
 The matching entries in source order, possibly empty.
 
@@ -74,6 +74,9 @@ has(local: string, name: string): boolean;
 ```
 
 Check whether a local name is bound to a specific imported export.
+
+`"default"` matches default imports; namespace imports never match because
+they bind the module as a whole rather than a single export.
 
 #### Parameters
 
@@ -88,14 +91,34 @@ Check whether a local name is bound to a specific imported export.
 
 ---
 
-### hasNamespace()
+### hasDefault()
 
 ```ts
-hasNamespace(local: string): boolean;
+hasDefault(local: string): boolean;
 ```
 
-Check whether a local name is a default or namespace binding, i.e. one
-that refers to the module as a whole rather than to a single named export.
+Check whether a local name is a default import.
+
+#### Parameters
+
+| Parameter | Type     | Description             |
+| --------- | -------- | ----------------------- |
+| `local`   | `string` | The local binding name. |
+
+#### Returns
+
+`boolean`
+
+---
+
+### isModuleBinding()
+
+```ts
+isModuleBinding(local: string): boolean;
+```
+
+Check whether a local name refers to the module as a whole, i.e. it is a
+default or namespace binding rather than a single named export.
 
 #### Parameters
 
