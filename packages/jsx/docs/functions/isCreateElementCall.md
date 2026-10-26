@@ -14,10 +14,10 @@ check is performed, matching `isAPICall("createElement")` in `@eslint-react/core
 
 ## Parameters
 
-| Parameter | Type                            | Description              |
-| --------- | ------------------------------- | ------------------------ |
-| `context` | `RuleContext`                   | The ESLint rule context. |
-| `node`    | `Node` \| `null` \| `undefined` | The node to inspect.     |
+| Parameter | Type                            | Description                                                    |
+| --------- | ------------------------------- | -------------------------------------------------------------- |
+| `context` | `RuleContext`                   | The ESLint rule context.                                       |
+| `node`    | `Node` \| `null` \| `undefined` | The node to inspect; nullish or non-call nodes return `false`. |
 
 ## Returns
 

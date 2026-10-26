@@ -1,8 +1,7 @@
 import { createRule } from "@/utils/create-rule";
-import { Check, Extract } from "@eslint-react/ast";
+import { isReactDOMCall } from "@/utils/is-react-dom-call";
 import { type RuleContext, type RuleFeature, type RuleListener } from "@eslint-react/eslint";
 import { createImportLookup } from "@eslint-react/var";
-import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 
 export const RULE_NAME = "no-flush-sync";
 
@@ -34,27 +33,11 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
 
   return {
     CallExpression(node) {
-      const callee = Extract.unwrap(node.callee);
-      switch (true) {
-        // Case 1: Direct call to `flushSync()`
-        case Check.isIdentifier(callee)
-          && imports.has(callee.name, "flushSync"):
-          context.report({
-            messageId: "default",
-            node,
-          });
-          return;
-        // Case 2: Member call like `ReactDOM.flushSync()`
-        case callee.type === AST.MemberExpression
-          && Check.isIdentifier(callee.object)
-          && Extract.getCalleeName(node) === "flushSync"
-          && imports.isModuleBinding(callee.object.name):
-          context.report({
-            messageId: "default",
-            node,
-          });
-          return;
-      }
+      if (!isReactDOMCall(node, imports, "flushSync")) return;
+      context.report({
+        messageId: "default",
+        node,
+      });
     },
   };
 }

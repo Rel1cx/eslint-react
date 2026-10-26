@@ -2,7 +2,7 @@ import { createRule } from "@/utils/create-rule";
 import { Check, type TSESTreeJSXElementLike } from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, type RuleListener, getText } from "@eslint-react/eslint";
-import { collapseMultilineText, getChildren, hasAnyAttribute, isFragmentElement, isHostElement, isWhitespaceText } from "@eslint-react/jsx";
+import { collapseMultilineText, getChildren, isFragmentElement, isHostElement, isPlainAttribute, isWhitespaceText } from "@eslint-react/jsx";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 import type { JSONSchema4 } from "@typescript-eslint/utils/json-schema";
 import type { RuleFix, RuleFixer } from "@typescript-eslint/utils/ts-eslint";
@@ -72,9 +72,8 @@ export function create(context: RuleContext<MessageID, Options>, [option]: Optio
   return {
     JSXElement(node) {
       if (!isFragmentElement(node, jsxFragmentFactory)) return;
-      if (hasAnyAttribute(node, ["key", "ref"])) return;
       // A spread attribute may provide key/ref; do not report conservatively.
-      if (node.openingElement.attributes.some((attribute) => attribute.type === AST.JSXSpreadAttribute)) return;
+      if (node.openingElement.attributes.some((a) => a.type === AST.JSXSpreadAttribute || isPlainAttribute(a, "key") || isPlainAttribute(a, "ref"))) return;
       visitFragment(context, node, options);
     },
     JSXFragment(node) {
@@ -153,7 +152,7 @@ function isContentUseless(node: TSESTreeJSXElementLike, options: ResolvedOptions
  * @param node The fragment node to check.
  */
 function isSafeToFix(node: TSESTreeJSXElementLike) {
-  if (node.type === AST.JSXElement && node.openingElement.attributes.some((attr) => attr.type === AST.JSXSpreadAttribute)) {
+  if (node.type === AST.JSXElement && node.openingElement.attributes.some((a) => a.type === AST.JSXSpreadAttribute)) {
     return false;
   }
 

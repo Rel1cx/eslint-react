@@ -21,4 +21,4 @@ that happen to evaluate to `""` are not evaluated by this predicate.
 
 `node is JSXExpressionContainer`
 
-`true` if the node is a `{""}` expression container.
+`true` if the node is an expression container holding an empty string literal.

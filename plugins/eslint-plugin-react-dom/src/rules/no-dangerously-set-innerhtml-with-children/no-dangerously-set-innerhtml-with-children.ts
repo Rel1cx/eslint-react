@@ -1,6 +1,7 @@
 import { createRule } from "@/utils/create-rule";
 import { type RuleContext, type RuleFeature, type RuleListener } from "@eslint-react/eslint";
 import { findAttribute, hasAttribute, isEmptyExpressionContainer, isPaddingWhitespace } from "@eslint-react/jsx";
+import type { TSESTree } from "@typescript-eslint/types";
 
 export const RULE_NAME = "no-dangerously-set-innerhtml-with-children";
 
@@ -31,8 +32,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
     JSXElement(node) {
       if (!hasAttribute(node, "dangerouslySetInnerHTML")) return;
       // Look for a 'children' prop or a child node that is not just whitespace
-      const childrenAttribute = findAttribute(node, "children");
-      const fact = childrenAttribute ?? node.children.find((child) => !isPaddingWhitespace(child) && !isEmptyExpressionContainer(child));
+      const fact = findAttribute(node, "children") ?? node.children.find(isChildContent);
       if (fact == null) return;
       context.report({
         messageId: "default",
@@ -40,4 +40,8 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       });
     },
   };
+}
+
+function isChildContent(child: TSESTree.JSXChild) {
+  return !isPaddingWhitespace(child) && !isEmptyExpressionContainer(child);
 }

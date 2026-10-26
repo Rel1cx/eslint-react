@@ -115,7 +115,7 @@ ruleTester.run(RULE_NAME, rule, {
         },
       },
     },
-    // Boundary: JSXAttribute with empty expression container (resolveAttributeValue handles JSXEmptyExpression)
+    // Boundary: JSXAttribute with empty expression container (getAttributeValue handles JSXEmptyExpression)
     {
       code: tsx`
         function App() {

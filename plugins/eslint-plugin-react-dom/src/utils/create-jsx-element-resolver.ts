@@ -1,5 +1,5 @@
 import type { RuleContext } from "@eslint-react/eslint";
-import { getAttributeStaticValue, getElementFullType } from "@eslint-react/jsx";
+import { getAttributeStaticValueByName, getElementFullType } from "@eslint-react/jsx";
 import { getSettingsFromContext } from "@eslint-react/shared";
 import { isString } from "@local/eff";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
@@ -47,7 +47,7 @@ export function createJSXElementResolver(context: RuleContext) {
       }
 
       // Try to get the value of the polymorphic prop (ex: 'as' or 'component')
-      const polyPropValue = getAttributeStaticValue(context, node, polymorphicPropName);
+      const polyPropValue = getAttributeStaticValueByName(context, node, polymorphicPropName);
 
       // If we have a string value, use it as the DOM element type; tag names are
       // case-insensitive in HTML, so normalize to lowercase for comparison

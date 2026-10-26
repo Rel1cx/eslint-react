@@ -6,15 +6,13 @@
 function isPaddingWhitespace(node: Node | null | undefined): node is JSXText;
 ```
 
-Check if the node is whitespace padding that React would trim away during
-rendering, that is, a `JSXText` node that cleans to nothing (see
-[collapseMultilineText](collapseMultilineText.md)) and contains a newline.
+Check if the node is whitespace-only `JSXText` that this module treats as
+padding: it cleans to nothing (see [collapseMultilineText](collapseMultilineText.md)) and contains
+a line feed (`\n`).
 
-For the looser "any whitespace-only text" check, see [isWhitespaceText](isWhitespaceText.md).
-
-Reads the entity-decoded `node.value`; `value` and `raw` differ only when the
-text contains HTML entities (ex: `&nbsp;`), which is never whitespace-only,
-so reading either field yields the same result here.
+Reads the entity-decoded `node.value`, so an entity-encoded line break such as
+`&#10;` matches even though the raw text contains no line break. For a
+whitespace check based on raw source text, see [isWhitespaceText](isWhitespaceText.md).
 
 ## Parameters
 
@@ -26,4 +24,4 @@ so reading either field yields the same result here.
 
 `node is JSXText`
 
-`true` if the node is purely formatting whitespace.
+`true` if the node is purely formatting whitespace by its decoded value.

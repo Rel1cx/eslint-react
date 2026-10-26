@@ -39,11 +39,9 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       const call = parseCreateElementCall(context, node);
       if (call == null) return;
       const prop = findCreateElementProp(context, call, "children");
-      if (prop == null) return;
-
       // `createElement(type, props, ...children)` treats arguments after the
       // props object as children content; without them there is no conflict
-      if (call.childrenArguments.length === 0) return;
+      if (prop == null || call.childrenArguments.length === 0) return;
 
       context.report({
         messageId: "default",

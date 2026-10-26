@@ -8,9 +8,14 @@ function findCreateElementProp(context: RuleContext, call: CreateElementCall | n
 
 Find a statically named direct property in the props object of a `createElement` call.
 
-Properties are scanned in reverse so that later entries win. Only direct
-properties are considered; spread properties are ignored rather than
-statically resolved. Statically evaluable computed keys are matched.
+Properties are scanned in reverse so that the last direct property takes precedence.
+Spread properties are ignored rather than statically resolved; a spread after
+the returned property may still override it at runtime. Statically evaluable
+computed keys are matched.
+
+Returns `null` when the call is `null` or has no statically identifiable props
+object, that is, when the second argument is absent or is not an object
+literal after unwrapping type/chain expressions.
 
 ## Parameters
 
@@ -24,4 +29,4 @@ statically resolved. Statically evaluable computed keys are matched.
 
 `Property` \| `null`
 
-The matching `Property` node, or `null` when not found.
+The last matching `Property` node, or `null` when not found.

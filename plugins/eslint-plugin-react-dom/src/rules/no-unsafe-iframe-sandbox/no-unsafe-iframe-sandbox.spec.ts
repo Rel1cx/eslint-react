@@ -193,9 +193,9 @@ ruleTester.run(RULE_NAME, rule, {
     tsx`<iframe sandbox />;`,
     // Boolean expression sandbox
     tsx`<iframe sandbox={true} />;`,
-    // Boundary: JSXAttribute with empty expression container (resolveAttributeValue handles JSXEmptyExpression)
+    // Boundary: JSXAttribute with empty expression container (getAttributeValue handles JSXEmptyExpression)
     tsx`<iframe sandbox={} />;`,
-    // Boundary: JSXAttribute with a fragment value (parser-tolerated; resolveAttributeValue reports kind "element")
+    // Boundary: JSXAttribute with a fragment value (parser-tolerated; getAttributeValue reports kind "element")
     tsx`<iframe sandbox=<></> />;`,
     // Boundary: member expression without a polymorphic prop is not an iframe
     '<motion.iframe sandbox="allow-scripts allow-same-origin" />;',

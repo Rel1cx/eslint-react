@@ -14,13 +14,13 @@ the function acts as a simple type guard for `JSXElement | JSXFragment`.
 
 ## Parameters
 
-| Parameter | Type                                            | Description                                      |
-| --------- | ----------------------------------------------- | ------------------------------------------------ |
-| `node`    | `Node` \| `null` \| `undefined`                 | The node to check.                               |
-| `test?`   | [`ElementTest`](../type-aliases/ElementTest.md) | Optional test to match the element type against. |
+| Parameter | Type                                            | Description                                           |
+| --------- | ----------------------------------------------- | ----------------------------------------------------- |
+| `node`    | `Node` \| `null` \| `undefined`                 | The node to check.                                    |
+| `test?`   | [`ElementTest`](../type-aliases/ElementTest.md) | Optional test to match the full element type against. |
 
 ## Returns
 
 `node is TSESTreeJSXElementLike`
 
-`true` if the node is a matching JSX element.
+`true` if the node is a matching JSX element or fragment.

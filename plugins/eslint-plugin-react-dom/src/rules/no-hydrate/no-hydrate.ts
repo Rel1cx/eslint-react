@@ -1,9 +1,9 @@
 import { createRule } from "@/utils/create-rule";
-import { Check, Extract } from "@eslint-react/ast";
+import { isReactDOMCall } from "@/utils/is-react-dom-call";
 import { type RuleContext, type RuleFeature, type RuleFixer, type RuleListener, getText } from "@eslint-react/eslint";
 import { getSettingsFromContext } from "@eslint-react/shared";
 import { createImportLookup } from "@eslint-react/var";
-import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
+import type { TSESTree } from "@typescript-eslint/types";
 import { compare } from "compare-versions";
 
 export const RULE_NAME = "no-hydrate";
@@ -43,29 +43,12 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
 
   return {
     CallExpression(node) {
-      const callee = Extract.unwrap(node.callee);
-      switch (true) {
-        // Case 1: Direct call to `hydrate()`
-        case Check.isIdentifier(callee)
-          && imports.has(callee.name, "hydrate"):
-          context.report({
-            fix: buildFix(context, node),
-            messageId: "default",
-            node,
-          });
-          return;
-        // Case 2: Member call like `ReactDOM.hydrate()`
-        case callee.type === AST.MemberExpression
-          && Check.isIdentifier(callee.object)
-          && Extract.getCalleeName(node) === "hydrate"
-          && imports.isModuleBinding(callee.object.name):
-          context.report({
-            fix: buildFix(context, node),
-            messageId: "default",
-            node,
-          });
-          return;
-      }
+      if (!isReactDOMCall(node, imports, "hydrate")) return;
+      context.report({
+        fix: buildFix(context, node),
+        messageId: "default",
+        node,
+      });
     },
   };
 }

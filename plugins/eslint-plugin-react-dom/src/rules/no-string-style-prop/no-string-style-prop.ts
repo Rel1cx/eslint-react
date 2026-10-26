@@ -1,7 +1,7 @@
 import { createRule } from "@/utils/create-rule";
 import { getAttributeReportNode } from "@/utils/get-attribute-report-node";
 import { type RuleContext, type RuleFeature, type RuleListener } from "@eslint-react/eslint";
-import { getAttributeValue, isHostElement, resolveAttributeStaticValue } from "@eslint-react/jsx";
+import { getAttributeStaticValue, getAttributeValueByName, isHostElement } from "@eslint-react/jsx";
 import { isString } from "@local/eff";
 
 export const RULE_NAME = "no-string-style-prop";
@@ -31,15 +31,12 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       // This rule only applies to host elements (ex: <div />, <span />), not custom components
       if (!isHostElement(node)) return;
 
-      const styleValue = getAttributeValue(node, "style");
-      if (styleValue == null) return;
-      if (!isString(resolveAttributeStaticValue(context, styleValue))) return;
-
-      const reportNode = getAttributeReportNode(styleValue);
+      const styleValue = getAttributeValueByName(node, "style");
+      if (styleValue == null || !isString(getAttributeStaticValue(context, styleValue))) return;
 
       context.report({
         messageId: "default",
-        node: reportNode,
+        node: getAttributeReportNode(styleValue),
       });
     },
   };

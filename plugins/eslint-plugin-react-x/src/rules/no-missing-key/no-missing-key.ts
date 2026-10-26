@@ -71,7 +71,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         return visitItemExpression(node.expression);
       case AST.JSXElement:
         // Spread attributes are not resolved and may provide `key`.
-        if (node.openingElement.attributes.some((attribute) => attribute.type === AST.JSXSpreadAttribute)) return [];
+        if (node.openingElement.attributes.some((a) => a.type === AST.JSXSpreadAttribute)) return [];
         return hasAttribute(node, "key")
           ? []
           : [{ messageId: "default", node }];

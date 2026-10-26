@@ -12,13 +12,13 @@ Spread attributes are ignored; only direct `JSXAttribute` nodes are checked.
 
 ## Parameters
 
-| Parameter | Type         | Description                                       |
-| --------- | ------------ | ------------------------------------------------- |
-| `element` | `JSXElement` | The `JSXElement` node to check.                   |
-| `name`    | `string`     | The attribute name to look for (ex: "className"). |
+| Parameter | Type         | Description                                                         |
+| --------- | ------------ | ------------------------------------------------------------------- |
+| `element` | `JSXElement` | The `JSXElement` node to check.                                     |
+| `name`    | `string`     | The full attribute name to look for (ex: "className", "xml:space"). |
 
 ## Returns
 
 `boolean`
 
-`true` if the attribute is present on the element.
+`true` if the attribute is directly present on the element.

@@ -1,6 +1,7 @@
 import { createRule } from "@/utils/create-rule";
 import { type RuleContext, type RuleFeature, type RuleListener } from "@eslint-react/eslint";
 import { getElementFullType } from "@eslint-react/jsx";
+import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 
 export const RULE_NAME = "no-namespace";
 
@@ -26,14 +27,14 @@ export default createRule<[], MessageID>({
 export function create(context: RuleContext<MessageID, []>): RuleListener {
   return {
     JSXElement(node) {
-      const name = getElementFullType(node);
-      if (!name.includes(":")) return;
+      const { name } = node.openingElement;
+      if (name.type !== AST.JSXNamespacedName) return;
       context.report({
         data: {
-          name,
+          name: getElementFullType(node),
         },
         messageId: "default",
-        node: node.openingElement.name,
+        node: name,
       });
     },
   };

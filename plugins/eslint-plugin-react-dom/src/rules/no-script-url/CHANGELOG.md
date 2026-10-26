@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- Adapted to the rewritten `@eslint-react/jsx` value APIs: attribute values are resolved as pure descriptors and collapsed with `resolveAttributeStaticValue`; no behavior change.
+- Adapted to the rewritten `@eslint-react/jsx` value APIs: attribute values are resolved as pure descriptors and collapsed with `getAttributeStaticValue`; no behavior change.
 
 ## [5.2.3-beta.0] - 2026-04-14
 

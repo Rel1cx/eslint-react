@@ -1,15 +1,39 @@
-import { describe, expect, expectTypeOf, it } from "vitest";
+import { describe, expect, expectTypeOf, it, vi } from "vitest";
 
 import {
+  Class,
+  Mixin,
+  Prototype,
+  SK,
+  absurd,
   and,
+  apply,
+  cast,
+  compose,
+  constFalse,
+  constNull,
+  constTrue,
+  constUndefined,
+  constVoid,
+  constant,
+  dropWhile,
+  dual,
   eqv,
   every,
+  flip,
+  flow,
+  getOrInsert,
+  getOrInsertComputed,
   hasProperty,
+  hole,
+  identity,
   implies,
+  isArray,
   isBigInt,
   isBoolean,
   isDate,
   isError,
+  isFunction,
   isIterable,
   isMap,
   isNever,
@@ -19,6 +43,7 @@ import {
   isNull,
   isNullish,
   isNumber,
+  isObject,
   isObjectKeyword,
   isObjectOrArray,
   isPromise,
@@ -28,18 +53,221 @@ import {
   isSet,
   isString,
   isSymbol,
+  isTruthy,
   isUint8Array,
   isUndefined,
   isUnknown,
+  memoize,
   nand,
   nor,
   not,
   or,
+  pipe,
+  pipeArguments,
+  satisfies,
   some,
+  takeWhile,
+  tupled,
+  untupled,
   xor,
 } from "./index";
+import type { FunctionN, LazyArg, Pipeable, PipeableConstructor, Pretty } from "./index";
 
-describe("combinator truth tables", () => {
+// #region Function
+
+describe("pipe, flow, and dual", () => {
+  it("pipe applies functions from left to right", () => {
+    expect(pipe(1)).toBe(1);
+    expect(pipe(1, (n) => n + 1)).toBe(2);
+    expect(pipe(1, (n) => n + 1, (n) => n * 2)).toBe(4);
+  });
+
+  it("flow composes functions from left to right", () => {
+    const len = (s: string): number => s.length;
+    const double = (n: number): number => n * 2;
+    expect(flow(len, double)("aaa")).toBe(6);
+    expect(flow(double)(2)).toBe(4);
+  });
+
+  it("pipeArguments applies IArguments from left to right", () => {
+    function run(..._fns: Array<(x: unknown) => unknown>): unknown {
+      return pipeArguments(1, arguments);
+    }
+    expect(run()).toBe(1);
+    expect(run((n) => (n as number) + 1, (n) => (n as number) * 2)).toBe(4);
+    expect(run(...Array.from({ length: 10 }, () => (n: unknown) => (n as number) + 1))).toBe(11);
+  });
+
+  it("dual supports data-first and data-last call styles by arity", () => {
+    const sum = dual<
+      (that: number) => (self: number) => number,
+      (self: number, that: number) => number
+    >(2, (self, that) => self + that);
+    expect(sum(2, 3)).toBe(5);
+    expect(sum(3)(2)).toBe(5);
+    expect(pipe(2, sum(3))).toBe(5);
+  });
+
+  it("dual supports a predicate to select the call style", () => {
+    const sum = dual<
+      (that: number) => (self: number) => number,
+      (self: number, that: number) => number
+    >((args) => args.length === 2, (self, that) => self + that);
+    expect(sum(2, 3)).toBe(5);
+    expect(sum(3)(2)).toBe(5);
+  });
+
+  it("dual rejects arities 0 and 1", () => {
+    expect(() => dual<() => number, () => number>(0, () => 0)).toThrow(RangeError);
+    expect(() => dual<(a: number) => number, (a: number) => number>(1, (a) => a)).toThrow(RangeError);
+  });
+
+  it("dual supports arities greater than 3", () => {
+    const sum4 = dual<
+      (b: number, c: number, d: number) => (a: number) => number,
+      (a: number, b: number, c: number, d: number) => number
+    >(4, (a, b, c, d) => a + b + c + d);
+    expect(sum4(1, 2, 3, 4)).toBe(10);
+    expect(sum4(2, 3, 4)(1)).toBe(10);
+  });
+});
+
+describe("function combinators", () => {
+  it("apply passes a value into a unary function", () => {
+    expect(apply(2)((n: number) => n * 3)).toBe(6);
+  });
+
+  it("identity returns its input unchanged", () => {
+    const value = {};
+    expect(identity(5)).toBe(5);
+    expect(identity(value)).toBe(value);
+  });
+
+  it("satisfies returns its input", () => {
+    const value = satisfies<number>()(5 as const);
+    expect(value).toBe(5);
+    expectTypeOf(value).toEqualTypeOf<5>();
+  });
+
+  it("cast returns its input unchanged", () => {
+    const value = cast<number, string>(1);
+    expect(value).toBe(1);
+    expectTypeOf(value).toEqualTypeOf<string>();
+  });
+
+  it("flip reverses curried arguments", () => {
+    const f = (a: number) => (b: string) => a - b.length;
+    expect(flip(f)("aaa")(2)).toBe(-1);
+  });
+
+  it("compose composes two unary functions", () => {
+    const increment = (n: number) => n + 1;
+    const square = (n: number) => n * n;
+    expect(compose(increment, square)(2)).toBe(9);
+    expect(compose(square)(increment)(2)).toBe(9);
+  });
+
+  it("absurd throws when called", () => {
+    expect(() => absurd(undefined as never)).toThrow("Called `absurd` function which should be uncallable");
+  });
+
+  it("tupled converts an argument list to a tuple", () => {
+    const sum = tupled((x: number, y: number) => x + y);
+    expect(sum([1, 2])).toBe(3);
+  });
+
+  it("untupled converts a tuple to an argument list", () => {
+    const first = untupled((tuple: [number, string]) => tuple[0]);
+    expect(first(1, "a")).toBe(1);
+  });
+
+  it("hole throws when evaluated", () => {
+    expect(() => hole<number>()).toThrow("Called `absurd` function which should be uncallable");
+  });
+
+  it("SK returns the second argument", () => {
+    expect(SK(0, "hello")).toBe("hello");
+  });
+});
+
+describe("constants", () => {
+  it("constant returns the same value on every call", () => {
+    const value = { n: 1 };
+    const get = constant(value);
+    expect(get()).toBe(value);
+    expect(get()).toBe(value);
+  });
+
+  it("constTrue / constFalse / constNull / constUndefined / constVoid", () => {
+    expect(constTrue()).toBe(true);
+    expect(constFalse()).toBe(false);
+    expect(constNull()).toBeNull();
+    expect(constUndefined()).toBeUndefined();
+    expect(constVoid()).toBeUndefined();
+  });
+});
+
+describe("Pipeable", () => {
+  it("Prototype provides a reusable pipe method", () => {
+    const value = { ...Prototype, n: 1 };
+    expect(value.pipe((self) => self.n + 1)).toBe(2);
+  });
+
+  it("Class provides a base constructor with pipe", () => {
+    class Box extends Class {
+      readonly n: number;
+
+      constructor(n: number) {
+        super();
+        this.n = n;
+      }
+    }
+    expect(new Box(2).pipe((self) => self.n * 3)).toBe(6);
+  });
+
+  it("Mixin adds pipe to an existing class", () => {
+    class Base {
+      readonly n: number;
+
+      constructor(n: number) {
+        this.n = n;
+      }
+    }
+    const Piped = Mixin(Base);
+    const instance = new Piped(2) as unknown as Base & Pipeable;
+    expect(instance.n).toBe(2);
+    expect(instance.pipe((self) => self.n + 1)).toBe(3);
+  });
+});
+
+describe("memoize", () => {
+  it("caches primitive keys by value", () => {
+    const f = vi.fn((n: number) => n * 2);
+    const memoized = memoize(f);
+    expect(memoized(2)).toBe(4);
+    expect(memoized(2)).toBe(4);
+    expect(f).toHaveBeenCalledTimes(1);
+    expect(memoized(3)).toBe(6);
+    expect(f).toHaveBeenCalledTimes(2);
+  });
+
+  it("caches object keys by identity", () => {
+    const f = vi.fn((value: { n: number }) => value.n + 1);
+    const memoized = memoize(f);
+    const key = { n: 1 };
+    expect(memoized(key)).toBe(2);
+    expect(memoized(key)).toBe(2);
+    expect(f).toHaveBeenCalledTimes(1);
+    expect(memoized({ n: 1 })).toBe(2);
+    expect(f).toHaveBeenCalledTimes(2);
+  });
+});
+
+// #endregion
+
+// #region Predicate
+
+describe("predicate combinators", () => {
   const tt = () => true;
   const ff = () => false;
 
@@ -184,7 +412,7 @@ describe("every and some", () => {
 });
 
 describe("primitive guards", () => {
-  it("isString", () => {
+  it("isString matches primitive strings", () => {
     expect(isString("")).toBe(true);
     expect(isString("x")).toBe(true);
     expect(isString(new String("x"))).toBe(false);
@@ -202,22 +430,42 @@ describe("primitive guards", () => {
     expect(isNumber(1n)).toBe(false);
   });
 
-  it("isBoolean", () => {
+  it("isBoolean matches primitive booleans", () => {
     expect(isBoolean(true)).toBe(true);
     expect(isBoolean(false)).toBe(true);
     expect(isBoolean(new Boolean(true))).toBe(false);
     expect(isBoolean(0)).toBe(false);
   });
 
-  it("isBigInt", () => {
+  it("isBigInt matches primitive bigints", () => {
     expect(isBigInt(1n)).toBe(true);
     expect(isBigInt(1)).toBe(false);
   });
 
-  it("isSymbol", () => {
+  it("isSymbol matches primitive symbols", () => {
     expect(isSymbol(Symbol())).toBe(true);
     expect(isSymbol(Symbol.iterator)).toBe(true);
     expect(isSymbol("symbol")).toBe(false);
+  });
+
+  it("isPropertyKey accepts string, number, symbol", () => {
+    expect(isPropertyKey("a")).toBe(true);
+    expect(isPropertyKey(1)).toBe(true);
+    expect(isPropertyKey(NaN)).toBe(true);
+    expect(isPropertyKey(Symbol())).toBe(true);
+    expect(isPropertyKey(1n)).toBe(false);
+    expect(isPropertyKey(null)).toBe(false);
+    expect(isPropertyKey({})).toBe(false);
+  });
+
+  it("isTruthy mirrors JavaScript truthiness", () => {
+    expect(isTruthy(1)).toBe(true);
+    expect(isTruthy("x")).toBe(true);
+    expect(isTruthy([])).toBe(true);
+    expect(isTruthy(0)).toBe(false);
+    expect(isTruthy("")).toBe(false);
+    expect(isTruthy(null)).toBe(false);
+    expect(isTruthy(undefined)).toBe(false);
   });
 
   it("isNull / isUndefined / isNullish", () => {
@@ -254,19 +502,41 @@ describe("primitive guards", () => {
     expect(isUnknown(null)).toBe(true);
     expect(isUnknown(undefined)).toBe(true);
   });
+});
 
-  it("isPropertyKey accepts string, number, symbol", () => {
-    expect(isPropertyKey("a")).toBe(true);
-    expect(isPropertyKey(1)).toBe(true);
-    expect(isPropertyKey(NaN)).toBe(true);
-    expect(isPropertyKey(Symbol())).toBe(true);
-    expect(isPropertyKey(1n)).toBe(false);
-    expect(isPropertyKey(null)).toBe(false);
-    expect(isPropertyKey({})).toBe(false);
+describe("function guards", () => {
+  it("isFunction matches callable values", () => {
+    expect(isFunction(() => 0)).toBe(true);
+    expect(isFunction(function() {})).toBe(true);
+    expect(isFunction(async () => 0)).toBe(true);
+    expect(isFunction(function*() {})).toBe(true);
+    expect(isFunction(class {})).toBe(true);
+    expect(isFunction({})).toBe(false);
+    expect(isFunction(null)).toBe(false);
+    expect(isFunction("function")).toBe(false);
   });
 });
 
 describe("object guards", () => {
+  it("isArray matches arrays only", () => {
+    expect(isArray([])).toBe(true);
+    expect(isArray([1, 2])).toBe(true);
+    expect(isArray([1, 2] as const)).toBe(true);
+    expect(isArray({})).toBe(false);
+    expect(isArray("abc")).toBe(false);
+    expect(isArray(new Uint8Array())).toBe(false);
+    expect(isArray(null)).toBe(false);
+  });
+
+  it("isObject matches non-null, non-array objects", () => {
+    expect(isObject({})).toBe(true);
+    expect(isObject(new Date())).toBe(true);
+    expect(isObject([])).toBe(false);
+    expect(isObject(() => 0)).toBe(false);
+    expect(isObject(null)).toBe(false);
+    expect(isObject("x")).toBe(false);
+  });
+
   it("isObjectOrArray matches non-null objects including arrays, excluding functions", () => {
     expect(isObjectOrArray({})).toBe(true);
     expect(isObjectOrArray([])).toBe(true);
@@ -297,6 +567,40 @@ describe("object guards", () => {
     expect(hasProperty(undefined, "a")).toBe(false);
     expect(hasProperty("str", "length")).toBe(false);
     expect(hasProperty(1, "toString")).toBe(false);
+    expect(hasProperty("a")({ a: 1 })).toBe(true);
+    expect(hasProperty("missing")({})).toBe(false);
+  });
+
+  it("isSet matches Set instances", () => {
+    expect(isSet(new Set())).toBe(true);
+    expect(isSet(new WeakSet())).toBe(false);
+  });
+
+  it("isMap matches Map instances", () => {
+    expect(isMap(new Map())).toBe(true);
+    expect(isMap(new WeakMap())).toBe(false);
+  });
+
+  it("isDate matches Date instances", () => {
+    expect(isDate(new Date())).toBe(true);
+    expect(isDate({})).toBe(false);
+  });
+
+  it("isError matches Error instances", () => {
+    expect(isError(new Error())).toBe(true);
+    expect(isError(new TypeError())).toBe(true);
+    expect(isError({ message: "x" })).toBe(false);
+  });
+
+  it("isRegExp matches RegExp instances", () => {
+    expect(isRegExp(/x/)).toBe(true);
+    expect(isRegExp("x")).toBe(false);
+  });
+
+  it("isUint8Array matches Uint8Array instances", () => {
+    expect(isUint8Array(new Uint8Array())).toBe(true);
+    expect(isUint8Array(new Uint16Array())).toBe(false);
+    expect(isUint8Array([])).toBe(false);
   });
 
   it("isIterable matches iterables including strings", () => {
@@ -327,23 +631,6 @@ describe("object guards", () => {
     expect(isPromiseLike({})).toBe(false);
     expect(isPromiseLike(null)).toBe(false);
   });
-
-  it("instanceof guards", () => {
-    expect(isDate(new Date())).toBe(true);
-    expect(isDate({})).toBe(false);
-    expect(isError(new Error())).toBe(true);
-    expect(isError(new TypeError())).toBe(true);
-    expect(isError({ message: "x" })).toBe(false);
-    expect(isRegExp(/x/)).toBe(true);
-    expect(isRegExp("x")).toBe(false);
-    expect(isMap(new Map())).toBe(true);
-    expect(isMap(new WeakMap())).toBe(false);
-    expect(isSet(new Set())).toBe(true);
-    expect(isSet(new WeakSet())).toBe(false);
-    expect(isUint8Array(new Uint8Array())).toBe(true);
-    expect(isUint8Array(new Uint16Array())).toBe(false);
-    expect(isUint8Array([])).toBe(false);
-  });
 });
 
 describe("guard composition with not/and/or", () => {
@@ -367,6 +654,87 @@ describe("guard composition with not/and/or", () => {
     expect(isStringOrNumber(null)).toBe(false);
   });
 });
+
+// #endregion
+
+// #region Map & Set
+
+describe("map & set helpers", () => {
+  it("getOrInsert returns existing values without overwriting", () => {
+    const map = new Map<string, number>([["a", 1]]);
+    expect(getOrInsert(map, "a", 2)).toBe(1);
+    expect(map.get("a")).toBe(1);
+  });
+
+  it("getOrInsert inserts and returns the default for missing keys", () => {
+    const map = new Map<string, number>();
+    expect(getOrInsert(map, "a", 1)).toBe(1);
+    expect(map.get("a")).toBe(1);
+
+    const key = {};
+    const weakMap = new WeakMap<object, number>();
+    expect(getOrInsert(weakMap, key, 2)).toBe(2);
+    expect(getOrInsert(weakMap, key, 3)).toBe(2);
+  });
+
+  it("getOrInsertComputed only computes for missing keys", () => {
+    const map = new Map<string, number>([["a", 1]]);
+    const compute = vi.fn((key: string) => key.length);
+    expect(getOrInsertComputed(map, "a", compute)).toBe(1);
+    expect(compute).not.toHaveBeenCalled();
+    expect(getOrInsertComputed(map, "abc", compute)).toBe(3);
+    expect(compute).toHaveBeenCalledWith("abc");
+    expect(map.get("abc")).toBe(3);
+  });
+
+  it("getOrInsertComputed supports WeakMap", () => {
+    const key = {};
+    const weakMap = new WeakMap<object, number>();
+    expect(getOrInsertComputed(weakMap, key, () => 1)).toBe(1);
+    expect(getOrInsertComputed(weakMap, key, () => 2)).toBe(1);
+  });
+});
+
+// #endregion
+
+// #region Array
+
+describe("array helpers", () => {
+  it("dropWhile drops the leading matching elements", () => {
+    expect(dropWhile([1, 2, 3, 4, 5], (x) => x < 4)).toEqual([4, 5]);
+    expect(dropWhile([1, 2, 3], (x) => x < 4)).toEqual([]);
+    expect(dropWhile<number>((x) => x < 3)([1, 2, 3, 4])).toEqual([3, 4]);
+  });
+
+  it("dropWhile passes the element index to the predicate", () => {
+    expect(dropWhile([1, 2, 3, 4], (_, i) => i < 2)).toEqual([3, 4]);
+  });
+
+  it("dropWhile accepts any iterable", () => {
+    expect(dropWhile(new Set([1, 2, 3, 4]), (x) => x < 3)).toEqual([3, 4]);
+  });
+
+  it("takeWhile keeps the leading matching elements", () => {
+    expect(takeWhile([1, 3, 2, 4, 1, 2], (x) => x < 4)).toEqual([1, 3, 2]);
+    expect(takeWhile([4, 1], (x) => x < 4)).toEqual([]);
+    expect(takeWhile<number>((x) => x < 3)([1, 2, 3, 4])).toEqual([1, 2]);
+  });
+
+  it("takeWhile supports refinements", () => {
+    const input: Array<number | string> = [1, 2, "a", 3];
+    const result = takeWhile(input, (x): x is number => typeof x === "number");
+    expect(result).toEqual([1, 2]);
+    expectTypeOf(result).toEqualTypeOf<Array<number>>();
+  });
+
+  it("takeWhile accepts any iterable", () => {
+    expect(takeWhile(new Set([1, 2, 3]), (x) => x < 3)).toEqual([1, 2]);
+  });
+});
+
+// #endregion
+
+// #region Types
 
 describe("type narrowing", () => {
   it("and narrows to the intersection of two guards", () => {
@@ -413,4 +781,46 @@ describe("type narrowing", () => {
     if (isNotNull(value)) expectTypeOf(value).toEqualTypeOf<string | number | undefined>();
     if (isNotUndefined(value)) expectTypeOf(value).toEqualTypeOf<string | number | null>();
   });
+
+  it("isFunction narrows to Function", () => {
+    const value = {} as unknown;
+    if (isFunction(value)) {
+      expectTypeOf(value).toEqualTypeOf<Function>();
+    }
+  });
+
+  it("isArray narrows to an array", () => {
+    const value = {} as unknown;
+    if (isArray(value)) {
+      expectTypeOf(value).toEqualTypeOf<Array<unknown>>();
+    }
+  });
+
+  it("isObject narrows to an object record", () => {
+    const value = {} as unknown;
+    if (isObject(value)) {
+      expectTypeOf(value).toEqualTypeOf<{ [x: PropertyKey]: unknown }>();
+    }
+  });
 });
+
+describe("type utilities", () => {
+  it("Pretty flattens intersections", () => {
+    expectTypeOf<Pretty<{ a: 1 } & { b: 2 }>>().toEqualTypeOf<{ a: 1; b: 2 }>();
+  });
+
+  it("Pipeable / PipeableConstructor match their implementations", () => {
+    expectTypeOf(Class).toExtend<PipeableConstructor>();
+    expectTypeOf(Prototype).toExtend<Pipeable>();
+  });
+
+  it("LazyArg is a zero-argument function", () => {
+    expectTypeOf<LazyArg<number>>().toEqualTypeOf<() => number>();
+  });
+
+  it("FunctionN describes a function with a tuple argument list", () => {
+    expectTypeOf<FunctionN<[number, string], boolean>>().toEqualTypeOf<(a: number, b: string) => boolean>();
+  });
+});
+
+// #endregion

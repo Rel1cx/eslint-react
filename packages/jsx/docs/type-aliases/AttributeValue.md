@@ -28,22 +28,26 @@ type AttributeValue =
     attribute: TSESTree.JSXAttribute;
     kind: "missing";
     node: TSESTree.JSXEmptyExpression;
-  }
-  | {
-    attribute: TSESTree.JSXAttribute;
-    kind: "spreadChild";
-    node: TSESTree.JSXSpreadChild;
-  }
-  | {
-    attribute: TSESTree.JSXSpreadAttribute;
-    kind: "spreadProps";
   };
 ```
 
-The structural value of an attribute.
+The structural value of a direct JSX attribute.
 
-Direct attributes carry the source `attribute` and, when it exists, the value
-node. The `spreadProps` variant only records the spread attribute itself: its
-properties and values are not resolved. This is plain data; use
-[resolveAttributeStaticValue](../functions/resolveAttributeStaticValue.md) to collapse direct values to a plain
-JavaScript value.
+- `boolean`: the attribute has no value (ex: `<input disabled />`).
+- `literal`: the value is a literal.
+- `unknown`: a non-empty expression, normally in an expression container;
+  the expression is not evaluated.
+- `element`: the value is a JSX element or fragment.
+- `missing`: no expression, normally an empty expression container
+  (`{}` or `{/* comment */}`).
+
+Every variant carries the source `attribute`; `node` is `null` only for the
+`boolean` kind. This is plain data; use [getAttributeStaticValue](../functions/getAttributeStaticValue.md) to
+collapse values to a plain JavaScript value.
+
+## Remarks
+
+The `spreadChild` variant is omitted because it is not valid in attribute
+value position and is not produced by current parsers. The `spreadProps`
+variant is omitted because spread props are not resolved and direct attribute
+lookup never produces a spread descriptor.

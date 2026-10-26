@@ -8,11 +8,10 @@ function isFragmentElement(node: Node | null | undefined, jsxFragmentFactory: st
 
 Check if the node is a React Fragment element.
 
-Recognizes both the shorthand `<>...</>` syntax (`JSXFragment`) and the explicit
-`<Fragment>` / `<React.Fragment>` form (`JSXElement`). The comparison is performed
-against the self name (last dot-separated segment) of both the node and the
-configured factory, so `<React.Fragment>` matches `"React.Fragment"` and
-`<Fragment>` matches `"Fragment"`.
+Recognizes the shorthand `<>...</>` syntax (`JSXFragment`) and the explicit
+`<Fragment>` / `<React.Fragment>` form (`JSXElement`). Matching compares only
+the last dot-separated segment, so with the usual `"React.Fragment"` factory
+both `<React.Fragment>` and `<Fragment>` match.
 
 The factory is a required parameter (no implicit `"React.Fragment"` default) so
 that callers always pass the project-configured pragma — see `getJSXConfig` in
@@ -22,13 +21,13 @@ JSX runtime (ex: Preact). Note the self-name comparison is a heuristic: any
 
 ## Parameters
 
-| Parameter            | Type                            | Description                                                    |
-| -------------------- | ------------------------------- | -------------------------------------------------------------- |
-| `node`               | `Node` \| `null` \| `undefined` | The node to check.                                             |
-| `jsxFragmentFactory` | `string`                        | The configured fragment factory string (ex: "React.Fragment"). |
+| Parameter            | Type                            | Description                                                                                                     |
+| -------------------- | ------------------------------- | --------------------------------------------------------------------------------------------------------------- |
+| `node`               | `Node` \| `null` \| `undefined` | The node to check.                                                                                              |
+| `jsxFragmentFactory` | `string`                        | The configured fragment factory string (ex: "React.Fragment"); only its last dot-separated segment is compared. |
 
 ## Returns
 
 `node is TSESTreeJSXElementLike`
 
-`true` if the node represents a React Fragment.
+`true` if the node is a `JSXFragment` or its element type's self name matches the configured fragment self name.

@@ -5,14 +5,14 @@ export {
   findParentAttribute,
   getAttributeName,
   getAttributeStaticValue,
+  getAttributeStaticValueByName,
   getAttributeValue,
+  getAttributeValueByName,
   hasAnyAttribute,
   hasAttribute,
   hasEveryAttribute,
   isAttributeNamed,
   isPlainAttribute,
-  resolveAttributeStaticValue,
-  resolveAttributeValue,
 } from "./attribute";
 export {
   getChildren,

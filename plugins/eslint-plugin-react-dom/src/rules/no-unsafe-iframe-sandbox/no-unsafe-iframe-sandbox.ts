@@ -2,7 +2,7 @@ import { createJSXElementResolver } from "@/utils/create-jsx-element-resolver";
 import { createRule } from "@/utils/create-rule";
 import { getAttributeReportNode } from "@/utils/get-attribute-report-node";
 import { type RuleContext, type RuleFeature, type RuleListener } from "@eslint-react/eslint";
-import { getAttributeValue, resolveAttributeStaticValue } from "@eslint-react/jsx";
+import { getAttributeStaticValue, getAttributeValueByName } from "@eslint-react/jsx";
 import { isString } from "@local/eff";
 
 export const RULE_NAME = "no-unsafe-iframe-sandbox";
@@ -36,16 +36,14 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       const { domElementType } = resolver.resolve(node);
       if (domElementType !== "iframe") return;
 
-      const sandboxValue = getAttributeValue(node, "sandbox");
+      const sandboxValue = getAttributeValueByName(node, "sandbox");
       if (sandboxValue == null) return;
-      const value = resolveAttributeStaticValue(context, sandboxValue);
+      const value = getAttributeStaticValue(context, sandboxValue);
       if (!isString(value) || !UNSAFE_SANDBOX_VALUES.every((a) => value.includes(a))) return;
-
-      const reportNode = getAttributeReportNode(sandboxValue);
 
       context.report({
         messageId: "default",
-        node: reportNode,
+        node: getAttributeReportNode(sandboxValue),
       });
     },
   };

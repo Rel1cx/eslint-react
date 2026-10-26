@@ -7,8 +7,9 @@ function isHostElement(node: Node | null | undefined): node is JSXElement;
 ```
 
 Check if the node is a host (intrinsic / DOM) element, that is, a `JSXElement`
-whose tag name starts with a lowercase letter (ex: `<div>` vs `<MyComponent>`).
-For namespaced names, the local part is checked (ex: `rect` in `<svg:rect>`).
+whose tag name starts with an ASCII lowercase letter (ex: `<div>` vs
+`<MyComponent>`). For namespaced names, the local part is checked (ex: `rect`
+in `<svg:rect>`). Member-expression names (ex: `<foo.Bar>`) are not host elements.
 
 ## Parameters
 
@@ -20,4 +21,5 @@ For namespaced names, the local part is checked (ex: `rect` in `<svg:rect>`).
 
 `node is JSXElement`
 
-`true` if the node is a `JSXElement` with a lowercase tag name.
+`true` if the node is a `JSXElement` with a plain or namespaced tag
+name starting with an ASCII lowercase letter.

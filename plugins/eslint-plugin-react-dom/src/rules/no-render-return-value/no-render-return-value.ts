@@ -1,5 +1,6 @@
 import { createRule } from "@/utils/create-rule";
-import { Check, Extract } from "@eslint-react/ast";
+import { isReactDOMCall } from "@/utils/is-react-dom-call";
+import { Check } from "@eslint-react/ast";
 import { type RuleContext, type RuleFeature, type RuleListener } from "@eslint-react/eslint";
 import { createImportLookup } from "@eslint-react/var";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
@@ -7,15 +8,6 @@ import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 export const RULE_NAME = "no-render-return-value";
 
 export const RULE_FEATURES = [] as const satisfies RuleFeature[];
-
-// Parent AST node types that indicate the return value of `ReactDOM.render` is being used
-export const BANNED_PARENT_TYPES = [
-  AST.VariableDeclarator,
-  AST.Property,
-  AST.ReturnStatement,
-  AST.ArrowFunctionExpression,
-  AST.AssignmentExpression,
-];
 
 export type MessageID = "default";
 
@@ -46,32 +38,23 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
 
   return {
     CallExpression(node) {
-      const callee = Extract.unwrap(node.callee);
-      switch (true) {
-        // Case 1: Direct call to `render()`
-        case Check.isIdentifier(callee)
-          && imports.has(callee.name, "render")
-          && isReturnValueUsed(node):
-          context.report({
-            messageId: "default",
-            node,
-          });
-          return;
-        // Case 2: Member call like `ReactDOM.render()`
-        case callee.type === AST.MemberExpression
-          && Check.isIdentifier(callee.object)
-          && Extract.getCalleeName(node) === "render"
-          && imports.isModuleBinding(callee.object.name)
-          && isReturnValueUsed(node):
-          context.report({
-            messageId: "default",
-            node,
-          });
-          return;
-      }
+      if (!isReactDOMCall(node, imports, "render") || !isReturnValueUsed(node)) return;
+      context.report({
+        messageId: "default",
+        node,
+      });
     },
   };
 }
+
+// Parent AST node types that indicate the return value of `ReactDOM.render` is being used
+const BANNED_PARENT_TYPES = [
+  AST.VariableDeclarator,
+  AST.Property,
+  AST.ReturnStatement,
+  AST.ArrowFunctionExpression,
+  AST.AssignmentExpression,
+];
 
 function isReturnValueUsed(node: TSESTree.CallExpression) {
   let parent = node.parent;

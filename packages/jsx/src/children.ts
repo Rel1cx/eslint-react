@@ -3,33 +3,33 @@ import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import { collapseMultilineText } from "./text";
 
 /**
- * Check if the node is whitespace-only text.
+ * Check if the node is whitespace-only `JSXText`, based on its raw source text.
  *
- * Looser variant of {@link isPaddingWhitespace}; matches every `JSXText` node
- * whose raw content is empty after trimming, regardless of newlines.
+ * Matches any `JSXText` node whose raw text is empty after trimming, regardless
+ * of newlines. Same-line whitespace matches here; {@link isPaddingWhitespace}
+ * additionally requires a line feed and uses the decoded value.
  *
- * Reads `node.raw` rather than the entity-decoded `value`; for whitespace-only
- * text the two are identical (an entity is never whitespace), matching React's
- * behavior of rendering entity text like `&nbsp;` as a real text node.
+ * Reads `node.raw` rather than the entity-decoded `value`, so entity text such
+ * as `&nbsp;` or `&#32;` is treated as content even when its decoded value is
+ * whitespace. This is a syntactic check on the source text, not a model of
+ * React's whitespace collapsing.
  * @param node The node to check.
- * @returns `true` if the node is a whitespace-only `JSXText`.
+ * @returns `true` if the node is whitespace-only `JSXText` in its raw form.
  */
 export function isWhitespaceText(node: TSESTree.Node | null | undefined): node is TSESTree.JSXText {
   return node?.type === AST.JSXText && node.raw.trim() === "";
 }
 
 /**
- * Check if the node is whitespace padding that React would trim away during
- * rendering, that is, a `JSXText` node that cleans to nothing (see
- * {@link collapseMultilineText}) and contains a newline.
+ * Check if the node is whitespace-only `JSXText` that this module treats as
+ * padding: it cleans to nothing (see {@link collapseMultilineText}) and contains
+ * a line feed (`\n`).
  *
- * For the looser "any whitespace-only text" check, see {@link isWhitespaceText}.
- *
- * Reads the entity-decoded `node.value`; `value` and `raw` differ only when the
- * text contains HTML entities (ex: `&nbsp;`), which is never whitespace-only,
- * so reading either field yields the same result here.
+ * Reads the entity-decoded `node.value`, so an entity-encoded line break such as
+ * `&#10;` matches even though the raw text contains no line break. For a
+ * whitespace check based on raw source text, see {@link isWhitespaceText}.
  * @param node The node to check.
- * @returns `true` if the node is purely formatting whitespace.
+ * @returns `true` if the node is purely formatting whitespace by its decoded value.
  */
 export function isPaddingWhitespace(node: TSESTree.Node | null | undefined): node is TSESTree.JSXText {
   return node?.type === AST.JSXText && collapseMultilineText(node.value) == null && node.value.includes("\n");
@@ -53,7 +53,7 @@ export function isEmptyExpressionContainer(node: TSESTree.Node | null | undefine
  * Only a literal empty string matches; template literals and other expressions
  * that happen to evaluate to `""` are not evaluated by this predicate.
  * @param node The node to check.
- * @returns `true` if the node is a `{""}` expression container.
+ * @returns `true` if the node is an expression container holding an empty string literal.
  */
 export function isEmptyStringExpression(node: TSESTree.Node | null | undefined): node is TSESTree.JSXExpressionContainer {
   return node?.type === AST.JSXExpressionContainer && node.expression.type === AST.Literal && node.expression.value === "";
@@ -62,7 +62,8 @@ export function isEmptyStringExpression(node: TSESTree.Node | null | undefined):
 /**
  * Check if the child carries content for the "meaningful children" semantics.
  *
- * Any whitespace-only text (including same-line whitespace), empty expression
+ * Whitespace-only `JSXText` as determined by {@link isWhitespaceText} (which
+ * reads raw source text and therefore keeps entity text), empty expression
  * containers, and empty string literal expressions are excluded. This is a
  * syntactic check: `{null}`, `{false}`, and other dynamic expressions still
  * count as children content.
@@ -73,12 +74,13 @@ function isMeaningfulChild(node: TSESTree.JSXChild): boolean {
 
 /**
  * Get the children of a JSX element or fragment after removing syntactic JSX
- * artifacts: padding whitespace, empty expression containers, and empty string
- * literal expressions.
+ * artifacts: padding whitespace (see {@link isPaddingWhitespace}), empty
+ * expression containers, and empty string literal expressions.
  *
- * Same-line whitespace is kept because it renders as a text node. This is a
- * syntactic filter, not a runtime-rendering guarantee: `{null}`, `{false}`, and
- * other expressions that may render nothing are kept.
+ * Same-line whitespace is kept because it is not padding by this definition and
+ * can render as a text node. This is a syntactic filter, not a runtime-rendering
+ * guarantee: `{null}`, `{false}`, and other expressions that may render nothing
+ * are kept.
  * @param element A `JSXElement` or `JSXFragment` node.
  * @returns The children that remain after removing padding artifacts.
  */
@@ -93,11 +95,12 @@ export function getChildren(element: TSESTreeJSXElementLike): TSESTree.JSXChild[
 /**
  * Get the children of a JSX element or fragment that are not syntactically empty.
  *
- * Unlike {@link getChildren}, any whitespace-only text is excluded, so
- * `getMeaningfulChildren` is stricter for same-line whitespace
- * (ex: `<div> </div>` yields no children here but one child from `getChildren`).
- * Like `getChildren`, this is a syntactic check: `{null}`, `{false}`, and other
- * dynamic expressions count as children.
+ * Unlike {@link getChildren}, all whitespace-only `JSXText` as determined by
+ * {@link isWhitespaceText} is excluded, so `getMeaningfulChildren` is stricter
+ * for same-line whitespace (ex: `<div> </div>` yields no children here but one
+ * child from `getChildren`). Like `getChildren`, empty expression containers and
+ * empty string literal expressions are also excluded, and this is a syntactic
+ * check: `{null}`, `{false}`, and other dynamic expressions count as children.
  * @param element A `JSXElement` or `JSXFragment` node.
  * @returns The children that are not syntactically empty.
  */
@@ -108,8 +111,9 @@ export function getMeaningfulChildren(element: TSESTreeJSXElementLike): TSESTree
 /**
  * Check if the element has at least one syntactically non-empty child.
  *
- * A child counts when it is not whitespace-only text, an empty expression
- * container (`{}`), or an empty string literal expression (`{""}`). Same-line
+ * A child counts when it is not whitespace-only `JSXText` as determined by
+ * {@link isWhitespaceText}, an empty expression container (`{}` or
+ * `{/* comment *\/}`), or an empty string literal expression (`{""}`). Same-line
  * whitespace does not count, unlike in {@link getChildren}. `{null}`, `{false}`,
  * and other dynamic expressions do count.
  * @param element A `JSXElement` or `JSXFragment` node.

@@ -1,7 +1,7 @@
 import { createJSXElementResolver } from "@/utils/create-jsx-element-resolver";
 import { createRule } from "@/utils/create-rule";
 import { type ReportFixFunction, type RuleContext, type RuleFeature, type RuleListener } from "@eslint-react/eslint";
-import { getAttributeStaticValue, getAttributeValue, resolveAttributeStaticValue } from "@eslint-react/jsx";
+import { getAttributeStaticValue, getAttributeStaticValueByName, getAttributeValueByName } from "@eslint-react/jsx";
 import type { JSONSchema4 } from "@typescript-eslint/utils/json-schema";
 import type { ReportDescriptor } from "@typescript-eslint/utils/ts-eslint";
 import { isExternalLinkLike, isSafeRel } from "./lib";
@@ -82,12 +82,12 @@ export function create(context: RuleContext<MessageID, Options>): RuleListener {
     JSXElement(node) {
       const { domElementType } = resolver.resolve(node);
       if (domElementType !== "a") return;
-      if (getAttributeStaticValue(context, node, "target") !== "_blank") return;
+      if (getAttributeStaticValueByName(context, node, "target") !== "_blank") return;
 
-      const hrefValue = getAttributeStaticValue(context, node, "href");
+      const hrefValue = getAttributeStaticValueByName(context, node, "href");
       if (!isExternalLinkLike(hrefValue)) return;
 
-      const relValue = getAttributeValue(node, "rel");
+      const relValue = getAttributeValueByName(node, "rel");
       if (relValue == null) {
         context.report({
           messageId: "default",
@@ -99,7 +99,7 @@ export function create(context: RuleContext<MessageID, Options>): RuleListener {
       }
       const relAttribute = relValue.attribute;
 
-      if (isSafeRel(resolveAttributeStaticValue(context, relValue), allowReferrer)) return;
+      if (isSafeRel(getAttributeStaticValue(context, relValue), allowReferrer)) return;
 
       context.report({
         messageId: "default",

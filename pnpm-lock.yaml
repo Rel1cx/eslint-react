@@ -1236,9 +1236,6 @@ importers:
       '@typescript-eslint/utils':
         specifier: ^8.72.1
         version: 8.72.1(eslint@10.13.0(jiti@2.7.0)(supports-color@9.4.0))(supports-color@9.4.0)(typescript@6.0.3)
-      ts-pattern:
-        specifier: ^5.9.2
-        version: 5.9.2
     devDependencies:
       '@local/configs':
         specifier: workspace:*

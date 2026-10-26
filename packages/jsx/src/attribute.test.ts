@@ -8,14 +8,14 @@ import {
   findParentAttribute,
   getAttributeName,
   getAttributeStaticValue,
+  getAttributeStaticValueByName,
   getAttributeValue,
+  getAttributeValueByName,
   hasAnyAttribute,
   hasAttribute,
   hasEveryAttribute,
   isAttributeNamed,
   isPlainAttribute,
-  resolveAttributeStaticValue,
-  resolveAttributeValue,
 } from "./attribute";
 
 function parseJSXElement(code: string): { context: RuleContext; element: TSESTree.JSXElement } {
@@ -27,14 +27,6 @@ function getAttribute(element: TSESTree.JSXElement, index = 0): TSESTree.JSXAttr
   const attribute = element.openingElement.attributes[index];
   if (attribute?.type !== AST.JSXAttribute) {
     throw new Error(`expected attribute ${index} to be a JSXAttribute`);
-  }
-  return attribute;
-}
-
-function getSpreadAttribute(element: TSESTree.JSXElement, index = 0): TSESTree.JSXSpreadAttribute {
-  const attribute = element.openingElement.attributes[index];
-  if (attribute?.type !== AST.JSXSpreadAttribute) {
-    throw new Error(`expected attribute ${index} to be a JSXSpreadAttribute`);
   }
   return attribute;
 }
@@ -202,10 +194,10 @@ describe("hasAttribute / hasAnyAttribute / hasEveryAttribute", () => {
   });
 });
 
-describe("resolveAttributeValue", () => {
+describe("getAttributeValue", () => {
   const valueOf = (code: string) => {
     const { element } = parseJSXElement(code);
-    return resolveAttributeValue(getAttribute(element));
+    return getAttributeValue(getAttribute(element));
   };
 
   it("resolves a boolean attribute", () => {
@@ -251,21 +243,12 @@ describe("resolveAttributeValue", () => {
     if (value.kind !== "element") return;
     expect(value.node.type).toBe(AST.JSXFragment);
   });
-
-  it("represents a spread attribute without resolving its properties", () => {
-    const { context, element } = parseJSXElement('<div {...{ className: "x" }} />;');
-    const value = resolveAttributeValue(getSpreadAttribute(element));
-    expect(value.kind).toBe("spreadProps");
-    if (value.kind !== "spreadProps") return;
-    expect(value.attribute.type).toBe(AST.JSXSpreadAttribute);
-    expect(resolveAttributeStaticValue(context, value)).toBeUndefined();
-  });
 });
 
-describe("resolveAttributeStaticValue", () => {
+describe("getAttributeStaticValue", () => {
   const staticValueOf = (code: string) => {
     const { context, element } = parseJSXElement(code);
-    return resolveAttributeStaticValue(context, resolveAttributeValue(getAttribute(element)));
+    return getAttributeStaticValue(context, getAttributeValue(getAttribute(element)));
   };
 
   it("returns true for a boolean attribute", () => {
@@ -291,62 +274,62 @@ describe("resolveAttributeStaticValue", () => {
   });
 
   it("returns undefined for null", () => {
-    expect(resolveAttributeStaticValue(parseJSXElement("<div />;").context, null)).toBeUndefined();
+    expect(getAttributeStaticValue(parseJSXElement("<div />;").context, null)).toBeUndefined();
   });
 });
 
-describe("getAttributeValue", () => {
+describe("getAttributeValueByName", () => {
   it("returns null when the attribute is absent", () => {
     const { element } = parseJSXElement("<div />;");
-    expect(getAttributeValue(element, "className")).toBeNull();
+    expect(getAttributeValueByName(element, "className")).toBeNull();
   });
 
   it("returns null for a spread-provided attribute", () => {
     const { element } = parseJSXElement("const props = { className: 'x' }; <div {...props} />;");
-    expect(getAttributeValue(element, "className")).toBeNull();
+    expect(getAttributeValueByName(element, "className")).toBeNull();
   });
 
   it("returns the resolved value descriptor when present", () => {
     const { context, element } = parseJSXElement('<div className="x" />;');
-    const value = getAttributeValue(element, "className");
+    const value = getAttributeValueByName(element, "className");
     expect(value?.kind).toBe("literal");
-    expect(resolveAttributeStaticValue(context, value)).toBe("x");
+    expect(getAttributeStaticValue(context, value)).toBe("x");
   });
 
   it("resolves a fragment-valued attribute instead of treating it as absent", () => {
     const { element } = parseJSXElement("<a href=<></> />;");
-    expect(getAttributeValue(element, "href")?.kind).toBe("element");
+    expect(getAttributeValueByName(element, "href")?.kind).toBe("element");
   });
 });
 
-describe("getAttributeStaticValue", () => {
+describe("getAttributeStaticValueByName", () => {
   it("returns undefined when the attribute is absent", () => {
     const { context, element } = parseJSXElement("<div />;");
-    expect(getAttributeStaticValue(context, element, "className")).toBeUndefined();
+    expect(getAttributeStaticValueByName(context, element, "className")).toBeUndefined();
   });
 
   it("returns undefined for a spread-provided attribute", () => {
     const { context, element } = parseJSXElement("const props = { className: 'x' }; <div {...props} />;");
-    expect(getAttributeStaticValue(context, element, "className")).toBeUndefined();
+    expect(getAttributeStaticValueByName(context, element, "className")).toBeUndefined();
   });
 
   it("returns the literal value", () => {
     const { context, element } = parseJSXElement('<div className="x" />;');
-    expect(getAttributeStaticValue(context, element, "className")).toBe("x");
+    expect(getAttributeStaticValueByName(context, element, "className")).toBe("x");
   });
 
   it("returns true for a boolean attribute", () => {
     const { context, element } = parseJSXElement("<input disabled />;");
-    expect(getAttributeStaticValue(context, element, "disabled")).toBe(true);
+    expect(getAttributeStaticValueByName(context, element, "disabled")).toBe(true);
   });
 
   it("returns undefined for a non-static expression", () => {
     const { context, element } = parseJSXElement("<div id={Math.random()} />;");
-    expect(getAttributeStaticValue(context, element, "id")).toBeUndefined();
+    expect(getAttributeStaticValueByName(context, element, "id")).toBeUndefined();
   });
 
   it("returns the last value when the attribute is duplicated", () => {
     const { context, element } = parseJSXElement('<div className="a" className="b" />;');
-    expect(getAttributeStaticValue(context, element, "className")).toBe("b");
+    expect(getAttributeStaticValueByName(context, element, "className")).toBe("b");
   });
 });

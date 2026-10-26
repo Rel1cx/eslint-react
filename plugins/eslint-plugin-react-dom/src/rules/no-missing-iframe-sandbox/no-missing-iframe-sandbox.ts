@@ -2,7 +2,7 @@ import { createJSXElementResolver } from "@/utils/create-jsx-element-resolver";
 import { createRule } from "@/utils/create-rule";
 import { getAttributeReportNode } from "@/utils/get-attribute-report-node";
 import { type RuleContext, type RuleFeature, type RuleListener } from "@eslint-react/eslint";
-import { getAttributeValue, resolveAttributeStaticValue } from "@eslint-react/jsx";
+import { getAttributeStaticValue, getAttributeValueByName } from "@eslint-react/jsx";
 import { isString } from "@local/eff";
 
 export const RULE_NAME = "no-missing-iframe-sandbox";
@@ -43,7 +43,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       if (domElementType !== "iframe") return;
 
       // Find and resolve the 'sandbox' prop on the iframe element.
-      const sandboxValue = getAttributeValue(node, "sandbox");
+      const sandboxValue = getAttributeValueByName(node, "sandbox");
 
       // If the 'sandbox' prop is missing, report an error
       if (sandboxValue == null) {
@@ -63,14 +63,12 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       }
 
       // If the value is a static string, the prop is correctly used
-      if (isString(resolveAttributeStaticValue(context, sandboxValue))) return;
-
-      const reportNode = getAttributeReportNode(sandboxValue);
+      if (isString(getAttributeStaticValue(context, sandboxValue))) return;
 
       // If the value is not a static string (ex: a variable), report an error
       context.report({
         messageId: "default",
-        node: reportNode,
+        node: getAttributeReportNode(sandboxValue),
         suggest: [
           {
             data: { value: "" },

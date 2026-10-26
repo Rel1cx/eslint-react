@@ -12,13 +12,13 @@ Spread attributes are ignored; only direct `JSXAttribute` nodes are checked.
 
 ## Parameters
 
-| Parameter | Type                | Description                      |
-| --------- | ------------------- | -------------------------------- |
-| `element` | `JSXElement`        | The `JSXElement` node to check.  |
-| `names`   | readonly `string`[] | The attribute names to look for. |
+| Parameter | Type                | Description                                                 |
+| --------- | ------------------- | ----------------------------------------------------------- |
+| `element` | `JSXElement`        | The `JSXElement` node to check.                             |
+| `names`   | readonly `string`[] | The full attribute names to look for (namespaces included). |
 
 ## Returns
 
 `boolean`
 
-`true` if every attribute is present on the element.
+`true` if every direct attribute is present; an empty list is vacuously `true`.

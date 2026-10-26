@@ -3,23 +3,29 @@
 # Function: getAttributeValue()
 
 ```ts
-function getAttributeValue(element: JSXElement, name: string): AttributeValue | null;
+function getAttributeValue(attribute: JSXAttribute): AttributeValue;
 ```
 
-Find a direct attribute by name on a JSX element and resolve its value.
+Get the structural value of a direct `JSXAttribute`.
 
-Convenience composition of [findAttribute](findAttribute.md) and [resolveAttributeValue](resolveAttributeValue.md).
-Spread attributes are ignored.
+The attribute's value is classified syntactically; expressions are not
+evaluated. Only direct `JSXAttribute` nodes are accepted; spread attributes
+are outside this API.
 
 ## Parameters
 
-| Parameter | Type         | Description                                      |
-| --------- | ------------ | ------------------------------------------------ |
-| `element` | `JSXElement` | The `JSXElement` node to search.                 |
-| `name`    | `string`     | The attribute name to look up (ex: "className"). |
+| Parameter   | Type           | Description                                    |
+| ----------- | -------------- | ---------------------------------------------- |
+| `attribute` | `JSXAttribute` | The `JSXAttribute` node to get the value from. |
 
 ## Returns
 
-[`AttributeValue`](../type-aliases/AttributeValue.md) \| `null`
+[`AttributeValue`](../type-aliases/AttributeValue.md)
 
-An [AttributeValue](../type-aliases/AttributeValue.md) descriptor, or `null` when the attribute is not present.
+A discriminated-union descriptor of the attribute's value.
+
+## Remarks
+
+A `JSXSpreadChild` in attribute value position is not valid JSX and is not
+produced by current parsers, but it is part of the TSESTree union. It is
+treated as its inner expression, or as `missing` when that expression is empty.

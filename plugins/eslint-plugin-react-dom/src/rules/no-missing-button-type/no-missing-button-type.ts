@@ -38,8 +38,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   return {
     JSXElement(node) {
       const { domElementType } = resolver.resolve(node);
-      if (domElementType !== "button") return;
-      if (hasAttribute(node, "type")) return;
+      if (domElementType !== "button" || hasAttribute(node, "type")) return;
       context.report({
         messageId: "default",
         node: node.openingElement,

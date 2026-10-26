@@ -6,7 +6,7 @@
 function getElementFullType(node: TSESTreeJSXElementLike): string;
 ```
 
-Get the string representation of a JSX element's type.
+Get the string representation of a JSX element or fragment's type.
 
 - `<div>` -> `"div"`
 - `<Foo.Bar>` -> `"Foo.Bar"`

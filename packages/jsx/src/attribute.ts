@@ -1,4 +1,4 @@
-import { type TSESTreeJSXAttributeLike, type TSESTreeJSXElementLike, Traverse } from "@eslint-react/ast";
+import { type TSESTreeJSXElementLike, Traverse } from "@eslint-react/ast";
 import type { RuleContext } from "@eslint-react/eslint";
 import { dual } from "@local/eff";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
@@ -13,22 +13,34 @@ import { getStaticValue } from "@typescript-eslint/utils/ast-utils";
 export type AttributeTest = string | ((attribute: TSESTree.JSXAttribute) => boolean);
 
 /**
- * The structural value of an attribute.
+ * The structural value of a direct JSX attribute.
  *
- * Direct attributes carry the source `attribute` and, when it exists, the value
- * node. The `spreadProps` variant only records the spread attribute itself: its
- * properties and values are not resolved. This is plain data; use
- * {@link resolveAttributeStaticValue} to collapse direct values to a plain
- * JavaScript value.
+ * - `boolean`: the attribute has no value (ex: `<input disabled />`).
+ * - `literal`: the value is a literal.
+ * - `unknown`: a non-empty expression, normally in an expression container;
+ *   the expression is not evaluated.
+ * - `element`: the value is a JSX element or fragment.
+ * - `missing`: no expression, normally an empty expression container
+ *   (`{}` or `{/* comment *\/}`).
+ *
+ * Every variant carries the source `attribute`; `node` is `null` only for the
+ * `boolean` kind. This is plain data; use {@link getAttributeStaticValue} to
+ * collapse values to a plain JavaScript value.
+ * @remarks
+ * The `spreadChild` variant is omitted because it is not valid in attribute
+ * value position and is not produced by current parsers. The `spreadProps`
+ * variant is omitted because spread props are not resolved and direct attribute
+ * lookup never produces a spread descriptor.
  */
 export type AttributeValue =
   | { readonly kind: "boolean"; readonly attribute: TSESTree.JSXAttribute; readonly node: null }
   | { readonly kind: "literal"; readonly attribute: TSESTree.JSXAttribute; readonly node: TSESTree.Literal }
   | { readonly kind: "unknown"; readonly attribute: TSESTree.JSXAttribute; readonly node: TSESTree.Expression }
   | { readonly kind: "element"; readonly attribute: TSESTree.JSXAttribute; readonly node: TSESTreeJSXElementLike }
-  | { readonly kind: "missing"; readonly attribute: TSESTree.JSXAttribute; readonly node: TSESTree.JSXEmptyExpression }
-  | { readonly kind: "spreadChild"; readonly attribute: TSESTree.JSXAttribute; readonly node: TSESTree.JSXSpreadChild }
-  | { readonly kind: "spreadProps"; readonly attribute: TSESTree.JSXSpreadAttribute };
+  | { readonly kind: "missing"; readonly attribute: TSESTree.JSXAttribute; readonly node: TSESTree.JSXEmptyExpression };
+
+// | { readonly kind: "spreadChild"; readonly attribute: TSESTree.JSXAttribute; readonly node: TSESTree.JSXSpreadChild }
+// | { readonly kind: "spreadProps"; readonly attribute: TSESTree.JSXSpreadAttribute };
 
 /**
  * Get the full name of a `JSXAttribute` node.
@@ -86,14 +98,14 @@ export const isAttributeNamed: {
 });
 
 /**
- * Find a direct JSX attribute by name.
+ * Find the last direct JSX attribute with the given full name.
  *
- * Returns the last matching attribute to mirror React's behavior where later
- * props win. Only direct `JSXAttribute` nodes are considered; spread attributes
- * are ignored rather than statically resolved.
+ * Later direct attributes take precedence, matching the order in which JSX
+ * props are written. Spread attributes are opaque: they are ignored by this lookup, and a
+ * spread after the returned attribute may still override it at runtime.
  * @param element The `JSXElement` node to search.
- * @param name The attribute name to look for (ex: "className", "xml:space").
- * @returns The matching `JSXAttribute`, or `null` when not found.
+ * @param name The full attribute name to look for (ex: "className", "xml:space").
+ * @returns The last matching `JSXAttribute`, or `null` when not found.
  */
 export function findAttribute(element: TSESTree.JSXElement, name: string): TSESTree.JSXAttribute | null {
   const { attributes } = element.openingElement;
@@ -107,9 +119,13 @@ export function findAttribute(element: TSESTree.JSXElement, name: string): TSEST
 /**
  * Walk up the AST from `node` to find the nearest `JSXAttribute` ancestor,
  * optionally matching a string name or a predicate.
- * @param node The starting node for the upward search.
+ *
+ * The search starts at `node.parent`; `node` itself is not considered. When
+ * `test` is omitted, the nearest `JSXAttribute` ancestor matches.
+ * @param node The starting node for the upward search; nullish values return `null`.
  * @param test Optional test to filter candidate `JSXAttribute` nodes. A string
- * matches the full attribute name (see {@link isAttributeNamed}).
+ * matches the full attribute name (see {@link isAttributeNamed}); a function
+ * receives the candidate attribute.
  * @returns The first matching `JSXAttribute` ancestor, or `null` when none is found.
  */
 export function findParentAttribute(node: TSESTree.Node | null | undefined, test?: AttributeTest): TSESTree.JSXAttribute | null {
@@ -130,8 +146,8 @@ export function findParentAttribute(node: TSESTree.Node | null | undefined, test
  *
  * Spread attributes are ignored; only direct `JSXAttribute` nodes are checked.
  * @param element The `JSXElement` node to check.
- * @param name The attribute name to look for (ex: "className").
- * @returns `true` if the attribute is present on the element.
+ * @param name The full attribute name to look for (ex: "className", "xml:space").
+ * @returns `true` if the attribute is directly present on the element.
  */
 export function hasAttribute(element: TSESTree.JSXElement, name: string): boolean {
   return findAttribute(element, name) != null;
@@ -142,15 +158,12 @@ export function hasAttribute(element: TSESTree.JSXElement, name: string): boolea
  *
  * Spread attributes are ignored; only direct `JSXAttribute` nodes are checked.
  * @param element The `JSXElement` node to check.
- * @param names The attribute names to look for.
- * @returns `true` if at least one of the attributes is present.
+ * @param names The full attribute names to look for (namespaces included).
+ * @returns `true` if at least one direct attribute is present; `false` for an empty list.
  */
 export function hasAnyAttribute(element: TSESTree.JSXElement, names: readonly string[]): boolean {
   if (names.length === 0) return false;
-  const nameSet = new Set(names);
-  return element.openingElement.attributes.some(
-    (attribute) => attribute.type === AST.JSXAttribute && nameSet.has(getAttributeName(attribute)),
-  );
+  return element.openingElement.attributes.some((a) => a.type === AST.JSXAttribute && names.includes(getAttributeName(a)));
 }
 
 /**
@@ -158,8 +171,8 @@ export function hasAnyAttribute(element: TSESTree.JSXElement, names: readonly st
  *
  * Spread attributes are ignored; only direct `JSXAttribute` nodes are checked.
  * @param element The `JSXElement` node to check.
- * @param names The attribute names to look for.
- * @returns `true` if every attribute is present on the element.
+ * @param names The full attribute names to look for (namespaces included).
+ * @returns `true` if every direct attribute is present; an empty list is vacuously `true`.
  */
 export function hasEveryAttribute(element: TSESTree.JSXElement, names: readonly string[]): boolean {
   if (names.length === 0) return true;
@@ -172,18 +185,19 @@ export function hasEveryAttribute(element: TSESTree.JSXElement, names: readonly 
 }
 
 /**
- * Resolve a `JSXAttribute` or `JSXSpreadAttribute` into an {@link AttributeValue} descriptor.
+ * Get the structural value of a direct `JSXAttribute`.
  *
- * Spread attributes are represented structurally by the `spreadProps` kind;
- * their properties and values are not resolved.
- * @param attribute The `JSXAttribute` or `JSXSpreadAttribute` node to resolve.
+ * The attribute's value is classified syntactically; expressions are not
+ * evaluated. Only direct `JSXAttribute` nodes are accepted; spread attributes
+ * are outside this API.
+ * @param attribute The `JSXAttribute` node to get the value from.
  * @returns A discriminated-union descriptor of the attribute's value.
+ * @remarks
+ * A `JSXSpreadChild` in attribute value position is not valid JSX and is not
+ * produced by current parsers, but it is part of the TSESTree union. It is
+ * treated as its inner expression, or as `missing` when that expression is empty.
  */
-export function resolveAttributeValue(attribute: TSESTreeJSXAttributeLike): AttributeValue {
-  if (attribute.type === AST.JSXSpreadAttribute) {
-    return { kind: "spreadProps", attribute };
-  }
-
+export function getAttributeValue(attribute: TSESTree.JSXAttribute): AttributeValue {
   const { value } = attribute;
 
   // Boolean attribute, no value means `true` (ex: `<input disabled />`).
@@ -207,38 +221,44 @@ export function resolveAttributeValue(attribute: TSESTreeJSXAttributeLike): Attr
       return { kind: "element", attribute, node: value };
 
     // Not valid in attribute value position per the JSX spec and not produced
-    // by current parsers, but part of the TSESTree union; reported as its own
-    // kind so consumers can distinguish it from a plain expression container.
+    // by current parsers, but part of the TSESTree union; fall back to its
+    // inner expression so callers still get a normal value descriptor.
     case AST.JSXSpreadChild:
-      return { kind: "spreadChild", attribute, node: value };
+      return value.expression.type === AST.JSXEmptyExpression
+        ? { kind: "missing", attribute, node: value.expression }
+        : { kind: "unknown", attribute, node: value.expression };
   }
 }
 
 /**
- * Find a direct attribute by name on a JSX element and resolve its value.
+ * Find the last direct attribute with the given full name and get its value.
  *
- * Convenience composition of {@link findAttribute} and {@link resolveAttributeValue}.
- * Spread attributes are ignored.
+ * Convenience composition of {@link findAttribute} and {@link getAttributeValue}.
+ * Spread attributes are ignored; a spread after the matched attribute may still
+ * override it at runtime.
  * @param element The `JSXElement` node to search.
- * @param name The attribute name to look up (ex: "className").
- * @returns An {@link AttributeValue} descriptor, or `null` when the attribute is not present.
+ * @param name The full attribute name to look up (ex: "className", "xml:space").
+ * @returns An {@link AttributeValue} descriptor, or `null` when no matching direct attribute is present.
  */
-export function getAttributeValue(element: TSESTree.JSXElement, name: string): AttributeValue | null {
+export function getAttributeValueByName(element: TSESTree.JSXElement, name: string): AttributeValue | null {
   const attribute = findAttribute(element, name);
-  return attribute == null ? null : resolveAttributeValue(attribute);
+  return attribute == null ? null : getAttributeValue(attribute);
 }
 
 /**
- * Collapse a resolved attribute value to a plain JavaScript value when possible.
+ * Get the statically known value of an attribute value descriptor when possible.
  *
- * Returns `undefined` when the value is absent, is a JSX element, is an empty
- * expression container, or cannot be statically evaluated. A statically known
- * `undefined` is therefore indistinguishable from an indeterminate value.
+ * Boolean attributes resolve to `true`; literal attributes resolve to their
+ * literal value; other expressions are evaluated statically when possible.
+ * Returns `undefined` when the descriptor is null, is a JSX element or fragment,
+ * is a `missing` descriptor, cannot be statically evaluated, or evaluates to
+ * `undefined`. A statically known `undefined` is therefore indistinguishable
+ * from an indeterminate value.
  * @param context The ESLint rule context (needed for scope look-ups).
  * @param value The attribute value descriptor, or `null`.
- * @returns The static value, or `undefined` when it cannot be determined.
+ * @returns The static value, or `undefined` when no statically known plain value is available.
  */
-export function resolveAttributeStaticValue(context: RuleContext, value: AttributeValue | null): unknown {
+export function getAttributeStaticValue(context: RuleContext, value: AttributeValue | null): unknown {
   if (value == null) return undefined;
   switch (value.kind) {
     case "boolean":
@@ -249,24 +269,25 @@ export function resolveAttributeStaticValue(context: RuleContext, value: Attribu
       return getStaticValue(value.node, context.sourceCode.getScope(value.node))?.value;
     case "element":
     case "missing":
-    case "spreadChild":
-    case "spreadProps":
       return undefined;
   }
 }
 
 /**
- * Find a direct attribute by name on a JSX element and collapse its value to a
- * plain JavaScript value.
+ * Find the last direct attribute with the given full name and get its static value.
  *
- * Returns `undefined` both when the attribute is absent and when its value cannot
- * be statically determined; use {@link hasAttribute} when presence itself matters.
- * Spread attributes are ignored.
+ * Returns `undefined` when no matching direct attribute is present, or when its
+ * value is a JSX element or fragment, is a `missing` descriptor, cannot be
+ * statically evaluated, or evaluates to `undefined`. A statically known
+ * `undefined` is likewise indistinguishable from an absent or indeterminate
+ * value; use {@link hasAttribute} when presence itself matters. Spread
+ * attributes are ignored; a spread after the matched attribute may still
+ * override it at runtime.
  * @param context The ESLint rule context.
  * @param element The `JSXElement` node to check.
- * @param name The attribute name to look up (ex: "className").
+ * @param name The full attribute name to look up (ex: "className", "xml:space").
  * @returns The static value of the attribute, or `undefined` when absent or indeterminate.
  */
-export function getAttributeStaticValue(context: RuleContext, element: TSESTree.JSXElement, name: string): unknown {
-  return resolveAttributeStaticValue(context, getAttributeValue(element, name));
+export function getAttributeStaticValueByName(context: RuleContext, element: TSESTree.JSXElement, name: string): unknown {
+  return getAttributeStaticValue(context, getAttributeValueByName(element, name));
 }

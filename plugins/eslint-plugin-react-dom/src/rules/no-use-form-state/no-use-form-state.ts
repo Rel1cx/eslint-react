@@ -1,9 +1,9 @@
 import { createRule } from "@/utils/create-rule";
-import { Check, Extract } from "@eslint-react/ast";
+import { isReactDOMCall } from "@/utils/is-react-dom-call";
 import { type RuleContext, type RuleFeature, type RuleFixer, type RuleListener } from "@eslint-react/eslint";
 import { getSettingsFromContext } from "@eslint-react/shared";
 import { createImportLookup } from "@eslint-react/var";
-import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
+import type { TSESTree } from "@typescript-eslint/types";
 import { compare } from "compare-versions";
 
 export const RULE_NAME = "no-use-form-state";
@@ -35,44 +35,26 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   if (!context.sourceCode.text.includes("useFormState")) return {};
 
   // This rule only applies to React 19.0.0 and later
-  const settings = getSettingsFromContext(context);
-  if (compare(settings.version, "19.0.0", "<")) return {};
+  const { importSource, version } = getSettingsFromContext(context);
+  if (compare(version, "19.0.0", "<")) return {};
 
   // Lookup of local bindings imported from 'react-dom', used to match callees below.
   const imports = createImportLookup(context.sourceCode.ast, { source: "react-dom" });
 
   return {
     CallExpression(node) {
-      const callee = Extract.unwrap(node.callee);
-      switch (true) {
-        // Case 1: Direct call to `useFormState()`
-        case Check.isIdentifier(callee)
-          && imports.has(callee.name, "useFormState"):
-          context.report({
-            fix: buildFix(context, node),
-            messageId: "default",
-            node,
-          });
-          return;
-        // Case 2: Member call like `ReactDOM.useFormState()`
-        case callee.type === AST.MemberExpression
-          && Check.isIdentifier(callee.object)
-          && Extract.getCalleeName(node) === "useFormState"
-          && imports.isModuleBinding(callee.object.name):
-          context.report({
-            fix: buildFix(context, node),
-            messageId: "default",
-            node,
-          });
-          return;
-      }
+      if (!isReactDOMCall(node, imports, "useFormState")) return;
+      context.report({
+        fix: buildFix(context, node, importSource),
+        messageId: "default",
+        node,
+      });
     },
   };
 }
 
 // Replaces `useFormState` with `useActionState` imported from the 'react' package
-function buildFix(context: RuleContext, node: TSESTree.CallExpression) {
-  const { importSource } = getSettingsFromContext(context);
+function buildFix(context: RuleContext, node: TSESTree.CallExpression, importSource: string) {
   return (fixer: RuleFixer) => {
     // The fix consists of two parts:
     return [

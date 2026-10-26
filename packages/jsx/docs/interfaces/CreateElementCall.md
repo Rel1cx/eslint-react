@@ -4,10 +4,11 @@
 
 A parsed `createElement` call.
 
-All argument fields expose raw positional arguments, which may be
-`SpreadElement` nodes. `propsObject` is the only derived field: it is the
-second argument after unwrapping type/chain expressions, and is non-null only
-when that argument is statically an object literal.
+The raw positional argument fields (`typeArgument`, `propsArgument`, and
+`childrenArguments`) may contain `SpreadElement` nodes. `propsObject` is the
+only derived field: it is the second argument after unwrapping type/chain
+expressions, and is non-null only when that argument is syntactically an
+object literal.
 
 ## Properties
 

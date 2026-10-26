@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- Spread props are no longer statically resolved, so a `sandbox` provided through a spread attribute is ignored; only direct `sandbox` attributes are checked. Direct values are read through `getAttributeValue` and `resolveAttributeStaticValue`.
+- Spread props are no longer statically resolved, so a `sandbox` provided through a spread attribute is ignored; only direct `sandbox` attributes are checked. Direct values are read through `getAttributeValueByName` and `getAttributeStaticValue`.
 
 ## [5.27.4] - 2026-10-16
 

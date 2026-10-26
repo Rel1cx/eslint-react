@@ -6,21 +6,21 @@
 function findAttribute(element: JSXElement, name: string): JSXAttribute | null;
 ```
 
-Find a direct JSX attribute by name.
+Find the last direct JSX attribute with the given full name.
 
-Returns the last matching attribute to mirror React's behavior where later
-props win. Only direct `JSXAttribute` nodes are considered; spread attributes
-are ignored rather than statically resolved.
+Later direct attributes take precedence, matching the order in which JSX
+props are written. Spread attributes are opaque: they are ignored by this lookup, and a
+spread after the returned attribute may still override it at runtime.
 
 ## Parameters
 
-| Parameter | Type         | Description                                                    |
-| --------- | ------------ | -------------------------------------------------------------- |
-| `element` | `JSXElement` | The `JSXElement` node to search.                               |
-| `name`    | `string`     | The attribute name to look for (ex: "className", "xml:space"). |
+| Parameter | Type         | Description                                                         |
+| --------- | ------------ | ------------------------------------------------------------------- |
+| `element` | `JSXElement` | The `JSXElement` node to search.                                    |
+| `name`    | `string`     | The full attribute name to look for (ex: "className", "xml:space"). |
 
 ## Returns
 
 `JSXAttribute` \| `null`
 
-The matching `JSXAttribute`, or `null` when not found.
+The last matching `JSXAttribute`, or `null` when not found.

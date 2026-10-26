@@ -8,9 +8,9 @@ function parseCreateElementCall(context: RuleContext, node: Node | null | undefi
 
 Parse a `createElement` call into its positional arguments.
 
-A non-`createElement` node yields `null`; a matched call always yields a
-descriptor, even when it has no arguments. This removes the ambiguity between
-"not a `createElement` call" and "a call with no props/children".
+A nullish or non-`createElement` node yields `null`; a matched call always
+yields a descriptor, even when it has no arguments. This removes the ambiguity
+between "not a `createElement` call" and "a call with no props/children".
 
 ## Parameters
 

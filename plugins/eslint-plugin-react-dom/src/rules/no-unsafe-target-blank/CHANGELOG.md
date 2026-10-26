@@ -15,7 +15,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- Spread props are no longer statically resolved, so `target`, `href`, and `rel` provided through spread attributes are ignored; only direct attributes are checked. Direct `rel` values are read through `getAttributeValue` and `resolveAttributeStaticValue`.
+- Spread props are no longer statically resolved, so `target`, `href`, and `rel` provided through spread attributes are ignored; only direct attributes are checked. Direct `rel` values are read through `getAttributeValueByName` and `getAttributeStaticValue`.
 
 ## [5.25.0] - 2026-10-11
 
