@@ -2,6 +2,26 @@
 title: Changelog
 ---
 
+## v5.30.0-beta.4 (2026-10-26)
+
+### 🐞 Fixes
+
+- `react-x/set-state-in-effect`: a setter call whose callee may resolve to multiple setters (ex: `(cond ? setA : setB)(1)`) now reports every possible setter. (#2082)
+- `react-x/set-state-in-effect`: the ref-derived exemption now applies to any argument position of a custom state hook's setter (ex: `setValue(0, ref.current)`). (#2082)
+- `react-x/set-state-in-effect`: ref-derived early-return guards now also gate the statements that follow them inside a `try`, a `switch` case, or a bare block, as the `else` branch, and in loop bodies or update clauses; a `try` whose paths all terminate now counts as terminating. (#2082, #2083)
+- `react-x/set-state-in-effect`: ref provenance now follows values written in IIFEs, including nested and TypeScript-wrapped ones; deferred and async/generator writes remain excluded. (#2082)
+- `react-x/set-state-in-effect`: setter calls reached through the same effect-side trigger are now reported once per setter name. (#2082)
+
+### 📝 Documentation
+
+- `react-x/set-state-in-effect`: documented that files without a `use…Effect` name in their source are skipped, which limits `additionalEffectHooks` patterns that lack the `Effect` suffix. (#2082)
+
+### 🏗️ Internal
+
+- `@eslint-react/ast`: added the `Analyze` namespace (`isTerminatingStatement`, `isUnconditionallyTerminating`), now used by `react-x/set-state-in-effect` and `react-x/refs`. (#2083)
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.30.0-beta.3...v5.30.0-beta.4
+
 ## v5.30.0-beta.3 (2026-10-26)
 
 ### ✨ New

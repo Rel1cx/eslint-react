@@ -5,14 +5,14 @@ All notable changes to the `react-x/set-state-in-effect` rule will be documented
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+## [5.30.0-beta.4] - 2026-10-26
 
 ### Fixed
 
 - A synchronous setter call whose callee may resolve to more than one setter (ex: `(cond ? setA : setB)(1)`, or a `useMemo` selector returning one of two setters) now reports every possible setter instead of only the first one.
 - The ref-derived exemption now also applies when the ref-derived value is not the first argument of a custom state hook's setter (ex: `setValue(0, ref.current)` with `additionalStateHooks`).
 - A ref-derived early-return guard now also gates the statements after it when it sits inside a `try` block (with no catch, or a catch that terminates), a `switch` case, or a bare block, when it terminates the `else` branch, and when the setState runs inside a `while`/`for` body or a `for` update clause whose test reads a ref. A branch that is a `try` whose paths all terminate now counts as terminating too.
-- Ref provenance now recognizes a value written by a synchronously invoked function expression (an IIFE), including nested and TypeScript-wrapped IIFEs (ex: `let next = 0; (() => { next = ref.current; })(); setData(next)`). Internal branches of the write are preserved, writes in deferred positions (instance class field initializers and parameter defaults) are excluded, and an assignment whose right-hand side is the IIFE is ordered after the writes it performs. Writes inside async/generator IIFEs or non-invoked nested functions remain excluded.
+- Ref provenance now recognizes a value written in an IIFE, including nested and TypeScript-wrapped ones (ex: `let next = 0; (() => { next = ref.current; })(); setData(next)`). Internal branches of the write are preserved, writes in deferred positions (instance class field initializers and parameter defaults) are excluded, and an assignment whose right-hand side is the IIFE is ordered after the writes it performs. Writes inside async/generator IIFEs or non-invoked nested functions remain excluded.
 - Multiple setter calls reached through the same effect-side trigger are now reported once per setter name instead of printing identical diagnostics at the same location.
 
 ## [5.30.0-beta.2] - 2026-10-25
