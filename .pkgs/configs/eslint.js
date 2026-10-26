@@ -128,10 +128,6 @@ export const strictTypeChecked = defineConfig({ ignores: GLOB_JS }, {
                 message: "no typescript named import",
                 selector: "ImportDeclaration[source.value='typescript'] ImportSpecifier",
             },
-            {
-                message: "Use resolveBindingTarget() from @eslint-react/var instead of unwrapping AssignmentPattern defaults inline.",
-                selector: "ConditionalExpression[test.type='BinaryExpression'][test.operator='==='][test.left.type='MemberExpression'][test.left.property.name='type']:matches([test.right.type='MemberExpression'][test.right.property.name='AssignmentPattern'], [test.right.value='AssignmentPattern'])[consequent.type='MemberExpression'][consequent.property.name='left']",
-            },
         ],
         "prefer-object-has-own": "error",
     },

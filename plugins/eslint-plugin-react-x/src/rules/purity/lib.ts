@@ -1,6 +1,5 @@
 import { Check, Extract } from "@eslint-react/ast";
 import type { RuleContext } from "@eslint-react/eslint";
-import { resolveBindingTarget } from "@eslint-react/var";
 import { DefinitionType } from "@typescript-eslint/scope-manager";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import { findVariable } from "@typescript-eslint/utils/ast-utils";
@@ -555,7 +554,7 @@ export function hasUseClientDirective(program: TSESTree.Program): boolean {
 function getDestructuredPropertyName(pattern: TSESTree.ObjectPattern, name: TSESTree.Identifier): string | null {
   for (const property of pattern.properties) {
     if (property.type !== AST.Property) continue;
-    const target = resolveBindingTarget(property.value);
+    const target = property.value.type === AST.AssignmentPattern ? property.value.left : property.value;
     if (target !== name) continue;
     return Extract.getPropertyName(property, "max");
   }

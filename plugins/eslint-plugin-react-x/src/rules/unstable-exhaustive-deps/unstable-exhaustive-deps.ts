@@ -24,7 +24,6 @@
 
 import type { RuleFeature } from "@eslint-react/eslint";
 import { getSettingsFromContext } from "@eslint-react/shared";
-import { resolveBindingTarget } from "@eslint-react/var";
 import type { TSESTree } from "@typescript-eslint/types";
 import type { Rule, Scope } from "eslint";
 import { getHookConfigs, getReactiveHookConfig, isConfiguredStableHookValue } from "./lib";
@@ -423,8 +422,10 @@ const rule = {
             && (isActionState ? id.elements.length >= 2 : id.elements.length === 2)
             && isArray(resolved.identifiers)
           ) {
-            const firstElement = resolveBindingTarget(id.elements[0] ?? null);
-            const secondElement = resolveBindingTarget(id.elements[1] ?? null);
+            const firstNode = id.elements[0] ?? null;
+            const secondNode = id.elements[1] ?? null;
+            const firstElement = firstNode?.type === "AssignmentPattern" ? firstNode.left : firstNode;
+            const secondElement = secondNode?.type === "AssignmentPattern" ? secondNode.left : secondNode;
             // Is second tuple value the same reference we're checking?
             if (resolved.identifiers.some((identifier) => identifier === secondElement)) {
               if (name === "useState") {
@@ -453,7 +454,8 @@ const rule = {
         } else if (name === "useTransition") {
           // Only consider second value in initializing tuple stable.
           if (id.type === "ArrayPattern" && id.elements.length === 2 && Array.isArray(resolved.identifiers)) {
-            const secondElement = resolveBindingTarget(id.elements[1] ?? null);
+            const secondNode = id.elements[1] ?? null;
+            const secondElement = secondNode?.type === "AssignmentPattern" ? secondNode.left : secondNode;
             // Is second tuple value the same reference we're checking?
             if (resolved.identifiers.some((identifier) => identifier === secondElement)) {
               // Setter is stable.
