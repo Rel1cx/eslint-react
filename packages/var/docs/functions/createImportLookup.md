@@ -14,6 +14,8 @@ imported name) are built during the same scan, so every query works
 immediately after creation. Aliases (`import { flushSync as fs }`) are
 handled naturally: the alias is the entry's local name.
 
+Type-only imports are ignored because they never bind a runtime value.
+
 ## Parameters
 
 | Parameter | Type                                                          | Description                                              |

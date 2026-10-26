@@ -3,14 +3,7 @@
 # Function: resolve()
 
 ```ts
-function resolve(
-  context: RuleContext,
-  node: Identifier,
-  options?: Partial<{
-    at: number;
-    localOnly: boolean;
-  }>,
-): Node | null;
+function resolve(context: RuleContext, node: Identifier, options?: ResolveOptions): Node | null;
 ```
 
 Resolve an identifier to the AST node that represents its value,
@@ -34,11 +27,11 @@ The resolution follows these rules per definition type:
 
 ## Parameters
 
-| Parameter  | Type                                                                                                                                      | Description                                                                                                                                                                                                                                                                                                                                                                                                |
-| ---------- | ----------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `context`  | `RuleContext`                                                                                                                             | The ESLint rule context.                                                                                                                                                                                                                                                                                                                                                                                   |
-| `node`     | `Identifier`                                                                                                                              | The identifier to resolve.                                                                                                                                                                                                                                                                                                                                                                                 |
-| `options?` | [`Partial`](https://www.typescriptlang.org/docs/handbook/utility-types.html#partialtype)\<\{ `at`: `number`; `localOnly`: `boolean`; \}\> | Optional settings: - `at`: Index of the definition to resolve (default: `0` for the first definition). - `localOnly`: If `true`, only consider variables declared in the same scope as the identifier (this will miss variables declared in an outer scope). When `false` (default), traverse the scope chain upward via `findVariable` so that references to outer-scope bindings are resolved correctly. |
+| Parameter  | Type                                                | Description                                                                          |
+| ---------- | --------------------------------------------------- | ------------------------------------------------------------------------------------ |
+| `context`  | `RuleContext`                                       | The ESLint rule context.                                                             |
+| `node`     | `Identifier`                                        | The identifier to resolve.                                                           |
+| `options?` | [`ResolveOptions`](../interfaces/ResolveOptions.md) | Optional resolution settings; see [ResolveOptions](../interfaces/ResolveOptions.md). |
 
 ## Returns
 

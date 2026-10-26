@@ -57,6 +57,14 @@ describe("resolveEnclosingAssignmentTarget", () => {
 
       expect(fact).toBeNull();
     });
+
+    it("should return null for a detached node without a parent pointer", () => {
+      const node = { type: AST.Literal, raw: "1", value: 1 } as unknown as TSESTree.Literal;
+
+      const fact = resolveEnclosingAssignmentTarget(node);
+
+      expect(fact).toBeNull();
+    });
   });
 
   describe("issue verification", () => {

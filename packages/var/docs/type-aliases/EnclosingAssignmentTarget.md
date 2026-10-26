@@ -3,7 +3,7 @@
 # Type Alias: EnclosingAssignmentTarget
 
 ```ts
-type EnclosingAssignmentTarget = ReturnType<typeof resolveEnclosingAssignmentTarget>;
+type EnclosingAssignmentTarget = TSESTree.DefaultExportDeclarations | TSESTree.PropertyName | null;
 ```
 
 The possible assignment targets returned by [resolveEnclosingAssignmentTarget](../functions/resolveEnclosingAssignmentTarget.md).

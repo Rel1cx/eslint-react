@@ -3,14 +3,7 @@
 # Function: resolveOrigin()
 
 ```ts
-function resolveOrigin(
-  context: RuleContext,
-  node: Identifier,
-  options?: Partial<{
-    at: number;
-    localOnly: boolean;
-  }>,
-): Node | null;
+function resolveOrigin(context: RuleContext, node: Identifier, options?: ResolveOptions): Node | null;
 ```
 
 Resolve an identifier to the AST node its value **originates from**,
@@ -41,15 +34,16 @@ and an import binding resolves to its import specifier (whose parent
 `ImportDeclaration` carries the module source) instead of `null`.
 
 Use this for origin/pedigree tracking ("what produced this value?"); use
-[resolve](resolve.md) when the precise value of the binding is needed.
+[resolve](resolve.md) when the precise value of the binding is needed. To follow a
+chain of aliases to a fixed point, use [resolveOriginChain](resolveOriginChain.md).
 
 ## Parameters
 
-| Parameter  | Type                                                                                                                                      | Description                                                                                                                                                                                                                                                                                                                                                                                                |
-| ---------- | ----------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `context`  | `RuleContext`                                                                                                                             | The ESLint rule context.                                                                                                                                                                                                                                                                                                                                                                                   |
-| `node`     | `Identifier`                                                                                                                              | The identifier to resolve.                                                                                                                                                                                                                                                                                                                                                                                 |
-| `options?` | [`Partial`](https://www.typescriptlang.org/docs/handbook/utility-types.html#partialtype)\<\{ `at`: `number`; `localOnly`: `boolean`; \}\> | Optional settings: - `at`: Index of the definition to resolve (default: `0` for the first definition). - `localOnly`: If `true`, only consider variables declared in the same scope as the identifier (this will miss variables declared in an outer scope). When `false` (default), traverse the scope chain upward via `findVariable` so that references to outer-scope bindings are resolved correctly. |
+| Parameter  | Type                                                | Description                                                                          |
+| ---------- | --------------------------------------------------- | ------------------------------------------------------------------------------------ |
+| `context`  | `RuleContext`                                       | The ESLint rule context.                                                             |
+| `node`     | `Identifier`                                        | The identifier to resolve.                                                           |
+| `options?` | [`ResolveOptions`](../interfaces/ResolveOptions.md) | Optional resolution settings; see [ResolveOptions](../interfaces/ResolveOptions.md). |
 
 ## Returns
 

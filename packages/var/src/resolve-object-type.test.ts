@@ -1,5 +1,5 @@
 import { hasProperty } from "@local/eff";
-import { collectNodes, getFirstNodeOfType, runInRule } from "@local/testkit";
+import { collectNodes, findIdentifierReferences, getFirstNodeOfType, runInRule } from "@local/testkit";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import { describe, expect, it } from "vitest";
 
@@ -523,6 +523,163 @@ describe("resolveObjectType", () => {
       });
       expect(fact).not.toBeNull();
       expect(fact!.kind).toBe("class");
+    });
+  });
+
+  describe("cycle safety", () => {
+    it("should return null instead of overflowing on a cyclic alias chain", () => {
+      const code = "const a = b; const b = a; a;";
+      const fact = runInRule(code, (context, ast) => {
+        const ref = findIdentifierReferences(ast, "a").at(-1)!;
+        return resolveObjectType(context, ref);
+      });
+      expect(fact).toBeNull();
+    });
+
+    it("should return null instead of overflowing on a self-referential binding", () => {
+      const code = "const a = a; a;";
+      const fact = runInRule(code, (context, ast) => {
+        const ref = findIdentifierReferences(ast, "a").at(-1)!;
+        return resolveObjectType(context, ref);
+      });
+      expect(fact).toBeNull();
+    });
+
+    it("should still resolve a non-cyclic alias chain", () => {
+      const code = "const a = b; const b = []; a;";
+      const fact = runInRule(code, (context, ast) => {
+        const ref = findIdentifierReferences(ast, "a").at(-1)!;
+        return resolveObjectType(context, ref);
+      });
+      expect(fact).not.toBeNull();
+      expect(fact!.kind).toBe("array");
+    });
+  });
+
+  describe("construction source (via)", () => {
+    function viaOf<T extends TSESTree.Node>(code: string, type: T["type"]) {
+      return runInRule(code, (context, ast) => {
+        const node = getFirstNodeOfType<T>(ast, type);
+        const result = resolveObjectType(context, node);
+        return result != null && "via" in result ? result.via : null;
+      });
+    }
+
+    it("should report the source of arrays and objects", () => {
+      expect(viaOf<TSESTree.ArrayExpression>("const x = [];", AST.ArrayExpression)).toBe("literal");
+      expect(viaOf<TSESTree.CallExpression>("const x = Array();", AST.CallExpression)).toBe("call");
+      expect(viaOf<TSESTree.ObjectExpression>("const x = {};", AST.ObjectExpression)).toBe("literal");
+      expect(viaOf<TSESTree.CallExpression>("const x = Object();", AST.CallExpression)).toBe("call");
+    });
+
+    it("should report the source of classes", () => {
+      expect(viaOf<TSESTree.ClassDeclaration>("class C {}", AST.ClassDeclaration)).toBe("declaration");
+      expect(viaOf<TSESTree.ClassExpression>("const C = class {};", AST.ClassExpression)).toBe("expression");
+    });
+
+    it("should report the source of instances", () => {
+      expect(viaOf<TSESTree.NewExpression>("new Foo();", AST.NewExpression)).toBe("new");
+      expect(viaOf<TSESTree.ThisExpression>("this;", AST.ThisExpression)).toBe("this");
+    });
+
+    it("should report the source of functions", () => {
+      expect(viaOf<TSESTree.FunctionDeclaration>("function f() {}", AST.FunctionDeclaration)).toBe("declaration");
+      expect(viaOf<TSESTree.FunctionExpression>("const f = function () {};", AST.FunctionExpression)).toBe("expression");
+      expect(viaOf<TSESTree.ArrowFunctionExpression>("const f = () => {};", AST.ArrowFunctionExpression)).toBe("arrow");
+    });
+
+    it("should report the source of regular expressions", () => {
+      expect(viaOf<TSESTree.Literal>("const x = /a/;", AST.Literal)).toBe("literal");
+      expect(viaOf<TSESTree.CallExpression>('const x = RegExp("a");', AST.CallExpression)).toBe("call");
+    });
+
+    it("should report JSX sources", () => {
+      expect(viaOf<TSESTree.JSXElement>("const x = <div />;", AST.JSXElement)).toBe("jsx");
+    });
+  });
+
+  describe("resolution options", () => {
+    it("should select the first definition when `at` is 0", () => {
+      const code = "var x = []; var x = {}; x;";
+      const fact = runInRule(code, (context, ast) => {
+        const node = collectNodes<TSESTree.Identifier>(ast, AST.Identifier).findLast((n) => n.name === "x");
+        expect(node).toBeDefined();
+        return resolveObjectType(context, node, { at: 0 });
+      });
+      expect(fact).not.toBeNull();
+      expect(fact!.kind).toBe("array");
+    });
+
+    it("should follow enclosing scopes when `scope` is 'chain'", () => {
+      const code = "const x = []; function f() { return x; }";
+      const facts = runInRule(code, (context, ast) => {
+        const node = collectNodes<TSESTree.Identifier>(ast, AST.Identifier).findLast((n) => n.name === "x");
+        expect(node).toBeDefined();
+        return {
+          local: resolveObjectType(context, node),
+          chain: resolveObjectType(context, node, { scope: "chain" }),
+        };
+      });
+      expect(facts.local).toBeNull();
+      expect(facts.chain).not.toBeNull();
+      expect(facts.chain!.kind).toBe("array");
+    });
+
+    it("should thread options through alias chains", () => {
+      const code = "const outer = {}; function f() { const local = outer; return local; }";
+      const facts = runInRule(code, (context, ast) => {
+        const node = collectNodes<TSESTree.Identifier>(ast, AST.Identifier).findLast((n) => n.name === "local");
+        expect(node).toBeDefined();
+        return {
+          local: resolveObjectType(context, node),
+          chain: resolveObjectType(context, node, { scope: "chain" }),
+        };
+      });
+      expect(facts.local).toBeNull();
+      expect(facts.chain).not.toBeNull();
+      expect(facts.chain!.kind).toBe("plain");
+    });
+  });
+
+  describe("global shadowing", () => {
+    it("should treat a shadowed Array() call as unknown", () => {
+      const code = "const Array = () => 1; Array();";
+      const fact = runInRule(code, (context, ast) => {
+        const node = getFirstNodeOfType<TSESTree.CallExpression>(ast, AST.CallExpression);
+        return resolveObjectType(context, node);
+      });
+      expect(fact).not.toBeNull();
+      expect(fact!.kind).toBe("unknown");
+    });
+
+    it("should treat a shadowed Object() call as unknown", () => {
+      const code = "const Object = () => 1; Object();";
+      const fact = runInRule(code, (context, ast) => {
+        const node = getFirstNodeOfType<TSESTree.CallExpression>(ast, AST.CallExpression);
+        return resolveObjectType(context, node);
+      });
+      expect(fact).not.toBeNull();
+      expect(fact!.kind).toBe("unknown");
+    });
+
+    it("should treat a shadowed Boolean() call as unknown", () => {
+      const code = "function f(Boolean) { return Boolean(); }";
+      const fact = runInRule(code, (context, ast) => {
+        const node = getFirstNodeOfType<TSESTree.CallExpression>(ast, AST.CallExpression);
+        return resolveObjectType(context, node);
+      });
+      expect(fact).not.toBeNull();
+      expect(fact!.kind).toBe("unknown");
+    });
+
+    it("should treat a shadowed Object.fromEntries() call as unknown", () => {
+      const code = "const Object = { fromEntries: () => 1 }; Object.fromEntries([]);";
+      const fact = runInRule(code, (context, ast) => {
+        const node = getFirstNodeOfType<TSESTree.CallExpression>(ast, AST.CallExpression);
+        return resolveObjectType(context, node);
+      });
+      expect(fact).not.toBeNull();
+      expect(fact!.kind).toBe("unknown");
     });
   });
 });

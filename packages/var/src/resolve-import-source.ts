@@ -24,10 +24,20 @@ function getRequireExpressionArguments(node: TSESTree.Node) {
  * Resolve the import source of a variable by walking its latest definition.
  * @param name The variable name.
  * @param initialScope The initial scope.
+ * @returns The import source, or `null` when it cannot be resolved.
+ */
+export function resolveImportSource(name: string, initialScope: Scope): string | null {
+  return resolveImportSourceInner(name, initialScope, new Set());
+}
+
+/**
+ * Recursive implementation of {@link resolveImportSource}.
+ * @param name The variable name.
+ * @param initialScope The initial scope.
  * @param seen The set of already visited variable names (for cycle detection).
  * @returns The import source, or `null` when it cannot be resolved.
  */
-export function resolveImportSource(name: string, initialScope: Scope, seen = new Set<string>()) {
+function resolveImportSourceInner(name: string, initialScope: Scope, seen: Set<string>): string | null {
   if (seen.has(name)) return null;
   seen.add(name);
   const latestDef = findVariable(initialScope, name)?.defs.at(-1);
@@ -37,11 +47,11 @@ export function resolveImportSource(name: string, initialScope: Scope, seen = ne
     const init = Extract.unwrap(node.init);
     // Check for: variable = Source.variable
     if (init.type === AST.MemberExpression && init.object.type === AST.Identifier) {
-      return resolveImportSource(init.object.name, initialScope, seen);
+      return resolveImportSourceInner(init.object.name, initialScope, seen);
     }
     // Check for: { variable } = Source
     if (init.type === AST.Identifier) {
-      return resolveImportSource(init.name, initialScope, seen);
+      return resolveImportSourceInner(init.name, initialScope, seen);
     }
     // Check for: variable = require('source') or variable = require('source').variable
     const args = getRequireExpressionArguments(init);

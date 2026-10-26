@@ -61,7 +61,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         case callee.type === AST.MemberExpression
           && Check.isIdentifier(callee.object)
           && Extract.getCalleeName(node) === "render"
-          && imports.hasNamespace(callee.object.name):
+          && imports.isModuleBinding(callee.object.name):
           context.report({
             fix: buildFix(context, node),
             messageId: "default",

@@ -174,6 +174,18 @@ describe("resolveOrigin", () => {
     expect(facts[0]?.resolved).toBeNull();
   });
 
+  it("should return null for a configured global without a definition", () => {
+    const code = "/* global EVENT */\nEVENT;";
+    const facts = runInRule(code, (context, ast) => {
+      const refs = findIdentifierReferences(ast, "EVENT");
+      expect(refs).toHaveLength(1);
+      const resolved = resolveOrigin(context, refs[0]!);
+      return [{ resolved }];
+    });
+    expect(facts).toHaveLength(1);
+    expect(facts[0]?.resolved).toBeNull();
+  });
+
   it("should resolve a named ImportBinding to the import specifier", () => {
     const code = 'import { x } from "mod"; x;';
     const facts = runInRule(code, (context, ast) => {

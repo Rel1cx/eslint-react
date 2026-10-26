@@ -27,8 +27,12 @@ function isSignalPropertyBinding(context: RuleContext, node: TSESTree.Identifier
   return false;
 }
 
-export function getSignalValueExpression(context: RuleContext, node: TSESTree.Node | null): TSESTree.Node | null {
+export function getSignalValueExpression(context: RuleContext, node: TSESTree.Node | null, seen: Set<TSESTree.Node> = new Set()): TSESTree.Node | null {
   if (node == null) return null;
+  // Guard against alias cycles (e.g. `const a = b; const b = a;`) causing
+  // infinite recursion.
+  if (seen.has(node)) return null;
+  seen.add(node);
   switch (node.type) {
     case AST.Identifier: {
       const resolved = resolveOrigin(context, node);
@@ -46,7 +50,7 @@ export function getSignalValueExpression(context: RuleContext, node: TSESTree.No
           return node;
         }
       }
-      return getSignalValueExpression(context, unwrapped);
+      return getSignalValueExpression(context, unwrapped, seen);
     }
     case AST.MemberExpression:
       return node;
