@@ -1,6 +1,6 @@
 {
   "name": "eslint-plugin-react-x",
-  "version": "5.30.0-beta.4",
+  "version": "5.30.0-beta.5",
   "description": "A set of composable ESLint rules for libraries and frameworks that use React as a UI runtime.",
   "keywords": [
     "react",
@@ -48,9 +48,9 @@
     "@eslint-react/jsx": "workspace:*",
     "@eslint-react/shared": "workspace:*",
     "@eslint-react/var": "workspace:*",
-    "@typescript-eslint/scope-manager": "^8.72.0",
-    "@typescript-eslint/types": "^8.72.0",
-    "@typescript-eslint/utils": "^8.72.0",
+    "@typescript-eslint/scope-manager": "^8.72.1",
+    "@typescript-eslint/types": "^8.72.1",
+    "@typescript-eslint/utils": "^8.72.1",
     "compare-versions": "^6.1.1",
     "string-ts": "^2.3.1",
     "ts-api-utils": "^2.5.0",

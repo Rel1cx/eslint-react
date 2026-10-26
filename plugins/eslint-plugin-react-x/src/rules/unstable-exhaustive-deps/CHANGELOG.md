@@ -5,6 +5,12 @@ All notable changes to the `react-x/unstable-exhaustive-deps` rule will be docum
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [5.30.0-beta.5] - 2026-10-27
+
+### Changed
+
+- Tuple elements of destructured hook results are now unwrapped with `resolveBindingTarget` from `@eslint-react/var`; no behavior change. (#2084)
+
 ## [5.30.0-beta.3] - 2026-10-26
 
 ### Added

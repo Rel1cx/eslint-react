@@ -5,6 +5,12 @@ All notable changes to the `react-x/no-unstable-default-props` rule will be docu
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [5.30.0-beta.5] - 2026-10-27
+
+### Changed
+
+- Object-pattern defaults are now detected with `Check.isObjectPatternElementDefault` from `@eslint-react/ast`; no behavior change. (#2084)
+
 ## [5.28.4] - 2026-10-21
 
 ### Changed

@@ -1,5 +1,28 @@
 # Changelog
 
+## v5.30.0-beta.5 (2026-10-27)
+
+### 🐞 Fixes
+
+- `react-x/error-boundaries`: treat optional-chained `createElement` calls as JSX-like returns. (#2084)
+- `react-x/no-missing-component-display-name`: recognize `memo` components passed to generic HOCs, so anonymous ones require a display name. (#2084)
+- `react-x/no-nested-component-definitions`: no longer report array pattern element defaults or `memo` `propsAreEqual` comparators as nested components; recognize optional-chained `createElement` returns. (#2084)
+- `react-debug/function-component`: treat only the first `memo`/`forwardRef` argument as the wrapped component; ignore array pattern element defaults; recognize optional-chained `createElement` returns. (#2084)
+
+### 📝 Documentation
+
+- Updated the community projects list.
+
+### 🏗️ Internal
+
+- `@eslint-react/ast`: added `Check.isArrayPatternElementDefault` and `Check.isObjectPatternElementDefault`. (#2084)
+- `@eslint-react/var`: added `resolveBindingTarget` and the `BindingTarget` type, now used by `no-array-index-key`, `no-unused-props`, `purity`, `set-state-in-effect`, and `unstable-exhaustive-deps`. (#2084)
+- `@eslint-react/core`: component detection now checks wrapper argument positions; `DoNotIncludeFunctionDefinedAsArrayPatternElement` now covers defaults; `isJSXLike` unwraps chain expressions. (#2084)
+- `react-x/no-unstable-default-props`: use `Check.isObjectPatternElementDefault`; no behavior change. (#2084)
+- Bumped `typescript-eslint` to `8.72.1`.
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.30.0-beta.4...v5.30.0-beta.5
+
 ## v5.30.0-beta.4 (2026-10-26)
 
 ### 🐞 Fixes

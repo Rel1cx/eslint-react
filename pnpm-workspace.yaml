@@ -33,7 +33,7 @@ overrides:
   # Keeps @babel/core's ^6.3.1 range off the 6.x line (no provenance, fails trustPolicy no-downgrade)
   semver: "^7.8.5"
   ts-api-utils: "^2.5.0"
-  typescript-eslint: "^8.72.0"
+  typescript-eslint: "^8.72.1"
   typescript: "6.0.3"
   # Keep a single vite copy in the tree (fumadocs-mdx's peer otherwise stays on an older resolution)
   vite: "^8.3.5"
