@@ -12,6 +12,7 @@ import {
   isUseEffectCleanupCallback,
   isUseEffectLikeCall,
   isUseEffectSetupCallback,
+  isUseRefLikeCall,
   isUseStateLikeCall,
 } from "./hook";
 
@@ -115,6 +116,21 @@ describe("isHookDefinition", () => {
     expect(found).toBe(true);
   });
 
+  it("should return true for a function used as a destructuring default with a hook name", () => {
+    const code = "const { useFoo = () => {} } = obj;";
+    let found = false;
+    Traverse.simpleTraverse(parseCode(code).ast, {
+      enter(node) {
+        if (Check.isFunction(node)) {
+          expect(isHookDefinition(node)).toBe(true);
+          found = true;
+        }
+      },
+      setParentPointers: true,
+    });
+    expect(found).toBe(true);
+  });
+
   it("should return true for function assigned to a member expression with a hook name", () => {
     const code = "obj.useFoo = function() {};";
     let found = false;
@@ -176,6 +192,12 @@ describe("isHookCall", () => {
     const node = getFirstNodeOfType<TSESTree.CallExpression>(code, AST.CallExpression);
     expect(isHookCall(node)).toBe(true);
   });
+
+  it("should return false for computed member callees", () => {
+    const code = `React["useState"]()`;
+    const node = getFirstNodeOfType<TSESTree.CallExpression>(code, AST.CallExpression);
+    expect(isHookCall(node)).toBe(false);
+  });
 });
 
 describe("isHookTag", () => {
@@ -193,6 +215,18 @@ describe("isHookTag", () => {
   ])("should return false for non-hook tag: %s", (code, expected) => {
     const node = getFirstNodeOfType<TSESTree.TaggedTemplateExpression>(code, AST.TaggedTemplateExpression);
     expect(isHookTag(node.tag)).toBe(expected);
+  });
+
+  it("should return false for computed member tags", () => {
+    const code = 'React["useMotionTemplate"]`literal`';
+    const node = getFirstNodeOfType<TSESTree.TaggedTemplateExpression>(code, AST.TaggedTemplateExpression);
+    expect(isHookTag(node.tag)).toBe(false);
+  });
+
+  it("should unwrap type expressions in tags", () => {
+    const code = "(useMotionTemplate as any)`literal`";
+    const node = getFirstNodeOfType<TSESTree.TaggedTemplateExpression>(code, AST.TaggedTemplateExpression);
+    expect(isHookTag(node.tag)).toBe(true);
   });
 });
 
@@ -236,6 +270,26 @@ describe("isUseStateLikeCall", () => {
   });
 });
 
+describe("isUseRefLikeCall", () => {
+  it.each([
+    ["useRef()", true],
+    ["React.useRef()", true],
+    ["useState()", false],
+    ["notAHook()", false],
+    [`React["useRef"]()`, false],
+  ])("isUseRefLikeCall(%s) === %s", (code, expected) => {
+    const node = getFirstNodeOfType<TSESTree.CallExpression>(code, AST.CallExpression);
+    expect(isUseRefLikeCall(node)).toBe(expected);
+  });
+
+  it("should support custom ref hooks via regex", () => {
+    const code = "useCustomRef()";
+    const node = getFirstNodeOfType<TSESTree.CallExpression>(code, AST.CallExpression);
+    expect(isUseRefLikeCall(node, /^useCustomRef$/u)).toBe(true);
+    expect(isUseRefLikeCall(node)).toBe(false);
+  });
+});
+
 describe("isUseEffectSetupCallback", () => {
   it("should return true for first argument of useEffect", () => {
     const code = "useEffect(() => {})";
@@ -247,6 +301,20 @@ describe("isUseEffectSetupCallback", () => {
     const code = "useEffect(() => {}, [])";
     const node = getFirstNodeOfType<TSESTree.ArrayExpression>(code, AST.ArrayExpression);
     expect(isUseEffectSetupCallback(node)).toBe(false);
+  });
+
+  it("should return false for a function passed as a non-first argument", () => {
+    const code = "useEffect(() => {}, () => {})";
+    const fns: TSESTree.ArrowFunctionExpression[] = [];
+    Traverse.simpleTraverse(parseCode(code).ast, {
+      enter(node) {
+        if (node.type === AST.ArrowFunctionExpression) fns.push(node);
+      },
+      setParentPointers: true,
+    });
+    expect(fns).toHaveLength(2);
+    expect(isUseEffectSetupCallback(fns[0]!)).toBe(true);
+    expect(isUseEffectSetupCallback(fns[1]!)).toBe(false);
   });
 
   it("should return true when the setup callback is wrapped in a type expression", () => {
@@ -308,6 +376,21 @@ describe("isUseEffectCleanupCallback", () => {
     Traverse.simpleTraverse(parseCode(code).ast, {
       enter(node) {
         if (node.type === AST.ArrowFunctionExpression && node.parent.type === AST.ArrowFunctionExpression) {
+          expect(isUseEffectCleanupCallback(node)).toBe(true);
+          found = true;
+        }
+      },
+      setParentPointers: true,
+    });
+    expect(found).toBe(true);
+  });
+
+  it("should return true for an expression-body cleanup wrapped in a type expression", () => {
+    const code = "useEffect(() => (() => {}) as any)";
+    let found = false;
+    Traverse.simpleTraverse(parseCode(code).ast, {
+      enter(node) {
+        if (node.type === AST.ArrowFunctionExpression && node.parent.type === AST.TSAsExpression) {
           expect(isUseEffectCleanupCallback(node)).toBe(true);
           found = true;
         }

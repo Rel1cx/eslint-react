@@ -4,9 +4,10 @@ import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import { findVariable, getStaticValue } from "@typescript-eslint/utils/ast-utils";
 import { resolveOrigin } from "./resolve-origin";
 
+// Ordered by observed nearest-ancestor frequency (most frequent first).
 const thisBlockTypes = [
-  AST.FunctionDeclaration,
   AST.FunctionExpression,
+  AST.FunctionDeclaration,
   AST.ClassBody,
   AST.Program,
 ] as const;

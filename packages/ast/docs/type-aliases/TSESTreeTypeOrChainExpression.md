@@ -4,8 +4,8 @@
 
 ```ts
 type TSESTreeTypeOrChainExpression =
-  | TSESTreeTypeExpression
-  | TSESTree.ChainExpression;
+  | TSESTree.ChainExpression
+  | TSESTreeTypeExpression;
 ```
 
 Union of expression node types that wrap another expression (TypeScript type expressions and chain expressions) — the nodes `Extract.unwrap` strips.

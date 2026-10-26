@@ -322,6 +322,19 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [{ messageId: "try-catch-with-use" }],
     },
+    // Optional-chained createElement is a JSX-like return value
+    {
+      code: tsx`
+        function Component() {
+          try {
+            return React?.createElement("div", null);
+          } catch (error) {
+            return null;
+          }
+        }
+      `,
+      errors: [{ messageId: "try-catch-with-jsx" }],
+    },
   ],
   valid: [
     // No try/catch at all

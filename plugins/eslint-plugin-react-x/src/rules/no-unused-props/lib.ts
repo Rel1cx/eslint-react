@@ -1,5 +1,6 @@
 import { Check } from "@eslint-react/ast";
 import { type RuleContext } from "@eslint-react/eslint";
+import { resolveBindingTarget } from "@eslint-react/var";
 import { isString } from "@local/eff";
 import type { Reference } from "@typescript-eslint/scope-manager";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
@@ -18,7 +19,7 @@ export function collectUsedPropKeysOfParameter(context: RuleContext, usedPropKey
     }
     case AST.AssignmentPattern: {
       // Unwrap default values (`props: Props = defaultProps`) and track the binding itself
-      return collectUsedPropKeysOfParameter(context, usedPropKeys, parameter.left);
+      return collectUsedPropKeysOfParameter(context, usedPropKeys, resolveBindingTarget(parameter));
     }
     default: {
       return false;

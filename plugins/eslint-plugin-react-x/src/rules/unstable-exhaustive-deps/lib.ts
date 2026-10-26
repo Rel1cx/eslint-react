@@ -1,4 +1,5 @@
 import { Extract } from "@eslint-react/ast";
+import { resolveBindingTarget } from "@eslint-react/var";
 import { DefinitionType, type ScopeVariable } from "@typescript-eslint/scope-manager";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 
@@ -102,7 +103,7 @@ export function isConfiguredStableHookValue(variable: ScopeVariable, configs: Ho
   const index = id.elements.findIndex((element) => {
     if (element == null) return false;
     // Defaults (for example, `[value, setter = noop]`) wrap the binding in an AssignmentPattern.
-    const binding = element.type === AST.AssignmentPattern ? element.left : element;
+    const binding = resolveBindingTarget(element);
     return variable.identifiers.some((identifier) => identifier === binding);
   });
   return index !== -1 && stableResult.has(index);

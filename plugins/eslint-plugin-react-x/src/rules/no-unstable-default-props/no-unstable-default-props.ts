@@ -89,7 +89,7 @@ export function create(context: RuleContext<MessageID, Options>, [options]: Opti
           })
           .otherwise(() => []);
         for (const prop of properties) {
-          if (prop.type !== AST.Property || prop.value.type !== AST.AssignmentPattern) {
+          if (prop.type !== AST.Property || !Check.isObjectPatternElementDefault(prop.value)) {
             continue;
           }
           const { value } = prop;

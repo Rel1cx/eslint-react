@@ -141,6 +141,8 @@ describe("getTypeVariants", () => {
   it("should classify plain object and function types as 'object'", () => {
     expect(variantsOf("declare const x: { a: string };", "x")).toEqual(["object"]);
     expect(variantsOf("declare const x: () => void;", "x")).toEqual(["object"]);
+    expect(variantsOf("declare const x: string[];", "x")).toEqual(["object"]);
+    expect(variantsOf("declare const x: [number, string];", "x")).toEqual(["object"]);
   });
 
   it("should classify any and never", () => {

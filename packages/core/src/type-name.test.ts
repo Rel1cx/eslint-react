@@ -142,4 +142,12 @@ describe("getFullyQualifiedNameEx", () => {
     const { checker, symbol } = getSymbolOfFirstDeclaration(code, "Props");
     expect(getFullyQualifiedNameEx(checker, symbol)).toBe("Props");
   });
+
+  it("should fall back to the checker name when the symbol has no declarations", () => {
+    const checker = {
+      getFullyQualifiedName: () => "mod.Sym",
+    } as unknown as ts.TypeChecker;
+    const symbol = { name: "Sym" } as unknown as ts.Symbol;
+    expect(getFullyQualifiedNameEx(checker, symbol)).toBe("mod.Sym");
+  });
 });

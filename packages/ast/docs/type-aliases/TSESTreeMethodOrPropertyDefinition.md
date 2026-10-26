@@ -3,7 +3,7 @@
 # Type Alias: TSESTreeMethodOrPropertyDefinition
 
 ```ts
-type TSESTreeMethodOrPropertyDefinition = TSESTree.PropertyDefinition | TSESTree.MethodDefinition;
+type TSESTreeMethodOrPropertyDefinition = TSESTree.MethodDefinition | TSESTree.PropertyDefinition;
 ```
 
 Union of method and property definition node types.

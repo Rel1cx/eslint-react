@@ -4,8 +4,8 @@
 
 ```ts
 type TSESTreeFunctionOrClass =
-  | TSESTreeFunction
-  | TSESTreeClass;
+  | TSESTreeClass
+  | TSESTreeFunction;
 ```
 
 Union of function-like and class-like node types.

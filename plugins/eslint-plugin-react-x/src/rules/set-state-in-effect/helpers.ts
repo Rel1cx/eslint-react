@@ -1,4 +1,5 @@
 import { Check, Extract, type TSESTreeFunction } from "@eslint-react/ast";
+import { resolveBindingTarget } from "@eslint-react/var";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 
 /**
@@ -52,14 +53,8 @@ export function isRefLikeName(name: string) {
 }
 
 export function getParameterId(param: TSESTree.Parameter): TSESTree.Identifier | null {
-  switch (param.type) {
-    case AST.Identifier:
-      return param;
-    case AST.AssignmentPattern:
-      return param.left.type === AST.Identifier ? param.left : null;
-    default:
-      return null;
-  }
+  const target = resolveBindingTarget(param);
+  return target.type === AST.Identifier ? target : null;
 }
 
 export function getRefSourceName(node: TSESTree.Node): string | null {

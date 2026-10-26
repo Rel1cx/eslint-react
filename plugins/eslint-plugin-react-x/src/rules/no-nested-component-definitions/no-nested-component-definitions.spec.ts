@@ -1033,8 +1033,54 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
     },
+    {
+      // Optional-chained createElement returns are JSX-like, so the local function
+      // is still collected as a component definition.
+      code: tsx`
+        function ParentComponent() {
+          const ChildComponent = () => React?.createElement("div", null);
+          return <ChildComponent />;
+        }
+      `,
+      errors: [
+        {
+          data: {
+            name: "ChildComponent",
+            suggestion: "Move it to the top level.",
+          },
+          messageId: "default",
+        },
+      ],
+    },
   ],
   valid: [
+    // Array pattern element defaults are not component definitions.
+    tsx`
+      function ParentComponent() {
+        const [NestedComponent = () => <div />] = arr;
+        return <NestedComponent />;
+      }
+    `,
+    tsx`
+      function ParentComponent() {
+        const [NestedComponent = (() => <div />) as any] = arr;
+        return <NestedComponent />;
+      }
+    `,
+    // memo's propsAreEqual comparator is not a component definition, so it must
+    // not be named after the surrounding binding and reported as nested.
+    tsx`
+      function ParentComponent() {
+        const ChildComponent = memo(ComponentImpl, () => <div />);
+        return <ChildComponent />;
+      }
+    `,
+    tsx`
+      function ParentComponent() {
+        const ChildComponent = memo(ComponentImpl, (() => <div />) as any);
+        return <ChildComponent />;
+      }
+    `,
     // Custom HOCs following the `with*` naming convention are not well-known wrappers
     tsx`
       function ParentComponent() {

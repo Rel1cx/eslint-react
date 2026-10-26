@@ -126,6 +126,9 @@ export function isFunctionComponentWrapperCallback(context: RuleContext, node: T
 
 /**
  * Get function component identifier from `const Component = memo(() => {});`.
+ * Only the first argument of a component wrapper is treated as the wrapped
+ * component; later arguments (ex: memo's propsAreEqual comparator) do not
+ * inherit the surrounding binding.
  * @param context The rule context.
  * @param node The AST node to get the function component identifier from.
  * @internal
@@ -133,16 +136,23 @@ export function isFunctionComponentWrapperCallback(context: RuleContext, node: T
 export function getFunctionComponentId(context: RuleContext, node: TSESTreeFunction): FunctionID {
   const functionId = getFunctionId(node);
   if (functionId != null) return functionId;
-  let parent = node.parent;
-  while (Check.isTypeExpression(parent)) parent = parent.parent;
+  let parent: TSESTree.Node = node.parent;
+  let child: TSESTree.Node = node;
+  while (Check.isTypeExpression(parent)) {
+    child = parent;
+    parent = parent.parent;
+  }
   switch (true) {
     case parent.type === AST.CallExpression
+      && parent.arguments[0] === child
       && isFunctionComponentWrapperCall(context, parent)
       && parent.parent.type === AST.VariableDeclarator:
       return parent.parent.id;
     case parent.type === AST.CallExpression
+      && parent.arguments[0] === child
       && isFunctionComponentWrapperCall(context, parent)
       && parent.parent.type === AST.CallExpression
+      && parent.parent.arguments[0] === parent
       && isFunctionComponentWrapperCall(context, parent.parent)
       && parent.parent.parent.type === AST.VariableDeclarator:
       return parent.parent.parent.id;
@@ -214,7 +224,10 @@ export const FunctionComponentDetectionHint = {
 
   /** Exclude functions defined as array expression elements from component detection. */
   DoNotIncludeFunctionDefinedAsArrayExpressionElement: 1n << 14n,
-  /** Exclude functions defined as array pattern elements from component detection. */
+  /**
+   * Exclude functions defined as array pattern elements or as their default values from
+   * component detection (ex: `const [Nav = () => {}] = arr`).
+   */
   DoNotIncludeFunctionDefinedAsArrayPatternElement: 1n << 15n,
 
   /** Exclude functions defined as array flatMap callbacks (named or anonymous) from component detection. */
@@ -262,6 +275,12 @@ export function isFunctionComponentDefinition(context: RuleContext, node: TSESTr
   // 3. Check immediate contextual exclusions
   if (isRenderMethodCallback(node)) return false;
   if (isCreateElementChildrenArgument(context, node)) return false;
+  // A function in a non-first argument position of a component wrapper is a
+  // configuration callback (ex: memo's propsAreEqual), never the wrapped
+  // component. This is structural, so it applies regardless of detection hints.
+  if (Check.isCallExpression(parent) && isFunctionComponentWrapperCall(context, parent) && !isFunctionComponentWrapperCallback(context, node)) {
+    return false;
+  }
 
   // 4. Apply contextual exclusions via hints
   const [parentCallee, parentCalleeName] = parent.type === AST.CallExpression ? [Extract.unwrap(parent.callee), Extract.getCalleeName(parent)] : [null, null];
@@ -279,7 +298,11 @@ export function isFunctionComponentDefinition(context: RuleContext, node: TSESTr
       && parent.type === AST.PropertyDefinition:
       if (hint & FunctionComponentDetectionHint.DoNotIncludeFunctionDefinedAsClassProperty) return false;
       break;
-    case parent.type === AST.ArrayPattern:
+    // Functions can appear in an array pattern as an element default, which puts
+    // them under an `AssignmentPattern` (ex: `const [Nav = () => {}] = arr`), or
+    // as a direct element in parser-accepted-but-invalid destructuring
+    // assignments (ex: `[() => {}] = arr`), so cover both shapes.
+    case parent.type === AST.ArrayPattern || Check.isArrayPatternElementDefault(parent):
       if (hint & FunctionComponentDetectionHint.DoNotIncludeFunctionDefinedAsArrayPatternElement) return false;
       break;
     case parent.type === AST.ArrayExpression:
@@ -307,14 +330,15 @@ export function isFunctionComponentDefinition(context: RuleContext, node: TSESTr
   }
 
   // 5. Exclude inline JSX callbacks (event handlers, render props)
+  // Ordered by observed nearest-ancestor frequency (most frequent first).
   const significantParent = Traverse.findParent(
     node,
     Check.isOneOf([
-      AST.JSXExpressionContainer,
       AST.ArrowFunctionExpression,
-      AST.FunctionExpression,
       AST.Property,
+      AST.FunctionExpression,
       AST.ClassBody,
+      AST.JSXExpressionContainer,
     ]),
   );
 

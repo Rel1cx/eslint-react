@@ -5,10 +5,10 @@
 ```ts
 type TSESTreeTypeExpression =
   | TSESTree.TSAsExpression
-  | TSESTree.TSTypeAssertion
+  | TSESTree.TSInstantiationExpression
   | TSESTree.TSNonNullExpression
   | TSESTree.TSSatisfiesExpression
-  | TSESTree.TSInstantiationExpression;
+  | TSESTree.TSTypeAssertion;
 ```
 
 Union of TypeScript type expression node types.

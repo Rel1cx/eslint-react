@@ -178,6 +178,11 @@ describe("isRenderMethodLike", () => {
     const node = getFirstNodeOfType<TSESTree.MethodDefinition>("class A { static renderFooter() {} }", AST.MethodDefinition);
     expect(isRenderMethodLike(node)).toBe(true);
   });
+
+  it("should not match an object literal method named render", () => {
+    const node = getFirstNodeOfType<TSESTree.Property>("const obj = { render() {} }", AST.Property);
+    expect(isRenderMethodLike(node)).toBe(false);
+  });
 });
 
 describe("isRenderMethodCallback", () => {

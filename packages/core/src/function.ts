@@ -147,13 +147,42 @@ export function getFunctionId(node: TSESTree.Expression | TSESTreeFunction) {
 }
 
 /**
+ * Check if the call is a React component wrapper (`memo` / `forwardRef`).
+ * Matched by callee name, which mirrors `isAPICall` without requiring a rule context.
+ * @param node The call expression to check.
+ * @returns `true` if the call wraps a component.
+ */
+function isComponentWrapperCall(node: TSESTree.CallExpression) {
+  const name = Extract.getCalleeName(node);
+  return name === "memo" || name === "forwardRef";
+}
+
+/**
+ * Check if `child` occupies a component position in `call`.
+ *
+ * React's component wrappers take the wrapped component as their first argument
+ * (`memo(Component, propsAreEqual?)`, `forwardRef(render)`); other calls have no
+ * such positional semantics, so any argument position (never the callee) counts.
+ * @param call The call expression to check.
+ * @param child The expression whose position is checked.
+ * @returns `true` if the expression is in a component position.
+ */
+function isComponentArgumentPosition(call: TSESTree.CallExpression, child: TSESTree.Expression) {
+  return isComponentWrapperCall(call)
+    ? call.arguments[0] === child
+    : call.arguments.includes(child);
+}
+
+/**
  * Get the initialization path of a function node in the AST.
  *
  * @remarks
  * Higher-order component wrappers (ex: `memo`, `forwardRef`) are only
  * recognized when the call expression initializes a variable declarator
- * directly. HOCs inside object properties (ex: `{ Nav: memo(() => {}) }`)
- * are not supported and yield `null`.
+ * directly and the function occupies a component position: the first argument
+ * for `memo`/`forwardRef`, or any argument for other calls (never the callee).
+ * HOCs inside object properties (ex: `{ Nav: memo(() => {}) }`) are not
+ * supported and yield `null`.
  *
  * @param node The function node to analyze.
  * @returns The function initialization path or `null` if not identifiable.
@@ -179,18 +208,21 @@ export function getFunctionInitPath(node: TSESTreeFunction): null | FunctionInit
       return [parent.parent, parent, node] as const;
 
     // HOC pattern: const Component = React.memo(() => {})
-    // The function must be a call argument, not the callee (ex: `const f = (() => {})()` is an IIFE, not an HOC)
+    // The function must be in a component position: the first argument for
+    // memo/forwardRef (their later arguments are configuration callbacks), or
+    // any argument for other calls; it must never be the callee
+    // (ex: `const f = (() => {})()` is an IIFE, not an HOC).
     case parent.type === AST.CallExpression
-      && parent.arguments.includes(child)
+      && isComponentArgumentPosition(parent, child)
       && parent.parent.type === AST.VariableDeclarator:
       return [parent.parent.parent, parent.parent, parent, node] as const;
 
     // Nested HOC pattern: const Component = React.memo(React.forwardRef(() => {}))
-    // Both calls must receive the inner expression as an argument, not as the callee
+    // Each call must place the inner expression in a component position.
     case parent.type === AST.CallExpression
-      && parent.arguments.includes(child)
+      && isComponentArgumentPosition(parent, child)
       && parent.parent.type === AST.CallExpression
-      && parent.parent.arguments.includes(parent)
+      && isComponentArgumentPosition(parent.parent, parent)
       && parent.parent.parent.type === AST.VariableDeclarator:
       return [parent.parent.parent.parent, parent.parent.parent, parent.parent, parent, node] as const;
 
