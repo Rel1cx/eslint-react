@@ -5,53 +5,47 @@
 ```ts
 type AttributeValue =
   | {
+    attribute: TSESTree.JSXAttribute;
     kind: "boolean";
     node: null;
-    toStatic(): true;
   }
   | {
+    attribute: TSESTree.JSXAttribute;
     kind: "literal";
     node: TSESTree.Literal;
-    toStatic():
-      | string
-      | number
-      | bigint
-      | boolean
-      | RegExp
-      | null;
   }
   | {
+    attribute: TSESTree.JSXAttribute;
     kind: "unknown";
     node: TSESTree.Expression;
-    toStatic(): unknown;
   }
   | {
+    attribute: TSESTree.JSXAttribute;
     kind: "element";
     node: TSESTreeJSXElementLike;
-    toStatic(): undefined;
   }
   | {
+    attribute: TSESTree.JSXAttribute;
     kind: "missing";
     node: TSESTree.JSXEmptyExpression;
-    toStatic(): undefined;
   }
   | {
+    attribute: TSESTree.JSXAttribute;
     kind: "spreadChild";
     node: TSESTree.JSXSpreadChild;
-    toStatic(): undefined;
   }
   | {
+    attribute: TSESTree.JSXSpreadAttribute;
     kind: "spreadProps";
-    node: TSESTree.JSXSpreadAttribute["argument"];
-    getProperty(name: string): unknown;
-    toStatic(): unknown;
+    property: TSESTree.Property | null;
   };
 ```
 
-Discriminated union representing the resolved value of a JSX attribute.
+The structural value of an attribute.
 
-Each variant carries the original AST `node` (the `boolean` variant has no value
-node and reports `null`) and a `toStatic()` helper that attempts to collapse the
-value into a plain JavaScript value at analysis time. `toStatic()` returns
-`undefined` when no static value is available; structural information is carried
-by `kind`, value information by `toStatic()`.
+Plain attribute variants carry the source `attribute` and the value node.
+The `spreadProps` variant does not carry a `node`: the value is supplied by
+`property` (when known), and the spread source is `attribute.argument`.
+
+This is plain data; use [resolveAttributeStaticValue](../functions/resolveAttributeStaticValue.md) to collapse it to
+a plain JavaScript value.

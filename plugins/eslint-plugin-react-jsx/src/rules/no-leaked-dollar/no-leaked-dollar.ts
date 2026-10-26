@@ -1,8 +1,7 @@
 import { createRule } from "@/utils/create-rule";
 import type { TSESTreeJSXElementLike } from "@eslint-react/ast";
 import { type RuleContext, type RuleFeature, type RuleListener, getText } from "@eslint-react/eslint";
-import { isEmptyStringExpression, isWhitespaceText } from "@eslint-react/jsx";
-import { or } from "@local/eff";
+import { isEmptyExpressionContainer, isEmptyStringExpression, isWhitespaceText } from "@eslint-react/jsx";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 
 export const RULE_NAME = "no-leaked-dollar";
@@ -75,14 +74,11 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   return { JSXElement: visit, JSXFragment: visit };
 }
 
-const isWhitespaceOrEmptyStringExpression = or(isWhitespaceText, isEmptyStringExpression);
-
 /**
  * Whether a JSX child carries no renderable content: whitespace-only text, an
  * empty expression (ex: `{}` or a comment), or an empty string expression.
  * @param child The JSX child node to check.
  */
 function isNonSubstantiveChild(child: TSESTree.JSXChild): boolean {
-  if (isWhitespaceOrEmptyStringExpression(child)) return true;
-  return child.type === AST.JSXExpressionContainer && child.expression.type === AST.JSXEmptyExpression;
+  return isWhitespaceText(child) || isEmptyExpressionContainer(child) || isEmptyStringExpression(child);
 }

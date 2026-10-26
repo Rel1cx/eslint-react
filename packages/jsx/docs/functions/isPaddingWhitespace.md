@@ -3,7 +3,7 @@
 # Function: isPaddingWhitespace()
 
 ```ts
-function isPaddingWhitespace(node: JSXChild): boolean;
+function isPaddingWhitespace(node: Node | null | undefined): node is JSXText;
 ```
 
 Check if the node is whitespace padding that React would trim away during
@@ -18,12 +18,12 @@ so reading either field yields the same result here.
 
 ## Parameters
 
-| Parameter | Type       | Description                  |
-| --------- | ---------- | ---------------------------- |
-| `node`    | `JSXChild` | The JSX child node to check. |
+| Parameter | Type                            | Description        |
+| --------- | ------------------------------- | ------------------ |
+| `node`    | `Node` \| `null` \| `undefined` | The node to check. |
 
 ## Returns
 
-`boolean`
+`node is JSXText`
 
 `true` if the node is purely formatting whitespace.

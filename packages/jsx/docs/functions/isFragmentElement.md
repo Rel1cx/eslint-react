@@ -3,7 +3,7 @@
 # Function: isFragmentElement()
 
 ```ts
-function isFragmentElement(node: Node, jsxFragmentFactory: string): node is TSESTreeJSXElementLike;
+function isFragmentElement(node: Node | null | undefined, jsxFragmentFactory: string): node is TSESTreeJSXElementLike;
 ```
 
 Check if the node is a React Fragment element.
@@ -22,10 +22,10 @@ JSX runtime (ex: Preact). Note the self-name comparison is a heuristic: any
 
 ## Parameters
 
-| Parameter            | Type     | Description                                                    |
-| -------------------- | -------- | -------------------------------------------------------------- |
-| `node`               | `Node`   | The node to check.                                             |
-| `jsxFragmentFactory` | `string` | The configured fragment factory string (ex: "React.Fragment"). |
+| Parameter            | Type                            | Description                                                    |
+| -------------------- | ------------------------------- | -------------------------------------------------------------- |
+| `node`               | `Node` \| `null` \| `undefined` | The node to check.                                             |
+| `jsxFragmentFactory` | `string`                        | The configured fragment factory string (ex: "React.Fragment"). |
 
 ## Returns
 

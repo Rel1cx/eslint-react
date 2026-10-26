@@ -5,6 +5,16 @@ All notable changes to the `react-dom/no-dangerously-set-innerhtml-with-children
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [5.30.0-beta.6] - 2026-10-27
+
+### Fixed
+
+- Empty expression containers (`{}` and comment-only containers) are no longer treated as children when an element also uses `dangerouslySetInnerHTML`. The JSX transform omits them, so React does not see a conflict. Same-line whitespace and empty string expressions still count. This aligns the rule with `react-jsx/no-children-prop-with-children`.
+
+### Changed
+
+- Adapted to the rewritten `@eslint-react/jsx` attribute lookup: `findAttribute` now returns a match carrying the matched attribute.
+
 ## [5.10.2] - 2026-07-03
 
 ### Fixed

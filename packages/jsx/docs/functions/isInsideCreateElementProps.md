@@ -3,7 +3,7 @@
 # Function: isInsideCreateElementProps()
 
 ```ts
-function isInsideCreateElementProps(context: RuleContext, node: Node): boolean;
+function isInsideCreateElementProps(context: RuleContext, node: Node | null | undefined): boolean;
 ```
 
 Check if the node is directly inside the props object (the second argument) of a `createElement` call,
@@ -12,10 +12,10 @@ that is, its closest `ObjectExpression` ancestor is the props object itself. Nod
 
 ## Parameters
 
-| Parameter | Type          | Description              |
-| --------- | ------------- | ------------------------ |
-| `context` | `RuleContext` | The ESLint rule context. |
-| `node`    | `Node`        | The node to check.       |
+| Parameter | Type                            | Description              |
+| --------- | ------------------------------- | ------------------------ |
+| `context` | `RuleContext`                   | The ESLint rule context. |
+| `node`    | `Node` \| `null` \| `undefined` | The node to check.       |
 
 ## Returns
 

@@ -730,17 +730,6 @@ ruleTester.run(RULE_NAME, rule, {
       output: null,
     },
     {
-      code: "<Fragment {...props}><div /></Fragment>",
-      errors: [
-        {
-          type: AST.JSXElement,
-          data: { reason: "contains less than two children" },
-          messageId: "default",
-        },
-      ],
-      output: null,
-    },
-    {
       code: "<Other.Fragment><Foo /></Other.Fragment>",
       errors: [
         {
@@ -1183,6 +1172,12 @@ ruleTester.run(RULE_NAME, rule, {
     // A key spread from an inline object expression exempts the fragment,
     // same as a literal key attribute
     "<Fragment {...{ key: 'k' }}><div /></Fragment>",
+    // An unresolvable spread may provide key/ref, so the fragment is not reported
+    "<Fragment {...props}><div /></Fragment>",
+    "<Fragment {...{ ...props }}><div /></Fragment>",
+    // A dynamic computed key may also provide key/ref
+    "<Fragment {...{ [propName]: value }}><div /></Fragment>",
+    "<Fragment {...{ ...{ [propName]: value } }}><div /></Fragment>",
     // key/ref exemption is checked before the emptiness check
     '<Fragment key="k" />',
     // A single expression child inside a custom component is allowed by default

@@ -5,6 +5,12 @@ All notable changes to the `react-x/no-unstable-context-value` rule will be docu
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [5.30.0-beta.6] - 2026-10-27
+
+### Changed
+
+- The element self name is now obtained with `getElementSelfType` instead of manually splitting the full type, and the `value` attribute is matched with `isPlainAttribute`; no behavior change.
+
 ## [5.28.4] - 2026-10-21
 
 ### Changed

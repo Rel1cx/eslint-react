@@ -1,85 +1,85 @@
 import { Check, Extract, Traverse } from "@eslint-react/ast";
 import { type RuleContext, getText } from "@eslint-react/eslint";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
+import { findObjectProperty } from "./property";
 
-function isCreateElementCall(context: RuleContext, node: null | TSESTree.Node): node is TSESTree.CallExpression {
+/**
+ * A parsed `createElement` call.
+ *
+ * All argument fields expose raw positional arguments, which may be
+ * `SpreadElement` nodes. `propsObject` is the only derived field: it is the
+ * second argument after unwrapping type/chain expressions, and is non-null only
+ * when that argument is statically an object literal.
+ */
+export interface CreateElementCall {
+  /** The raw arguments after the props argument. */
+  readonly childrenArguments: readonly TSESTree.CallExpressionArgument[];
+  /** The call expression node. */
+  readonly node: TSESTree.CallExpression;
+  /** The raw second positional argument (the props argument), if present. */
+  readonly propsArgument: TSESTree.CallExpressionArgument | null;
+  /** The second argument unwrapped, when it is an object literal. */
+  readonly propsObject: TSESTree.ObjectExpression | null;
+  /** The raw first positional argument (the element type), if present. */
+  readonly typeArgument: TSESTree.CallExpressionArgument | null;
+}
+
+/**
+ * Check if the node is a call to a `createElement` API.
+ *
+ * Matching is name-based and namespace-agnostic: the fully qualified callee name
+ * must be `createElement` or end with `.createElement`. No import provenance
+ * check is performed, matching `isAPICall("createElement")` in `@eslint-react/core`.
+ * @param context The ESLint rule context.
+ * @param node The node to inspect.
+ * @returns `true` if the node is a `createElement` call.
+ */
+export function isCreateElementCall(context: RuleContext, node: TSESTree.Node | null | undefined): node is TSESTree.CallExpression {
   if (node?.type !== AST.CallExpression) return false;
   const name = Extract.getFullyQualifiedName(Extract.unwrap(node.callee), getText(context));
   return name === "createElement" || name.endsWith(".createElement");
 }
 
-// #region Argument Extraction
-
 /**
- * Get the type argument (the first argument) of a `createElement` call.
- * @param context The ESLint rule context.
- * @param node The node to inspect.
- * @returns The type argument, or `null` when the node is not a `createElement` call or has no arguments.
- */
-export function getCreateElementTypeArgument(context: RuleContext, node: null | TSESTree.Node): TSESTree.CallExpressionArgument | null {
-  if (!isCreateElementCall(context, node)) return null;
-  return node.arguments[0] ?? null;
-}
-
-/**
- * Get the props object (the second argument) of a `createElement` call.
+ * Parse a `createElement` call into its positional arguments.
  *
- * Type expressions and chain expressions wrapping the argument are unwrapped
- * before the object check; `null`, spread, or otherwise non-object props
- * arguments yield `null`.
- *
+ * A non-`createElement` node yields `null`; a matched call always yields a
+ * descriptor, even when it has no arguments. This removes the ambiguity between
+ * "not a `createElement` call" and "a call with no props/children".
  * @param context The ESLint rule context.
  * @param node The node to inspect.
- * @returns The props `ObjectExpression`, or `null` when absent or not statically an object literal.
+ * @returns The parsed call, or `null` when the node is not a `createElement` call.
  */
-export function getCreateElementPropsObject(context: RuleContext, node: null | TSESTree.Node): TSESTree.ObjectExpression | null {
+export function parseCreateElementCall(context: RuleContext, node: TSESTree.Node | null | undefined): CreateElementCall | null {
   if (!isCreateElementCall(context, node)) return null;
-  const propsArg = node.arguments[1];
-  if (propsArg == null) return null;
-  const expr = Extract.unwrap(propsArg);
-  return expr.type === AST.ObjectExpression ? expr : null;
-}
-
-/**
- * Get the children arguments (the arguments after the props object) of a `createElement` call.
- * @param context The ESLint rule context.
- * @param node The node to inspect.
- * @returns The children arguments, or an empty array when the node is not a `createElement` call.
- */
-export function getCreateElementChildrenArguments(context: RuleContext, node: null | TSESTree.Node): TSESTree.CallExpressionArgument[] {
-  if (!isCreateElementCall(context, node)) return [];
-  return node.arguments.slice(2);
+  const propsArgument = node.arguments[1] ?? null;
+  const propsExpression = propsArgument == null ? null : Extract.unwrap(propsArgument);
+  return {
+    childrenArguments: node.arguments.slice(2),
+    node,
+    propsArgument,
+    propsObject: propsExpression?.type === AST.ObjectExpression ? propsExpression : null,
+    typeArgument: node.arguments[0] ?? null,
+  };
 }
 
 /**
  * Find a statically named property in the props object of a `createElement` call.
  *
- * Statically resolvable names include plain identifier keys as well as
- * string-literal and simple template-literal keys (computed or not).
+ * Matching follows JavaScript object semantics: properties are scanned in
+ * reverse (later entries win), nested spreads are resolved recursively, and
+ * statically evaluable computed keys are matched. The property matcher is shared
+ * with `findSpreadProperty`, so JSX spread attributes and `createElement` props
+ * have identical name-resolution behavior.
  * @param context The ESLint rule context.
- * @param node The node to inspect.
+ * @param call The parsed call, or `null`.
  * @param name The property name to look for (ex: `"children"`, `"key"`).
- * @returns The matching `Property` node, or `null` when the call has no static property with that name.
- *
- * @example
- * ```ts
- * import { getCreateElementProp } from "@eslint-react/jsx";
- *
- * const childrenProp = getCreateElementProp(context, node, "children");
- * ```
+ * @returns The matching `Property` node, or `null` when not found.
  */
-export function getCreateElementProp(context: RuleContext, node: null | TSESTree.Node, name: string): TSESTree.Property | null {
-  const propsObject = getCreateElementPropsObject(context, node);
-  if (propsObject == null) return null;
-  for (const prop of propsObject.properties) {
-    if (prop.type === AST.Property && Extract.getPropertyName(prop, "max") === name) {
-      return prop;
-    }
-  }
-  return null;
+export function findCreateElementProp(context: RuleContext, call: CreateElementCall | null, name: string): TSESTree.Property | null {
+  if (call?.propsObject == null) return null;
+  return findObjectProperty(context, call.propsObject, name);
 }
-
-// #endregion
 
 // #region Contextual Predicates
 
@@ -90,12 +90,14 @@ export function getCreateElementProp(context: RuleContext, node: null | TSESTree
  * @param node The node to check.
  * @returns `true` if the node is a direct children argument of a `createElement` call.
  */
-export function isCreateElementChildrenArgument(context: RuleContext, node: TSESTree.Node): boolean {
+export function isCreateElementChildrenArgument(context: RuleContext, node: TSESTree.Node | null | undefined): boolean {
+  if (node == null) return false;
   let parent = node.parent;
   while (Check.isTypeExpression(parent)) parent = parent.parent;
+  const target = Extract.unwrap(node);
   return parent?.type === AST.CallExpression
     && isCreateElementCall(context, parent)
-    && parent.arguments.slice(2).some((arg) => Extract.unwrap(arg) === Extract.unwrap(node));
+    && parent.arguments.slice(2).some((arg) => Extract.unwrap(arg) === target);
 }
 
 /**
@@ -106,7 +108,8 @@ export function isCreateElementChildrenArgument(context: RuleContext, node: TSES
  * @param node The node to check.
  * @returns `true` if the node is directly inside `createElement`'s props object.
  */
-export function isInsideCreateElementProps(context: RuleContext, node: TSESTree.Node): boolean {
+export function isInsideCreateElementProps(context: RuleContext, node: TSESTree.Node | null | undefined): boolean {
+  if (node == null) return false;
   const call = Traverse.findParent(node, (parent): parent is TSESTree.CallExpression => isCreateElementCall(context, parent));
   if (call == null) return false;
   // The props object is the second argument of createElement

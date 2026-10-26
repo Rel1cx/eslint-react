@@ -1,7 +1,8 @@
 import { createJSXElementResolver } from "@/utils/create-jsx-element-resolver";
 import { createRule } from "@/utils/create-rule";
+import { getAttributeReportNode } from "@/utils/get-attribute-report-node";
 import { type RuleContext, type RuleFeature, type RuleListener } from "@eslint-react/eslint";
-import { findAttribute, resolveAttributeValue } from "@eslint-react/jsx";
+import { getAttributeValue, resolveAttributeStaticValue } from "@eslint-react/jsx";
 import { isString } from "@local/eff";
 
 export const RULE_NAME = "no-unsafe-iframe-sandbox";
@@ -35,18 +36,16 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       const { domElementType } = resolver.resolve(node);
       if (domElementType !== "iframe") return;
 
-      const sandboxProp = findAttribute(context, node, "sandbox");
-      if (sandboxProp == null) return;
-
-      // Resolve the value of the 'sandbox' attribute; for spread attributes
-      // the named property is extracted automatically
-      const sandboxValue = resolveAttributeValue(context, sandboxProp, "sandbox");
-      const value = sandboxValue.toStatic();
+      const sandboxValue = getAttributeValue(context, node, "sandbox");
+      if (sandboxValue == null) return;
+      const value = resolveAttributeStaticValue(context, sandboxValue);
       if (!isString(value) || !UNSAFE_SANDBOX_VALUES.every((a) => value.includes(a))) return;
+
+      const reportNode = getAttributeReportNode(sandboxValue);
 
       context.report({
         messageId: "default",
-        node: sandboxValue.node ?? sandboxProp,
+        node: reportNode,
       });
     },
   };

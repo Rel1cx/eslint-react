@@ -87,9 +87,9 @@ ruleTester.run(RULE_NAME, rule, {
       code: tsx`<App dangerouslySetInnerHTML={{ __html: "HTML" }}> </App>`,
       errors: [{ messageId: "default" }],
     },
-    // Comment expression container as child (JSXEmptyExpression is not whitespace)
+    // Empty string expressions still produce a children value at runtime
     {
-      code: tsx`<div dangerouslySetInnerHTML={{ __html: "HTML" }}>{/* comment */}</div>`,
+      code: '<div dangerouslySetInnerHTML={{ __html: "HTML" }}>{""}</div>',
       errors: [{ messageId: "default" }],
     },
   ],
@@ -117,6 +117,9 @@ ruleTester.run(RULE_NAME, rule, {
     // Empty tag with dangerouslySetInnerHTML (no children)
     '<div dangerouslySetInnerHTML={{ __html: "HTML" }}></div>',
     '<App dangerouslySetInnerHTML={{ __html: "HTML" }}>\n</App>',
+    // Comments and empty expression containers are omitted by the JSX transform
+    '<div dangerouslySetInnerHTML={{ __html: "HTML" }}>{/* comment */}</div>',
+    '<div dangerouslySetInnerHTML={{ __html: "HTML" }}>{}</div>',
     "<App {...undefined}>Children</App>",
   ],
 });

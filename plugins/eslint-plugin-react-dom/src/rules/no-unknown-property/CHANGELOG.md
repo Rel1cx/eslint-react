@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [5.30.0-beta.6] - 2026-10-27
+
+### Changed
+
+- `isValidHTMLTagInJSX` now uses `isPlainAttribute` from `@eslint-react/jsx`; matching remains limited to plain identifier attributes, so there is no behavior change.
+
 ## [5.28.1] - 2026-10-17
 
 ### Fixed

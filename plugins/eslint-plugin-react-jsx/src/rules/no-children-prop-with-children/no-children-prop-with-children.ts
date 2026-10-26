@@ -1,8 +1,7 @@
 import { createRule } from "@/utils/create-rule";
 import { removeJSXAttribute } from "@/utils/remove-jsx-attribute";
 import { type RuleContext, type RuleFeature, type RuleListener } from "@eslint-react/eslint";
-import { findAttribute, getCreateElementChildrenArguments, getCreateElementProp, hasChildren } from "@eslint-react/jsx";
-import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
+import { findAttribute, findCreateElementProp, hasMeaningfulChildren, parseCreateElementCall } from "@eslint-react/jsx";
 
 export const RULE_NAME = "no-children-prop-with-children";
 
@@ -37,12 +36,14 @@ export default createRule<[], MessageID>({
 export function create(context: RuleContext<MessageID, []>): RuleListener {
   return {
     CallExpression(node) {
-      const prop = getCreateElementProp(context, node, "children");
+      const call = parseCreateElementCall(context, node);
+      if (call == null) return;
+      const prop = findCreateElementProp(context, call, "children");
       if (prop == null) return;
 
       // `createElement(type, props, ...children)` treats arguments after the
       // props object as children content; without them there is no conflict
-      if (getCreateElementChildrenArguments(context, node).length === 0) return;
+      if (call.childrenArguments.length === 0) return;
 
       context.report({
         messageId: "default",
@@ -50,15 +51,16 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       });
     },
     JSXElement(node) {
-      const prop = findAttribute(context, node, "children");
-      if (prop == null || !hasChildren(node)) return;
+      const match = findAttribute(context, node, "children");
+      if (match == null || !hasMeaningfulChildren(node)) return;
 
       // If children comes from a spread attribute we cannot safely remove
       // just the `children` key from it, so report without suggestions.
-      if (prop.type !== AST.JSXAttribute) {
-        context.report({ messageId: "default", node: prop });
+      if (match.kind !== "plain") {
+        context.report({ messageId: "default", node: match.attribute });
         return;
       }
+      const prop = match.attribute;
 
       context.report({
         messageId: "default",

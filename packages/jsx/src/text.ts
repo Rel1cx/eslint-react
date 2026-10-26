@@ -1,5 +1,3 @@
-import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
-
 /**
  * Collapse a multiline JSX text string following React's whitespace rules.
  *
@@ -51,71 +49,4 @@ export function collapseMultilineText(text: string): string | null {
   }
 
   return str === "" ? null : str;
-}
-
-/**
- * Check if the node is whitespace padding that React would trim away during
- * rendering, that is, a `JSXText` node that cleans to nothing (see
- * {@link collapseMultilineText}) and contains a newline.
- *
- * For the looser "any whitespace-only text" check, see {@link isWhitespaceText}.
- *
- * Reads the entity-decoded `node.value`; `value` and `raw` differ only when the
- * text contains HTML entities (ex: `&nbsp;`), which is never whitespace-only,
- * so reading either field yields the same result here.
- * @param node The JSX child node to check.
- * @returns `true` if the node is purely formatting whitespace.
- */
-export function isPaddingWhitespace(node: TSESTree.JSXChild): boolean {
-  if (node.type !== AST.JSXText) return false;
-  return collapseMultilineText(node.value) == null && node.value.includes("\n");
-}
-
-/**
- * Check if the node is whitespace-only text.
- *
- * Looser variant of {@link isPaddingWhitespace}; matches every `JSXText` node
- * whose raw content is empty after trimming, regardless of newlines.
- *
- * Reads `node.raw` rather than the entity-decoded `value`; for whitespace-only
- * text the two are identical (an entity is never whitespace), matching React's
- * behavior of rendering entity text like `&nbsp;` as a real text node.
- * @param node The JSX child node to check.
- * @returns `true` if the node is a whitespace-only `JSXText`.
- */
-export function isWhitespaceText(node: TSESTree.JSXChild): boolean {
-  if (node.type !== AST.JSXText) return false;
-  return node.raw.trim() === "";
-}
-
-/**
- * Check if the node is an empty expression container (`{}`, `{/* comment *\/}`).
- *
- * An empty `JSXExpressionContainer` holds no expression, so it produces no DOM
- * node and is treated as non-rendered content, same as whitespace padding.
- *
- * Not re-exported from the package entry point (`index.ts`) by design; it is
- * shared internally with `children.ts`.
- * @param node The JSX child node to check.
- * @returns `true` if the node is an empty `JSXExpressionContainer`.
- */
-export function isEmptyExpressionContainer(node: TSESTree.JSXChild): boolean {
-  if (node.type !== AST.JSXExpressionContainer) return false;
-  return node.expression.type === AST.JSXEmptyExpression;
-}
-
-/**
- * Check if the node is an empty string expression (`{""}`).
- *
- * React's reconciler and SSR renderer explicitly skip empty strings, producing no
- * DOM node, so such expressions are treated as non-rendered children, same as
- * whitespace padding.
- * @param node The JSX child node to check.
- * @returns `true` if the node is a `{""}` expression container.
- */
-export function isEmptyStringExpression(node: TSESTree.JSXChild): boolean {
-  if (node.type !== AST.JSXExpressionContainer) return false;
-  const expr = node.expression;
-  if (expr.type !== AST.Literal) return false;
-  return expr.value === "";
 }

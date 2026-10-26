@@ -6,7 +6,7 @@
 function hasAttribute(context: RuleContext, element: JSXElement, name: string): boolean;
 ```
 
-Check if the element has an attribute with the given name.
+Check if the element has an attribute with the given full name.
 
 Spread attributes are taken into account: `<Comp {...{ disabled: true }} />`
 reports `true` for `"disabled"` (see [findAttribute](findAttribute.md)).

@@ -1,19 +1,38 @@
-export { findAttribute, findParentAttribute, findSpreadProperty } from "./attribute-find";
-export { hasAnyAttribute, hasAttribute, hasEveryAttribute } from "./attribute-has";
-export { getAttributeName, isAttribute } from "./attribute-name";
-export { type AttributeValue, getAttributeStaticValue, getAttributeValue, resolveAttributeValue } from "./attribute-value";
-
-export { getChildren, hasChildren } from "./children";
 export {
-  getCreateElementChildrenArguments,
-  getCreateElementProp,
-  getCreateElementPropsObject,
-  getCreateElementTypeArgument,
+  type AttributeMatch,
+  type AttributeTest,
+  type AttributeValue,
+  findAttribute,
+  findParentAttribute,
+  findSpreadProperty,
+  getAttributeName,
+  getAttributeStaticValue,
+  getAttributeValue,
+  hasAnyAttribute,
+  hasAttribute,
+  hasEveryAttribute,
+  hasUnresolvableSpread,
+  isAttributeNamed,
+  isPlainAttribute,
+  resolveAttributeStaticValue,
+  resolveAttributeValue,
+} from "./attribute";
+export {
+  getChildren,
+  getMeaningfulChildren,
+  hasMeaningfulChildren,
+  isEmptyExpressionContainer,
+  isEmptyStringExpression,
+  isPaddingWhitespace,
+  isWhitespaceText,
+} from "./children";
+export {
+  type CreateElementCall,
+  findCreateElementProp,
+  isCreateElementCall,
   isCreateElementChildrenArgument,
   isInsideCreateElementProps,
+  parseCreateElementCall,
 } from "./create-element";
-
-export { type ElementTest, isElement, isFragmentElement, isHostElement } from "./element-is";
-export { getElementFullType, getElementSelfType } from "./element-type";
-
-export { collapseMultilineText, isEmptyStringExpression, isPaddingWhitespace, isWhitespaceText } from "./text";
+export { type ElementTest, getElementFullType, getElementSelfType, isElement, isFragmentElement, isHostElement } from "./element";
+export { collapseMultilineText } from "./text";

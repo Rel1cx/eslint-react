@@ -3,7 +3,7 @@
 # Function: getAttributeValue()
 
 ```ts
-function getAttributeValue(context: RuleContext, element: JSXElement, name: string): AttributeValue | undefined;
+function getAttributeValue(context: RuleContext, element: JSXElement, name: string): AttributeValue | null;
 ```
 
 Find an attribute by name on a JSX element and resolve its value in a single call.
@@ -20,6 +20,6 @@ Convenience composition of [findAttribute](findAttribute.md) and [resolveAttribu
 
 ## Returns
 
-[`AttributeValue`](../type-aliases/AttributeValue.md) \| `undefined`
+[`AttributeValue`](../type-aliases/AttributeValue.md) \| `null`
 
-An [AttributeValue](../type-aliases/AttributeValue.md) descriptor, or `undefined` when the attribute is not present.
+An [AttributeValue](../type-aliases/AttributeValue.md) descriptor, or `null` when the attribute is not present.

@@ -1,7 +1,8 @@
 import { createJSXElementResolver } from "@/utils/create-jsx-element-resolver";
 import { createRule } from "@/utils/create-rule";
+import { getAttributeReportNode } from "@/utils/get-attribute-report-node";
 import { type RuleContext, type RuleFeature, type RuleListener } from "@eslint-react/eslint";
-import { findAttribute, resolveAttributeValue } from "@eslint-react/jsx";
+import { getAttributeValue, resolveAttributeStaticValue } from "@eslint-react/jsx";
 import { isString } from "@local/eff";
 
 export const RULE_NAME = "no-missing-iframe-sandbox";
@@ -41,11 +42,11 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       // If the element is not an iframe, we don't need to do anything
       if (domElementType !== "iframe") return;
 
-      // Find the 'sandbox' prop on the iframe element.
-      const sandboxProp = findAttribute(context, node, "sandbox");
+      // Find and resolve the 'sandbox' prop on the iframe element.
+      const sandboxValue = getAttributeValue(context, node, "sandbox");
 
       // If the 'sandbox' prop is missing, report an error
-      if (sandboxProp == null) {
+      if (sandboxValue == null) {
         context.report({
           messageId: "default",
           node: node.openingElement,
@@ -61,28 +62,28 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         return;
       }
 
-      // Resolve the value of the 'sandbox' attribute; for spread attributes
-      // the named property is extracted automatically
-      const sandboxValue = resolveAttributeValue(context, sandboxProp, "sandbox");
       // If the value is a static string, the prop is correctly used
-      if (isString(sandboxValue.toStatic())) return;
+      if (isString(resolveAttributeStaticValue(context, sandboxValue))) return;
+
+      const reportNode = getAttributeReportNode(sandboxValue);
 
       // If the value is not a static string (ex: a variable), report an error
       context.report({
         messageId: "default",
-        node: sandboxValue.node ?? sandboxProp,
-        suggest: [
-          {
-            data: { value: "" },
-            fix(fixer) {
-              // Do not try to fix spread attributes
-              if (sandboxValue.kind === "spreadProps") return null;
-              // Suggest replacing the prop with a valid one
-              return fixer.replaceText(sandboxProp, `sandbox=""`);
+        node: reportNode,
+        // Replacing a spread attribute would drop its other properties
+        suggest: sandboxValue.kind === "spreadProps"
+          ? []
+          : [
+            {
+              data: { value: "" },
+              fix(fixer) {
+                // Suggest replacing the prop with a valid one
+                return fixer.replaceText(sandboxValue.attribute, `sandbox=""`);
+              },
+              messageId: "suggest",
             },
-            messageId: "suggest",
-          },
-        ],
+          ],
       });
     },
   };

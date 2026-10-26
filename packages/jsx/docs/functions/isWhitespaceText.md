@@ -3,7 +3,7 @@
 # Function: isWhitespaceText()
 
 ```ts
-function isWhitespaceText(node: JSXChild): boolean;
+function isWhitespaceText(node: Node | null | undefined): node is JSXText;
 ```
 
 Check if the node is whitespace-only text.
@@ -17,12 +17,12 @@ behavior of rendering entity text like `&nbsp;` as a real text node.
 
 ## Parameters
 
-| Parameter | Type       | Description                  |
-| --------- | ---------- | ---------------------------- |
-| `node`    | `JSXChild` | The JSX child node to check. |
+| Parameter | Type                            | Description        |
+| --------- | ------------------------------- | ------------------ |
+| `node`    | `Node` \| `null` \| `undefined` | The node to check. |
 
 ## Returns
 
-`boolean`
+`node is JSXText`
 
 `true` if the node is a whitespace-only `JSXText`.

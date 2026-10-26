@@ -3,8 +3,7 @@ import { getNodeInRule } from "@local/testkit";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 import { describe, expect, it } from "vitest";
 
-import { isElement, isFragmentElement, isHostElement } from "./element-is";
-import { getElementFullType, getElementSelfType } from "./element-type";
+import { getElementFullType, getElementSelfType, isElement, isFragmentElement, isHostElement } from "./element";
 
 function parseJSX(code: string): TSESTreeJSXElementLike {
   return getNodeInRule<TSESTreeJSXElementLike>(code, ":matches(JSXElement, JSXFragment)").node;
@@ -41,6 +40,10 @@ describe("getElementSelfType", () => {
     expect(getElementSelfType(parseJSX("<div />;"))).toBe("div");
   });
 
+  it("does not split namespaced names on the colon", () => {
+    expect(getElementSelfType(parseJSX("<xml:space />;"))).toBe("xml:space");
+  });
+
   it("returns an empty string for fragments", () => {
     expect(getElementSelfType(parseJSX("<></>;"))).toBe("");
   });
@@ -71,9 +74,9 @@ describe("isElement", () => {
     expect(isElement(node, ["span", "a"])).toBe(false);
   });
 
-  it("matches against a function test", () => {
+  it("passes the element type and node to a function test", () => {
     const node = parseJSX("<Foo.Bar />;");
-    expect(isElement(node, (type) => type.startsWith("Foo"))).toBe(true);
+    expect(isElement(node, (type, n) => type === "Foo.Bar" && n === node)).toBe(true);
     expect(isElement(node, (type) => type === "div")).toBe(false);
   });
 
@@ -102,9 +105,13 @@ describe("isFragmentElement", () => {
   });
 
   it("compares only the self name segment of the factory", () => {
-    // The heuristic matches any `<*.Fragment>` regardless of the qualifier.
     expect(isFragmentElement(parseJSX("<Preact.Fragment />;"), "React.Fragment")).toBe(true);
     expect(isFragmentElement(parseJSX("<Foo />;"), "React.Fragment")).toBe(false);
+  });
+
+  it("does not match nullish nodes", () => {
+    expect(isFragmentElement(null, "React.Fragment")).toBe(false);
+    expect(isFragmentElement(undefined, "React.Fragment")).toBe(false);
   });
 });
 
@@ -125,7 +132,9 @@ describe("isHostElement", () => {
     expect(isHostElement(parseJSX("<svg:rect />;"))).toBe(true);
   });
 
-  it("does not match fragments", () => {
+  it("does not match fragments or nullish nodes", () => {
     expect(isHostElement(parseJSX("<></>;"))).toBe(false);
+    expect(isHostElement(null)).toBe(false);
+    expect(isHostElement(undefined)).toBe(false);
   });
 });

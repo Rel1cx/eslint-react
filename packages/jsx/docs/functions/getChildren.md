@@ -6,19 +6,13 @@
 function getChildren(element: TSESTreeJSXElementLike): JSXChild[];
 ```
 
-Get the meaningful children of a JSX element or fragment.
+Get the children of a JSX element or fragment after removing syntactic JSX
+artifacts: padding whitespace, empty expression containers, and empty string
+literal expressions.
 
-Similar to Babel's `buildChildren` helper, with two differences: only padding
-whitespace (whitespace containing a newline) is skipped, whereas Babel's
-`cleanJSXElementLiteralChild` drops all whitespace-only `JSXText`; and empty
-string expressions (`{""}`) are skipped as well, which follows React's
-rendering behavior rather than Babel's:
-
-1. Iterate over `element.children`.
-2. Skip `JSXText` nodes that clean to nothing (padding whitespace).
-3. Skip `JSXExpressionContainer` nodes whose expression is empty.
-4. Skip empty string expressions (`{""}`), which produce no DOM node.
-5. Collect everything else.
+Same-line whitespace is kept because it renders as a text node. This is a
+syntactic filter, not a runtime-rendering guarantee: `{null}`, `{false}`, and
+other expressions that may render nothing are kept.
 
 ## Parameters
 
@@ -30,4 +24,4 @@ rendering behavior rather than Babel's:
 
 `JSXChild`[]
 
-The children nodes that contribute to rendered output.
+The children that remain after removing padding artifacts.

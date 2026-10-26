@@ -150,6 +150,28 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
     },
+    // Missing rel with an unresolvable spread: the suggestion inserts after the element name
+    {
+      code: tsx`
+        const props = getProps();
+        <a {...props} href="https://react.dev" target="_blank"></a>;
+      `,
+      errors: [
+        {
+          messageId: "default",
+          suggestions: [
+            {
+              messageId: "suggest",
+              data: { rel: 'rel="noreferrer"' },
+              output: tsx`
+                const props = getProps();
+                <a rel="noreferrer" {...props} href="https://react.dev" target="_blank"></a>;
+              `,
+            },
+          ],
+        },
+      ],
+    },
     {
       code: '<PolyComponent as="a" href="https://react.dev" target="_blank"></PolyComponent>',
       errors: [
@@ -508,6 +530,14 @@ ruleTester.run(RULE_NAME, rule, {
     //     },
     //   },
     // },
+    // rel provided via a spread attribute: report without a destructive suggestion
+    {
+      code: tsx`
+        const props = { rel: "noopener", className: "link" };
+        <a {...props} href="https://react.dev" target="_blank"></a>;
+      `,
+      errors: [{ messageId: "default", suggestions: [] }],
+    },
   ],
   valid: [
     '<a href="https://react.dev" target="_blank" rel="noopener noreferrer"></a>',

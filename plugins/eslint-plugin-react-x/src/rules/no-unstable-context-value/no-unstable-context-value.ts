@@ -2,7 +2,7 @@ import { createRule } from "@/utils/create-rule";
 import { Check, type TSESTreeFunction, Traverse } from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, type RuleListener, merge } from "@eslint-react/eslint";
-import { getElementFullType, isAttribute } from "@eslint-react/jsx";
+import { getElementSelfType, isPlainAttribute } from "@eslint-react/jsx";
 import { getSettingsFromContext } from "@eslint-react/shared";
 import { type ObjectType, resolveObjectType } from "@eslint-react/var";
 import { getOrInsertComputed } from "@local/eff";
@@ -45,14 +45,13 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
     visitor,
     {
       JSXOpeningElement(node) {
-        const fullName = getElementFullType(node.parent);
-        const selfName = fullName.split(".").at(-1);
-        if (selfName == null) return;
+        const selfName = getElementSelfType(node.parent);
+        if (selfName === "") return;
         if (!isContextName(selfName, isReact18OrBelow)) return;
         const enclosingFunction = Traverse.findParent(node, Check.isFunction);
         if (enclosingFunction == null) return;
         if (compilationMode === "annotation" && core.isFunctionHasDirective(enclosingFunction, "use memo")) return;
-        const attribute = node.attributes.findLast(isAttribute("value"));
+        const attribute = node.attributes.findLast(isPlainAttribute("value"));
         if (attribute?.value?.type !== AST.JSXExpressionContainer) return;
         const valueExpression = attribute.value.expression;
         const construction = resolveObjectType(context, valueExpression);

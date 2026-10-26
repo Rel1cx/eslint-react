@@ -13,4 +13,7 @@ A test that determines whether a JSX element matches.
 
 - `string` matches against the full element type (ex: "div", "React.Fragment")
 - `string[]` matches when the element type equals any of the given strings
-- `function` receives the element type string and returns a boolean.
+- `function` receives the element type string and the element node.
+
+The function form receives `(elementType, node)`; this order is intentional:
+the element type is the primary subject of the test.

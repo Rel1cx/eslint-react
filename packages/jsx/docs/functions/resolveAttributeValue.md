@@ -3,22 +3,24 @@
 # Function: resolveAttributeValue()
 
 ```ts
-function resolveAttributeValue(context: RuleContext, attribute: TSESTreeJSXAttributeLike, name?: string): AttributeValue;
+function resolveAttributeValue(
+  matchOrAttribute:
+    | AttributeMatch
+    | TSESTreeJSXAttributeLike,
+): AttributeValue;
 ```
 
-Resolve the value of a JSX attribute (or spread attribute) into an [AttributeValue](../type-aliases/AttributeValue.md) descriptor.
+Resolve an attribute (or an attribute lookup match) into an [AttributeValue](../type-aliases/AttributeValue.md) descriptor.
 
-When the attribute is a `JSXSpreadAttribute`, passing `name` (typically the name
-the attribute was found by) makes `toStatic()` return the static value of that
-named property. For the higher-level "find by name and resolve" combo, see [getAttributeValue](getAttributeValue.md).
+When passing an [AttributeMatch](../type-aliases/AttributeMatch.md) for a spread attribute, the matched
+property is carried into the descriptor; passing a raw `JSXSpreadAttribute`
+yields a `spreadProps` descriptor with `property: null`.
 
 ## Parameters
 
-| Parameter   | Type                       | Description                                                                |
-| ----------- | -------------------------- | -------------------------------------------------------------------------- |
-| `context`   | `RuleContext`              | The ESLint rule context (needed for scope look-ups).                       |
-| `attribute` | `TSESTreeJSXAttributeLike` | A `JSXAttribute` or `JSXSpreadAttribute` node.                             |
-| `name?`     | `string`                   | Optional property name used to resolve `toStatic()` for spread attributes. |
+| Parameter          | Type                                                                                   | Description                                                     |
+| ------------------ | -------------------------------------------------------------------------------------- | --------------------------------------------------------------- |
+| `matchOrAttribute` | \| [`AttributeMatch`](../type-aliases/AttributeMatch.md) \| `TSESTreeJSXAttributeLike` | A lookup match or a `JSXAttribute` / `JSXSpreadAttribute` node. |
 
 ## Returns
 

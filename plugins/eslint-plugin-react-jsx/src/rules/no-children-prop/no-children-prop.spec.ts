@@ -293,6 +293,16 @@ ruleTester.run(RULE_NAME, rule, {
       code: 'const props = { children: "Children" }; <div {...props} />;',
       errors: [{ messageId: "default" }],
     },
+    // createElement props with a statically resolvable computed key
+    {
+      code: 'const propName = "children"; React.createElement("div", { [propName]: "Children" });',
+      errors: [{ messageId: "default" }],
+    },
+    // createElement props with children inside a nested spread
+    {
+      code: 'React.createElement("div", { ...{ children: "Children" } });',
+      errors: [{ messageId: "default" }],
+    },
     // JSX edge cases
     {
       code: tsx`<div children />;`, // not a valid use case but make sure we don't crash
@@ -628,7 +638,8 @@ ruleTester.run(RULE_NAME, rule, {
     // edge cases
     'React.createElement("div", getProps());',
     'React.createElement("div");',
-    'const propName = "children"; React.createElement("div", { [propName]: "Children" });',
+    // createElement with a non-static computed identifier key
+    'function render(propName: string) { return React.createElement("div", { [propName]: "Children" }); }',
     '<div {...{ className: "x" }} />;',
     'const props = { className: "x" }; <div {...props} />;',
     'import { props } from "props"; <div {...props} />;',

@@ -3,12 +3,11 @@ import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import { describe, expect, it } from "vitest";
 
 import {
-  getCreateElementChildrenArguments,
-  getCreateElementProp,
-  getCreateElementPropsObject,
-  getCreateElementTypeArgument,
+  findCreateElementProp,
+  isCreateElementCall,
   isCreateElementChildrenArgument,
   isInsideCreateElementProps,
+  parseCreateElementCall,
 } from "./create-element";
 
 /**
@@ -35,78 +34,121 @@ function textOf(code: string, node: null | TSESTree.Node): string | null {
   return node == null ? null : getTextOf(code, node);
 }
 
-describe("getCreateElementTypeArgument", () => {
+describe("isCreateElementCall", () => {
   it.each([
-    [`React.createElement("div", null);`, `"div"`],
-    [`createElement(App, null);`, `App`],
-  ])("should return the first argument: %s", (code, expected) => {
+    [`React.createElement("div", null);`],
+    [`createElement("div", null);`],
+    [`foo.bar.createElement("div", null);`],
+    [`React.createElement?.("div", null);`],
+  ])("should return true: %s", (code) => {
     const { context, node } = parseCallExpression(code);
-    expect(textOf(code, getCreateElementTypeArgument(context, node))).toBe(expected);
+    expect(isCreateElementCall(context, node)).toBe(true);
   });
 
   it.each([
     [`notCreateElement("div", null);`],
-    [`React.createElement();`],
-  ])("should return null: %s", (code) => {
+    [`myCreateElement("div", null);`],
+    [`React.createElementFoo("div", null);`],
+  ])("should return false: %s", (code) => {
     const { context, node } = parseCallExpression(code);
-    expect(getCreateElementTypeArgument(context, node)).toBeNull();
+    expect(isCreateElementCall(context, node)).toBe(false);
+  });
+
+  it("should return false for non-call and nullish nodes", () => {
+    const { context, node } = parseNode<TSESTree.Literal>(`"div";`, AST.Literal);
+    expect(isCreateElementCall(context, node)).toBe(false);
+    expect(isCreateElementCall(context, null)).toBe(false);
+    expect(isCreateElementCall(context, undefined)).toBe(false);
   });
 });
 
-describe("getCreateElementPropsObject", () => {
-  it("should return the props object expression", () => {
-    const code = `React.createElement("div", { id: "a" });`;
+describe("parseCreateElementCall", () => {
+  it("should return null for a non-createElement call", () => {
+    const { context, node } = parseCallExpression(`notCreateElement("div", null);`);
+    expect(parseCreateElementCall(context, node)).toBeNull();
+  });
+
+  it("should return a descriptor for a call with no arguments", () => {
+    const { context, node } = parseCallExpression(`React.createElement();`);
+    const call = parseCreateElementCall(context, node);
+    expect(call).not.toBeNull();
+    expect(call?.typeArgument).toBeNull();
+    expect(call?.propsArgument).toBeNull();
+    expect(call?.propsObject).toBeNull();
+    expect(call?.childrenArguments).toEqual([]);
+  });
+
+  it("should expose the positional arguments", () => {
+    const code = `React.createElement("div", { id: "a" }, "x", "y");`;
     const { context, node } = parseCallExpression(code);
-    expect(textOf(code, getCreateElementPropsObject(context, node))).toBe(`{ id: "a" }`);
+    const call = parseCreateElementCall(context, node);
+    expect(textOf(code, call?.typeArgument ?? null)).toBe(`"div"`);
+    expect(textOf(code, call?.propsArgument ?? null)).toBe(`{ id: "a" }`);
+    expect(textOf(code, call?.propsObject ?? null)).toBe(`{ id: "a" }`);
+    expect(call?.childrenArguments.map((arg) => textOf(code, arg))).toEqual([`"x"`, `"y"`]);
   });
 
   it("should unwrap type expressions around the props argument", () => {
     const { context, node } = parseCallExpression(`React.createElement("div", { id: "a" } as const);`);
-    expect(getCreateElementPropsObject(context, node)?.type).toBe(AST.ObjectExpression);
+    expect(parseCreateElementCall(context, node)?.propsObject?.type).toBe(AST.ObjectExpression);
   });
 
-  it.each([
-    [`React.createElement("div");`],
-    [`React.createElement("div", null);`],
-    [`React.createElement("div", props);`],
-    [`notCreateElement("div", {});`],
-  ])("should return null: %s", (code) => {
+  it("should keep the raw props argument when it is not an object literal", () => {
+    const { context, node } = parseCallExpression(`React.createElement("div", props);`);
+    const call = parseCreateElementCall(context, node);
+    expect(call?.propsArgument?.type).toBe(AST.Identifier);
+    expect(call?.propsObject).toBeNull();
+  });
+
+  it("should expose spread arguments as raw positional arguments", () => {
+    const code = `React.createElement(...args);`;
     const { context, node } = parseCallExpression(code);
-    expect(getCreateElementPropsObject(context, node)).toBeNull();
+    const call = parseCreateElementCall(context, node);
+    expect(call?.typeArgument?.type).toBe(AST.SpreadElement);
+    expect(call?.propsArgument).toBeNull();
   });
 });
 
-describe("getCreateElementChildrenArguments", () => {
-  it("should return the arguments after the props object", () => {
-    const code = `React.createElement("div", null, "a", "b");`;
-    const { context, node } = parseCallExpression(code);
-    const children = getCreateElementChildrenArguments(context, node);
-    expect(children.map((arg) => textOf(code, arg))).toEqual([`"a"`, `"b"`]);
-  });
-
+describe("findCreateElementProp", () => {
   it.each([
-    [`React.createElement("div");`],
-    [`React.createElement("div", null);`],
-    [`notCreateElement("div", null, "a");`],
-  ])("should return an empty array: %s", (code) => {
-    const { context, node } = parseCallExpression(code);
-    expect(getCreateElementChildrenArguments(context, node)).toEqual([]);
-  });
-});
-
-describe("getCreateElementProp", () => {
-  it.each([
-    // Plain identifier key
     [`React.createElement("div", { children: "a" });`, `children: "a"`],
-    // String-literal key
     [`React.createElement("div", { "children": "a" });`, `"children": "a"`],
-    // Computed keys with statically resolvable names also match
     [`React.createElement("div", { ["children"]: "a" });`, `["children"]: "a"`],
-    // Simple template-literal keys also match
     ['React.createElement("div", { [`children`]: "a" });', '[`children`]: "a"'],
+    [`React.createElement("div", { ["chi" + "ldren"]: "a" });`, `["chi" + "ldren"]: "a"`],
   ])("should find the statically named property: %s", (code, expected) => {
     const { context, node } = parseCallExpression(code);
-    expect(textOf(code, getCreateElementProp(context, node, "children"))).toBe(expected);
+    const call = parseCreateElementCall(context, node);
+    expect(textOf(code, findCreateElementProp(context, call, "children"))).toBe(expected);
+  });
+
+  it("should find a computed key backed by a constant", () => {
+    const code = `const KEY = "children"; React.createElement("div", { [KEY]: "a" });`;
+    const { context, node } = parseCallExpression(code);
+    const call = parseCreateElementCall(context, node);
+    expect(findCreateElementProp(context, call, "children")?.type).toBe(AST.Property);
+  });
+
+  it("should find a property inside a nested spread", () => {
+    const { context, node } = parseCallExpression(`React.createElement("div", { ...{ children: "a" } });`);
+    const call = parseCreateElementCall(context, node);
+    expect(findCreateElementProp(context, call, "children")?.type).toBe(AST.Property);
+  });
+
+  it("should find a property inside an identifier spread", () => {
+    const code = `const props = { children: "a" }; React.createElement("div", { ...props });`;
+    const { context, node } = parseCallExpression(code);
+    const call = parseCreateElementCall(context, node);
+    expect(findCreateElementProp(context, call, "children")?.type).toBe(AST.Property);
+  });
+
+  it("should apply last-property precedence", () => {
+    const code = `React.createElement("div", { children: "a", children: "b" });`;
+    const { context, node } = parseCallExpression(code);
+    const call = parseCreateElementCall(context, node);
+    const prop = findCreateElementProp(context, call, "children");
+    expect(prop?.value.type).toBe(AST.Literal);
+    if (prop?.value.type === AST.Literal) expect(prop.value.value).toBe("b");
   });
 
   it.each([
@@ -116,13 +158,19 @@ describe("getCreateElementProp", () => {
     [`React.createElement("div", { key: "a" });`],
     // Computed keys without a statically resolvable name do not match
     [`React.createElement("div", { [CHILDREN]: "a" });`],
-    // Spread properties have no static name
+    // Unresolvable spread properties do not match
     [`React.createElement("div", { ...props });`],
     // Not a createElement call
     [`notCreateElement("div", { children: "a" });`],
   ])("should return null: %s", (code) => {
     const { context, node } = parseCallExpression(code);
-    expect(getCreateElementProp(context, node, "children")).toBeNull();
+    const call = parseCreateElementCall(context, node);
+    expect(findCreateElementProp(context, call, "children")).toBeNull();
+  });
+
+  it("should return null for a null call", () => {
+    const { context } = parseCallExpression(`React.createElement("div");`);
+    expect(findCreateElementProp(context, null, "children")).toBeNull();
   });
 });
 
@@ -141,7 +189,7 @@ describe("isCreateElementChildrenArgument", () => {
     const context = createScopeContext(parsed);
     const node = collectNodes<TSESTree.Identifier>(code, AST.Identifier).find((id) => id.name === "child");
     expect(node).toBeDefined();
-    expect(isCreateElementChildrenArgument(context, node!)).toBe(true);
+    expect(isCreateElementChildrenArgument(context, node)).toBe(true);
   });
 
   it("should return true when the node is the type-expression children argument itself", () => {
@@ -160,6 +208,12 @@ describe("isCreateElementChildrenArgument", () => {
   ])("should return false: %s", (code, type) => {
     const { context, node } = parseNode(code, type);
     expect(isCreateElementChildrenArgument(context, node)).toBe(false);
+  });
+
+  it("should return false for nullish nodes", () => {
+    const { context } = parseCallExpression(`React.createElement("div");`);
+    expect(isCreateElementChildrenArgument(context, null)).toBe(false);
+    expect(isCreateElementChildrenArgument(context, undefined)).toBe(false);
   });
 });
 
@@ -196,5 +250,11 @@ describe("isInsideCreateElementProps", () => {
       AST.ArrowFunctionExpression,
     );
     expect(isInsideCreateElementProps(context, node)).toBe(true);
+  });
+
+  it("should return false for nullish nodes", () => {
+    const { context } = parseCallExpression(`React.createElement("div");`);
+    expect(isInsideCreateElementProps(context, null)).toBe(false);
+    expect(isInsideCreateElementProps(context, undefined)).toBe(false);
   });
 });

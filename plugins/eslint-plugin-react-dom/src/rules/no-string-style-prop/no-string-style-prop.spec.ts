@@ -42,6 +42,14 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     // Various HTML elements with string style
+    // Spread props with a statically resolvable string style
+    {
+      code: tsx`
+        const props = { style: "color: red;" };
+        <div {...props} />
+      `,
+      errors: [{ messageId: "default" }],
+    },
     {
       code: tsx`<span style="color: blue;" />`,
       errors: [{ messageId: "default" }],
@@ -278,9 +286,9 @@ ruleTester.run(RULE_NAME, rule, {
         return <div style={getStyleString()} />;
       }
     `,
-    // Spread props with string style - can't be statically resolved
+    // Spread props without a statically resolvable string style
     tsx`
-      const props = { style: "color: red;" };
+      const props = getProps();
       <div {...props} />
     `,
     // Number style (invalid but not string)

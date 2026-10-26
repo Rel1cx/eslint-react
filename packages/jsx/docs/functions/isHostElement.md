@@ -3,7 +3,7 @@
 # Function: isHostElement()
 
 ```ts
-function isHostElement(node: Node): node is JSXElement;
+function isHostElement(node: Node | null | undefined): node is JSXElement;
 ```
 
 Check if the node is a host (intrinsic / DOM) element, that is, a `JSXElement`
@@ -12,9 +12,9 @@ For namespaced names, the local part is checked (ex: `rect` in `<svg:rect>`).
 
 ## Parameters
 
-| Parameter | Type   | Description        |
-| --------- | ------ | ------------------ |
-| `node`    | `Node` | The node to check. |
+| Parameter | Type                            | Description        |
+| --------- | ------------------------------- | ------------------ |
+| `node`    | `Node` \| `null` \| `undefined` | The node to check. |
 
 ## Returns
 

@@ -1,7 +1,7 @@
 import { createJSXElementResolver } from "@/utils/create-jsx-element-resolver";
 import { createRule } from "@/utils/create-rule";
 import { type ReportFixFunction, type RuleContext, type RuleFeature, type RuleListener } from "@eslint-react/eslint";
-import { findAttribute, getAttributeStaticValue } from "@eslint-react/jsx";
+import { getAttributeStaticValue, getAttributeValue, resolveAttributeStaticValue } from "@eslint-react/jsx";
 import type { JSONSchema4 } from "@typescript-eslint/utils/json-schema";
 import type { ReportDescriptor } from "@typescript-eslint/utils/ts-eslint";
 import { isExternalLinkLike, isSafeRel } from "./lib";
@@ -87,8 +87,8 @@ export function create(context: RuleContext<MessageID, Options>): RuleListener {
       const hrefValue = getAttributeStaticValue(context, node, "href");
       if (!isExternalLinkLike(hrefValue)) return;
 
-      const relAttribute = findAttribute(context, node, "rel");
-      if (relAttribute == null) {
+      const relValue = getAttributeValue(context, node, "rel");
+      if (relValue == null) {
         context.report({
           messageId: "default",
           data: { rel: requiredRelAttribute },
@@ -97,15 +97,18 @@ export function create(context: RuleContext<MessageID, Options>): RuleListener {
         });
         return;
       }
+      const relAttribute = relValue.attribute;
 
-      const relValue = getAttributeStaticValue(context, node, "rel");
-      if (isSafeRel(relValue, allowReferrer)) return;
+      if (isSafeRel(resolveAttributeStaticValue(context, relValue), allowReferrer)) return;
 
       context.report({
         messageId: "default",
         data: { rel: requiredRelAttribute },
         node: relAttribute,
-        suggest: buildSuggest((fixer) => fixer.replaceText(relAttribute, requiredRelAttribute)),
+        // Replacing a spread attribute would drop its other properties
+        suggest: relValue.kind === "spreadProps"
+          ? []
+          : buildSuggest((fixer) => fixer.replaceText(relAttribute, requiredRelAttribute)),
       });
     },
   };

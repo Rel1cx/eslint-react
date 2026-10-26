@@ -1,19 +1,66 @@
 import type { TSESTreeJSXElementLike } from "@eslint-react/ast";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import { P, match } from "ts-pattern";
-import { getElementFullType } from "./element-type";
 
 /**
  * A test that determines whether a JSX element matches.
  *
  * - `string` matches against the full element type (ex: "div", "React.Fragment")
  * - `string[]` matches when the element type equals any of the given strings
- * - `function` receives the element type string and returns a boolean.
+ * - `function` receives the element type string and the element node.
+ *
+ * The function form receives `(elementType, node)`; this order is intentional:
+ * the element type is the primary subject of the test.
  */
 export type ElementTest =
   | string
   | readonly string[]
   | ((elementType: string, node: TSESTreeJSXElementLike) => boolean);
+
+/**
+ * Get the string representation of a JSX element's type.
+ *
+ * - `<div>` -> `"div"`
+ * - `<Foo.Bar>` -> `"Foo.Bar"`
+ * - `<React.Fragment>` -> `"React.Fragment"`
+ * - `<xml:space>` -> `"xml:space"`
+ * - `<></>` -> `""`.
+ * @param node The `JSXElement` or `JSXFragment` node.
+ * @returns The fully qualified element type string.
+ */
+export function getElementFullType(node: TSESTreeJSXElementLike): string {
+  if (node.type === AST.JSXFragment) return "";
+  function getQualifiedName(
+    node:
+      | TSESTree.JSXIdentifier
+      | TSESTree.JSXNamespacedName
+      | TSESTree.JSXMemberExpression,
+  ): string {
+    switch (node.type) {
+      case AST.JSXIdentifier:
+        return node.name;
+      case AST.JSXNamespacedName:
+        return node.namespace.name + ":" + node.name.name;
+      default:
+        return getQualifiedName(node.object) + "." + getQualifiedName(node.property);
+    }
+  }
+  return getQualifiedName(node.openingElement.name);
+}
+
+/**
+ * Get the self name (last dot-separated segment) of a JSX element type.
+ *
+ * - `<Foo.Bar.Baz>` -> `"Baz"`
+ * - `<div>` -> `"div"`
+ * - `<xml:space>` -> `"xml:space"` (only `.` separates segments, not `:`)
+ * - `<></>` -> `""`
+ * @param node The `JSXElement` or `JSXFragment` node.
+ * @returns The last dot-separated segment of the element type, or `""` for fragments.
+ */
+export function getElementSelfType(node: TSESTreeJSXElementLike): string {
+  return getElementFullType(node).split(".").at(-1) ?? "";
+}
 
 /**
  * Check if the node is a `JSXElement` (or `JSXFragment`), optionally matching a given test.
@@ -56,7 +103,8 @@ export function isElement(node: TSESTree.Node | null | undefined, test?: Element
  * @param jsxFragmentFactory The configured fragment factory string (ex: "React.Fragment").
  * @returns `true` if the node represents a React Fragment.
  */
-export function isFragmentElement(node: TSESTree.Node, jsxFragmentFactory: string): node is TSESTreeJSXElementLike {
+export function isFragmentElement(node: TSESTree.Node | null | undefined, jsxFragmentFactory: string): node is TSESTreeJSXElementLike {
+  if (node == null) return false;
   if (node.type === AST.JSXFragment) return true;
   if (node.type !== AST.JSXElement) return false;
 
@@ -71,8 +119,8 @@ export function isFragmentElement(node: TSESTree.Node, jsxFragmentFactory: strin
  * @param node The node to check.
  * @returns `true` if the node is a `JSXElement` with a lowercase tag name.
  */
-export function isHostElement(node: TSESTree.Node): node is TSESTree.JSXElement {
-  if (node.type !== AST.JSXElement) return false;
+export function isHostElement(node: TSESTree.Node | null | undefined): node is TSESTree.JSXElement {
+  if (node?.type !== AST.JSXElement) return false;
   const name = node.openingElement.name;
   if (name.type === AST.JSXIdentifier) return /^[a-z]/u.test(name.name);
   if (name.type === AST.JSXNamespacedName) return /^[a-z]/u.test(name.name.name);

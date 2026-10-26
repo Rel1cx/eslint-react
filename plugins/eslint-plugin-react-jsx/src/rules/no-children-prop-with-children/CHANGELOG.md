@@ -5,6 +5,16 @@ All notable changes to the `react-jsx/no-children-prop-with-children` rule will 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [5.30.0-beta.6] - 2026-10-27
+
+### Fixed
+
+- `children` supplied through a nested spread or a statically resolvable computed key in a `createElement` props object is now detected when children arguments are also present (ex: `createElement("div", { ...{ children: "x" } }, "text")`). Property lookup now follows JavaScript object semantics (later properties win) and matches the JSX spread path. This aligns with TSX/TS semantics, where object spread and const-typed computed keys produce the same property as writing `children` directly.
+
+### Changed
+
+- Refactored the rule to use `parseCreateElementCall` and `findCreateElementProp` from `@eslint-react/jsx`; no further behavior change.
+
 ## [5.27.3] - 2026-10-16
 
 ### Fixed

@@ -5,6 +5,12 @@ All notable changes to the `react-jsx/no-key-after-spread` rule will be document
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [5.30.0-beta.6] - 2026-10-27
+
+### Changed
+
+- Replaced `isAttribute` with `isPlainAttribute` from `@eslint-react/jsx`; matching remains limited to plain identifier attributes, so there is no behavior change.
+
 ## [5.27.3] - 2026-10-16
 
 ### Fixed
