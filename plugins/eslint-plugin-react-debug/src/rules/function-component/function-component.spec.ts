@@ -2170,8 +2170,67 @@ ruleTester.run(RULE_NAME, rule, {
         messageId: "default",
       }],
     },
+    {
+      // Optional-chained createElement calls are JSX-like return values.
+      code: tsx`
+        const App = () => React?.createElement("div", null);
+      `,
+      errors: [{
+        data: {
+          json: JSON.stringify({
+            name: "App",
+            displayName: "none",
+            forwardRef: false,
+            hookCalls: 0,
+            memo: false,
+          }),
+        },
+        messageId: "default",
+      }],
+    },
+    {
+      // A forwardRef call in memo's propsAreEqual slot is not the wrapped component;
+      // its render function must not inherit the `Component` binding or the
+      // memo/forwardRef flags from the outer call.
+      code: tsx`
+        const Component = memo(ComponentImpl, forwardRef((props, ref) => null));
+      `,
+      errors: [{
+        data: {
+          json: JSON.stringify({
+            name: "anonymous",
+            displayName: "none",
+            forwardRef: false,
+            hookCalls: 0,
+            memo: false,
+          }),
+        },
+        messageId: "default",
+      }],
+    },
   ],
   valid: [
+    // Array pattern element defaults are not component definitions.
+    tsx`
+      const [Nav = () => <div />] = arr;
+    `,
+    tsx`
+      const [Nav = (() => <div />) as any] = arr;
+    `,
+    // memo's propsAreEqual comparator is not the wrapped component; it must not
+    // inherit the surrounding binding or be reported even when it returns JSX.
+    tsx`
+      const App = memo(ComponentImpl, () => <div />);
+    `,
+    tsx`
+      const App = memo(ComponentImpl, (() => <div />) as any);
+    `,
+    tsx`
+      const App = memo(ComponentImpl, function Compare() { return <div />; });
+    `,
+    tsx`
+      const App = memo(forwardRef(ComponentImpl), () => <div />);
+    `,
     tsx`
       function app() {
           useEffect(() => {});

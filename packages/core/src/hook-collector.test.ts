@@ -141,4 +141,24 @@ describe("getHookCollector", () => {
     expect(hooks[0]?.directives).toHaveLength(1);
     expect(hooks[0]?.directives[0]?.directive).toBe("use strict");
   });
+
+  it("should collect hooks defined by destructuring defaults", () => {
+    const hooks = collectHooks("const { useFoo = () => {} } = obj;");
+    expect(hooks).toHaveLength(1);
+    expect(hooks[0]?.name).toBe("useFoo");
+  });
+
+  it("should collect return expressions of block-bodied hooks", () => {
+    const hooks = collectHooks("function useFoo() { return useState(0); }");
+    expect(hooks).toHaveLength(1);
+    expect(hooks[0]?.rets).toHaveLength(1);
+    expect(hooks[0]?.rets[0]?.type).toBe("CallExpression");
+  });
+
+  it("should collect the expression body of arrow function hooks", () => {
+    const hooks = collectHooks("const useFoo = () => useState(0);");
+    expect(hooks).toHaveLength(1);
+    expect(hooks[0]?.rets).toHaveLength(1);
+    expect(hooks[0]?.rets[0]?.type).toBe("CallExpression");
+  });
 });

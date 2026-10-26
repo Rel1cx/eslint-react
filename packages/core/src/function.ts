@@ -152,8 +152,9 @@ export function getFunctionId(node: TSESTree.Expression | TSESTreeFunction) {
  * @remarks
  * Higher-order component wrappers (ex: `memo`, `forwardRef`) are only
  * recognized when the call expression initializes a variable declarator
- * directly. HOCs inside object properties (ex: `{ Nav: memo(() => {}) }`)
- * are not supported and yield `null`.
+ * directly and the function is the wrapper's first argument. HOCs inside
+ * object properties (ex: `{ Nav: memo(() => {}) }`) are not supported and
+ * yield `null`.
  *
  * @param node The function node to analyze.
  * @returns The function initialization path or `null` if not identifiable.
@@ -179,18 +180,20 @@ export function getFunctionInitPath(node: TSESTreeFunction): null | FunctionInit
       return [parent.parent, parent, node] as const;
 
     // HOC pattern: const Component = React.memo(() => {})
-    // The function must be a call argument, not the callee (ex: `const f = (() => {})()` is an IIFE, not an HOC)
+    // The function must be the wrapper's first argument, not the callee
+    // (ex: `const f = (() => {})()` is an IIFE, not an HOC) and not a later
+    // argument (ex: memo's propsAreEqual comparator).
     case parent.type === AST.CallExpression
-      && parent.arguments.includes(child)
+      && parent.arguments[0] === child
       && parent.parent.type === AST.VariableDeclarator:
       return [parent.parent.parent, parent.parent, parent, node] as const;
 
     // Nested HOC pattern: const Component = React.memo(React.forwardRef(() => {}))
-    // Both calls must receive the inner expression as an argument, not as the callee
+    // Each call must receive the inner expression as its first argument.
     case parent.type === AST.CallExpression
-      && parent.arguments.includes(child)
+      && parent.arguments[0] === child
       && parent.parent.type === AST.CallExpression
-      && parent.parent.arguments.includes(parent)
+      && parent.parent.arguments[0] === parent
       && parent.parent.parent.type === AST.VariableDeclarator:
       return [parent.parent.parent.parent, parent.parent.parent, parent.parent, parent, node] as const;
 

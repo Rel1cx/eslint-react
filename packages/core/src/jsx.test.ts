@@ -184,6 +184,25 @@ describe("isJSXLike", () => {
     });
   });
 
+  describe("chain expressions", () => {
+    it("should unwrap chain expressions around createElement calls", () => {
+      expect(run("React?.createElement('div');")).toBe(true);
+      expect(run("(React?.createElement)('div');")).toBe(true);
+    });
+
+    it("should respect DoNotIncludeJSXWithCreateElementValue for chain-wrapped calls", () => {
+      expect(run("React?.createElement('div');", JSXDetectionHint.DoNotIncludeJSXWithCreateElementValue)).toBe(false);
+    });
+
+    it("should resolve identifiers to chain-wrapped createElement calls", () => {
+      expect(run("const el = React?.createElement('div'); el;")).toBe(true);
+    });
+
+    it("should not treat other chain expressions as JSX-like", () => {
+      expect(run("obj?.value;")).toBe(false);
+    });
+  });
+
   describe("call expressions", () => {
     it.each([
       ["createElement('div');", true],

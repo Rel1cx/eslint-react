@@ -96,11 +96,12 @@ export function isJSXLike(context: RuleContext, node: TSESTree.Node | null, hint
     if (Check.isJSX(node)) return true;
 
     switch (node.type) {
-      // Type-level wrappers don't change the runtime value; unwrap them.
+      // Type-level wrappers and chain expressions don't change the runtime value; unwrap them.
       case AST.TSAsExpression:
       case AST.TSSatisfiesExpression:
       case AST.TSTypeAssertion:
       case AST.TSNonNullExpression:
+      case AST.ChainExpression:
         return visit(node.expression);
 
       case AST.AwaitExpression:

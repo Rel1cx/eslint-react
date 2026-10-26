@@ -48,4 +48,14 @@ describe("getClassComponentCollector", () => {
     expect(components[0]?.id).toBeNull();
     expect(components[0]?.name).toBeNull();
   });
+
+  it("should initialize the semantic fields", () => {
+    const components = collectComponents("class Component extends React.Component {}");
+    expect(components).toHaveLength(1);
+    const component = components[0]!;
+    expect(component.displayName).toBeNull();
+    expect(component.flag).toBe(0n);
+    expect(component.hint).toBe(0n);
+    expect(component.methods).toEqual([]);
+  });
 });

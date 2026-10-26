@@ -1,5 +1,5 @@
 import { runCollector } from "@local/testkit";
-import type { TSESTree } from "@typescript-eslint/types";
+import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import { describe, expect, it } from "vitest";
 
 import { DEFAULT_COMPONENT_DETECTION_HINT, FunctionComponentFlag } from "./function-component";
@@ -242,5 +242,68 @@ describe("getFunctionComponentCollector", () => {
     expect(components).toHaveLength(1);
     expect(components[0]?.isExportDefault).toBe(true);
     expect(components[0]?.isExportDefaultDeclaration).toBe(false);
+  });
+
+  it("should mark anonymous arrow default exports as the default export declaration", () => {
+    const components = collectComponents("export default () => <div />;");
+    expect(components).toHaveLength(1);
+    expect(components[0]?.name).toBeNull();
+    expect(components[0]?.isExportDefault).toBe(true);
+    expect(components[0]?.isExportDefaultDeclaration).toBe(true);
+  });
+
+  it("should mark nested components inside a default export as inside (but not as) the default export declaration", () => {
+    const components = collectComponents(
+      "export default function ParentComponent() { function ChildComponent() { return <div />; } return <ChildComponent />; }",
+    );
+    expect(components).toHaveLength(2);
+    const child = components.find((c) => c.name === "ChildComponent");
+    expect(child?.isExportDefault).toBe(true);
+    expect(child?.isExportDefaultDeclaration).toBe(false);
+  });
+
+  it("should collect components returning optional-chained createElement calls", () => {
+    const components = collectComponents("const App = () => React?.createElement('div', null);");
+    expect(components).toHaveLength(1);
+    expect(components[0]?.name).toBe("App");
+  });
+
+  it("should collect return expressions of block-bodied components", () => {
+    const components = collectComponents(
+      "function App() { if (condition) return <div />; return null; }",
+    );
+    expect(components).toHaveLength(1);
+    expect(components[0]?.rets).toHaveLength(2);
+    expect(components[0]?.rets[0]?.type).toBe(AST.JSXElement);
+    expect(components[0]?.rets[1]?.type).toBe(AST.Literal);
+  });
+
+  it("should collect the expression body of arrow function components", () => {
+    const components = collectComponents("const App = () => <div />;");
+    expect(components).toHaveLength(1);
+    expect(components[0]?.rets).toHaveLength(1);
+    expect(components[0]?.rets[0]?.type).toBe(AST.JSXElement);
+  });
+
+  it("should populate the initialization path of wrapper-call components", () => {
+    const components = collectComponents("const App = memo(() => <div />);");
+    expect(components).toHaveLength(1);
+    expect(components[0]?.initPath?.map((node) => node.type)).toEqual([
+      AST.VariableDeclaration,
+      AST.VariableDeclarator,
+      AST.CallExpression,
+      AST.ArrowFunctionExpression,
+    ]);
+  });
+
+  it("should name components assigned to member expressions by their fully qualified name", () => {
+    const components = collectComponents("obj.App = () => <div />;");
+    expect(components).toHaveLength(1);
+    expect(components[0]?.name).toBe("obj.App");
+  });
+
+  it("should not collect memo's propsAreEqual comparator as a component", () => {
+    const components = collectComponents("const Component = memo(ComponentImpl, () => <div />);");
+    expect(components).toHaveLength(0);
   });
 });
