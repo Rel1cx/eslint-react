@@ -1040,5 +1040,23 @@ ruleTester.run(RULE_NAME, rule, {
     {
       code: '<Foo.Bar abc="def" />',
     },
+    // Invalid version settings must not throw when no attribute reaches the
+    // version-dependent attribute-tags lookup.
+    {
+      code: "const x = 1;",
+      settings: {
+        "react-x": {
+          version: "latest",
+        },
+      },
+    },
+    {
+      code: '<Foo someProp="bar" />',
+      settings: {
+        "react-x": {
+          version: "latest",
+        },
+      },
+    },
   ],
 });

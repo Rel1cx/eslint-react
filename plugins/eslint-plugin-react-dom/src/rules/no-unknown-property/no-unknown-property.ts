@@ -96,7 +96,7 @@ export function create(context: RuleContext<MessageID, Options[]>): RuleListener
     ignore = DEFAULTS.ignore,
     requireDataLowercase = DEFAULTS.requireDataLowercase,
   } = context.options[0] ?? DEFAULTS;
-  const attributeTagsMap = getAttributeTagsMap(context);
+  let attributeTagsMap: ReturnType<typeof getAttributeTagsMap> | null = null;
 
   return {
     // Visitor for JSX attributes
@@ -148,8 +148,10 @@ export function create(context: RuleContext<MessageID, Options[]>): RuleListener
       }
 
       // Check if attribute is allowed only on specific tags
-      const allowedTags = has(attributeTagsMap, name)
-        ? attributeTagsMap[name]
+      // Resolve lazily so invalid version settings do not fail rule creation.
+      const tagsMap = attributeTagsMap ??= getAttributeTagsMap(context);
+      const allowedTags = has(tagsMap, name)
+        ? tagsMap[name]
         : null;
 
       if (tagName != null && allowedTags != null) {
