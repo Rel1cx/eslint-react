@@ -38,7 +38,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       const hasChild = node.children.some((child) => !isPaddingWhitespace(child) && !isEmptyExpressionContainer(child));
 
       // Report an error if the void element has children, a 'children' prop, or 'dangerouslySetInnerHTML'
-      if (hasChild || hasAnyAttribute(context, node, ["children", "dangerouslySetInnerHTML"])) {
+      if (hasChild || hasAnyAttribute(node, ["children", "dangerouslySetInnerHTML"])) {
         context.report({
           data: {
             elementType: domElementType,

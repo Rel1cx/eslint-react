@@ -32,34 +32,6 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [{ messageId: "default" }],
     },
     {
-      code: tsx`
-        const props = { dangerouslySetInnerHTML: { __html: "HTML" } }
-        ;<div {...props}>Children</div>
-      `,
-      errors: [{ messageId: "default" }],
-    },
-    {
-      code: tsx`
-        const props = { children: "Children", dangerouslySetInnerHTML: { __html: "HTML" } }
-        ;<div {...props} />
-      `,
-      errors: [{ messageId: "default" }],
-    },
-    // Alias chains in spread props are followed
-    {
-      code: tsx`
-        const inner = { children: "Children", dangerouslySetInnerHTML: { __html: "HTML" } }
-        const props = inner
-        ;<div {...props} />
-      `,
-      errors: [{ messageId: "default" }],
-    },
-    // Statically evaluable computed keys in spread props are recognized
-    {
-      code: tsx`<div dangerouslySetInnerHTML={{ __html: "HTML" }} {...{ ["children"]: "Children" }} />`,
-      errors: [{ messageId: "default" }],
-    },
-    {
       // https://github.com/Rel1cx/eslint-react/issues/1163
       code: tsx`
         function Abc() {
@@ -99,6 +71,7 @@ ruleTester.run(RULE_NAME, rule, {
     '<div children="Children" />',
     "<App>Children</App>",
     '<App dangerouslySetInnerHTML={{ __html: "HTML" }} />',
+    // Spread props are not resolved
     "<div {...props} />",
     tsx`
       const props = { dangerouslySetInnerHTML: { __html: "HTML" } }

@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- Adapted to the rewritten `@eslint-react/jsx` value APIs: `getAttributeValue` carries the matched spread property, and static values are read through `resolveAttributeStaticValue`; no behavior change.
+- Spread props are no longer statically resolved, so a `sandbox` provided through a spread attribute is ignored; only direct `sandbox` attributes are checked. Direct values are read through `getAttributeValue` and `resolveAttributeStaticValue`.
 
 ## [5.20.2] - 2026-09-20
 

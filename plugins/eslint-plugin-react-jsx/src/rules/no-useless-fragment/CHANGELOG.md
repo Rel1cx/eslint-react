@@ -11,11 +11,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
-- Fragments with a spread attribute that cannot be statically resolved — including spreads whose resolved object contains a dynamic computed key — are no longer reported, since the spread may provide `key` or `ref`. Spreads with statically known keys that do not include `key`/`ref` are still reported (without an auto-fix).
+- Fragments with a spread attribute are no longer reported, since spread props are not statically resolved and may provide `key` or `ref`.
 
 ### Changed
 
-- Uses `hasUnresolvableSpread` from `@eslint-react/jsx` to detect spreads that may provide arbitrary props.
+- Uses the simplified direct-attribute lookup after `@eslint-react/jsx` removed spread-property resolution.
 
 ## [5.28.1] - 2026-10-17
 

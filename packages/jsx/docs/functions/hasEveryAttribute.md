@@ -3,18 +3,19 @@
 # Function: hasEveryAttribute()
 
 ```ts
-function hasEveryAttribute(context: RuleContext, element: JSXElement, names: readonly string[]): boolean;
+function hasEveryAttribute(element: JSXElement, names: readonly string[]): boolean;
 ```
 
-Check if the element has all of the given attributes.
+Check if the element has all of the given direct attributes.
+
+Spread attributes are ignored; only direct `JSXAttribute` nodes are checked.
 
 ## Parameters
 
-| Parameter | Type                | Description                                                                    |
-| --------- | ------------------- | ------------------------------------------------------------------------------ |
-| `context` | `RuleContext`       | The ESLint rule context (needed for variable resolution in spread attributes). |
-| `element` | `JSXElement`        | The `JSXElement` node to check.                                                |
-| `names`   | readonly `string`[] | The attribute names to look for.                                               |
+| Parameter | Type                | Description                      |
+| --------- | ------------------- | -------------------------------- |
+| `element` | `JSXElement`        | The `JSXElement` node to check.  |
+| `names`   | readonly `string`[] | The attribute names to look for. |
 
 ## Returns
 

@@ -37,15 +37,13 @@ type AttributeValue =
   | {
     attribute: TSESTree.JSXSpreadAttribute;
     kind: "spreadProps";
-    property: TSESTree.Property | null;
   };
 ```
 
 The structural value of an attribute.
 
-Plain attribute variants carry the source `attribute` and the value node.
-The `spreadProps` variant does not carry a `node`: the value is supplied by
-`property` (when known), and the spread source is `attribute.argument`.
-
-This is plain data; use [resolveAttributeStaticValue](../functions/resolveAttributeStaticValue.md) to collapse it to
-a plain JavaScript value.
+Direct attributes carry the source `attribute` and, when it exists, the value
+node. The `spreadProps` variant only records the spread attribute itself: its
+properties and values are not resolved. This is plain data; use
+[resolveAttributeStaticValue](../functions/resolveAttributeStaticValue.md) to collapse direct values to a plain
+JavaScript value.

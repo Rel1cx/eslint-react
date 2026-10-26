@@ -29,10 +29,10 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
 
   return {
     JSXElement(node) {
-      if (!hasAttribute(context, node, "dangerouslySetInnerHTML")) return;
+      if (!hasAttribute(node, "dangerouslySetInnerHTML")) return;
       // Look for a 'children' prop or a child node that is not just whitespace
-      const match = findAttribute(context, node, "children");
-      const fact = match?.attribute ?? node.children.find((child) => !isPaddingWhitespace(child) && !isEmptyExpressionContainer(child));
+      const childrenAttribute = findAttribute(node, "children");
+      const fact = childrenAttribute ?? node.children.find((child) => !isPaddingWhitespace(child) && !isEmptyExpressionContainer(child));
       if (fact == null) return;
       context.report({
         messageId: "default",

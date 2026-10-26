@@ -13,7 +13,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- Adapted to the rewritten `@eslint-react/jsx` attribute lookup: `findAttribute` now returns a match carrying the matched attribute.
+- Spread props are no longer statically resolved, so `dangerouslySetInnerHTML` and `children` provided through a spread attribute are ignored; only direct attributes and nested child nodes are checked.
 
 ## [5.10.2] - 2026-07-03
 

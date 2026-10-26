@@ -2,16 +2,8 @@ import { createRule } from "@/utils/create-rule";
 import { Check, type TSESTreeJSXElementLike } from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, type RuleListener, getText } from "@eslint-react/eslint";
-import {
-  collapseMultilineText,
-  getChildren,
-  hasAnyAttribute,
-  hasUnresolvableSpread,
-  isFragmentElement,
-  isHostElement,
-  isWhitespaceText,
-} from "@eslint-react/jsx";
-import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
+import { collapseMultilineText, getChildren, hasAnyAttribute, isFragmentElement, isHostElement, isWhitespaceText } from "@eslint-react/jsx";
+import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 import type { JSONSchema4 } from "@typescript-eslint/utils/json-schema";
 import type { RuleFix, RuleFixer } from "@typescript-eslint/utils/ts-eslint";
 
@@ -80,27 +72,15 @@ export function create(context: RuleContext<MessageID, Options>, [option]: Optio
   return {
     JSXElement(node) {
       if (!isFragmentElement(node, jsxFragmentFactory)) return;
-      if (hasAnyAttribute(context, node, ["key", "ref"])) return;
-      // A spread that cannot be resolved may provide key/ref; do not report conservatively.
-      if (hasUnresolvableSpreadAttribute(context, node)) return;
+      if (hasAnyAttribute(node, ["key", "ref"])) return;
+      // A spread attribute may provide key/ref; do not report conservatively.
+      if (node.openingElement.attributes.some((attribute) => attribute.type === AST.JSXSpreadAttribute)) return;
       visitFragment(context, node, options);
     },
     JSXFragment(node) {
       visitFragment(context, node, options);
     },
   };
-}
-
-/**
- * Whether the element has a spread attribute that cannot be statically resolved.
- *
- * Such a spread may provide `key` or `ref`, so the fragment cannot be proven
- * useless from its children alone.
- * @param context The rule context.
- * @param node The fragment element to check.
- */
-function hasUnresolvableSpreadAttribute(context: RuleContext, node: TSESTree.JSXElement): boolean {
-  return node.openingElement.attributes.some((attribute) => attribute.type === AST.JSXSpreadAttribute && hasUnresolvableSpread(context, attribute.argument));
 }
 
 /**

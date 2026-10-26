@@ -835,19 +835,6 @@ ruleTester.run(RULE_NAME, rule, {
         <div />
       `,
     },
-    // A spread attribute that statically resolves to an object without key/ref does not
-    // exempt the fragment, but makes the fix unsafe
-    {
-      code: "<Fragment {...{ id: 1 }}><div /></Fragment>",
-      errors: [
-        {
-          type: AST.JSXElement,
-          data: { reason: "contains less than two children" },
-          messageId: "default",
-        },
-      ],
-      output: null,
-    },
     // A single spread child is always useless (it is not a JSXExpressionContainer, so
     // allowExpressions does not apply) and can never be unwrapped outside JSX
     {
@@ -1169,12 +1156,11 @@ ruleTester.run(RULE_NAME, rule, {
       /** @jsxFrag VFrag */
       <React.Fragment><div /></React.Fragment>
     `,
-    // A key spread from an inline object expression exempts the fragment,
-    // same as a literal key attribute
+    // A spread attribute may provide key/ref, so it exempts the fragment
     "<Fragment {...{ key: 'k' }}><div /></Fragment>",
-    // An unresolvable spread may provide key/ref, so the fragment is not reported
     "<Fragment {...props}><div /></Fragment>",
     "<Fragment {...{ ...props }}><div /></Fragment>",
+    "<Fragment {...{ id: 1 }}><div /></Fragment>",
     // A dynamic computed key may also provide key/ref
     "<Fragment {...{ [propName]: value }}><div /></Fragment>",
     "<Fragment {...{ ...{ [propName]: value } }}><div /></Fragment>",

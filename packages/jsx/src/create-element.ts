@@ -1,7 +1,7 @@
 import { Check, Extract, Traverse } from "@eslint-react/ast";
 import { type RuleContext, getText } from "@eslint-react/eslint";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
-import { findObjectProperty } from "./property";
+import { getStaticValue } from "@typescript-eslint/utils/ast-utils";
 
 /**
  * A parsed `createElement` call.
@@ -64,13 +64,32 @@ export function parseCreateElementCall(context: RuleContext, node: TSESTree.Node
 }
 
 /**
- * Find a statically named property in the props object of a `createElement` call.
+ * Statically resolve a property key to a string.
  *
- * Matching follows JavaScript object semantics: properties are scanned in
- * reverse (later entries win), nested spreads are resolved recursively, and
- * statically evaluable computed keys are matched. The property matcher is shared
- * with `findSpreadProperty`, so JSX spread attributes and `createElement` props
- * have identical name-resolution behavior.
+ * Computed keys are evaluated with `getStaticValue`; only string results match.
+ * Non-computed identifier keys return their name, and non-computed string
+ * literal keys return their value.
+ * @param context The ESLint rule context (needed for computed-key evaluation).
+ * @param property The property to read the key from.
+ * @returns The statically resolved key, or `null` when it cannot be determined as a string.
+ */
+function getStaticPropertyName(context: RuleContext, property: TSESTree.Property): string | null {
+  const key = Extract.unwrap(property.key);
+  if (property.computed) {
+    const staticValue = getStaticValue(key, context.sourceCode.getScope(key));
+    return typeof staticValue?.value === "string" ? staticValue.value : null;
+  }
+  if (Check.isIdentifier(key)) return key.name;
+  if (key.type === AST.Literal && typeof key.value === "string") return key.value;
+  return null;
+}
+
+/**
+ * Find a statically named direct property in the props object of a `createElement` call.
+ *
+ * Properties are scanned in reverse so that later entries win. Only direct
+ * properties are considered; spread properties are ignored rather than
+ * statically resolved. Statically evaluable computed keys are matched.
  * @param context The ESLint rule context.
  * @param call The parsed call, or `null`.
  * @param name The property name to look for (ex: `"children"`, `"key"`).
@@ -78,7 +97,12 @@ export function parseCreateElementCall(context: RuleContext, node: TSESTree.Node
  */
 export function findCreateElementProp(context: RuleContext, call: CreateElementCall | null, name: string): TSESTree.Property | null {
   if (call?.propsObject == null) return null;
-  return findObjectProperty(context, call.propsObject, name);
+  const { properties } = call.propsObject;
+  for (let i = properties.length - 1; i >= 0; i--) {
+    const property = properties[i];
+    if (property?.type === AST.Property && getStaticPropertyName(context, property) === name) return property;
+  }
+  return null;
 }
 
 // #region Contextual Predicates

@@ -36,7 +36,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       const { domElementType } = resolver.resolve(node);
       if (domElementType !== "iframe") return;
 
-      const sandboxValue = getAttributeValue(context, node, "sandbox");
+      const sandboxValue = getAttributeValue(node, "sandbox");
       if (sandboxValue == null) return;
       const value = resolveAttributeStaticValue(context, sandboxValue);
       if (!isString(value) || !UNSAFE_SANDBOX_VALUES.every((a) => value.includes(a))) return;

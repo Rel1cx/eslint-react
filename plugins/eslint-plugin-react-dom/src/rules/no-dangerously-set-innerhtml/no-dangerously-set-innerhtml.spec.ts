@@ -35,44 +35,6 @@ ruleTester.run(RULE_NAME, rule, {
       code: '<my-element dangerouslySetInnerHTML={{ __html: "HTML" }} />',
       errors: [{ messageId: "default" }],
     },
-    {
-      code: tsx`
-        const props = {
-            dangerouslySetInnerHTML: { __html: "HTML" }
-        }
-        const div = <div {...props}>Children</div>
-      `,
-      errors: [{ messageId: "default" }],
-    },
-    {
-      code: tsx`
-        const props = {
-            children: "Children",
-            dangerouslySetInnerHTML: { __html: "HTML" }
-        }
-        const div = <div {...props} />
-      `,
-      errors: [{ messageId: "default" }],
-    },
-    // String literal keys in spread props are matched
-    {
-      code: tsx`<div {...{ "dangerouslySetInnerHTML": { __html: "HTML" } }} />`,
-      errors: [{ messageId: "default" }],
-    },
-    // Computed string literal keys in spread props are statically resolved
-    {
-      code: tsx`<div {...{ ["dangerouslySetInnerHTML"]: { __html: "HTML" } }} />`,
-      errors: [{ messageId: "default" }],
-    },
-    // Alias chains in spread props are followed
-    {
-      code: tsx`
-        const inner = { dangerouslySetInnerHTML: { __html: "HTML" } };
-        const props = inner;
-        const div = <div {...props} />;
-      `,
-      errors: [{ messageId: "default" }],
-    },
     // Nested inside JSX attribute value
     {
       code: tsx`<App content={<div dangerouslySetInnerHTML={{ __html: "HTML" }} />} />`,
@@ -82,9 +44,13 @@ ruleTester.run(RULE_NAME, rule, {
   valid: [
     "<div />",
     "<App />",
+    // Spread props are not resolved
     "<div {...props} />",
+    tsx`
+      const props = { dangerouslySetInnerHTML: { __html: "HTML" } };
+      const div = <div {...props} />;
+    `,
     tsx`<div>{dangerouslySetInnerHTML}</div>`,
-    // Computed identifier key in spread props: the property name is the runtime value of the variable
     tsx`
       declare const dangerouslySetInnerHTML: string;
       const div = <div {...{ [dangerouslySetInnerHTML]: { __html: "HTML" } }} />;

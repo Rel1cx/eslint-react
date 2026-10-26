@@ -6,13 +6,11 @@
 function findCreateElementProp(context: RuleContext, call: CreateElementCall | null, name: string): Property | null;
 ```
 
-Find a statically named property in the props object of a `createElement` call.
+Find a statically named direct property in the props object of a `createElement` call.
 
-Matching follows JavaScript object semantics: properties are scanned in
-reverse (later entries win), nested spreads are resolved recursively, and
-statically evaluable computed keys are matched. The property matcher is shared
-with `findSpreadProperty`, so JSX spread attributes and `createElement` props
-have identical name-resolution behavior.
+Properties are scanned in reverse so that later entries win. Only direct
+properties are considered; spread properties are ignored rather than
+statically resolved. Statically evaluable computed keys are matched.
 
 ## Parameters
 

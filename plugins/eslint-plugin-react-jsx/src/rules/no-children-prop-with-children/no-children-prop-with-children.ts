@@ -51,16 +51,8 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       });
     },
     JSXElement(node) {
-      const match = findAttribute(context, node, "children");
-      if (match == null || !hasMeaningfulChildren(node)) return;
-
-      // If children comes from a spread attribute we cannot safely remove
-      // just the `children` key from it, so report without suggestions.
-      if (match.kind !== "plain") {
-        context.report({ messageId: "default", node: match.attribute });
-        return;
-      }
-      const prop = match.attribute;
+      const prop = findAttribute(node, "children");
+      if (prop == null || !hasMeaningfulChildren(node)) return;
 
       context.report({
         messageId: "default",

@@ -32,11 +32,6 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [{ messageId: "default" }],
     },
     {
-      name: "missing key with spread props in array literal",
-      code: tsx`[<App {...key} />];`,
-      errors: [{ messageId: "default" }],
-    },
-    {
       name: "missing key in logical expression in array literal",
       code: tsx`[x && <App x={x} />];`,
       errors: [{ messageId: "default" }],
@@ -668,6 +663,10 @@ ruleTester.run(RULE_NAME, rule, {
       `,
     },
     // --- Spread and nested-array edge cases --------------------------------------------------
+    {
+      name: "spread props may provide key in array literal",
+      code: tsx`[<App {...key} />];`,
+    },
     {
       name: "spread element alongside keyed element in array",
       code: tsx`[...items, <App key="1" />];`,

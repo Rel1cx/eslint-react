@@ -43,7 +43,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       if (domElementType !== "iframe") return;
 
       // Find and resolve the 'sandbox' prop on the iframe element.
-      const sandboxValue = getAttributeValue(context, node, "sandbox");
+      const sandboxValue = getAttributeValue(node, "sandbox");
 
       // If the 'sandbox' prop is missing, report an error
       if (sandboxValue == null) {
@@ -71,19 +71,16 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       context.report({
         messageId: "default",
         node: reportNode,
-        // Replacing a spread attribute would drop its other properties
-        suggest: sandboxValue.kind === "spreadProps"
-          ? []
-          : [
-            {
-              data: { value: "" },
-              fix(fixer) {
-                // Suggest replacing the prop with a valid one
-                return fixer.replaceText(sandboxValue.attribute, `sandbox=""`);
-              },
-              messageId: "suggest",
+        suggest: [
+          {
+            data: { value: "" },
+            fix(fixer) {
+              // Suggest replacing the prop with a valid one
+              return fixer.replaceText(sandboxValue.attribute, `sandbox=""`);
             },
-          ],
+            messageId: "suggest",
+          },
+        ],
       });
     },
   };

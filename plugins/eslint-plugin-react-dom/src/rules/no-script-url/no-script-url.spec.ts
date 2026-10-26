@@ -200,10 +200,6 @@ ruleTester.run(RULE_NAME, rule, {
     // Boolean value
     "<a href={true}></a>",
     // Spread props - can't be statically analyzed
-    tsx`
-      const props = { href: "javascript:void(0)" };
-      <a {...props}></a>
-    `,
     // Data URI (not javascript:)
     '<a href="data:text/html,<h1>Hello</h1>"></a>',
     // About blank

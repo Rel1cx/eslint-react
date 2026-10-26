@@ -284,23 +284,9 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
     },
-    // 'children' passed via spread (reported without suggestion)
-    {
-      code: '<div {...{ children: "Children" }} />;',
-      errors: [{ messageId: "default" }],
-    },
-    {
-      code: 'const props = { children: "Children" }; <div {...props} />;',
-      errors: [{ messageId: "default" }],
-    },
     // createElement props with a statically resolvable computed key
     {
       code: 'const propName = "children"; React.createElement("div", { [propName]: "Children" });',
-      errors: [{ messageId: "default" }],
-    },
-    // createElement props with children inside a nested spread
-    {
-      code: 'React.createElement("div", { ...{ children: "Children" } });',
       errors: [{ messageId: "default" }],
     },
     // JSX edge cases
@@ -640,9 +626,13 @@ ruleTester.run(RULE_NAME, rule, {
     'React.createElement("div");',
     // createElement with a non-static computed identifier key
     'function render(propName: string) { return React.createElement("div", { [propName]: "Children" }); }',
+    // Spread props are not resolved
     '<div {...{ className: "x" }} />;',
     'const props = { className: "x" }; <div {...props} />;',
     'import { props } from "props"; <div {...props} />;',
+    '<div {...{ children: "Children" }} />;',
+    'const props = { children: "Children" }; <div {...props} />;',
+    'React.createElement("div", { ...{ children: "Children" } });',
     "<xml:svg></xml:svg>;",
     '<div x:children="Children" />;',
   ],

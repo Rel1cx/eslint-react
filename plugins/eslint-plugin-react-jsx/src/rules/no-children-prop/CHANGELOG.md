@@ -9,11 +9,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
-- `children` supplied through a nested spread or a statically resolvable computed key in a `createElement` props object is now detected (ex: `createElement("div", { ...{ children: "x" } })`, `const propName = "children"; createElement("div", { [propName]: "x" })`). Property lookup now follows JavaScript object semantics (later properties win) and matches the JSX spread path. This aligns with TSX/TS semantics, where object spread and const-typed computed keys produce the same property as writing `children` directly.
+- `children` supplied through a statically resolvable computed key in a `createElement` props object is now detected (ex: `const propName = "children"; createElement("div", { [propName]: "x" })`). Direct properties follow JavaScript object semantics (later entries win).
 
 ### Changed
 
-- Refactored the rule to use `parseCreateElementCall` and `findCreateElementProp` from `@eslint-react/jsx`; no further behavior change.
+- Spread props are no longer statically resolved, so `children` provided through a JSX spread attribute or a nested spread in `createElement` props is ignored; only direct attributes and properties are checked.
+- Refactored the rule to use `parseCreateElementCall` and `findCreateElementProp` from `@eslint-react/jsx`.
 
 ## [5.27.3] - 2026-10-16
 

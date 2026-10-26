@@ -240,48 +240,6 @@ ruleTester.run(RULE_NAME, rule, {
         },
       },
     },
-    {
-      code: tsx`
-        const props = {
-          sandbox: "allow-downloads",
-        };
-
-        function App() {
-            return <PolyComponent as="iframe" {...props} />;
-        }
-      `,
-      settings: {
-        "react-x": {
-          polymorphicPropName: "as",
-        },
-      },
-    },
-    {
-      code: tsx`
-        const props = {
-          sandbox: "allow-downloads",
-        };
-
-        function App() {
-            return <iframe {...props} />;
-        }
-      `,
-    },
-    // Alias chains in spread props are followed
-    {
-      code: tsx`
-        const inner = { sandbox: "allow-downloads" };
-        const props = inner;
-
-        function App() {
-            return <iframe {...props} />;
-        }
-      `,
-    },
-    // Statically evaluable computed keys in spread props count as providing 'sandbox'
-    tsx`<iframe {...{ ["sandbox"]: "allow-downloads" }} />;`,
-    // String literal keys in spread props count as providing 'sandbox'
-    tsx`<iframe {...{ "sandbox": "allow-downloads" }} />;`,
     // Not an iframe
     tsx`<div sandbox />;`,
     // Boundary: member expression without a polymorphic prop is not an iframe

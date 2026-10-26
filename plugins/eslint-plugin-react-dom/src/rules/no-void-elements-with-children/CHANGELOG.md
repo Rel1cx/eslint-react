@@ -13,7 +13,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- Child detection now uses `isPaddingWhitespace` and `isEmptyExpressionContainer` from `@eslint-react/jsx`, while keeping the existing `hasAnyAttribute` checks.
+- Child detection now uses `isPaddingWhitespace` and `isEmptyExpressionContainer` from `@eslint-react/jsx`. Spread props are no longer statically resolved, so `children` and `dangerouslySetInnerHTML` provided through spread attributes are ignored; only direct attributes and child nodes are checked.
 
 ## [5.20.2] - 2026-09-20
 

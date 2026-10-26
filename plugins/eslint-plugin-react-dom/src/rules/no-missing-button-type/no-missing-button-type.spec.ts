@@ -169,21 +169,6 @@ ruleTester.run(RULE_NAME, rule, {
           return <button type={props.type}>Click me</button>;
       }
     `,
-    tsx`
-      const props = {
-        type: "button",
-      };
-
-      function App() {
-          return <button {...props}>Click me</button>;
-      }
-    `,
-    tsx`
-      const buttonAttrs = { type: "button" };
-      function App() {
-          return <button {...buttonAttrs}>Click me</button>;
-      }
-    `,
     "<a />;",
     "<span />;",
     // Not a button element

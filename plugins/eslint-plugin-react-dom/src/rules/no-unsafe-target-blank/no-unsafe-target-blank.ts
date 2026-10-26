@@ -87,7 +87,7 @@ export function create(context: RuleContext<MessageID, Options>): RuleListener {
       const hrefValue = getAttributeStaticValue(context, node, "href");
       if (!isExternalLinkLike(hrefValue)) return;
 
-      const relValue = getAttributeValue(context, node, "rel");
+      const relValue = getAttributeValue(node, "rel");
       if (relValue == null) {
         context.report({
           messageId: "default",
@@ -105,10 +105,7 @@ export function create(context: RuleContext<MessageID, Options>): RuleListener {
         messageId: "default",
         data: { rel: requiredRelAttribute },
         node: relAttribute,
-        // Replacing a spread attribute would drop its other properties
-        suggest: relValue.kind === "spreadProps"
-          ? []
-          : buildSuggest((fixer) => fixer.replaceText(relAttribute, requiredRelAttribute)),
+        suggest: buildSuggest((fixer) => fixer.replaceText(relAttribute, requiredRelAttribute)),
       });
     },
   };

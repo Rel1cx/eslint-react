@@ -129,27 +129,6 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
     },
-    {
-      code: tsx`
-        const props = { href: "https://react.dev", target: "_blank" };
-        const a = <a {...props}></a>;
-      `,
-      errors: [
-        {
-          messageId: "default",
-          suggestions: [
-            {
-              messageId: "suggest",
-              data: { rel: 'rel="noreferrer"' },
-              output: tsx`
-                const props = { href: "https://react.dev", target: "_blank" };
-                const a = <a rel="noreferrer" {...props}></a>;
-              `,
-            },
-          ],
-        },
-      ],
-    },
     // Missing rel with an unresolvable spread: the suggestion inserts after the element name
     {
       code: tsx`
@@ -211,28 +190,6 @@ ruleTester.run(RULE_NAME, rule, {
           polymorphicPropName: "component",
         },
       },
-    },
-    // Polymorphic prop provided via spread props
-    {
-      code: tsx`
-        const props = { as: "a" };
-        <Box {...props} href="https://react.dev" target="_blank"></Box>;
-      `,
-      errors: [
-        {
-          messageId: "default",
-          suggestions: [
-            {
-              messageId: "suggest",
-              data: { rel: 'rel="noreferrer"' },
-              output: tsx`
-                const props = { as: "a" };
-                <Box rel="noreferrer" {...props} href="https://react.dev" target="_blank"></Box>;
-              `,
-            },
-          ],
-        },
-      ],
     },
     // Member expression component with a polymorphic prop (ex: motion.div)
     {
@@ -530,14 +487,6 @@ ruleTester.run(RULE_NAME, rule, {
     //     },
     //   },
     // },
-    // rel provided via a spread attribute: report without a destructive suggestion
-    {
-      code: tsx`
-        const props = { rel: "noopener", className: "link" };
-        <a {...props} href="https://react.dev" target="_blank"></a>;
-      `,
-      errors: [{ messageId: "default", suggestions: [] }],
-    },
   ],
   valid: [
     '<a href="https://react.dev" target="_blank" rel="noopener noreferrer"></a>',
@@ -571,6 +520,7 @@ ruleTester.run(RULE_NAME, rule, {
     "<a></a>",
     "<span></span>",
     '<Box href="https://react.dev" target="_blank"></Box>',
+    // Spread props are not resolved
     tsx`
       const props = { href: "https://react.dev", target: "_blank", rel: "noreferrer" };
       const a = <a {...props}></a>;
@@ -578,12 +528,6 @@ ruleTester.run(RULE_NAME, rule, {
     tsx`
       const props = { href: "https://react.dev", rel: "noreferrer" };
       const a = <a target="_blank" {...props}></a>;
-    `,
-    tsx`
-      const props1 = { href: "https://react.dev", target: "_blank" } as const;
-      const a1 = <a {...props1} target="_self"></a>;
-      const props2 = { href: "https://react.dev", target: "_self" } as const;
-      const a2 = <a target="_blank" {...props2}></a>;
     `,
     {
       code: '<Box href="https://react.dev" target="_blank"></Box>',
@@ -611,13 +555,6 @@ ruleTester.run(RULE_NAME, rule, {
     '<div as="a" href="https://react.dev" target="_blank"></div>',
     // Boundary: non-string polymorphic prop value falls back to the element name
     '<Box as={Link} href="https://react.dev" target="_blank"></Box>',
-    // Boundary: later props win, spread 'as' overrides the explicit 'as'
-    {
-      code: tsx`
-        const props = { as: "div" };
-        <Box as="a" {...props} href="https://react.dev" target="_blank"></Box>;
-      `,
-    },
     // Member expression without a polymorphic prop is not treated as a host element
     '<motion.a href="https://react.dev" target="_blank"></motion.a>',
     {

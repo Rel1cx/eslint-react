@@ -52,20 +52,12 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       });
     },
     JSXElement(node) {
-      const match = findAttribute(context, node, "children");
-      if (match == null) return;
+      const prop = findAttribute(node, "children");
+      if (prop == null) return;
 
       // Nested children content already conflicts with the prop; that case
       // belongs to 'no-children-prop-with-children'
       if (hasMeaningfulChildren(node)) return;
-
-      // Spread attributes cannot be converted to element content safely,
-      // so report without a suggestion
-      if (match.kind !== "plain") {
-        context.report({ messageId: "default", node: match.attribute });
-        return;
-      }
-      const prop = match.attribute;
 
       // Turn the 'children' prop value into text usable as element content
       const childrenText = getChildrenText(context, prop);

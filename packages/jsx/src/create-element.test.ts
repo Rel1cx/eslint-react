@@ -129,17 +129,25 @@ describe("findCreateElementProp", () => {
     expect(findCreateElementProp(context, call, "children")?.type).toBe(AST.Property);
   });
 
-  it("should find a property inside a nested spread", () => {
+  it("should ignore a property inside a nested spread", () => {
     const { context, node } = parseCallExpression(`React.createElement("div", { ...{ children: "a" } });`);
     const call = parseCreateElementCall(context, node);
-    expect(findCreateElementProp(context, call, "children")?.type).toBe(AST.Property);
+    expect(findCreateElementProp(context, call, "children")).toBeNull();
   });
 
-  it("should find a property inside an identifier spread", () => {
+  it("should ignore a property inside an identifier spread", () => {
     const code = `const props = { children: "a" }; React.createElement("div", { ...props });`;
     const { context, node } = parseCallExpression(code);
     const call = parseCreateElementCall(context, node);
-    expect(findCreateElementProp(context, call, "children")?.type).toBe(AST.Property);
+    expect(findCreateElementProp(context, call, "children")).toBeNull();
+  });
+
+  it("should not resolve a variable props argument", () => {
+    const code = `const props = { children: "a" }; React.createElement("div", props);`;
+    const { context, node } = parseCallExpression(code);
+    const call = parseCreateElementCall(context, node);
+    expect(call?.propsObject).toBeNull();
+    expect(findCreateElementProp(context, call, "children")).toBeNull();
   });
 
   it("should apply last-property precedence", () => {
@@ -158,7 +166,7 @@ describe("findCreateElementProp", () => {
     [`React.createElement("div", { key: "a" });`],
     // Computed keys without a statically resolvable name do not match
     [`React.createElement("div", { [CHILDREN]: "a" });`],
-    // Unresolvable spread properties do not match
+    // Spread properties are ignored
     [`React.createElement("div", { ...props });`],
     // Not a createElement call
     [`notCreateElement("div", { children: "a" });`],

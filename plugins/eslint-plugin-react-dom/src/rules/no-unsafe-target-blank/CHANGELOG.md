@@ -13,13 +13,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [5.30.0-beta.6] - 2026-10-27
 
-### Fixed
-
-- A `rel` provided through a JSX spread attribute no longer produces a suggestion that replaces the entire spread with a single `rel` attribute, which dropped the spread's other properties. Unsafe or non-static spread-provided `rel` values are still reported, but without a suggestion.
-
 ### Changed
 
-- `rel` is now resolved once through `getAttributeValue`, so the static value and the source attribute come from the same lookup.
+- Spread props are no longer statically resolved, so `target`, `href`, and `rel` provided through spread attributes are ignored; only direct attributes are checked. Direct `rel` values are read through `getAttributeValue` and `resolveAttributeStaticValue`.
 
 ## [5.25.0] - 2026-10-11
 

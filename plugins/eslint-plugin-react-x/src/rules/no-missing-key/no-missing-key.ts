@@ -70,7 +70,9 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       case AST.TSInstantiationExpression:
         return visitItemExpression(node.expression);
       case AST.JSXElement:
-        return hasAttribute(context, node, "key")
+        // Spread attributes are not resolved and may provide `key`.
+        if (node.openingElement.attributes.some((attribute) => attribute.type === AST.JSXSpreadAttribute)) return [];
+        return hasAttribute(node, "key")
           ? []
           : [{ messageId: "default", node }];
       case AST.JSXFragment:

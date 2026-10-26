@@ -31,7 +31,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       // This rule only applies to host elements (ex: <div />, <span />), not custom components
       if (!isHostElement(node)) return;
 
-      const styleValue = getAttributeValue(context, node, "style");
+      const styleValue = getAttributeValue(node, "style");
       if (styleValue == null) return;
       if (!isString(resolveAttributeStaticValue(context, styleValue))) return;
 

@@ -3,24 +3,19 @@
 # Function: resolveAttributeValue()
 
 ```ts
-function resolveAttributeValue(
-  matchOrAttribute:
-    | AttributeMatch
-    | TSESTreeJSXAttributeLike,
-): AttributeValue;
+function resolveAttributeValue(attribute: TSESTreeJSXAttributeLike): AttributeValue;
 ```
 
-Resolve an attribute (or an attribute lookup match) into an [AttributeValue](../type-aliases/AttributeValue.md) descriptor.
+Resolve a `JSXAttribute` or `JSXSpreadAttribute` into an [AttributeValue](../type-aliases/AttributeValue.md) descriptor.
 
-When passing an [AttributeMatch](../type-aliases/AttributeMatch.md) for a spread attribute, the matched
-property is carried into the descriptor; passing a raw `JSXSpreadAttribute`
-yields a `spreadProps` descriptor with `property: null`.
+Spread attributes are represented structurally by the `spreadProps` kind;
+their properties and values are not resolved.
 
 ## Parameters
 
-| Parameter          | Type                                                                                   | Description                                                     |
-| ------------------ | -------------------------------------------------------------------------------------- | --------------------------------------------------------------- |
-| `matchOrAttribute` | \| [`AttributeMatch`](../type-aliases/AttributeMatch.md) \| `TSESTreeJSXAttributeLike` | A lookup match or a `JSXAttribute` / `JSXSpreadAttribute` node. |
+| Parameter   | Type                       | Description                                                 |
+| ----------- | -------------------------- | ----------------------------------------------------------- |
+| `attribute` | `TSESTreeJSXAttributeLike` | The `JSXAttribute` or `JSXSpreadAttribute` node to resolve. |
 
 ## Returns
 

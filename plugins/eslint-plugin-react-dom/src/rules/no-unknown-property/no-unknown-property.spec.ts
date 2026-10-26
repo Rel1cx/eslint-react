@@ -962,7 +962,6 @@ ruleTester.run(RULE_NAME, rule, {
     { code: '<meta charSet="utf-8" />;' },
     // Some custom web components that are allowed to use `class` instead of `className`
     { code: '<div class="foo" is="my-elem"></div>;' },
-    { code: '<div {...this.props} class="foo" is="my-elem"></div>;' },
     { code: '<atom-panel class="foo"></atom-panel>;' },
     // Ignoring should work
     {

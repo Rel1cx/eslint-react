@@ -3,20 +3,20 @@
 # Function: getAttributeValue()
 
 ```ts
-function getAttributeValue(context: RuleContext, element: JSXElement, name: string): AttributeValue | null;
+function getAttributeValue(element: JSXElement, name: string): AttributeValue | null;
 ```
 
-Find an attribute by name on a JSX element and resolve its value in a single call.
+Find a direct attribute by name on a JSX element and resolve its value.
 
 Convenience composition of [findAttribute](findAttribute.md) and [resolveAttributeValue](resolveAttributeValue.md).
+Spread attributes are ignored.
 
 ## Parameters
 
-| Parameter | Type          | Description                                      |
-| --------- | ------------- | ------------------------------------------------ |
-| `context` | `RuleContext` | The ESLint rule context.                         |
-| `element` | `JSXElement`  | The `JSXElement` node to search.                 |
-| `name`    | `string`      | The attribute name to look up (ex: "className"). |
+| Parameter | Type         | Description                                      |
+| --------- | ------------ | ------------------------------------------------ |
+| `element` | `JSXElement` | The `JSXElement` node to search.                 |
+| `name`    | `string`     | The attribute name to look up (ex: "className"). |
 
 ## Returns
 

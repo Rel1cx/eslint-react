@@ -63,7 +63,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: tsx`<img {...props} children="Foo" />;`,
+      code: tsx`<img children="Foo" />;`,
       errors: [
         {
           data: { elementType: "img" },
@@ -72,7 +72,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: tsx`<PolyComponent as="img" {...props} children="Foo" />;`,
+      code: tsx`<PolyComponent as="img" children="Foo" />;`,
       errors: [
         {
           data: { elementType: "img" },

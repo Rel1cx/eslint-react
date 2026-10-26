@@ -7,13 +7,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [5.30.0-beta.6] - 2026-10-27
 
-### Fixed
-
-- String `style` values provided through a JSX spread attribute are now reported (ex: `<div {...{ style: "color: red;" }} />` and `const props = { style: "color: red;" }; <div {...props} />`). The previous lookup returned the spread attribute without carrying the matched property, so the value was silently ignored during static resolution. This matches TSX semantics, where a spread attribute is equivalent to writing the prop directly and `style` must be an object.
-
 ### Changed
 
-- Adapted to the rewritten `@eslint-react/jsx` value APIs: `getAttributeValue` carries the matched spread property, which makes the spread-provided value available to `resolveAttributeStaticValue`.
+- Spread props are no longer statically resolved, so a `style` provided through a spread attribute is ignored; only direct `style` attributes are checked. Direct values are read through `getAttributeValue` and `resolveAttributeStaticValue`.
 
 ## [5.10.2] - 2026-07-03
 
