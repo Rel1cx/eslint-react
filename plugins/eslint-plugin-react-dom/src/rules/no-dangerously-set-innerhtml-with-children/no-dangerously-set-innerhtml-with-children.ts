@@ -30,10 +30,14 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
 
   return {
     JSXElement(node) {
-      if (!hasAttribute(node, "dangerouslySetInnerHTML")) return;
+      if (!hasAttribute(node, "dangerouslySetInnerHTML")) {
+        return;
+      }
       // Look for a 'children' prop or a child node that is not just whitespace
       const fact = findAttribute(node, "children") ?? node.children.find(isChildContent);
-      if (fact == null) return;
+      if (fact == null) {
+        return;
+      }
       context.report({
         messageId: "default",
         node: fact,
@@ -42,6 +46,12 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   };
 }
 
+/**
+ * Check if a JSX child carries content.
+ * Padding whitespace and empty expression containers are ignored.
+ * @param child The JSX child to check.
+ * @returns `true` if the child carries content.
+ */
 function isChildContent(child: TSESTree.JSXChild) {
   return !isPaddingWhitespace(child) && !isEmptyExpressionContainer(child);
 }

@@ -29,7 +29,13 @@ export default createRule<[], MessageID>({
 export function create(context: RuleContext<MessageID, []>): RuleListener {
   return {
     JSXAttribute(node) {
-      if (node.name.type !== AST.JSXIdentifier || node.value == null) return;
+      if (node.name.type !== AST.JSXIdentifier) {
+        return;
+      }
+      if (node.value == null) {
+        return;
+      }
+
       const value = getAttributeStaticValue(context, getAttributeValue(node));
       if (isString(value) && RE_JAVASCRIPT_PROTOCOL.test(value)) {
         context.report({

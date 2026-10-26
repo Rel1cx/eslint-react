@@ -33,7 +33,9 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
 
   return {
     CallExpression(node) {
-      if (!isReactDOMCall(node, imports, "flushSync")) return;
+      if (!isReactDOMCall(node, imports, "flushSync")) {
+        return;
+      }
       context.report({
         messageId: "default",
         node,

@@ -70,12 +70,17 @@ export function create(context: RuleContext<MessageID, Options>, [option]: Optio
   const { jsxFragmentFactory } = core.getJSXConfig(context);
 
   return {
+    // Visitor for JSX elements that may resolve to a fragment factory
     JSXElement(node) {
-      if (!isFragmentElement(node, jsxFragmentFactory)) return;
-      // A spread attribute may provide key/ref; do not report conservatively.
-      if (node.openingElement.attributes.some((a) => a.type === AST.JSXSpreadAttribute || isPlainAttribute(a, "key") || isPlainAttribute(a, "ref"))) return;
+      if (!isFragmentElement(node, jsxFragmentFactory)) {
+        return;
+      }
+      if (node.openingElement.attributes.some((a) => a.type === AST.JSXSpreadAttribute || isPlainAttribute(a, "key") || isPlainAttribute(a, "ref"))) {
+        return;
+      }
       visitFragment(context, node, options);
     },
+    // Visitor for shorthand fragments
     JSXFragment(node) {
       visitFragment(context, node, options);
     },

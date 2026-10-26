@@ -35,22 +35,31 @@ export default createRule<[], MessageID>({
 
 export function create(context: RuleContext<MessageID, []>): RuleListener {
   return {
+    // Visitor for `createElement` calls
     CallExpression(node) {
       const call = parseCreateElementCall(context, node);
-      if (call == null) return;
+      if (call == null) {
+        return;
+      }
+
       const prop = findCreateElementProp(context, call, "children");
       // `createElement(type, props, ...children)` treats arguments after the
       // props object as children content; without them there is no conflict
-      if (prop == null || call.childrenArguments.length === 0) return;
+      if (prop == null || call.childrenArguments.length === 0) {
+        return;
+      }
 
       context.report({
         messageId: "default",
         node: prop,
       });
     },
+    // Visitor for JSX elements
     JSXElement(node) {
       const prop = findAttribute(node, "children");
-      if (prop == null || !hasMeaningfulChildren(node)) return;
+      if (prop == null || !hasMeaningfulChildren(node)) {
+        return;
+      }
 
       context.report({
         messageId: "default",

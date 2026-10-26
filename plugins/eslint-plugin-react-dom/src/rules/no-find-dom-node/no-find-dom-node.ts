@@ -37,7 +37,9 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   return {
     CallExpression(node) {
       // Also matches the legacy global `findDOMNode()` without an import.
-      if (!isReactDOMCall(node, imports, "findDOMNode", true)) return;
+      if (!isReactDOMCall(node, imports, "findDOMNode", true)) {
+        return;
+      }
       context.report({
         messageId: "default",
         node,

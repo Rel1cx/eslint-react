@@ -40,7 +40,9 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
     JSXElement(node) {
       const { domElementType } = resolver.resolve(node);
       // If the element is not an iframe, we don't need to do anything
-      if (domElementType !== "iframe") return;
+      if (domElementType !== "iframe") {
+        return;
+      }
 
       // Find and resolve the 'sandbox' prop on the iframe element.
       const sandboxValue = getAttributeValueByName(node, "sandbox");
@@ -63,7 +65,9 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       }
 
       // If the value is a static string, the prop is correctly used
-      if (isString(getAttributeStaticValue(context, sandboxValue))) return;
+      if (isString(getAttributeStaticValue(context, sandboxValue))) {
+        return;
+      }
 
       // If the value is not a static string (ex: a variable), report an error
       context.report({

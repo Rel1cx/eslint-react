@@ -38,7 +38,9 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
 
   return {
     CallExpression(node) {
-      if (!isReactDOMCall(node, imports, "render") || !isReturnValueUsed(node)) return;
+      if (!isReactDOMCall(node, imports, "render") || !isReturnValueUsed(node)) {
+        return;
+      }
       context.report({
         messageId: "default",
         node,
@@ -56,6 +58,11 @@ const BANNED_PARENT_TYPES = [
   AST.AssignmentExpression,
 ];
 
+/**
+ * Check whether the return value of a `render` call is used by its parent.
+ * @param node The `render` call expression to check.
+ * @returns `true` if the call's parent uses its return value.
+ */
 function isReturnValueUsed(node: TSESTree.CallExpression) {
   let parent = node.parent;
   while (Check.isTypeExpression(parent)) parent = parent.parent;

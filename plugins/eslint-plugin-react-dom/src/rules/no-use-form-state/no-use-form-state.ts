@@ -43,7 +43,9 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
 
   return {
     CallExpression(node) {
-      if (!isReactDOMCall(node, imports, "useFormState")) return;
+      if (!isReactDOMCall(node, imports, "useFormState")) {
+        return;
+      }
       context.report({
         fix: buildFix(context, node, importSource),
         messageId: "default",
@@ -53,7 +55,13 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   };
 }
 
-// Replaces `useFormState` with `useActionState` imported from the 'react' package
+/**
+ * Build the fix that replaces `useFormState` with `useActionState` from the configured import source.
+ * @param context The rule context.
+ * @param node The `useFormState` call expression.
+ * @param importSource The configured React import source.
+ * @returns A fixer function that adds the import and replaces the callee.
+ */
 function buildFix(context: RuleContext, node: TSESTree.CallExpression, importSource: string) {
   return (fixer: RuleFixer) => {
     // The fix consists of two parts:

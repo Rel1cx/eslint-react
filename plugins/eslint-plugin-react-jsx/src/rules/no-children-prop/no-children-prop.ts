@@ -36,24 +36,33 @@ export default createRule<[], MessageID>({
 
 export function create(context: RuleContext<MessageID, []>): RuleListener {
   return {
+    // Visitor for `createElement` calls
     CallExpression(node) {
       const call = parseCreateElementCall(context, node);
-      if (call == null) return;
+      if (call == null) {
+        return;
+      }
+
       const prop = findCreateElementProp(context, call, "children");
       // `createElement(type, props, ...children)` already has conflicting
       // children content; that case belongs to 'no-children-prop-with-children'
-      if (prop == null || call.childrenArguments.length > 0) return;
+      if (prop == null || call.childrenArguments.length > 0) {
+        return;
+      }
 
       context.report({
         messageId: "default",
         node: prop,
       });
     },
+    // Visitor for JSX elements
     JSXElement(node) {
       const prop = findAttribute(node, "children");
       // Nested children content already conflicts with the prop; that case
       // belongs to 'no-children-prop-with-children'
-      if (prop == null || hasMeaningfulChildren(node)) return;
+      if (prop == null || hasMeaningfulChildren(node)) {
+        return;
+      }
 
       // Turn the 'children' prop value into text usable as element content
       const childrenText = getChildrenText(context, prop);

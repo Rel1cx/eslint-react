@@ -35,15 +35,17 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   if (!context.sourceCode.text.includes("hydrate")) return {};
 
   // This rule only applies to React 18.0.0 and later
-  const settings = getSettingsFromContext(context);
-  if (compare(settings.version, "18.0.0", "<")) return {};
+  const { version } = getSettingsFromContext(context);
+  if (compare(version, "18.0.0", "<")) return {};
 
   // Lookup of local bindings imported from 'react-dom', used to match callees below.
   const imports = createImportLookup(context.sourceCode.ast, { source: "react-dom" });
 
   return {
     CallExpression(node) {
-      if (!isReactDOMCall(node, imports, "hydrate")) return;
+      if (!isReactDOMCall(node, imports, "hydrate")) {
+        return;
+      }
       context.report({
         fix: buildFix(context, node),
         messageId: "default",
@@ -53,7 +55,12 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   };
 }
 
-// Replaces `hydrate(element, container)` with `hydrateRoot(container, element)`
+/**
+ * Build the fix that replaces `hydrate(element, container)` with `hydrateRoot(container, element)`.
+ * @param context The rule context.
+ * @param node The `hydrate` call expression.
+ * @returns A fixer function, or `null` when the call lacks the required arguments.
+ */
 function buildFix(context: RuleContext, node: TSESTree.CallExpression) {
   return (fixer: RuleFixer) => {
     const [arg0, arg1] = node.arguments;

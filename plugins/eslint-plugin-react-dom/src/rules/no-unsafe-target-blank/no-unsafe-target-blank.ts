@@ -70,22 +70,20 @@ export function create(context: RuleContext<MessageID, Options>): RuleListener {
   const requiredRelValue = allowReferrer ? "noopener" : "noreferrer";
   const requiredRelAttribute = `rel="${requiredRelValue}"`;
 
-  function buildSuggest(fix: ReportFixFunction): ReportDescriptor<MessageID>["suggest"] & {} {
-    return [{
-      data: { rel: requiredRelAttribute },
-      fix,
-      messageId: "suggest",
-    }];
-  }
-
   return {
     JSXElement(node) {
       const { domElementType } = resolver.resolve(node);
-      if (domElementType !== "a") return;
-      if (getAttributeStaticValueByName(context, node, "target") !== "_blank") return;
+      if (domElementType !== "a") {
+        return;
+      }
+      if (getAttributeStaticValueByName(context, node, "target") !== "_blank") {
+        return;
+      }
 
       const hrefValue = getAttributeStaticValueByName(context, node, "href");
-      if (!isExternalLinkLike(hrefValue)) return;
+      if (!isExternalLinkLike(hrefValue)) {
+        return;
+      }
 
       const relValue = getAttributeValueByName(node, "rel");
       if (relValue == null) {
@@ -93,20 +91,36 @@ export function create(context: RuleContext<MessageID, Options>): RuleListener {
           messageId: "default",
           data: { rel: requiredRelAttribute },
           node: node.openingElement,
-          suggest: buildSuggest((fixer) => fixer.insertTextAfter(node.openingElement.name, ` ${requiredRelAttribute}`)),
+          suggest: buildSuggest(requiredRelAttribute, (fixer) => fixer.insertTextAfter(node.openingElement.name, ` ${requiredRelAttribute}`)),
         });
         return;
       }
-      const relAttribute = relValue.attribute;
 
-      if (isSafeRel(getAttributeStaticValue(context, relValue), allowReferrer)) return;
+      const relAttribute = relValue.attribute;
+      if (isSafeRel(getAttributeStaticValue(context, relValue), allowReferrer)) {
+        return;
+      }
 
       context.report({
         messageId: "default",
         data: { rel: requiredRelAttribute },
         node: relAttribute,
-        suggest: buildSuggest((fixer) => fixer.replaceText(relAttribute, requiredRelAttribute)),
+        suggest: buildSuggest(requiredRelAttribute, (fixer) => fixer.replaceText(relAttribute, requiredRelAttribute)),
       });
     },
   };
+}
+
+/**
+ * Build the suggestion descriptor for adding or replacing the `rel` attribute.
+ * @param relAttribute The `rel` attribute text to suggest.
+ * @param fix The fix function to apply.
+ * @returns The suggestion descriptor array.
+ */
+function buildSuggest(relAttribute: string, fix: ReportFixFunction): ReportDescriptor<MessageID>["suggest"] & {} {
+  return [{
+    data: { rel: relAttribute },
+    fix,
+    messageId: "suggest",
+  }];
 }

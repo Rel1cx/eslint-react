@@ -35,8 +35,8 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   if (!context.sourceCode.text.includes("render")) return {};
 
   // This rule only applies to React 18.0.0 and later
-  const settings = getSettingsFromContext(context);
-  if (compare(settings.version, "18.0.0", "<")) return {};
+  const { version } = getSettingsFromContext(context);
+  if (compare(version, "18.0.0", "<")) return {};
 
   // Lookup of local bindings imported from 'react-dom', with the 'ReactDOM' global pre-registered as a namespace binding.
   const imports = createImportLookup(context.sourceCode.ast, {
@@ -46,7 +46,9 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
 
   return {
     CallExpression(node) {
-      if (!isReactDOMCall(node, imports, "render")) return;
+      if (!isReactDOMCall(node, imports, "render")) {
+        return;
+      }
       context.report({
         fix: buildFix(context, node),
         messageId: "default",
@@ -56,7 +58,12 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   };
 }
 
-// Replaces `render(element, container)` with `createRoot(container).render(element)`
+/**
+ * Build the fix that replaces `render(element, container)` with `createRoot(container).render(element)`.
+ * @param context The rule context.
+ * @param node The `render` call expression.
+ * @returns A fixer function, or `null` when the call lacks the required arguments.
+ */
 function buildFix(context: RuleContext, node: TSESTree.CallExpression) {
   return (fixer: RuleFixer) => {
     // Legacy `render(element, container, callback?)` accepts an optional third

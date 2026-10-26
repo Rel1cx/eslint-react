@@ -31,7 +31,9 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   return {
     JSXElement(node) {
       const { domElementType } = resolver.resolve(node);
-      if (!KNOWN_VOID_ELEMENTS.has(domElementType)) return;
+      if (!KNOWN_VOID_ELEMENTS.has(domElementType)) {
+        return;
+      }
 
       // Formatting whitespace and empty expression containers are omitted by
       // the JSX transform, so they do not count as children at runtime.

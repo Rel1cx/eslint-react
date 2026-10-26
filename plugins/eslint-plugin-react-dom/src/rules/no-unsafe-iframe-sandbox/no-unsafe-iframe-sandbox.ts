@@ -34,12 +34,19 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   return {
     JSXElement(node) {
       const { domElementType } = resolver.resolve(node);
-      if (domElementType !== "iframe") return;
+      if (domElementType !== "iframe") {
+        return;
+      }
 
       const sandboxValue = getAttributeValueByName(node, "sandbox");
-      if (sandboxValue == null) return;
+      if (sandboxValue == null) {
+        return;
+      }
+
       const value = getAttributeStaticValue(context, sandboxValue);
-      if (!isString(value) || !UNSAFE_SANDBOX_VALUES.every((a) => value.includes(a))) return;
+      if (!isString(value) || !UNSAFE_SANDBOX_VALUES.every((a) => value.includes(a))) {
+        return;
+      }
 
       context.report({
         messageId: "default",

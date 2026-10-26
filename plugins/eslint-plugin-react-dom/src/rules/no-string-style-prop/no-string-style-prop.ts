@@ -29,10 +29,17 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   return {
     JSXElement(node) {
       // This rule only applies to host elements (ex: <div />, <span />), not custom components
-      if (!isHostElement(node)) return;
+      if (!isHostElement(node)) {
+        return;
+      }
 
       const styleValue = getAttributeValueByName(node, "style");
-      if (styleValue == null || !isString(getAttributeStaticValue(context, styleValue))) return;
+      if (styleValue == null) {
+        return;
+      }
+      if (!isString(getAttributeStaticValue(context, styleValue))) {
+        return;
+      }
 
       context.report({
         messageId: "default",

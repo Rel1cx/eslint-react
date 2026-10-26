@@ -92,21 +92,19 @@ export default createRule<Options[], MessageID>({
 });
 
 export function create(context: RuleContext<MessageID, Options[]>): RuleListener {
-  function getIgnoreConfig(): string[] {
-    return context.options[0]?.ignore ?? DEFAULTS.ignore;
-  }
-
-  function getRequireDataLowercase(): boolean {
-    return context.options[0]?.requireDataLowercase ?? DEFAULTS.requireDataLowercase;
-  }
+  const {
+    ignore = DEFAULTS.ignore,
+    requireDataLowercase = DEFAULTS.requireDataLowercase,
+  } = context.options[0] ?? DEFAULTS;
+  const attributeTagsMap = getAttributeTagsMap(context);
 
   return {
+    // Visitor for JSX attributes
     JSXAttribute(node) {
-      const ignoreNames = getIgnoreConfig();
       const actualName = getText(context, node.name);
 
       // Skip checking if the attribute name is in the ignore list
-      if (ignoreNames.includes(actualName)) {
+      if (ignore.includes(actualName)) {
         return;
       }
 
@@ -119,7 +117,7 @@ export function create(context: RuleContext<MessageID, Options[]>): RuleListener
 
       // Handle data-* attributes
       if (isValidDataAttribute(name)) {
-        if (getRequireDataLowercase() && hasUpperCaseCharacter(name)) {
+        if (requireDataLowercase && hasUpperCaseCharacter(name)) {
           context.report({
             data: {
               name: actualName,
@@ -133,18 +131,23 @@ export function create(context: RuleContext<MessageID, Options[]>): RuleListener
       }
 
       // Handle ARIA attributes
-      if (isValidAriaAttribute(name)) return;
+      if (isValidAriaAttribute(name)) {
+        return;
+      }
 
       const tagName = getTagName(node);
 
       // Special case for fbt/fbs nodes
-      if (tagName === "fbt" || tagName === "fbs") return;
+      if (tagName === "fbt" || tagName === "fbs") {
+        return;
+      }
 
       // Only validate HTML/DOM elements, not React components
-      if (!isValidHTMLTagInJSX(node)) return;
+      if (!isValidHTMLTagInJSX(node)) {
+        return;
+      }
 
       // Check if attribute is allowed only on specific tags
-      const attributeTagsMap = getAttributeTagsMap(context);
       const allowedTags = has(attributeTagsMap, name)
         ? attributeTagsMap[name]
         : null;
@@ -168,35 +171,32 @@ export function create(context: RuleContext<MessageID, Options[]>): RuleListener
       // Check if the attribute name is similar to a standard property name
       const standardName = getStandardName(name, context);
 
-      const hasStandardNameButIsNotUsed = standardName != null && standardName !== name;
-      const usesStandardName = standardName != null && standardName === name;
-      if (usesStandardName) {
-        // Attribute name is correct, nothing to do
-        return;
-      }
-
-      if (hasStandardNameButIsNotUsed) {
-        // Suggest the correct standard name
+      if (standardName == null) {
         context.report({
           data: {
             name: actualName,
-            standardName,
           },
-          fix(fixer) {
-            return fixer.replaceText(node.name, standardName);
-          },
-          messageId: "unknown-prop-with-standard-name",
+          messageId: "unknown-prop",
           node,
         });
         return;
       }
 
-      // Report unknown attribute
+      // Attribute name is correct, nothing to do
+      if (standardName === name) {
+        return;
+      }
+
+      // Suggest the correct standard name
       context.report({
         data: {
           name: actualName,
+          standardName,
         },
-        messageId: "unknown-prop",
+        fix(fixer) {
+          return fixer.replaceText(node.name, standardName);
+        },
+        messageId: "unknown-prop-with-standard-name",
         node,
       });
     },
