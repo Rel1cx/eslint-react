@@ -49,6 +49,7 @@ export const projects = [
   { owner: "tennaproject", repo: "tenna-editor" },
   { owner: "tldraw", repo: "obsidian-plugin" },
   { owner: "toss", repo: "suspensive" },
+  { owner: "vadimdemedes", repo: "ink" },
   { owner: "vatger", repo: "atciss" },
   { owner: "xbmc", repo: "kodi-tv" },
   { owner: "yjs", repo: "yjs-inspector" },
