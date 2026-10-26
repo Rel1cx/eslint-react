@@ -6,6 +6,7 @@ import { describe, expect, it } from "vitest";
 
 import {
   is,
+  isArrayPatternElementDefault,
   isClass,
   isDirective,
   isExpression,
@@ -17,6 +18,7 @@ import {
   isJSXElementOrFragment,
   isJSXFragment,
   isJSXTagNameExpression,
+  isObjectPatternElementDefault,
   isOneOf,
   isProperty,
   isPropertyOrMethod,
@@ -94,6 +96,50 @@ describe("isDirective", () => {
   it("should return false when the directive name does not match", () => {
     const node = getFirstNodeOfType<TSESTree.ExpressionStatement>('"use strict";', AST.ExpressionStatement);
     expect(isDirective(node, "use asm")).toBe(false);
+  });
+});
+
+describe("isArrayPatternElementDefault", () => {
+  it("should return true for an array pattern element default", () => {
+    const node = getFirstNodeOfType<TSESTree.AssignmentPattern>("const [a = 1] = arr;", AST.AssignmentPattern);
+    expect(isArrayPatternElementDefault(node)).toBe(true);
+  });
+
+  it("should return true for a direct destructuring assignment element default", () => {
+    const node = getFirstNodeOfType<TSESTree.AssignmentPattern>("[a = 1] = arr;", AST.AssignmentPattern);
+    expect(isArrayPatternElementDefault(node)).toBe(true);
+  });
+
+  it("should return false for an object pattern element default", () => {
+    const node = getFirstNodeOfType<TSESTree.AssignmentPattern>("const { a = 1 } = obj;", AST.AssignmentPattern);
+    expect(isArrayPatternElementDefault(node)).toBe(false);
+  });
+
+  it("should return false for a non-AssignmentPattern array pattern element", () => {
+    const node = getFirstNodeOfType<TSESTree.Identifier>("const [a] = arr;", AST.Identifier);
+    expect(isArrayPatternElementDefault(node)).toBe(false);
+  });
+});
+
+describe("isObjectPatternElementDefault", () => {
+  it.each([
+    ["const { a = 1 } = obj;", "variable declaration"],
+    ["function f({ a = 1 }) {}", "parameter"],
+    ["({ a = 1 } = obj);", "destructuring assignment"],
+    ["const [{ a = 1 }] = arr;", "object pattern nested in an array pattern"],
+  ])("should return true for %s (%s)", (code) => {
+    const node = getFirstNodeOfType<TSESTree.AssignmentPattern>(code, AST.AssignmentPattern);
+    expect(isObjectPatternElementDefault(node)).toBe(true);
+  });
+
+  it("should return false for an array pattern element default", () => {
+    const node = getFirstNodeOfType<TSESTree.AssignmentPattern>("const [a = 1] = arr;", AST.AssignmentPattern);
+    expect(isObjectPatternElementDefault(node)).toBe(false);
+  });
+
+  it("should return false for a non-default object pattern property value", () => {
+    const node = getFirstNodeOfType<TSESTree.Identifier>("const { a } = obj;", AST.Identifier);
+    expect(isObjectPatternElementDefault(node)).toBe(false);
   });
 });
 

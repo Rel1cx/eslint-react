@@ -35,7 +35,9 @@ Helpers for checking `TSESTree` node types.
 
 ## Functions
 
-| Function                                  | Description                                                                                                                      |
-| ----------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------- |
-| [isDirective](functions/isDirective.md)   | Check if a node is an expression statement, optionally requiring it to be a directive with a specific name (ex: `"use client"`). |
-| [isIdentifier](functions/isIdentifier.md) | Check if a node is an identifier, optionally matching a specific name.                                                           |
+| Function                                                                    | Description                                                                                                                                                                                  |
+| --------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| [isArrayPatternElementDefault](functions/isArrayPatternElementDefault.md)   | Check if a node is the default value of an array pattern element, i.e. an `AssignmentPattern` directly nested in an `ArrayPattern` (ex: `const [a = 1] = arr`).                              |
+| [isDirective](functions/isDirective.md)                                     | Check if a node is an expression statement, optionally requiring it to be a directive with a specific name (ex: `"use client"`).                                                             |
+| [isIdentifier](functions/isIdentifier.md)                                   | Check if a node is an identifier, optionally matching a specific name.                                                                                                                       |
+| [isObjectPatternElementDefault](functions/isObjectPatternElementDefault.md) | Check if a node is the default value of an object pattern property, i.e. an `AssignmentPattern` used as the `value` of a `Property` inside an `ObjectPattern` (ex: `const { a = 1 } = obj`). |

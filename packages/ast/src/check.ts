@@ -2,6 +2,10 @@ import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import * as ASTUtils from "@typescript-eslint/utils/ast-utils";
 import type { TSESTreeDirective } from "./tree";
 
+// Node-type lists passed to `isOneOf` are ordered by observed occurrence
+// frequency (most frequent first), so `Array.prototype.includes` short-circuits
+// on the common cases. Keep this order when adding new node types.
+
 // Base guards
 
 /** Check if a node is of the given type. */
@@ -40,60 +44,60 @@ export function isDirective(node: TSESTree.Node, name?: string): node is TSESTre
 /** Check if a node is a call expression. */
 export const isCallExpression = is(AST.CallExpression);
 
+/** Check if a node is an expression node. */
+export const isExpression = isOneOf([
+  AST.Identifier,
+  AST.Literal,
+  AST.CallExpression,
+  AST.MemberExpression,
+  AST.ObjectExpression,
+  AST.TemplateLiteral,
+  AST.ArrayExpression,
+  AST.TaggedTemplateExpression,
+  AST.BinaryExpression,
+  AST.ArrowFunctionExpression,
+  AST.LogicalExpression,
+  AST.UnaryExpression,
+  AST.AssignmentExpression,
+  AST.FunctionExpression,
+  AST.ChainExpression,
+  AST.TSNonNullExpression,
+  AST.NewExpression,
+  AST.ObjectPattern,
+  AST.TSAsExpression,
+  AST.ConditionalExpression,
+  AST.ThisExpression,
+  AST.YieldExpression,
+  AST.TSSatisfiesExpression,
+  AST.JSXElement,
+  AST.ArrayPattern,
+  AST.UpdateExpression,
+  AST.AwaitExpression,
+  AST.MetaProperty,
+  AST.ImportExpression,
+  AST.ClassExpression,
+  AST.JSXFragment,
+  AST.SequenceExpression,
+  AST.Super,
+  AST.TSInstantiationExpression,
+  AST.TSTypeAssertion,
+]);
+
 /** Check if a node is a member expression. */
 export const isMemberExpression = is(AST.MemberExpression);
 
 /** Check if a node is an object expression. */
 export const isObjectExpression = is(AST.ObjectExpression);
 
-/** Check if a node is an expression node. */
-export const isExpression = isOneOf([
-  AST.ArrayExpression,
-  AST.ArrayPattern,
-  AST.ArrowFunctionExpression,
-  AST.AssignmentExpression,
-  AST.AwaitExpression,
-  AST.BinaryExpression,
-  AST.CallExpression,
-  AST.ChainExpression,
-  AST.ClassExpression,
-  AST.ConditionalExpression,
-  AST.FunctionExpression,
-  AST.Identifier,
-  AST.ImportExpression,
-  AST.JSXElement,
-  AST.JSXFragment,
-  AST.Literal,
-  AST.LogicalExpression,
-  AST.MemberExpression,
-  AST.MetaProperty,
-  AST.NewExpression,
-  AST.ObjectExpression,
-  AST.ObjectPattern,
-  AST.SequenceExpression,
-  AST.Super,
-  AST.TSAsExpression,
-  AST.TSInstantiationExpression,
-  AST.TSNonNullExpression,
-  AST.TSSatisfiesExpression,
-  AST.TSTypeAssertion,
-  AST.TaggedTemplateExpression,
-  AST.TemplateLiteral,
-  AST.ThisExpression,
-  AST.UnaryExpression,
-  AST.UpdateExpression,
-  AST.YieldExpression,
-]);
-
 // Statement guards
 
 /** Check if a node is a loop statement. */
 export const isLoopStatement = isOneOf([
-  AST.DoWhileStatement,
-  AST.ForInStatement,
   AST.ForOfStatement,
-  AST.ForStatement,
   AST.WhileStatement,
+  AST.ForStatement,
+  AST.ForInStatement,
+  AST.DoWhileStatement,
 ]);
 
 /** Check if a node is a return statement. */
@@ -103,6 +107,19 @@ export const isReturnStatement = is(AST.ReturnStatement);
 
 /** Check if a node is a class declaration or class expression. */
 export const isClass = isOneOf([AST.ClassDeclaration, AST.ClassExpression]);
+
+/** Check if a node is a conditional or logical expression, or a control flow statement. */
+export const isConditional = isOneOf([
+  AST.IfStatement,
+  AST.LogicalExpression,
+  AST.ConditionalExpression,
+  AST.ForOfStatement,
+  AST.SwitchStatement,
+  AST.WhileStatement,
+  AST.ForStatement,
+  AST.ForInStatement,
+  AST.DoWhileStatement,
+]);
 
 /** Check if a node is a function declaration, function expression, or arrow function expression. */
 export const isFunction = isOneOf([
@@ -122,63 +139,76 @@ export const isFunctionOrClass = isOneOf([
 
 /** Check if a node is a property-like node (property definition, index signature, parameter property, or property signature). */
 export const isProperty = isOneOf([
+  AST.TSPropertySignature,
   AST.PropertyDefinition,
   AST.TSIndexSignature,
   AST.TSParameterProperty,
-  AST.TSPropertySignature,
 ]);
 
 /** Check if a node is a property or method definition. */
 export const isPropertyOrMethod = isOneOf([
-  AST.PropertyDefinition,
   AST.MethodDefinition,
+  AST.PropertyDefinition,
 ]);
 
-/** Check if a node is a conditional or logical expression, or a control flow statement. */
-export const isConditional = isOneOf([
-  AST.DoWhileStatement,
-  AST.ForInStatement,
-  AST.ForOfStatement,
-  AST.ForStatement,
-  AST.WhileStatement,
-  AST.IfStatement,
-  AST.SwitchStatement,
-  AST.LogicalExpression,
-  AST.ConditionalExpression,
-]);
+// Pattern guards
+
+/**
+ * Check if a node is the default value of an array pattern element, i.e. an
+ * `AssignmentPattern` directly nested in an `ArrayPattern` (ex: `const [a = 1] = arr`).
+ * @param node The node to check.
+ * @returns `true` if the node is an array pattern element default.
+ */
+export function isArrayPatternElementDefault(node: TSESTree.Node): node is TSESTree.AssignmentPattern {
+  return node.type === AST.AssignmentPattern && node.parent.type === AST.ArrayPattern;
+}
+
+/**
+ * Check if a node is the default value of an object pattern property, i.e. an
+ * `AssignmentPattern` used as the `value` of a `Property` inside an `ObjectPattern`
+ * (ex: `const { a = 1 } = obj`).
+ * @param node The node to check.
+ * @returns `true` if the node is an object pattern element default.
+ */
+export function isObjectPatternElementDefault(node: TSESTree.Node): node is TSESTree.AssignmentPattern {
+  return node.type === AST.AssignmentPattern
+    && node.parent.type === AST.Property
+    && node.parent.value === node
+    && node.parent.parent.type === AST.ObjectPattern;
+}
 
 // JSX guards
 
 /** Check if a node is any JSX-related node. */
 export const isJSX = isOneOf([
-  AST.JSXAttribute,
-  AST.JSXClosingElement,
-  AST.JSXClosingFragment,
-  AST.JSXElement,
-  AST.JSXEmptyExpression,
-  AST.JSXExpressionContainer,
-  AST.JSXFragment,
   AST.JSXIdentifier,
-  AST.JSXMemberExpression,
-  AST.JSXNamespacedName,
-  AST.JSXOpeningElement,
-  AST.JSXOpeningFragment,
-  AST.JSXSpreadAttribute,
-  AST.JSXSpreadChild,
   AST.JSXText,
+  AST.JSXAttribute,
+  AST.JSXElement,
+  AST.JSXOpeningElement,
+  AST.JSXClosingElement,
+  AST.JSXExpressionContainer,
+  AST.JSXMemberExpression,
+  AST.JSXSpreadAttribute,
+  AST.JSXClosingFragment,
+  AST.JSXEmptyExpression,
+  AST.JSXFragment,
+  AST.JSXNamespacedName,
+  AST.JSXOpeningFragment,
+  AST.JSXSpreadChild,
 ]);
 
 /** Check if a node is a JSX element. */
 export const isJSXElement = is(AST.JSXElement);
-
-/** Check if a node is a JSX fragment. */
-export const isJSXFragment = is(AST.JSXFragment);
 
 /** Check if a node is a JSX element or JSX fragment. */
 export const isJSXElementOrFragment = isOneOf([AST.JSXElement, AST.JSXFragment]);
 
 /** Check if a node is a JSX expression container. */
 export const isJSXExpressionContainer = is(AST.JSXExpressionContainer);
+
+/** Check if a node is a JSX fragment. */
+export const isJSXFragment = is(AST.JSXFragment);
 
 /** Check if a node is a JSX spread attribute. */
 export const isJSXSpreadAttribute = is(AST.JSXSpreadAttribute);
@@ -192,29 +222,29 @@ export const isJSXTagNameExpression = isOneOf([
 
 // TypeScript guards
 
-/** Check if a node is a TypeScript type expression (assertion, non-null, satisfies, or instantiation). */
-export const isTypeExpression = isOneOf([
-  AST.TSAsExpression,
-  AST.TSTypeAssertion,
-  AST.TSNonNullExpression,
-  AST.TSSatisfiesExpression,
-  AST.TSInstantiationExpression,
-]);
-
 /** Check if a node is a TypeScript type assertion-like expression (as, assertion, non-null, or satisfies). */
 export const isTypeAssertionExpression = isOneOf([
-  AST.TSAsExpression,
-  AST.TSTypeAssertion,
   AST.TSNonNullExpression,
+  AST.TSAsExpression,
   AST.TSSatisfiesExpression,
+  AST.TSTypeAssertion,
+]);
+
+/** Check if a node is a TypeScript type expression (assertion, non-null, satisfies, or instantiation). */
+export const isTypeExpression = isOneOf([
+  AST.TSNonNullExpression,
+  AST.TSAsExpression,
+  AST.TSSatisfiesExpression,
+  AST.TSInstantiationExpression,
+  AST.TSTypeAssertion,
 ]);
 
 /** Check if a node is a TypeScript type expression or a chain expression (i.e. a transparent wrapper around an inner expression). */
 export const isTypeOrChainExpression = isOneOf([
-  AST.TSAsExpression,
-  AST.TSTypeAssertion,
+  AST.ChainExpression,
   AST.TSNonNullExpression,
+  AST.TSAsExpression,
   AST.TSSatisfiesExpression,
   AST.TSInstantiationExpression,
-  AST.ChainExpression,
+  AST.TSTypeAssertion,
 ]);

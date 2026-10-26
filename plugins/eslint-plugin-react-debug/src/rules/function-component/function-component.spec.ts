@@ -2193,7 +2193,7 @@ ruleTester.run(RULE_NAME, rule, {
       // its render function must not inherit the `Component` binding or the
       // memo/forwardRef flags from the outer call.
       code: tsx`
-        const Component = memo(ComponentImpl, forwardRef((props, ref) => null));
+        const Component = memo(ComponentImpl, forwardRef((props, ref) => <div />));
       `,
       errors: [{
         data: {
@@ -2201,6 +2201,42 @@ ruleTester.run(RULE_NAME, rule, {
             name: "anonymous",
             displayName: "none",
             forwardRef: false,
+            hookCalls: 0,
+            memo: false,
+          }),
+        },
+        messageId: "default",
+      }],
+    },
+    {
+      // A memo call passed as a later argument of a generic HOC still memoizes
+      // its own first argument; the wrapped component is anonymous.
+      code: tsx`
+        const App = compose(enhance, memo(() => <div />));
+      `,
+      errors: [{
+        data: {
+          json: JSON.stringify({
+            name: "anonymous",
+            displayName: "none",
+            forwardRef: false,
+            hookCalls: 0,
+            memo: true,
+          }),
+        },
+        messageId: "default",
+      }],
+    },
+    {
+      code: tsx`
+        const App = compose(enhance, forwardRef(() => <div />));
+      `,
+      errors: [{
+        data: {
+          json: JSON.stringify({
+            name: "anonymous",
+            displayName: "none",
+            forwardRef: true,
             hookCalls: 0,
             memo: false,
           }),

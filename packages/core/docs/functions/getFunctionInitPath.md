@@ -24,5 +24,7 @@ The function initialization path or `null` if not identifiable.
 
 Higher-order component wrappers (ex: `memo`, `forwardRef`) are only
 recognized when the call expression initializes a variable declarator
-directly. HOCs inside object properties (ex: `{ Nav: memo(() => {}) }`)
-are not supported and yield `null`.
+directly and the function occupies a component position: the first argument
+for `memo`/`forwardRef`, or any argument for other calls (never the callee).
+HOCs inside object properties (ex: `{ Nav: memo(() => {}) }`) are not
+supported and yield `null`.

@@ -258,6 +258,19 @@ describe("getFunctionInitPath", () => {
     const node = getFirstNodeOfType<TSESTree.ArrowFunctionExpression>(code, AST.ArrowFunctionExpression);
     expect(getFunctionInitPath(node)).toBeNull();
   });
+
+  it("should preserve non-first argument positions for generic (non-wrapper) calls", () => {
+    // Unlike memo/forwardRef, a generic HOC has no first-argument component semantics.
+    const single = "const Component = someFactory(config, () => {})";
+    const singleNode = getFirstNodeOfType<TSESTree.ArrowFunctionExpression>(single, AST.ArrowFunctionExpression);
+    expect(getFunctionInitPath(singleNode)).not.toBeNull();
+
+    const nested = "const Component = compose(enhance, memo(() => {}))";
+    const nestedNode = getFirstNodeOfType<TSESTree.ArrowFunctionExpression>(nested, AST.ArrowFunctionExpression);
+    const initPath = getFunctionInitPath(nestedNode);
+    expect(initPath).not.toBeNull();
+    expect(initPath != null && isFunctionHasCallInInitPath("memo", initPath)).toBe(true);
+  });
 });
 
 describe("getFunctionInitPath shapes", () => {

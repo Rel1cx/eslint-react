@@ -77,6 +77,17 @@ describe("getFunctionComponentFlagFromInitPath", () => {
     expect(flag & FunctionComponentFlag.ForwardRef).not.toBe(0n);
   });
 
+  it("should keep the memo flag when the wrapper call is a later argument of a generic HOC", () => {
+    // memo's own first argument is still the wrapped component; the outer call is
+    // not a component wrapper, so its argument position carries no React semantics.
+    const code = "const Component = compose(enhance, memo(() => {}))";
+    const node = getFirstNodeOfType<TSESTree.ArrowFunctionExpression>(code, AST.ArrowFunctionExpression);
+    const initPath = getFunctionInitPath(node);
+    expect(initPath).not.toBeNull();
+    const flag = getFunctionComponentFlagFromInitPath(initPath);
+    expect(flag & FunctionComponentFlag.Memo).not.toBe(0n);
+  });
+
   it("should return None for null initPath", () => {
     expect(getFunctionComponentFlagFromInitPath(null)).toBe(FunctionComponentFlag.None);
   });
@@ -419,8 +430,8 @@ describe("isFunctionComponentDefinition", () => {
   });
 
   it("excludes functions used as array pattern element defaults when hint is set", () => {
-    // A function can only be an array pattern element as the default value of the
-    // element (`[Nav = () => {}]`), so it sits under an AssignmentPattern.
+    // Defaults sit under an AssignmentPattern (`[Nav = () => {}]`); direct element
+    // forms are covered by the separate parser-accepted case below.
     const code = "const [Nav = () => <div />] = arr;";
     const node = getFirstNodeOfType<TSESTree.ArrowFunctionExpression>(code, AST.ArrowFunctionExpression);
     const hintWithExclude = DEFAULT_COMPONENT_DETECTION_HINT
@@ -430,6 +441,21 @@ describe("isFunctionComponentDefinition", () => {
       & ~FunctionComponentDetectionHint.DoNotIncludeFunctionDefinedAsArrayPatternElement;
     expect(isFunctionComponentDefinition(context, node, hintWithoutExclude)).toBe(true);
     // The hint is part of the default set.
+    expect(isFunctionComponentDefinition(context, node, DEFAULT_COMPONENT_DETECTION_HINT)).toBe(false);
+  });
+
+  it("excludes parser-accepted direct array pattern elements when hint is set", () => {
+    // `[function Helper() {}] = arr` is rejected by tsc/V8 at runtime but accepted
+    // by @typescript-eslint/parser, which places the function directly under the
+    // ArrayPattern. The defensive exclusion still applies to that shape.
+    const code = "[function Helper() { return <div />; }] = arr;";
+    const node = getFirstNodeOfType<TSESTree.FunctionExpression>(code, AST.FunctionExpression);
+    const hintWithExclude = DEFAULT_COMPONENT_DETECTION_HINT
+      | FunctionComponentDetectionHint.DoNotIncludeFunctionDefinedAsArrayPatternElement;
+    expect(isFunctionComponentDefinition(context, node, hintWithExclude)).toBe(false);
+    const hintWithoutExclude = DEFAULT_COMPONENT_DETECTION_HINT
+      & ~FunctionComponentDetectionHint.DoNotIncludeFunctionDefinedAsArrayPatternElement;
+    expect(isFunctionComponentDefinition(context, node, hintWithoutExclude)).toBe(true);
     expect(isFunctionComponentDefinition(context, node, DEFAULT_COMPONENT_DETECTION_HINT)).toBe(false);
   });
 

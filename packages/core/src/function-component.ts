@@ -225,8 +225,8 @@ export const FunctionComponentDetectionHint = {
   /** Exclude functions defined as array expression elements from component detection. */
   DoNotIncludeFunctionDefinedAsArrayExpressionElement: 1n << 14n,
   /**
-   * Exclude functions used as the default value of an array pattern element from component detection
-   * (ex: `const [Nav = () => {}] = arr`).
+   * Exclude functions defined as array pattern elements or as their default values from
+   * component detection (ex: `const [Nav = () => {}] = arr`).
    */
   DoNotIncludeFunctionDefinedAsArrayPatternElement: 1n << 15n,
 
@@ -298,11 +298,11 @@ export function isFunctionComponentDefinition(context: RuleContext, node: TSESTr
       && parent.type === AST.PropertyDefinition:
       if (hint & FunctionComponentDetectionHint.DoNotIncludeFunctionDefinedAsClassProperty) return false;
       break;
-    // A function can only appear in an array pattern as the default value of an
-    // `AssignmentPattern` element (ex: `const [Nav = () => {}] = arr`), so the
-    // parent is never the `ArrayPattern` itself.
-    case parent.type === AST.AssignmentPattern
-      && parent.parent.type === AST.ArrayPattern:
+    // Functions can appear in an array pattern as an element default, which puts
+    // them under an `AssignmentPattern` (ex: `const [Nav = () => {}] = arr`), or
+    // as a direct element in parser-accepted-but-invalid destructuring
+    // assignments (ex: `[() => {}] = arr`), so cover both shapes.
+    case parent.type === AST.ArrayPattern || Check.isArrayPatternElementDefault(parent):
       if (hint & FunctionComponentDetectionHint.DoNotIncludeFunctionDefinedAsArrayPatternElement) return false;
       break;
     case parent.type === AST.ArrayExpression:
@@ -330,14 +330,15 @@ export function isFunctionComponentDefinition(context: RuleContext, node: TSESTr
   }
 
   // 5. Exclude inline JSX callbacks (event handlers, render props)
+  // Ordered by observed nearest-ancestor frequency (most frequent first).
   const significantParent = Traverse.findParent(
     node,
     Check.isOneOf([
-      AST.JSXExpressionContainer,
       AST.ArrowFunctionExpression,
-      AST.FunctionExpression,
       AST.Property,
+      AST.FunctionExpression,
       AST.ClassBody,
+      AST.JSXExpressionContainer,
     ]),
   );
 

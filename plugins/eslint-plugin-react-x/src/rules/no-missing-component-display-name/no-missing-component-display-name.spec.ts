@@ -78,6 +78,16 @@ ruleTester.run(RULE_NAME, rule, {
         messageId: "default",
       }],
     },
+    // A memo call passed as a later argument of a generic HOC still memoizes its
+    // first argument; the anonymous wrapped component still needs a displayName.
+    {
+      code: tsx`
+        const App = compose(enhance, memo(() => <div />));
+      `,
+      errors: [{
+        messageId: "default",
+      }],
+    },
   ],
   valid: [
     "const App = () => <div>foo</div>",
