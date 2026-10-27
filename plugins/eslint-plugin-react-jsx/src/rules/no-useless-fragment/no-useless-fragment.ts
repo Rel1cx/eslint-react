@@ -147,6 +147,9 @@ function isContentUseless(node: TSESTreeJSXElementLike, allowEmptyFragment: bool
     return false;
   }
 
+  // getChildren follows Babel's decoded-value padding rules (see
+  // @eslint-react/jsx#isPaddingWhitespace). It is a syntactic filter, not a
+  // rendering guarantee: `{null}` and `{cond && ...}` still count.
   const meaningful = getChildren(node);
   if (meaningful.length === 0) return true;
   if (meaningful.length > 1) return false;

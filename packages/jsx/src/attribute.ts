@@ -17,8 +17,7 @@ export type AttributeTest = string | ((attribute: TSESTree.JSXAttribute) => bool
  *
  * - `boolean`: the attribute has no value (ex: `<input disabled />`).
  * - `literal`: the value is a literal.
- * - `unknown`: a non-empty expression, normally in an expression container;
- *   the expression is not evaluated.
+ * - `unknown`: a non-empty expression, normally in an expression container; the expression is not evaluated.
  * - `element`: the value is a JSX element or fragment.
  * - `missing`: no expression, normally an empty expression container
  *   (`{}` or `{/* comment *\/}`).
@@ -197,10 +196,6 @@ export function hasEveryAttribute(element: TSESTree.JSXElement, names: readonly 
  * are outside this API.
  * @param attribute The `JSXAttribute` node to get the value from.
  * @returns A discriminated-union descriptor of the attribute's value.
- * @remarks
- * A `JSXSpreadChild` in attribute value position is not valid JSX and is not
- * produced by current parsers, but it is part of the TSESTree union. It is
- * treated as its inner expression, or as `missing` when that expression is empty.
  */
 export function getAttributeValue(attribute: TSESTree.JSXAttribute): AttributeValue {
   const { value } = attribute;

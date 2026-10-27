@@ -10,6 +10,11 @@
  *    non-last physical lines.
  * 5. Append a single space after each line that still has content, except the
  *    last tracked line.
+ *
+ * This function is the module's authority for JSX whitespace semantics.
+ * `tsc --jsx` trims raw line breaks the same way, but it may emit
+ * entity-decoded line breaks (ex: `&#10;`, `&#13;`) as text children, which
+ * this cleaning removes.
  * @param text The JSX text string to collapse (typically a decoded `JSXText.value`).
  * @returns The collapsed string, or `null` when the collapsed result is empty
  * (for example, for empty input or multiline input containing only spaces, tabs,

@@ -5,6 +5,16 @@ All notable changes to the `react-web-api/no-leaked-event-listener` rule will be
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+### Fixed
+
+- A bare call whose callee is a function parameter is no longer mistaken for the enclosing function declaration during cleanup pairing; such calls fall back to name matching.
+
+### Changed
+
+- Cleanup callee resolution now uses `resolve` from `@eslint-react/var` and `Extract.getPropertyName`, which also recognizes template-literal property keys on local object literals.
+
 ## [5.30.0-beta.6] - 2026-10-27
 
 ### Fixed

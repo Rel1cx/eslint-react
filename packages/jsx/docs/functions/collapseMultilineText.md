@@ -18,6 +18,11 @@ whitespace rules.
 5. Append a single space after each line that still has content, except the
    last tracked line.
 
+This function is the module's authority for JSX whitespace semantics.
+`tsc --jsx` trims raw line breaks the same way, but it may emit
+entity-decoded line breaks (ex: `&#10;`, `&#13;`) as text children, which
+this cleaning removes.
+
 ## Parameters
 
 | Parameter | Type     | Description                                                            |
