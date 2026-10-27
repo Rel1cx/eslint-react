@@ -27,7 +27,7 @@ overrides:
   # Single-version pin: nx 23.3.1 pins exact 10.2.5 and the glob 10.5.0 chain declares ^9
   minimatch: "^10.2.6"
   next: "16.4.3"
-  postcss: "^8.5.31"
+  postcss: "^8.5.32"
   react-dom: "^19.3.1"
   react: "^19.3.1"
   # Keeps @babel/core's ^6.3.1 range off the 6.x line (no provenance, fails trustPolicy no-downgrade)

@@ -76,7 +76,7 @@
     "effect": "^4.0.6",
     "eslint": "^10.13.0",
     "eslint-plugin-eslint-plugin": "^7.6.2",
-    "eslint-plugin-package-json": "^1.11.0",
+    "eslint-plugin-package-json": "^1.12.0",
     "import-integrity-lint": "^1.3.1",
     "mdxlint": "^1.0.0",
     "nx": "^23.3.1",
