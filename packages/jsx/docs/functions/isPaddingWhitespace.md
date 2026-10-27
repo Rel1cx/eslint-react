@@ -3,7 +3,7 @@
 # Function: isPaddingWhitespace()
 
 ```ts
-function isPaddingWhitespace(node: Node | null | undefined): node is JSXText;
+function isPaddingWhitespace(node: Node | null | undefined): boolean;
 ```
 
 Check if the node is whitespace-only `JSXText` that this module treats as
@@ -22,6 +22,11 @@ whitespace check based on raw source text, see [isWhitespaceText](isWhitespaceTe
 
 ## Returns
 
-`node is JSXText`
+`boolean`
 
 `true` if the node is purely formatting whitespace by its decoded value.
+
+## Remarks
+
+This is a content predicate, not a type guard: a `false` result does not
+mean the node is not `JSXText`.

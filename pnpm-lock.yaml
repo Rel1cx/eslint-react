@@ -1227,9 +1227,6 @@ importers:
       '@eslint-react/eslint':
         specifier: workspace:*
         version: link:../eslint
-      '@eslint-react/var':
-        specifier: workspace:*
-        version: link:../var
       '@typescript-eslint/types':
         specifier: ^8.72.1
         version: 8.72.1

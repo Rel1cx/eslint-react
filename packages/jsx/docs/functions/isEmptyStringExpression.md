@@ -3,7 +3,7 @@
 # Function: isEmptyStringExpression()
 
 ```ts
-function isEmptyStringExpression(node: Node | null | undefined): node is JSXExpressionContainer;
+function isEmptyStringExpression(node: Node | null | undefined): boolean;
 ```
 
 Check if the node is an empty string literal expression (`{""}`).
@@ -19,6 +19,11 @@ that happen to evaluate to `""` are not evaluated by this predicate.
 
 ## Returns
 
-`node is JSXExpressionContainer`
+`boolean`
 
 `true` if the node is an expression container holding an empty string literal.
+
+## Remarks
+
+This is a content predicate, not a type guard: a `false` result does not
+mean the node is not a `JSXExpressionContainer`.

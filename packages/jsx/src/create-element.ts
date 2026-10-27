@@ -34,8 +34,12 @@ export interface CreateElementCall {
  * @param context The ESLint rule context.
  * @param node The node to inspect; nullish or non-call nodes return `false`.
  * @returns `true` if the node is a `createElement` call.
+ * @remarks
+ * This is a call-name predicate, not a type guard: a `false` result does not
+ * mean the node is not a `CallExpression`, only that it is not a
+ * `createElement` call.
  */
-export function isCreateElementCall(context: RuleContext, node: TSESTree.Node | null | undefined): node is TSESTree.CallExpression {
+export function isCreateElementCall(context: RuleContext, node: TSESTree.Node | null | undefined): boolean {
   if (node?.type !== AST.CallExpression) return false;
   const name = Extract.getFullyQualifiedName(Extract.unwrap(node.callee), getText(context));
   return name === "createElement" || name.endsWith(".createElement");
@@ -52,7 +56,7 @@ export function isCreateElementCall(context: RuleContext, node: TSESTree.Node | 
  * @returns The parsed call, or `null` when the node is not a `createElement` call.
  */
 export function parseCreateElementCall(context: RuleContext, node: TSESTree.Node | null | undefined): CreateElementCall | null {
-  if (!isCreateElementCall(context, node)) return null;
+  if (node?.type !== AST.CallExpression || !isCreateElementCall(context, node)) return null;
   const propsArgument = node.arguments[1] ?? null;
   const propsExpression = propsArgument == null ? null : Extract.unwrap(propsArgument);
   return {
@@ -75,14 +79,10 @@ export function parseCreateElementCall(context: RuleContext, node: TSESTree.Node
  * @returns The statically resolved key, or `null` when it cannot be determined as a string.
  */
 function getStaticPropertyName(context: RuleContext, property: TSESTree.Property): string | null {
+  if (!property.computed) return Extract.getPropertyName(property, "max");
   const key = Extract.unwrap(property.key);
-  if (property.computed) {
-    const staticValue = getStaticValue(key, context.sourceCode.getScope(key));
-    return typeof staticValue?.value === "string" ? staticValue.value : null;
-  }
-  if (Check.isIdentifier(key)) return key.name;
-  if (key.type === AST.Literal && typeof key.value === "string") return key.value;
-  return null;
+  const staticValue = getStaticValue(key, context.sourceCode.getScope(key));
+  return typeof staticValue?.value === "string" ? staticValue.value : null;
 }
 
 /**

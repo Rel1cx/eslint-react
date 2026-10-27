@@ -9,6 +9,7 @@ import {
   hasMeaningfulChildren,
   isEmptyExpressionContainer,
   isEmptyStringExpression,
+  isMeaningfulChild,
   isPaddingWhitespace,
   isWhitespaceText,
 } from "./children";
@@ -67,6 +68,13 @@ describe("getChildren", () => {
     const children = getChildren(parseJSX("<>\n  <span />\n</>;"));
     expect(children.length).toBe(1);
     expect(children[0]?.type).toBe(AST.JSXElement);
+  });
+});
+
+describe("isMeaningfulChild", () => {
+  it("matches the filtering used by getMeaningfulChildren", () => {
+    const children = parseJSX('<div> <span />{""}{}</div>;').children;
+    expect(children.map(isMeaningfulChild)).toEqual([false, true, false, false]);
   });
 });
 

@@ -168,9 +168,16 @@ ruleTester.run(RULE_NAME, rule, {
       code: '<div href="javascript:void(0)"></div>',
       errors: [{ messageId: "default" }],
     },
+    // Namespaced attributes are checked too
+    {
+      code: '<svg><use xlink:href="javascript:alert(1)" /></svg>',
+      errors: [{ messageId: "default" }],
+    },
   ],
   valid: [
     '<a href="https://react.dev"></a>',
+    // Safe namespaced attributes are not reported
+    '<svg><use xlink:href="https://example.com/icon.svg#icon" /></svg>',
     '<a href="#"></a>',
     '<a href=""></a>',
     '<a href="mailto:foo@bar.com"></a>',

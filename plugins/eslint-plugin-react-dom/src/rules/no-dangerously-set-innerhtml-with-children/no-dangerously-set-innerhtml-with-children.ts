@@ -1,7 +1,7 @@
 import { createRule } from "@/utils/create-rule";
+import { isChildContent } from "@/utils/is-child-content";
 import { type RuleContext, type RuleFeature, type RuleListener } from "@eslint-react/eslint";
-import { findAttribute, hasAttribute, isEmptyExpressionContainer, isPaddingWhitespace } from "@eslint-react/jsx";
-import type { TSESTree } from "@typescript-eslint/types";
+import { findAttribute, hasAttribute } from "@eslint-react/jsx";
 
 export const RULE_NAME = "no-dangerously-set-innerhtml-with-children";
 
@@ -44,14 +44,4 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       });
     },
   };
-}
-
-/**
- * Check if a JSX child carries content.
- * Padding whitespace and empty expression containers are ignored.
- * @param child The JSX child to check.
- * @returns `true` if the child carries content.
- */
-function isChildContent(child: TSESTree.JSXChild) {
-  return !isPaddingWhitespace(child) && !isEmptyExpressionContainer(child);
 }

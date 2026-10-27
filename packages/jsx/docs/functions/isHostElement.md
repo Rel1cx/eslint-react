@@ -3,7 +3,7 @@
 # Function: isHostElement()
 
 ```ts
-function isHostElement(node: Node | null | undefined): node is JSXElement;
+function isHostElement(node: Node | null | undefined): boolean;
 ```
 
 Check if the node is a host (intrinsic / DOM) element, that is, a `JSXElement`
@@ -19,7 +19,12 @@ in `<svg:rect>`). Member-expression names (ex: `<foo.Bar>`) are not host element
 
 ## Returns
 
-`node is JSXElement`
+`boolean`
 
 `true` if the node is a `JSXElement` with a plain or namespaced tag
 name starting with an ASCII lowercase letter.
+
+## Remarks
+
+This is a match predicate, not a type guard: a `false` result does not mean
+the node is not a `JSXElement`; custom components are also JSX elements.

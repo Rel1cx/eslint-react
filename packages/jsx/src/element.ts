@@ -1,4 +1,4 @@
-import type { TSESTreeJSXElementLike } from "@eslint-react/ast";
+import { Extract, type TSESTreeJSXElementLike } from "@eslint-react/ast";
 import { isFunction, isString } from "@local/eff";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 
@@ -31,22 +31,16 @@ export type ElementTest =
  */
 export function getElementFullType(node: TSESTreeJSXElementLike): string {
   if (node.type === AST.JSXFragment) return "";
-  function getQualifiedName(
-    node:
-      | TSESTree.JSXIdentifier
-      | TSESTree.JSXNamespacedName
-      | TSESTree.JSXMemberExpression,
-  ): string {
-    switch (node.type) {
-      case AST.JSXIdentifier:
-        return node.name;
-      case AST.JSXNamespacedName:
-        return node.namespace.name + ":" + node.name.name;
-      default:
-        return getQualifiedName(node.object) + "." + getQualifiedName(node.property);
-    }
-  }
-  return getQualifiedName(node.openingElement.name);
+  return Extract.getJSXName(node.openingElement.name);
+}
+
+/**
+ * Get the last dot-separated segment of a name.
+ * @param name The name to split.
+ * @returns The segment after the last dot.
+ */
+function getSelfName(name: string): string {
+  return name.slice(name.lastIndexOf(".") + 1);
 }
 
 /**
@@ -60,7 +54,7 @@ export function getElementFullType(node: TSESTreeJSXElementLike): string {
  * @returns The last dot-separated segment of the element type, or `""` for fragments.
  */
 export function getElementSelfType(node: TSESTreeJSXElementLike): string {
-  return getElementFullType(node).split(".").at(-1) ?? "";
+  return getSelfName(getElementFullType(node));
 }
 
 /**
@@ -73,16 +67,25 @@ function isElementTestFunction(test: ElementTest): test is (elementType: string,
 }
 
 /**
- * Check if the node is a `JSXElement` (or `JSXFragment`), optionally matching a given test.
+ * Check if the node is a `JSXElement` or `JSXFragment`.
+ * @param node The node to check.
+ * @returns `true` if the node is a JSX element or fragment.
+ */
+export function isElement(node: TSESTree.Node | null | undefined): node is TSESTreeJSXElementLike;
+/**
+ * Check if the node is a `JSXElement` or `JSXFragment` matching the given test.
  *
  * Modelled after [`hast-util-is-element`](https://github.com/syntax-tree/hast-util-is-element):
- * the `test` parameter controls what counts as a match. When called without a test,
- * the function acts as a simple type guard for `JSXElement | JSXFragment`.
+ * the `test` parameter controls what counts as a match.
  * @param node The node to check.
- * @param test Optional test to match the full element type against.
+ * @param test Test to match the full element type against.
  * @returns `true` if the node is a matching JSX element or fragment.
+ * @remarks
+ * This is a match predicate, not a type guard: a `false` result does not mean
+ * the node is not a JSX element or fragment, only that it does not match the test.
  */
-export function isElement(node: TSESTree.Node | null | undefined, test?: ElementTest): node is TSESTreeJSXElementLike {
+export function isElement(node: TSESTree.Node | null | undefined, test: ElementTest): boolean;
+export function isElement(node: TSESTree.Node | null | undefined, test?: ElementTest): boolean {
   if (node == null) return false;
   if (node.type !== AST.JSXElement && node.type !== AST.JSXFragment) return false;
   // No test, confirm that it is a JSX element / fragment.
@@ -110,14 +113,16 @@ export function isElement(node: TSESTree.Node | null | undefined, test?: Element
  * @param jsxFragmentFactory The configured fragment factory string (ex: "React.Fragment");
  * only its last dot-separated segment is compared.
  * @returns `true` if the node is a `JSXFragment` or its element type's self name matches the configured fragment self name.
+ * @remarks
+ * This is a match predicate, not a type guard: a `false` result does not mean
+ * the node is not a JSX element or fragment.
  */
-export function isFragmentElement(node: TSESTree.Node | null | undefined, jsxFragmentFactory: string): node is TSESTreeJSXElementLike {
+export function isFragmentElement(node: TSESTree.Node | null | undefined, jsxFragmentFactory: string): boolean {
   if (node == null) return false;
   if (node.type === AST.JSXFragment) return true;
   if (node.type !== AST.JSXElement) return false;
 
-  const fragment = jsxFragmentFactory.split(".").at(-1) ?? "Fragment";
-  return getElementFullType(node).split(".").at(-1) === fragment;
+  return getElementSelfType(node) === getSelfName(jsxFragmentFactory);
 }
 
 /**
@@ -128,8 +133,11 @@ export function isFragmentElement(node: TSESTree.Node | null | undefined, jsxFra
  * @param node The node to check.
  * @returns `true` if the node is a `JSXElement` with a plain or namespaced tag
  * name starting with an ASCII lowercase letter.
+ * @remarks
+ * This is a match predicate, not a type guard: a `false` result does not mean
+ * the node is not a `JSXElement`; custom components are also JSX elements.
  */
-export function isHostElement(node: TSESTree.Node | null | undefined): node is TSESTree.JSXElement {
+export function isHostElement(node: TSESTree.Node | null | undefined): boolean {
   if (node?.type !== AST.JSXElement) return false;
   const name = node.openingElement.name;
   if (name.type === AST.JSXIdentifier) return /^[a-z]/u.test(name.name);

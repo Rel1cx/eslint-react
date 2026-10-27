@@ -20,6 +20,7 @@ export {
   hasMeaningfulChildren,
   isEmptyExpressionContainer,
   isEmptyStringExpression,
+  isMeaningfulChild,
   isPaddingWhitespace,
   isWhitespaceText,
 } from "./children";

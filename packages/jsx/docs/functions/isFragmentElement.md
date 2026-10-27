@@ -3,7 +3,7 @@
 # Function: isFragmentElement()
 
 ```ts
-function isFragmentElement(node: Node | null | undefined, jsxFragmentFactory: string): node is TSESTreeJSXElementLike;
+function isFragmentElement(node: Node | null | undefined, jsxFragmentFactory: string): boolean;
 ```
 
 Check if the node is a React Fragment element.
@@ -28,6 +28,11 @@ JSX runtime (ex: Preact). Note the self-name comparison is a heuristic: any
 
 ## Returns
 
-`node is TSESTreeJSXElementLike`
+`boolean`
 
 `true` if the node is a `JSXFragment` or its element type's self name matches the configured fragment self name.
+
+## Remarks
+
+This is a match predicate, not a type guard: a `false` result does not mean
+the node is not a JSX element or fragment.

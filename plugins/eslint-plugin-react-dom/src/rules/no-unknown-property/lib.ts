@@ -2,6 +2,7 @@
 import { type RuleContext } from "@eslint-react/eslint";
 import { isPlainAttribute } from "@eslint-react/jsx";
 import { getSettingsFromContext } from "@eslint-react/shared";
+import { getOrInsertComputed } from "@local/eff";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import { compare } from "compare-versions";
 
@@ -960,7 +961,25 @@ export const REACT_19_3_SVGDOM_ATTRIBUTE_NAMES: StringMap = {
   "mask-type": "maskType",
 };
 
-const DOM_PROPERTY_NAMES_CACHE = new Map<string, string[]>();
+const VERSION_CACHE_KEY_CACHE = new Map<string, string>();
+
+/**
+ * Get a cache key for the version-dependent data in this module.
+ *
+ * The data only varies at the version thresholds used below, so equivalent
+ * version strings (ex: `18` and `18.2.0`) share one cache entry.
+ * @param version The React version.
+ * @returns A stable cache key.
+ */
+function getVersionCacheKey(version: string): string {
+  return getOrInsertComputed(VERSION_CACHE_KEY_CACHE, version, (v) =>
+    [
+      compare(v, "16.1.0", "<="),
+      compare(v, "16.4.0", ">="),
+      compare(v, "19.0.0-rc.0", ">="),
+      compare(v, "19.3.0", ">="),
+    ].map(Number).join(""));
+}
 
 /**
  * Build the version-specific list of valid DOM property names.
@@ -997,21 +1016,6 @@ function buildDOMPropertyNames(version: string): string[] {
   return names;
 }
 
-/**
- * Get the cached DOM property names for a React version.
- * @param version The React version.
- * @returns The cached array of valid DOM property names.
- */
-function getDOMPropertyNamesForVersion(version: string): string[] {
-  const cached = DOM_PROPERTY_NAMES_CACHE.get(version);
-  if (cached != null) {
-    return cached;
-  }
-  const names = buildDOMPropertyNames(version);
-  DOM_PROPERTY_NAMES_CACHE.set(version, names);
-  return names;
-}
-
 const ATTRIBUTE_TAGS_MAP_CACHE = new Map<string, TagsMap>();
 
 /**
@@ -1036,13 +1040,11 @@ function buildAttributeTagsMap(version: string): TagsMap {
  * @returns The cached map of attributes to allowed tags.
  */
 function getAttributeTagsMapForVersion(version: string): TagsMap {
-  const cached = ATTRIBUTE_TAGS_MAP_CACHE.get(version);
-  if (cached != null) {
-    return cached;
-  }
-  const map = buildAttributeTagsMap(version);
-  ATTRIBUTE_TAGS_MAP_CACHE.set(version, map);
-  return map;
+  return getOrInsertComputed(
+    ATTRIBUTE_TAGS_MAP_CACHE,
+    getVersionCacheKey(version),
+    () => buildAttributeTagsMap(version),
+  );
 }
 
 /**
@@ -1158,28 +1160,27 @@ const STANDARD_NAME_LOOKUP_CACHE = new Map<string, StandardNameLookup>();
  * @returns The cached exact and case-insensitive lookup maps.
  */
 function getStandardNameLookup(version: string): StandardNameLookup {
-  const cached = STANDARD_NAME_LOOKUP_CACHE.get(version);
-  if (cached != null) {
-    return cached;
-  }
-
-  const svgAttributeNames = compare(version, "19.3.0", ">=")
-    ? { ...SVGDOM_ATTRIBUTE_NAMES, ...REACT_19_3_SVGDOM_ATTRIBUTE_NAMES }
-    : SVGDOM_ATTRIBUTE_NAMES;
-  const exact = new Map<string, string>([
-    ...Object.entries(svgAttributeNames),
-    ...Object.entries(DOM_ATTRIBUTE_NAMES),
-  ]);
-  const lower = new Map<string, string>();
-  for (const propertyName of getDOMPropertyNamesForVersion(version)) {
-    const key = propertyName.toLowerCase();
-    if (!lower.has(key)) {
-      lower.set(key, propertyName);
-    }
-  }
-  const lookup = { exact, lower };
-  STANDARD_NAME_LOOKUP_CACHE.set(version, lookup);
-  return lookup;
+  return getOrInsertComputed(
+    STANDARD_NAME_LOOKUP_CACHE,
+    getVersionCacheKey(version),
+    () => {
+      const svgAttributeNames = compare(version, "19.3.0", ">=")
+        ? { ...SVGDOM_ATTRIBUTE_NAMES, ...REACT_19_3_SVGDOM_ATTRIBUTE_NAMES }
+        : SVGDOM_ATTRIBUTE_NAMES;
+      const exact = new Map<string, string>([
+        ...Object.entries(svgAttributeNames),
+        ...Object.entries(DOM_ATTRIBUTE_NAMES),
+      ]);
+      const lower = new Map<string, string>();
+      for (const propertyName of buildDOMPropertyNames(version)) {
+        const key = propertyName.toLowerCase();
+        if (!lower.has(key)) {
+          lower.set(key, propertyName);
+        }
+      }
+      return { exact, lower };
+    },
+  );
 }
 
 /**

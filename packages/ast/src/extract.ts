@@ -18,22 +18,48 @@ export function unwrap(node: TSESTree.Node): TSESTree.Node {
 }
 
 /**
- * Find a property by name in a list of object literal properties, recursing into spread object expressions.
- * @param properties The object literal properties to search.
- * @param name The property name to look for.
- * @returns The matching `Property` node, or `null` when not found.
+ * Get the flattened name of a JSX identifier, namespaced name, or member expression.
+ * @param node The JSX name node.
+ * @returns The flattened JSX name (ex: `"Foo.Bar"`, `"xml:space"`).
  */
-export function findProperty(properties: TSESTree.ObjectLiteralElement[], name: string): TSESTree.Property | null {
-  for (const property of properties) {
-    if (property.type === AST.Property && getPropertyName(property) === name) {
-      return property;
-    }
-    if (property.type === AST.SpreadElement && property.argument.type === AST.ObjectExpression) {
-      const found = findProperty(property.argument.properties, name);
-      if (found != null) return found;
-    }
+export function getJSXName(node: TSESTree.JSXIdentifier | TSESTree.JSXNamespacedName | TSESTree.JSXMemberExpression): string {
+  switch (node.type) {
+    case AST.JSXIdentifier:
+      return node.name;
+    case AST.JSXNamespacedName:
+      return `${node.namespace.name}:${node.name.name}`;
+    case AST.JSXMemberExpression:
+      return `${getJSXName(node.object)}.${getJSXName(node.property)}`;
   }
-  return null;
+}
+
+/**
+ * Get the fully qualified name of a node (ex: `React.useState`), falling back to source text when needed.
+ * @param node The node to inspect.
+ * @param getText A function returning the source text of a node.
+ * @returns The fully qualified name.
+ */
+export function getFullyQualifiedName(node: TSESTree.Node, getText: (node: TSESTree.Node) => string): string {
+  const expr = unwrap(node);
+  switch (expr.type) {
+    case AST.Identifier:
+    case AST.PrivateIdentifier:
+      return expr.name;
+    case AST.JSXIdentifier:
+    case AST.JSXMemberExpression:
+    case AST.JSXNamespacedName:
+      return getJSXName(expr);
+    case AST.MemberExpression: {
+      if (expr.computed) return getText(expr);
+      return `${getFullyQualifiedName(expr.object, getText)}.${getFullyQualifiedName(expr.property, getText)}`;
+    }
+    case AST.JSXText:
+      return expr.value;
+    case AST.Literal:
+      return expr.raw;
+    default:
+      return getText(expr);
+  }
 }
 
 /**
@@ -71,6 +97,42 @@ export function getMemberChain(node: TSESTree.Expression | TSESTree.PrivateIdent
 }
 
 /**
+ * Get the static name of an object property's key.
+ * @param property The property to inspect.
+ * @param effort `"min"` only matches plain identifiers; `"max"` also resolves string literals and simple template literals.
+ * @returns The property name, or `null` when it cannot be statically determined.
+ */
+export function getPropertyName(property: TSESTree.Property, effort: "min" | "max" = "min"): string | null {
+  const key = unwrap(property.key);
+  if (Check.isIdentifier(key) && !property.computed) return key.name;
+  if (effort === "min") return null;
+  if (key.type === AST.Literal && isString(key.value)) return key.value;
+  if (key.type === AST.TemplateLiteral && key.expressions.length === 0) {
+    return key.quasis[0]?.value.cooked ?? key.quasis[0]?.value.raw ?? null;
+  }
+  return null;
+}
+
+/**
+ * Find a property by name in a list of object literal properties, recursing into spread object expressions.
+ * @param properties The object literal properties to search.
+ * @param name The property name to look for.
+ * @returns The matching `Property` node, or `null` when not found.
+ */
+export function findProperty(properties: TSESTree.ObjectLiteralElement[], name: string): TSESTree.Property | null {
+  for (const property of properties) {
+    if (property.type === AST.Property && getPropertyName(property) === name) {
+      return property;
+    }
+    if (property.type === AST.SpreadElement && property.argument.type === AST.ObjectExpression) {
+      const found = findProperty(property.argument.properties, name);
+      if (found != null) return found;
+    }
+  }
+  return null;
+}
+
+/**
  * Collect every write target of an assignment or loop target, expanding
  * destructuring patterns such as `[local, globalValue] = source` or
  * `({ a: obj.x } = source)`. Defaults (`{ a = source }`) are not targets;
@@ -97,52 +159,5 @@ export function getAssignmentTargets(node: TSESTree.Node): (TSESTree.Identifier 
       return getAssignmentTargets(target.argument);
     default:
       return [];
-  }
-}
-
-/**
- * Get the static name of an object property's key.
- * @param property The property to inspect.
- * @param effort `"min"` only matches plain identifiers; `"max"` also resolves string literals and simple template literals.
- * @returns The property name, or `null` when it cannot be statically determined.
- */
-export function getPropertyName(property: TSESTree.Property, effort: "min" | "max" = "min"): string | null {
-  const key = unwrap(property.key);
-  if (Check.isIdentifier(key) && !property.computed) return key.name;
-  if (effort === "min") return null;
-  if (key.type === AST.Literal && isString(key.value)) return key.value;
-  if (key.type === AST.TemplateLiteral && key.expressions.length === 0) {
-    return key.quasis[0]?.value.cooked ?? key.quasis[0]?.value.raw ?? null;
-  }
-  return null;
-}
-
-/**
- * Get the fully qualified name of a node (ex: `React.useState`), falling back to source text when needed.
- * @param node The node to inspect.
- * @param getText A function returning the source text of a node.
- * @returns The fully qualified name.
- */
-export function getFullyQualifiedName(node: TSESTree.Node, getText: (node: TSESTree.Node) => string): string {
-  const expr = unwrap(node);
-  switch (expr.type) {
-    case AST.Identifier:
-    case AST.JSXIdentifier:
-    case AST.PrivateIdentifier:
-      return expr.name;
-    case AST.MemberExpression: {
-      if (expr.computed) return getText(expr);
-      return `${getFullyQualifiedName(expr.object, getText)}.${getFullyQualifiedName(expr.property, getText)}`;
-    }
-    case AST.JSXMemberExpression:
-      return `${getFullyQualifiedName(expr.object, getText)}.${getFullyQualifiedName(expr.property, getText)}`;
-    case AST.JSXNamespacedName:
-      return `${expr.namespace.name}:${expr.name.name}`;
-    case AST.JSXText:
-      return expr.value;
-    case AST.Literal:
-      return expr.raw;
-    default:
-      return getText(expr);
   }
 }

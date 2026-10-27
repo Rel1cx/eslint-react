@@ -1,7 +1,8 @@
 import { createJSXElementResolver } from "@/utils/create-jsx-element-resolver";
 import { createRule } from "@/utils/create-rule";
+import { isChildContent } from "@/utils/is-child-content";
 import { type RuleContext, type RuleFeature, type RuleListener } from "@eslint-react/eslint";
-import { hasAnyAttribute, isEmptyExpressionContainer, isPaddingWhitespace } from "@eslint-react/jsx";
+import { hasAnyAttribute } from "@eslint-react/jsx";
 import { KNOWN_VOID_ELEMENTS } from "./lib";
 
 export const RULE_NAME = "no-void-elements-with-children";
@@ -37,7 +38,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
 
       // Formatting whitespace and empty expression containers are omitted by
       // the JSX transform, so they do not count as children at runtime.
-      const hasChild = node.children.some((child) => !isPaddingWhitespace(child) && !isEmptyExpressionContainer(child));
+      const hasChild = node.children.some(isChildContent);
 
       // Report an error if the void element has children, a 'children' prop, or 'dangerouslySetInnerHTML'
       if (hasChild || hasAnyAttribute(node, ["children", "dangerouslySetInnerHTML"])) {

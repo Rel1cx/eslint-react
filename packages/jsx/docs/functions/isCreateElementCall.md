@@ -3,7 +3,7 @@
 # Function: isCreateElementCall()
 
 ```ts
-function isCreateElementCall(context: RuleContext, node: Node | null | undefined): node is CallExpression;
+function isCreateElementCall(context: RuleContext, node: Node | null | undefined): boolean;
 ```
 
 Check if the node is a call to a `createElement` API.
@@ -21,6 +21,12 @@ check is performed, matching `isAPICall("createElement")` in `@eslint-react/core
 
 ## Returns
 
-`node is CallExpression`
+`boolean`
 
 `true` if the node is a `createElement` call.
+
+## Remarks
+
+This is a call-name predicate, not a type guard: a `false` result does not
+mean the node is not a `CallExpression`, only that it is not a
+`createElement` call.

@@ -4,8 +4,8 @@
 
 ```ts
 const isAttributeNamed: {
-  (name: string): (node: Node | null | undefined) => node is JSXAttribute;
-  (node: Node | null | undefined, name: string): node is JSXAttribute;
+  (name: string): (node: Node | null | undefined) => boolean;
+  (node: Node | null | undefined, name: string): boolean;
 };
 ```
 
@@ -20,7 +20,7 @@ Supports both data-first and data-last (curried) call styles.
 ## Call Signature
 
 ```ts
-(name: string): (node: Node | null | undefined) => node is JSXAttribute;
+(name: string): (node: Node | null | undefined) => boolean;
 ```
 
 ### Parameters
@@ -31,12 +31,12 @@ Supports both data-first and data-last (curried) call styles.
 
 ### Returns
 
-(`node`: `Node` \| `null` \| `undefined`) => `node is JSXAttribute`
+(`node`: `Node` \| `null` \| `undefined`) => `boolean`
 
 ## Call Signature
 
 ```ts
-(node: Node | null | undefined, name: string): node is JSXAttribute;
+(node: Node | null | undefined, name: string): boolean;
 ```
 
 ### Parameters
@@ -48,7 +48,7 @@ Supports both data-first and data-last (curried) call styles.
 
 ### Returns
 
-`node is JSXAttribute`
+`boolean`
 
 ## Param
 
@@ -65,3 +65,8 @@ The full attribute name to match (ex: "className", "xml:space").
 ## Returns
 
 `true` if the node is a `JSXAttribute` whose full name is `name`.
+
+## Remarks
+
+This is a name predicate, not a type guard: a `false` result does not mean
+the node is not a `JSXAttribute`, only that it does not match `name`.

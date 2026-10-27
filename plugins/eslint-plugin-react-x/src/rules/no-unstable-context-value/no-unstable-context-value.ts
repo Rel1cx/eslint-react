@@ -52,7 +52,8 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         if (enclosingFunction == null) return;
         if (compilationMode === "annotation" && core.isFunctionHasDirective(enclosingFunction, "use memo")) return;
         const attribute = node.attributes.findLast(isPlainAttribute("value"));
-        if (attribute?.value?.type !== AST.JSXExpressionContainer) return;
+        if (attribute?.type !== AST.JSXAttribute) return;
+        if (attribute.value?.type !== AST.JSXExpressionContainer) return;
         const valueExpression = attribute.value.expression;
         const construction = resolveObjectType(context, valueExpression);
         if (construction == null) return;

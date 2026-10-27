@@ -15,8 +15,11 @@ import { collapseMultilineText } from "./text";
  * React's whitespace collapsing.
  * @param node The node to check.
  * @returns `true` if the node is whitespace-only `JSXText` in its raw form.
+ * @remarks
+ * This is a content predicate, not a type guard: a `false` result does not
+ * mean the node is not `JSXText`, only that it is not whitespace-only text.
  */
-export function isWhitespaceText(node: TSESTree.Node | null | undefined): node is TSESTree.JSXText {
+export function isWhitespaceText(node: TSESTree.Node | null | undefined): boolean {
   return node?.type === AST.JSXText && node.raw.trim() === "";
 }
 
@@ -30,8 +33,11 @@ export function isWhitespaceText(node: TSESTree.Node | null | undefined): node i
  * whitespace check based on raw source text, see {@link isWhitespaceText}.
  * @param node The node to check.
  * @returns `true` if the node is purely formatting whitespace by its decoded value.
+ * @remarks
+ * This is a content predicate, not a type guard: a `false` result does not
+ * mean the node is not `JSXText`.
  */
-export function isPaddingWhitespace(node: TSESTree.Node | null | undefined): node is TSESTree.JSXText {
+export function isPaddingWhitespace(node: TSESTree.Node | null | undefined): boolean {
   return node?.type === AST.JSXText && collapseMultilineText(node.value) == null && node.value.includes("\n");
 }
 
@@ -42,8 +48,11 @@ export function isPaddingWhitespace(node: TSESTree.Node | null | undefined): nod
  * node and is treated as non-rendered content, same as whitespace padding.
  * @param node The node to check.
  * @returns `true` if the node is an empty `JSXExpressionContainer`.
+ * @remarks
+ * This is a content predicate, not a type guard: a `false` result does not
+ * mean the node is not a `JSXExpressionContainer`.
  */
-export function isEmptyExpressionContainer(node: TSESTree.Node | null | undefined): node is TSESTree.JSXExpressionContainer {
+export function isEmptyExpressionContainer(node: TSESTree.Node | null | undefined): boolean {
   return node?.type === AST.JSXExpressionContainer && node.expression.type === AST.JSXEmptyExpression;
 }
 
@@ -54,8 +63,11 @@ export function isEmptyExpressionContainer(node: TSESTree.Node | null | undefine
  * that happen to evaluate to `""` are not evaluated by this predicate.
  * @param node The node to check.
  * @returns `true` if the node is an expression container holding an empty string literal.
+ * @remarks
+ * This is a content predicate, not a type guard: a `false` result does not
+ * mean the node is not a `JSXExpressionContainer`.
  */
-export function isEmptyStringExpression(node: TSESTree.Node | null | undefined): node is TSESTree.JSXExpressionContainer {
+export function isEmptyStringExpression(node: TSESTree.Node | null | undefined): boolean {
   return node?.type === AST.JSXExpressionContainer && node.expression.type === AST.Literal && node.expression.value === "";
 }
 
@@ -67,8 +79,10 @@ export function isEmptyStringExpression(node: TSESTree.Node | null | undefined):
  * containers, and empty string literal expressions are excluded. This is a
  * syntactic check: `{null}`, `{false}`, and other dynamic expressions still
  * count as children content.
+ * @param node The JSX child to check.
+ * @returns `true` if the child is not syntactically empty.
  */
-function isMeaningfulChild(node: TSESTree.JSXChild): boolean {
+export function isMeaningfulChild(node: TSESTree.JSXChild): boolean {
   return !isWhitespaceText(node) && !isEmptyExpressionContainer(node) && !isEmptyStringExpression(node);
 }
 

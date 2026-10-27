@@ -1,7 +1,7 @@
 import { createRule } from "@/utils/create-rule";
 import type { TSESTreeJSXElementLike } from "@eslint-react/ast";
 import { type RuleContext, type RuleFeature, type RuleListener, getText } from "@eslint-react/eslint";
-import { isEmptyExpressionContainer, isEmptyStringExpression, isWhitespaceText } from "@eslint-react/jsx";
+import { isMeaningfulChild } from "@eslint-react/jsx";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 
 export const RULE_NAME = "no-leaked-dollar";
@@ -57,14 +57,17 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
  * @param node The JSX element or fragment to inspect.
  */
 function visitForLeakedDollar(context: RuleContext<MessageID, []>, node: TSESTreeJSXElementLike) {
+  let meaningfulChildren: number | null = null;
   for (const [index, child] of node.children.entries()) {
     if (child.type !== AST.JSXText || !child.value.endsWith("$")) continue;
     // Ensure the next sibling is a JSXExpressionContainer
-    if (node.children[index + 1]?.type !== AST.JSXExpressionContainer) continue;
+    const next = node.children[index + 1];
+    if (next?.type !== AST.JSXExpressionContainer) continue;
     // Skip an isolated '$' before a single expression when all other siblings
     // are non-substantive — intentional rendering (ex: `<div>${price}</div>`),
     // not a template literal split across JSX children.
-    if (isIsolatedDollar(node, index, child)) continue;
+    meaningfulChildren ??= node.children.filter(isMeaningfulChild).length;
+    if (isIsolatedDollar(child, next, meaningfulChildren)) continue;
     // Only report a literal '$' at the end of the raw text node.
     const rawText = getText(context, child);
     if (!rawText.endsWith("$")) continue;
@@ -92,25 +95,14 @@ function visitForLeakedDollar(context: RuleContext<MessageID, []>, node: TSESTre
 /**
  * Check if a `$` text node is isolated before a single expression, with all
  * other siblings non-substantive.
- * @param node The parent JSX element or fragment.
- * @param index The index of the `$` text node.
  * @param child The `$` text node.
+ * @param next The expression container immediately after the `$`.
+ * @param meaningfulChildren The number of meaningful children in the parent.
  * @returns `true` if the dollar should not be reported.
  */
-function isIsolatedDollar(node: TSESTreeJSXElementLike, index: number, child: TSESTree.JSXText) {
+function isIsolatedDollar(child: TSESTree.JSXText, next: TSESTree.JSXExpressionContainer, meaningfulChildren: number) {
+  // The `$` text node itself is meaningful, so only the next sibling may add
+  // another meaningful child.
   return child.value.trim() === "$"
-    && node.children.every((sibling, siblingIndex) =>
-      siblingIndex === index
-      || siblingIndex === index + 1
-      || isNonSubstantiveChild(sibling)
-    );
-}
-
-/**
- * Whether a JSX child carries no renderable content: whitespace-only text, an
- * empty expression (ex: `{}` or a comment), or an empty string expression.
- * @param child The JSX child node to check.
- */
-function isNonSubstantiveChild(child: TSESTree.JSXChild): boolean {
-  return isWhitespaceText(child) || isEmptyExpressionContainer(child) || isEmptyStringExpression(child);
+    && meaningfulChildren === 1 + (isMeaningfulChild(next) ? 1 : 0);
 }

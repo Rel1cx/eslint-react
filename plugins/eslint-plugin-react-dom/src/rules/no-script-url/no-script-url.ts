@@ -3,7 +3,6 @@ import { type RuleContext, type RuleFeature, type RuleListener } from "@eslint-r
 import { getAttributeStaticValue, getAttributeValue } from "@eslint-react/jsx";
 import { RE_JAVASCRIPT_PROTOCOL } from "@eslint-react/shared";
 import { isString } from "@local/eff";
-import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 
 export const RULE_NAME = "no-script-url";
 
@@ -29,9 +28,6 @@ export default createRule<[], MessageID>({
 export function create(context: RuleContext<MessageID, []>): RuleListener {
   return {
     JSXAttribute(node) {
-      if (node.name.type !== AST.JSXIdentifier) {
-        return;
-      }
       if (node.value == null) {
         return;
       }

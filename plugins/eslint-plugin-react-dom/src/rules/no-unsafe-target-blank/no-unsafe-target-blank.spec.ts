@@ -345,7 +345,7 @@ ruleTester.run(RULE_NAME, rule, {
     //         {
     //           messageId: "suggest",
     //           output: tsx`
-    //             const a = <a rel="noreferrer" href="https://react.dev" target="_blank"></a>;
+    //             const a = <a href="https://react.dev" target="_blank" rel="noreferrer"></a>;
     //             const b = <Link to="https://react.dev" target="_blank"></Link>;
     //           `,
     //         },
@@ -385,7 +385,7 @@ ruleTester.run(RULE_NAME, rule, {
     //         {
     //           messageId: "suggest",
     //           output: tsx`
-    //             const a = <Link rel="noreferrer" href="https://react.dev" target="_blank"></Link>;
+    //             const a = <Link href="https://react.dev" target="_blank" rel="noreferrer"></Link>;
     //             const b = <LinkButton href="https://react.dev" target="_blank" relation="noopener"></LinkButton>;
     //           `,
     //         },
@@ -486,7 +486,7 @@ ruleTester.run(RULE_NAME, rule, {
     //         {
     //           messageId: "suggest",
     //           output: tsx`
-    //             const a = <Link rel="noreferrer" href="https://react.dev"></Link>;
+    //             const a = <Link href="https://react.dev" rel="noreferrer"></Link>;
     //           `,
     //         },
     //       ],

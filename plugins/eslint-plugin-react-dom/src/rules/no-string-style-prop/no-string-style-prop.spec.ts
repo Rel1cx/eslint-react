@@ -42,7 +42,6 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     // Various HTML elements with string style
-    // Spread props with a statically resolvable string style
     {
       code: tsx`<span style="color: blue;" />`,
       errors: [{ messageId: "default" }],

@@ -1,4 +1,4 @@
-import { type TSESTreeJSXElementLike, Traverse } from "@eslint-react/ast";
+import { Extract, type TSESTreeJSXElementLike, Traverse } from "@eslint-react/ast";
 import type { RuleContext } from "@eslint-react/eslint";
 import { dual } from "@local/eff";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
@@ -52,8 +52,7 @@ export type AttributeValue =
  * @returns The attribute name as a plain string.
  */
 export function getAttributeName(node: TSESTree.JSXAttribute): string {
-  if (node.name.type === AST.JSXIdentifier) return node.name.name;
-  return node.name.namespace.name + ":" + node.name.name.name;
+  return Extract.getJSXName(node.name);
 }
 
 /**
@@ -68,11 +67,14 @@ export function getAttributeName(node: TSESTree.JSXAttribute): string {
  * @param node The node to check.
  * @param name The plain attribute name to match (ex: "className").
  * @returns `true` if the node is a `JSXAttribute` whose identifier name is `name`.
+ * @remarks
+ * This is a name predicate, not a type guard: a `false` result does not mean
+ * the node is not a `JSXAttribute`, only that it does not match `name`.
  */
 export const isPlainAttribute: {
-  (name: string): (node: TSESTree.Node | null | undefined) => node is TSESTree.JSXAttribute;
-  (node: TSESTree.Node | null | undefined, name: string): node is TSESTree.JSXAttribute;
-} = dual(2, (node: TSESTree.Node | null | undefined, name: string): node is TSESTree.JSXAttribute => {
+  (name: string): (node: TSESTree.Node | null | undefined) => boolean;
+  (node: TSESTree.Node | null | undefined, name: string): boolean;
+} = dual(2, (node: TSESTree.Node | null | undefined, name: string): boolean => {
   return node?.type === AST.JSXAttribute
     && node.name.type === AST.JSXIdentifier
     && node.name.name === name;
@@ -89,11 +91,14 @@ export const isPlainAttribute: {
  * @param node The node to check.
  * @param name The full attribute name to match (ex: "className", "xml:space").
  * @returns `true` if the node is a `JSXAttribute` whose full name is `name`.
+ * @remarks
+ * This is a name predicate, not a type guard: a `false` result does not mean
+ * the node is not a `JSXAttribute`, only that it does not match `name`.
  */
 export const isAttributeNamed: {
-  (name: string): (node: TSESTree.Node | null | undefined) => node is TSESTree.JSXAttribute;
-  (node: TSESTree.Node | null | undefined, name: string): node is TSESTree.JSXAttribute;
-} = dual(2, (node: TSESTree.Node | null | undefined, name: string): node is TSESTree.JSXAttribute => {
+  (name: string): (node: TSESTree.Node | null | undefined) => boolean;
+  (node: TSESTree.Node | null | undefined, name: string): boolean;
+} = dual(2, (node: TSESTree.Node | null | undefined, name: string): boolean => {
   return node?.type === AST.JSXAttribute && getAttributeName(node) === name;
 });
 

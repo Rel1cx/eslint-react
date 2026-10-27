@@ -11,6 +11,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Adapted to the rewritten `@eslint-react/jsx` value APIs: attribute values are resolved as pure descriptors and collapsed with `getAttributeStaticValue`; no behavior change.
 
+### Fixed
+
+- Namespaced attributes such as `xlink:href` are now checked for `javascript:` URLs; they were previously skipped.
+
 ## [5.2.3-beta.0] - 2026-04-14
 
 ### Changed

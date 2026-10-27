@@ -3,7 +3,7 @@
 # Function: isWhitespaceText()
 
 ```ts
-function isWhitespaceText(node: Node | null | undefined): node is JSXText;
+function isWhitespaceText(node: Node | null | undefined): boolean;
 ```
 
 Check if the node is whitespace-only `JSXText`, based on its raw source text.
@@ -25,6 +25,11 @@ React's whitespace collapsing.
 
 ## Returns
 
-`node is JSXText`
+`boolean`
 
 `true` if the node is whitespace-only `JSXText` in its raw form.
+
+## Remarks
+
+This is a content predicate, not a type guard: a `false` result does not
+mean the node is not `JSXText`, only that it is not whitespace-only text.

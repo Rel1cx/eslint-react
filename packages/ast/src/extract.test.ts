@@ -2,7 +2,7 @@ import { getFirstNodeOfType, getTextOf } from "@local/testkit";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import { describe, expect, it } from "vitest";
 
-import { findProperty, getAssignmentTargets, getCalleeName, getFullyQualifiedName, getMemberChain, getPropertyName, unwrap } from "./extract";
+import { findProperty, getAssignmentTargets, getCalleeName, getFullyQualifiedName, getJSXName, getMemberChain, getPropertyName, unwrap } from "./extract";
 
 function getFirstCallExpression(code: string): TSESTree.CallExpression {
   return getFirstNodeOfType<TSESTree.CallExpression>(code, AST.CallExpression);
@@ -38,30 +38,79 @@ describe("unwrap", () => {
   });
 });
 
-describe("findProperty", () => {
-  it("should find a direct identifier property", () => {
-    const { properties } = getFirstObjectExpression("({ foo: 1, bar: 2 });");
-    expect(findProperty(properties, "foo")?.key).toMatchObject({ name: "foo", type: AST.Identifier });
+describe("getJSXName", () => {
+  it("should return a JSX identifier name", () => {
+    const code = "<div />;";
+    const node = getFirstNodeOfType<TSESTree.JSXIdentifier>(code, AST.JSXIdentifier);
+    expect(getJSXName(node)).toBe("div");
   });
 
-  it("should find a property in a nested object spread", () => {
-    const { properties } = getFirstObjectExpression("({ ...{ ...{ foo: 1 } } });");
-    expect(findProperty(properties, "foo")?.key).toMatchObject({ name: "foo", type: AST.Identifier });
+  it("should return a JSX member expression name", () => {
+    const code = "<Foo.Bar.Baz />;";
+    const node = getFirstNodeOfType<TSESTree.JSXMemberExpression>(code, AST.JSXMemberExpression);
+    expect(getJSXName(node)).toBe("Foo.Bar.Baz");
   });
 
-  it("should ignore computed properties", () => {
-    const { properties } = getFirstObjectExpression("({ [foo]: 1 });");
-    expect(findProperty(properties, "foo")).toBe(null);
+  it("should return a JSX namespaced name", () => {
+    const code = "<svg:path />;";
+    const node = getFirstNodeOfType<TSESTree.JSXNamespacedName>(code, AST.JSXNamespacedName);
+    expect(getJSXName(node)).toBe("svg:path");
+  });
+});
+
+describe("getFullyQualifiedName", () => {
+  it("should return an identifier name", () => {
+    const code = "foo;";
+    const node = getFirstNodeOfType<TSESTree.Identifier>(code, AST.Identifier);
+    expect(getFullyQualifiedName(node, (n) => getTextOf(code, n))).toBe("foo");
   });
 
-  it("should ignore non-identifier properties", () => {
-    const { properties } = getFirstObjectExpression('({ "foo": 1 });');
-    expect(findProperty(properties, "foo")).toBe(null);
+  it("should return a member expression name", () => {
+    const code = "foo.bar.baz;";
+    const node = getFirstNodeOfType<TSESTree.MemberExpression>(code, AST.MemberExpression);
+    expect(getFullyQualifiedName(node, (n) => getTextOf(code, n))).toBe("foo.bar.baz");
   });
 
-  it("should return null when no property matches", () => {
-    const { properties } = getFirstObjectExpression("({ foo: 1 });");
-    expect(findProperty(properties, "bar")).toBe(null);
+  it("should unwrap type expressions", () => {
+    const code = "foo.bar as unknown;";
+    const node = getFirstNodeOfType<TSESTree.TSAsExpression>(code, AST.TSAsExpression);
+    expect(getFullyQualifiedName(node, (n) => getTextOf(code, n))).toBe("foo.bar");
+  });
+
+  it("should use source text for computed member expressions", () => {
+    const code = 'foo["bar"];';
+    const node = getFirstNodeOfType<TSESTree.MemberExpression>(code, AST.MemberExpression);
+    expect(getFullyQualifiedName(node, (n) => getTextOf(code, n))).toBe('foo["bar"]');
+  });
+
+  it("should return a JSX member expression name", () => {
+    const code = "<Foo.Bar />;";
+    const node = getFirstNodeOfType<TSESTree.JSXMemberExpression>(code, AST.JSXMemberExpression);
+    expect(getFullyQualifiedName(node, (n) => getTextOf(code, n))).toBe("Foo.Bar");
+  });
+
+  it("should return a JSX namespaced name", () => {
+    const code = "<svg:path />;";
+    const node = getFirstNodeOfType<TSESTree.JSXNamespacedName>(code, AST.JSXNamespacedName);
+    expect(getFullyQualifiedName(node, (n) => getTextOf(code, n))).toBe("svg:path");
+  });
+
+  it("should return JSX text", () => {
+    const code = "<div>content</div>;";
+    const node = getFirstNodeOfType<TSESTree.JSXText>(code, AST.JSXText);
+    expect(getFullyQualifiedName(node, (n) => getTextOf(code, n))).toBe("content");
+  });
+
+  it("should return the raw literal text", () => {
+    const code = '"foo";';
+    const node = getFirstNodeOfType<TSESTree.Literal>(code, AST.Literal);
+    expect(getFullyQualifiedName(node, (n) => getTextOf(code, n))).toBe('"foo"');
+  });
+
+  it("should use source text for other node types", () => {
+    const code = "foo();";
+    const node = getFirstCallExpression(code);
+    expect(getFullyQualifiedName(node, (n) => getTextOf(code, n))).toBe("foo()");
   });
 });
 
@@ -127,59 +176,56 @@ describe("getCalleeName", () => {
   });
 });
 
-describe("getFullyQualifiedName", () => {
-  it("should return an identifier name", () => {
-    const code = "foo;";
-    const node = getFirstNodeOfType<TSESTree.Identifier>(code, AST.Identifier);
-    expect(getFullyQualifiedName(node, (n) => getTextOf(code, n))).toBe("foo");
+describe("getMemberChain", () => {
+  it("should return the identifier itself for a bare identifier", () => {
+    const node = getFirstNodeOfType<TSESTree.Identifier>("foo;", AST.Identifier);
+    expect(getMemberChain(node)).toEqual([node]);
   });
 
-  it("should return a member expression name", () => {
-    const code = "foo.bar.baz;";
-    const node = getFirstNodeOfType<TSESTree.MemberExpression>(code, AST.MemberExpression);
-    expect(getFullyQualifiedName(node, (n) => getTextOf(code, n))).toBe("foo.bar.baz");
+  it("should return the base followed by each member property", () => {
+    const node = getFirstNodeOfType<TSESTree.MemberExpression>("foo.bar.baz;", AST.MemberExpression);
+    expect(getMemberChain(node)).toMatchObject([
+      { name: "foo", type: AST.Identifier },
+      { name: "bar", type: AST.Identifier },
+      { name: "baz", type: AST.Identifier },
+    ]);
   });
 
-  it("should unwrap type expressions", () => {
-    const code = "foo.bar as unknown;";
-    const node = getFirstNodeOfType<TSESTree.TSAsExpression>(code, AST.TSAsExpression);
-    expect(getFullyQualifiedName(node, (n) => getTextOf(code, n))).toBe("foo.bar");
+  it("should unwrap type and chain expressions", () => {
+    const node = getFirstNodeOfType<TSESTree.TSAsExpression>("foo?.bar as unknown;", AST.TSAsExpression);
+    expect(getMemberChain(node)).toMatchObject([
+      { name: "foo", type: AST.Identifier },
+      { name: "bar", type: AST.Identifier },
+    ]);
   });
 
-  it("should use source text for computed member expressions", () => {
-    const code = 'foo["bar"];';
-    const node = getFirstNodeOfType<TSESTree.MemberExpression>(code, AST.MemberExpression);
-    expect(getFullyQualifiedName(node, (n) => getTextOf(code, n))).toBe('foo["bar"]');
+  it("should include a non-identifier base in the chain", () => {
+    const node = getFirstNodeOfType<TSESTree.MemberExpression>("this.foo;", AST.MemberExpression);
+    expect(getMemberChain(node)).toMatchObject([
+      { type: AST.ThisExpression },
+      { name: "foo", type: AST.Identifier },
+    ]);
   });
 
-  it("should return a JSX member expression name", () => {
-    const code = "<Foo.Bar />;";
-    const node = getFirstNodeOfType<TSESTree.JSXMemberExpression>(code, AST.JSXMemberExpression);
-    expect(getFullyQualifiedName(node, (n) => getTextOf(code, n))).toBe("Foo.Bar");
+  it("should include a computed identifier property in the chain", () => {
+    const node = getFirstNodeOfType<TSESTree.MemberExpression>("foo[bar];", AST.MemberExpression);
+    expect(getMemberChain(node)).toMatchObject([
+      { name: "foo", type: AST.Identifier },
+      { name: "bar", type: AST.Identifier },
+    ]);
   });
 
-  it("should return a JSX namespaced name", () => {
-    const code = "<svg:path />;";
-    const node = getFirstNodeOfType<TSESTree.JSXNamespacedName>(code, AST.JSXNamespacedName);
-    expect(getFullyQualifiedName(node, (n) => getTextOf(code, n))).toBe("svg:path");
+  it("should include a non-identifier property in the chain", () => {
+    const node = getFirstNodeOfType<TSESTree.MemberExpression>('foo["bar"];', AST.MemberExpression);
+    expect(getMemberChain(node)).toMatchObject([
+      { name: "foo", type: AST.Identifier },
+      { value: "bar", type: AST.Literal },
+    ]);
   });
 
-  it("should return JSX text", () => {
-    const code = "<div>content</div>;";
-    const node = getFirstNodeOfType<TSESTree.JSXText>(code, AST.JSXText);
-    expect(getFullyQualifiedName(node, (n) => getTextOf(code, n))).toBe("content");
-  });
-
-  it("should return the raw literal text", () => {
-    const code = '"foo";';
-    const node = getFirstNodeOfType<TSESTree.Literal>(code, AST.Literal);
-    expect(getFullyQualifiedName(node, (n) => getTextOf(code, n))).toBe('"foo"');
-  });
-
-  it("should use source text for other node types", () => {
-    const code = "foo();";
-    const node = getFirstCallExpression(code);
-    expect(getFullyQualifiedName(node, (n) => getTextOf(code, n))).toBe("foo()");
+  it("should return the private identifier itself for a bare private identifier", () => {
+    const node = getFirstNodeOfType<TSESTree.PrivateIdentifier>("class Foo { #bar; }", AST.PrivateIdentifier);
+    expect(getMemberChain(node)).toEqual([node]);
   });
 });
 
@@ -239,56 +285,30 @@ describe("getPropertyName", () => {
   });
 });
 
-describe("getMemberChain", () => {
-  it("should return the identifier itself for a bare identifier", () => {
-    const node = getFirstNodeOfType<TSESTree.Identifier>("foo;", AST.Identifier);
-    expect(getMemberChain(node)).toEqual([node]);
+describe("findProperty", () => {
+  it("should find a direct identifier property", () => {
+    const { properties } = getFirstObjectExpression("({ foo: 1, bar: 2 });");
+    expect(findProperty(properties, "foo")?.key).toMatchObject({ name: "foo", type: AST.Identifier });
   });
 
-  it("should return the base followed by each member property", () => {
-    const node = getFirstNodeOfType<TSESTree.MemberExpression>("foo.bar.baz;", AST.MemberExpression);
-    expect(getMemberChain(node)).toMatchObject([
-      { name: "foo", type: AST.Identifier },
-      { name: "bar", type: AST.Identifier },
-      { name: "baz", type: AST.Identifier },
-    ]);
+  it("should find a property in a nested object spread", () => {
+    const { properties } = getFirstObjectExpression("({ ...{ ...{ foo: 1 } } });");
+    expect(findProperty(properties, "foo")?.key).toMatchObject({ name: "foo", type: AST.Identifier });
   });
 
-  it("should unwrap type and chain expressions", () => {
-    const node = getFirstNodeOfType<TSESTree.TSAsExpression>("foo?.bar as unknown;", AST.TSAsExpression);
-    expect(getMemberChain(node)).toMatchObject([
-      { name: "foo", type: AST.Identifier },
-      { name: "bar", type: AST.Identifier },
-    ]);
+  it("should ignore computed properties", () => {
+    const { properties } = getFirstObjectExpression("({ [foo]: 1 });");
+    expect(findProperty(properties, "foo")).toBe(null);
   });
 
-  it("should include a non-identifier base in the chain", () => {
-    const node = getFirstNodeOfType<TSESTree.MemberExpression>("this.foo;", AST.MemberExpression);
-    expect(getMemberChain(node)).toMatchObject([
-      { type: AST.ThisExpression },
-      { name: "foo", type: AST.Identifier },
-    ]);
+  it("should ignore non-identifier properties", () => {
+    const { properties } = getFirstObjectExpression('({ "foo": 1 });');
+    expect(findProperty(properties, "foo")).toBe(null);
   });
 
-  it("should include a computed identifier property in the chain", () => {
-    const node = getFirstNodeOfType<TSESTree.MemberExpression>("foo[bar];", AST.MemberExpression);
-    expect(getMemberChain(node)).toMatchObject([
-      { name: "foo", type: AST.Identifier },
-      { name: "bar", type: AST.Identifier },
-    ]);
-  });
-
-  it("should include a non-identifier property in the chain", () => {
-    const node = getFirstNodeOfType<TSESTree.MemberExpression>('foo["bar"];', AST.MemberExpression);
-    expect(getMemberChain(node)).toMatchObject([
-      { name: "foo", type: AST.Identifier },
-      { value: "bar", type: AST.Literal },
-    ]);
-  });
-
-  it("should return the private identifier itself for a bare private identifier", () => {
-    const node = getFirstNodeOfType<TSESTree.PrivateIdentifier>("class Foo { #bar; }", AST.PrivateIdentifier);
-    expect(getMemberChain(node)).toEqual([node]);
+  it("should return null when no property matches", () => {
+    const { properties } = getFirstObjectExpression("({ foo: 1 });");
+    expect(findProperty(properties, "bar")).toBe(null);
   });
 });
 

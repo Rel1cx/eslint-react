@@ -2,8 +2,8 @@ import { createRule } from "@/utils/create-rule";
 import { Check, type TSESTreeJSXElementLike } from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, type RuleListener, getText } from "@eslint-react/eslint";
-import { collapseMultilineText, getChildren, isFragmentElement, isHostElement, isPlainAttribute, isWhitespaceText } from "@eslint-react/jsx";
-import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
+import { collapseMultilineText, getChildren, hasAnyAttribute, isFragmentElement, isHostElement, isWhitespaceText } from "@eslint-react/jsx";
+import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import type { JSONSchema4 } from "@typescript-eslint/utils/json-schema";
 import type { RuleFix, RuleFixer } from "@typescript-eslint/utils/ts-eslint";
 
@@ -75,7 +75,7 @@ export function create(context: RuleContext<MessageID, Options>, [option]: Optio
       if (!isFragmentElement(node, jsxFragmentFactory)) {
         return;
       }
-      if (node.openingElement.attributes.some((a) => a.type === AST.JSXSpreadAttribute || isPlainAttribute(a, "key") || isPlainAttribute(a, "ref"))) {
+      if (hasIdentityAttribute(node)) {
         return;
       }
       visitFragment(context, node, options);
@@ -85,6 +85,19 @@ export function create(context: RuleContext<MessageID, Options>, [option]: Optio
       visitFragment(context, node, options);
     },
   };
+}
+
+/**
+ * Check if the element carries props that would be lost when the fragment is unwrapped.
+ *
+ * Spread attributes are opaque and may provide `key` or `ref`, so any spread is
+ * treated as an identity attribute.
+ * @param node The JSX element to check.
+ * @returns `true` if the element has a spread, `key`, or `ref` attribute.
+ */
+function hasIdentityAttribute(node: TSESTree.JSXElement): boolean {
+  return node.openingElement.attributes.some((a) => a.type === AST.JSXSpreadAttribute)
+    || hasAnyAttribute(node, ["key", "ref"]);
 }
 
 /**
@@ -157,10 +170,6 @@ function isContentUseless(node: TSESTreeJSXElementLike, options: ResolvedOptions
  * @param node The fragment node to check.
  */
 function isSafeToFix(node: TSESTreeJSXElementLike) {
-  if (node.type === AST.JSXElement && node.openingElement.attributes.some((a) => a.type === AST.JSXSpreadAttribute)) {
-    return false;
-  }
-
   // Inside a JSX parent we can only safely unwrap if the parent is a host
   // (intrinsic / DOM) element.  Custom components might require `children`
   // to be a single ReactElement, so unwrapping could break them.

@@ -3,7 +3,7 @@
 # Function: isEmptyExpressionContainer()
 
 ```ts
-function isEmptyExpressionContainer(node: Node | null | undefined): node is JSXExpressionContainer;
+function isEmptyExpressionContainer(node: Node | null | undefined): boolean;
 ```
 
 Check if the node is an empty expression container (`{}`, `{/* comment */}`).
@@ -19,6 +19,11 @@ node and is treated as non-rendered content, same as whitespace padding.
 
 ## Returns
 
-`node is JSXExpressionContainer`
+`boolean`
 
 `true` if the node is an empty `JSXExpressionContainer`.
+
+## Remarks
+
+This is a content predicate, not a type guard: a `false` result does not
+mean the node is not a `JSXExpressionContainer`.
