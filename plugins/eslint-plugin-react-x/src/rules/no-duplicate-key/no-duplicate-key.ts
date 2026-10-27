@@ -1,6 +1,7 @@
 import { createRule } from "@/utils/create-rule";
 import { getIteratorCallback } from "@/utils/jsx-iterator";
 import { Check, Compare, Extract, Traverse } from "@eslint-react/ast";
+import * as core from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, type RuleListener } from "@eslint-react/eslint";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 
@@ -31,6 +32,9 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   // Fast path: skip files with no JSX `key` attribute. Word boundaries also
   // match bare keys (`key`) and keys separated from `=` by whitespace.
   if (!/\bkey\b/u.test(context.sourceCode.text)) return {};
+  // Tracks how many `Children.toArray()`/`Children.map()` calls we are inside of;
+  // React re-assigns the keys of their output, so duplicate checks are skipped there
+  let childrenRekeyingDepth = 0;
   // Key attributes that have at least one equal sibling, or are literal keys
   // inside a `.map()` callback where they repeat on every iteration
   const duplicateKeys = new Set<TSESTree.JSXAttribute>();
@@ -82,8 +86,21 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
     }
     return value.type === AST.TemplateLiteral && value.expressions.length === 0;
   }
+
+  /**
+   * Checks whether a call re-assigns the keys of the elements it produces.
+   * React prefixes the keys produced by `Children.toArray` and `Children.map`
+   * with each child's key, so their output cannot contain duplicates.
+   * @param node The call expression to inspect.
+   * @returns `true` for `Children.toArray` and `Children.map` calls.
+   */
+  function isChildrenRekeyingCall(node: TSESTree.CallExpression): boolean {
+    return core.isChildrenToArrayCall(context, node) || core.isChildrenMapCall(context, node);
+  }
+
   return {
     "JSXAttribute[name.name='key']"(node: TSESTree.JSXAttribute) {
+      if (childrenRekeyingDepth > 0) return;
       const jsxElement = node.parent.parent;
       switch (jsxElement.parent.type) {
         // Case 1: Elements in an array expression, JSX element, or JSX fragment
@@ -123,6 +140,16 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
             duplicateKeys.add(node);
           }
         }
+      }
+    },
+    CallExpression(node) {
+      if (isChildrenRekeyingCall(node)) {
+        childrenRekeyingDepth += 1;
+      }
+    },
+    "CallExpression:exit"(node) {
+      if (isChildrenRekeyingCall(node)) {
+        childrenRekeyingDepth -= 1;
       }
     },
     "Program:exit"() {

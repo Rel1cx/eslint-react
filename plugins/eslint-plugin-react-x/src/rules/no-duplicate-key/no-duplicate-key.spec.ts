@@ -60,6 +60,18 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
+      name: "duplicate keys after a Children.toArray call",
+      code: tsx`
+        import { Children } from "react";
+        Children.toArray(items);
+        [<div key="a" />, <div key="a" />];
+      `,
+      errors: [
+        { messageId: "default" },
+        { messageId: "default" },
+      ],
+    },
+    {
       name: "duplicate keys in array literal",
       code: tsx`
         const App = () => {
@@ -424,6 +436,35 @@ ruleTester.run(RULE_NAME, rule, {
         const App = ({ children }) => {
             return Children.map(children, (child) => <Row key="fixed">{child}</Row>)
         };
+      `,
+    },
+    {
+      name: "duplicate keys in Children.toArray",
+      // Children.toArray prefixes keys per child, so duplicates are re-keyed
+      code: tsx`
+        import { Children } from "react";
+        Children.toArray([<div key="a" />, <div key="a" />]);
+      `,
+    },
+    {
+      name: "fixed key in a map inside Children.toArray",
+      code: tsx`
+        import { Children } from "react";
+        Children.toArray(items.map((item) => <Row key="fixed" />));
+      `,
+    },
+    {
+      name: "duplicate keys in an array returned from Children.map",
+      code: tsx`
+        import { Children } from "react";
+        Children.map(children, (child) => [<div key="a" />, <div key="a" />]);
+      `,
+    },
+    {
+      name: "duplicate keys in nested Children calls",
+      code: tsx`
+        import { Children } from "react";
+        Children.toArray(Children.map(children, (child) => <div key="fixed" />));
       `,
     },
     {
