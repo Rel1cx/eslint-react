@@ -22,8 +22,6 @@ type Options = readonly [
   }?,
 ];
 
-type RuleOptions = NonNullable<Options[0]>;
-
 const schema: [JSONSchema4] = [
   {
     type: "object",
@@ -55,8 +53,8 @@ export default createRule<Options, MessageID>({
 });
 
 export function create(context: RuleContext<MessageID, Options>): RuleListener {
-  const options: RuleOptions = { ...(context.options[0] ?? {}) };
-  const safeDefaultProps = options.safeDefaultProps ??= [];
+  const options = context.options[0] ?? {};
+  const safeDefaultProps = options.safeDefaultProps ?? [];
 
   const { compilationMode } = getSettingsFromContext(context);
   if (compilationMode === "infer" || compilationMode === "all") return {};

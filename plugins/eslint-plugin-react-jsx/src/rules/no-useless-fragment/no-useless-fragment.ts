@@ -23,8 +23,6 @@ type Options = readonly [
   }?,
 ];
 
-type RuleOptions = NonNullable<Options[0]>;
-
 const schema: [JSONSchema4] = [{
   type: "object",
   additionalProperties: false,
@@ -58,9 +56,9 @@ export default createRule<Options, MessageID>({
 });
 
 export function create(context: RuleContext<MessageID, Options>): RuleListener {
-  const options: RuleOptions = { ...(context.options[0] ?? {}) };
-  const allowEmptyFragment = options.allowEmptyFragment ??= false;
-  const allowExpressions = options.allowExpressions ??= true;
+  const options = context.options[0] ?? {};
+  const allowEmptyFragment = options.allowEmptyFragment ?? false;
+  const allowExpressions = options.allowExpressions ?? true;
 
   const { jsxFragmentFactory } = core.getJSXConfig(context);
 

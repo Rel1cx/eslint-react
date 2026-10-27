@@ -39,8 +39,6 @@ type Options = readonly [
   }?,
 ];
 
-type RuleOptions = NonNullable<Options[0]>;
-
 // ------------------------------------------------------------------------------
 // Schema
 // ------------------------------------------------------------------------------
@@ -91,9 +89,9 @@ export default createRule<Options, MessageID>({
 });
 
 export function create(context: RuleContext<MessageID, Options>): RuleListener {
-  const options: RuleOptions = { ...(context.options[0] ?? {}) };
-  const ignore = options.ignore ??= [];
-  const requireDataLowercase = options.requireDataLowercase ??= false;
+  const options = context.options[0] ?? {};
+  const ignore = options.ignore ?? [];
+  const requireDataLowercase = options.requireDataLowercase ?? false;
 
   let attributeTagsMap: ReturnType<typeof getAttributeTagsMap> | null = null;
 

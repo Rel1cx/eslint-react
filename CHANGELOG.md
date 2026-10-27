@@ -1,5 +1,22 @@
 # Changelog
 
+## v5.30.0-beta.10 (2026-10-27)
+
+### 🏗️ Internal
+
+- Rules with options now read `context.options[0] ?? {}` directly and capture defaults with `??`. No behavior change.
+
+  Affected rules:
+  - `react-x/no-unstable-default-props`
+  - `react-x/use-state`
+  - `react-jsx/no-useless-fragment`
+  - `react-dom/no-unknown-property`
+  - `react-dom/no-unsafe-target-blank`
+
+- Bumped `preact` to `11.1.0`, `oxlint` to `1.90.0`, `postcss` to `8.5.32`, `lucide-react` to `1.62.0`, and `eslint-plugin-package-json` to `1.12.0`, plus related tooling.
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.30.0-beta.9...v5.30.0-beta.10
+
 ## v5.30.0-beta.9 (2026-10-27)
 
 ### 🏗️ Internal

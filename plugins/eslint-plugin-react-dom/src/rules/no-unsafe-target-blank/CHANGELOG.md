@@ -5,6 +5,12 @@ All notable changes to the `react-dom/no-unsafe-target-blank` rule will be docum
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [5.30.0-beta.10] - 2026-10-27
+
+### Changed
+
+- Options are now read directly from `context.options[0] ?? {}` and defaults are captured per property with `??`, replacing the spread copy and `??=` mutation; the `RuleOptions` alias was removed. No change to reported problems.
+
 ## [5.30.0-beta.9] - 2026-10-27
 
 ### Changed

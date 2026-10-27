@@ -30,8 +30,6 @@ type Options = readonly [
   }?,
 ];
 
-type RuleOptions = NonNullable<Options[0]>;
-
 const schema: [JSONSchema4] = [
   {
     type: "object",
@@ -74,10 +72,10 @@ export default createRule<Options, MessageID>({
 });
 
 export function create(context: RuleContext<MessageID, Options>): RuleListener {
-  const options: RuleOptions = { ...(context.options[0] ?? {}) };
-  const enforceAssignment = options.enforceAssignment ??= true;
-  const enforceLazyInitialization = options.enforceLazyInitialization ??= true;
-  const enforceSetterName = options.enforceSetterName ??= true;
+  const options = context.options[0] ?? {};
+  const enforceAssignment = options.enforceAssignment ?? true;
+  const enforceLazyInitialization = options.enforceLazyInitialization ?? true;
+  const enforceSetterName = options.enforceSetterName ?? true;
 
   const { additionalStateHooks } = getSettingsFromContext(context);
   return {
