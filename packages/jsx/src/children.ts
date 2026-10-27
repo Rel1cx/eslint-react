@@ -1,4 +1,5 @@
 import type { TSESTreeJSXElementLike } from "@eslint-react/ast";
+import { and, not, or } from "@local/eff";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import { collapseMultilineText } from "./text";
 
@@ -71,6 +72,11 @@ export function isEmptyStringExpression(node: TSESTree.Node | null | undefined):
   return node?.type === AST.JSXExpressionContainer && node.expression.type === AST.Literal && node.expression.value === "";
 }
 
+// A child that renders nothing: an empty expression container (`{}` or `{/* comment *\/}`) or an empty string literal (`{""}`).
+const isEmptyExpression = or(isEmptyExpressionContainer, isEmptyStringExpression);
+const isMeaningfulContent = and(not(isWhitespaceText), not(isEmptyExpression));
+const isNonPaddingContent = and(not(isPaddingWhitespace), not(isEmptyExpression));
+
 /**
  * Check if the child carries content for the "meaningful children" semantics.
  *
@@ -83,7 +89,7 @@ export function isEmptyStringExpression(node: TSESTree.Node | null | undefined):
  * @returns `true` if the child is not syntactically empty.
  */
 export function isMeaningfulChild(node: TSESTree.JSXChild): boolean {
-  return !isWhitespaceText(node) && !isEmptyExpressionContainer(node) && !isEmptyStringExpression(node);
+  return isMeaningfulContent(node);
 }
 
 /**
@@ -99,7 +105,7 @@ export function isMeaningfulChild(node: TSESTree.JSXChild): boolean {
  * @returns The children that remain after removing padding artifacts.
  */
 export function getChildren(element: TSESTreeJSXElementLike): TSESTree.JSXChild[] {
-  return element.children.filter((c) => !isPaddingWhitespace(c) && !isEmptyExpressionContainer(c) && !isEmptyStringExpression(c));
+  return element.children.filter(isNonPaddingContent);
 }
 
 /**
