@@ -2,6 +2,53 @@
 title: Changelog
 ---
 
+## v5.30.0-beta.7 (2026-10-27)
+
+### 🐞 Fixes
+
+- `react-x/no-duplicate-key`: duplicate keys are now tracked per key instead of per group, so a later unique key can no longer clear an earlier duplicate (ex: `[A, A, B]`); literal keys in `.map()` callbacks are no longer overwritten by later dynamic keys; braced, numeric, template-literal, and valueless keys are now compared and reported as duplicates. (#2088)
+- `react-x/no-duplicate-key`: fixed keys in `.flatMap()` and `Array.from()` callbacks are now reported, and elements inside `Children.toArray()` and `Children.map()` calls are no longer reported as duplicates, since React re-assigns the keys of their output. (#2088)
+- `react-x/no-duplicate-key`: the fast-path text check now matches bare `key` attributes and keys separated from `=` by whitespace (ex: `<div key />`, `<div key = {id} />`), so such elements are no longer silently skipped. (#2088)
+- `react-x/no-direct-mutation-state`: state assignments inside nested blocks of the constructor (`if`, loops, `try`, and bare blocks) are no longer reported. Assignments inside callbacks nested in the constructor are still reported. (#2088)
+- `react-x/no-missing-context-display-name`: the autofix now inserts the `displayName` assignment after the complete variable declaration, so multi-declarator declarations (ex: `const Foo = createContext(), Bar = 1;`) no longer produce invalid syntax when used with `--fix`. (#2088)
+- `react-x/no-missing-key`: iterator callbacks wrapped in TypeScript expressions (ex: `items.map((item => <Row />) as Callback)`) are now unwrapped before checking, so missing keys are still reported. (#2088)
+- `react-x/no-unused-class-component-members`: statically resolvable computed member reads (ex: `this["bar"]`, ``this[`bar`]``) and destructuring with static string keys are now counted as usages, so these members are no longer reported as unused. (#2088)
+
+### 🪄 Improvements
+
+- Added fast-path text checks so rules skip AST traversal when their target term is absent from the file. (#2088)
+
+  Affected rules:
+  - `react-x/no-children-count`
+  - `react-x/no-children-for-each`
+  - `react-x/no-children-map`
+  - `react-x/no-children-only`
+  - `react-x/no-children-to-array`
+  - `react-x/no-clone-element`
+  - `react-x/no-direct-mutation-state`
+  - `react-x/no-implicit-children`
+  - `react-x/no-implicit-key`
+  - `react-x/no-implicit-ref`
+  - `react-x/no-nested-lazy-component-declarations`
+  - `react-x/no-unused-class-component-members`
+
+### 🏗️ Internal
+
+- `eslint-plugin-react-x`: added a shared `getIteratorCallback` helper (with `KNOWN_CALLBACK_POSITIONS`) in `src/utils/jsx-iterator.ts`, now used by `react-x/no-missing-key` and `react-x/no-duplicate-key`; the rule-local copy in `no-missing-key/lib.ts` was removed. (#2088)
+- `@eslint-react/eslint`: added a `complete` helper that merges user-supplied rule options with defaults; rules now resolve options with it, schemas are declared as type-annotated constants, and defaults are kept in `meta.defaultOptions`; no behavior change. (#2088)
+
+  Affected rules:
+  - `react-dom/no-unknown-property`
+  - `react-dom/no-unsafe-target-blank`
+  - `react-jsx/no-useless-fragment`
+  - `react-x/no-unstable-default-props`
+  - `react-x/use-state`
+
+- `react-x/no-unused-class-component-members`: member definitions and usages are now tracked by static name, and public-method tracking moved to per-class name sets; no behavior change beyond the fix above. (#2088)
+- Updated the internal rule implementation pattern docs (precheck-term selection and options/schema conventions) and cleaned up stale visitor comments and JSDoc across rule implementations. (#2088)
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.30.0-beta.6...v5.30.0-beta.7
+
 ## v5.30.0-beta.6 (2026-10-27)
 
 ### 🐞 Fixes

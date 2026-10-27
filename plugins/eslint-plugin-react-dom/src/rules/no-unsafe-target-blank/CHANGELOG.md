@@ -5,18 +5,24 @@ All notable changes to the `react-dom/no-unsafe-target-blank` rule will be docum
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+## [5.30.0-beta.7] - 2026-10-27
 
 ### Changed
 
-- The suggested fix now adds `rel="noreferrer"` instead of `rel="noreferrer noopener"`, since `noreferrer` already implies `noopener` per the HTML spec. Values combining both tokens remain valid. Closes #2067.
-- The suggestion for a missing `rel` attribute now inserts it after the last JSX attribute, so a spread attribute cannot override the suggested value.
+- Rule options and schema now follow the standard tuple/`defaultOptions` pattern, with options resolved via the shared `complete` helper (`complete(context.options[0], defaultOptions[0])`), and `defaultOptions` is no longer exported. No behavior change.
 
 ## [5.30.0-beta.6] - 2026-10-27
 
 ### Changed
 
 - Spread props are no longer statically resolved, so `target`, `href`, and `rel` provided through spread attributes are ignored; only direct attributes are checked. Direct `rel` values are read through `getAttributeValueByName` and `getAttributeStaticValue`.
+- The suggestion for a missing `rel` attribute now inserts it after the last JSX attribute, so a spread attribute cannot override the suggested value.
+
+## [5.28.5] - 2026-10-22
+
+### Changed
+
+- The suggested fix now adds `rel="noreferrer"` instead of `rel="noreferrer noopener"`, since `noreferrer` already implies `noopener` per the HTML spec. Values combining both tokens remain valid. Closes #2067.
 
 ## [5.25.0] - 2026-10-11
 

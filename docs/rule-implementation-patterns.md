@@ -63,7 +63,7 @@ Conventions:
 
 ## Options
 
-An `Options` tuple type, a module-level `defaultOptions` referenced from `meta.defaultOptions`, a schema declared as a type-annotated constant (`const schema: [JSONSchema4] = [...]`) and referenced from `meta.schema`, and resolution at the top of `create` as `context.options[0] ?? defaultOptions[0]`. Type the first tuple element as `| undefined` so the `??` fallback is type-safe when options are absent. Keep the schema initializer a plain array; wrapping it in `as const satisfies` hides it from `eslint-plugin-eslint-plugin`'s schema checks. Put defaults in `meta.defaultOptions`, not in schema properties. A non-empty schema requires `meta.defaultOptions`; rules without options omit both. Any non-empty `schema`/`defaultOptions` earns the `CFG` feature (see [`rule-feature-system.md`](./rule-feature-system.md)).
+An `Options` tuple type, a module-level `defaultOptions` referenced from `meta.defaultOptions`, a schema declared as a type-annotated constant (`const schema: [JSONSchema4] = [...]`) and referenced from `meta.schema`, and resolution at the top of `create` with the `complete` helper from `@eslint-react/eslint`: `complete(context.options[0], defaultOptions[0])`. Type the first tuple element as `| undefined` so the options type is correct when options are absent. Keep the schema initializer a plain array; wrapping it in `as const satisfies` hides it from `eslint-plugin-eslint-plugin`'s schema checks. Put defaults in `meta.defaultOptions`, not in schema properties. A non-empty schema requires `meta.defaultOptions`; rules without options omit both. Any non-empty `schema`/`defaultOptions` earns the `CFG` feature (see [`rule-feature-system.md`](./rule-feature-system.md)).
 
 ## Reporting
 

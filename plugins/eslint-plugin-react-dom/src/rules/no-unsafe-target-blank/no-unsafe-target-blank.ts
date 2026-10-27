@@ -1,6 +1,6 @@
 import { createJSXElementResolver } from "@/utils/create-jsx-element-resolver";
 import { createRule } from "@/utils/create-rule";
-import { type ReportFixFunction, type RuleContext, type RuleFeature, type RuleListener } from "@eslint-react/eslint";
+import { type ReportFixFunction, type RuleContext, type RuleFeature, type RuleListener, complete } from "@eslint-react/eslint";
 import { getAttributeStaticValue, getAttributeStaticValueByName, getAttributeValueByName } from "@eslint-react/jsx";
 import type { JSONSchema4 } from "@typescript-eslint/utils/json-schema";
 import type { ReportDescriptor } from "@typescript-eslint/utils/ts-eslint";
@@ -63,7 +63,7 @@ export default createRule<Options, MessageID>({
 });
 
 export function create(context: RuleContext<MessageID, Options>): RuleListener {
-  const { allowReferrer = defaultOptions[0].allowReferrer } = context.options[0] ?? defaultOptions[0];
+  const { allowReferrer } = complete(context.options[0], defaultOptions[0]);
   const resolver = createJSXElementResolver(context);
 
   const requiredRelValue = allowReferrer ? "noopener" : "noreferrer";

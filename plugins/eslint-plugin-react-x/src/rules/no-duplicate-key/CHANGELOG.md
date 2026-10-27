@@ -5,7 +5,7 @@ All notable changes to the `react-x/no-duplicate-key` rule will be documented in
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+## [5.30.0-beta.7] - 2026-10-27
 
 ### Fixed
 
@@ -14,6 +14,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Braced, numeric, template-literal, and valueless keys are now compared and reported as duplicates.
 - Fixed keys in `.flatMap()` and `Array.from()` callbacks are now reported, sharing iterator callback detection with `no-missing-key`.
 - Elements inside `Children.toArray()` and `Children.map()` calls are no longer reported as duplicates, since React re-assigns the keys of their output.
+- The fast-path text check now matches bare `key` attributes and keys separated from `=` by whitespace (ex: `<div key />`, `<div key = {id} />`), so such elements are no longer silently skipped.
 
 ## [5.14.9] - 2026-07-15
 

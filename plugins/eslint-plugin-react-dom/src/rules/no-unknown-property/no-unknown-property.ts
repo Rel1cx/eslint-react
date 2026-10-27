@@ -1,6 +1,6 @@
 // Ported from https://github.com/jsx-eslint/eslint-plugin-react/blob/master/lib/rules/no-unknown-property.js
 import { createRule } from "@/utils/create-rule";
-import { type RuleContext, type RuleFeature, type RuleListener, getText } from "@eslint-react/eslint";
+import { type RuleContext, type RuleFeature, type RuleListener, complete, getText } from "@eslint-react/eslint";
 import type { JSONSchema4 } from "@typescript-eslint/utils/json-schema";
 import {
   getAttributeTagsMap,
@@ -101,10 +101,7 @@ export default createRule<Options, MessageID>({
 });
 
 export function create(context: RuleContext<MessageID, Options>): RuleListener {
-  const {
-    ignore = defaultOptions[0].ignore,
-    requireDataLowercase = defaultOptions[0].requireDataLowercase,
-  } = context.options[0] ?? defaultOptions[0];
+  const { ignore, requireDataLowercase } = complete(context.options[0], defaultOptions[0]);
   let attributeTagsMap: ReturnType<typeof getAttributeTagsMap> | null = null;
 
   return {

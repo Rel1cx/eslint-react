@@ -5,6 +5,12 @@ All notable changes to the `react-x/no-unstable-default-props` rule will be docu
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [5.30.0-beta.7] - 2026-10-27
+
+### Changed
+
+- Options are now resolved with `complete(context.options[0], defaultOptions[0])`, the schema is declared as a type-annotated constant, and the `safeDefaultProps` schema property gained a description. No behavior change.
+
 ## [5.30.0-beta.5] - 2026-10-27
 
 ### Changed

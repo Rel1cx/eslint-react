@@ -2,7 +2,7 @@
 import { createRule } from "@/utils/create-rule";
 import { Check, Collect, Traverse } from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
-import { type RuleContext, type RuleFeature, type RuleListener } from "@eslint-react/eslint";
+import { type RuleContext, type RuleFeature, type RuleListener, complete } from "@eslint-react/eslint";
 import { getSettingsFromContext } from "@eslint-react/shared";
 import { resolveEnclosingAssignmentTarget } from "@eslint-react/var";
 import { hasProperty } from "@local/eff";
@@ -81,12 +81,11 @@ export default createRule<Options, MessageID>({
 });
 
 export function create(context: RuleContext<MessageID, Options>): RuleListener {
-  const options = context.options[0] ?? defaultOptions[0];
   const {
-    enforceAssignment = defaultOptions[0].enforceAssignment,
-    enforceLazyInitialization = defaultOptions[0].enforceLazyInitialization,
-    enforceSetterName = defaultOptions[0].enforceSetterName,
-  } = options;
+    enforceAssignment,
+    enforceLazyInitialization,
+    enforceSetterName,
+  } = complete(context.options[0], defaultOptions[0]);
   const { additionalStateHooks } = getSettingsFromContext(context);
   return {
     CallExpression(node: TSESTree.CallExpression) {

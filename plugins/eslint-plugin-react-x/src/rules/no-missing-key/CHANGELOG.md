@@ -5,11 +5,15 @@ All notable changes to the `react-x/no-missing-key` rule will be documented in t
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+## [5.30.0-beta.7] - 2026-10-27
 
 ### Fixed
 
 - Iterator callbacks wrapped in TypeScript expressions (ex: `items.map((item => <Row />) as Callback)`) are now unwrapped before checking, so missing keys are still reported.
+
+### Changed
+
+- Iterator callback detection now uses the shared `getIteratorCallback` helper from `src/utils/jsx-iterator.ts`; the rule-local `lib.ts` helper was removed.
 
 ## [5.30.0-beta.6] - 2026-10-27
 

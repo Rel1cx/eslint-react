@@ -1,6 +1,8 @@
 import type { TSESTree } from "@typescript-eslint/types";
+import type { ParserServicesWithTypeInformation } from "@typescript-eslint/utils";
 import * as ESLintUtils from "@typescript-eslint/utils/eslint-utils";
 import type { ReportDescriptor, RuleListener } from "@typescript-eslint/utils/ts-eslint";
+import type ts from "typescript";
 import type { RuleContext } from "./types";
 
 function getDocsUrl(ruleName: string) {
@@ -9,6 +11,24 @@ function getDocsUrl(ruleName: string) {
 
 /** The rule creator that generates documentation URLs for ESLint React rules. */
 export const createRule = ESLintUtils.RuleCreator(getDocsUrl);
+
+/**
+ * Merge the rule options supplied by the user with the rule's default options.
+ *
+ * Properties whose value is `null` or `undefined` keep the default value.
+ *
+ * @param options The rule options supplied by the user.
+ * @param defaults The rule's default options.
+ * @returns The merged rule options.
+ */
+export function complete<O extends object, D extends NoInfer<O>>(options: Partial<O> | null | undefined, defaults: D): O & Omit<D, keyof O> {
+  const result: O & Omit<D, keyof O> = { ...defaults };
+  for (const key in options) {
+    const value = options[key];
+    if (value != null) Reflect.set(result, key, value);
+  }
+  return result;
+}
 
 /**
  * Gets the source text of the given node or token.
@@ -35,6 +55,29 @@ export function report(context: RuleContext) {
     if (desc == null) return;
     context.report(desc);
   };
+}
+
+/**
+ * Resolves the given node's type. Will return the type's generic constraint, if it has one.
+ *
+ * Warning - if the type is generic and does _not_ have a constraint, the type will be
+ * returned as-is, rather than returning an `unknown` type. This can be checked
+ * for by checking for the type flag ts.TypeFlags.TypeParameter.
+ *
+ * Adapted from `getConstrainedTypeAtLocation` in `@typescript-eslint/type-utils`
+ * (MIT License, Copyright (c) 2019 typescript-eslint and other contributors,
+ * https://github.com/typescript-eslint/typescript-eslint) so that consumers don't
+ * need to load `@typescript-eslint/type-utils`, whose entry point eagerly loads
+ * the `eslint` package.
+ * @see https://github.com/typescript-eslint/typescript-eslint/issues/10438
+ */
+export function getConstrainedTypeAtLocation(services: ParserServicesWithTypeInformation, node: TSESTree.Node): ts.Type {
+  const nodeType = services.getTypeAtLocation(node);
+  const constrained = services.program
+    .getTypeChecker()
+    .getBaseConstraintOfType(nodeType);
+
+  return constrained ?? nodeType;
 }
 
 /**

@@ -5,11 +5,16 @@ All notable changes to the `react-x/no-unused-class-component-members` rule will
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+## [5.30.0-beta.7] - 2026-10-27
 
 ### Fixed
 
 - Statically resolvable computed member reads (ex: `this["bar"]`, ``this[`bar`]``) and destructuring with static string keys are now counted as usages, so these members are no longer reported as unused.
+
+### Changed
+
+- Member definitions and usages are now tracked by static name, and public-method tracking moved to per-class name sets. No behavior change beyond the fix above.
+- Added a fast-path text check that skips the rule when `Component` does not appear in the file. No behavior change.
 
 ## [5.26.2] - 2026-10-12
 

@@ -5,7 +5,11 @@ All notable changes to the `react-jsx/no-useless-fragment` rule will be document
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+## [5.30.0-beta.7] - 2026-10-27
+
+### Changed
+
+- Options are now resolved with the shared `complete` helper from `@eslint-react/eslint` (`complete(context.options[0], defaultOptions[0])`). No behavior change.
 
 ## [5.30.0-beta.6] - 2026-10-27
 

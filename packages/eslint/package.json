@@ -1,6 +1,6 @@
 {
   "name": "@eslint-react/eslint",
-  "version": "5.30.0-beta.6",
+  "version": "5.30.0-beta.7",
   "description": "ESLint React's ESLint types and utils.",
   "homepage": "https://github.com/Rel1cx/eslint-react",
   "bugs": {
@@ -45,7 +45,8 @@
     "@types/node": "^20.19.43",
     "eslint": "^10.13.0",
     "tsdown": "^0.23.2",
-    "typescript": "6.0.3"
+    "typescript": "6.0.3",
+    "vitest": "^5.0.5"
   },
   "peerDependencies": {
     "eslint": "*",

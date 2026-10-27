@@ -5,11 +5,15 @@ All notable changes to the `react-x/no-direct-mutation-state` rule will be docum
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+## [5.30.0-beta.7] - 2026-10-27
 
 ### Fixed
 
 - State assignments inside nested blocks of the constructor (`if`, loops, `try`, and bare blocks) are no longer reported. Assignments inside callbacks nested in the constructor are still reported.
+
+### Changed
+
+- Added a fast-path text check that skips the rule when `Component` does not appear in the file. No behavior change.
 
 ## [5.8.9] - 2026-06-01
 

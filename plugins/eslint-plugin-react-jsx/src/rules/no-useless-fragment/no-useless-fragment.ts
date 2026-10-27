@@ -1,7 +1,7 @@
 import { createRule } from "@/utils/create-rule";
 import { Check, type TSESTreeJSXElementLike } from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
-import { type RuleContext, type RuleFeature, type RuleListener, getText } from "@eslint-react/eslint";
+import { type RuleContext, type RuleFeature, type RuleListener, complete, getText } from "@eslint-react/eslint";
 import { collapseMultilineText, getChildren, hasAnyAttribute, isFragmentElement, isHostElement, isWhitespaceText } from "@eslint-react/jsx";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import type { JSONSchema4 } from "@typescript-eslint/utils/json-schema";
@@ -64,11 +64,7 @@ export default createRule<Options, MessageID>({
 });
 
 export function create(context: RuleContext<MessageID, Options>): RuleListener {
-  const option = context.options[0] ?? defaultOptions[0];
-  const options: ResolvedOptions = {
-    allowEmptyFragment: option.allowEmptyFragment ?? defaultOptions[0].allowEmptyFragment,
-    allowExpressions: option.allowExpressions ?? defaultOptions[0].allowExpressions,
-  };
+  const options = complete(context.options[0], defaultOptions[0]);
   const { jsxFragmentFactory } = core.getJSXConfig(context);
 
   return {

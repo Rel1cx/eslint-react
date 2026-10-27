@@ -1,7 +1,7 @@
 import { createRule } from "@/utils/create-rule";
 import { Check, Extract, type TSESTreeFunction, Traverse } from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
-import { type RuleContext, type RuleFeature, type RuleListener, merge } from "@eslint-react/eslint";
+import { type RuleContext, type RuleFeature, type RuleListener, complete, merge } from "@eslint-react/eslint";
 import { getSettingsFromContext, toRegExp } from "@eslint-react/shared";
 import { resolveObjectType } from "@eslint-react/var";
 import { getOrInsertComputed } from "@local/eff";
@@ -60,14 +60,13 @@ export default createRule<Options, MessageID>({
 });
 
 export function create(context: RuleContext<MessageID, Options>): RuleListener {
-  const options = context.options[0] ?? defaultOptions[0];
+  const { safeDefaultProps } = complete(context.options[0], defaultOptions[0]);
   const { compilationMode } = getSettingsFromContext(context);
   if (compilationMode === "infer" || compilationMode === "all") return {};
   if (compilationMode === "annotation" && context.sourceCode.ast.body.some((stmt) => Check.isDirective(stmt, "use memo"))) return {};
   const { api, visitor } = core.getFunctionComponentCollector(context);
 
   const declarators = new WeakMap<TSESTreeFunction, ObjectDestructuringVariableDeclarator[]>();
-  const { safeDefaultProps = defaultOptions[0].safeDefaultProps } = options;
   const safePatterns = safeDefaultProps.map((s) => toRegExp(s));
 
   return merge(visitor, {
