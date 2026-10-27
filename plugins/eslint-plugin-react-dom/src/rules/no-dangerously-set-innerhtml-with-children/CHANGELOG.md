@@ -9,11 +9,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
-- Empty expression containers (`{}` and comment-only containers) are no longer treated as children when an element also uses `dangerouslySetInnerHTML`. The JSX transform omits them, so React does not see a conflict. Same-line whitespace and empty string expressions still count. This aligns the rule with `react-jsx/no-children-prop-with-children`.
+- Empty expression containers (`{}` and comments) no longer count as children alongside `dangerouslySetInnerHTML`, since the JSX transform omits them. Same-line whitespace and empty strings still count; this matches `react-jsx/no-children-prop-with-children` only for empty containers.
 
 ### Changed
 
-- Spread props are no longer statically resolved, so `dangerouslySetInnerHTML` and `children` provided through a spread attribute are ignored; only direct attributes and nested child nodes are checked.
+- Spread props are no longer resolved: `dangerouslySetInnerHTML` and `children` must be direct attributes; nested child nodes still count.
 
 ## [5.10.2] - 2026-07-03
 

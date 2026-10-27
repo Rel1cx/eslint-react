@@ -9,11 +9,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
-- Comment-only/empty expression containers and newline-only formatting whitespace are no longer reported as children of void elements. The JSX transform omits them, so React's `assertValidProps` does not see them. Empty string expressions and same-line whitespace still count.
+- Comment-only/empty containers and newline-only formatting whitespace no longer count as children of void elements, since the JSX transform omits them and React's `assertValidProps` does not see them. Empty strings and same-line whitespace still count.
 
 ### Changed
 
-- Child detection now uses `isPaddingWhitespace` and `isEmptyExpressionContainer` from `@eslint-react/jsx`. Spread props are no longer statically resolved, so `children` and `dangerouslySetInnerHTML` provided through spread attributes are ignored; only direct attributes and child nodes are checked.
+- Child detection uses the shared `isChildContent` helper; no additional behavior change.
+- Spread props are no longer resolved: `children` and `dangerouslySetInnerHTML` must be direct attributes; child nodes still count.
 
 ## [5.20.2] - 2026-09-20
 

@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- The non-substantive-child check now composes the exported `isWhitespaceText`, `isEmptyExpressionContainer`, and `isEmptyStringExpression` predicates instead of combining them locally; no behavior change.
+- Child checks now use the exported `isMeaningfulChild` predicate, and isolated-dollar detection scans each element's children once; no behavior change.
 
 ## [5.17.0] - 2026-07-17
 
