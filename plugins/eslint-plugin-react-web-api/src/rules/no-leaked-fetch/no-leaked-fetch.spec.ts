@@ -674,6 +674,46 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
     },
+    // An imported `fetch` (ex: a polyfill) is still treated as `fetch`
+    {
+      code: tsx`
+        import fetch from "cross-fetch";
+        import { useEffect } from "react";
+
+        function Example() {
+          useEffect(() => {
+            fetch("/api/user");
+          }, []);
+        }
+      `,
+      errors: [
+        {
+          messageId: "expected-abort-controller",
+        },
+      ],
+    },
+    // A local `fetch` declared in another scope does not hide the global one
+    {
+      code: tsx`
+        import { useEffect } from "react";
+
+        function helper() {
+          function fetch() {}
+          return fetch;
+        }
+
+        function Example() {
+          useEffect(() => {
+            fetch("/api/user");
+          }, []);
+        }
+      `,
+      errors: [
+        {
+          messageId: "expected-abort-controller",
+        },
+      ],
+    },
   ],
   valid: [
     // Basic valid cases
@@ -1343,6 +1383,75 @@ ruleTester.run(RULE_NAME, rule, {
 
         useEffect(() => {
           return () => ctrl.abort();
+        }, []);
+      }
+    `,
+    // A local function named `fetch` is not the global `fetch`
+    tsx`
+      import { useEffect } from "react";
+
+      function Component() {
+        function fetch() {}
+
+        useEffect(() => {
+          fetch();
+        }, []);
+
+        return <div />;
+      }
+    `,
+    tsx`
+      import { useEffect } from "react";
+
+      function Component() {
+        const fetch = (url: string) => url;
+
+        useEffect(() => {
+          fetch("/api/user");
+        }, []);
+      }
+    `,
+    tsx`
+      import { useEffect } from "react";
+
+      function Component({ fetch }: { fetch: (url: string) => void }) {
+        useEffect(() => {
+          fetch("/api/user");
+        }, [fetch]);
+      }
+    `,
+    // A method named `fetch` on an unrelated object is not the global `fetch`
+    tsx`
+      import { useEffect } from "react";
+
+      function Component() {
+        const api = { fetch: (url: string) => url };
+
+        useEffect(() => {
+          api.fetch("/api/user");
+        }, []);
+
+        return <div />;
+      }
+    `,
+    tsx`
+      import { useEffect } from "react";
+
+      function Component({ client }: { client: { fetch: (url: string) => void } }) {
+        useEffect(() => {
+          client.fetch("/api/user");
+        }, [client]);
+      }
+    `,
+    // A local variable named like a global object does not refer to the global `fetch`
+    tsx`
+      import { useEffect } from "react";
+
+      function Component() {
+        const window = { fetch: (url: string) => url };
+
+        useEffect(() => {
+          window.fetch("/api/user");
         }, []);
       }
     `,

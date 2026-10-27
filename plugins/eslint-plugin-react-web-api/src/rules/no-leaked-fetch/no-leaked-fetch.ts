@@ -5,6 +5,7 @@ import { type RuleContext, type RuleFeature, type RuleListener } from "@eslint-r
 import { isAssignmentTargetEqual, resolveOrigin } from "@eslint-react/var";
 import { or } from "@local/eff";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
+import { findVariable } from "@typescript-eslint/utils/ast-utils";
 import { P, isMatching, match } from "ts-pattern";
 import { resolveToObjectExpression } from "./lib";
 
@@ -41,9 +42,39 @@ type AbortEntry = {
 
 const isUseEffectCallback = or(isUseEffectSetupCallback, isUseEffectCleanupCallback);
 
-function getCallKind(node: TSESTree.CallExpression): CallKind {
+// Objects whose `fetch` property is the global `fetch` (ex: `window.fetch("/api")`)
+const GLOBAL_OBJECT_NAMES = ["globalThis", "self", "window"] as const;
+
+// Whether the identifier is declared in the file (ex: a function declaration, variable, or
+// parameter), as opposed to a global (ex: `fetch`, `window`) or an import (ex: a `fetch` polyfill)
+function isLocallyDeclared(context: RuleContext, node: TSESTree.Identifier) {
+  const variable = findVariable(context.sourceCode.getScope(node), node);
+  return variable?.defs.some((def) => def.parent?.type !== AST.ImportDeclaration) ?? false;
+}
+
+// Whether the call is a real `fetch`: called directly (ex: `fetch()`) or through a global object
+// (ex: `window.fetch()`). A local function named `fetch` and a method on an unrelated object
+// (ex: `api.fetch()`) are not
+function isFetchCall(context: RuleContext, node: TSESTree.CallExpression) {
+  const callee = Extract.unwrap(node.callee);
+  if (Check.isIdentifier(callee)) {
+    return !isLocallyDeclared(context, callee);
+  }
+  if (callee.type !== AST.MemberExpression) {
+    return false;
+  }
+  const object = Extract.unwrap(callee.object);
+  return Check.isIdentifier(object)
+    && isMatching(P.union(...GLOBAL_OBJECT_NAMES))(object.name)
+    && !isLocallyDeclared(context, object);
+}
+
+function getCallKind(context: RuleContext, node: TSESTree.CallExpression): CallKind {
   const name = Extract.getCalleeName(node);
-  if (name != null && isMatching(P.union("fetch", "abort"))(name)) {
+  if (name === "fetch") {
+    return isFetchCall(context, node) ? "fetch" : "other";
+  }
+  if (name === "abort") {
     return name;
   }
   return "other";
@@ -139,7 +170,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   const abortEntries: AbortEntry[] = [];
   return {
     ["CallExpression"](node) {
-      match(getCallKind(node))
+      match(getCallKind(context, node))
         .with("fetch", () => {
           // Only consider the innermost function: a `fetch` inside a nested non-effect function
           // (e.g. an event handler) is not managed by the effect's lifecycle
