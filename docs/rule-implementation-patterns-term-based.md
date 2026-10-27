@@ -48,7 +48,7 @@ Used by: `react-x/set-state-in-effect`, `react-web-api/no-leaked-fetch` (second 
 if (!context.sourceCode.text.includes("$")) return {}; // no-leaked-dollar
 if (!context.sourceCode.text.includes("&&")) return {}; // no-leaked-conditional-rendering
 if (!context.sourceCode.text.includes("try")) return {}; // error-boundaries
-if (!context.sourceCode.text.includes("key=")) return {}; // no-duplicate-key
+if (!/\bkey\b/u.test(context.sourceCode.text)) return {}; // no-duplicate-key
 if (!/key\s*=/.test(context.sourceCode.text)) return {}; // no-key-after-spread
 ```
 
@@ -109,7 +109,7 @@ A precheck can also front a collector + `Program:exit` pipeline — see `no-clas
 | `no-component-will-update`                   | `react-x`                 | `includes("componentWillUpdate")`                    | —                           | Collector + `Program:exit`               |
 | `no-context-provider`                        | `react-x`                 | `includes("Provider")`                               | `>= 19.0.0`                 | `JSXElement` immediate                   |
 | `no-create-ref`                              | `react-x`                 | `includes("createRef")`                              | —                           | Dual collector + `Program:exit`          |
-| `no-duplicate-key`                           | `react-x`                 | `includes("key=")`                                   | —                           | Ad-hoc collect + `Program:exit`          |
+| `no-duplicate-key`                           | `react-x`                 | `/\bkey\b/`                                          | —                           | Ad-hoc collect + `Program:exit`          |
 | `no-forward-ref`                             | `react-x`                 | `includes("forwardRef")`                             | `>= 19.0.0`                 | `CallExpression` immediate               |
 | `no-implicit-children`                       | `react-x`                 | `includes("...")`                                    | —                           | Shared listener + type-aware             |
 | `no-implicit-key`                            | `react-x`                 | `includes("...")`                                    | —                           | Shared listener + type-aware             |

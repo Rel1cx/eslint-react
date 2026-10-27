@@ -27,8 +27,9 @@ export default createRule<[], MessageID>({
 });
 
 export function create(context: RuleContext<MessageID, []>): RuleListener {
-  // Fast path: skip if `key=` is not present in the file
-  if (!context.sourceCode.text.includes("key=")) return {};
+  // Fast path: skip files with no JSX `key` attribute. Word boundaries also
+  // match bare keys (`key`) and keys separated from `=` by whitespace.
+  if (!/\bkey\b/u.test(context.sourceCode.text)) return {};
   // Key attributes that have at least one equal sibling, or are literal keys
   // inside a `.map()` callback where they repeat on every iteration
   const duplicateKeys = new Set<TSESTree.JSXAttribute>();
@@ -36,18 +37,49 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   const siblingKeys = new Map<TSESTree.Node, TSESTree.JSXAttribute[]>();
 
   /**
+   * Gets the node that represents a key attribute's value, unwrapping
+   * `JSXExpressionContainer`. A valueless key (`key`) is represented by `null`.
+   * @param node The key attribute to inspect.
+   * @returns The value node, or `null` for a valueless key.
+   */
+  function getKeyValue(node: TSESTree.JSXAttribute): TSESTree.Node | null {
+    const { value } = node;
+    if (value == null) return null;
+    return value.type === AST.JSXExpressionContainer
+      ? Extract.unwrap(value.expression)
+      : value;
+  }
+
+  /**
    * Checks whether two `key` attributes have structurally equal values.
    * @param a The first key attribute.
    * @param b The second key attribute.
-   * @returns `true` if both values are present and AST-equal, `false` otherwise.
+   * @returns `true` if both keys are valueless or their values are AST-equal.
    */
   function isKeyValueEqual(a: TSESTree.JSXAttribute, b: TSESTree.JSXAttribute): boolean {
-    const aValue = a.value;
-    const bValue = b.value;
+    const aValue = getKeyValue(a);
+    const bValue = getKeyValue(b);
     if (aValue == null || bValue == null) {
-      return false;
+      return aValue === bValue;
     }
     return Compare.isEqual(aValue, bValue);
+  }
+
+  /**
+   * Checks whether a key attribute has a statically fixed value. Dynamic keys
+   * (identifiers, member/call expressions, template literals with expressions)
+   * change per iteration and are not considered static.
+   * @param node The key attribute to inspect.
+   * @returns `true` if the key is a string/number literal, a template literal
+   * without expressions, or a valueless key.
+   */
+  function isStaticKey(node: TSESTree.JSXAttribute): boolean {
+    const value = getKeyValue(node);
+    if (value == null) return true;
+    if (value.type === AST.Literal) {
+      return typeof value.value === "string" || typeof value.value === "number";
+    }
+    return value.type === AST.TemplateLiteral && value.expressions.length === 0;
   }
   return {
     "JSXAttribute[name.name='key']"(node: TSESTree.JSXAttribute) {
@@ -90,9 +122,10 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
           if (Extract.unwrap(arg0) !== iter) {
             return;
           }
-          // Flag literal keys in .map() calls as they are a common source of duplication.
-          // Dynamic keys are not recorded, so they cannot overwrite a literal one.
-          if (node.value?.type === AST.Literal) {
+          // Flag statically fixed keys in .map() calls as they repeat on every
+          // iteration. Dynamic keys are not recorded, so they cannot overwrite
+          // a static one.
+          if (isStaticKey(node)) {
             duplicateKeys.add(node);
           }
         }

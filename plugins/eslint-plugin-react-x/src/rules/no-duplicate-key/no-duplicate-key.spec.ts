@@ -90,6 +90,54 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
+      name: "braced and unbraced duplicate keys in array literal",
+      code: tsx`
+        const App = () => {
+            return [<div key="a">1</div>, <div key={"a"}>2</div>]
+        };
+      `,
+      errors: [
+        { messageId: "default" },
+        { messageId: "default" },
+      ],
+    },
+    {
+      name: "numeric duplicate keys in array literal",
+      code: tsx`
+        const App = () => {
+            return [<div key={1}>1</div>, <div key={1}>2</div>]
+        };
+      `,
+      errors: [
+        { messageId: "default" },
+        { messageId: "default" },
+      ],
+    },
+    {
+      name: "template literal duplicate keys in array literal",
+      code: tsx`
+        const App = () => {
+            return [<div key={\`a\`}>1</div>, <div key={\`a\`}>2</div>]
+        };
+      `,
+      errors: [
+        { messageId: "default" },
+        { messageId: "default" },
+      ],
+    },
+    {
+      name: "valueless duplicate keys in array literal",
+      code: tsx`
+        const App = () => {
+            return [<div key>1</div>, <div key>2</div>]
+        };
+      `,
+      errors: [
+        { messageId: "default" },
+        { messageId: "default" },
+      ],
+    },
+    {
       name: "duplicate keys in JSX children",
       code: tsx`
         const App = () => {
@@ -206,6 +254,28 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
+      name: "braced literal key in a map callback",
+      code: tsx`
+        const App = () => {
+          return items.map((item) => <Row key={"fixed"} />)
+        };
+      `,
+      errors: [
+        { messageId: "default" },
+      ],
+    },
+    {
+      name: "static template key in a map callback",
+      code: tsx`
+        const App = () => {
+          return items.map((item) => <Row key={\`fixed\`} />)
+        };
+      `,
+      errors: [
+        { messageId: "default" },
+      ],
+    },
+    {
       name: "duplicate keys with non-map call between maps",
       code: tsx`
         const App = () => {
@@ -272,6 +342,14 @@ ruleTester.run(RULE_NAME, rule, {
     },
   ],
   valid: [
+    {
+      name: "dynamic template key in a map callback",
+      code: tsx`
+        const App = () => {
+          return items.map((item) => <Row key={\`item-\${item.id}\`} />)
+        };
+      `,
+    },
     {
       name: "key derived from item in map callback",
       code: tsx`

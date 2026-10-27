@@ -64,8 +64,22 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
             fix(fixer) {
               // Only insert when the context is bound directly to the call result
               if (id.type !== AST.Identifier || id.parent !== call.parent) return [];
+              const declaration = id.parent.parent;
+              if (declaration == null || declaration.type !== AST.VariableDeclaration) return [];
+              switch (declaration.parent.type) {
+                case AST.BlockStatement:
+                case AST.Program:
+                case AST.StaticBlock:
+                case AST.SwitchCase:
+                case AST.TSModuleBlock:
+                  break;
+                default:
+                  return [];
+              }
+              const lastToken = context.sourceCode.getLastToken(declaration);
+              if (lastToken == null) return [];
               return fixer.insertTextAfter(
-                context.sourceCode.getTokenAfter(call) ?? call,
+                lastToken,
                 [
                   "\n",
                   id.name,
