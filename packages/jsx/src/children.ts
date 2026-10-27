@@ -99,11 +99,7 @@ export function isMeaningfulChild(node: TSESTree.JSXChild): boolean {
  * @returns The children that remain after removing padding artifacts.
  */
 export function getChildren(element: TSESTreeJSXElementLike): TSESTree.JSXChild[] {
-  return element.children.filter((child) =>
-    !isPaddingWhitespace(child)
-    && !isEmptyExpressionContainer(child)
-    && !isEmptyStringExpression(child)
-  );
+  return element.children.filter((c) => !isPaddingWhitespace(c) && !isEmptyExpressionContainer(c) && !isEmptyStringExpression(c));
 }
 
 /**
