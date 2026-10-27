@@ -1,10 +1,19 @@
 # Changelog
 
-## Unreleased
+## v5.30.0-beta.9 (2026-10-27)
 
 ### 🏗️ Internal
 
-- `@eslint-react/eslint`: removed the `complete` option-merging helper. Rules now resolve options in `create` from `context.options[0]` with per-property `??=` defaults.
+- `@eslint-react/eslint`: removed the `complete` option-merging helper. Rules now resolve options in `create` from `context.options[0]` with per-property `??=` defaults. (#2090)
+
+  Affected rules:
+  - `react-x/no-unstable-default-props`
+  - `react-x/use-state`
+  - `react-jsx/no-useless-fragment`
+  - `react-dom/no-unknown-property`
+  - `react-dom/no-unsafe-target-blank`
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.30.0-beta.8...v5.30.0-beta.9
 
 ## v5.30.0-beta.8 (2026-10-27)
 
