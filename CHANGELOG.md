@@ -1,5 +1,25 @@
 # Changelog
 
+## v5.30.0-beta.8 (2026-10-27)
+
+### 🐞 Fixes
+
+- `react-x/no-duplicate-key`: reverted to the v5.28.8 implementation, dropping the v5.30.0-beta.7 changes. (#2089)
+- `react-x/no-missing-context-display-name`: the autofix now also applies to exported contexts. (#2089)
+- `react-x/no-unstable-context-value`: shadowed `Boolean()`, `String()`, and `Number()` calls are no longer reported. (#2089)
+- `react-x/no-unstable-default-props`: shadowed `Boolean()`, `String()`, and `Number()` calls are no longer reported. (#2089)
+
+### 📝 Documentation
+
+- Corrected the `noExplicitSpreadProps` recipe to state that it provides no autofix. (#2089)
+
+### 🏗️ Internal
+
+- `@eslint-react/ast`: `Compare.isEqual` now also compares `computed` and `optional` on member expressions. (#2089)
+- `@eslint-react/var`: `resolveObjectType` now treats shadowed `Boolean()`, `String()`, and `Number()` calls as non-object values. (#2089)
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.30.0-beta.7...v5.30.0-beta.8
+
 ## v5.30.0-beta.7 (2026-10-27)
 
 ### 🐞 Fixes
