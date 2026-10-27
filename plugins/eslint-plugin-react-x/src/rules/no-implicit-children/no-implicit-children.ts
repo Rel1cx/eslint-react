@@ -30,6 +30,8 @@ export default createRule<[], MessageID>({
 });
 
 export function create(context: RuleContext<MessageID, []>): RuleListener {
+  // Fast path: skip if `...` is not present in the file
+  if (!context.sourceCode.text.includes("...")) return {};
   return createImplicitPropListener(context, {
     name: "children",
     // Allow pass-through of React internally defined children

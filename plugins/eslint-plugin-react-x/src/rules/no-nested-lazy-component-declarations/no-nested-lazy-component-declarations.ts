@@ -27,6 +27,8 @@ export default createRule<[], MessageID>({
 });
 
 export function create(context: RuleContext<MessageID, []>): RuleListener {
+  // Fast path: skip if `lazy` is not present in the file
+  if (!context.sourceCode.text.includes("lazy")) return {};
   const fc = core.getFunctionComponentCollector(context);
   const cc = core.getClassComponentCollector(context);
   const hc = core.getHookCollector(context);

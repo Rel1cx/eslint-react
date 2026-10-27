@@ -24,6 +24,8 @@ export default createRule<[], MessageID>({
 });
 
 export function create(context: RuleContext<MessageID, []>): RuleListener {
+  // Fast path: skip if `Children` is not present in the file
+  if (!context.sourceCode.text.includes("Children")) return {};
   return {
     MemberExpression(node) {
       if (core.isChildrenOnly(context, node)) {

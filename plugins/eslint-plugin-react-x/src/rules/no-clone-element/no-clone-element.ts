@@ -24,12 +24,14 @@ export default createRule<[], MessageID>({
 });
 
 export function create(context: RuleContext<MessageID, []>): RuleListener {
+  // Fast path: skip if `cloneElement` is not present in the file
+  if (!context.sourceCode.text.includes("cloneElement")) return {};
   return {
     CallExpression(node) {
       if (core.isCloneElementCall(context, node)) {
         context.report({
           messageId: "default",
-          node,
+          node: node.callee,
         });
       }
     },
