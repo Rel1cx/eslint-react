@@ -1,6 +1,7 @@
 // Ported from https://github.com/jsx-eslint/eslint-plugin-react/blob/master/lib/rules/no-unknown-property.js
 import { createRule } from "@/utils/create-rule";
 import { type RuleContext, type RuleFeature, type RuleListener, getText } from "@eslint-react/eslint";
+import type { JSONSchema4 } from "@typescript-eslint/utils/json-schema";
 import {
   getAttributeTagsMap,
   getStandardName,
@@ -31,22 +32,46 @@ export type MessageID =
   | "unknown-prop"
   | "unknown-prop-with-standard-name";
 
-interface Options {
-  ignore?: string[];
-  requireDataLowercase?: boolean;
-}
+type Options = readonly [
+  | undefined
+  | {
+    ignore?: readonly string[];
+    requireDataLowercase?: boolean;
+  },
+];
 
 // ------------------------------------------------------------------------------
 // Default Options
 // ------------------------------------------------------------------------------
 
-const DEFAULTS: {
-  ignore: string[];
-  requireDataLowercase: boolean;
-} = {
-  ignore: [],
-  requireDataLowercase: false,
-};
+const defaultOptions = [
+  {
+    ignore: [],
+    requireDataLowercase: false,
+  },
+] as const satisfies Options;
+
+// ------------------------------------------------------------------------------
+// Schema
+// ------------------------------------------------------------------------------
+
+const schema: [JSONSchema4] = [{
+  type: "object",
+  additionalProperties: false,
+  properties: {
+    ignore: {
+      type: "array",
+      description: "Property names to ignore.",
+      items: {
+        type: "string",
+      },
+    },
+    requireDataLowercase: {
+      type: "boolean",
+      description: "Require lowercase names for data-* attributes.",
+    },
+  },
+}];
 
 // ------------------------------------------------------------------------------
 // Rule Definition & Implementation
@@ -60,46 +85,29 @@ const messages = {
   "unknown-prop-with-standard-name": "Unknown property '{{name}}' found, use '{{standardName}}' instead",
 };
 
-export default createRule<Options[], MessageID>({
+export default createRule<Options, MessageID>({
   meta: {
     type: "problem",
-    defaultOptions: [DEFAULTS],
+    defaultOptions: [...defaultOptions],
     docs: {
       description: "Disallows unknown 'DOM' properties.",
     },
     fixable: "code",
     messages,
-    schema: [{
-      type: "object",
-      additionalProperties: false,
-      properties: {
-        ignore: {
-          type: "array",
-          description: "Property names to ignore.",
-          items: {
-            type: "string",
-          },
-        },
-        requireDataLowercase: {
-          type: "boolean",
-          description: "Require lowercase names for data-* attributes.",
-        },
-      },
-    }],
+    schema,
   },
   name: RULE_NAME,
   create,
 });
 
-export function create(context: RuleContext<MessageID, Options[]>): RuleListener {
+export function create(context: RuleContext<MessageID, Options>): RuleListener {
   const {
-    ignore = DEFAULTS.ignore,
-    requireDataLowercase = DEFAULTS.requireDataLowercase,
-  } = context.options[0] ?? DEFAULTS;
+    ignore = [],
+    requireDataLowercase = false,
+  } = context.options[0] ?? defaultOptions[0];
   let attributeTagsMap: ReturnType<typeof getAttributeTagsMap> | null = null;
 
   return {
-    // Visitor for JSX attributes
     JSXAttribute(node) {
       const actualName = getText(context, node.name);
 

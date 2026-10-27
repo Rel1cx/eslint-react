@@ -17,20 +17,21 @@ export const RULE_FEATURES = [
 export type MessageID = "default";
 
 type Options = readonly [
-  {
+  | undefined
+  | {
     allowEmptyFragment?: boolean;
     allowExpressions?: boolean;
   },
 ];
 
-type ResolvedOptions = Required<Options[0]>;
+type ResolvedOptions = Required<NonNullable<Options[0]>>;
 
 const defaultOptions = [{
   allowEmptyFragment: false,
   allowExpressions: true,
 }] as const satisfies Options;
 
-const schema = [{
+const schema: [JSONSchema4] = [{
   type: "object",
   additionalProperties: false,
   properties: {
@@ -43,7 +44,7 @@ const schema = [{
       description: "Allow fragments with a single expression child",
     },
   },
-}] as const satisfies [JSONSchema4];
+}];
 
 export default createRule<Options, MessageID>({
   meta: {
@@ -62,15 +63,15 @@ export default createRule<Options, MessageID>({
   create,
 });
 
-export function create(context: RuleContext<MessageID, Options>, [option]: Options): RuleListener {
+export function create(context: RuleContext<MessageID, Options>): RuleListener {
+  const option = context.options[0] ?? defaultOptions[0];
   const options: ResolvedOptions = {
-    allowEmptyFragment: option.allowEmptyFragment ?? false,
-    allowExpressions: option.allowExpressions ?? true,
+    allowEmptyFragment: option.allowEmptyFragment ?? defaultOptions[0].allowEmptyFragment,
+    allowExpressions: option.allowExpressions ?? defaultOptions[0].allowExpressions,
   };
   const { jsxFragmentFactory } = core.getJSXConfig(context);
 
   return {
-    // Visitor for JSX elements that may resolve to a fragment factory
     JSXElement(node) {
       if (!isFragmentElement(node, jsxFragmentFactory)) {
         return;
@@ -80,7 +81,6 @@ export function create(context: RuleContext<MessageID, Options>, [option]: Optio
       }
       visitFragment(context, node, options);
     },
-    // Visitor for shorthand fragments
     JSXFragment(node) {
       visitFragment(context, node, options);
     },
