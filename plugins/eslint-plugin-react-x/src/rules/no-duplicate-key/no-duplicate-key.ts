@@ -1,5 +1,7 @@
 import { createRule } from "@/utils/create-rule";
+import { getIteratorCallback } from "@/utils/jsx-iterator";
 import { Check, Compare, Extract, Traverse } from "@eslint-react/ast";
+import * as core from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, type RuleListener } from "@eslint-react/eslint";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 
@@ -10,12 +12,6 @@ export const RULE_FEATURES = [
 ] as const satisfies RuleFeature[];
 
 export type MessageID = "default";
-
-type KeyedEntry = {
-  hasDuplicate: boolean;
-  keys: TSESTree.JSXAttribute[];
-  root: TSESTree.Expression;
-};
 
 export default createRule<[], MessageID>({
   meta: {
@@ -33,82 +29,135 @@ export default createRule<[], MessageID>({
 });
 
 export function create(context: RuleContext<MessageID, []>): RuleListener {
-  // Fast path: skip if `key=` is not present in the file
-  if (!context.sourceCode.text.includes("key=")) return {};
-  // Map to store key attributes grouped by their parent node
-  const keyedEntries = new Map<TSESTree.Node, KeyedEntry>();
-  // Helper function to check if two key attribute values are equal
+  // Fast path: skip files with no JSX `key` attribute. Word boundaries also
+  // match bare keys (`key`) and keys separated from `=` by whitespace.
+  if (!/\bkey\b/u.test(context.sourceCode.text)) return {};
+  // Tracks how many `Children.toArray()`/`Children.map()` calls we are inside of;
+  // React re-assigns the keys of their output, so duplicate checks are skipped there
+  let childrenRekeyingDepth = 0;
+  // Key attributes that have at least one equal sibling, or are literal keys
+  // inside a `.map()` callback where they repeat on every iteration
+  const duplicateKeys = new Set<TSESTree.JSXAttribute>();
+  // Key attributes grouped by their parent node, used to find duplicate siblings
+  const siblingKeys = new Map<TSESTree.Node, TSESTree.JSXAttribute[]>();
+
+  /**
+   * Gets the node that represents a key attribute's value, unwrapping
+   * `JSXExpressionContainer`. A valueless key (`key`) is represented by `null`.
+   * @param node The key attribute to inspect.
+   * @returns The value node, or `null` for a valueless key.
+   */
+  function getKeyValue(node: TSESTree.JSXAttribute): TSESTree.Node | null {
+    const { value } = node;
+    if (value == null) return null;
+    return value.type === AST.JSXExpressionContainer
+      ? Extract.unwrap(value.expression)
+      : value;
+  }
+
+  /**
+   * Checks whether two `key` attributes have structurally equal values.
+   * @param a The first key attribute.
+   * @param b The second key attribute.
+   * @returns `true` if both keys are valueless or their values are AST-equal.
+   */
   function isKeyValueEqual(a: TSESTree.JSXAttribute, b: TSESTree.JSXAttribute): boolean {
-    const aValue = a.value;
-    const bValue = b.value;
-    // If either value is null, they are not considered equal
+    const aValue = getKeyValue(a);
+    const bValue = getKeyValue(b);
     if (aValue == null || bValue == null) {
-      return false;
+      return aValue === bValue;
     }
-    // Compare the AST nodes of the values for equality
     return Compare.isEqual(aValue, bValue);
   }
+
+  /**
+   * Checks whether a key attribute has a statically fixed value. Dynamic keys
+   * (identifiers, member/call expressions, template literals with expressions)
+   * change per iteration and are not considered static.
+   * @param node The key attribute to inspect.
+   * @returns `true` if the key is a string/number literal, a template literal
+   * without expressions, or a valueless key.
+   */
+  function isStaticKey(node: TSESTree.JSXAttribute): boolean {
+    const value = getKeyValue(node);
+    if (value == null) return true;
+    if (value.type === AST.Literal) {
+      return typeof value.value === "string" || typeof value.value === "number";
+    }
+    return value.type === AST.TemplateLiteral && value.expressions.length === 0;
+  }
+
+  /**
+   * Checks whether a call re-assigns the keys of the elements it produces.
+   * React prefixes the keys produced by `Children.toArray` and `Children.map`
+   * with each child's key, so their output cannot contain duplicates.
+   * @param node The call expression to inspect.
+   * @returns `true` for `Children.toArray` and `Children.map` calls.
+   */
+  function isChildrenRekeyingCall(node: TSESTree.CallExpression): boolean {
+    return core.isChildrenToArrayCall(context, node) || core.isChildrenMapCall(context, node);
+  }
+
   return {
-    // Visitor for all JSX attributes named 'key'
     "JSXAttribute[name.name='key']"(node: TSESTree.JSXAttribute) {
+      if (childrenRekeyingDepth > 0) return;
       const jsxElement = node.parent.parent;
-      // Check the parent of the JSX element to determine the context
       switch (jsxElement.parent.type) {
         // Case 1: Elements in an array expression, JSX element, or JSX fragment
         case AST.ArrayExpression:
         case AST.JSXElement:
         case AST.JSXFragment: {
           const root = jsxElement.parent;
-          const prevKeys = keyedEntries.get(root)?.keys ?? [];
-          // Check for duplicates and update the map
-          keyedEntries.set(root, {
-            hasDuplicate: prevKeys.some((prevKey) => isKeyValueEqual(prevKey, node)),
-            keys: [...prevKeys, node],
-            root: jsxElement.parent,
-          });
+          const prevKeys = siblingKeys.get(root) ?? [];
+          // Mark every key that has an equal sibling. Marking is monotonic so a
+          // later unique key cannot clear an earlier duplicate (ex: `[A, A, B]`)
+          for (const prevKey of prevKeys) {
+            if (!isKeyValueEqual(prevKey, node)) continue;
+            duplicateKeys.add(prevKey);
+            duplicateKeys.add(node);
+            break;
+          }
+          siblingKeys.set(root, [...prevKeys, node]);
           break;
         }
-        // Case 2: Elements created by an array's .map() call
+        // Case 2: Elements created by an iterator-like call (map, flatMap, Array.from)
         default: {
           const call = Traverse.findParent(
             jsxElement,
-            (n): n is TSESTree.CallExpression => {
-              if (n.type !== AST.CallExpression) return false;
-              const callee = Extract.unwrap(n.callee);
-              if (callee.type !== AST.MemberExpression) return false;
-              return Check.isIdentifier(callee.property, "map");
-            },
+            (n): n is TSESTree.CallExpression => n.type === AST.CallExpression && getIteratorCallback(n) != null,
           );
           if (call == null) return;
+          const callback = getIteratorCallback(call);
+          if (callback == null) return;
           const iter = Traverse.findParent(jsxElement, Check.isFunction, (n) => n === call);
           if (iter == null) return;
-          const arg0 = call.arguments[0];
-          if (arg0 == null) return;
-          // Ensure we are inside the callback of the .map() call
-          if (Extract.unwrap(arg0) !== iter) {
-            return;
+          // Ensure we are inside the callback of the iterator-like call
+          if (callback !== iter) return;
+          // Flag statically fixed keys in iterator callbacks as they repeat on
+          // every iteration. Dynamic keys are not recorded, so they cannot
+          // overwrite a static one.
+          if (isStaticKey(node)) {
+            duplicateKeys.add(node);
           }
-          // Flag literal keys in .map() calls as they are a common source of duplication
-          keyedEntries.set(call, {
-            hasDuplicate: node.value?.type === AST.Literal,
-            keys: [node],
-            root: call,
-          });
         }
       }
     },
+    CallExpression(node) {
+      if (isChildrenRekeyingCall(node)) {
+        childrenRekeyingDepth += 1;
+      }
+    },
+    "CallExpression:exit"(node) {
+      if (isChildrenRekeyingCall(node)) {
+        childrenRekeyingDepth -= 1;
+      }
+    },
     "Program:exit"() {
-      for (const { hasDuplicate, keys } of keyedEntries.values()) {
-        if (!hasDuplicate) {
-          continue;
-        }
-        // Report an error for each duplicate key found
-        for (const key of keys) {
-          context.report({
-            messageId: "default",
-            node: key,
-          });
-        }
+      for (const key of duplicateKeys) {
+        context.report({
+          messageId: "default",
+          node: key,
+        });
       }
     },
   };

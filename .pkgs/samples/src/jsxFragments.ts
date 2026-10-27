@@ -33,7 +33,6 @@ export function jsxFragments(options: JsxsFragmentsOptions = {}): RuleFunction {
     }
 
     return {
-      // Visitor for shorthand fragments `<>...</>`
       JSXFragment(node) {
         if (mode !== "element") return;
 
@@ -48,7 +47,6 @@ export function jsxFragments(options: JsxsFragmentsOptions = {}): RuleFunction {
           node,
         });
       },
-      // Visitor for standard-form fragments `<Fragment>` and `<React.Fragment>`
       JSXOpeningElement(node) {
         const name = node.name;
 

@@ -17,6 +17,8 @@ plugins/eslint-plugin-react-<domain>/src/rules/<rule-name>/
 
 Complex rules keep shared helpers in `lib.ts`; fact-based rules add pattern-specific layers (`collect.ts`, `origins.ts`, ...). Some rules also carry `.spec.md` / `.spec.diff.md` snapshots or helper unit tests (`lib.test.ts`, `collect.test.ts`, ...). `scripts/90-scaffold-rule.ts` generates the `.ts`, `.spec.ts`, and `.mdx` files and registers the rule (`CHANGELOG.md` is added by hand); `scripts/20-check-rules.ts` (`node --run check:rules`) validates registration, presets, and docs badges.
 
+Cross-rule listeners and other shared rule infrastructure live in the plugin's `src/utils/` directory (ex: `create-implicit-prop-listener.ts`, `create-rule.ts`), not in a rule's `lib.ts`. Files under `src/utils/` are not rule entry points: `scripts/20-check-rules.ts` only globs `src/rules/<name>/<name>.ts`.
+
 ## Rule File Skeleton
 
 ```ts
@@ -61,7 +63,7 @@ Conventions:
 
 ## Options
 
-An `Options` tuple type, a module-level `defaultOptions` referenced from `meta.defaultOptions`, a schema typed as `JSONSchema4`, and resolution at the top of `create` — usually `context.options[0] ?? defaultOptions[0]`, though some rules destructure the parameter and rely on ESLint's `defaultOptions` application. A non-empty schema requires `meta.defaultOptions`; rules without options omit both. Any non-empty `schema`/`defaultOptions` earns the `CFG` feature (see [`rule-feature-system.md`](./rule-feature-system.md)).
+An `Options` tuple type, a module-level `defaultOptions` referenced from `meta.defaultOptions`, a schema declared as a type-annotated constant (`const schema: [JSONSchema4] = [...]`) and referenced from `meta.schema`, and resolution at the top of `create` as `context.options[0] ?? defaultOptions[0]`. Type the first tuple element as `| undefined` so the `??` fallback is type-safe when options are absent. Keep the schema initializer a plain array; wrapping it in `as const satisfies` hides it from `eslint-plugin-eslint-plugin`'s schema checks. Put defaults in `meta.defaultOptions`, not in schema properties. A non-empty schema requires `meta.defaultOptions`; rules without options omit both. Any non-empty `schema`/`defaultOptions` earns the `CFG` feature (see [`rule-feature-system.md`](./rule-feature-system.md)).
 
 ## Reporting
 

@@ -31,51 +31,55 @@ export default createRule<[], MessageID>({
 export function create(context: RuleContext<MessageID, []>): RuleListener {
   // Fast path: if 'createContext' is not in the file, this rule doesn't apply
   if (!context.sourceCode.text.includes("createContext")) return {};
-  // Stores all `React.createContext` call expressions
   const createCalls: TSESTree.CallExpression[] = [];
-  // Stores all `displayName` assignment expressions
   const displayNameAssignments: TSESTree.AssignmentExpression[] = [];
 
   return {
-    // Collect all `createContext()` calls
     CallExpression(node) {
       if (!core.isCreateContextCall(context, node)) return;
       createCalls.push(node);
     },
-    // Collect all `*.displayName = '...'` assignments
     [core.SEL_FUNCTION_DISPLAY_NAME_ASSIGNMENT](node: core.FunctionDisplayNameAssignment) {
       displayNameAssignments.push(node);
     },
     "Program:exit"() {
       for (const call of createCalls) {
-        // Get the variable identifier for the context
         const id = resolveEnclosingAssignmentTarget(call);
         if (id == null) {
-          // Report an error if the context is not assigned to a variable
           context.report({
             messageId: "default",
             node: call,
           });
           continue;
         }
-        // Check if a `displayName` is assigned to this context variable
         const hasDisplayNameAssignment = displayNameAssignments
           .some((node) => {
             const left = node.left;
             if (left.type !== AST.MemberExpression) return false;
             const object = left.object;
-            // Check if the object in the assignment matches the context's identifier
             return isAssignmentTargetEqual(context, id, object);
           });
-        // If no `displayName` is found, report an error and provide a fix
         if (!hasDisplayNameAssignment) {
           context.report({
             fix(fixer) {
-              // Ensure the fix is applied correctly
+              // Only insert when the context is bound directly to the call result
               if (id.type !== AST.Identifier || id.parent !== call.parent) return [];
-              // Insert `ContextName.displayName = "ContextName";` after the creation
+              const declaration = id.parent.parent;
+              if (declaration == null || declaration.type !== AST.VariableDeclaration) return [];
+              switch (declaration.parent.type) {
+                case AST.BlockStatement:
+                case AST.Program:
+                case AST.StaticBlock:
+                case AST.SwitchCase:
+                case AST.TSModuleBlock:
+                  break;
+                default:
+                  return [];
+              }
+              const lastToken = context.sourceCode.getLastToken(declaration);
+              if (lastToken == null) return [];
               return fixer.insertTextAfter(
-                context.sourceCode.getTokenAfter(call) ?? call,
+                lastToken,
                 [
                   "\n",
                   id.name,

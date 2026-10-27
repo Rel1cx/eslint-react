@@ -18,19 +18,19 @@ export type MessageID =
   | "suggest";
 
 type Options = readonly [
-  | null
+  | undefined
   | {
     allowReferrer?: boolean;
   },
 ];
 
-export const defaultOptions = [
+const defaultOptions = [
   {
     allowReferrer: false,
   },
 ] as const satisfies Options;
 
-const schema = [
+const schema: [JSONSchema4] = [
   {
     type: "object",
     additionalProperties: false,
@@ -38,11 +38,10 @@ const schema = [
       allowReferrer: {
         type: "boolean",
         description: "Allow 'rel=\"noopener\"' without 'noreferrer' so referrer information is preserved.",
-        default: false,
       },
     },
   },
-] as const satisfies JSONSchema4[];
+];
 
 export default createRule<Options, MessageID>({
   meta: {
@@ -64,7 +63,7 @@ export default createRule<Options, MessageID>({
 });
 
 export function create(context: RuleContext<MessageID, Options>): RuleListener {
-  const { allowReferrer = false } = context.options[0] ?? defaultOptions[0];
+  const { allowReferrer = defaultOptions[0].allowReferrer } = context.options[0] ?? defaultOptions[0];
   const resolver = createJSXElementResolver(context);
 
   const requiredRelValue = allowReferrer ? "noopener" : "noreferrer";

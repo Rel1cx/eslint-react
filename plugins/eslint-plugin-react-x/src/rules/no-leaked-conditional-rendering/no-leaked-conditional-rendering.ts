@@ -83,7 +83,6 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
     if (Check.isJSX(node)) return null;
     if (Check.isTypeExpression(node)) return visit(node.expression, seen);
 
-    // Pattern match on the node type to apply specific logic
     return match<typeof node, ReportDescriptor<MessageID> | null>(node)
       // Handle logical '&&' expressions
       .with({ type: AST.LogicalExpression, operator: "&&" }, ({ left, right }) => {
@@ -100,10 +99,9 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
             data: { value: getText(context, left) },
             messageId: "default",
             node: left,
-          } as const;
+          };
         }
 
-        // Get the type of the left-hand side operand
         const leftType = getConstrainedTypeAtLocation(services, left);
         const leftTypeVariants = core.getTypeVariants(unionConstituents(leftType));
         // Check if all possible types of the left operand are in the allowed list
@@ -111,17 +109,15 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
           .from(leftTypeVariants.values())
           .every((t) => allowedTypeVariants.some((a) => a === t));
 
-        // If the left side is valid, the expression is safe. Recursively check the right side
         if (isLeftValid) {
           return visit(right, seen);
         }
 
-        // If the left side is not valid, report an error
         return {
           data: { value: getText(context, left) },
           messageId: "default",
           node: left,
-        } as const;
+        };
       })
       // Handle ternary expressions. Recursively check both branches
       .with({ type: AST.ConditionalExpression }, ({ alternate, consequent }) => {

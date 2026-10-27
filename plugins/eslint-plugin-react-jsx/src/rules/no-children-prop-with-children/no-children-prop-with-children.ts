@@ -35,7 +35,6 @@ export default createRule<[], MessageID>({
 
 export function create(context: RuleContext<MessageID, []>): RuleListener {
   return {
-    // Visitor for `createElement` calls
     CallExpression(node) {
       const call = parseCreateElementCall(context, node);
       if (call == null) {
@@ -54,7 +53,6 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         node: prop,
       });
     },
-    // Visitor for JSX elements
     JSXElement(node) {
       const prop = findAttribute(node, "children");
       if (prop == null || !hasMeaningfulChildren(node)) {

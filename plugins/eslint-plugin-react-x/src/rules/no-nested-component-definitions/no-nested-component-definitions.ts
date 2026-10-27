@@ -41,7 +41,6 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
     | core.FunctionComponentDetectionHint.DoNotIncludeFunctionDefinedAsArrayMapCallback
     | core.FunctionComponentDetectionHint.DoNotIncludeFunctionDefinedAsArrayFlatMapCallback;
 
-  // Collectors to find all component definitions in the code
   const fc = core.getFunctionComponentCollector(context, { hint });
   const cc = core.getClassComponentCollector(context);
 
@@ -50,13 +49,17 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
     cc.visitor,
     {
       "Program:exit"(program) {
-        // Gather all function and class components found by the collectors
         const fComponents = [...fc.api.getAllComponents(program)];
         const cComponents = [...cc.api.getAllComponents(program)];
         // Node sets for O(1) lookup when walking up the ancestor chain
         const fComponentNodes = new Set(fComponents.map((c) => c.node));
         const cComponentNodes = new Set(cComponents.map((c) => c.node));
-        // Helper to find the enclosing component of a node
+
+        /**
+         * Finds the nearest enclosing component of a node.
+         * @param node The node to start the search from.
+         * @returns The enclosing function or class component, or `null` if there is none.
+         */
         function findEnclosingComponent(node: TSESTree.Node) {
           return Traverse.findParent(node, (n) => {
             if (Check.isFunction(n)) return fComponentNodes.has(n);
@@ -64,7 +67,6 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
             return false;
           });
         }
-        // Iterate over function components to find nested definitions
         // eslint-disable-next-line prefer-const
         for (let { name, node: component } of fComponents) {
           // Fall back to the name bound through a wrapping call chain (e.g. `const C = useCallback(() => ..., [])`)
@@ -72,7 +74,6 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
           name ??= getWrapperCallBoundName(context, component);
           // Skip anonymous function components and names that don't follow component naming to reduce false positives
           if (name == null || !core.isFunctionComponentNameLoose(name)) continue;
-          // Check if the component is defined inside a JSX attribute's value
           if (isInsideJSXAttributeValue(component)) {
             context.report({
               data: {
@@ -83,7 +84,6 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
             });
             continue;
           }
-          // Check if the component is defined inside the props of a `createElement` call
           if (isInsideCreateElementProps(context, component)) {
             context.report({
               data: {
@@ -94,7 +94,6 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
             });
             continue;
           }
-          // Check for direct nesting inside another function component
           if (findEnclosingComponent(component) != null) {
             context.report({
               data: {
@@ -107,7 +106,6 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
             });
             continue;
           }
-          // Check if the component is defined inside a class component's render method
           if (isInsideRenderMethod(component)) {
             context.report({
               data: {
@@ -118,9 +116,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
             });
           }
         }
-        // Iterate over class components to find nested definitions
         for (const { node: component } of cComponents) {
-          // Find if the parent is another component
           if (findEnclosingComponent(component) == null) continue;
           context.report({
             data: {

@@ -38,6 +38,40 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
+      name: "duplicate key in flatMap callback",
+      code: tsx`
+        const App = () => {
+            return [1, 2, 3].flatMap((item) => <div key="1">{item}</div>)
+        };
+      `,
+      errors: [
+        { messageId: "default" },
+      ],
+    },
+    {
+      name: "duplicate key in Array.from callback",
+      code: tsx`
+        const App = () => {
+            return Array.from([1, 2, 3], (item) => <div key="1">{item}</div>)
+        };
+      `,
+      errors: [
+        { messageId: "default" },
+      ],
+    },
+    {
+      name: "duplicate keys after a Children.toArray call",
+      code: tsx`
+        import { Children } from "react";
+        Children.toArray(items);
+        [<div key="a" />, <div key="a" />];
+      `,
+      errors: [
+        { messageId: "default" },
+        { messageId: "default" },
+      ],
+    },
+    {
       name: "duplicate keys in array literal",
       code: tsx`
         const App = () => {
@@ -63,6 +97,78 @@ ruleTester.run(RULE_NAME, rule, {
           },
           messageId: "default",
         },
+      ],
+    },
+    {
+      name: "duplicate keys followed by a unique key in array literal",
+      code: tsx`
+        const App = () => {
+            return [<div key="1">1</div>, <div key="1">2</div>, <div key="2">3</div>]
+        };
+      `,
+      errors: [
+        { messageId: "default" },
+        { messageId: "default" },
+      ],
+    },
+    {
+      name: "non-adjacent duplicate keys in array literal",
+      code: tsx`
+        const App = () => {
+            return [<div key="1">1</div>, <div key="2">2</div>, <div key="1">3</div>]
+        };
+      `,
+      errors: [
+        { messageId: "default" },
+        { messageId: "default" },
+      ],
+    },
+    {
+      name: "braced and unbraced duplicate keys in array literal",
+      code: tsx`
+        const App = () => {
+            return [<div key="a">1</div>, <div key={"a"}>2</div>]
+        };
+      `,
+      errors: [
+        { messageId: "default" },
+        { messageId: "default" },
+      ],
+    },
+    {
+      name: "numeric duplicate keys in array literal",
+      code: tsx`
+        const App = () => {
+            return [<div key={1}>1</div>, <div key={1}>2</div>]
+        };
+      `,
+      errors: [
+        { messageId: "default" },
+        { messageId: "default" },
+      ],
+    },
+    {
+      name: "template literal duplicate keys in array literal",
+      code: tsx`
+        const App = () => {
+            return [<div key={\`a\`}>1</div>, <div key={\`a\`}>2</div>]
+        };
+      `,
+      errors: [
+        { messageId: "default" },
+        { messageId: "default" },
+      ],
+    },
+    {
+      name: "valueless duplicate keys in array literal",
+      code: tsx`
+        const App = () => {
+            return [<div key>1</div>, <div key>2</div>]
+        };
+      `,
+      errors: [
+        { messageId: "default" },
+        { messageId: "default" },
       ],
     },
     {
@@ -159,6 +265,62 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
+      name: "literal key and dynamic key in conditional branches of a map callback",
+      code: tsx`
+        const App = () => {
+          return items.map((item) => item.active ? <div key="active" /> : <div key={item.id} />)
+        };
+      `,
+      errors: [
+        { messageId: "default" },
+      ],
+    },
+    {
+      name: "two literal keys in conditional branches of a map callback",
+      code: tsx`
+        const App = () => {
+          return items.map((item) => item.active ? <div key="active" /> : <div key="inactive" />)
+        };
+      `,
+      errors: [
+        { messageId: "default" },
+        { messageId: "default" },
+      ],
+    },
+    {
+      name: "braced literal key in a map callback",
+      code: tsx`
+        const App = () => {
+          return items.map((item) => <Row key={"fixed"} />)
+        };
+      `,
+      errors: [
+        { messageId: "default" },
+      ],
+    },
+    {
+      name: "static template key in a map callback",
+      code: tsx`
+        const App = () => {
+          return items.map((item) => <Row key={\`fixed\`} />)
+        };
+      `,
+      errors: [
+        { messageId: "default" },
+      ],
+    },
+    {
+      name: "numeric key in a map callback",
+      code: tsx`
+        const App = () => {
+          return items.map((item) => <Row key={1} />)
+        };
+      `,
+      errors: [
+        { messageId: "default" },
+      ],
+    },
+    {
       name: "duplicate keys with non-map call between maps",
       code: tsx`
         const App = () => {
@@ -226,11 +388,83 @@ ruleTester.run(RULE_NAME, rule, {
   ],
   valid: [
     {
+      name: "dynamic template key in a map callback",
+      code: tsx`
+        const App = () => {
+          return items.map((item) => <Row key={\`item-\${item.id}\`} />)
+        };
+      `,
+    },
+    {
       name: "key derived from item in map callback",
       code: tsx`
         const App = () => {
             return [1, 2, 3].map((item) => { const key = item; return <div key={key}>{item}</div> })
         };
+      `,
+    },
+    {
+      name: "dynamic key in flatMap callback",
+      code: tsx`
+        const App = () => {
+            return [1, 2, 3].flatMap((item) => <div key={item}>{item}</div>)
+        };
+      `,
+    },
+    {
+      name: "dynamic key in Array.from callback",
+      code: tsx`
+        const App = () => {
+            return Array.from([1, 2, 3], (item) => <div key={item}>{item}</div>)
+        };
+      `,
+    },
+    {
+      name: "fixed key inside React.Children.map callback",
+      // React.Children.map prefixes returned keys per child, so fixed keys do not collide
+      code: tsx`
+        const App = ({ children }) => {
+            return React.Children.map(children, (child) => <Row key="fixed">{child}</Row>)
+        };
+      `,
+    },
+    {
+      name: "fixed key inside named Children.map callback",
+      code: tsx`
+        import { Children } from "react";
+
+        const App = ({ children }) => {
+            return Children.map(children, (child) => <Row key="fixed">{child}</Row>)
+        };
+      `,
+    },
+    {
+      name: "duplicate keys in Children.toArray",
+      // Children.toArray prefixes keys per child, so duplicates are re-keyed
+      code: tsx`
+        import { Children } from "react";
+        Children.toArray([<div key="a" />, <div key="a" />]);
+      `,
+    },
+    {
+      name: "fixed key in a map inside Children.toArray",
+      code: tsx`
+        import { Children } from "react";
+        Children.toArray(items.map((item) => <Row key="fixed" />));
+      `,
+    },
+    {
+      name: "duplicate keys in an array returned from Children.map",
+      code: tsx`
+        import { Children } from "react";
+        Children.map(children, (child) => [<div key="a" />, <div key="a" />]);
+      `,
+    },
+    {
+      name: "duplicate keys in nested Children calls",
+      code: tsx`
+        import { Children } from "react";
+        Children.toArray(Children.map(children, (child) => <div key="fixed" />));
       `,
     },
     {

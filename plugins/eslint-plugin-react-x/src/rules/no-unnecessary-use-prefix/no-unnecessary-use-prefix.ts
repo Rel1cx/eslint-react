@@ -53,7 +53,6 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         if (isInTestMock(node)) {
           continue;
         }
-        // If none of the above, it's a regular function with 'use' prefix. Report it
         context.report({
           messageId: "default",
           node: id ?? node,

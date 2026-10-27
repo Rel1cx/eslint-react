@@ -25,12 +25,43 @@ export default createRule<[], MessageID>({
   create,
 });
 
+export function create(context: RuleContext<MessageID, []>): RuleListener {
+  // Fast path: skip if `Component` is not present in the file
+  if (!context.sourceCode.text.includes("Component")) return {};
+  return {
+    AssignmentExpression(node: TSESTree.AssignmentExpression) {
+      if (!isAssignmentToThisState(node)) return;
+      const fact = Traverse.findParent(node, Check.isClass);
+      if (fact == null || !core.isClassComponent(fact)) return;
+      // Allow synchronous constructor initialization, including nested blocks.
+      // A nested function (callback) is not the constructor, so it is reported.
+      const constructor = Traverse.findParent(node, isConstructorFunction);
+      const enclosing = Traverse.findParent(node, Check.isFunctionOrClass);
+      if (enclosing === constructor) return;
+      context.report({
+        messageId: "default",
+        node,
+      });
+    },
+  };
+}
+
+/**
+ * Checks whether a node is the function value of a `constructor` method or property.
+ * @param node The node to inspect.
+ * @returns `true` if the node is a constructor function, `false` otherwise.
+ */
 function isConstructorFunction(node: TSESTree.Node): node is TSESTree.FunctionDeclaration | TSESTree.FunctionExpression {
   return Check.isOneOf([AST.FunctionDeclaration, AST.FunctionExpression])(node)
     && Check.isPropertyOrMethod(node.parent)
     && Check.isIdentifier(node.parent.key, "constructor");
 }
 
+/**
+ * Checks whether an assignment target mutates `this.state` directly.
+ * @param node The assignment expression to inspect.
+ * @returns `true` if the target is `this.state` or a nested member of it, `false` otherwise.
+ */
 function isAssignmentToThisState(node: TSESTree.AssignmentExpression) {
   const { left } = node;
   let current: TSESTree.Node = Extract.unwrap(left);
@@ -43,24 +74,4 @@ function isAssignmentToThisState(node: TSESTree.AssignmentExpression) {
     current = object;
   }
   return false;
-}
-
-export function create(context: RuleContext<MessageID, []>): RuleListener {
-  return {
-    AssignmentExpression(node: TSESTree.AssignmentExpression) {
-      if (!isAssignmentToThisState(node)) return;
-      // Find the parent class of the assignment
-      const fact = Traverse.findParent(node, Check.isClass);
-      // If the assignment is not inside a class, do nothing
-      if (fact == null) return;
-      // Report an error if 'this.state' is directly mutated in a class component
-      // and the mutation is not inside the constructor
-      if (core.isClassComponent(fact) && context.sourceCode.getScope(node).block !== Traverse.findParent(node, isConstructorFunction)) {
-        context.report({
-          messageId: "default",
-          node,
-        });
-      }
-    },
-  };
 }

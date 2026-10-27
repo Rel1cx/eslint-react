@@ -5,7 +5,7 @@ import { type RuleContext, type RuleFeature, type RuleListener, merge } from "@e
 import { getSettingsFromContext, toRegExp } from "@eslint-react/shared";
 import { resolveObjectType } from "@eslint-react/var";
 import { getOrInsertComputed } from "@local/eff";
-import { AST_NODE_TYPES as AST, TSESTree } from "@typescript-eslint/types";
+import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import type { JSONSchema4 } from "@typescript-eslint/utils/json-schema";
 import { match } from "ts-pattern";
 import { type ObjectDestructuringVariableDeclarator, SEL_OBJECT_DESTRUCTURING_VARIABLE_DECLARATOR, getHumanReadableKind } from "./lib";
@@ -17,7 +17,8 @@ export const RULE_FEATURES = ["CFG"] as const satisfies RuleFeature[];
 export type MessageID = "default";
 
 type Options = readonly [
-  {
+  | undefined
+  | {
     safeDefaultProps?: readonly string[];
   },
 ];
@@ -28,18 +29,19 @@ const defaultOptions = [
   },
 ] as const satisfies Options;
 
-const schema = [
+const schema: [JSONSchema4] = [
   {
     type: "object",
     additionalProperties: false,
     properties: {
       safeDefaultProps: {
         type: "array",
+        description: "Property names or patterns that are safe to use as default props.",
         items: { type: "string" },
       },
     },
   },
-] satisfies [JSONSchema4];
+];
 
 export default createRule<Options, MessageID>({
   meta: {
@@ -57,14 +59,15 @@ export default createRule<Options, MessageID>({
   create,
 });
 
-export function create(context: RuleContext<MessageID, Options>, [options]: Options): RuleListener {
+export function create(context: RuleContext<MessageID, Options>): RuleListener {
+  const options = context.options[0] ?? defaultOptions[0];
   const { compilationMode } = getSettingsFromContext(context);
   if (compilationMode === "infer" || compilationMode === "all") return {};
   if (compilationMode === "annotation" && context.sourceCode.ast.body.some((stmt) => Check.isDirective(stmt, "use memo"))) return {};
   const { api, visitor } = core.getFunctionComponentCollector(context);
 
   const declarators = new WeakMap<TSESTreeFunction, ObjectDestructuringVariableDeclarator[]>();
-  const { safeDefaultProps = [] } = options;
+  const { safeDefaultProps = defaultOptions[0].safeDefaultProps } = options;
   const safePatterns = safeDefaultProps.map((s) => toRegExp(s));
 
   return merge(visitor, {

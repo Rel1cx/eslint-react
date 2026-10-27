@@ -5,6 +5,12 @@ All notable changes to the `react-x/no-missing-context-display-name` rule will b
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+### Fixed
+
+- The autofix now inserts the `displayName` assignment after the complete variable declaration, so multi-declarator declarations (ex: `const Foo = createContext(), Bar = 1;`) no longer produce invalid syntax when used with `--fix`.
+
 ## [5.2.3-beta.0] - 2026-04-14
 
 ### Changed

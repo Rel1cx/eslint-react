@@ -554,6 +554,28 @@ ruleTester.run(RULE_NAME, rule, {
       `,
     },
     {
+      name: "property used via computed string member",
+      code: tsx`
+        class Foo extends React.Component {
+          bar = 1;
+          render() {
+            return <div>{this["bar"]}</div>;
+          }
+        }
+      `,
+    },
+    {
+      name: "property used via computed template member",
+      code: tsx`
+        class Foo extends React.Component {
+          bar = 1;
+          render() {
+            return <div>{this[\`bar\`]}</div>;
+          }
+        }
+      `,
+    },
+    {
       name: "uninitialized property used in JSX attribute",
       code: tsx`
         class ClassPropertyTest extends React.Component {

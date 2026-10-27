@@ -23,7 +23,7 @@ export type MessageID =
   | "invalid-setter-name";
 
 type Options = readonly [
-  | null
+  | undefined
   | {
     enforceAssignment?: boolean;
     enforceLazyInitialization?: boolean;
@@ -31,7 +31,7 @@ type Options = readonly [
   },
 ];
 
-export const defaultOptions = [
+const defaultOptions = [
   {
     enforceAssignment: true,
     enforceLazyInitialization: true,
@@ -39,26 +39,26 @@ export const defaultOptions = [
   },
 ] as const satisfies Options;
 
-const schema = [
+const schema: [JSONSchema4] = [
   {
     type: "object",
     additionalProperties: false,
     properties: {
       enforceAssignment: {
         type: "boolean",
-        default: true,
+        description: "Require the useState result to be assigned to a destructured value/setter pair.",
       },
       enforceLazyInitialization: {
         type: "boolean",
-        default: true,
+        description: "Require expensive initializers to be wrapped in a lazy initializer function.",
       },
       enforceSetterName: {
         type: "boolean",
-        default: true,
+        description: "Require the setter name to match the state value name.",
       },
     },
   },
-] as const satisfies JSONSchema4[];
+];
 
 export default createRule<Options, MessageID>({
   meta: {
@@ -83,9 +83,9 @@ export default createRule<Options, MessageID>({
 export function create(context: RuleContext<MessageID, Options>): RuleListener {
   const options = context.options[0] ?? defaultOptions[0];
   const {
-    enforceAssignment = true,
-    enforceLazyInitialization = true,
-    enforceSetterName = true,
+    enforceAssignment = defaultOptions[0].enforceAssignment,
+    enforceLazyInitialization = defaultOptions[0].enforceLazyInitialization,
+    enforceSetterName = defaultOptions[0].enforceSetterName,
   } = options;
   const { additionalStateHooks } = getSettingsFromContext(context);
   return {
@@ -96,7 +96,6 @@ export function create(context: RuleContext<MessageID, Options>): RuleListener {
       if (enforceLazyInitialization) {
         const [useStateInput] = node.arguments;
         if (useStateInput != null) {
-          // Check for `new` expressions, e.g., `new MyClass()`
           for (const expr of Collect.getNewExpressions(useStateInput)) {
             if (!hasProperty(expr.callee, "name")) continue;
             // Ignore primitive wrappers like `new String('foo')`
@@ -105,7 +104,6 @@ export function create(context: RuleContext<MessageID, Options>): RuleListener {
             if (Traverse.hasParent(expr, core.isUseCall(context))) continue;
             context.report({ messageId: "invalid-initialization", node: expr });
           }
-          // Check for function call expressions, e.g., `myFunction()`
           for (const expr of Collect.getCallExpressions(useStateInput)) {
             if (!hasProperty(expr.callee, "name")) continue;
             // Ignore other React hooks

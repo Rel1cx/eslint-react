@@ -1,5 +1,5 @@
-import { type TSESTreeClass } from "@eslint-react/ast";
-import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
+import { type TSESTreeClass, type TSESTreeMethodOrPropertyDefinition } from "@eslint-react/ast";
+import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 
 // A set of class members (lifecycle methods and other implicitly-used members like `constructor`, `render`, `state`) that should not be flagged as unused
 export const LIFECYCLE_METHODS = new Set([
@@ -48,11 +48,10 @@ export function isExportedClass(node: TSESTreeClass) {
   }
 }
 
-// Checks if a collected member definition is a public method: a method or a function-valued
-// property without a `private` or `protected` modifier. Definitions collected from `this.x = ...`
-// assignments are data fields and return false
-export function isPublicMethod(def: TSESTree.Identifier) {
-  const member = def.parent;
+// Checks if a class member definition is a public method: a method or a function-valued
+// property without a `private` or `protected` modifier. Definitions collected from
+// `this.x = ...` assignments are data fields and are not passed to this helper
+export function isPublicMethod(member: TSESTreeMethodOrPropertyDefinition): boolean {
   switch (member.type) {
     case AST.MethodDefinition:
       return member.accessibility == null || member.accessibility === "public";

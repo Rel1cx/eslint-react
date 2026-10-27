@@ -236,6 +236,30 @@ describe("getReturnStatements", () => {
     expect(countReturns(fn)).toBe(1);
   });
 
+  it("should exclude returns of setters in object literals", () => {
+    const code = "function f() { return 0; const o = { set x(v) { return 1; } }; }";
+    const fn = getFirstNodeOfType<TSESTree.FunctionDeclaration>(code, AST.FunctionDeclaration);
+    expect(countReturns(fn)).toBe(1);
+  });
+
+  it("should exclude returns of a nested IIFE", () => {
+    const code = "(function () { return 1; (function () { return 2; })(); })";
+    const fn = getFirstNodeOfType<TSESTree.FunctionExpression>(code, AST.FunctionExpression);
+    expect(countReturns(fn)).toBe(1);
+  });
+
+  it("should exclude returns of functions nested inside a return argument", () => {
+    const code = "function f() { return () => { return 2; }; }";
+    const fn = getFirstNodeOfType<TSESTree.FunctionDeclaration>(code, AST.FunctionDeclaration);
+    expect(countReturns(fn)).toBe(1);
+  });
+
+  it("should collect returns in an async arrow function root", () => {
+    const code = "const f = async () => { if (a) { return 1; } return 2; };";
+    const fn = getFirstNodeOfType<TSESTree.ArrowFunctionExpression>(code, AST.ArrowFunctionExpression);
+    expect(countReturns(fn)).toBe(2);
+  });
+
   it("should collect returns when a class method is the root", () => {
     const fn = getFirstNodeOfType<TSESTree.FunctionExpression>("class A { m() { return 1; } }", AST.FunctionExpression);
     expect(countReturns(fn)).toBe(1);

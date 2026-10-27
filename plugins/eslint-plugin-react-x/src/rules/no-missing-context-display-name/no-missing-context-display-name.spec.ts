@@ -18,6 +18,14 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [{ messageId: "default" }],
     },
     {
+      code: tsx`const ctx = createContext(), other = 1;`,
+      errors: [{ messageId: "default" }],
+      output: tsx`
+        const ctx = createContext(), other = 1;
+        ctx.displayName = "ctx";
+      `,
+    },
+    {
       code: tsx`
         const ctx1 = createContext();
         const ctx2 = createContext();

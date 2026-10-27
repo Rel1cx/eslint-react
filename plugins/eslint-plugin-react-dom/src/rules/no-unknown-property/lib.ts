@@ -1052,7 +1052,7 @@ function getAttributeTagsMapForVersion(version: string): TagsMap {
  * @param context ESLint rule context
  * @returns Map of attributes to allowed tags
  */
-export function getAttributeTagsMap(context: RuleContext<string, unknown[]>): TagsMap {
+export function getAttributeTagsMap(context: RuleContext): TagsMap {
   const { version } = getSettingsFromContext(context);
   return getAttributeTagsMapForVersion(version);
 }
@@ -1189,7 +1189,7 @@ function getStandardNameLookup(version: string): StandardNameLookup {
  * @param context ESLint context
  * @returns Standard name or null
  */
-export function getStandardName(name: string, context: RuleContext<string, unknown[]>): string | null {
+export function getStandardName(name: string, context: RuleContext): string | null {
   const { version } = getSettingsFromContext(context);
   const lookup = getStandardNameLookup(version);
   return lookup.exact.get(name) ?? lookup.lower.get(name.toLowerCase()) ?? null;
