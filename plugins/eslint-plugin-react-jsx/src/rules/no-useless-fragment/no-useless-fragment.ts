@@ -1,7 +1,7 @@
 import { createRule } from "@/utils/create-rule";
 import { Check, type TSESTreeJSXElementLike } from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
-import { type RuleContext, type RuleFeature, type RuleListener, complete, getText } from "@eslint-react/eslint";
+import { type RuleContext, type RuleFeature, type RuleListener, getText } from "@eslint-react/eslint";
 import { collapseMultilineText, getChildren, hasAnyAttribute, isFragmentElement, isHostElement, isWhitespaceText } from "@eslint-react/jsx";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import type { JSONSchema4 } from "@typescript-eslint/utils/json-schema";
@@ -17,19 +17,13 @@ export const RULE_FEATURES = [
 export type MessageID = "default";
 
 type Options = readonly [
-  | undefined
-  | {
+  {
     allowEmptyFragment?: boolean;
     allowExpressions?: boolean;
-  },
+  }?,
 ];
 
-type ResolvedOptions = Required<NonNullable<Options[0]>>;
-
-const defaultOptions = [{
-  allowEmptyFragment: false,
-  allowExpressions: true,
-}] as const satisfies Options;
+type RuleOptions = NonNullable<Options[0]>;
 
 const schema: [JSONSchema4] = [{
   type: "object",
@@ -49,7 +43,7 @@ const schema: [JSONSchema4] = [{
 export default createRule<Options, MessageID>({
   meta: {
     type: "suggestion",
-    defaultOptions: [...defaultOptions],
+    defaultOptions: [{}],
     docs: {
       description: "Disallows useless fragment elements.",
     },
@@ -64,7 +58,10 @@ export default createRule<Options, MessageID>({
 });
 
 export function create(context: RuleContext<MessageID, Options>): RuleListener {
-  const options = complete(context.options[0], defaultOptions[0]);
+  const options: RuleOptions = { ...(context.options[0] ?? {}) };
+  const allowEmptyFragment = options.allowEmptyFragment ??= false;
+  const allowExpressions = options.allowExpressions ??= true;
+
   const { jsxFragmentFactory } = core.getJSXConfig(context);
 
   return {
@@ -75,10 +72,10 @@ export function create(context: RuleContext<MessageID, Options>): RuleListener {
       if (hasIdentityAttribute(node)) {
         return;
       }
-      visitFragment(context, node, options);
+      visitFragment(context, node, allowEmptyFragment, allowExpressions);
     },
     JSXFragment(node) {
-      visitFragment(context, node, options);
+      visitFragment(context, node, allowEmptyFragment, allowExpressions);
     },
   };
 }
@@ -104,9 +101,10 @@ function hasIdentityAttribute(node: TSESTree.JSXElement): boolean {
  * and "contains less than two children").
  * @param context The rule context.
  * @param node The fragment node to inspect.
- * @param options The resolved rule options.
+ * @param allowEmptyFragment Whether empty fragments are allowed.
+ * @param allowExpressions Whether fragments with a single expression child are allowed.
  */
-function visitFragment(context: RuleContext, node: TSESTreeJSXElementLike, options: ResolvedOptions) {
+function visitFragment(context: RuleContext, node: TSESTreeJSXElementLike, allowEmptyFragment: boolean, allowExpressions: boolean) {
   const reasons: string[] = [];
 
   // A fragment inside a host component is always redundant — the host
@@ -114,7 +112,7 @@ function visitFragment(context: RuleContext, node: TSESTreeJSXElementLike, optio
   if (isHostElement(node.parent)) reasons.push("placed inside a host component");
 
   // A fragment with too few meaningful children serves no purpose.
-  if (isContentUseless(node, options)) reasons.push("contains less than two children");
+  if (isContentUseless(node, allowEmptyFragment, allowExpressions)) reasons.push("contains less than two children");
 
   if (reasons.length === 0) return;
 
@@ -133,11 +131,10 @@ function visitFragment(context: RuleContext, node: TSESTreeJSXElementLike, optio
  * Whether the fragment has too few meaningful children to justify its
  * existence (the "contains less than two children" reason).
  * @param node The fragment node to check.
- * @param options The resolved rule options.
+ * @param allowEmptyFragment Whether empty fragments are allowed.
+ * @param allowExpressions Whether fragments with a single expression child are allowed.
  */
-function isContentUseless(node: TSESTreeJSXElementLike, options: ResolvedOptions) {
-  const { allowEmptyFragment, allowExpressions } = options;
-
+function isContentUseless(node: TSESTreeJSXElementLike, allowEmptyFragment: boolean, allowExpressions: boolean) {
   // Empty fragment — useless unless explicitly allowed.
   if (node.children.length === 0) {
     return !allowEmptyFragment;

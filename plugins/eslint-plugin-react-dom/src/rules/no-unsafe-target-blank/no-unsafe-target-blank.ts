@@ -1,6 +1,6 @@
 import { createJSXElementResolver } from "@/utils/create-jsx-element-resolver";
 import { createRule } from "@/utils/create-rule";
-import { type ReportFixFunction, type RuleContext, type RuleFeature, type RuleListener, complete } from "@eslint-react/eslint";
+import { type ReportFixFunction, type RuleContext, type RuleFeature, type RuleListener } from "@eslint-react/eslint";
 import { getAttributeStaticValue, getAttributeStaticValueByName, getAttributeValueByName } from "@eslint-react/jsx";
 import type { JSONSchema4 } from "@typescript-eslint/utils/json-schema";
 import type { ReportDescriptor } from "@typescript-eslint/utils/ts-eslint";
@@ -18,17 +18,12 @@ export type MessageID =
   | "suggest";
 
 type Options = readonly [
-  | undefined
-  | {
+  {
     allowReferrer?: boolean;
-  },
+  }?,
 ];
 
-const defaultOptions = [
-  {
-    allowReferrer: false,
-  },
-] as const satisfies Options;
+type RuleOptions = NonNullable<Options[0]>;
 
 const schema: [JSONSchema4] = [
   {
@@ -46,7 +41,7 @@ const schema: [JSONSchema4] = [
 export default createRule<Options, MessageID>({
   meta: {
     type: "problem",
-    defaultOptions: [...defaultOptions],
+    defaultOptions: [{}],
     docs: {
       description: "Disallows 'target=\"_blank\"' without 'rel=\"noreferrer\"'.",
     },
@@ -63,9 +58,10 @@ export default createRule<Options, MessageID>({
 });
 
 export function create(context: RuleContext<MessageID, Options>): RuleListener {
-  const { allowReferrer } = complete(context.options[0], defaultOptions[0]);
-  const resolver = createJSXElementResolver(context);
+  const options: RuleOptions = { ...(context.options[0] ?? {}) };
+  const allowReferrer = options.allowReferrer ??= false;
 
+  const resolver = createJSXElementResolver(context);
   const requiredRelValue = allowReferrer ? "noopener" : "noreferrer";
   const requiredRelAttribute = `rel="${requiredRelValue}"`;
 

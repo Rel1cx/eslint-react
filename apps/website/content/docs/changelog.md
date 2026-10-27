@@ -2,6 +2,12 @@
 title: Changelog
 ---
 
+## Unreleased
+
+### 🏗️ Internal
+
+- `@eslint-react/eslint`: removed the `complete` option-merging helper. Rules now resolve options in `create` from `context.options[0]` with per-property `??=` defaults.
+
 ## v5.30.0-beta.8 (2026-10-27)
 
 ### 🐞 Fixes

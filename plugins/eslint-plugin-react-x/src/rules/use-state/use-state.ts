@@ -2,7 +2,7 @@
 import { createRule } from "@/utils/create-rule";
 import { Check, Collect, Traverse } from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
-import { type RuleContext, type RuleFeature, type RuleListener, complete } from "@eslint-react/eslint";
+import { type RuleContext, type RuleFeature, type RuleListener } from "@eslint-react/eslint";
 import { getSettingsFromContext } from "@eslint-react/shared";
 import { resolveEnclosingAssignmentTarget } from "@eslint-react/var";
 import { hasProperty } from "@local/eff";
@@ -23,21 +23,14 @@ export type MessageID =
   | "invalid-setter-name";
 
 type Options = readonly [
-  | undefined
-  | {
+  {
     enforceAssignment?: boolean;
     enforceLazyInitialization?: boolean;
     enforceSetterName?: boolean;
-  },
+  }?,
 ];
 
-const defaultOptions = [
-  {
-    enforceAssignment: true,
-    enforceLazyInitialization: true,
-    enforceSetterName: true,
-  },
-] as const satisfies Options;
+type RuleOptions = NonNullable<Options[0]>;
 
 const schema: [JSONSchema4] = [
   {
@@ -63,7 +56,7 @@ const schema: [JSONSchema4] = [
 export default createRule<Options, MessageID>({
   meta: {
     type: "suggestion",
-    defaultOptions: [...defaultOptions],
+    defaultOptions: [{}],
     docs: {
       description:
         "Enforces correct usage of 'useState', including destructuring, symmetric naming of the value and setter, and wrapping expensive initializers in a lazy initializer function.",
@@ -81,11 +74,11 @@ export default createRule<Options, MessageID>({
 });
 
 export function create(context: RuleContext<MessageID, Options>): RuleListener {
-  const {
-    enforceAssignment,
-    enforceLazyInitialization,
-    enforceSetterName,
-  } = complete(context.options[0], defaultOptions[0]);
+  const options: RuleOptions = { ...(context.options[0] ?? {}) };
+  const enforceAssignment = options.enforceAssignment ??= true;
+  const enforceLazyInitialization = options.enforceLazyInitialization ??= true;
+  const enforceSetterName = options.enforceSetterName ??= true;
+
   const { additionalStateHooks } = getSettingsFromContext(context);
   return {
     CallExpression(node: TSESTree.CallExpression) {

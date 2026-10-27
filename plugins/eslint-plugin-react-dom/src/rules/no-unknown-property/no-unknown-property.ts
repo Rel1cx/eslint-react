@@ -1,6 +1,6 @@
 // Ported from https://github.com/jsx-eslint/eslint-plugin-react/blob/master/lib/rules/no-unknown-property.js
 import { createRule } from "@/utils/create-rule";
-import { type RuleContext, type RuleFeature, type RuleListener, complete, getText } from "@eslint-react/eslint";
+import { type RuleContext, type RuleFeature, type RuleListener, getText } from "@eslint-react/eslint";
 import type { JSONSchema4 } from "@typescript-eslint/utils/json-schema";
 import {
   getAttributeTagsMap,
@@ -33,23 +33,13 @@ export type MessageID =
   | "unknown-prop-with-standard-name";
 
 type Options = readonly [
-  | undefined
-  | {
+  {
     ignore?: readonly string[];
     requireDataLowercase?: boolean;
-  },
+  }?,
 ];
 
-// ------------------------------------------------------------------------------
-// Default Options
-// ------------------------------------------------------------------------------
-
-const defaultOptions = [
-  {
-    ignore: [],
-    requireDataLowercase: false,
-  },
-] as const satisfies Options;
+type RuleOptions = NonNullable<Options[0]>;
 
 // ------------------------------------------------------------------------------
 // Schema
@@ -88,7 +78,7 @@ const messages = {
 export default createRule<Options, MessageID>({
   meta: {
     type: "problem",
-    defaultOptions: [...defaultOptions],
+    defaultOptions: [{}],
     docs: {
       description: "Disallows unknown 'DOM' properties.",
     },
@@ -101,7 +91,10 @@ export default createRule<Options, MessageID>({
 });
 
 export function create(context: RuleContext<MessageID, Options>): RuleListener {
-  const { ignore, requireDataLowercase } = complete(context.options[0], defaultOptions[0]);
+  const options: RuleOptions = { ...(context.options[0] ?? {}) };
+  const ignore = options.ignore ??= [];
+  const requireDataLowercase = options.requireDataLowercase ??= false;
+
   let attributeTagsMap: ReturnType<typeof getAttributeTagsMap> | null = null;
 
   return {
