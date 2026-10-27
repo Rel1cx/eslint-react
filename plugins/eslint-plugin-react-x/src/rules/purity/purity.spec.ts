@@ -987,6 +987,17 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [{ messageId: "default" }],
     },
+    // A property default does not hide the destructured member-function alias
+    {
+      code: tsx`
+        function Component() {
+          const { random: rand = Math.random } = Math;
+          const id = rand();
+          return <div key={id}>Content</div>;
+        }
+      `,
+      errors: [{ messageId: "default" }],
+    },
     // Intermediate catalog objects are followed: window.Math.random is Math.random
     {
       code: tsx`

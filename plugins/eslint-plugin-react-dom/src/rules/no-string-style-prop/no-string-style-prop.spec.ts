@@ -287,6 +287,7 @@ ruleTester.run(RULE_NAME, rule, {
       const props = getProps();
       <div {...props} />
     `,
+    tsx`<div {...{ style: "color: red;" }} />`,
     // Number style (invalid but not string)
     tsx`<div style={123} />`,
     // Boolean style (invalid but not string)

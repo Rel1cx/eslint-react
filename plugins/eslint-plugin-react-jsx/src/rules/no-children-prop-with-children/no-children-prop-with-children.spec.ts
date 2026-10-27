@@ -360,6 +360,28 @@ ruleTester.run(RULE_NAME, rule, {
       code: 'const propName = "children"; React.createElement("div", { [propName]: "Children" }, "text");',
       errors: [{ messageId: "default" }],
     },
+    // Statically evaluable computed keys are matched beyond identifiers
+    {
+      code: 'React.createElement("div", { ["chi" + "ldren"]: "Children" }, "text");',
+      errors: [{ messageId: "default" }],
+    },
+    // A direct `children` property is inspected even when a spread is also present
+    {
+      code: 'React.createElement("div", { children: "Children", ...props }, "text");',
+      errors: [{ messageId: "default" }],
+    },
+    {
+      code: '<div children="Children" {...props}>text</div>;',
+      errors: [
+        {
+          messageId: "default",
+          suggestions: [
+            { messageId: "remove-children-prop", output: "<div {...props}>text</div>;" },
+            { messageId: "remove-children-content", output: '<div children="Children" {...props}></div>;' },
+          ],
+        },
+      ],
+    },
     // Empty string mixed with meaningful children still counts as having children (PR #1805)
     {
       code: '<div children="x">{""}hello</div>;',
@@ -599,6 +621,8 @@ ruleTester.run(RULE_NAME, rule, {
     'createElement("div");',
     // createElement with a non-static computed identifier key
     'function render(propName: string) { return React.createElement("div", { [propName]: "Children" }, "text"); }',
+    // A computed key that statically resolves to a non-string is not a match
+    'React.createElement("div", { [0]: "Children" }, "text");',
     // createElement with variable props (not ObjectExpression) – cannot inspect
     tsx`
       const props = { children: "x" };

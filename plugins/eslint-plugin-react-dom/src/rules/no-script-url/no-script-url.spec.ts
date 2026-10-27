@@ -173,6 +173,16 @@ ruleTester.run(RULE_NAME, rule, {
       code: '<svg><use xlink:href="javascript:alert(1)" /></svg>',
       errors: [{ messageId: "default" }],
     },
+    // The check applies to namespaced attribute values in expression containers
+    {
+      code: '<svg><use xlink:href={"javascript:alert(1)"} /></svg>',
+      errors: [{ messageId: "default" }],
+    },
+    // Every namespaced attribute is inspected, not only `xlink:href`
+    {
+      code: '<div xml:lang="javascript:alert(1)" />',
+      errors: [{ messageId: "default" }],
+    },
   ],
   valid: [
     '<a href="https://react.dev"></a>',
@@ -207,6 +217,17 @@ ruleTester.run(RULE_NAME, rule, {
     // Boolean value
     "<a href={true}></a>",
     // Spread props - can't be statically analyzed
+    tsx`
+      const props = { href: "javascript:void(0)" };
+      <a {...props}></a>
+    `,
+    tsx`
+      const props = { href: "javascript:void(0)" };
+      <svg><use {...props} /></svg>
+    `,
+    // Namespaced attributes with non-static or missing values are not reported
+    "<svg><use xlink:href={href} /></svg>",
+    "<svg><use xlink:href /></svg>",
     // Data URI (not javascript:)
     '<a href="data:text/html,<h1>Hello</h1>"></a>',
     // About blank

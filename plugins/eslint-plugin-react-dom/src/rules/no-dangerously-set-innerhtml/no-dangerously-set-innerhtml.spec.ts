@@ -46,6 +46,8 @@ ruleTester.run(RULE_NAME, rule, {
     "<App />",
     // Spread props are not resolved
     "<div {...props} />",
+    '<div {...{ dangerouslySetInnerHTML: { __html: "HTML" } }} />',
+    "<div {...{ ...props }} />",
     tsx`
       const props = { dangerouslySetInnerHTML: { __html: "HTML" } };
       const div = <div {...props} />;

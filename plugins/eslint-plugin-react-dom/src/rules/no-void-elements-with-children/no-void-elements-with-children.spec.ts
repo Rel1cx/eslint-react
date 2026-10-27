@@ -125,6 +125,26 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
     },
+    // Any non-empty expression container counts as a child, even when it renders nothing
+    {
+      code: tsx`<br>{null}</br>;`,
+      errors: [
+        {
+          data: { elementType: "br" },
+          messageId: "default",
+        },
+      ],
+    },
+    // Same-line JSX whitespace is not padding, even next to an empty container
+    {
+      code: tsx`<br> {} </br>;`,
+      errors: [
+        {
+          data: { elementType: "br" },
+          messageId: "default",
+        },
+      ],
+    },
   ],
   valid: [
     "<div>Foo</div>;",
@@ -140,6 +160,11 @@ ruleTester.run(RULE_NAME, rule, {
     tsx`<br>{}</br>;`,
     tsx`<br>
     </br>;`,
+    // Only direct `children`/`dangerouslySetInnerHTML` attributes are inspected;
+    // spreads may provide them
+    tsx`<img {...props} />;`,
+    tsx`<img {...{ children: "Foo" }} />;`,
+    tsx`<img {...{ dangerouslySetInnerHTML: { __html: "Foo" } }} />;`,
     {
       code: tsx`<PolyComponent as="div" children="Foo" />;`,
       settings: {

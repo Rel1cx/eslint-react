@@ -1366,6 +1366,27 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
     },
+    // Pins current behavior: a cyclic signal alias resolves to no signal, so
+    // the listener is treated as having no `signal` option (no infinite recursion)
+    {
+      code: tsx`
+        import { useEffect } from "react";
+
+        function Example() {
+          const a = b;
+          const b = a;
+          useEffect(() => {
+            const handleResize = () => {};
+            window.addEventListener("resize", handleResize, { signal: a });
+          }, []);
+        }
+      `,
+      errors: [
+        {
+          messageId: "expected-remove-event-listener-in-cleanup",
+        },
+      ],
+    },
     // The message names the actual effect hook, not a hardcoded "useEffect"
     {
       code: tsx`

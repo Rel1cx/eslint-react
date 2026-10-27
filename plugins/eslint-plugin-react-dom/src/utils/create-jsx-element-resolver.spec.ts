@@ -58,6 +58,25 @@ ruleTester.run(RULE_NAME, testRule, {
       code: '<div as="span" />;',
       errors: [{ data: { data: resolved("div", "div") }, messageId: "default" }],
     },
+    // Spread props are not resolved: the polymorphic prop must be a direct attribute
+    {
+      code: '<Box {...{ as: "iframe" }} />;',
+      errors: [{ data: { data: resolved("Box", "Box") }, messageId: "default" }],
+    },
+    {
+      code: 'const props = { as: "button" }; <Box {...props} />;',
+      errors: [{ data: { data: resolved("Box", "Box") }, messageId: "default" }],
+    },
+    // A direct polymorphic prop takes precedence even when a spread is placed after it
+    {
+      code: '<Box as="div" {...{ as: "iframe" }} />;',
+      errors: [{ data: { data: resolved("div", "Box") }, messageId: "default" }],
+    },
+    // ... and when it is placed after the spread
+    {
+      code: '<Box {...{ as: "iframe" }} as="div" />;',
+      errors: [{ data: { data: resolved("div", "Box") }, messageId: "default" }],
+    },
     // Member expression without a polymorphic prop keeps its full name
     {
       code: "<motion.iframe />;",

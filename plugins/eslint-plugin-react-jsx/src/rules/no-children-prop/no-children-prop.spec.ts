@@ -289,6 +289,23 @@ ruleTester.run(RULE_NAME, rule, {
       code: 'const propName = "children"; React.createElement("div", { [propName]: "Children" });',
       errors: [{ messageId: "default" }],
     },
+    // Statically evaluable computed keys are matched beyond identifiers
+    {
+      code: 'React.createElement("div", { ["chi" + "ldren"]: "Children" });',
+      errors: [{ messageId: "default" }],
+    },
+    // A direct `children` attribute is inspected even when a spread is also present
+    {
+      code: '<div children="Children" {...props} />;',
+      errors: [
+        {
+          messageId: "default",
+          suggestions: [
+            { messageId: "suggest", output: "<div {...props}>Children</div>;" },
+          ],
+        },
+      ],
+    },
     // JSX edge cases
     {
       code: tsx`<div children />;`, // not a valid use case but make sure we don't crash
@@ -571,6 +588,10 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [{ messageId: "default" }],
     },
     {
+      code: 'React.createElement("div", { children: "Children", ...props });',
+      errors: [{ messageId: "default" }],
+    },
+    {
       code: 'React.createElement("div", { ["children"]: "Children" });',
       errors: [{ messageId: "default" }],
     },
@@ -626,6 +647,8 @@ ruleTester.run(RULE_NAME, rule, {
     'React.createElement("div");',
     // createElement with a non-static computed identifier key
     'function render(propName: string) { return React.createElement("div", { [propName]: "Children" }); }',
+    // A computed key that statically resolves to a non-string is not a match
+    'React.createElement("div", { [0]: "Children" });',
     // Spread props are not resolved
     '<div {...{ className: "x" }} />;',
     'const props = { className: "x" }; <div {...props} />;',

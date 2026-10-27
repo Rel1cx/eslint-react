@@ -1164,6 +1164,9 @@ ruleTester.run(RULE_NAME, rule, {
     // A dynamic computed key may also provide key/ref
     "<Fragment {...{ [propName]: value }}><div /></Fragment>",
     "<Fragment {...{ ...{ [propName]: value } }}><div /></Fragment>",
+    // The spread exemption is checked before the emptiness and child-count checks
+    "<Fragment {...props} />",
+    "<Fragment {...props}>text</Fragment>",
     // key/ref exemption is checked before the emptiness check
     '<Fragment key="k" />',
     // A single expression child inside a custom component is allowed by default

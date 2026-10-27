@@ -136,6 +136,28 @@ describe("createImportLookup", () => {
       expect(lookup.binding("ComponentType")).toBeNull();
       expect(lookup.has("render", "render")).toBe(true);
     });
+
+    it("should ignore type-only default and namespace imports", () => {
+      const lookup = createLookup(
+        [
+          'import type ReactDOM from "react-dom";',
+          'import type * as ReactDOMNamespace from "react-dom";',
+        ].join("\n"),
+        { source: "react-dom" },
+      );
+
+      expect(lookup.all()).toEqual([]);
+      expect(lookup.hasDefault("ReactDOM")).toBe(false);
+      expect(lookup.isModuleBinding("ReactDOMNamespace")).toBe(false);
+    });
+
+    it("should keep a default import that also has an inline type specifier", () => {
+      const lookup = createLookup('import ReactDOM, { type ComponentType } from "react-dom";', { source: "react-dom" });
+
+      expect(lookup.all().map((entry) => entry.local)).toEqual(["ReactDOM"]);
+      expect(lookup.hasDefault("ReactDOM")).toBe(true);
+      expect(lookup.binding("ComponentType")).toBeNull();
+    });
   });
 
   describe("queries", () => {
