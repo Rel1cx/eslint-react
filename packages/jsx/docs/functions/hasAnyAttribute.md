@@ -3,21 +3,22 @@
 # Function: hasAnyAttribute()
 
 ```ts
-function hasAnyAttribute(context: RuleContext, element: JSXElement, names: string[]): boolean;
+function hasAnyAttribute(element: JSXElement, names: readonly string[]): boolean;
 ```
 
-Check if the element has at least one of the given attributes.
+Check if the element has at least one of the given direct attributes.
+
+Spread attributes are ignored; only direct `JSXAttribute` nodes are checked.
 
 ## Parameters
 
-| Parameter | Type          | Description                                                                    |
-| --------- | ------------- | ------------------------------------------------------------------------------ |
-| `context` | `RuleContext` | The ESLint rule context (needed for variable resolution in spread attributes). |
-| `element` | `JSXElement`  | The `JSXElement` node to check.                                                |
-| `names`   | `string`[]    | The attribute names to look for.                                               |
+| Parameter | Type                | Description                                                 |
+| --------- | ------------------- | ----------------------------------------------------------- |
+| `element` | `JSXElement`        | The `JSXElement` node to check.                             |
+| `names`   | readonly `string`[] | The full attribute names to look for (namespaces included). |
 
 ## Returns
 
 `boolean`
 
-`true` if at least one of the attributes is present.
+`true` if at least one direct attribute is present; `false` for an empty list.

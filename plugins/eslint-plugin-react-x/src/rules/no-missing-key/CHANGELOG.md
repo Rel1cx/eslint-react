@@ -5,6 +5,12 @@ All notable changes to the `react-x/no-missing-key` rule will be documented in t
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [5.30.0-beta.6] - 2026-10-27
+
+### Fixed
+
+- Elements with a spread attribute are no longer reported as missing `key`, since spread props are not statically resolved and may provide `key`.
+
 ## [5.30.0-beta.2] - 2026-10-25
 
 ### Changed

@@ -14,7 +14,7 @@ ruleTester.run(RULE_NAME, rule, {
             {
               messageId: "suggest",
               data: { rel: 'rel="noreferrer"' },
-              output: '<a rel="noreferrer" href="https://react.dev" target="_blank"></a>',
+              output: '<a href="https://react.dev" target="_blank" rel="noreferrer"></a>',
             },
           ],
         },
@@ -30,7 +30,7 @@ ruleTester.run(RULE_NAME, rule, {
             {
               messageId: "suggest",
               data: { rel: 'rel="noreferrer"' },
-              output: '<a rel="noreferrer" href="mailto:user@example.com" target="_blank"></a>',
+              output: '<a href="mailto:user@example.com" target="_blank" rel="noreferrer"></a>',
             },
           ],
         },
@@ -45,7 +45,7 @@ ruleTester.run(RULE_NAME, rule, {
             {
               messageId: "suggest",
               data: { rel: 'rel="noreferrer"' },
-              output: '<a rel="noreferrer" href="ftp://example.com/file" target="_blank"></a>',
+              output: '<a href="ftp://example.com/file" target="_blank" rel="noreferrer"></a>',
             },
           ],
         },
@@ -61,7 +61,7 @@ ruleTester.run(RULE_NAME, rule, {
             {
               messageId: "suggest",
               data: { rel: 'rel="noreferrer"' },
-              output: '<a rel="noreferrer" href="tel:+1234567890" target="_blank"></a>',
+              output: '<a href="tel:+1234567890" target="_blank" rel="noreferrer"></a>',
             },
           ],
         },
@@ -76,7 +76,7 @@ ruleTester.run(RULE_NAME, rule, {
             {
               messageId: "suggest",
               data: { rel: 'rel="noreferrer"' },
-              output: '<a rel="noreferrer" href="https://react.dev" target={"_blank"}></a>',
+              output: '<a href="https://react.dev" target={"_blank"} rel="noreferrer"></a>',
             },
           ],
         },
@@ -129,10 +129,11 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
     },
+    // Missing rel with an unresolvable spread: the suggestion is appended after the last attribute
     {
       code: tsx`
-        const props = { href: "https://react.dev", target: "_blank" };
-        const a = <a {...props}></a>;
+        const props = getProps();
+        <a {...props} href="https://react.dev" target="_blank"></a>;
       `,
       errors: [
         {
@@ -142,8 +143,30 @@ ruleTester.run(RULE_NAME, rule, {
               messageId: "suggest",
               data: { rel: 'rel="noreferrer"' },
               output: tsx`
-                const props = { href: "https://react.dev", target: "_blank" };
-                const a = <a rel="noreferrer" {...props}></a>;
+                const props = getProps();
+                <a {...props} href="https://react.dev" target="_blank" rel="noreferrer"></a>;
+              `,
+            },
+          ],
+        },
+      ],
+    },
+    // Missing rel with a trailing spread: the suggestion follows the spread so it cannot be overridden
+    {
+      code: tsx`
+        const props = getProps();
+        <a href="https://react.dev" target="_blank" {...props}></a>;
+      `,
+      errors: [
+        {
+          messageId: "default",
+          suggestions: [
+            {
+              messageId: "suggest",
+              data: { rel: 'rel="noreferrer"' },
+              output: tsx`
+                const props = getProps();
+                <a href="https://react.dev" target="_blank" {...props} rel="noreferrer"></a>;
               `,
             },
           ],
@@ -159,7 +182,7 @@ ruleTester.run(RULE_NAME, rule, {
             {
               messageId: "suggest",
               data: { rel: 'rel="noreferrer"' },
-              output: '<PolyComponent rel="noreferrer" as="a" href="https://react.dev" target="_blank"></PolyComponent>',
+              output: '<PolyComponent as="a" href="https://react.dev" target="_blank" rel="noreferrer"></PolyComponent>',
             },
           ],
         },
@@ -179,7 +202,7 @@ ruleTester.run(RULE_NAME, rule, {
             {
               messageId: "suggest",
               data: { rel: 'rel="noreferrer"' },
-              output: '<PolyComponent rel="noreferrer" component="a" href="https://react.dev" target="_blank"></PolyComponent>',
+              output: '<PolyComponent component="a" href="https://react.dev" target="_blank" rel="noreferrer"></PolyComponent>',
             },
           ],
         },
@@ -189,28 +212,6 @@ ruleTester.run(RULE_NAME, rule, {
           polymorphicPropName: "component",
         },
       },
-    },
-    // Polymorphic prop provided via spread props
-    {
-      code: tsx`
-        const props = { as: "a" };
-        <Box {...props} href="https://react.dev" target="_blank"></Box>;
-      `,
-      errors: [
-        {
-          messageId: "default",
-          suggestions: [
-            {
-              messageId: "suggest",
-              data: { rel: 'rel="noreferrer"' },
-              output: tsx`
-                const props = { as: "a" };
-                <Box rel="noreferrer" {...props} href="https://react.dev" target="_blank"></Box>;
-              `,
-            },
-          ],
-        },
-      ],
     },
     // Member expression component with a polymorphic prop (ex: motion.div)
     {
@@ -222,7 +223,7 @@ ruleTester.run(RULE_NAME, rule, {
             {
               messageId: "suggest",
               data: { rel: 'rel="noreferrer"' },
-              output: '<motion.div rel="noreferrer" as="a" href="https://react.dev" target="_blank"></motion.div>',
+              output: '<motion.div as="a" href="https://react.dev" target="_blank" rel="noreferrer"></motion.div>',
             },
           ],
         },
@@ -243,7 +244,7 @@ ruleTester.run(RULE_NAME, rule, {
             {
               messageId: "suggest",
               data: { rel: 'rel="noreferrer"' },
-              output: '<PolyComponent rel="noreferrer" as="A" href="https://react.dev" target="_blank"></PolyComponent>',
+              output: '<PolyComponent as="A" href="https://react.dev" target="_blank" rel="noreferrer"></PolyComponent>',
             },
           ],
         },
@@ -281,7 +282,7 @@ ruleTester.run(RULE_NAME, rule, {
             {
               messageId: "suggest",
               data: { rel: 'rel="noopener"' },
-              output: '<a rel="noopener" href="https://react.dev" target="_blank"></a>',
+              output: '<a href="https://react.dev" target="_blank" rel="noopener"></a>',
             },
           ],
         },
@@ -306,208 +307,6 @@ ruleTester.run(RULE_NAME, rule, {
       ],
       options: [{ allowReferrer: true }],
     },
-    // TODO: Restore Link component tests using the polymorphicPropName setting (additionalComponents was removed in 2.0.0).
-    // },
-    // {
-    //   code: '<Link href="https://react.dev" target="_blank" rel="noopener"></Link>',
-    //   errors: [
-    //     {
-    //       messageId: "default",
-    //       suggestions: [
-    //         {
-    //           messageId: "suggest",
-    //           output: '<Link href="https://react.dev" target="_blank" rel="noreferrer"></Link>',
-    //         },
-    //       ],
-    //     },
-    //   ],
-    //   settings: {
-    //     "react-x": {
-    //       additionalComponents: [
-    //         {
-    //           name: "Link",
-    //           as: "a",
-    //         },
-    //       ],
-    //     },
-    //   },
-    // },
-    // {
-    //   code: tsx`
-    //     const a = <a href="https://react.dev" target="_blank"></a>;
-    //     const b = <Link to="https://react.dev" target="_blank"></Link>;
-    //   `,
-    //   errors: [
-    //     {
-    //       messageId: "default",
-    //       suggestions: [
-    //         {
-    //           messageId: "suggest",
-    //           output: tsx`
-    //             const a = <a rel="noreferrer" href="https://react.dev" target="_blank"></a>;
-    //             const b = <Link to="https://react.dev" target="_blank"></Link>;
-    //           `,
-    //         },
-    //       ],
-    //     },
-    //   ], // should be 1 error
-    //   settings: {
-    //     "react-x": {
-    //       additionalComponents: [
-    //         {
-    //           name: "Link",
-    //           as: "a",
-    //           attributes: [
-    //             {
-    //               name: "to",
-    //               as: "href",
-    //             },
-    //             {
-    //               name: "rel",
-    //               defaultValue: "noreferrer",
-    //             },
-    //           ],
-    //         },
-    //       ],
-    //     },
-    //   },
-    // },
-    // {
-    //   code: tsx`
-    //     const a = <Link href="https://react.dev" target="_blank"></Link>;
-    //     const b = <LinkButton href="https://react.dev" target="_blank" relation="noopener"></LinkButton>;
-    //   `,
-    //   errors: [
-    //     {
-    //       messageId: "default",
-    //       suggestions: [
-    //         {
-    //           messageId: "suggest",
-    //           output: tsx`
-    //             const a = <Link rel="noreferrer" href="https://react.dev" target="_blank"></Link>;
-    //             const b = <LinkButton href="https://react.dev" target="_blank" relation="noopener"></LinkButton>;
-    //           `,
-    //         },
-    //       ],
-    //     },
-    //     {
-    //       messageId: "default",
-    //       suggestions: [
-    //         {
-    //           messageId: "suggest",
-    //           output: tsx`
-    //             const a = <Link href="https://react.dev" target="_blank"></Link>;
-    //             const b = <LinkButton href="https://react.dev" target="_blank" relation="noreferrer noopener"></LinkButton>;
-    //           `,
-    //         },
-    //       ],
-    //     },
-    //   ],
-    //   settings: {
-    //     "react-x": {
-    //       additionalComponents: [
-    //         {
-    //           name: "Link",
-    //           as: "a",
-    //           attributes: [{
-    //             name: "rel",
-    //             defaultValue: "noopener",
-    //           }],
-    //         },
-    //         {
-    //           name: "LinkButton",
-    //           as: "a",
-    //           attributes: [
-    //             {
-    //               name: "relation",
-    //               as: "rel",
-    //               defaultValue: "noreferrer",
-    //             },
-    //           ],
-    //         },
-    //       ],
-    //     },
-    //   },
-    // },
-    // {
-    //   code: tsx`
-    //     const a = <Link href="https://react.dev" target="_blank"></Link>;
-    //     const b = <LinkButton href="https://react.dev" target="_blank" relation="noopener"></LinkButton>;
-    //   `,
-    //   errors: [
-    //     {
-    //       messageId: "default",
-    //       suggestions: [
-    //         {
-    //           messageId: "suggest",
-    //           output: tsx`
-    //             const a = <Link href="https://react.dev" target="_blank"></Link>;
-    //             const b = <LinkButton href="https://react.dev" target="_blank" relation="noreferrer noopener"></LinkButton>;
-    //           `,
-    //         },
-    //       ],
-    //     },
-    //   ],
-    //   settings: {
-    //     "react-x": {
-    //       additionalComponents: [
-    //         {
-    //           name: "Link",
-    //           as: "a",
-    //           attributes: [{
-    //             name: "rel",
-    //             defaultValue: "noreferrer",
-    //           }],
-    //         },
-    //         {
-    //           name: "LinkButton",
-    //           as: "a",
-    //           attributes: [
-    //             {
-    //               name: "relation",
-    //               as: "rel",
-    //               defaultValue: "noreferrer",
-    //             },
-    //           ],
-    //         },
-    //       ],
-    //     },
-    //   },
-    // },
-    // {
-    //   code: tsx`
-    //     const a = <Link href="https://react.dev"></Link>;
-    //   `,
-    //   errors: [
-    //     {
-    //       messageId: "default",
-    //       suggestions: [
-    //         {
-    //           messageId: "suggest",
-    //           output: tsx`
-    //             const a = <Link rel="noreferrer" href="https://react.dev"></Link>;
-    //           `,
-    //         },
-    //       ],
-    //     },
-    //   ],
-    //   settings: {
-    //     "react-x": {
-    //       additionalComponents: [
-    //         {
-    //           name: "Link",
-    //           as: "a",
-    //           attributes: [
-    //             {
-    //               name: "target",
-    //               defaultValue: "_blank",
-    //             },
-    //           ],
-    //         },
-    //       ],
-    //     },
-    //   },
-    // },
   ],
   valid: [
     '<a href="https://react.dev" target="_blank" rel="noopener noreferrer"></a>',
@@ -541,6 +340,7 @@ ruleTester.run(RULE_NAME, rule, {
     "<a></a>",
     "<span></span>",
     '<Box href="https://react.dev" target="_blank"></Box>',
+    // Spread props are not resolved
     tsx`
       const props = { href: "https://react.dev", target: "_blank", rel: "noreferrer" };
       const a = <a {...props}></a>;
@@ -548,12 +348,6 @@ ruleTester.run(RULE_NAME, rule, {
     tsx`
       const props = { href: "https://react.dev", rel: "noreferrer" };
       const a = <a target="_blank" {...props}></a>;
-    `,
-    tsx`
-      const props1 = { href: "https://react.dev", target: "_blank" } as const;
-      const a1 = <a {...props1} target="_self"></a>;
-      const props2 = { href: "https://react.dev", target: "_self" } as const;
-      const a2 = <a target="_blank" {...props2}></a>;
     `,
     {
       code: '<Box href="https://react.dev" target="_blank"></Box>',
@@ -563,31 +357,10 @@ ruleTester.run(RULE_NAME, rule, {
         },
       },
     },
-    // {
-    //   code: '<Box href="https://react.dev" target="_blank"></Box>',
-    //   settings: {
-    //     "react-x": {
-    //       additionalComponents: [
-    //         {
-    //           name: "LinkButton",
-    //           as: "a",
-    //         },
-    //       ],
-    //       polymorphicPropName: "as",
-    //     },
-    //   },
-    // },
     // Boundary: the polymorphic prop on a host element is ignored
     '<div as="a" href="https://react.dev" target="_blank"></div>',
     // Boundary: non-string polymorphic prop value falls back to the element name
     '<Box as={Link} href="https://react.dev" target="_blank"></Box>',
-    // Boundary: later props win, spread 'as' overrides the explicit 'as'
-    {
-      code: tsx`
-        const props = { as: "div" };
-        <Box as="a" {...props} href="https://react.dev" target="_blank"></Box>;
-      `,
-    },
     // Member expression without a polymorphic prop is not treated as a host element
     '<motion.a href="https://react.dev" target="_blank"></motion.a>',
     {

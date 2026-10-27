@@ -3,26 +3,24 @@
 # Function: findAttribute()
 
 ```ts
-function findAttribute(context: RuleContext, element: JSXElement, name: string): TSESTreeJSXAttributeLike | undefined;
+function findAttribute(element: JSXElement, name: string): JSXAttribute | null;
 ```
 
-Find a JSX attribute (or a spread attribute containing the property) by name.
+Find the last direct JSX attribute with the given full name.
 
-Returns the last matching attribute to mirror React's behavior where later props win.
-Spread attributes are resolved when possible: if the spread argument is an identifier
-that resolves to an object expression, the object's properties are searched for a
-matching key (see [findSpreadProperty](findSpreadProperty.md)).
+Later direct attributes take precedence, matching the order in which JSX
+props are written. Spread attributes are opaque: they are ignored by this lookup, and a
+spread after the returned attribute may still override it at runtime.
 
 ## Parameters
 
-| Parameter | Type          | Description                                                                    |
-| --------- | ------------- | ------------------------------------------------------------------------------ |
-| `context` | `RuleContext` | The ESLint rule context (needed for variable resolution in spread attributes). |
-| `element` | `JSXElement`  | The `JSXElement` node to search.                                               |
-| `name`    | `string`      | The attribute name to look for (ex: "className").                              |
+| Parameter | Type         | Description                                                         |
+| --------- | ------------ | ------------------------------------------------------------------- |
+| `element` | `JSXElement` | The `JSXElement` node to search.                                    |
+| `name`    | `string`     | The full attribute name to look for (ex: "className", "xml:space"). |
 
 ## Returns
 
-`TSESTreeJSXAttributeLike` \| `undefined`
+`JSXAttribute` \| `null`
 
-The matching `JSXAttribute` or `JSXSpreadAttribute`, or `undefined` when not found.
+The last matching `JSXAttribute`, or `null` when not found.

@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [5.30.0-beta.6] - 2026-10-27
+
+### Changed
+
+- Attribute-tag, DOM-property, and standard-name lookups are cached per React version and resolved lazily, avoiding unnecessary work at rule creation; valid versions behave the same.
+- `isValidHTMLTagInJSX` now uses `isPlainAttribute`, still matching only plain identifier attributes; no behavior change.
+
 ## [5.28.1] - 2026-10-17
 
 ### Fixed

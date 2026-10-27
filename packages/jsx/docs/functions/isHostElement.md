@@ -3,21 +3,28 @@
 # Function: isHostElement()
 
 ```ts
-function isHostElement(node: Node): node is JSXElement;
+function isHostElement(node: Node | null | undefined): boolean;
 ```
 
 Check if the node is a host (intrinsic / DOM) element, that is, a `JSXElement`
-whose tag name starts with a lowercase letter (ex: `<div>` vs `<MyComponent>`).
-For namespaced names, the local part is checked (ex: `rect` in `<svg:rect>`).
+whose tag name starts with an ASCII lowercase letter (ex: `<div>` vs
+`<MyComponent>`). For namespaced names, the local part is checked (ex: `rect`
+in `<svg:rect>`). Member-expression names (ex: `<foo.Bar>`) are not host elements.
 
 ## Parameters
 
-| Parameter | Type   | Description        |
-| --------- | ------ | ------------------ |
-| `node`    | `Node` | The node to check. |
+| Parameter | Type                            | Description        |
+| --------- | ------------------------------- | ------------------ |
+| `node`    | `Node` \| `null` \| `undefined` | The node to check. |
 
 ## Returns
 
-`node is JSXElement`
+`boolean`
 
-`true` if the node is a `JSXElement` with a lowercase tag name.
+`true` if the node is a `JSXElement` with a plain or namespaced tag
+name starting with an ASCII lowercase letter.
+
+## Remarks
+
+This is a match predicate, not a type guard: a `false` result does not mean
+the node is not a `JSXElement`; custom components are also JSX elements.

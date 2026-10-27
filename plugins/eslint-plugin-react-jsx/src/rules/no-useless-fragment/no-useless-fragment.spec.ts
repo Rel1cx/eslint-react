@@ -730,17 +730,6 @@ ruleTester.run(RULE_NAME, rule, {
       output: null,
     },
     {
-      code: "<Fragment {...props}><div /></Fragment>",
-      errors: [
-        {
-          type: AST.JSXElement,
-          data: { reason: "contains less than two children" },
-          messageId: "default",
-        },
-      ],
-      output: null,
-    },
-    {
       code: "<Other.Fragment><Foo /></Other.Fragment>",
       errors: [
         {
@@ -845,19 +834,6 @@ ruleTester.run(RULE_NAME, rule, {
         /** @jsxFrag VFrag */
         <div />
       `,
-    },
-    // A spread attribute that statically resolves to an object without key/ref does not
-    // exempt the fragment, but makes the fix unsafe
-    {
-      code: "<Fragment {...{ id: 1 }}><div /></Fragment>",
-      errors: [
-        {
-          type: AST.JSXElement,
-          data: { reason: "contains less than two children" },
-          messageId: "default",
-        },
-      ],
-      output: null,
     },
     // A single spread child is always useless (it is not a JSXExpressionContainer, so
     // allowExpressions does not apply) and can never be unwrapped outside JSX
@@ -1180,9 +1156,14 @@ ruleTester.run(RULE_NAME, rule, {
       /** @jsxFrag VFrag */
       <React.Fragment><div /></React.Fragment>
     `,
-    // A key spread from an inline object expression exempts the fragment,
-    // same as a literal key attribute
+    // A spread attribute may provide key/ref, so it exempts the fragment
     "<Fragment {...{ key: 'k' }}><div /></Fragment>",
+    "<Fragment {...props}><div /></Fragment>",
+    "<Fragment {...{ ...props }}><div /></Fragment>",
+    "<Fragment {...{ id: 1 }}><div /></Fragment>",
+    // A dynamic computed key may also provide key/ref
+    "<Fragment {...{ [propName]: value }}><div /></Fragment>",
+    "<Fragment {...{ ...{ [propName]: value } }}><div /></Fragment>",
     // key/ref exemption is checked before the emptiness check
     '<Fragment key="k" />',
     // A single expression child inside a custom component is allowed by default

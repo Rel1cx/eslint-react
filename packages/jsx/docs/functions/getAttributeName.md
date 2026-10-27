@@ -6,7 +6,7 @@
 function getAttributeName(node: JSXAttribute): string;
 ```
 
-Get the stringified name of a `JSXAttribute` node.
+Get the full name of a `JSXAttribute` node.
 
 - `className` -> `"className"`
 - `aria-label` -> `"aria-label"`

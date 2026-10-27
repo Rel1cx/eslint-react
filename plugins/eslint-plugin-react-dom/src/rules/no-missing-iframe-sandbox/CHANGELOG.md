@@ -5,6 +5,12 @@ All notable changes to the `react-dom/no-missing-iframe-sandbox` rule will be do
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [5.30.0-beta.6] - 2026-10-27
+
+### Changed
+
+- Spread props are no longer statically resolved, so a `sandbox` provided through a spread attribute is ignored; only direct `sandbox` attributes are checked. Direct values are read through `getAttributeValueByName` and `getAttributeStaticValue`.
+
 ## [5.27.4] - 2026-10-16
 
 ### Fixed

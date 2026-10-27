@@ -25,9 +25,14 @@ export default createRule<[], MessageID>({
 
 export function create(context: RuleContext<MessageID, []>): RuleListener {
   return {
+    // Visitor for JSX text nodes
     JSXText(node) {
-      if (!Check.isJSXElementOrFragment(node.parent)) return;
-      if (!/^\s*\/(?:\/|\*)/mu.test(getText(context, node))) return;
+      if (!Check.isJSXElementOrFragment(node.parent)) {
+        return;
+      }
+      if (!/^\s*\/(?:\/|\*)/mu.test(getText(context, node))) {
+        return;
+      }
       context.report({ messageId: "default", node });
     },
   };

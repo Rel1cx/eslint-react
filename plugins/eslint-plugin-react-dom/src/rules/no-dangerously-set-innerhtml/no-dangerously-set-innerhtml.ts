@@ -29,8 +29,10 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
 
   return {
     JSXElement(node) {
-      const prop = findAttribute(context, node, "dangerouslySetInnerHTML");
-      if (prop == null) return;
+      const prop = findAttribute(node, "dangerouslySetInnerHTML");
+      if (prop == null) {
+        return;
+      }
       context.report({
         messageId: "default",
         node: prop,

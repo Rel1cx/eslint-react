@@ -2,7 +2,7 @@ import { createRule } from "@/utils/create-rule";
 import { Check, Extract } from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, type RuleListener } from "@eslint-react/eslint";
-import { getCreateElementPropsObject } from "@eslint-react/jsx";
+import { parseCreateElementCall } from "@eslint-react/jsx";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import type { ReportDescriptor } from "@typescript-eslint/utils/ts-eslint";
 import { KNOWN_COERCION_FUNCTIONS, getIdentifiersFromBinaryExpression, isArrayIndexReference } from "./lib";
@@ -36,11 +36,10 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
 
   // Gets the props object of a `createElement` or `cloneElement` call
   function getPropsObject(node: TSESTree.CallExpression): TSESTree.ObjectExpression | null {
-    const props = node.arguments[1];
-    if (core.isCreateElementCall(context, node)) {
-      return getCreateElementPropsObject(context, node);
-    }
+    const call = parseCreateElementCall(context, node);
+    if (call != null) return call.propsObject;
     if (!core.isCloneElementCall(context, node)) return null;
+    const props = node.arguments[1];
     return props?.type === AST.ObjectExpression ? props : null;
   }
 

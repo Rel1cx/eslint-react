@@ -1,5 +1,3 @@
-import tsx from "dedent";
-
 import { ruleTester } from "@local/testkit";
 import { createJSXElementResolver } from "./create-jsx-element-resolver";
 import { createRule } from "./create-rule";
@@ -114,29 +112,6 @@ ruleTester.run(RULE_NAME, testRule, {
     {
       code: '<Box as={condition ? "a" : "div"} />;',
       errors: [{ data: { data: resolved("Box", "Box") }, messageId: "default" }],
-    },
-    // Polymorphic prop in an inline spread object
-    {
-      code: '<Box {...{ as: "iframe" }} />;',
-      errors: [{ data: { data: resolved("iframe", "Box") }, messageId: "default" }],
-    },
-    // Polymorphic prop in a spread variable
-    {
-      code: tsx`
-        const props = { as: "button" };
-        <Box {...props} />;
-      `,
-      errors: [{ data: { data: resolved("button", "Box") }, messageId: "default" }],
-    },
-    // Later props win: spread after an explicit attribute
-    {
-      code: '<Box as="div" {...{ as: "iframe" }} />;',
-      errors: [{ data: { data: resolved("iframe", "Box") }, messageId: "default" }],
-    },
-    // Later props win: explicit attribute after a spread
-    {
-      code: '<Box {...{ as: "iframe" }} as="div" />;',
-      errors: [{ data: { data: resolved("div", "Box") }, messageId: "default" }],
     },
     // Custom polymorphicPropName setting
     {

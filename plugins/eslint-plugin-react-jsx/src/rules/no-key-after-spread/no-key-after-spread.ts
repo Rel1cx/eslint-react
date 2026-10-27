@@ -2,7 +2,7 @@ import { createRule } from "@/utils/create-rule";
 import { Check } from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, type RuleListener } from "@eslint-react/eslint";
-import { isAttribute } from "@eslint-react/jsx";
+import { isPlainAttribute } from "@eslint-react/jsx";
 import { dropWhile, not } from "@local/eff";
 import ts from "typescript";
 
@@ -38,7 +38,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       // tsc itself exempts an inline object literal spread without nested
       // spreads (it still emits via the JSX runtime), but this rule reports
       // every 'key' after any spread regardless.
-      for (const n of dropWhile(node.attributes, not(Check.isJSXSpreadAttribute)).filter(isAttribute("key"))) {
+      for (const n of dropWhile(node.attributes, not(Check.isJSXSpreadAttribute)).filter(isPlainAttribute("key"))) {
         context.report({ messageId: "default", node: n });
       }
     },

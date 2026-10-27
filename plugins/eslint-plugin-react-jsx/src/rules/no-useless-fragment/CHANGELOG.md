@@ -7,6 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [5.30.0-beta.6] - 2026-10-27
+
+### Fixed
+
+- Fragments with a spread attribute are no longer reported, since spread props are not statically resolved and may provide `key` or `ref`.
+
+### Changed
+
+- Uses the simplified direct-attribute lookup after `@eslint-react/jsx` removed spread-property resolution.
+
 ## [5.28.1] - 2026-10-17
 
 ### Fixed

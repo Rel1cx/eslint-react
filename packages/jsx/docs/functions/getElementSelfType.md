@@ -6,10 +6,11 @@
 function getElementSelfType(node: TSESTreeJSXElementLike): string;
 ```
 
-Get the self name (last dot-separated segment) of a JSX element type.
+Get the self name (last dot-separated segment) of a JSX element or fragment type.
 
 - `<Foo.Bar.Baz>` -> `"Baz"`
 - `<div>` -> `"div"`
+- `<xml:space>` -> `"xml:space"` (only `.` separates segments, not `:`)
 - `<></>` -> `""`
 
 ## Parameters
@@ -22,4 +23,4 @@ Get the self name (last dot-separated segment) of a JSX element type.
 
 `string`
 
-The last segment of the element type, or `""` for fragments.
+The last dot-separated segment of the element type, or `""` for fragments.

@@ -1,7 +1,7 @@
 import { createJSXElementResolver } from "@/utils/create-jsx-element-resolver";
 import { createRule } from "@/utils/create-rule";
 import { type ReportFixFunction, type RuleContext, type RuleFeature, type RuleListener } from "@eslint-react/eslint";
-import { findAttribute, getAttributeStaticValue } from "@eslint-react/jsx";
+import { getAttributeStaticValue, getAttributeStaticValueByName, getAttributeValueByName } from "@eslint-react/jsx";
 import type { JSONSchema4 } from "@typescript-eslint/utils/json-schema";
 import type { ReportDescriptor } from "@typescript-eslint/utils/ts-eslint";
 import { isExternalLinkLike, isSafeRel } from "./lib";
@@ -70,43 +70,60 @@ export function create(context: RuleContext<MessageID, Options>): RuleListener {
   const requiredRelValue = allowReferrer ? "noopener" : "noreferrer";
   const requiredRelAttribute = `rel="${requiredRelValue}"`;
 
-  function buildSuggest(fix: ReportFixFunction): ReportDescriptor<MessageID>["suggest"] & {} {
-    return [{
-      data: { rel: requiredRelAttribute },
-      fix,
-      messageId: "suggest",
-    }];
-  }
-
   return {
     JSXElement(node) {
       const { domElementType } = resolver.resolve(node);
-      if (domElementType !== "a") return;
-      if (getAttributeStaticValue(context, node, "target") !== "_blank") return;
+      if (domElementType !== "a") {
+        return;
+      }
+      if (getAttributeStaticValueByName(context, node, "target") !== "_blank") {
+        return;
+      }
 
-      const hrefValue = getAttributeStaticValue(context, node, "href");
-      if (!isExternalLinkLike(hrefValue)) return;
+      const hrefValue = getAttributeStaticValueByName(context, node, "href");
+      if (!isExternalLinkLike(hrefValue)) {
+        return;
+      }
 
-      const relAttribute = findAttribute(context, node, "rel");
-      if (relAttribute == null) {
+      const relValue = getAttributeValueByName(node, "rel");
+      if (relValue == null) {
+        // Append after the last attribute so a spread attribute cannot override the suggestion.
+        const lastAttribute = node.openingElement.attributes.at(-1);
+
         context.report({
           messageId: "default",
           data: { rel: requiredRelAttribute },
           node: node.openingElement,
-          suggest: buildSuggest((fixer) => fixer.insertTextAfter(node.openingElement.name, ` ${requiredRelAttribute}`)),
+          suggest: buildSuggest(requiredRelAttribute, (fixer) => fixer.insertTextAfter(lastAttribute ?? node.openingElement.name, ` ${requiredRelAttribute}`)),
         });
         return;
       }
 
-      const relValue = getAttributeStaticValue(context, node, "rel");
-      if (isSafeRel(relValue, allowReferrer)) return;
+      const relAttribute = relValue.attribute;
+      if (isSafeRel(getAttributeStaticValue(context, relValue), allowReferrer)) {
+        return;
+      }
 
       context.report({
         messageId: "default",
         data: { rel: requiredRelAttribute },
         node: relAttribute,
-        suggest: buildSuggest((fixer) => fixer.replaceText(relAttribute, requiredRelAttribute)),
+        suggest: buildSuggest(requiredRelAttribute, (fixer) => fixer.replaceText(relAttribute, requiredRelAttribute)),
       });
     },
   };
+}
+
+/**
+ * Build the suggestion descriptor for adding or replacing the `rel` attribute.
+ * @param relAttribute The `rel` attribute text to suggest.
+ * @param fix The fix function to apply.
+ * @returns The suggestion descriptor array.
+ */
+function buildSuggest(relAttribute: string, fix: ReportFixFunction): ReportDescriptor<MessageID>["suggest"] & {} {
+  return [{
+    data: { rel: relAttribute },
+    fix,
+    messageId: "suggest",
+  }];
 }

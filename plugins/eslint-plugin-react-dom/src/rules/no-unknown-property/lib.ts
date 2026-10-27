@@ -1,9 +1,10 @@
 // Ported from https://github.com/jsx-eslint/eslint-plugin-react/blob/master/lib/rules/no-unknown-property.js
 import { type RuleContext } from "@eslint-react/eslint";
-import { isAttribute } from "@eslint-react/jsx";
+import { isPlainAttribute } from "@eslint-react/jsx";
 import { getSettingsFromContext } from "@eslint-react/shared";
+import { getOrInsertComputed } from "@local/eff";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
-import { type CompareOperator, compare } from "compare-versions";
+import { compare } from "compare-versions";
 
 export type StringMap = Record<string, string>;
 export type TagsMap = Record<string, string[]>;
@@ -960,51 +961,90 @@ export const REACT_19_3_SVGDOM_ATTRIBUTE_NAMES: StringMap = {
   "mask-type": "maskType",
 };
 
+const VERSION_CACHE_KEY_CACHE = new Map<string, string>();
+
 /**
- * Tests React version against a comparator
- * @param context ESLint context
- * @param comparator Comparison operator
- * @param version Version to compare against
- * @returns Comparison result
+ * Get a cache key for the version-dependent data in this module.
+ *
+ * The data only varies at the version thresholds used below, so equivalent
+ * version strings (ex: `18` and `18.2.0`) share one cache entry.
+ * @param version The React version.
+ * @returns A stable cache key.
  */
-export function testReactVersion(context: RuleContext<string, unknown[]>, comparator: CompareOperator, version: string): boolean {
-  const { version: localVersion } = getSettingsFromContext(context);
-  return compare(localVersion, version, comparator);
+function getVersionCacheKey(version: string): string {
+  return getOrInsertComputed(VERSION_CACHE_KEY_CACHE, version, (v) =>
+    [
+      compare(v, "16.1.0", "<="),
+      compare(v, "16.4.0", ">="),
+      compare(v, "19.0.0-rc.0", ">="),
+      compare(v, "19.3.0", ">="),
+    ].map(Number).join(""));
 }
 
 /**
- * Gets all valid DOM property names based on React version
- * @param context ESLint rule context
- * @returns Array of valid DOM property names
+ * Build the version-specific list of valid DOM property names.
+ * @param version The React version.
+ * @returns Array of valid DOM property names.
  */
-export function getDOMPropertyNames(context: RuleContext<string, unknown[]>): string[] {
-  const ALL_DOM_PROPERTY_NAMES: string[] = DOM_PROPERTY_NAMES_TWO_WORDS.concat(DOM_PROPERTY_NAMES_ONE_WORD);
+function buildDOMPropertyNames(version: string): string[] {
+  const names = DOM_PROPERTY_NAMES_TWO_WORDS.concat(DOM_PROPERTY_NAMES_ONE_WORD);
 
   // React version-specific property handling
-  if (testReactVersion(context, "<=", "16.1.0")) {
+  if (compare(version, "16.1.0", "<=")) {
     // allowTransparency was removed in React v16.1+
-    ALL_DOM_PROPERTY_NAMES.push("allowTransparency");
-    return ALL_DOM_PROPERTY_NAMES;
+    names.push("allowTransparency");
+    return names;
   }
 
   // Pointer events were added in React v16.4.0
-  if (testReactVersion(context, ">=", "16.4.0")) {
-    ALL_DOM_PROPERTY_NAMES.push(...REACT_ON_PROPS);
+  if (compare(version, "16.4.0", ">=")) {
+    names.push(...REACT_ON_PROPS);
   }
 
   // Popover API props were added in React v19.0.0-rc.0
-  if (testReactVersion(context, ">=", "19.0.0-rc.0")) {
-    ALL_DOM_PROPERTY_NAMES.push(...REACT_19_PROPS);
+  if (compare(version, "19.0.0-rc.0", ">=")) {
+    names.push(...REACT_19_PROPS);
   } else {
-    ALL_DOM_PROPERTY_NAMES.push(...REACT_19_PROPS.map((prop) => prop.toLowerCase()));
+    names.push(...REACT_19_PROPS.map((prop) => prop.toLowerCase()));
   }
 
   // Fullscreen events, `credentialless`, and `maskType` were added in React v19.3.0
-  if (testReactVersion(context, ">=", "19.3.0")) {
-    ALL_DOM_PROPERTY_NAMES.push(...REACT_19_3_PROPS);
+  if (compare(version, "19.3.0", ">=")) {
+    names.push(...REACT_19_3_PROPS);
   }
 
-  return ALL_DOM_PROPERTY_NAMES;
+  return names;
+}
+
+const ATTRIBUTE_TAGS_MAP_CACHE = new Map<string, TagsMap>();
+
+/**
+ * Build the version-specific map of attributes to their allowed tags.
+ * @param version The React version.
+ * @returns Map of attributes to allowed tags.
+ */
+function buildAttributeTagsMap(version: string): TagsMap {
+  let map = ATTRIBUTE_TAGS_MAP;
+  if (compare(version, "19.0.0-rc.0", ">=")) {
+    map = { ...map, ...REACT_19_ATTRIBUTE_TAGS_MAP };
+  }
+  if (compare(version, "19.3.0", ">=")) {
+    map = { ...map, ...REACT_19_3_ATTRIBUTE_TAGS_MAP };
+  }
+  return map;
+}
+
+/**
+ * Get the cached attribute-to-tags map for a React version.
+ * @param version The React version.
+ * @returns The cached map of attributes to allowed tags.
+ */
+function getAttributeTagsMapForVersion(version: string): TagsMap {
+  return getOrInsertComputed(
+    ATTRIBUTE_TAGS_MAP_CACHE,
+    getVersionCacheKey(version),
+    () => buildAttributeTagsMap(version),
+  );
 }
 
 /**
@@ -1013,28 +1053,31 @@ export function getDOMPropertyNames(context: RuleContext<string, unknown[]>): st
  * @returns Map of attributes to allowed tags
  */
 export function getAttributeTagsMap(context: RuleContext<string, unknown[]>): TagsMap {
-  let attributeTagsMap = ATTRIBUTE_TAGS_MAP;
-  if (testReactVersion(context, ">=", "19.0.0-rc.0")) {
-    attributeTagsMap = { ...attributeTagsMap, ...REACT_19_ATTRIBUTE_TAGS_MAP };
-  }
-  if (testReactVersion(context, ">=", "19.3.0")) {
-    attributeTagsMap = { ...attributeTagsMap, ...REACT_19_3_ATTRIBUTE_TAGS_MAP };
-  }
-  return attributeTagsMap;
+  const { version } = getSettingsFromContext(context);
+  return getAttributeTagsMapForVersion(version);
 }
+
+const HTML_TAG_VALIDITY_CACHE = new WeakMap<TSESTree.JSXOpeningElement, boolean>();
 
 /**
  * Check if a node's parent is a JSX tag that is written with lowercase letters,
  * and is not a custom web component.
  * @param childNode JSX element being tested
  * @returns Whether the node is a valid HTML tag in JSX
+ * @remarks The result is cached per opening element.
  */
 export function isValidHTMLTagInJSX(childNode: TSESTree.JSXAttribute): boolean {
-  const tagConvention = /^[a-z][^-]*$/;
-  if (childNode.parent.name.type === AST.JSXIdentifier && tagConvention.test(childNode.parent.name.name)) {
-    return !childNode.parent.attributes.some(isAttribute("is"));
+  const openingElement = childNode.parent;
+  const cached = HTML_TAG_VALIDITY_CACHE.get(openingElement);
+  if (cached != null) {
+    return cached;
   }
-  return false;
+  const tagConvention = /^[a-z][^-]*$/;
+  const isValid = openingElement.name.type === AST.JSXIdentifier
+    && tagConvention.test(openingElement.name.name)
+    && !openingElement.attributes.some(isPlainAttribute("is"));
+  HTML_TAG_VALIDITY_CACHE.set(openingElement, isValid);
+  return isValid;
 }
 
 /**
@@ -1104,21 +1147,50 @@ export function has(obj: StringMap | TagsMap, key: string): boolean {
   return Object.hasOwn(obj, key);
 }
 
+interface StandardNameLookup {
+  readonly lower: ReadonlyMap<string, string>;
+  readonly exact: ReadonlyMap<string, string>;
+}
+
+const STANDARD_NAME_LOOKUP_CACHE = new Map<string, StandardNameLookup>();
+
+/**
+ * Build the cached standard-name lookup for a React version.
+ * @param version The React version.
+ * @returns The cached exact and case-insensitive lookup maps.
+ */
+function getStandardNameLookup(version: string): StandardNameLookup {
+  return getOrInsertComputed(
+    STANDARD_NAME_LOOKUP_CACHE,
+    getVersionCacheKey(version),
+    () => {
+      const svgAttributeNames = compare(version, "19.3.0", ">=")
+        ? { ...SVGDOM_ATTRIBUTE_NAMES, ...REACT_19_3_SVGDOM_ATTRIBUTE_NAMES }
+        : SVGDOM_ATTRIBUTE_NAMES;
+      const exact = new Map<string, string>([
+        ...Object.entries(svgAttributeNames),
+        ...Object.entries(DOM_ATTRIBUTE_NAMES),
+      ]);
+      const lower = new Map<string, string>();
+      for (const propertyName of buildDOMPropertyNames(version)) {
+        const key = propertyName.toLowerCase();
+        if (!lower.has(key)) {
+          lower.set(key, propertyName);
+        }
+      }
+      return { exact, lower };
+    },
+  );
+}
+
 /**
  * Gets the standard name of an attribute
  * @param name Attribute name
  * @param context ESLint context
- * @returns Standard name or undefined
+ * @returns Standard name or null
  */
 export function getStandardName(name: string, context: RuleContext<string, unknown[]>): string | null {
-  if (has(DOM_ATTRIBUTE_NAMES, name)) {
-    return DOM_ATTRIBUTE_NAMES[name] ?? null;
-  }
-  const svgAttributeNames = testReactVersion(context, ">=", "19.3.0")
-    ? { ...SVGDOM_ATTRIBUTE_NAMES, ...REACT_19_3_SVGDOM_ATTRIBUTE_NAMES }
-    : SVGDOM_ATTRIBUTE_NAMES;
-  if (has(svgAttributeNames, name)) {
-    return svgAttributeNames[name] ?? null;
-  }
-  return getDOMPropertyNames(context).find((element) => element.toLowerCase() === name.toLowerCase()) ?? null;
+  const { version } = getSettingsFromContext(context);
+  const lookup = getStandardNameLookup(version);
+  return lookup.exact.get(name) ?? lookup.lower.get(name.toLowerCase()) ?? null;
 }

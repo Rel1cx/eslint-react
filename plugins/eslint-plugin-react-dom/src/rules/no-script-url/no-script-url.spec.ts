@@ -168,9 +168,16 @@ ruleTester.run(RULE_NAME, rule, {
       code: '<div href="javascript:void(0)"></div>',
       errors: [{ messageId: "default" }],
     },
+    // Namespaced attributes are checked too
+    {
+      code: '<svg><use xlink:href="javascript:alert(1)" /></svg>',
+      errors: [{ messageId: "default" }],
+    },
   ],
   valid: [
     '<a href="https://react.dev"></a>',
+    // Safe namespaced attributes are not reported
+    '<svg><use xlink:href="https://example.com/icon.svg#icon" /></svg>',
     '<a href="#"></a>',
     '<a href=""></a>',
     '<a href="mailto:foo@bar.com"></a>',
@@ -200,10 +207,6 @@ ruleTester.run(RULE_NAME, rule, {
     // Boolean value
     "<a href={true}></a>",
     // Spread props - can't be statically analyzed
-    tsx`
-      const props = { href: "javascript:void(0)" };
-      <a {...props}></a>
-    `,
     // Data URI (not javascript:)
     '<a href="data:text/html,<h1>Hello</h1>"></a>',
     // About blank
@@ -226,7 +229,7 @@ ruleTester.run(RULE_NAME, rule, {
     // Boundary: JSXAttribute with empty expression container
     "<a href={}>Link</a>",
     "<div href={}></div>",
-    // Boundary: JSXAttribute with a fragment value (parser-tolerated; resolveAttributeValue reports kind "element")
+    // Boundary: JSXAttribute with a fragment value (parser-tolerated; getAttributeValue reports kind "element")
     "<a href=<></> />;",
   ],
 });

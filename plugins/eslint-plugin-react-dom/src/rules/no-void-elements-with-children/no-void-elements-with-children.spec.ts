@@ -63,7 +63,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: tsx`<img {...props} children="Foo" />;`,
+      code: tsx`<img children="Foo" />;`,
       errors: [
         {
           data: { elementType: "img" },
@@ -72,7 +72,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: tsx`<PolyComponent as="img" {...props} children="Foo" />;`,
+      code: tsx`<PolyComponent as="img" children="Foo" />;`,
       errors: [
         {
           data: { elementType: "img" },
@@ -115,6 +115,16 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
     },
+    // Empty string expressions still produce a children value at runtime
+    {
+      code: tsx`<br>{""}</br>;`,
+      errors: [
+        {
+          data: { elementType: "br" },
+          messageId: "default",
+        },
+      ],
+    },
   ],
   valid: [
     "<div>Foo</div>;",
@@ -125,6 +135,11 @@ ruleTester.run(RULE_NAME, rule, {
     "<input />;",
     "<img />;",
     "<hr />;",
+    // Formatting whitespace and empty expression containers are omitted by the JSX transform
+    tsx`<br>{/* comment */}</br>;`,
+    tsx`<br>{}</br>;`,
+    tsx`<br>
+    </br>;`,
     {
       code: tsx`<PolyComponent as="div" children="Foo" />;`,
       settings: {

@@ -2,6 +2,7 @@ import { createJSXElementResolver } from "@/utils/create-jsx-element-resolver";
 import { createRule } from "@/utils/create-rule";
 import { type RuleContext, type RuleFeature, type RuleListener } from "@eslint-react/eslint";
 import { hasAttribute } from "@eslint-react/jsx";
+import type { RuleFixer } from "@typescript-eslint/utils/ts-eslint";
 
 export const RULE_NAME = "no-missing-button-type";
 
@@ -38,18 +39,22 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   return {
     JSXElement(node) {
       const { domElementType } = resolver.resolve(node);
-      if (domElementType !== "button") return;
-      if (hasAttribute(context, node, "type")) return;
+      if (domElementType !== "button" || hasAttribute(node, "type")) {
+        return;
+      }
+
+      const suggest = BUTTON_TYPES.map((type) => ({
+        data: { type },
+        fix(fixer: RuleFixer) {
+          return fixer.insertTextAfter(node.openingElement.name, ` type="${type}"`);
+        },
+        messageId: "suggest",
+      } as const));
+
       context.report({
         messageId: "default",
         node: node.openingElement,
-        suggest: BUTTON_TYPES.map((type) => ({
-          data: { type },
-          fix(fixer) {
-            return fixer.insertTextAfter(node.openingElement.name, ` type="${type}"`);
-          },
-          messageId: "suggest",
-        } as const)),
+        suggest,
       });
     },
   };

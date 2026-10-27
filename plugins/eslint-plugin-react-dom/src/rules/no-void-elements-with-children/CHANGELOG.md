@@ -5,6 +5,17 @@ All notable changes to the `react-dom/no-void-elements-with-children` rule will 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [5.30.0-beta.6] - 2026-10-27
+
+### Fixed
+
+- Comment-only/empty containers and newline-only formatting whitespace no longer count as children of void elements, since the JSX transform omits them and React's `assertValidProps` does not see them. Empty strings and same-line whitespace still count.
+
+### Changed
+
+- Child detection uses the shared `isChildContent` helper; no additional behavior change.
+- Spread props are no longer resolved: `children` and `dangerouslySetInnerHTML` must be direct attributes; child nodes still count.
+
 ## [5.20.2] - 2026-09-20
 
 ### Fixed

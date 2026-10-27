@@ -2,7 +2,7 @@ import { createRule } from "@/utils/create-rule";
 import { removeJSXAttribute } from "@/utils/remove-jsx-attribute";
 import { Check } from "@eslint-react/ast";
 import { type RuleContext, type RuleFeature, type RuleListener, getText } from "@eslint-react/eslint";
-import { findAttribute, getCreateElementChildrenArguments, getCreateElementProp, hasChildren } from "@eslint-react/jsx";
+import { findAttribute, findCreateElementProp, hasMeaningfulChildren, parseCreateElementCall } from "@eslint-react/jsx";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import type { RuleFix, RuleFixer } from "@typescript-eslint/utils/ts-eslint";
 
@@ -36,31 +36,31 @@ export default createRule<[], MessageID>({
 
 export function create(context: RuleContext<MessageID, []>): RuleListener {
   return {
+    // Visitor for `createElement` calls
     CallExpression(node) {
-      const prop = getCreateElementProp(context, node, "children");
-      if (prop == null) return;
+      const call = parseCreateElementCall(context, node);
+      if (call == null) {
+        return;
+      }
 
+      const prop = findCreateElementProp(context, call, "children");
       // `createElement(type, props, ...children)` already has conflicting
       // children content; that case belongs to 'no-children-prop-with-children'
-      if (getCreateElementChildrenArguments(context, node).length > 0) return;
+      if (prop == null || call.childrenArguments.length > 0) {
+        return;
+      }
 
       context.report({
         messageId: "default",
         node: prop,
       });
     },
+    // Visitor for JSX elements
     JSXElement(node) {
-      const prop = findAttribute(context, node, "children");
-      if (prop == null) return;
-
+      const prop = findAttribute(node, "children");
       // Nested children content already conflicts with the prop; that case
       // belongs to 'no-children-prop-with-children'
-      if (hasChildren(node)) return;
-
-      // Spread attributes cannot be converted to element content safely,
-      // so report without a suggestion
-      if (prop.type !== AST.JSXAttribute) {
-        context.report({ messageId: "default", node: prop });
+      if (prop == null || hasMeaningfulChildren(node)) {
         return;
       }
 

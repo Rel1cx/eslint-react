@@ -95,42 +95,6 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [{ messageId: "default" }],
     },
-    // Spread props with unsafe sandbox
-    {
-      code: tsx`
-        const props = {
-          sandbox: "allow-scripts allow-same-origin",
-        };
-
-        function App() {
-            return <iframe {...props} />;
-        }
-      `,
-      errors: [
-        {
-          messageId: "default",
-        },
-      ],
-    },
-    // Alias chains in spread props are followed
-    {
-      code: tsx`
-        const inner = { sandbox: "allow-scripts allow-same-origin" };
-        const props = inner;
-        <iframe {...props} />;
-      `,
-      errors: [{ messageId: "default" }],
-    },
-    // String literal keys in spread props are checked
-    {
-      code: tsx`<iframe {...{ "sandbox": "allow-scripts allow-same-origin" }} />;`,
-      errors: [{ messageId: "default" }],
-    },
-    // Statically evaluable computed keys in spread props are checked
-    {
-      code: tsx`<iframe {...{ ["sandbox"]: "allow-scripts allow-same-origin" }} />;`,
-      errors: [{ messageId: "default" }],
-    },
     // Complex sandbox strings (with extra whitespace)
     {
       code: tsx`<iframe sandbox="  allow-scripts   allow-same-origin  " />;`,
@@ -198,11 +162,6 @@ ruleTester.run(RULE_NAME, rule, {
     tsx`<iframe sandbox={\`allow-downloads\`} />;`,
     // Static string in an expression container with a safe combination
     tsx`<iframe sandbox={"allow-scripts allow-popups"} />;`,
-    // Spread props not containing unsafe sandbox
-    tsx`
-      const props = { sandbox: "allow-downloads" };
-      <iframe {...props} />;
-    `,
     // Not an iframe element
     '<div sandbox="allow-scripts allow-same-origin" />;',
     '<span sandbox="allow-scripts allow-same-origin" />;',
@@ -234,9 +193,9 @@ ruleTester.run(RULE_NAME, rule, {
     tsx`<iframe sandbox />;`,
     // Boolean expression sandbox
     tsx`<iframe sandbox={true} />;`,
-    // Boundary: JSXAttribute with empty expression container (resolveAttributeValue handles JSXEmptyExpression)
+    // Boundary: JSXAttribute with empty expression container (getAttributeValue handles JSXEmptyExpression)
     tsx`<iframe sandbox={} />;`,
-    // Boundary: JSXAttribute with a fragment value (parser-tolerated; resolveAttributeValue reports kind "element")
+    // Boundary: JSXAttribute with a fragment value (parser-tolerated; getAttributeValue reports kind "element")
     tsx`<iframe sandbox=<></> />;`,
     // Boundary: member expression without a polymorphic prop is not an iframe
     '<motion.iframe sandbox="allow-scripts allow-same-origin" />;',

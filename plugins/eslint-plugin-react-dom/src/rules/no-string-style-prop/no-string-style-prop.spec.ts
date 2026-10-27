@@ -278,9 +278,13 @@ ruleTester.run(RULE_NAME, rule, {
         return <div style={getStyleString()} />;
       }
     `,
-    // Spread props with string style - can't be statically resolved
+    // Spread props are not resolved
     tsx`
       const props = { style: "color: red;" };
+      <div {...props} />
+    `,
+    tsx`
+      const props = getProps();
       <div {...props} />
     `,
     // Number style (invalid but not string)
@@ -295,9 +299,9 @@ ruleTester.run(RULE_NAME, rule, {
     tsx`<div style={[]} />`,
     // Boundary: JSXAttribute with no value (boolean shorthand)
     tsx`<div style />`,
-    // Boundary: JSXAttribute with empty expression container (resolveAttributeValue handles JSXEmptyExpression)
+    // Boundary: JSXAttribute with empty expression container (getAttributeValue handles JSXEmptyExpression)
     tsx`<div style={} />`,
-    // Boundary: JSXAttribute with a fragment value (parser-tolerated; resolveAttributeValue reports kind "element")
+    // Boundary: JSXAttribute with a fragment value (parser-tolerated; getAttributeValue reports kind "element")
     tsx`<div style=<></> />`,
   ],
 });

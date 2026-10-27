@@ -355,17 +355,9 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
     },
-    // JSX spread attribute containing children (no safe auto-fix, only report)
+    // createElement props with a statically resolvable computed key
     {
-      code: '<div {...{ children: "x" }}>text</div>;',
-      errors: [{ messageId: "default" }],
-    },
-    // JSX spread variable resolved to object containing children
-    {
-      code: tsx`
-        const props = { children: "x" };
-        <div {...props}>text</div>;
-      `,
+      code: 'const propName = "children"; React.createElement("div", { [propName]: "Children" }, "text");',
       errors: [{ messageId: "default" }],
     },
     // Empty string mixed with meaningful children still counts as having children (PR #1805)
@@ -605,14 +597,19 @@ ruleTester.run(RULE_NAME, rule, {
     // createElement with no props arg
     'React.createElement("div");',
     'createElement("div");',
-    // createElement with computed identifier key is not a static children prop
-    'const propName = "children"; React.createElement("div", { [propName]: "Children" }, "text");',
+    // createElement with a non-static computed identifier key
+    'function render(propName: string) { return React.createElement("div", { [propName]: "Children" }, "text"); }',
     // createElement with variable props (not ObjectExpression) – cannot inspect
     tsx`
       const props = { children: "x" };
       React.createElement("div", props, "text");
     `,
-    // createElement with children hidden inside a spread in props
+    // Spread props are not resolved
+    '<div {...{ children: "x" }}>text</div>;',
     'React.createElement("div", { ...{ children: "x" } }, "text");',
+    tsx`
+      const props = { children: "x" };
+      <div {...props}>text</div>;
+    `,
   ],
 });
