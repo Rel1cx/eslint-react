@@ -180,14 +180,13 @@ function resolveObjectTypeInner(
     case AST.CallExpression: {
       const callee = Extract.unwrap(node.callee);
       switch (true) {
-        case Check.isIdentifier(callee, "Boolean")
-          && isUnshadowedGlobal(context, callee):
-          return null;
-        case Check.isIdentifier(callee, "String")
-          && isUnshadowedGlobal(context, callee):
-          return null;
-        case Check.isIdentifier(callee, "Number")
-          && isUnshadowedGlobal(context, callee):
+        // Primitive wrapper calls are never referential. Keep the exemption
+        // even when the name is shadowed: consumers report every non-null
+        // result as a freshly constructed value, so `unknown` here only adds
+        // false positives.
+        case Check.isIdentifier(callee, "Boolean"):
+        case Check.isIdentifier(callee, "String"):
+        case Check.isIdentifier(callee, "Number"):
           return null;
         case Check.isIdentifier(callee, "Object")
           && isUnshadowedGlobal(context, callee):

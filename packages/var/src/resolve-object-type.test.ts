@@ -434,6 +434,16 @@ describe("resolveObjectType", () => {
       expect(facts).toEqual([null, null, null]);
     });
 
+    it("CallExpression shadowed Boolean()/String()/Number() → null (primitive wrappers are not objects)", () => {
+      const code = "const Boolean = (x) => !!x; function f(String, Number) { Boolean(x); String(x); Number(x); }";
+      const facts = runInRule(code, (context, ast) => {
+        const nodes = collectNodes<TSESTree.CallExpression>(ast, AST.CallExpression);
+        expect(nodes).toHaveLength(3);
+        return nodes.map((node) => resolveObjectType(context, node));
+      });
+      expect(facts).toEqual([null, null, null]);
+    });
+
     it("CallExpression Array.of() → kind: 'array'", () => {
       const code = "const x = Array.of(1, 2);";
       const fact = runInRule(code, (context, ast) => {
@@ -654,16 +664,6 @@ describe("resolveObjectType", () => {
 
     it("should treat a shadowed Object() call as unknown", () => {
       const code = "const Object = () => 1; Object();";
-      const fact = runInRule(code, (context, ast) => {
-        const node = getFirstNodeOfType<TSESTree.CallExpression>(ast, AST.CallExpression);
-        return resolveObjectType(context, node);
-      });
-      expect(fact).not.toBeNull();
-      expect(fact!.kind).toBe("unknown");
-    });
-
-    it("should treat a shadowed Boolean() call as unknown", () => {
-      const code = "function f(Boolean) { return Boolean(); }";
       const fact = runInRule(code, (context, ast) => {
         const node = getFirstNodeOfType<TSESTree.CallExpression>(ast, AST.CallExpression);
         return resolveObjectType(context, node);

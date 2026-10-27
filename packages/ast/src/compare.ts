@@ -59,7 +59,10 @@ export const isEqual: {
       return a.name === b.name;
     case a.type === AST.MemberExpression
       && b.type === AST.MemberExpression:
-      return isEqual(a.property, b.property) && isEqual(a.object, b.object);
+      return a.computed === b.computed
+        && a.optional === b.optional
+        && isEqual(a.property, b.property)
+        && isEqual(a.object, b.object);
     case a.type === AST.CallExpression
       && b.type === AST.CallExpression: {
       if (a.optional !== b.optional) {
