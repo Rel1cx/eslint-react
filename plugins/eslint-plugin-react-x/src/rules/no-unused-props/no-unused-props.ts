@@ -80,6 +80,12 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   });
 }
 
+/**
+ * Reports a prop symbol at its declaration in the current file.
+ * @param context The rule context.
+ * @param services The parser services used to map TypeScript nodes back to ESTree nodes.
+ * @param prop The prop symbol to report.
+ */
 function reportUnusedProp(context: RuleContext<MessageID, []>, services: ParserServicesWithTypeInformation, prop: ts.Symbol) {
   const declaration = prop.getDeclarations()?.[0];
   if (declaration == null) return;

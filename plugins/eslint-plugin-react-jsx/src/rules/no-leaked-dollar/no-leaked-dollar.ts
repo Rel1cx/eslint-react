@@ -40,11 +40,9 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   }
 
   return {
-    // Visitor for JSX elements
     JSXElement(node) {
       visitForLeakedDollar(context, node);
     },
-    // Visitor for JSX fragments
     JSXFragment(node) {
       visitForLeakedDollar(context, node);
     },

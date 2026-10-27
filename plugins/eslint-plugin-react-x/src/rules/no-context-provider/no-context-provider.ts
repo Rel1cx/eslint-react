@@ -41,15 +41,12 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   if (compare(version, "19.0.0", "<")) return {};
   return {
     JSXElement(node) {
-      // Get the full name of the JSX element: "Foo.MyContext.Provider"
       const fullName = getElementFullType(node);
       const parts = fullName.split(".");
       const selfName = parts.pop();
       const contextFullName = parts.join(".");
       const contextSelfName = parts.pop();
-      // Exit if the element is not a "Provider"
       if (selfName !== "Provider") return;
-      // Exit if there is no context name or it doesn't end with "Context"
       if (contextSelfName == null || !contextSelfName.endsWith("Context")) return;
       context.report({
         messageId: "default",
@@ -61,11 +58,9 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
               if (!core.isFunctionComponentNameLoose(contextSelfName)) return null;
               const openingElement = node.openingElement;
               const closingElement = node.closingElement;
-              // Handle self-closing elements like <MyContext.Provider value={...} />
               if (closingElement == null) {
                 return fixer.replaceText(openingElement.name, contextFullName);
               }
-              // Handle elements with children like <MyContext.Provider value={...}>...</MyContext.Provider>
               return [
                 fixer.replaceText(openingElement.name, contextFullName),
                 fixer.replaceText(closingElement.name, contextFullName),

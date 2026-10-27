@@ -31,7 +31,6 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   return {
     CallExpression(node: TSESTree.CallExpression) {
       if (!core.isThisSetStateCall(node)) return;
-      // Find the enclosing class component
       const component = Traverse.findParent(node, core.isClassComponent);
       if (component == null) return;
       // Find the enclosing 'componentWillUpdate' method, without crossing the class boundary
@@ -41,11 +40,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       // the nearest enclosing function or class of the call must be the lifecycle function
       // itself (a nested callback or class field initializer defers the call)
       const lifecycleFunction = method.value == null ? null : Extract.unwrap(method.value);
-      if (
-        method.parent === component.body
-        && lifecycleFunction != null
-        && lifecycleFunction === Traverse.findParent(node, Check.isFunctionOrClass)
-      ) {
+      if (method.parent === component.body && lifecycleFunction != null && lifecycleFunction === Traverse.findParent(node, Check.isFunctionOrClass)) {
         context.report({
           messageId: "default",
           node,

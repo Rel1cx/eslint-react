@@ -33,7 +33,6 @@ export default createRule<[], MessageID>({
 
 export function create(context: RuleContext<MessageID, []>): RuleListener {
   return {
-    // Visitor for JSX text nodes
     JSXText(node) {
       if (!Check.isJSXElementOrFragment(node.parent)) {
         return;

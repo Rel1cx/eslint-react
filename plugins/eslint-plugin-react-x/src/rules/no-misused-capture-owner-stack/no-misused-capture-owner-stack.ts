@@ -41,9 +41,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
 
   return {
     CallExpression(node) {
-      // Check if the call is to `captureOwnerStack`
       if (!core.isCaptureOwnerStackCall(context, node)) return;
-      // Check if the call is wrapped in a development-only conditional block
       if (!Traverse.hasParent(node, (n) => isDevelopmentOnlyCheck(context, n))) {
         context.report({
           messageId: "missing-development-only-check",
@@ -52,9 +50,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       }
     },
     ImportDeclaration(node) {
-      // Check if the import is from the configured source
       if (node.source.value !== importSource) return;
-      // Iterate over import specifiers to find named imports of `captureOwnerStack`
       for (const specifier of node.specifiers) {
         if (specifier.type !== AST.ImportSpecifier) continue;
         if (!Check.isIdentifier(specifier.imported, "captureOwnerStack")) continue;

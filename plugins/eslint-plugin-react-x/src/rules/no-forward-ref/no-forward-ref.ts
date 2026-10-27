@@ -48,7 +48,6 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
     return {};
   }
   return {
-    // Visitor for `forwardRef()` calls
     CallExpression(node) {
       if (!core.isForwardRefCall(context, node)) {
         return;

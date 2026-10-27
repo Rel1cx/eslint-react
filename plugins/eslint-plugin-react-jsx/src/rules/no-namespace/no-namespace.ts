@@ -26,7 +26,6 @@ export default createRule<[], MessageID>({
 
 export function create(context: RuleContext<MessageID, []>): RuleListener {
   return {
-    // Visitor for JSX elements
     JSXElement(node) {
       const { name } = node.openingElement;
       if (name.type !== AST.JSXNamespacedName) {

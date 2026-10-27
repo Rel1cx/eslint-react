@@ -29,12 +29,15 @@ export default createRule<[], MessageID>({
 });
 
 export function create(context: RuleContext<MessageID, []>): RuleListener {
-  // Checks if a given node is an identifier that resolves to an array index parameter
   function isArrayIndex(node: TSESTree.Node | null | undefined): node is TSESTree.Identifier {
     return node != null && Check.isIdentifier(node) && isArrayIndexReference(context, node);
   }
 
-  // Gets the props object of a `createElement` or `cloneElement` call
+  /**
+   * Gets the props object from a `createElement` or `cloneElement` call.
+   * @param node The call expression to inspect.
+   * @returns The props object, or `null` if the call is not one of those APIs or has no object props.
+   */
   function getPropsObject(node: TSESTree.CallExpression): TSESTree.ObjectExpression | null {
     const call = parseCreateElementCall(context, node);
     if (call != null) return call.propsObject;
@@ -100,7 +103,6 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   }
 
   return {
-    // Handles 'key' props in `createElement` and `cloneElement` calls
     CallExpression(node) {
       const propsObject = getPropsObject(node);
       if (propsObject == null) return;
@@ -114,7 +116,6 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         }
       }
     },
-    // Handles 'key' attributes in JSX elements
     "JSXAttribute[name.name='key']"(node: TSESTree.JSXAttribute) {
       if (node.value?.type !== AST.JSXExpressionContainer) return;
       for (const desc of visitKeyExpression(node.value.expression)) {

@@ -31,22 +31,6 @@ export default createRule<[], MessageID>({
   create,
 });
 
-/**
- * Gets the mapping callback of an iterator-like call expression (e.g. `.map(cb)`, `.flatMap(cb)`, `Array.from(it, cb)`).
- * @param node The call expression to inspect.
- * @returns The callback function node, or `null` if the call is not an iterator-like call with a function callback.
- */
-function getIteratorCallback(node: TSESTree.CallExpression): TSESTreeFunction | null {
-  const callee = Extract.unwrap(node.callee);
-  if (callee.type !== AST.MemberExpression) return null;
-  if (!Check.isIdentifier(callee.property)) return null;
-  const position = KNOWN_CALLBACK_POSITIONS.get(callee.property.name);
-  if (position == null) return null;
-  const callback = node.arguments[position];
-  if (callback == null || !Check.isFunction(callback)) return null;
-  return callback;
-}
-
 export function create(context: RuleContext<MessageID, []>): RuleListener {
   type Descriptor = ReportDescriptor<MessageID> & { node: TSESTreeJSXElementLike };
 
@@ -129,4 +113,20 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       }
     },
   };
+}
+
+/**
+ * Gets the mapping callback of an iterator-like call expression (e.g. `.map(cb)`, `.flatMap(cb)`, `Array.from(it, cb)`).
+ * @param node The call expression to inspect.
+ * @returns The callback function node, or `null` if the call is not an iterator-like call with a function callback.
+ */
+function getIteratorCallback(node: TSESTree.CallExpression): TSESTreeFunction | null {
+  const callee = Extract.unwrap(node.callee);
+  if (callee.type !== AST.MemberExpression) return null;
+  if (!Check.isIdentifier(callee.property)) return null;
+  const position = KNOWN_CALLBACK_POSITIONS.get(callee.property.name);
+  if (position == null) return null;
+  const callback = node.arguments[position];
+  if (callback == null || !Check.isFunction(callback)) return null;
+  return callback;
 }
