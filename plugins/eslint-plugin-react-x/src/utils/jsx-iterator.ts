@@ -5,6 +5,10 @@ import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
  * Iterator-like methods whose callback's return value becomes an item in a rendered list,
  * mapped to the position of the callback in the call's argument list.
  * `from` covers `Array.from(iterable, mapFn)`.
+ * @remarks
+ * `React.Children.map` is intentionally absent: React prefixes the returned elements'
+ * keys with each child's key, so its callback output neither needs a key of its own nor
+ * produces duplicate keys.
  */
 export const KNOWN_CALLBACK_POSITIONS = new Map<string, number>([
   ["flatMap", 0],

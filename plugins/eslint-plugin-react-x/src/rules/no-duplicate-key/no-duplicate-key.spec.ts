@@ -298,6 +298,17 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
+      name: "numeric key in a map callback",
+      code: tsx`
+        const App = () => {
+          return items.map((item) => <Row key={1} />)
+        };
+      `,
+      errors: [
+        { messageId: "default" },
+      ],
+    },
+    {
       name: "duplicate keys with non-map call between maps",
       code: tsx`
         const App = () => {
@@ -393,6 +404,25 @@ ruleTester.run(RULE_NAME, rule, {
       code: tsx`
         const App = () => {
             return Array.from([1, 2, 3], (item) => <div key={item}>{item}</div>)
+        };
+      `,
+    },
+    {
+      name: "fixed key inside React.Children.map callback",
+      // React.Children.map prefixes returned keys per child, so fixed keys do not collide
+      code: tsx`
+        const App = ({ children }) => {
+            return React.Children.map(children, (child) => <Row key="fixed">{child}</Row>)
+        };
+      `,
+    },
+    {
+      name: "fixed key inside named Children.map callback",
+      code: tsx`
+        import { Children } from "react";
+
+        const App = ({ children }) => {
+            return Children.map(children, (child) => <Row key="fixed">{child}</Row>)
         };
       `,
     },

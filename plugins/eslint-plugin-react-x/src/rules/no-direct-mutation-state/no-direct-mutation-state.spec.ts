@@ -298,6 +298,25 @@ ruleTester.run(RULE_NAME, rule, {
       `,
     },
     {
+      name: "Constructor loop, try, and bare block assignments",
+      code: tsx`
+        class Hello extends React.Component {
+          constructor(props) {
+            super(props);
+            for (const item of props.items) {
+              this.state = { item };
+            }
+            try {
+              this.state = { ready: true };
+            } catch {}
+            {
+              this.state = { block: true };
+            }
+          }
+        }
+      `,
+    },
+    {
       name: "Constructor nested property assignment",
       code: tsx`
         class Hello extends React.Component {

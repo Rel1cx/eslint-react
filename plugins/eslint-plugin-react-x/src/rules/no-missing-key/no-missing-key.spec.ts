@@ -667,6 +667,22 @@ ruleTester.run(RULE_NAME, rule, {
         Children.toArray([Children.toArray([1].map(x => <App />)), [2].map(x => <App />)]);
       `,
     },
+    // --- Children.map handling ---------------------------------------------------------------
+    {
+      name: "elements inside React.Children.map callbacks",
+      // React.Children.map prefixes the returned elements' keys per child,
+      // so the callback result does not need a key of its own
+      code: tsx`
+        React.Children.map(children, (child) => <div>{child}</div>);
+      `,
+    },
+    {
+      name: "elements inside named Children.map callbacks",
+      code: tsx`
+        import { Children } from "react";
+        Children.map(children, (child) => <div>{child}</div>);
+      `,
+    },
     // --- Spread and nested-array edge cases --------------------------------------------------
     {
       name: "spread props may provide key in array literal",
