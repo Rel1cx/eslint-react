@@ -31,7 +31,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       if (core.isCloneElementCall(context, node)) {
         context.report({
           messageId: "default",
-          node: node.callee,
+          node,
         });
       }
     },

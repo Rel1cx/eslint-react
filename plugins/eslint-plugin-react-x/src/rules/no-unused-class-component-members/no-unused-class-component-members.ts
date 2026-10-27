@@ -28,8 +28,8 @@ export default createRule<[], MessageID>({
 });
 
 export function create(context: RuleContext<MessageID, []>): RuleListener {
-  // Fast path: skip if `class` is not present in the file
-  if (!context.sourceCode.text.includes("class")) return {};
+  // Fast path: skip if `Component` is not present in the file
+  if (!context.sourceCode.text.includes("Component")) return {};
   const propertyDefs = new WeakMap<TSESTreeClass, Set<TSESTree.Identifier>>();
   const propertyUsages = new WeakMap<TSESTreeClass, Set<string>>();
 

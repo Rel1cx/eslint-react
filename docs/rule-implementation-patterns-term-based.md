@@ -4,7 +4,7 @@ How term-based rules use cheap text prechecks to skip files that cannot contain 
 
 ## What Is a Term-Based Rule?
 
-A term-based rule targets specific React, React DOM, or Web API identifiers (hooks, lifecycle methods, global constructors, JSX attributes). Because every match contains the precheck term verbatim, a single substring scan can prove a file irrelevant before any AST work. A precheck is _necessary but not sufficient_: passing it only means the term's text exists somewhere in the file; the real semantic check still happens in AST visitors via helpers like `core.isForwardRefCall`.
+A term-based rule targets specific React, React DOM, or Web API identifiers (hooks, lifecycle methods, global constructors, JSX attributes). A raw-text precheck can rule out most irrelevant files before any AST work, but it is best-effort: Unicode-escaped identifiers and whitespace around punctuation can defeat it. A precheck is _necessary but not sufficient_: passing it only means the term's text exists somewhere in the file; the real semantic check still happens in AST visitors via helpers like `core.isForwardRefCall`.
 
 ## Fast-Path Precheck Patterns
 
@@ -48,18 +48,19 @@ Used by: `react-x/set-state-in-effect`, `react-web-api/no-leaked-fetch` (second 
 if (!context.sourceCode.text.includes("$")) return {}; // no-leaked-dollar
 if (!context.sourceCode.text.includes("&&")) return {}; // no-leaked-conditional-rendering
 if (!context.sourceCode.text.includes("try")) return {}; // error-boundaries
-if (!context.sourceCode.text.includes("key=")) return {}; // no-duplicate-key, no-key-after-spread
+if (!context.sourceCode.text.includes("key=")) return {}; // no-duplicate-key
+if (!/key\s*=/.test(context.sourceCode.text)) return {}; // no-key-after-spread
 ```
 
 ### Choosing the precheck term
 
-The precheck term is a superset filter, not necessarily the full API name. It must be a substring of every source form the AST helper can match; a false positive only costs work, while a false negative would silently skip a real violation.
+The precheck term is a superset filter, not necessarily the full API name. It should be a substring of every source form the AST helper can match; a false positive only costs work, while a false negative silently skips a real violation. Treat the check as best-effort: the parser decodes Unicode escapes in identifiers, and whitespace or comments can separate punctuation such as `key` and `=`, so a raw-text token cannot cover every spelling.
 
 - **Prefer the stable family identifier over the dotted FQN.** `Extract.getFullyQualifiedName` normalizes member access, so `Children /* c */ . count` still resolves to `Children.count`, but its source text does not contain the contiguous string `Children.count`. Use `includes("Children")`, not `includes("Children.count")`.
 - **Do not include call punctuation or type arguments.** `lazy(` and `lazy<` can be separated by whitespace, comments, or type parameters; use `includes("lazy")`.
 - **Computed access does not constrain the token.** `isAPI` generally does not match computed access such as `React["Children"]["count"]`, because the computed FQN is the raw source text rather than a dotted name.
 - **Keep the token specific enough to be useful.** `Children`, `cloneElement`, and `lazy` are distinctive; `state` or `use` would match too much to justify a precheck.
-- **Keywords and punctuators are valid when the AST helper requires them.** `includes("class")` is safe for class-component rules; `includes("...")` is safe for JSX spread rules.
+- **Keywords, punctuators, and structural names can be valid tokens.** `includes("Component")` covers the superclass names accepted by `isClassComponent`; `includes("...")` is safe for JSX spread rules.
 
 ## Version Gating
 
@@ -101,7 +102,7 @@ A precheck can also front a collector + `Program:exit` pipeline — see `no-clas
 | `no-children-only`                           | `react-x`                 | `includes("Children")`                               | —                           | `MemberExpression` immediate             |
 | `no-children-to-array`                       | `react-x`                 | `includes("Children")`                               | —                           | `MemberExpression` immediate             |
 | `no-class-component`                         | `react-x`                 | `includes("Component")`                              | —                           | Collector + `Program:exit`               |
-| `no-direct-mutation-state`                   | `react-x`                 | `includes("class")`                                  | —                           | `AssignmentExpression` + ancestor lookup |
+| `no-direct-mutation-state`                   | `react-x`                 | `includes("Component")`                              | —                           | `AssignmentExpression` + ancestor lookup |
 | `no-clone-element`                           | `react-x`                 | `includes("cloneElement")`                           | —                           | `CallExpression` immediate               |
 | `no-component-will-mount`                    | `react-x`                 | `includes("componentWillMount")`                     | —                           | Collector + `Program:exit`               |
 | `no-component-will-receive-props`            | `react-x`                 | `includes("componentWillReceiveProps")`              | —                           | Collector + `Program:exit`               |
@@ -124,7 +125,7 @@ A precheck can also front a collector + `Program:exit` pipeline — see `no-clas
 | `no-unsafe-component-will-mount`             | `react-x`                 | `includes("UNSAFE_componentWillMount")`              | —                           | Collector + `Program:exit`               |
 | `no-unsafe-component-will-receive-props`     | `react-x`                 | `includes("UNSAFE_componentWillReceiveProps")`       | —                           | Collector + `Program:exit`               |
 | `no-unsafe-component-will-update`            | `react-x`                 | `includes("UNSAFE_componentWillUpdate")`             | —                           | Collector + `Program:exit`               |
-| `no-unused-class-component-members`          | `react-x`                 | `includes("class")`                                  | —                           | Ad-hoc collect + `Class*:exit`           |
+| `no-unused-class-component-members`          | `react-x`                 | `includes("Component")`                              | —                           | Ad-hoc collect + `Class*:exit`           |
 | `no-use-context`                             | `react-x`                 | `includes("useContext")`                             | `>= 19.0.0`                 | `CallExpression` immediate               |
 | `set-state-in-effect`                        | `react-x`                 | `/use\w*Effect/u`                                    | —                           | Fact-based pipeline                      |
 | `use-memo`                                   | `react-x`                 | `includes("useMemo")`                                | —                           | Fact-based pipeline                      |
@@ -143,7 +144,7 @@ A precheck can also front a collector + `Program:exit` pipeline — see `no-clas
 | `no-render`                                  | `react-dom`               | `includes("render")`                                 | `>= 18.0.0`                 | Import-tracking                          |
 | `no-render-return-value`                     | `react-dom`               | `includes("render")`                                 | —                           | Import-tracking                          |
 | `no-use-form-state`                          | `react-dom`               | `includes("useFormState")`                           | `>= 19.0.0`                 | Import-tracking                          |
-| `no-key-after-spread`                        | `react-jsx`               | `includes("key=")`                                   | `react-jsx(-dev)` emit only | `JSXOpeningElement` immediate            |
+| `no-key-after-spread`                        | `react-jsx`               | `/key\s*=/`                                          | `react-jsx(-dev)` emit only | `JSXOpeningElement` immediate            |
 | `no-leaked-dollar`                           | `react-jsx`               | `includes("$")`                                      | —                           | `JSXElement`/`JSXFragment` immediate     |
 | `context-name`                               | `react-naming-convention` | `includes("createContext")`                          | —                           | `CallExpression` immediate               |
 | `id-name`                                    | `react-naming-convention` | `includes("useId")`                                  | —                           | `CallExpression` immediate               |

@@ -65,6 +65,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
             if (!isKeyValueEqual(prevKey, node)) continue;
             duplicateKeys.add(prevKey);
             duplicateKeys.add(node);
+            break;
           }
           siblingKeys.set(root, [...prevKeys, node]);
           break;
