@@ -4,7 +4,7 @@ How term-based rules use cheap text prechecks to skip files that cannot contain 
 
 ## What Is a Term-Based Rule?
 
-A term-based rule targets specific React, React DOM, or Web API identifiers (hooks, lifecycle methods, global constructors, JSX attributes). Because the term must appear verbatim in the source, a single substring scan can prove a file irrelevant before any AST work. A precheck is _necessary but not sufficient_: passing it only means the term's text exists somewhere in the file; the real semantic check still happens in AST visitors via helpers like `core.isForwardRefCall`.
+A term-based rule targets specific React, React DOM, or Web API identifiers (hooks, lifecycle methods, global constructors, JSX attributes). Because every match contains the precheck term verbatim, a single substring scan can prove a file irrelevant before any AST work. A precheck is _necessary but not sufficient_: passing it only means the term's text exists somewhere in the file; the real semantic check still happens in AST visitors via helpers like `core.isForwardRefCall`.
 
 ## Fast-Path Precheck Patterns
 
@@ -17,12 +17,12 @@ if (!context.sourceCode.text.includes("forwardRef")) return {};
 
 Used by:
 
-- react-x: `no-access-state-in-setstate`, `no-class-component`, `no-component-will-*`, `no-context-provider`, `no-create-ref`, `no-forward-ref`, `no-missing-context-display-name`, `no-misused-capture-owner-stack`, `no-set-state-in-component-*`, `no-unsafe-component-will-*`, `no-use-context`, `use-memo`
+- react-x: `no-access-state-in-setstate`, `no-children-*`, `no-class-component`, `no-clone-element`, `no-component-will-*`, `no-context-provider`, `no-create-ref`, `no-direct-mutation-state`, `no-forward-ref`, `no-implicit-*`, `no-missing-context-display-name`, `no-misused-capture-owner-stack`, `no-nested-lazy-component-declarations`, `no-set-state-in-component-*`, `no-unsafe-component-will-*`, `no-unused-class-component-members`, `no-use-context`, `use-memo`
 - react-dom: `no-dangerously-set-innerhtml`, `no-dangerously-set-innerhtml-with-children`, `no-find-dom-node`, `no-flush-sync`, `no-hydrate`, `no-render`, `no-render-return-value`, `no-use-form-state`
 - react-web-api: `no-leaked-event-listener` (first check), `no-leaked-fetch` (first check), `no-leaked-intersection-observer`, `no-leaked-interval`, `no-leaked-resize-observer`, `no-leaked-timeout`
 - react-naming-convention: `context-name`, `id-name`
 
-Term-based rules that currently omit the text precheck: `react-x/no-children-count`, `react-x/no-children-for-each`, `react-x/no-children-map`, `react-x/no-children-only`, `react-x/no-children-to-array`, `react-x/no-clone-element`, `react-x/no-direct-mutation-state`, `react-naming-convention/ref-name`.
+Notable term-based rules that currently omit the text precheck: `react-naming-convention/ref-name`. Other rules use tokens that are too common to be useful filters (`key`, `use`) or are gated by configuration.
 
 ### Multi-term check
 
@@ -51,6 +51,16 @@ if (!context.sourceCode.text.includes("try")) return {}; // error-boundaries
 if (!context.sourceCode.text.includes("key=")) return {}; // no-duplicate-key, no-key-after-spread
 ```
 
+### Choosing the precheck term
+
+The precheck term is a superset filter, not necessarily the full API name. It must be a substring of every source form the AST helper can match; a false positive only costs work, while a false negative would silently skip a real violation.
+
+- **Prefer the stable family identifier over the dotted FQN.** `Extract.getFullyQualifiedName` normalizes member access, so `Children /* c */ . count` still resolves to `Children.count`, but its source text does not contain the contiguous string `Children.count`. Use `includes("Children")`, not `includes("Children.count")`.
+- **Do not include call punctuation or type arguments.** `lazy(` and `lazy<` can be separated by whitespace, comments, or type parameters; use `includes("lazy")`.
+- **Computed access does not constrain the token.** `isAPI` generally does not match computed access such as `React["Children"]["count"]`, because the computed FQN is the raw source text rather than a dotted name.
+- **Keep the token specific enough to be useful.** `Children`, `cloneElement`, and `lazy` are distinctive; `state` or `use` would match too much to justify a precheck.
+- **Keywords and punctuators are valid when the AST helper requires them.** `includes("class")` is safe for class-component rules; `includes("...")` is safe for JSX spread rules.
+
 ## Version Gating
 
 After the text precheck, some rules read the configured React version and bail out if it is too old:
@@ -78,21 +88,21 @@ A few rules change behavior based on version rather than bailing out:
 | `react-x/no-leaked-conditional-rendering` | React 18+ treats empty strings as safe; older versions exclude `"string"` / `"falsy string"` variants. |
 | `react-x/no-unstable-context-value`       | React 18 and below check `.Provider`; React 19 also checks bare `Context`.                             |
 
-A precheck can also front a collector + `Program:exit` pipeline — see `no-class-component` (`includes("Component")` then `core.getClassComponentCollector`) and the Visitor Strategies section of the general doc.
+A precheck can also front a collector + `Program:exit` pipeline — see `no-class-component` (`includes("Component")` then `core.getClassComponentCollector`) and `no-nested-lazy-component-declarations` (`includes("lazy")` before three collectors), as well as the Visitor Strategies section of the general doc.
 
 ## Rule Precheck and Visitor Strategy Reference
 
 | Rule                                         | Plugin                    | Precheck                                             | Extra gate                  | Visitor strategy                         |
 | -------------------------------------------- | ------------------------- | ---------------------------------------------------- | --------------------------- | ---------------------------------------- |
 | `no-access-state-in-setstate`                | `react-x`                 | `includes("setState")`                               | —                           | `MemberExpression` + ancestor lookup     |
-| `no-children-map`                            | `react-x`                 | _none_                                               | —                           | `MemberExpression` immediate             |
-| `no-children-count`                          | `react-x`                 | _none_                                               | —                           | `MemberExpression` immediate             |
-| `no-children-for-each`                       | `react-x`                 | _none_                                               | —                           | `MemberExpression` immediate             |
-| `no-children-only`                           | `react-x`                 | _none_                                               | —                           | `MemberExpression` immediate             |
-| `no-children-to-array`                       | `react-x`                 | _none_                                               | —                           | `MemberExpression` immediate             |
+| `no-children-map`                            | `react-x`                 | `includes("Children")`                               | —                           | `MemberExpression` immediate             |
+| `no-children-count`                          | `react-x`                 | `includes("Children")`                               | —                           | `MemberExpression` immediate             |
+| `no-children-for-each`                       | `react-x`                 | `includes("Children")`                               | —                           | `MemberExpression` immediate             |
+| `no-children-only`                           | `react-x`                 | `includes("Children")`                               | —                           | `MemberExpression` immediate             |
+| `no-children-to-array`                       | `react-x`                 | `includes("Children")`                               | —                           | `MemberExpression` immediate             |
 | `no-class-component`                         | `react-x`                 | `includes("Component")`                              | —                           | Collector + `Program:exit`               |
-| `no-direct-mutation-state`                   | `react-x`                 | _none_                                               | —                           | `AssignmentExpression` + ancestor lookup |
-| `no-clone-element`                           | `react-x`                 | _none_                                               | —                           | `CallExpression` immediate               |
+| `no-direct-mutation-state`                   | `react-x`                 | `includes("class")`                                  | —                           | `AssignmentExpression` + ancestor lookup |
+| `no-clone-element`                           | `react-x`                 | `includes("cloneElement")`                           | —                           | `CallExpression` immediate               |
 | `no-component-will-mount`                    | `react-x`                 | `includes("componentWillMount")`                     | —                           | Collector + `Program:exit`               |
 | `no-component-will-receive-props`            | `react-x`                 | `includes("componentWillReceiveProps")`              | —                           | Collector + `Program:exit`               |
 | `no-component-will-update`                   | `react-x`                 | `includes("componentWillUpdate")`                    | —                           | Collector + `Program:exit`               |
@@ -100,16 +110,21 @@ A precheck can also front a collector + `Program:exit` pipeline — see `no-clas
 | `no-create-ref`                              | `react-x`                 | `includes("createRef")`                              | —                           | Dual collector + `Program:exit`          |
 | `no-duplicate-key`                           | `react-x`                 | `includes("key=")`                                   | —                           | Ad-hoc collect + `Program:exit`          |
 | `no-forward-ref`                             | `react-x`                 | `includes("forwardRef")`                             | `>= 19.0.0`                 | `CallExpression` immediate               |
+| `no-implicit-children`                       | `react-x`                 | `includes("...")`                                    | —                           | Shared listener + type-aware             |
+| `no-implicit-key`                            | `react-x`                 | `includes("...")`                                    | —                           | Shared listener + type-aware             |
+| `no-implicit-ref`                            | `react-x`                 | `includes("...")`                                    | —                           | Shared listener + type-aware             |
 | `no-leaked-conditional-rendering`            | `react-x`                 | `includes("&&")`                                     | —                           | Type-aware traversal                     |
 | `no-missing-component-display-name`          | `react-x`                 | `!includes("memo") && !includes("forwardRef")`       | —                           | Collector + `Program:exit`               |
 | `no-missing-context-display-name`            | `react-x`                 | `includes("createContext")`                          | —                           | Ad-hoc collect + `Program:exit`          |
 | `no-misused-capture-owner-stack`             | `react-x`                 | `includes("captureOwnerStack")`                      | —                           | `CallExpression` + `ImportDeclaration`   |
+| `no-nested-lazy-component-declarations`      | `react-x`                 | `includes("lazy")`                                   | —                           | Lazy-call collect + `Program:exit`       |
 | `no-set-state-in-component-did-mount`        | `react-x`                 | `includes("componentDidMount")`                      | —                           | `CallExpression` + ancestor lookup       |
 | `no-set-state-in-component-did-update`       | `react-x`                 | `includes("componentDidUpdate")`                     | —                           | `CallExpression` + ancestor lookup       |
 | `no-set-state-in-component-will-update`      | `react-x`                 | `includes("componentWillUpdate")`                    | —                           | `CallExpression` + ancestor lookup       |
 | `no-unsafe-component-will-mount`             | `react-x`                 | `includes("UNSAFE_componentWillMount")`              | —                           | Collector + `Program:exit`               |
 | `no-unsafe-component-will-receive-props`     | `react-x`                 | `includes("UNSAFE_componentWillReceiveProps")`       | —                           | Collector + `Program:exit`               |
 | `no-unsafe-component-will-update`            | `react-x`                 | `includes("UNSAFE_componentWillUpdate")`             | —                           | Collector + `Program:exit`               |
+| `no-unused-class-component-members`          | `react-x`                 | `includes("class")`                                  | —                           | Ad-hoc collect + `Class*:exit`           |
 | `no-use-context`                             | `react-x`                 | `includes("useContext")`                             | `>= 19.0.0`                 | `CallExpression` immediate               |
 | `set-state-in-effect`                        | `react-x`                 | `/use\w*Effect/u`                                    | —                           | Fact-based pipeline                      |
 | `use-memo`                                   | `react-x`                 | `includes("useMemo")`                                | —                           | Fact-based pipeline                      |
