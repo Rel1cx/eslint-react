@@ -1,4 +1,5 @@
 import { createRule } from "@/utils/create-rule";
+import { getIteratorCallback } from "@/utils/jsx-iterator";
 import { Check, Compare, Extract, Traverse } from "@eslint-react/ast";
 import { type RuleContext, type RuleFeature, type RuleListener } from "@eslint-react/eslint";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
@@ -102,29 +103,22 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
           siblingKeys.set(root, [...prevKeys, node]);
           break;
         }
-        // Case 2: Elements created by an array's .map() call
+        // Case 2: Elements created by an iterator-like call (map, flatMap, Array.from)
         default: {
           const call = Traverse.findParent(
             jsxElement,
-            (n): n is TSESTree.CallExpression => {
-              if (n.type !== AST.CallExpression) return false;
-              const callee = Extract.unwrap(n.callee);
-              if (callee.type !== AST.MemberExpression) return false;
-              return Check.isIdentifier(callee.property, "map");
-            },
+            (n): n is TSESTree.CallExpression => n.type === AST.CallExpression && getIteratorCallback(n) != null,
           );
           if (call == null) return;
+          const callback = getIteratorCallback(call);
+          if (callback == null) return;
           const iter = Traverse.findParent(jsxElement, Check.isFunction, (n) => n === call);
           if (iter == null) return;
-          const arg0 = call.arguments[0];
-          if (arg0 == null) return;
-          // Ensure we are inside the callback of the .map() call
-          if (Extract.unwrap(arg0) !== iter) {
-            return;
-          }
-          // Flag statically fixed keys in .map() calls as they repeat on every
-          // iteration. Dynamic keys are not recorded, so they cannot overwrite
-          // a static one.
+          // Ensure we are inside the callback of the iterator-like call
+          if (callback !== iter) return;
+          // Flag statically fixed keys in iterator callbacks as they repeat on
+          // every iteration. Dynamic keys are not recorded, so they cannot
+          // overwrite a static one.
           if (isStaticKey(node)) {
             duplicateKeys.add(node);
           }

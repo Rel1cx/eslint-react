@@ -38,6 +38,28 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
+      name: "duplicate key in flatMap callback",
+      code: tsx`
+        const App = () => {
+            return [1, 2, 3].flatMap((item) => <div key="1">{item}</div>)
+        };
+      `,
+      errors: [
+        { messageId: "default" },
+      ],
+    },
+    {
+      name: "duplicate key in Array.from callback",
+      code: tsx`
+        const App = () => {
+            return Array.from([1, 2, 3], (item) => <div key="1">{item}</div>)
+        };
+      `,
+      errors: [
+        { messageId: "default" },
+      ],
+    },
+    {
       name: "duplicate keys in array literal",
       code: tsx`
         const App = () => {
@@ -355,6 +377,22 @@ ruleTester.run(RULE_NAME, rule, {
       code: tsx`
         const App = () => {
             return [1, 2, 3].map((item) => { const key = item; return <div key={key}>{item}</div> })
+        };
+      `,
+    },
+    {
+      name: "dynamic key in flatMap callback",
+      code: tsx`
+        const App = () => {
+            return [1, 2, 3].flatMap((item) => <div key={item}>{item}</div>)
+        };
+      `,
+    },
+    {
+      name: "dynamic key in Array.from callback",
+      code: tsx`
+        const App = () => {
+            return Array.from([1, 2, 3], (item) => <div key={item}>{item}</div>)
         };
       `,
     },
