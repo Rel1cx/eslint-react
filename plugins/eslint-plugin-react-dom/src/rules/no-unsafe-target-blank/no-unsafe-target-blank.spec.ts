@@ -14,7 +14,7 @@ ruleTester.run(RULE_NAME, rule, {
             {
               messageId: "suggest",
               data: { rel: 'rel="noreferrer"' },
-              output: '<a rel="noreferrer" href="https://react.dev" target="_blank"></a>',
+              output: '<a href="https://react.dev" target="_blank" rel="noreferrer"></a>',
             },
           ],
         },
@@ -30,7 +30,7 @@ ruleTester.run(RULE_NAME, rule, {
             {
               messageId: "suggest",
               data: { rel: 'rel="noreferrer"' },
-              output: '<a rel="noreferrer" href="mailto:user@example.com" target="_blank"></a>',
+              output: '<a href="mailto:user@example.com" target="_blank" rel="noreferrer"></a>',
             },
           ],
         },
@@ -45,7 +45,7 @@ ruleTester.run(RULE_NAME, rule, {
             {
               messageId: "suggest",
               data: { rel: 'rel="noreferrer"' },
-              output: '<a rel="noreferrer" href="ftp://example.com/file" target="_blank"></a>',
+              output: '<a href="ftp://example.com/file" target="_blank" rel="noreferrer"></a>',
             },
           ],
         },
@@ -61,7 +61,7 @@ ruleTester.run(RULE_NAME, rule, {
             {
               messageId: "suggest",
               data: { rel: 'rel="noreferrer"' },
-              output: '<a rel="noreferrer" href="tel:+1234567890" target="_blank"></a>',
+              output: '<a href="tel:+1234567890" target="_blank" rel="noreferrer"></a>',
             },
           ],
         },
@@ -76,7 +76,7 @@ ruleTester.run(RULE_NAME, rule, {
             {
               messageId: "suggest",
               data: { rel: 'rel="noreferrer"' },
-              output: '<a rel="noreferrer" href="https://react.dev" target={"_blank"}></a>',
+              output: '<a href="https://react.dev" target={"_blank"} rel="noreferrer"></a>',
             },
           ],
         },
@@ -129,7 +129,7 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
     },
-    // Missing rel with an unresolvable spread: the suggestion inserts after the element name
+    // Missing rel with an unresolvable spread: the suggestion is appended after the last attribute
     {
       code: tsx`
         const props = getProps();
@@ -144,7 +144,29 @@ ruleTester.run(RULE_NAME, rule, {
               data: { rel: 'rel="noreferrer"' },
               output: tsx`
                 const props = getProps();
-                <a rel="noreferrer" {...props} href="https://react.dev" target="_blank"></a>;
+                <a {...props} href="https://react.dev" target="_blank" rel="noreferrer"></a>;
+              `,
+            },
+          ],
+        },
+      ],
+    },
+    // Missing rel with a trailing spread: the suggestion follows the spread so it cannot be overridden
+    {
+      code: tsx`
+        const props = getProps();
+        <a href="https://react.dev" target="_blank" {...props}></a>;
+      `,
+      errors: [
+        {
+          messageId: "default",
+          suggestions: [
+            {
+              messageId: "suggest",
+              data: { rel: 'rel="noreferrer"' },
+              output: tsx`
+                const props = getProps();
+                <a href="https://react.dev" target="_blank" {...props} rel="noreferrer"></a>;
               `,
             },
           ],
@@ -160,7 +182,7 @@ ruleTester.run(RULE_NAME, rule, {
             {
               messageId: "suggest",
               data: { rel: 'rel="noreferrer"' },
-              output: '<PolyComponent rel="noreferrer" as="a" href="https://react.dev" target="_blank"></PolyComponent>',
+              output: '<PolyComponent as="a" href="https://react.dev" target="_blank" rel="noreferrer"></PolyComponent>',
             },
           ],
         },
@@ -180,7 +202,7 @@ ruleTester.run(RULE_NAME, rule, {
             {
               messageId: "suggest",
               data: { rel: 'rel="noreferrer"' },
-              output: '<PolyComponent rel="noreferrer" component="a" href="https://react.dev" target="_blank"></PolyComponent>',
+              output: '<PolyComponent component="a" href="https://react.dev" target="_blank" rel="noreferrer"></PolyComponent>',
             },
           ],
         },
@@ -201,7 +223,7 @@ ruleTester.run(RULE_NAME, rule, {
             {
               messageId: "suggest",
               data: { rel: 'rel="noreferrer"' },
-              output: '<motion.div rel="noreferrer" as="a" href="https://react.dev" target="_blank"></motion.div>',
+              output: '<motion.div as="a" href="https://react.dev" target="_blank" rel="noreferrer"></motion.div>',
             },
           ],
         },
@@ -222,7 +244,7 @@ ruleTester.run(RULE_NAME, rule, {
             {
               messageId: "suggest",
               data: { rel: 'rel="noreferrer"' },
-              output: '<PolyComponent rel="noreferrer" as="A" href="https://react.dev" target="_blank"></PolyComponent>',
+              output: '<PolyComponent as="A" href="https://react.dev" target="_blank" rel="noreferrer"></PolyComponent>',
             },
           ],
         },
@@ -260,7 +282,7 @@ ruleTester.run(RULE_NAME, rule, {
             {
               messageId: "suggest",
               data: { rel: 'rel="noopener"' },
-              output: '<a rel="noopener" href="https://react.dev" target="_blank"></a>',
+              output: '<a href="https://react.dev" target="_blank" rel="noopener"></a>',
             },
           ],
         },

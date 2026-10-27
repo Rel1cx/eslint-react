@@ -20,6 +20,22 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
     },
+    // The suggestion is inserted after the element name even when a spread attribute is present
+    {
+      code: tsx`<iframe {...props} />;`,
+      errors: [
+        {
+          messageId: "default",
+          suggestions: [
+            {
+              data: { value: "" },
+              messageId: "suggest",
+              output: tsx`<iframe sandbox="" {...props} />;`,
+            },
+          ],
+        },
+      ],
+    },
     {
       code: tsx`<iframe sandbox />;`,
       errors: [

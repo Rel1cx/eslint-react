@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - The suggested fix now adds `rel="noreferrer"` instead of `rel="noreferrer noopener"`, since `noreferrer` already implies `noopener` per the HTML spec. Values combining both tokens remain valid. Closes #2067.
+- The suggestion for a missing `rel` attribute now inserts it after the last JSX attribute, so a spread attribute cannot override the suggested value.
 
 ## [5.30.0-beta.6] - 2026-10-27
 

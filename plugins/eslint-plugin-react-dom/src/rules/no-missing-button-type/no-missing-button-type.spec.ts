@@ -55,6 +55,32 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
     },
+    // The suggestion is inserted after the element name even when a spread attribute is present
+    {
+      code: tsx`<button {...props} />;`,
+      errors: [
+        {
+          messageId: "default",
+          suggestions: [
+            {
+              data: { type: "button" },
+              messageId: "suggest",
+              output: tsx`<button type="button" {...props} />;`,
+            },
+            {
+              data: { type: "submit" },
+              messageId: "suggest",
+              output: tsx`<button type="submit" {...props} />;`,
+            },
+            {
+              data: { type: "reset" },
+              messageId: "suggest",
+              output: tsx`<button type="reset" {...props} />;`,
+            },
+          ],
+        },
+      ],
+    },
     {
       code: tsx`<PolyComponent as="button">Click me</PolyComponent>;`,
       errors: [

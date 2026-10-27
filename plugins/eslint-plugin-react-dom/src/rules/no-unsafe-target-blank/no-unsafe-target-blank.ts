@@ -87,11 +87,14 @@ export function create(context: RuleContext<MessageID, Options>): RuleListener {
 
       const relValue = getAttributeValueByName(node, "rel");
       if (relValue == null) {
+        // Append after the last attribute so a spread attribute cannot override the suggestion.
+        const lastAttribute = node.openingElement.attributes.at(-1);
+
         context.report({
           messageId: "default",
           data: { rel: requiredRelAttribute },
           node: node.openingElement,
-          suggest: buildSuggest(requiredRelAttribute, (fixer) => fixer.insertTextAfter(node.openingElement.name, ` ${requiredRelAttribute}`)),
+          suggest: buildSuggest(requiredRelAttribute, (fixer) => fixer.insertTextAfter(lastAttribute ?? node.openingElement.name, ` ${requiredRelAttribute}`)),
         });
         return;
       }
