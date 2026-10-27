@@ -60,6 +60,17 @@ describe("isValueEqual", () => {
       expect(fact).toBe(false);
     });
 
+    it("should return false for distinct variables initialized with the same literal", () => {
+      // Identity-only comparison: equal initializers do not make bindings equal.
+      const code = "const x = 1; const y = 1; foo(x); bar(y);";
+      const fact = runInRule(code, (context, ast) => {
+        const xRefs = findIdentifierReferences(ast, "x");
+        const yRefs = findIdentifierReferences(ast, "y");
+        return isValueEqual(context, xRefs[0]!, yRefs[0]!);
+      });
+      expect(fact).toBe(false);
+    });
+
     it("should return true for references to the same configured global", () => {
       // Configured globals have no scope-manager definition; identity still
       // comes from the shared variable object.
@@ -163,6 +174,16 @@ describe("isValueEqual", () => {
 
     it("should return false for regex literals with different flags", () => {
       const code = "foo(/abc/g); bar(/abc/i);";
+      const fact = runInRule(code, (context, ast) => {
+        const literals = collectNodes<TSESTree.Literal>(ast, AST.Literal);
+        expect(literals).toHaveLength(2);
+        return isValueEqual(context, literals[0]!, literals[1]!);
+      });
+      expect(fact).toBe(false);
+    });
+
+    it("should return false for regex literals with different patterns", () => {
+      const code = "foo(/abc/g); bar(/abd/g);";
       const fact = runInRule(code, (context, ast) => {
         const literals = collectNodes<TSESTree.Literal>(ast, AST.Literal);
         expect(literals).toHaveLength(2);

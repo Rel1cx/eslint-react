@@ -64,6 +64,21 @@ ruleTester.run(RULE_NAME, rule, {
       code: '<div dangerouslySetInnerHTML={{ __html: "HTML" }}>{""}</div>',
       errors: [{ messageId: "default" }],
     },
+    // Any non-empty expression container counts, even when it renders nothing
+    {
+      code: '<div dangerouslySetInnerHTML={{ __html: "HTML" }}>{null}</div>',
+      errors: [{ messageId: "default" }],
+    },
+    // Same-line whitespace inside an expression container is not padding
+    {
+      code: '<div dangerouslySetInnerHTML={{ __html: "HTML" }}>{" "}</div>',
+      errors: [{ messageId: "default" }],
+    },
+    // Entity text is content even when its decoded value is whitespace
+    {
+      code: '<div dangerouslySetInnerHTML={{ __html: "HTML" }}>&nbsp;</div>',
+      errors: [{ messageId: "default" }],
+    },
   ],
   valid: [
     "<div>Children</div>",
@@ -93,6 +108,13 @@ ruleTester.run(RULE_NAME, rule, {
     // Comments and empty expression containers are omitted by the JSX transform
     '<div dangerouslySetInnerHTML={{ __html: "HTML" }}>{/* comment */}</div>',
     '<div dangerouslySetInnerHTML={{ __html: "HTML" }}>{}</div>',
+    tsx`
+      <div dangerouslySetInnerHTML={{ __html: "HTML" }}>
+        {/* comment */}
+      </div>
+    `,
+    // Only direct `children` attributes are inspected; a spread may provide it
+    '<div dangerouslySetInnerHTML={{ __html: "HTML" }} {...{ children: "Children" }} />',
     "<App {...undefined}>Children</App>",
   ],
 });

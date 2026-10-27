@@ -31,4 +31,22 @@ describe("getSignalValueExpression", () => {
     });
     expect(fact).toBeNull();
   });
+
+  it("should return null instead of overflowing on a self-referential binding", () => {
+    const code = "const a = a; useSignal(a);";
+    const fact = runInRule(code, (context, ast) => {
+      const ref = findIdentifierReferences(ast, "a").at(-1)!;
+      return getSignalValueExpression(context, ref);
+    });
+    expect(fact).toBeNull();
+  });
+
+  it("should detect a cycle even when an alias is wrapped in a type assertion", () => {
+    const code = "const a = b as any; const b = a; useSignal(a);";
+    const fact = runInRule(code, (context, ast) => {
+      const ref = findIdentifierReferences(ast, "a").at(-1)!;
+      return getSignalValueExpression(context, ref);
+    });
+    expect(fact).toBeNull();
+  });
 });

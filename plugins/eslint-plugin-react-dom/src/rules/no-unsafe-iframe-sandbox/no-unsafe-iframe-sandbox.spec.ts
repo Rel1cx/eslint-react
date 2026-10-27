@@ -199,5 +199,8 @@ ruleTester.run(RULE_NAME, rule, {
     tsx`<iframe sandbox=<></> />;`,
     // Boundary: member expression without a polymorphic prop is not an iframe
     '<motion.iframe sandbox="allow-scripts allow-same-origin" />;',
+    // Spread props are not resolved: a sandbox provided through a spread is ignored
+    tsx`<iframe {...props} />;`,
+    tsx`<iframe {...{ sandbox: "allow-scripts allow-same-origin" }} />;`,
   ],
 });

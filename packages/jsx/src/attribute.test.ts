@@ -108,6 +108,11 @@ describe("findAttribute", () => {
     expect(findAttribute(element, "id")).toBe(element.openingElement.attributes[1]);
   });
 
+  it("returns a direct attribute even when a later spread may override it", () => {
+    const { element } = parseJSXElement('<div id="a" {...props} />;');
+    expect(findAttribute(element, "id")).toBe(element.openingElement.attributes[0]);
+  });
+
   it("ignores inline object spread attributes", () => {
     const { element } = parseJSXElement("<div {...{ className: 'x' }} />;");
     expect(findAttribute(element, "className")).toBeNull();
@@ -266,6 +271,13 @@ describe("getAttributeStaticValue", () => {
 
   it("returns undefined for dynamic expressions", () => {
     expect(staticValueOf("<div id={Math.random()} />;")).toBeUndefined();
+  });
+
+  it("distinguishes a null literal from an indeterminate value", () => {
+    expect(staticValueOf("<div id={null} />;")).toBeNull();
+    expect(staticValueOf("<div id={undefined} />;")).toBeUndefined();
+    // A statically known `undefined` is indistinguishable from an absent value
+    expect(staticValueOf("<div id={void 0} />;")).toBeUndefined();
   });
 
   it("returns undefined for empty containers and JSX element values", () => {

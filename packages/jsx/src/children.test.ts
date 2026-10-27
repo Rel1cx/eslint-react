@@ -55,6 +55,12 @@ describe("getChildren", () => {
     expect(children[0]?.type).toBe(AST.JSXText);
   });
 
+  it("keeps entity-encoded whitespace text", () => {
+    const children = getChildren(parseJSX("<div>&nbsp;</div>;"));
+    expect(children.length).toBe(1);
+    expect(children[0]?.type).toBe(AST.JSXText);
+  });
+
   it("keeps meaningful children in order", () => {
     const children = getChildren(parseJSX("<div>a{1}<span /></div>;"));
     expect(children.map((c) => c.type)).toEqual([
@@ -185,6 +191,13 @@ describe("isPaddingWhitespace", () => {
     const child = parseJSX("<div> <span /></div>;").children[0];
     if (child == null) throw new Error("expected child");
     expect(isPaddingWhitespace(child)).toBe(false);
+  });
+
+  it("matches entity-encoded line feeds (the check reads the decoded value)", () => {
+    const child = parseJSX("<div>&#10;</div>;").children[0];
+    if (child?.type !== AST.JSXText) throw new Error("expected JSXText");
+    expect(child.value).toContain("\n");
+    expect(isPaddingWhitespace(child)).toBe(true);
   });
 
   it("does not match non-text or nullish nodes", () => {

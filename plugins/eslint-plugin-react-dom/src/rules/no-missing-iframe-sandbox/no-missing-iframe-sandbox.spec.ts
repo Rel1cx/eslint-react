@@ -36,6 +36,22 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
     },
+    // A `sandbox` provided through an inline spread is ignored as well
+    {
+      code: tsx`<iframe {...{ sandbox: "allow-downloads" }} />;`,
+      errors: [
+        {
+          messageId: "default",
+          suggestions: [
+            {
+              data: { value: "" },
+              messageId: "suggest",
+              output: tsx`<iframe sandbox="" {...{ sandbox: "allow-downloads" }} />;`,
+            },
+          ],
+        },
+      ],
+    },
     {
       code: tsx`<iframe sandbox />;`,
       errors: [
@@ -239,6 +255,8 @@ ruleTester.run(RULE_NAME, rule, {
     "<iframe sandbox={`allow-downloads`} />;",
     '<iframe sandbox="allow-downloads allow-scripts" />;',
     '<iframe sandbox="allow-downloads allow-scripts allow-forms" />;',
+    // A direct `sandbox` is still recognized when a spread is also present
+    '<iframe sandbox="allow-downloads" {...props} />;',
     "<a />;",
     "<span />;",
     '<button type="button">Click me</button>;',

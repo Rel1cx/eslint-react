@@ -81,6 +81,32 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
     },
+    // A `type` provided through an inline spread is ignored as well
+    {
+      code: tsx`<button {...{ type: "button" }} />;`,
+      errors: [
+        {
+          messageId: "default",
+          suggestions: [
+            {
+              data: { type: "button" },
+              messageId: "suggest",
+              output: tsx`<button type="button" {...{ type: "button" }} />;`,
+            },
+            {
+              data: { type: "submit" },
+              messageId: "suggest",
+              output: tsx`<button type="submit" {...{ type: "button" }} />;`,
+            },
+            {
+              data: { type: "reset" },
+              messageId: "suggest",
+              output: tsx`<button type="reset" {...{ type: "button" }} />;`,
+            },
+          ],
+        },
+      ],
+    },
     {
       code: tsx`<PolyComponent as="button">Click me</PolyComponent>;`,
       errors: [
@@ -213,6 +239,8 @@ ruleTester.run(RULE_NAME, rule, {
     tsx`<button type="">Click me</button>;`,
     // Boolean shorthand type (attribute exists)
     tsx`<button type>Click me</button>;`,
+    // A direct `type` is still recognized when a spread is also present
+    tsx`<button type="button" {...props}>Click me</button>;`,
     // Expression type (attribute exists)
     tsx`<button type={undefined}>Click me</button>;`,
     // https://github.com/oxc-project/oxc/issues/20938

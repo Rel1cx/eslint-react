@@ -159,6 +159,13 @@ describe("findCreateElementProp", () => {
     if (prop?.value.type === AST.Literal) expect(prop.value.value).toBe("b");
   });
 
+  it("should find a direct property even when a later spread may override it", () => {
+    const code = `React.createElement("div", { children: "a", ...props });`;
+    const { context, node } = parseCallExpression(code);
+    const call = parseCreateElementCall(context, node);
+    expect(textOf(code, findCreateElementProp(context, call, "children"))).toBe(`children: "a"`);
+  });
+
   it.each([
     // No props object
     [`React.createElement("div");`],
@@ -166,6 +173,8 @@ describe("findCreateElementProp", () => {
     [`React.createElement("div", { key: "a" });`],
     // Computed keys without a statically resolvable name do not match
     [`React.createElement("div", { [CHILDREN]: "a" });`],
+    // A computed key that statically resolves to a non-string does not match
+    [`React.createElement("div", { [0]: "a" });`],
     // Spread properties are ignored
     [`React.createElement("div", { ...props });`],
     // Not a createElement call

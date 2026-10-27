@@ -345,6 +345,7 @@ ruleTester.run(RULE_NAME, rule, {
       const props = { href: "https://react.dev", target: "_blank", rel: "noreferrer" };
       const a = <a {...props}></a>;
     `,
+    '<a {...{ href: "https://react.dev", target: "_blank" }}></a>',
     tsx`
       const props = { href: "https://react.dev", rel: "noreferrer" };
       const a = <a target="_blank" {...props}></a>;
