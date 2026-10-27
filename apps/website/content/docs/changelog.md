@@ -38,14 +38,19 @@ title: Changelog
 
 ### 🏗️ Internal
 
-- `@eslint-react/jsx`: rewrote the module around direct-attribute descriptors and `parseCreateElementCall`, removed spread-property resolution, and consolidated the attribute, children, element, and `createElement` helpers; `getChildren` now returns meaningful children, and the package no longer depends on `@eslint-react/var` or `ts-pattern`. (#2086)
-- `@eslint-react/ast`: added `Extract.getJSXName`, now reused by `getFullyQualifiedName`. (#2086)
-- `@eslint-react/var`: removed `resolveBindingTarget` and the `BindingTarget` type, with consumers unwrapping `AssignmentPattern` defaults inline.
-- `@eslint-react/var`: converged identifier resolution on a shared binding projection; added `resolveOriginChain`, `isProvenanceEqual`, `hasDefault`, and expanded `resolveObjectType` (`at`/`scope` options, `via`, shadowed-global and cycle guards); `createImportLookup` now ignores type-only imports, distinguishes default imports, and exposes `isModuleBinding` (renamed from `hasNamespace`). (#2085)
-- `@eslint-react/var`: `isValueEqual` is now identity-only; the provenance heuristics moved to the new `isProvenanceEqual`, and regular expression literals compare by pattern and flags. (#2085)
-- Callee detection now uses the shared `isReactDOMCall` helper, and namespace syntax is detected from the JSX name node type directly; no behavior change. (#2086)
+- `@eslint-react/jsx` / `@eslint-react/ast`: rewrote the jsx module around direct-attribute descriptors and `parseCreateElementCall` (dropping its `@eslint-react/var` and `ts-pattern` dependencies and spread-property resolution), added `Extract.getJSXName`, and made `getChildren` return meaningful children. (#2086)
+- `@eslint-react/var`: added `resolveOriginChain`, `isProvenanceEqual`, and `hasDefault`, expanded `resolveObjectType` and `createImportLookup` (`isModuleBinding` replaces `hasNamespace`), made `isValueEqual` identity-only, and removed `resolveBindingTarget`/`BindingTarget`. (#2085)
+- Rules now use the shared callee, JSX-name, and resolution helpers and unwrap `AssignmentPattern` defaults inline; `react-x/no-unknown-property` also caches its lookups per React version. No behavior change. (#2085, #2086)
 
   Affected rules:
+  - `react-x/globals`
+  - `react-x/immutability`
+  - `react-x/no-array-index-key`
+  - `react-x/no-unknown-property`
+  - `react-x/no-unused-props`
+  - `react-x/purity`
+  - `react-x/set-state-in-effect`
+  - `react-x/unstable-exhaustive-deps`
   - `react-jsx/no-namespace`
   - `react-dom/no-find-dom-node`
   - `react-dom/no-flush-sync`
@@ -53,19 +58,6 @@ title: Changelog
   - `react-dom/no-render`
   - `react-dom/no-render-return-value`
   - `react-dom/no-use-form-state`
-
-- Function targets are resolved with `resolveOriginChain`, and `AssignmentPattern` defaults are unwrapped inline; no behavior change. (#2085)
-
-  Affected rules:
-  - `react-x/globals`
-  - `react-x/immutability`
-  - `react-x/no-array-index-key`
-  - `react-x/no-unused-props`
-  - `react-x/purity`
-  - `react-x/set-state-in-effect`
-  - `react-x/unstable-exhaustive-deps`
-
-- `react-x/no-unknown-property`: lookups are cached per React version and `isValidHTMLTagInJSX` uses `isPlainAttribute`; no behavior change. (#2086)
 
 **Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.30.0-beta.5...v5.30.0-beta.6
 
