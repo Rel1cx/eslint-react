@@ -5,6 +5,13 @@ All notable changes to the `react-x/no-duplicate-key` rule will be documented in
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+### Fixed
+
+- Duplicate keys are now tracked per key instead of per group, so a later unique key can no longer clear an earlier duplicate (ex: `[A, A, B]`).
+- Literal keys in `.map()` callbacks are no longer overwritten by later dynamic keys.
+
 ## [5.14.9] - 2026-07-15
 
 ### Changed

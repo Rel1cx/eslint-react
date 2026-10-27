@@ -66,6 +66,30 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
+      name: "duplicate keys followed by a unique key in array literal",
+      code: tsx`
+        const App = () => {
+            return [<div key="1">1</div>, <div key="1">2</div>, <div key="2">3</div>]
+        };
+      `,
+      errors: [
+        { messageId: "default" },
+        { messageId: "default" },
+      ],
+    },
+    {
+      name: "non-adjacent duplicate keys in array literal",
+      code: tsx`
+        const App = () => {
+            return [<div key="1">1</div>, <div key="2">2</div>, <div key="1">3</div>]
+        };
+      `,
+      errors: [
+        { messageId: "default" },
+        { messageId: "default" },
+      ],
+    },
+    {
       name: "duplicate keys in JSX children",
       code: tsx`
         const App = () => {
@@ -155,6 +179,29 @@ ruleTester.run(RULE_NAME, rule, {
         };
       `,
       errors: [
+        { messageId: "default" },
+      ],
+    },
+    {
+      name: "literal key and dynamic key in conditional branches of a map callback",
+      code: tsx`
+        const App = () => {
+          return items.map((item) => item.active ? <div key="active" /> : <div key={item.id} />)
+        };
+      `,
+      errors: [
+        { messageId: "default" },
+      ],
+    },
+    {
+      name: "two literal keys in conditional branches of a map callback",
+      code: tsx`
+        const App = () => {
+          return items.map((item) => item.active ? <div key="active" /> : <div key="inactive" />)
+        };
+      `,
+      errors: [
+        { messageId: "default" },
         { messageId: "default" },
       ],
     },

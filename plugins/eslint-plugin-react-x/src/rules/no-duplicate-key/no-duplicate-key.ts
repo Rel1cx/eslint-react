@@ -11,12 +11,6 @@ export const RULE_FEATURES = [
 
 export type MessageID = "default";
 
-type KeyedEntry = {
-  hasDuplicate: boolean;
-  keys: TSESTree.JSXAttribute[];
-  root: TSESTree.Expression;
-};
-
 export default createRule<[], MessageID>({
   meta: {
     type: "problem",
@@ -35,37 +29,44 @@ export default createRule<[], MessageID>({
 export function create(context: RuleContext<MessageID, []>): RuleListener {
   // Fast path: skip if `key=` is not present in the file
   if (!context.sourceCode.text.includes("key=")) return {};
-  // Map to store key attributes grouped by their parent node
-  const keyedEntries = new Map<TSESTree.Node, KeyedEntry>();
-  // Helper function to check if two key attribute values are equal
+  // Key attributes that have at least one equal sibling, or are literal keys
+  // inside a `.map()` callback where they repeat on every iteration
+  const duplicateKeys = new Set<TSESTree.JSXAttribute>();
+  // Key attributes grouped by their parent node, used to find duplicate siblings
+  const siblingKeys = new Map<TSESTree.Node, TSESTree.JSXAttribute[]>();
+
+  /**
+   * Checks whether two `key` attributes have structurally equal values.
+   * @param a The first key attribute.
+   * @param b The second key attribute.
+   * @returns `true` if both values are present and AST-equal, `false` otherwise.
+   */
   function isKeyValueEqual(a: TSESTree.JSXAttribute, b: TSESTree.JSXAttribute): boolean {
     const aValue = a.value;
     const bValue = b.value;
-    // If either value is null, they are not considered equal
     if (aValue == null || bValue == null) {
       return false;
     }
-    // Compare the AST nodes of the values for equality
     return Compare.isEqual(aValue, bValue);
   }
   return {
-    // Visitor for all JSX attributes named 'key'
     "JSXAttribute[name.name='key']"(node: TSESTree.JSXAttribute) {
       const jsxElement = node.parent.parent;
-      // Check the parent of the JSX element to determine the context
       switch (jsxElement.parent.type) {
         // Case 1: Elements in an array expression, JSX element, or JSX fragment
         case AST.ArrayExpression:
         case AST.JSXElement:
         case AST.JSXFragment: {
           const root = jsxElement.parent;
-          const prevKeys = keyedEntries.get(root)?.keys ?? [];
-          // Check for duplicates and update the map
-          keyedEntries.set(root, {
-            hasDuplicate: prevKeys.some((prevKey) => isKeyValueEqual(prevKey, node)),
-            keys: [...prevKeys, node],
-            root: jsxElement.parent,
-          });
+          const prevKeys = siblingKeys.get(root) ?? [];
+          // Mark every key that has an equal sibling. Marking is monotonic so a
+          // later unique key cannot clear an earlier duplicate (ex: `[A, A, B]`)
+          for (const prevKey of prevKeys) {
+            if (!isKeyValueEqual(prevKey, node)) continue;
+            duplicateKeys.add(prevKey);
+            duplicateKeys.add(node);
+          }
+          siblingKeys.set(root, [...prevKeys, node]);
           break;
         }
         // Case 2: Elements created by an array's .map() call
@@ -88,27 +89,20 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
           if (Extract.unwrap(arg0) !== iter) {
             return;
           }
-          // Flag literal keys in .map() calls as they are a common source of duplication
-          keyedEntries.set(call, {
-            hasDuplicate: node.value?.type === AST.Literal,
-            keys: [node],
-            root: call,
-          });
+          // Flag literal keys in .map() calls as they are a common source of duplication.
+          // Dynamic keys are not recorded, so they cannot overwrite a literal one.
+          if (node.value?.type === AST.Literal) {
+            duplicateKeys.add(node);
+          }
         }
       }
     },
     "Program:exit"() {
-      for (const { hasDuplicate, keys } of keyedEntries.values()) {
-        if (!hasDuplicate) {
-          continue;
-        }
-        // Report an error for each duplicate key found
-        for (const key of keys) {
-          context.report({
-            messageId: "default",
-            node: key,
-          });
-        }
+      for (const key of duplicateKeys) {
+        context.report({
+          messageId: "default",
+          node: key,
+        });
       }
     },
   };
