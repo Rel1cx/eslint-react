@@ -83,9 +83,9 @@ export default createRule<Options, MessageID>({
 export function create(context: RuleContext<MessageID, Options>): RuleListener {
   const options = context.options[0] ?? defaultOptions[0];
   const {
-    enforceAssignment = true,
-    enforceLazyInitialization = true,
-    enforceSetterName = true,
+    enforceAssignment = defaultOptions[0].enforceAssignment,
+    enforceLazyInitialization = defaultOptions[0].enforceLazyInitialization,
+    enforceSetterName = defaultOptions[0].enforceSetterName,
   } = options;
   const { additionalStateHooks } = getSettingsFromContext(context);
   return {

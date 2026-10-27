@@ -67,7 +67,7 @@ export function create(context: RuleContext<MessageID, Options>): RuleListener {
   const { api, visitor } = core.getFunctionComponentCollector(context);
 
   const declarators = new WeakMap<TSESTreeFunction, ObjectDestructuringVariableDeclarator[]>();
-  const { safeDefaultProps = [] } = options;
+  const { safeDefaultProps = defaultOptions[0].safeDefaultProps } = options;
   const safePatterns = safeDefaultProps.map((s) => toRegExp(s));
 
   return merge(visitor, {

@@ -63,7 +63,7 @@ export default createRule<Options, MessageID>({
 });
 
 export function create(context: RuleContext<MessageID, Options>): RuleListener {
-  const { allowReferrer = false } = context.options[0] ?? defaultOptions[0];
+  const { allowReferrer = defaultOptions[0].allowReferrer } = context.options[0] ?? defaultOptions[0];
   const resolver = createJSXElementResolver(context);
 
   const requiredRelValue = allowReferrer ? "noopener" : "noreferrer";

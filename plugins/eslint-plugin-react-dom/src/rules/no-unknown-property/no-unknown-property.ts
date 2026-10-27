@@ -102,8 +102,8 @@ export default createRule<Options, MessageID>({
 
 export function create(context: RuleContext<MessageID, Options>): RuleListener {
   const {
-    ignore = [],
-    requireDataLowercase = false,
+    ignore = defaultOptions[0].ignore,
+    requireDataLowercase = defaultOptions[0].requireDataLowercase,
   } = context.options[0] ?? defaultOptions[0];
   let attributeTagsMap: ReturnType<typeof getAttributeTagsMap> | null = null;
 
