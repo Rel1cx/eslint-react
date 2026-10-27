@@ -5,6 +5,12 @@ All notable changes to the `react-jsx/no-useless-fragment` rule will be document
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+### Fixed
+
+- Lone-CR whitespace, including the `&#13;` entity, is now treated as formatting padding, matching LF and CRLF. Fragments that use it around a single child are now reported as having fewer than two children, and fragments containing only such text are reported as useless. This follows Babel's `cleanJSXElementLiteralChild`, which splits lines on `\r\n`, `\n`, and `\r`.
+
 ## [5.30.0-beta.10] - 2026-10-27
 
 ### Changed

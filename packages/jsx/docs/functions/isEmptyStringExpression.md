@@ -6,10 +6,13 @@
 function isEmptyStringExpression(node: Node | null | undefined): boolean;
 ```
 
-Check if the node is an empty string literal expression (`{""}`).
+Check if the node is an empty string literal expression (`{""}`, `{''}`).
 
-Only a literal empty string matches; template literals and other expressions
-that happen to evaluate to `""` are not evaluated by this predicate.
+Node-shape check, not an evaluation: TS wrappers (`{"" as string}`, `{""!}`,
+`{"" satisfies string}`), template literals (` {`} `, ` {`${''}`} ``), and
+calls (`{String("")}`) do not match even though their runtime value is `""`;
+only `value === ""` matches, so `{0}`, `{false}`, and `{NaN}` do not. A comment
+attached to the literal does not affect the result.
 
 ## Parameters
 
@@ -21,9 +24,9 @@ that happen to evaluate to `""` are not evaluated by this predicate.
 
 `boolean`
 
-`true` if the node is an expression container holding an empty string literal.
+`true` if the node holds a bare empty string literal.
 
 ## Remarks
 
-This is a content predicate, not a type guard: a `false` result does not
-mean the node is not a `JSXExpressionContainer`.
+A content predicate, not a type guard: `false` does not mean the node is not
+a `JSXExpressionContainer`.
