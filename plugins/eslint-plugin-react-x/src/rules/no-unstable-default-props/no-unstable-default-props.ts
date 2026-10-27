@@ -1,7 +1,7 @@
 import { createRule } from "@/utils/create-rule";
 import { Check, Extract, type TSESTreeFunction, Traverse } from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
-import { type RuleContext, type RuleFeature, type RuleListener, complete, merge } from "@eslint-react/eslint";
+import { type RuleContext, type RuleFeature, type RuleListener, merge } from "@eslint-react/eslint";
 import { getSettingsFromContext, toRegExp } from "@eslint-react/shared";
 import { resolveObjectType } from "@eslint-react/var";
 import { getOrInsertComputed } from "@local/eff";
@@ -17,17 +17,12 @@ export const RULE_FEATURES = ["CFG"] as const satisfies RuleFeature[];
 export type MessageID = "default";
 
 type Options = readonly [
-  | undefined
-  | {
+  {
     safeDefaultProps?: readonly string[];
-  },
+  }?,
 ];
 
-const defaultOptions = [
-  {
-    safeDefaultProps: [],
-  },
-] as const satisfies Options;
+type RuleOptions = NonNullable<Options[0]>;
 
 const schema: [JSONSchema4] = [
   {
@@ -46,7 +41,7 @@ const schema: [JSONSchema4] = [
 export default createRule<Options, MessageID>({
   meta: {
     type: "problem",
-    defaultOptions: [...defaultOptions],
+    defaultOptions: [{}],
     docs: {
       description: "Prevents using referential-type values as default props in object destructuring.",
     },
@@ -60,7 +55,9 @@ export default createRule<Options, MessageID>({
 });
 
 export function create(context: RuleContext<MessageID, Options>): RuleListener {
-  const { safeDefaultProps } = complete(context.options[0], defaultOptions[0]);
+  const options: RuleOptions = { ...(context.options[0] ?? {}) };
+  const safeDefaultProps = options.safeDefaultProps ??= [];
+
   const { compilationMode } = getSettingsFromContext(context);
   if (compilationMode === "infer" || compilationMode === "all") return {};
   if (compilationMode === "annotation" && context.sourceCode.ast.body.some((stmt) => Check.isDirective(stmt, "use memo"))) return {};

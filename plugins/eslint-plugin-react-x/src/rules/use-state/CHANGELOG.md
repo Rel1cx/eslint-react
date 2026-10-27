@@ -5,6 +5,12 @@ All notable changes to the `react-x/use-state` rule will be documented in this f
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+### Changed
+
+- Options are now resolved in `create` by copying `context.options[0]` into a mutable options object and applying defaults per property with `??=`, replacing the shared `complete` helper; `meta.defaultOptions: [{}]` now only provides the merge slot. No change to reported problems.
+
 ## [5.30.0-beta.7] - 2026-10-27
 
 ### Changed

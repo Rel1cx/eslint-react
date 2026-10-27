@@ -13,24 +13,6 @@ function getDocsUrl(ruleName: string) {
 export const createRule = ESLintUtils.RuleCreator(getDocsUrl);
 
 /**
- * Merge the rule options supplied by the user with the rule's default options.
- *
- * Properties whose value is `null` or `undefined` keep the default value.
- *
- * @param options The rule options supplied by the user.
- * @param defaults The rule's default options.
- * @returns The merged rule options.
- */
-export function complete<O extends object, D extends NoInfer<O>>(options: Partial<O> | null | undefined, defaults: D): O & Omit<D, keyof O> {
-  const result: O & Omit<D, keyof O> = { ...defaults };
-  for (const key in options) {
-    const value = options[key];
-    if (value != null) Reflect.set(result, key, value);
-  }
-  return result;
-}
-
-/**
  * Gets the source text of the given node or token.
  * Can be used as `(context, node)` to get the text directly,
  * or as `(context)` to get a `(node) => string` function (ex: for use in array callbacks).

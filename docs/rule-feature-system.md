@@ -18,7 +18,7 @@ export type RuleFeature =
 
 | Feature | When to use                                           | Preset impact                       |
 | ------- | ----------------------------------------------------- | ----------------------------------- |
-| `CFG`   | `meta.schema` or `defaultOptions` is non-empty.       | Flagged as configurable in docs.    |
+| `CFG`   | `meta.schema` is non-empty.                           | Flagged as configurable in docs.    |
 | `FIX`   | Uses `context.report({ fix })` or `suggest`.          | Flagged as fixable in docs.         |
 | `MOD`   | Rule is a one-time codemod.                           | Reserved for migration tooling.     |
 | `TSC`   | Uses parser services / type checker.                  | Disabled by `disable-type-checked`. |
