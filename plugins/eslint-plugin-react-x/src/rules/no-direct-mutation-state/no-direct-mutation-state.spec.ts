@@ -285,6 +285,19 @@ ruleTester.run(RULE_NAME, rule, {
       `,
     },
     {
+      name: "Constructor nested block assignment",
+      code: tsx`
+        class Hello extends React.Component {
+          constructor(props) {
+            super(props);
+            if (props.reset) {
+              this.state = { reset: true };
+            }
+          }
+        }
+      `,
+    },
+    {
       name: "Constructor nested property assignment",
       code: tsx`
         class Hello extends React.Component {

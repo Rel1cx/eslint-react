@@ -32,15 +32,16 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
     AssignmentExpression(node: TSESTree.AssignmentExpression) {
       if (!isAssignmentToThisState(node)) return;
       const fact = Traverse.findParent(node, Check.isClass);
-      if (fact == null) return;
-      // Report an error if 'this.state' is directly mutated in a class component
-      // and the mutation is not inside the constructor
-      if (core.isClassComponent(fact) && context.sourceCode.getScope(node).block !== Traverse.findParent(node, isConstructorFunction)) {
-        context.report({
-          messageId: "default",
-          node,
-        });
-      }
+      if (fact == null || !core.isClassComponent(fact)) return;
+      // Allow synchronous constructor initialization, including nested blocks.
+      // A nested function (callback) is not the constructor, so it is reported.
+      const constructor = Traverse.findParent(node, isConstructorFunction);
+      const enclosing = Traverse.findParent(node, Check.isFunctionOrClass);
+      if (enclosing === constructor) return;
+      context.report({
+        messageId: "default",
+        node,
+      });
     },
   };
 }
