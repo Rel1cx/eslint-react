@@ -1,5 +1,5 @@
 import { createRule } from "@/utils/create-rule";
-import { Check, type TSESTreeClass, type TSESTreeMethodOrPropertyDefinition, Traverse } from "@eslint-react/ast";
+import { Check, Extract, type TSESTreeClass, type TSESTreeMethodOrPropertyDefinition, Traverse } from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, type RuleListener, getText } from "@eslint-react/eslint";
 import { getOrInsertComputed } from "@local/eff";
@@ -30,8 +30,25 @@ export default createRule<[], MessageID>({
 export function create(context: RuleContext<MessageID, []>): RuleListener {
   // Fast path: skip if `Component` is not present in the file
   if (!context.sourceCode.text.includes("Component")) return {};
-  const propertyDefs = new WeakMap<TSESTreeClass, Set<TSESTree.Identifier>>();
+  const propertyDefs = new WeakMap<TSESTreeClass, Map<string, TSESTree.Node>>();
+  const publicMethods = new WeakMap<TSESTreeClass, Set<string>>();
   const propertyUsages = new WeakMap<TSESTreeClass, Set<string>>();
+
+  /**
+   * Resolves a static property name from a member expression or class member key.
+   * @param key The key or property node to inspect.
+   * @param computed Whether the access is computed.
+   * @returns The static name, or `null` when the key is dynamic.
+   */
+  function getStaticName(key: TSESTree.Node, computed: boolean): string | null {
+    const unwrapped = Extract.unwrap(key);
+    if (!computed && Check.isIdentifier(unwrapped)) return unwrapped.name;
+    if (unwrapped.type === AST.Literal && typeof unwrapped.value === "string") return unwrapped.value;
+    if (unwrapped.type === AST.TemplateLiteral && unwrapped.expressions.length === 0) {
+      return unwrapped.quasis[0]?.value.cooked ?? unwrapped.quasis[0]?.value.raw ?? null;
+    }
+    return null;
+  }
 
   /**
    * Reports class component members that are defined but never referenced.
@@ -48,8 +65,8 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
     }
     const usages = propertyUsages.get(node);
     const exported = isExportedClass(node);
-    for (const def of defs) {
-      const methodName = def.name;
+    const publicMembers = publicMethods.get(node);
+    for (const [methodName, defNode] of defs) {
       if (usages?.has(methodName) ?? false) {
         continue;
       }
@@ -65,7 +82,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       }
       // If a member is a public method of an exported class component, skip it
       // as it may be invoked by consumers through refs (ex: `drawerRef.current.openDrawer()`)
-      if (exported && isPublicMethod(def)) {
+      if (exported && (publicMembers?.has(methodName) ?? false)) {
         continue;
       }
       context.report({
@@ -74,7 +91,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
           methodName,
         },
         messageId: "default",
-        node: def,
+        node: defNode,
       });
     }
   }
@@ -91,8 +108,12 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
     if (node.static) {
       return;
     }
-    if (!node.computed && node.key.type === AST.Identifier) {
-      getOrInsertComputed(propertyDefs, currentClass, () => new Set<TSESTree.Identifier>()).add(node.key);
+    if (node.computed || !Check.isIdentifier(node.key)) return;
+    const methodName = node.key.name;
+    const defs = getOrInsertComputed(propertyDefs, currentClass, () => new Map<string, TSESTree.Node>());
+    if (!defs.has(methodName)) defs.set(methodName, node.key);
+    if (isPublicMethod(node)) {
+      getOrInsertComputed(publicMethods, currentClass, () => new Set<string>()).add(methodName);
     }
   }
 
@@ -108,16 +129,20 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       if (!core.isClassComponent(currentClass) || currentMethod.static) {
         return;
       }
-      if (node.object.type !== AST.ThisExpression || node.computed || node.property.type !== AST.Identifier) {
-        return;
-      }
+      if (node.object.type !== AST.ThisExpression) return;
       // Detect assignments like `this.property = xxx` as definitions
       if (node.parent.type === AST.AssignmentExpression && node.parent.left === node) {
-        getOrInsertComputed(propertyDefs, currentClass, () => new Set<TSESTree.Identifier>()).add(node.property);
+        if (!node.computed && Check.isIdentifier(node.property)) {
+          const defs = getOrInsertComputed(propertyDefs, currentClass, () => new Map<string, TSESTree.Node>());
+          if (!defs.has(node.property.name)) defs.set(node.property.name, node.property);
+        }
         return;
       }
-      // Detect usages like `this.property()` or `x = this.property`
-      getOrInsertComputed(propertyUsages, currentClass, () => new Set<string>()).add(node.property.name);
+      // Detect usages like `this.property()` or `x = this.property`, including
+      // statically resolvable computed reads such as `this["property"]`
+      const propertyName = getStaticName(node.property, node.computed);
+      if (propertyName == null) return;
+      getOrInsertComputed(propertyUsages, currentClass, () => new Set<string>()).add(propertyName);
     },
     MethodDefinition: methodEnter,
     PropertyDefinition: methodEnter,
@@ -133,9 +158,10 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       // Detect destructuring from `this`, e.g., `const { foo, bar } = this;`
       if (node.init != null && node.init.type === AST.ThisExpression && node.id.type === AST.ObjectPattern) {
         for (const prop of node.id.properties) {
-          if (prop.type === AST.Property && !prop.computed && prop.key.type === AST.Identifier) {
-            getOrInsertComputed(propertyUsages, currentClass, () => new Set<string>()).add(prop.key.name);
-          }
+          if (prop.type !== AST.Property) continue;
+          const name = getStaticName(prop.key, prop.computed);
+          if (name == null) continue;
+          getOrInsertComputed(propertyUsages, currentClass, () => new Set<string>()).add(name);
         }
       }
     },
