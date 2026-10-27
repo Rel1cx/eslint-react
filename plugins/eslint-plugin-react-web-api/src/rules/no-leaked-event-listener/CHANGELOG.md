@@ -5,6 +5,16 @@ All notable changes to the `react-web-api/no-leaked-event-listener` rule will be
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [5.30.0-beta.6] - 2026-10-27
+
+### Fixed
+
+- Resolving the `signal` option through a cyclic alias chain (ex: `const a = b; const b = a;`) no longer recurses until the stack overflows.
+
+### Changed
+
+- Listener and event-type matching now uses `isProvenanceEqual` from `@eslint-react/var`, which carries the provenance rules previously built into `isValueEqual`; no behavior change.
+
 ## [5.27.1] - 2026-10-15
 
 ### Fixed

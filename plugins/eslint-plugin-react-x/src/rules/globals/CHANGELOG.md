@@ -5,6 +5,12 @@ All notable changes to the `react-x/globals` rule will be documented in this fil
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [5.30.0-beta.6] - 2026-10-27
+
+### Changed
+
+- Function targets are now resolved with `resolveOriginChain` from `@eslint-react/var`, which provides cycle detection and a bounded traversal; no behavior change.
+
 ## [5.23.0] - 2026-09-30
 
 ### Changed

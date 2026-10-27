@@ -5,6 +5,12 @@ All notable changes to the `react-dom/no-render` rule will be documented in this
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [5.30.0-beta.6] - 2026-10-27
+
+### Changed
+
+- Callee detection now uses the shared `isReactDOMCall` helper; direct calls to an imported `render`, the pre-registered `ReactDOM` global, and member calls through a `react-dom` module binding remain matched, and the `createRoot` fix is unchanged. No behavior change.
+
 ## [5.14.9] - 2026-07-15
 
 ### Changed

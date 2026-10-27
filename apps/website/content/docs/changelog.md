@@ -2,6 +2,73 @@
 title: Changelog
 ---
 
+## v5.30.0-beta.6 (2026-10-27)
+
+### 🐞 Fixes
+
+- `react-x/no-missing-key`: elements with a spread attribute are no longer reported as missing `key`. (#2086)
+- `react-jsx/no-useless-fragment`: fragments with a spread attribute are no longer reported. (#2086)
+- `react-dom/no-dangerously-set-innerhtml-with-children`: empty expression containers (`{}` and comments) no longer count as children. (#2086)
+- `react-dom/no-script-url`: namespaced attributes such as `xlink:href` are now checked for `javascript:` URLs. (#2086)
+- `react-dom/no-void-elements-with-children`: comment-only/empty containers and newline-only formatting whitespace no longer count as children. (#2086)
+- `react-web-api/no-leaked-event-listener`: cyclic alias chains no longer cause infinite recursion when resolving a `signal` option. (#2085)
+- `children` supplied through a statically resolvable computed key in a `createElement` props object is now detected. (#2086)
+
+  Affected rules:
+  - `react-jsx/no-children-prop`
+  - `react-jsx/no-children-prop-with-children`
+
+### 🪄 Improvements
+
+- JSX and `createElement` rules no longer resolve spread props, since a spread's contents are unknown; only direct attributes and properties are inspected. (#2086)
+
+  Affected rules:
+  - `react-x/no-missing-key`
+  - `react-jsx/no-children-prop`
+  - `react-jsx/no-children-prop-with-children`
+  - `react-jsx/no-useless-fragment`
+  - `react-dom/no-dangerously-set-innerhtml`
+  - `react-dom/no-dangerously-set-innerhtml-with-children`
+  - `react-dom/no-missing-button-type`
+  - `react-dom/no-missing-iframe-sandbox`
+  - `react-dom/no-string-style-prop`
+  - `react-dom/no-unsafe-iframe-sandbox`
+  - `react-dom/no-unsafe-target-blank`
+  - `react-dom/no-void-elements-with-children`
+
+### 🏗️ Internal
+
+- `@eslint-react/jsx`: rewrote the module around direct-attribute descriptors and `parseCreateElementCall`, removed spread-property resolution, and consolidated the attribute, children, element, and `createElement` helpers; `getChildren` now returns meaningful children, and the package no longer depends on `@eslint-react/var` or `ts-pattern`. (#2086)
+- `@eslint-react/ast`: added `Extract.getJSXName`, now reused by `getFullyQualifiedName`. (#2086)
+- `@eslint-react/var`: removed `resolveBindingTarget` and the `BindingTarget` type, with consumers unwrapping `AssignmentPattern` defaults inline.
+- `@eslint-react/var`: converged identifier resolution on a shared binding projection; added `resolveOriginChain`, `isProvenanceEqual`, `hasDefault`, and expanded `resolveObjectType` (`at`/`scope` options, `via`, shadowed-global and cycle guards); `createImportLookup` now ignores type-only imports, distinguishes default imports, and exposes `isModuleBinding` (renamed from `hasNamespace`). (#2085)
+- `@eslint-react/var`: `isValueEqual` is now identity-only; the provenance heuristics moved to the new `isProvenanceEqual`, and regular expression literals compare by pattern and flags. (#2085)
+- Callee detection now uses the shared `isReactDOMCall` helper, and namespace syntax is detected from the JSX name node type directly; no behavior change. (#2086)
+
+  Affected rules:
+  - `react-jsx/no-namespace`
+  - `react-dom/no-find-dom-node`
+  - `react-dom/no-flush-sync`
+  - `react-dom/no-hydrate`
+  - `react-dom/no-render`
+  - `react-dom/no-render-return-value`
+  - `react-dom/no-use-form-state`
+
+- Function targets are resolved with `resolveOriginChain`, and `AssignmentPattern` defaults are unwrapped inline; no behavior change. (#2085)
+
+  Affected rules:
+  - `react-x/globals`
+  - `react-x/immutability`
+  - `react-x/no-array-index-key`
+  - `react-x/no-unused-props`
+  - `react-x/purity`
+  - `react-x/set-state-in-effect`
+  - `react-x/unstable-exhaustive-deps`
+
+- `react-x/no-unknown-property`: lookups are cached per React version and `isValidHTMLTagInJSX` uses `isPlainAttribute`; no behavior change. (#2086)
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.30.0-beta.5...v5.30.0-beta.6
+
 ## v5.30.0-beta.5 (2026-10-27)
 
 ### 🐞 Fixes

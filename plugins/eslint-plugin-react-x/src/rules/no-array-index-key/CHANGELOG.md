@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - The `createElement` props object is now read from `parseCreateElementCall(...).propsObject` instead of the removed `getCreateElementPropsObject` helper; no behavior change.
+- Index parameter defaults are now unwrapped inline after `resolveBindingTarget` was removed from `@eslint-react/var`; no behavior change.
 
 ## [5.30.0-beta.5] - 2026-10-27
 
