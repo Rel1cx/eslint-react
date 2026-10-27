@@ -395,6 +395,19 @@ ruleTester.run(RULE_NAME, rule, {
         },
       },
     },
+    {
+      code: tsx`
+        const Boolean = (value: unknown) => !!value;
+        function App({ foo = Boolean({}) }) {
+          return null
+        }
+      `,
+      settings: {
+        "react-x": {
+          compilationMode: "annotation",
+        },
+      },
+    },
     tsx`
       export function DrawerItem(props: Props) {
         const { colors, fonts } = useTheme();

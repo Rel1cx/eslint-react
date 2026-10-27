@@ -5,6 +5,16 @@ All notable changes to the `react-x/no-duplicate-key` rule will be documented in
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+### Changed
+
+- Reverted the rule to the v5.28.8 implementation, removing the changes from v5.30.0-beta.7.
+
+### Fixed
+
+- The fast-path text check now matches bare `key` attributes and keys separated from `=` by whitespace (ex: `<div key />`, `<div key = {id} />`), so such elements are no longer silently skipped.
+
 ## [5.30.0-beta.7] - 2026-10-27
 
 ### Fixed

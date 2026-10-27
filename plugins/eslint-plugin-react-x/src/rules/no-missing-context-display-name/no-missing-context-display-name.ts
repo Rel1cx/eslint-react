@@ -66,8 +66,12 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
               if (id.type !== AST.Identifier || id.parent !== call.parent) return [];
               const declaration = id.parent.parent;
               if (declaration == null || declaration.type !== AST.VariableDeclaration) return [];
+              // Insert after the declaration only when it is in a statement-list
+              // position. `export` declarations can only appear in a Program or
+              // TSModuleBlock, so appending after the declaration is safe.
               switch (declaration.parent.type) {
                 case AST.BlockStatement:
+                case AST.ExportNamedDeclaration:
                 case AST.Program:
                 case AST.StaticBlock:
                 case AST.SwitchCase:

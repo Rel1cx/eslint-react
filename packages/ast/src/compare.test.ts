@@ -144,6 +144,32 @@ describe("isEqual", () => {
     });
   });
 
+  describe("MemberExpression equality", () => {
+    it("should return false for dot and computed access with the same property identifier", () => {
+      const nodes = collectNodes<TSESTree.MemberExpression>("const k = 'x'; item.k; item[k];", AST.MemberExpression);
+      expect(nodes).toHaveLength(2);
+      expect(isEqual(nodes[0]!, nodes[1]!)).toBe(false);
+    });
+
+    it("should return true for identical computed access", () => {
+      const nodes = collectNodes<TSESTree.MemberExpression>("const k = 'x'; item[k]; item[k];", AST.MemberExpression);
+      expect(nodes).toHaveLength(2);
+      expect(isEqual(nodes[0]!, nodes[1]!)).toBe(true);
+    });
+
+    it("should return false for optional and non-optional member access", () => {
+      const nodes = collectNodes<TSESTree.MemberExpression>("item?.id; item.id;", AST.MemberExpression);
+      expect(nodes).toHaveLength(2);
+      expect(isEqual(nodes[0]!, nodes[1]!)).toBe(false);
+    });
+
+    it("should return true for identical optional member access", () => {
+      const nodes = collectNodes<TSESTree.MemberExpression>("item?.id; item?.id;", AST.MemberExpression);
+      expect(nodes).toHaveLength(2);
+      expect(isEqual(nodes[0]!, nodes[1]!)).toBe(true);
+    });
+  });
+
   describe("dual form (curried)", () => {
     it("should work in curried form for JSXAttributes", () => {
       const attrs1 = collectJSXAttributes('<div className="a" />');
