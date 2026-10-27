@@ -5,6 +5,12 @@ All notable changes to the `react-x/no-unused-class-component-members` rule will
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+### Fixed
+
+- Statically resolvable computed member reads (ex: `this["bar"]`, ``this[`bar`]``) and destructuring with static string keys are now counted as usages, so these members are no longer reported as unused.
+
 ## [5.26.2] - 2026-10-12
 
 ### Fixed
