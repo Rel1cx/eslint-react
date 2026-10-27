@@ -2,6 +2,22 @@
 title: Changelog
 ---
 
+## v5.30.0-beta.11 (2026-10-28)
+
+### 🐞 Fixes
+
+- `react-jsx/no-useless-fragment`: lone-CR whitespace, including `&#13;`, is now treated as formatting padding like LF and CRLF. (#2092)
+- `react-dom/no-void-elements-with-children`: lone-CR whitespace no longer counts as children of void elements. (#2092)
+- `react-dom/no-dangerously-set-innerhtml-with-children`: lone-CR whitespace no longer counts as children alongside `dangerouslySetInnerHTML`. (#2092)
+- `react-web-api/no-leaked-event-listener`: calls to function parameters are no longer mistaken for the enclosing function declaration during cleanup pairing. (#2092)
+
+### 🏗️ Internal
+
+- `@eslint-react/jsx`: padding detection now follows Babel's `cleanJSXElementLiteralChild`, recognizing `\r` and `\r\n` line breaks; child predicates share composed helpers. (#2092)
+- `eslint-plugin-react-web-api`: reorganized the `no-leaked-event-listener` helpers into `lib.ts`; cleanup callee resolution now uses `resolve` and `Extract.getPropertyName`. (#2092)
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.30.0-beta.10...v5.30.0-beta.11
+
 ## v5.30.0-beta.10 (2026-10-27)
 
 ### 🏗️ Internal
