@@ -2,6 +2,23 @@
 title: Changelog
 ---
 
+## v5.30.0-beta.12 (2026-10-28)
+
+### 🐞 Fixes
+
+- `react-x/refs`: non-null guards whose terminating branch is a `try` statement are now recognized. (#2093)
+- `react-web-api/no-leaked-event-listener`: optional-chained listeners, event types, and receivers now pair with their cleanup; string-literal and simple template-literal option keys are now recognized. (#2093)
+- `react-web-api/no-leaked-fetch`: `signal` option keys written as string literals or simple template literals are now recognized. (#2093)
+- `react-web-api/no-leaked-intersection-observer`: `observe(...)` and `unobserve(...)` now pair on optional-chained elements. (#2093)
+- `react-web-api/no-leaked-resize-observer`: `observe(...)` and `unobserve(...)` now pair on optional-chained elements. (#2093)
+
+### 🏗️ Internal
+
+- `@eslint-react/ast`: `Analyze.isUnconditionallyTerminating` now handles `try` statements; `Compare.isEqual` now compares `ChainExpression` nodes and regex literals; `Collect` now traverses `for` initializers and updates plus variable declaration initializers; `Extract.findProperty` resolves more property-name forms. (#2093)
+- `@eslint-react/var`: value equality now handles `ChainExpression` and compares the `computed` and `optional` member flags. (#2093)
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.30.0-beta.11...v5.30.0-beta.12
+
 ## v5.30.0-beta.11 (2026-10-28)
 
 ### 🐞 Fixes
