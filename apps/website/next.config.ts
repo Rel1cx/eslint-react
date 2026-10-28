@@ -5,10 +5,8 @@ import { NextConfig } from "next";
 const withMDX = createMDX();
 
 const config = {
-  images: {
-    qualities: [100],
-  },
   reactStrictMode: true,
+
   typescript: {
     ignoreBuildErrors: true,
   },
@@ -16,6 +14,11 @@ const config = {
     "twoslash",
     "typescript",
   ],
+
+  images: {
+    qualities: [100],
+  },
+
   async redirects() {
     return [
       // 1. Strip file extensions first

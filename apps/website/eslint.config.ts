@@ -7,18 +7,18 @@ import { defineConfig, globalIgnores } from "eslint/config";
 import importIntegrityPlugin from "import-integrity-lint";
 import path from "node:path";
 import tseslint from "typescript-eslint";
+
 import TSCONFIG from "./tsconfig.json" with { type: "json" };
 
-const GLOB_TS = ["**/*.ts", "**/*.tsx"];
-const GLOB_JS = ["**/*.js", "**/*.jsx"];
 const GLOB_APP = ["app/**/*.{js,ts,jsx,tsx}"];
-const GLOB_COMPONENT = ["components/**/*.{js,ts,jsx,tsx}"];
 const GLOB_CONFIG = ["**/*.config.{js,mjs,ts,tsx}"];
 const GLOB_IGNORES = [
-  "testing",
   "**/*.d.ts",
   "eslint.config.ts",
+  "testing",
 ];
+const GLOB_JS = ["**/*.js", "**/*.jsx"];
+const GLOB_TS = ["**/*.ts", "**/*.tsx"];
 
 export default defineConfig(
   // Ignore patterns from .gitignore and additional exclusions
@@ -26,31 +26,32 @@ export default defineConfig(
   globalIgnores(GLOB_IGNORES),
   // Base TypeScript config with strict type checking
   {
+    files: GLOB_TS,
     extends: [
       strictTypeChecked,
       // @ts-expect-error - wait for import-integrity-lint to update
       importIntegrityPlugin.configs.recommended,
     ],
-    files: GLOB_TS,
-    rules: {
-      "no-restricted-syntax": "off",
-      "import-integrity/no-unresolved-imports": "off",
-      "import-integrity/no-unused-exports": "off",
-      "import-integrity/prefer-alias-imports": "off",
-    },
     settings: {
       "import-integrity": {
         packageRootDir: import.meta.dirname,
       },
     },
+    rules: {
+      "import-integrity/no-unresolved-imports": "off",
+      "import-integrity/no-unused-exports": "off",
+      "import-integrity/prefer-alias-imports": "off",
+      "no-restricted-syntax": "off",
+    },
   },
+  // React type-checked configuration
   {
+    files: TSCONFIG.include,
     extends: [
       tseslint.configs.base,
       react.configs["recommended-type-checked"],
       pluginReactHooks.configs.flat["recommended-latest"] ?? [],
     ],
-    files: TSCONFIG.include,
     languageOptions: {
       parser: tseslint.parser,
       parserOptions: {
@@ -66,6 +67,7 @@ export default defineConfig(
       "react-refresh/only-export-components": "warn",
     },
   },
+  // App directory overrides
   {
     files: GLOB_APP,
     rules: {
@@ -73,12 +75,13 @@ export default defineConfig(
       "react-refresh/only-export-components": "off",
     },
   },
+  // JavaScript and config files (no type checking)
   {
+    files: [...GLOB_JS, ...GLOB_CONFIG],
     extends: [
       disableTypeChecked,
       react.configs["disable-type-checked"],
     ],
-    files: [...GLOB_JS, ...GLOB_CONFIG],
     rules: {
       "no-console": "off",
       "no-undef": "off",

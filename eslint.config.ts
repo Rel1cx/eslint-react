@@ -17,30 +17,31 @@ import path from "node:path";
 import tseslint from "typescript-eslint";
 
 export default defineConfig(
+  // Global ignores: .gitignore + shared defaults + project-specific exclusions
   ...buildIgnoreConfig(path.join(import.meta.dirname, ".gitignore"), [
     "**/*.d.ts",
+    ...GLOB_TESTS,
     "apps",
     "docs",
     "examples",
     "testing",
-    ...GLOB_TESTS,
   ]),
+  // Skip checks for rules ported directly from upstream
   {
-    // Skip checks for rules ported directly from upstream
     ignores: [
       "plugins/eslint-plugin-react-x/src/rules/exhaustive-deps",
       "plugins/eslint-plugin-react-x/src/rules/rules-of-hooks",
       "plugins/eslint-plugin-react-x/src/rules/unstable-exhaustive-deps/unstable-exhaustive-deps.ts",
     ],
   },
-  // TypeScript Configuration (Main)
+  // TypeScript configuration (type-aware)
   {
+    files: GLOB_TS,
     extends: [
       strictTypeChecked,
       // @ts-expect-error - import-integrity plugin has incompatible type definitions
       importIntegrityPlugin.configs.recommended,
     ],
-    files: GLOB_TS,
     languageOptions: {
       parser: tseslint.parser,
       parserOptions: {
@@ -48,17 +49,18 @@ export default defineConfig(
         tsconfigRootDir: import.meta.dirname,
       },
     },
-    rules: {
-      "import-integrity/no-test-only-imports": "off",
-      "import-integrity/no-unresolved-imports": "off",
-      "import-integrity/no-unused-exports": "off",
-    },
     settings: {
       "import-integrity": {
         packageRootDir: import.meta.dirname,
       },
     },
+    rules: {
+      "import-integrity/no-test-only-imports": "off",
+      "import-integrity/no-unresolved-imports": "off",
+      "import-integrity/no-unused-exports": "off",
+    },
   },
+  // Publishable packages: restrict runtime imports of ESLint internals
   {
     files: GLOB_PUBLISHABLE,
     rules: {
@@ -83,24 +85,24 @@ export default defineConfig(
       }],
     },
   },
-  // ESLint Rule Authoring
+  // ESLint rule authoring
   {
+    files: ["plugins/*/src/rules/**/*.ts"],
     extends: [
       eslintPlugin.configs.recommended,
     ],
-    files: ["plugins/*/src/rules/**/*.ts"],
     rules: {
       "perfectionist/sort-objects": "off",
     },
   },
-  // Scripts and Configs (Relaxed, No Type Checking)
+  // Scripts and configs (relaxed, no type checking)
   {
-    extends: [
-      disableTypeChecked,
-    ],
     files: [
       ...GLOB_CONFIGS,
       ...GLOB_SCRIPTS,
+    ],
+    extends: [
+      disableTypeChecked,
     ],
     languageOptions: {
       parserOptions: {
@@ -114,8 +116,9 @@ export default defineConfig(
       "perfectionist/sort-objects": "off",
     },
   },
-  // Other Presets
+  // package.json
   packageJson.configs["recommended-publishable"],
+  // Disable ESLint core rules replaced by TypeScript counterparts
   disableProblematicEslintJsRules,
   // Un-ignore root-level CJS config files so they can be linted
   globalIgnores(["!*.cjs"]),
