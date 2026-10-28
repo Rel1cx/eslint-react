@@ -5,11 +5,13 @@ import * as Traverse from "./traverse";
 import type { TSESTreeFunction } from "./tree";
 
 /**
- * Visitor keys for the node types that can contain an expression or pattern.
+ * Visitor keys for the node types traversed by the collectors.
  *
- * For statement nodes only their expression-bearing keys are listed (ex: an `if` contributes its
- * test but not its branches), so collectors never descend into nested statements. Function and
- * class nodes are intentionally absent, so nested bodies are not traversed.
+ * Statements contribute only their expression-bearing keys (ex: an `if` contributes its `test`,
+ * and a `for` contributes its `init`, `test`, and `update`), so collectors never descend into
+ * nested statements. Variable declarations and declarators contribute only their initializer
+ * expressions. Function and class nodes are intentionally absent, so their bodies, parameters,
+ * heritage, and decorators are not traversed.
  */
 const EXPRESSION_VISITOR_KEYS = {
   [AST.ArrayExpression]: ["elements"],
@@ -26,7 +28,7 @@ const EXPRESSION_VISITOR_KEYS = {
   [AST.ExpressionStatement]: ["expression"],
   [AST.ForInStatement]: ["left", "right"],
   [AST.ForOfStatement]: ["left", "right"],
-  [AST.ForStatement]: ["test"],
+  [AST.ForStatement]: ["init", "test", "update"],
   [AST.IfStatement]: ["test"],
   [AST.ImportExpression]: ["source", "options"],
   [AST.JSXAttribute]: ["name", "value"],
@@ -59,6 +61,8 @@ const EXPRESSION_VISITOR_KEYS = {
   [AST.TSTypeAssertion]: ["expression"],
   [AST.UnaryExpression]: ["argument"],
   [AST.UpdateExpression]: ["argument"],
+  [AST.VariableDeclaration]: ["declarations"],
+  [AST.VariableDeclarator]: ["init"],
   [AST.WhileStatement]: ["test"],
   [AST.YieldExpression]: ["argument"],
 } as const;
@@ -76,11 +80,12 @@ const RETURN_VISITOR_KEYS: VisitorKeys = {
 // Shared traversal
 
 /**
- * Traverse an expression-like node and collect every node matching a predicate, in source order.
+ * Traverse a node and collect every node matching a predicate, in source order.
  *
- * The traversal does not descend into function or class nodes, and treats statement roots as
- * expression containers: only their expression-bearing keys are visited. Property names that are
- * not references (`obj.prop` and non-computed object keys) are skipped.
+ * The root is collected when it matches. Only node types present in the visitor map are descended
+ * into; every other node is visited as a leaf, so function and class nodes (including when they
+ * are the root) are not traversed. Statement roots contribute only their listed expression-bearing
+ * keys. Property names that are not references (`obj.prop` and non-computed object keys) are skipped.
  * @param node The node whose subtree is traversed.
  * @param isNode The predicate a collected node must satisfy.
  * @returns The matching nodes in source order.
@@ -104,13 +109,16 @@ function collectNodes<T extends TSESTree.Node>(node: TSESTree.Node, isNode: (nod
 // Identifier collection
 
 /**
- * Get all identifiers referenced within an expression-like node, in source order.
+ * Get all identifiers occurring within a node, in source order.
  *
- * The property name of a non-computed member access is not a reference, so `obj.prop` collects
- * only `obj`. Non-computed object property keys are not visited either. Nested function and class
- * bodies are ignored, and statement roots contribute only their expression-bearing parts.
- * @param node The expression-like node to collect identifiers from.
- * @returns All identifiers referenced by the node.
+ * This is a syntactic walk, not a scope-aware reference search: identifiers in patterns are
+ * collected too when the pattern is traversed (ex: `a` in `[a] = value`). The root is collected
+ * when it is an identifier. The property name of a non-computed member access is not a reference,
+ * so `obj.prop` collects only `obj`; non-computed object property keys are skipped as well.
+ * Function and class nodes are not traversed, and statement roots contribute only their listed
+ * expression-bearing keys.
+ * @param node The node to collect identifiers from.
+ * @returns All identifiers occurring in the node.
  */
 export function getIdentifiers(node: TSESTree.Node): readonly TSESTree.Identifier[] {
   return collectNodes(node, Check.isIdentifier);
@@ -119,9 +127,9 @@ export function getIdentifiers(node: TSESTree.Node): readonly TSESTree.Identifie
 // Expression collection
 
 /**
- * Create a collector for nested expressions of the given node type.
+ * Create a collector for nodes of the given type within a node.
  * @param type The node type to collect.
- * @returns A function that collects nested expressions of the given type in source order.
+ * @returns A function that collects matching nodes, including the root, in source order.
  */
 // dprint-ignore
 function getExpressionsOfType<TNodeType extends AST>(type: TNodeType): (node: TSESTree.Node) => Extract<TSESTree.Node, { type: TNodeType }>[] {
@@ -130,22 +138,22 @@ function getExpressionsOfType<TNodeType extends AST>(type: TNodeType): (node: TS
 }
 
 /**
- * Get all nested `new` expressions within an expression-like node, in source order.
+ * Get all `new` expressions within a node, in source order.
  *
- * Function and class bodies are not traversed; statement roots contribute only their
- * expression-bearing parts.
- * @param node The expression-like node to collect `new` expressions from.
- * @returns All nested `new` expressions.
+ * The root is included when it is a `new` expression. Function and class nodes are not traversed,
+ * and statement roots contribute only their listed expression-bearing keys.
+ * @param node The node to collect `new` expressions from.
+ * @returns All matching `new` expressions.
  */
 export const getNewExpressions = getExpressionsOfType(AST.NewExpression);
 
 /**
- * Get all nested call expressions within an expression-like node, in source order.
+ * Get all call expressions within a node, in source order.
  *
- * Function and class bodies are not traversed; statement roots contribute only their
- * expression-bearing parts.
- * @param node The expression-like node to collect call expressions from.
- * @returns All nested call expressions.
+ * The root is included when it is a call expression. Function and class nodes are not traversed,
+ * and statement roots contribute only their listed expression-bearing keys.
+ * @param node The node to collect call expressions from.
+ * @returns All matching call expressions.
  */
 export const getCallExpressions = getExpressionsOfType(AST.CallExpression);
 

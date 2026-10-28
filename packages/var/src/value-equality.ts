@@ -48,6 +48,10 @@ export function isEqualWith(context: RuleContext, a: TSESTree.Node, b: TSESTree.
   const { identifierComparison = "identity" } = options ?? {};
   a = Check.isTypeExpression(a) ? Extract.unwrap(a) : a;
   b = Check.isTypeExpression(b) ? Extract.unwrap(b) : b;
+  // A chain expression only marks optional chaining; the optional flags that
+  // affect the value live on the inner member or call expression.
+  a = a.type === AST.ChainExpression ? a.expression : a;
+  b = b.type === AST.ChainExpression ? b.expression : b;
   const [aScope, bScope] = [context.sourceCode.getScope(a), context.sourceCode.getScope(b)];
   switch (true) {
     case a === b: {
@@ -122,7 +126,10 @@ export function isEqualWith(context: RuleContext, a: TSESTree.Node, b: TSESTree.
     }
     case a.type === AST.MemberExpression
       && b.type === AST.MemberExpression: {
-      const propEqual = a.computed && b.computed
+      if (a.computed !== b.computed || a.optional !== b.optional) {
+        return false;
+      }
+      const propEqual = a.computed
         ? isEqualWith(context, a.property, b.property, options)
         : Compare.isEqual(a.property, b.property);
       return propEqual && isEqualWith(context, a.object, b.object, options);

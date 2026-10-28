@@ -54,8 +54,20 @@ describe("isAfterTerminatingNonNullGuard", () => {
     expect(isAllowedAfterGuard("function f() { if (ref.current !== null) { return; foo(); } ref.current = create(); }")).toBe(false);
   });
 
-  it("should not match `try`/`switch`/loop termination, matching the shared predicate", () => {
-    expect(isAllowedAfterGuard("function f() { if (ref.current !== null) { try { return; } finally {} } ref.current = create(); }")).toBe(false);
+  it("should match `try` termination", () => {
+    expect(isAllowedAfterGuard("function f() { if (ref.current !== null) { try { return; } finally {} } ref.current = create(); }")).toBe(true);
+    expect(
+      isAllowedAfterGuard("function f() { if (ref.current !== null) { try { return; } catch { throw new Error(); } } ref.current = create(); }"),
+    ).toBe(true);
+  });
+
+  it("should not match `try` termination when the catch handler can complete normally", () => {
+    expect(
+      isAllowedAfterGuard("function f() { if (ref.current !== null) { try { return; } catch { foo(); } } ref.current = create(); }"),
+    ).toBe(false);
+  });
+
+  it("should not match `switch`/loop termination, matching the shared predicate", () => {
     expect(isAllowedAfterGuard("function f() { if (ref.current !== null) { switch (x) { default: return; } } ref.current = create(); }")).toBe(false);
     expect(isAllowedAfterGuard("function f() { if (ref.current !== null) { while (true) { return; } } ref.current = create(); }")).toBe(false);
   });

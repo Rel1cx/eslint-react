@@ -70,4 +70,58 @@ describe("isUnconditionallyTerminating", () => {
       true,
     );
   });
+
+  it("should match a try statement whose finalizer terminates", () => {
+    expect(
+      isUnconditionallyTerminating(getFirstNodeOfType<TSESTree.TryStatement>("function f() { try { return 1; } finally { return 2; } }", AST.TryStatement)),
+    ).toBe(
+      true,
+    );
+    expect(isUnconditionallyTerminating(getFirstNodeOfType<TSESTree.TryStatement>("function f() { try { foo(); } finally { throw 1; } }", AST.TryStatement)))
+      .toBe(
+        true,
+      );
+  });
+
+  it("should match a try statement when the try block and catch handler both terminate", () => {
+    expect(
+      isUnconditionallyTerminating(
+        getFirstNodeOfType<TSESTree.TryStatement>("function f() { try { return 1; } catch { throw 2; } }", AST.TryStatement),
+      ),
+    ).toBe(true);
+    expect(
+      isUnconditionallyTerminating(
+        getFirstNodeOfType<TSESTree.TryStatement>("function f() { try { return 1; } catch { throw 2; } finally { foo(); } }", AST.TryStatement),
+      ),
+    ).toBe(true);
+  });
+
+  it("should not match a try statement when the catch handler can complete normally", () => {
+    expect(
+      isUnconditionallyTerminating(
+        getFirstNodeOfType<TSESTree.TryStatement>("function f() { try { return 1; } catch { foo(); } }", AST.TryStatement),
+      ),
+    ).toBe(false);
+  });
+
+  it("should match a try statement without a catch handler when the try block terminates", () => {
+    expect(
+      isUnconditionallyTerminating(
+        getFirstNodeOfType<TSESTree.TryStatement>("function f() { try { return 1; } finally { foo(); } }", AST.TryStatement),
+      ),
+    ).toBe(true);
+  });
+
+  it("should not match a try statement when the try block can complete normally", () => {
+    expect(
+      isUnconditionallyTerminating(
+        getFirstNodeOfType<TSESTree.TryStatement>("function f() { try { foo(); } catch { return 1; } }", AST.TryStatement),
+      ),
+    ).toBe(false);
+    expect(
+      isUnconditionallyTerminating(
+        getFirstNodeOfType<TSESTree.TryStatement>("function f() { try { foo(); } finally { bar(); } }", AST.TryStatement),
+      ),
+    ).toBe(false);
+  });
 });

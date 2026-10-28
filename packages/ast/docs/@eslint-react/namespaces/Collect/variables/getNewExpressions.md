@@ -6,19 +6,19 @@
 const getNewExpressions: (node: Node) => NewExpression[];
 ```
 
-Get all nested `new` expressions within an expression-like node, in source order.
+Get all `new` expressions within a node, in source order.
 
-Function and class bodies are not traversed; statement roots contribute only their
-expression-bearing parts.
+The root is included when it is a `new` expression. Function and class nodes are not traversed,
+and statement roots contribute only their listed expression-bearing keys.
 
 ## Parameters
 
-| Parameter | Type   | Description                                                 |
-| --------- | ------ | ----------------------------------------------------------- |
-| `node`    | `Node` | The expression-like node to collect `new` expressions from. |
+| Parameter | Type   | Description                                 |
+| --------- | ------ | ------------------------------------------- |
+| `node`    | `Node` | The node to collect `new` expressions from. |
 
 ## Returns
 
 `NewExpression`[]
 
-All nested `new` expressions.
+All matching `new` expressions.

@@ -29,14 +29,14 @@ export function isIdentifier(node: TSESTree.Node, name?: string): node is TSESTr
 // Directive guards
 
 /**
- * Check if a node is an expression statement, optionally requiring it to be a directive
- * with a specific name (ex: `"use client"`).
+ * Check if a node is a directive (an expression statement in a directive prologue,
+ * ex: `"use client"`), optionally matching a specific name.
  * @param node The node to check.
- * @param name The directive name to match. When omitted, any expression statement matches.
- * @returns `true` if the node is an expression statement and, when `name` is given, a directive with that name.
+ * @param name The directive name to match. When omitted, any directive matches.
+ * @returns `true` if the node is a directive and, when `name` is given, has that name.
  */
 export function isDirective(node: TSESTree.Node, name?: string): node is TSESTreeDirective {
-  return node.type === AST.ExpressionStatement && (name == null || node.directive === name);
+  return node.type === AST.ExpressionStatement && node.directive != null && (name == null || node.directive === name);
 }
 
 // Expression guards
@@ -137,7 +137,12 @@ export const isFunctionOrClass = isOneOf([
   AST.ClassExpression,
 ]);
 
-/** Check if a node is a property-like node (property definition, index signature, parameter property, or property signature). */
+/**
+ * Check if a node is a `TSPropertySignature`, `PropertyDefinition`, `TSIndexSignature`, or `TSParameterProperty`.
+ *
+ * Abstract and accessor property definitions (`TSAbstractPropertyDefinition`, `AccessorProperty`,
+ * `TSAbstractAccessorProperty`) are not included.
+ */
 export const isProperty = isOneOf([
   AST.TSPropertySignature,
   AST.PropertyDefinition,
@@ -145,7 +150,12 @@ export const isProperty = isOneOf([
   AST.TSParameterProperty,
 ]);
 
-/** Check if a node is a property or method definition. */
+/**
+ * Check if a node is a `MethodDefinition` or `PropertyDefinition`.
+ *
+ * Abstract and accessor member definitions (`TSAbstractMethodDefinition`, `TSAbstractPropertyDefinition`,
+ * `AccessorProperty`, `TSAbstractAccessorProperty`) are not included.
+ */
 export const isPropertyOrMethod = isOneOf([
   AST.MethodDefinition,
   AST.PropertyDefinition,

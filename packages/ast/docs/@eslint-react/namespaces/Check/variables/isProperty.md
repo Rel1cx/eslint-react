@@ -12,7 +12,9 @@ const isProperty: (node: Node | null | undefined) => node is
   | TSPropertySignatureNonComputedName;
 ```
 
-Check if a node is a property-like node (property definition, index signature, parameter property, or property signature).
+Check if a node is a `TSPropertySignature`, `PropertyDefinition`, `TSIndexSignature`, or `TSParameterProperty`.
+
+Abstract and accessor property definitions (`TSAbstractPropertyDefinition`, `AccessorProperty`, `TSAbstractAccessorProperty`) are not included.
 
 ## Parameters
 

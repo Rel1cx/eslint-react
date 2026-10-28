@@ -643,6 +643,32 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
     },
+    // Optional-chained elements with different bases do not pair
+    {
+      code: tsx`
+        import { useEffect, useRef } from "react";
+
+        function Component() {
+          const ref = useRef<HTMLDivElement>(null);
+          const otherRef = useRef<HTMLDivElement>(null);
+
+          useEffect(() => {
+            const observer = new ResizeObserver(() => {});
+            observer.observe(ref?.current);
+            return () => {
+              observer.unobserve(otherRef?.current);
+            };
+          }, []);
+
+          return <div ref={ref} />;
+        }
+      `,
+      errors: [
+        {
+          messageId: "expected-disconnect-or-unobserve-in-cleanup",
+        },
+      ],
+    },
   ],
   valid: [
     tsx`
@@ -1306,6 +1332,24 @@ ruleTester.run(RULE_NAME, rule, {
         }, []);
 
         return <div />;
+      }
+    `,
+    // Optional-chained elements pair structurally
+    tsx`
+      import { useEffect, useRef } from "react";
+
+      function Component() {
+        const ref = useRef<HTMLDivElement>(null);
+
+        useEffect(() => {
+          const observer = new ResizeObserver(() => {});
+          observer.observe(ref?.current);
+          return () => {
+            observer.unobserve(ref?.current);
+          };
+        }, []);
+
+        return <div ref={ref} />;
       }
     `,
   ],

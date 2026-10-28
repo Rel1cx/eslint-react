@@ -190,25 +190,6 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
     },
-    // Computed string literal keys are not statically resolved, so the "signal" option is not recognized
-    {
-      code: tsx`
-        import { useEffect } from "react";
-
-        function Example() {
-          useEffect(() => {
-            const ctrl = new AbortController();
-            fetch("/api/user", { ["signal"]: ctrl.signal });
-            return () => ctrl.abort();
-          }, []);
-        }
-      `,
-      errors: [
-        {
-          messageId: "expected-abort-controller",
-        },
-      ],
-    },
     // Signal provided but no matching abort in cleanup
     {
       code: tsx`
@@ -684,6 +665,40 @@ ruleTester.run(RULE_NAME, rule, {
         useEffect(() => {
           const ctrl = new AbortController();
           fetch("/api/user", { signal: ctrl.signal });
+          return () => ctrl.abort();
+        }, []);
+      }
+    `,
+    // String-literal and simple template-literal `signal` keys are resolved
+    tsx`
+      import { useEffect } from "react";
+
+      function Example() {
+        useEffect(() => {
+          const ctrl = new AbortController();
+          fetch("/api/user", { "signal": ctrl.signal });
+          return () => ctrl.abort();
+        }, []);
+      }
+    `,
+    tsx`
+      import { useEffect } from "react";
+
+      function Example() {
+        useEffect(() => {
+          const ctrl = new AbortController();
+          fetch("/api/user", { ["signal"]: ctrl.signal });
+          return () => ctrl.abort();
+        }, []);
+      }
+    `,
+    tsx`
+      import { useEffect } from "react";
+
+      function Example() {
+        useEffect(() => {
+          const ctrl = new AbortController();
+          fetch("/api/user", { [\`signal\`]: ctrl.signal });
           return () => ctrl.abort();
         }, []);
       }

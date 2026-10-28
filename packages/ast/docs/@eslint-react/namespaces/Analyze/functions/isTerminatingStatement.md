@@ -8,11 +8,12 @@ function isTerminatingStatement(node: Node): boolean;
 
 Check if a statement terminates the control flow of its block.
 
-A statement terminates when it cannot complete normally: a `return`, `throw`,
-`break`, or `continue`, a block containing such a statement, an `if` whose
-branches both terminate, or a `try` whose paths all terminate. `switch`
-statements are not analyzed, so a `switch` whose entry paths all terminate is
-not treated as terminating.
+- Treats `return`, `throw`, `break`, and `continue` as terminating.
+- Treats a block as terminating when any direct statement terminates (uses `some`), so unreachable trailing code does not matter.
+- Treats an `if` as terminating only when it has an `else` and both branches terminate.
+- Treats a `try` as terminating when its finalizer terminates, or when its try block terminates and, if present, its catch body terminates.
+- Does not analyze `switch` statements, loops, or labeled statements, so an all-terminating `switch` or an infinite loop is not recognized.
+- Is purely syntactic: conditions are not evaluated and no reachability analysis is performed.
 
 ## Parameters
 
