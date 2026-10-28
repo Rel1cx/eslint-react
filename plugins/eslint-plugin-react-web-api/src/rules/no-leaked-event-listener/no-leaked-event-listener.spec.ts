@@ -144,6 +144,26 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
     },
+    // Optional-chained listeners with different properties do not pair
+    {
+      code: tsx`
+        import { useEffect } from "react";
+
+        function Example({ handlers }: { handlers?: { onResize?: () => void; onClick?: () => void } }) {
+          useEffect(() => {
+            window.addEventListener("resize", handlers?.onResize);
+            return () => {
+              window.removeEventListener("resize", handlers?.onClick);
+            };
+          }, []);
+        }
+      `,
+      errors: [
+        {
+          messageId: "expected-remove-event-listener-in-cleanup",
+        },
+      ],
+    },
     {
       code: tsx`
         import { useEffect } from "react";
@@ -243,6 +263,27 @@ ruleTester.run(RULE_NAME, rule, {
             addEventListener("resize", handleResize);
             return () => {
               removeEventListener("focus", handleResize);
+            };
+          }, []);
+        }
+      `,
+      errors: [
+        {
+          messageId: "expected-remove-event-listener-in-cleanup",
+        },
+      ],
+    },
+    // Optional-chained event types with different properties do not pair
+    {
+      code: tsx`
+        import { useEffect } from "react";
+
+        function Example(config: { type: "resize"; other: "focus" }) {
+          useEffect(() => {
+            const handleResize = () => {};
+            window.addEventListener(config?.type, handleResize);
+            return () => {
+              window.removeEventListener(config?.other, handleResize);
             };
           }, []);
         }
@@ -896,28 +937,6 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
     },
-    // Computed string literal keys are not statically resolved, so the "signal" option is not recognized
-    {
-      code: tsx`
-        import { useEffect } from "react";
-
-        function Example() {
-          useEffect(() => {
-              const ac = new AbortController()
-              x.addEventListener("resize", () => {}, { ["signal"]: ac.signal })
-              return () => ac.abort()
-          }, [])
-        }
-      `,
-      errors: [
-        {
-          messageId: "expected-remove-event-listener-in-cleanup",
-        },
-        {
-          messageId: "unexpected-inline-function",
-        },
-      ],
-    },
     // By design, listeners with a `signal` option are not reported, so these cases stay disabled (https://github.com/Rel1cx/eslint-react/issues/1282)
     // {
     //   code: tsx`
@@ -1444,6 +1463,47 @@ ruleTester.run(RULE_NAME, rule, {
         }, []);
       }
     `,
+    // Optional-chained listeners pair structurally
+    tsx`
+      import { useEffect } from "react";
+
+      function Example({ handlers }: { handlers?: { onResize?: () => void } }) {
+        useEffect(() => {
+          window.addEventListener("resize", handlers?.onResize);
+          return () => {
+            window.removeEventListener("resize", handlers?.onResize);
+          };
+        }, []);
+      }
+    `,
+    // Optional-chained receiver objects pair structurally
+    tsx`
+      import { useEffect } from "react";
+
+      function Example(element?: Element) {
+        useEffect(() => {
+          const handleResize = () => {};
+          (element?.ownerDocument).addEventListener("resize", handleResize);
+          return () => {
+            (element?.ownerDocument).removeEventListener("resize", handleResize);
+          };
+        }, []);
+      }
+    `,
+    // Optional-chained event types pair structurally
+    tsx`
+      import { useEffect } from "react";
+
+      function Example(config: { type: "resize" }) {
+        useEffect(() => {
+          const handleResize = () => {};
+          window.addEventListener(config?.type, handleResize);
+          return () => {
+            window.removeEventListener(config?.type, handleResize);
+          };
+        }, []);
+      }
+    `,
     // -------------------------------------------------------------------------
     // The listener is stored in a React hook
     // -------------------------------------------------------------------------
@@ -1941,6 +2001,20 @@ ruleTester.run(RULE_NAME, rule, {
         useEffect(() => {
             const ac = new AbortController()
             x.addEventListener("resize", () => {}, { signal: ac.signal })
+            return () => ac.abort()
+        }, [])
+      }
+    `,
+    // String-literal and simple template-literal option keys are resolved
+    tsx`
+      import { useEffect } from "react";
+
+      function Example() {
+        useEffect(() => {
+            const ac = new AbortController()
+            x.addEventListener("resize", () => {}, { "signal": ac.signal })
+            x.addEventListener("focus", () => {}, { ["signal"]: ac.signal })
+            x.addEventListener("scroll", () => {}, { [\`signal\`]: ac.signal })
             return () => ac.abort()
         }, [])
       }

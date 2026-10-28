@@ -6,18 +6,18 @@
 function isDirective(node: Node, name?: string): node is TSESTreeDirective;
 ```
 
-Check if a node is an expression statement, optionally requiring it to be a directive
-with a specific name (ex: `"use client"`).
+Check if a node is a directive (an expression statement in a directive prologue,
+ex: `"use client"`), optionally matching a specific name.
 
 ## Parameters
 
-| Parameter | Type     | Description                                                                  |
-| --------- | -------- | ---------------------------------------------------------------------------- |
-| `node`    | `Node`   | The node to check.                                                           |
-| `name?`   | `string` | The directive name to match. When omitted, any expression statement matches. |
+| Parameter | Type     | Description                                                       |
+| --------- | -------- | ----------------------------------------------------------------- |
+| `node`    | `Node`   | The node to check.                                                |
+| `name?`   | `string` | The directive name to match. When omitted, any directive matches. |
 
 ## Returns
 
 `node is TSESTreeDirective`
 
-`true` if the node is an expression statement and, when `name` is given, a directive with that name.
+`true` if the node is a directive and, when `name` is given, has that name.

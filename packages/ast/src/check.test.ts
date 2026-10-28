@@ -78,9 +78,9 @@ describe("isDirective", () => {
     expect(isDirective(node)).toBe(true);
   });
 
-  it("should return true for any ExpressionStatement when no directive name is provided", () => {
+  it("should return false for a non-directive expression statement when no directive name is provided", () => {
     const node = getFirstNodeOfType<TSESTree.ExpressionStatement>("foo();", AST.ExpressionStatement);
-    expect(isDirective(node)).toBe(true);
+    expect(isDirective(node)).toBe(false);
   });
 
   it("should return false for a non-directive expression statement when a directive name is provided", () => {

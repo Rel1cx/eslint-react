@@ -128,6 +128,25 @@ describe("getCallExpressions", () => {
     expect(getCallExpressions(braced).map((node) => getTextOf(bracedCode, node))).toEqual(["cond()"]);
     expect(getCallExpressions(unbraced).map((node) => getTextOf(unbracedCode, node))).toEqual(["cond()"]);
   });
+
+  it("should traverse a for statement's initializer, test, and update", () => {
+    const code = "for (let i = init(); i < limit; i = next()) {}";
+    const stmt = getFirstNodeOfType<TSESTree.ForStatement>(code, AST.ForStatement);
+    expect(getCallExpressions(stmt).map((node) => getTextOf(code, node))).toEqual(["init()", "next()"]);
+    expect(getIdentifiers(stmt).map((id) => id.name)).toEqual(["init", "i", "limit", "i", "next"]);
+  });
+
+  it("should visit initializer expressions of a variable declaration root", () => {
+    const code = "const value = init();";
+    const stmt = getFirstNodeOfType<TSESTree.VariableDeclaration>(code, AST.VariableDeclaration);
+    expect(getCallExpressions(stmt).map((node) => getTextOf(code, node))).toEqual(["init()"]);
+    expect(getIdentifiers(stmt).map((id) => id.name)).toEqual(["init"]);
+  });
+
+  it("should not traverse a function root", () => {
+    const fn = getFirstNodeOfType<TSESTree.FunctionDeclaration>("function f() { return foo(); }", AST.FunctionDeclaration);
+    expect(getCallExpressions(fn)).toEqual([]);
+  });
 });
 
 describe("getNewExpressions", () => {

@@ -8,6 +8,9 @@ function findProperty(properties: ObjectLiteralElement[], name: string): Propert
 
 Find a property by name in a list of object literal properties, recursing into spread object expressions.
 
+Names are resolved with maximum effort: in addition to non-computed identifiers, string-literal keys
+(computed or not) and template literals without expressions are matched.
+
 ## Parameters
 
 | Parameter    | Type                     | Description                              |

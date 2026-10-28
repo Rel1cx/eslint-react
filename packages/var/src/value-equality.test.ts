@@ -77,6 +77,26 @@ describe("isEqualWith", () => {
     expect(facts.provenance).toBe(true);
   });
 
+  it("should compare optional-chained for-of sources structurally", () => {
+    const code = [
+      "function test(source) {",
+      "  for (const event of source?.events) { foo(event); }",
+      "  for (const evt of source?.events) { bar(evt); }",
+      "}",
+    ].join("\n");
+    const facts = runInRule(code, (context, ast) => {
+      const event = callRef(ast, "event");
+      const evt = callRef(ast, "evt");
+      return {
+        identity: isEqualWith(context, event, evt, { identifierComparison: "identity" }),
+        provenance: isEqualWith(context, event, evt, { identifierComparison: "provenance" }),
+      };
+    });
+
+    expect(facts.identity).toBe(false);
+    expect(facts.provenance).toBe(true);
+  });
+
   it("should thread the selected mode through member expressions", () => {
     const code = [
       "xs.forEach((a) => foo(a.x));",
@@ -110,6 +130,89 @@ describe("isEqualWith", () => {
 
     expect(facts.identity).toBe(true);
     expect(facts.provenance).toBe(true);
+  });
+
+  describe("optional chains", () => {
+    function chainFacts(code: string) {
+      return runInRule(code, (context, ast) => {
+        const [a, b] = collectNodes<TSESTree.ChainExpression>(ast, AST.ChainExpression);
+        if (a == null || b == null) throw new Error("missing chain expressions");
+        return {
+          identity: isEqualWith(context, a, b, { identifierComparison: "identity" }),
+          provenance: isEqualWith(context, a, b, { identifierComparison: "provenance" }),
+        };
+      });
+    }
+
+    it("should compare identical optional chains by their inner member expressions", () => {
+      const facts = chainFacts([
+        "function test(config) {",
+        "  foo(config?.type);",
+        "  bar(config?.type);",
+        "}",
+      ].join("\n"));
+
+      expect(facts.identity).toBe(true);
+      expect(facts.provenance).toBe(true);
+    });
+
+    it("should compare optional chains with different properties as different", () => {
+      const facts = chainFacts([
+        "function test(config) {",
+        "  foo(config?.type);",
+        "  bar(config?.value);",
+        "}",
+      ].join("\n"));
+
+      expect(facts.identity).toBe(false);
+      expect(facts.provenance).toBe(false);
+    });
+
+    it("should distinguish optional from non-optional member access", () => {
+      const facts = runInRule("function test(config) { foo(config?.type); bar(config.type); }", (context, ast) => {
+        const calls = collectNodes<TSESTree.CallExpression>(ast, AST.CallExpression);
+        if (calls[0] == null || calls[1] == null) throw new Error("missing call expressions");
+        return isEqualWith(context, calls[0].arguments[0]!, calls[1].arguments[0]!, { identifierComparison: "identity" });
+      });
+
+      expect(facts).toBe(false);
+    });
+
+    it("should keep the position of optional segments significant", () => {
+      const facts = chainFacts([
+        "function test(config) {",
+        "  foo(config?.a.b);",
+        "  bar(config.a?.b);",
+        "}",
+      ].join("\n"));
+
+      expect(facts.identity).toBe(false);
+      expect(facts.provenance).toBe(false);
+    });
+
+    it("should distinguish computed from non-computed member access", () => {
+      const facts = chainFacts([
+        "function test(config, key) {",
+        "  foo(config?.[key]);",
+        "  bar(config?.key);",
+        "}",
+      ].join("\n"));
+
+      expect(facts.identity).toBe(false);
+      expect(facts.provenance).toBe(false);
+    });
+
+    it("should compare chains over different bindings as different", () => {
+      const facts = chainFacts([
+        "function test(config, other) {",
+        "  foo(config?.type);",
+        "  bar(other?.type);",
+        "}",
+      ].join("\n"));
+
+      expect(facts.identity).toBe(false);
+      expect(facts.provenance).toBe(false);
+    });
   });
 
   describe("this expressions", () => {

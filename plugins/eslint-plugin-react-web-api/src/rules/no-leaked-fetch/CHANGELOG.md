@@ -5,6 +5,12 @@ All notable changes to the `react-web-api/no-leaked-fetch` rule will be document
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+### Fixed
+
+- A `signal` option whose key is a string literal or simple template literal (computed or not, e.g. `{ "signal": ctrl.signal }` or `{ ["signal"]: ctrl.signal }`) is now recognized, so the fetch pairs with its abort cleanup instead of reporting a missing `AbortController`.
+
 ## [5.27.1] - 2026-10-15
 
 ### Fixed

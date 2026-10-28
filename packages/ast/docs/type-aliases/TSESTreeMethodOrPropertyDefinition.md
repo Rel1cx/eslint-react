@@ -6,4 +6,6 @@
 type TSESTreeMethodOrPropertyDefinition = TSESTree.MethodDefinition | TSESTree.PropertyDefinition;
 ```
 
-Union of method and property definition node types.
+Union of `MethodDefinition` and `PropertyDefinition` node types.
+
+Abstract and accessor member definitions are not included.

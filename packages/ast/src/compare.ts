@@ -5,6 +5,13 @@ import * as Extract from "./extract";
 
 /**
  * Check if two nodes are structurally equal.
+ *
+ * - Supports identifiers, literals, template literals/elements, member/call/chain expressions, JSX identifiers/namespaced names/member expressions/attributes, and `this`.
+ * - Node types outside that list (including functions and classes) are equal only when they are the same node.
+ * - Compares chain expressions through their inner expression, so optional segments remain significant (`a?.b` equals `a?.b` but not `a.b`).
+ * - Compares literals by value and regex literals by `pattern` and `flags`.
+ * - Ignores source locations (`loc`, `range`) and `parent` pointers.
+ * - Ignores type-level syntax: type annotations and type arguments are not compared, and type expressions are unwrapped, so `foo as string` equals `foo`.
  * @param a The first node to compare.
  * @param b The second node to compare.
  * @returns `true` if the nodes are equal.
@@ -22,8 +29,14 @@ export const isEqual: {
     case a.type !== b.type:
       return false;
     case a.type === AST.Literal
-      && b.type === AST.Literal:
+      && b.type === AST.Literal: {
+      // Every regex literal evaluates to a distinct `RegExp` object, so compare
+      // the pattern and flags instead of the `value` object identity.
+      if ("regex" in a || "regex" in b) {
+        return "regex" in a && "regex" in b && a.regex.pattern === b.regex.pattern && a.regex.flags === b.regex.flags;
+      }
       return a.value === b.value;
+    }
     case a.type === AST.TemplateElement
       && b.type === AST.TemplateElement:
       return a.value.raw === b.value.raw;
@@ -57,6 +70,9 @@ export const isEqual: {
     case a.type === AST.PrivateIdentifier
       && b.type === AST.PrivateIdentifier:
       return a.name === b.name;
+    case a.type === AST.ChainExpression
+      && b.type === AST.ChainExpression:
+      return isEqual(a.expression, b.expression);
     case a.type === AST.MemberExpression
       && b.type === AST.MemberExpression:
       return a.computed === b.computed

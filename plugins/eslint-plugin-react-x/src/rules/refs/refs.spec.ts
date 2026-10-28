@@ -780,22 +780,6 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [{ messageId: "write-during-render" }],
     },
-    // try/finally termination is not analyzed by the shared predicate
-    {
-      code: tsx`
-        function Component() {
-          const ref = useRef(null);
-          if (ref.current !== null) {
-            try {
-              return <div>{ref.current}</div>;
-            } finally {}
-          }
-          ref.current = createValue();
-          return <div />;
-        }
-      `,
-      errors: [{ messageId: "write-during-render" }],
-    },
     // A switch whose entry paths all return is not analyzed by the shared predicate
     {
       code: tsx`
@@ -805,6 +789,24 @@ ruleTester.run(RULE_NAME, rule, {
             switch (kind) {
               default:
                 return <div>{ref.current}</div>;
+            }
+          }
+          ref.current = createValue();
+          return <div />;
+        }
+      `,
+      errors: [{ messageId: "write-during-render" }],
+    },
+    // A try whose catch handler can complete normally is not terminating
+    {
+      code: tsx`
+        function Component() {
+          const ref = useRef(null);
+          if (ref.current !== null) {
+            try {
+              return <div>{ref.current}</div>;
+            } catch {
+              console.log("caught");
             }
           }
           ref.current = createValue();
@@ -2350,6 +2352,21 @@ ruleTester.run(RULE_NAME, rule, {
             } else {
               throw new Error("already initialized");
             }
+          }
+          ref.current = createValue();
+          return <div />;
+        }
+      `,
+    },
+    // Inverted lazy init with a try/finally whose try block always returns
+    {
+      code: tsx`
+        function Component() {
+          const ref = useRef(null);
+          if (ref.current !== null) {
+            try {
+              return <div>{ref.current}</div>;
+            } finally {}
           }
           ref.current = createValue();
           return <div />;

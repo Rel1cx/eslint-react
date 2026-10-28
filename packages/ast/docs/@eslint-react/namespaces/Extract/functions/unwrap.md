@@ -75,7 +75,7 @@ Recursively unwrap TypeScript type expressions and chain expressions to get the 
 \| `YieldExpression`
 \| `LiteralExpression`
 
-The innermost non-type-expression node — a reference into the original tree, never a copy.
+The innermost non-wrapper node (`ChainExpression` and type expressions are stripped) — a reference into the original tree, never a copy.
 
 ## Call Signature
 
@@ -101,4 +101,4 @@ Recursively unwrap TypeScript type expressions and chain expressions to get the 
 
 [`Exclude`](https://www.typescriptlang.org/docs/handbook/utility-types.html#excludeuniontype-excludedmembers)\<`T`, [`TSESTreeTypeOrChainExpression`](../../../../type-aliases/TSESTreeTypeOrChainExpression.md)\>
 
-The innermost non-type-expression node — a reference into the original tree, never a copy.
+The innermost non-wrapper node (`ChainExpression` and type expressions are stripped) — a reference into the original tree, never a copy.

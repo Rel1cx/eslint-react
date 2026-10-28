@@ -5,6 +5,12 @@ All notable changes to the `react-x/refs` rule will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+### Fixed
+
+- A non-null guard whose terminating branch is a `try` statement is now recognized as terminating when its finalizer terminates, or when its try block and catch handler both terminate, so ref writes that are only reached when the ref is null are no longer reported.
+
 ## [5.30.0-beta.4] - 2026-10-26
 
 ### Changed

@@ -296,13 +296,25 @@ describe("findProperty", () => {
     expect(findProperty(properties, "foo")?.key).toMatchObject({ name: "foo", type: AST.Identifier });
   });
 
-  it("should ignore computed properties", () => {
+  it("should ignore computed identifier properties", () => {
     const { properties } = getFirstObjectExpression("({ [foo]: 1 });");
     expect(findProperty(properties, "foo")).toBe(null);
   });
 
-  it("should ignore non-identifier properties", () => {
+  it("should find string-literal properties", () => {
     const { properties } = getFirstObjectExpression('({ "foo": 1 });');
+    expect(findProperty(properties, "foo")?.key).toMatchObject({ type: AST.Literal, value: "foo" });
+  });
+
+  it("should find computed string-literal and template-literal properties", () => {
+    const stringKey = getFirstObjectExpression('({ ["foo"]: 1 });');
+    expect(findProperty(stringKey.properties, "foo")?.key).toMatchObject({ type: AST.Literal, value: "foo" });
+    const templateKey = getFirstObjectExpression("({ [`foo`]: 1 });");
+    expect(findProperty(templateKey.properties, "foo")?.key).toMatchObject({ type: AST.TemplateLiteral });
+  });
+
+  it("should ignore template literals with expressions", () => {
+    const { properties } = getFirstObjectExpression("({ [`${foo}`]: 1 });");
     expect(findProperty(properties, "foo")).toBe(null);
   });
 

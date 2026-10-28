@@ -17,6 +17,16 @@ describe("isAssignmentTargetEqual", () => {
     expect(fact).toBe(true);
   });
 
+  it("should return true for structurally equal optional-chain expressions", () => {
+    const code = "foo(value?.current); bar(value?.current);";
+    const fact = runInRule(code, (context, ast) => {
+      const calls = collectNodes<TSESTree.CallExpression>(ast, AST.CallExpression);
+      expect(calls).toHaveLength(2);
+      return isAssignmentTargetEqual(context, calls[0]!.arguments[0]!, calls[1]!.arguments[0]!);
+    });
+    expect(fact).toBe(true);
+  });
+
   it("should return true for value-equal but structurally different nodes", () => {
     // A literal `2` and a binary expression `1 + 1` are structurally different
     // (different AST node types), so `Compare.isEqual` returns false.

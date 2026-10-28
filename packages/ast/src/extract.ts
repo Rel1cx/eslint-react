@@ -6,7 +6,7 @@ import type { TSESTreeTypeOrChainExpression } from "./tree";
 /**
  * Recursively unwrap TypeScript type expressions and chain expressions to get the underlying expression.
  * @param node The node to unwrap.
- * @returns The innermost non-type-expression node — a reference into the original tree, never a copy.
+ * @returns The innermost non-wrapper node (`ChainExpression` and type expressions are stripped) — a reference into the original tree, never a copy.
  */
 export function unwrap(node: TSESTreeTypeOrChainExpression): Exclude<TSESTree.Expression, TSESTreeTypeOrChainExpression>;
 export function unwrap<T extends TSESTree.Node>(node: T): Exclude<T, TSESTreeTypeOrChainExpression>;
@@ -65,7 +65,7 @@ export function getFullyQualifiedName(node: TSESTree.Node, getText: (node: TSEST
 /**
  * Get the name of the callee of a call expression.
  * @param node The call expression to inspect.
- * @returns The callee name (ex: `"useState"`), or `null` when it cannot be statically determined.
+ * @returns The callee name (ex: `"useState"`), or `null` for computed member expressions and other unsupported callee forms.
  */
 export function getCalleeName(node: TSESTree.CallExpression): string | null {
   const callee = unwrap(node.callee);
@@ -115,13 +115,16 @@ export function getPropertyName(property: TSESTree.Property, effort: "min" | "ma
 
 /**
  * Find a property by name in a list of object literal properties, recursing into spread object expressions.
+ *
+ * Names are resolved with maximum effort: in addition to non-computed identifiers, string-literal keys
+ * (computed or not) and template literals without expressions are matched.
  * @param properties The object literal properties to search.
  * @param name The property name to look for.
  * @returns The matching `Property` node, or `null` when not found.
  */
 export function findProperty(properties: TSESTree.ObjectLiteralElement[], name: string): TSESTree.Property | null {
   for (const property of properties) {
-    if (property.type === AST.Property && getPropertyName(property) === name) {
+    if (property.type === AST.Property && getPropertyName(property, "max") === name) {
       return property;
     }
     if (property.type === AST.SpreadElement && property.argument.type === AST.ObjectExpression) {
@@ -137,7 +140,7 @@ export function findProperty(properties: TSESTree.ObjectLiteralElement[], name: 
  * destructuring patterns such as `[local, globalValue] = source` or
  * `({ a: obj.x } = source)`. Defaults (`{ a = source }`) are not targets;
  * their left side is.
- * @param node The assignment left side or for-in/of loop target to inspect.
+ * @param node The assignment left side or for-in/of loop target to inspect. Declaration-form loop targets are not expanded and return an empty array.
  * @returns The identifier and member expression targets being written.
  */
 export function getAssignmentTargets(node: TSESTree.Node): (TSESTree.Identifier | TSESTree.MemberExpression)[] {

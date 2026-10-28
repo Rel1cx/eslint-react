@@ -5,6 +5,12 @@ All notable changes to the `react-web-api/no-leaked-resize-observer` rule will b
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+### Fixed
+
+- `observe(...)` and `unobserve(...)` now pair when the observed element is an optional-chained expression (e.g. `observer.observe(ref?.current)` with `observer.unobserve(ref?.current)`), instead of reporting the cleanup as missing.
+
 ## [5.27.1] - 2026-10-15
 
 ### Fixed

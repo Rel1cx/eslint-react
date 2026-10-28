@@ -1,4 +1,4 @@
-import { collectNodes } from "@local/testkit";
+import { collectNodes, getFirstExpression } from "@local/testkit";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import { describe, expect, it } from "vitest";
 
@@ -167,6 +167,31 @@ describe("isEqual", () => {
       const nodes = collectNodes<TSESTree.MemberExpression>("item?.id; item?.id;", AST.MemberExpression);
       expect(nodes).toHaveLength(2);
       expect(isEqual(nodes[0]!, nodes[1]!)).toBe(true);
+    });
+  });
+
+  describe("ChainExpression equality", () => {
+    it("should return true for identical optional chains", () => {
+      expect(isEqual(getFirstExpression("a?.b;"), getFirstExpression("a?.b;"))).toBe(true);
+    });
+
+    it("should return false for chains with different properties", () => {
+      expect(isEqual(getFirstExpression("a?.b;"), getFirstExpression("a?.c;"))).toBe(false);
+    });
+
+    it("should return false for optional and non-optional access", () => {
+      expect(isEqual(getFirstExpression("a?.b;"), getFirstExpression("a.b;"))).toBe(false);
+    });
+  });
+
+  describe("regex literal equality", () => {
+    it("should compare regex literals by pattern and flags", () => {
+      expect(isEqual(getFirstExpression("/a/gi;"), getFirstExpression("/a/gi;"))).toBe(true);
+      expect(isEqual(getFirstExpression("/a/g;"), getFirstExpression("/a/i;"))).toBe(false);
+    });
+
+    it("should distinguish regex literals from string literals", () => {
+      expect(isEqual(getFirstExpression("/a/;"), getFirstExpression('"a";'))).toBe(false);
     });
   });
 

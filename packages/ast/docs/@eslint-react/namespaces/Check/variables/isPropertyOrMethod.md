@@ -8,7 +8,9 @@ const isPropertyOrMethod: (
 ) => node is MethodDefinitionComputedName | MethodDefinitionNonComputedName | PropertyDefinitionComputedName | PropertyDefinitionNonComputedName;
 ```
 
-Check if a node is a property or method definition.
+Check if a node is a `MethodDefinition` or `PropertyDefinition`.
+
+Abstract and accessor member definitions (`TSAbstractMethodDefinition`, `TSAbstractPropertyDefinition`, `AccessorProperty`, `TSAbstractAccessorProperty`) are not included.
 
 ## Parameters
 
