@@ -5,6 +5,7 @@ import { type RuleContext, type RuleFeature, type RuleListener } from "@eslint-r
 import { isAssignmentTargetEqual, resolveOrigin } from "@eslint-react/var";
 import { or } from "@local/eff";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
+import type { TSESLint } from "@typescript-eslint/utils";
 import { findVariable } from "@typescript-eslint/utils/ast-utils";
 import { P, isMatching, match } from "ts-pattern";
 import { resolveToObjectExpression } from "./lib";
@@ -42,11 +43,23 @@ type AbortEntry = {
 
 const isUseEffectCallback = or(isUseEffectSetupCallback, isUseEffectCleanupCallback);
 
+// Whether the definition is a type-only import (ex: `import type { fetch }` or
+// `import { type fetch }`), which binds no runtime value
+function isTypeOnlyImport(def: TSESLint.Scope.Definition) {
+  if (def.parent?.type !== AST.ImportDeclaration) return false;
+  return def.parent.importKind === "type" || (def.node.type === AST.ImportSpecifier && def.node.importKind === "type");
+}
+
 // Whether the identifier refers to a global binding rather than a user declaration (ex: a local
-// function, a variable or an import)
+// function, a variable or an import). Uses the reference resolved by the scope manager, which
+// skips type-only declarations (ex: `type fetch = ...`) that do not shadow the runtime value.
+// Type-only imports are still resolved as values, so they are skipped here: imports only live in
+// the module scope, so the identifier then refers to the global binding
 function isGlobalReference(context: RuleContext, node: TSESTree.Identifier) {
-  const variable = findVariable(context.sourceCode.getScope(node), node);
-  return variable == null || variable.defs.length === 0;
+  const scope = context.sourceCode.getScope(node);
+  const reference = scope.references.find((ref) => ref.identifier === node);
+  const variable = reference == null ? findVariable(scope, node) : reference.resolved;
+  return variable == null || variable.defs.every(isTypeOnlyImport);
 }
 
 // Whether the callee refers to the global `fetch`: a bare `fetch(...)` or a call on the global

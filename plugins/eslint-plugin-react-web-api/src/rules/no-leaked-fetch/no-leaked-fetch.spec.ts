@@ -95,6 +95,107 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
     },
+    // Type-only declarations do not shadow the global `fetch` or `window`
+    {
+      code: tsx`
+        type fetch = string;
+        function Example() {
+          useEffect(() => {
+            fetch("/api/user");
+          }, []);
+        }
+      `,
+      errors: [
+        {
+          messageId: "expected-abort-controller",
+        },
+      ],
+    },
+    {
+      code: tsx`
+        function Example() {
+          interface fetch {}
+          useEffect(() => {
+            fetch("/api/user");
+          }, []);
+        }
+      `,
+      errors: [
+        {
+          messageId: "expected-abort-controller",
+        },
+      ],
+    },
+    {
+      code: tsx`
+        import type { fetch } from "undici";
+        function Example() {
+          useEffect(() => {
+            fetch("/api/user");
+          }, []);
+        }
+      `,
+      errors: [
+        {
+          messageId: "expected-abort-controller",
+        },
+      ],
+    },
+    {
+      code: tsx`
+        import { type fetch } from "undici";
+        function Example() {
+          useEffect(() => {
+            fetch("/api/user");
+          }, []);
+        }
+      `,
+      errors: [
+        {
+          messageId: "expected-abort-controller",
+        },
+      ],
+    },
+    {
+      code: tsx`
+        interface window {}
+        function Example() {
+          useEffect(() => {
+            window.fetch("/api/user");
+          }, []);
+        }
+      `,
+      errors: [
+        {
+          messageId: "expected-abort-controller",
+        },
+      ],
+    },
+    // Globals provided via configuration are still the global `fetch` and `window`
+    {
+      code: tsx`
+        function Example() {
+          useEffect(() => {
+            fetch("/api/user");
+            window.fetch("/api/user");
+          }, []);
+        }
+      `,
+      errors: [
+        {
+          messageId: "expected-abort-controller",
+        },
+        {
+          messageId: "expected-abort-controller",
+        },
+      ],
+      languageOptions: {
+        globals: {
+          fetch: "readonly",
+          window: "readonly",
+        },
+      },
+    },
     // Cleanup returns a non-function, so the fetch is never aborted
     {
       code: tsx`
@@ -809,6 +910,30 @@ ruleTester.run(RULE_NAME, rule, {
         const window = { fetch: (url: string) => url };
         useEffect(() => {
           window.fetch("/api/user");
+        }, []);
+      }
+    `,
+    // A type-only declaration in an inner scope does not hide a local `fetch` in an outer scope
+    tsx`
+      import { useEffect } from "react";
+
+      function Example() {
+        const fetch = (url: string) => url;
+        function Inner() {
+          type fetch = string;
+          useEffect(() => {
+            fetch("/api/user");
+          }, []);
+        }
+      }
+    `,
+    // A parameter named `fetch` shadows the global one
+    tsx`
+      import { useEffect } from "react";
+
+      function Example({ fetch }: { fetch: (url: string) => void }) {
+        useEffect(() => {
+          fetch("/api/user");
         }, []);
       }
     `,
