@@ -1,5 +1,20 @@
 # Changelog
 
+## v5.30.0-beta.13 (2026-10-28)
+
+### ✨ New
+
+- `@eslint-react/eslint-plugin`: added the `all-type-checked` preset, which is the same as the `all` preset but also enables the rules that require type information. (#2095)
+- `@eslint-react/eslint-plugin`: the `all` preset now includes the experimental `react-x/unstable-exhaustive-deps` rule. (#2095)
+
+### 🏗️ Internal
+
+- `@local/configs`: reordered base config options by semantics, regenerated the API docs, and bumped `tsdown` to `0.23.3`.
+- `@local/eff`: aligned JSDoc examples with the package's exports. (#2094)
+- Updated `.editorconfig` so `VERSION` is kept without a trailing newline.
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.30.0-beta.12...v5.30.0-beta.13
+
 ## v5.30.0-beta.12 (2026-10-28)
 
 ### 🐞 Fixes
