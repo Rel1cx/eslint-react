@@ -10,7 +10,7 @@ Checks whether a value is not `null` and not `undefined`.
 
 **When to use**
 
-Use when you need a `Predicate` refinement that filters out nullish values
+Use when you need a refinement that filters out nullish values
 but keeps other falsy ones.
 
 **Details**
@@ -20,10 +20,10 @@ Uses `input != null`.
 **Example** (Filtering non-nullish values)
 
 ```ts
-import { Predicate } from "effect";
+import { isNotNullish } from "@local/eff";
 
 const values = [0, null, "", undefined];
-const present = values.filter(Predicate.isNotNullish); // => [0, ""]
+const present = values.filter(isNotNullish); // => [0, ""]
 ```
 
 ## Type Parameters

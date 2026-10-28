@@ -20,9 +20,11 @@ is the value flowing through `pipe`.
 **Example** (Applying an argument to a function)
 
 ```ts
-import { Function, String, pipe } from "effect";
+import { apply, pipe } from "@local/eff";
 
-pipe(String.length, Function.apply("hello")); // => 5
+const length = (s: string) => s.length;
+
+pipe(length, apply("hello")); // => 5
 ```
 
 ## Type Parameters

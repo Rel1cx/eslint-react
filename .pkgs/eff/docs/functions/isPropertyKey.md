@@ -10,7 +10,7 @@ Checks whether a value is a valid `PropertyKey` (string, number, or symbol).
 
 **When to use**
 
-Use when you need a `Predicate` guard for unknown property keys before
+Use when you need a type guard for unknown property keys before
 indexing.
 
 **Details**
@@ -20,12 +20,12 @@ Uses `isString`, `isNumber`, and `isSymbol`.
 **Example** (Guarding property keys)
 
 ```ts
-import { Predicate } from "effect";
+import { isPropertyKey } from "@local/eff";
 
 const key: unknown = "name";
 const obj: Record<PropertyKey, unknown> = { name: "Ada" };
 
-if (Predicate.isPropertyKey(key) && key in obj) {
+if (isPropertyKey(key) && key in obj) {
   obj[key]; // => "Ada"
 }
 ```

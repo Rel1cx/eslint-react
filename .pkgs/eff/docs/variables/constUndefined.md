@@ -15,9 +15,9 @@ Use when you need a thunk that returns `undefined` on every invocation.
 **Example** (Returning undefined from a thunk)
 
 ```ts
-import { Function } from "effect";
+import { constUndefined } from "@local/eff";
 
-Function.constUndefined(); // => undefined
+constUndefined(); // => undefined
 ```
 
 ## Since

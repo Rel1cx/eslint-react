@@ -26,9 +26,9 @@ predicate when optional arguments make arity ambiguous.
 **Example** (Selecting data-first or data-last style by arity)
 
 ```ts
-import { Function, pipe } from "effect";
+import { dual, pipe } from "@local/eff";
 
-const sum = Function.dual<
+const sum = dual<
   (that: number) => (self: number) => number,
   (self: number, that: number) => number
 >(2, (self, that) => self + that);
@@ -40,12 +40,12 @@ pipe(2, sum(3)); // => 5
 **Example** (Defining overloads with call signatures)
 
 ```ts
-import { Function, pipe } from "effect";
+import { dual, pipe } from "@local/eff";
 
 const sum: {
   (that: number): (self: number) => number;
   (self: number, that: number): number;
-} = Function.dual(2, (self: number, that: number): number => self + that);
+} = dual(2, (self: number, that: number): number => self + that);
 
 sum(2, 3); // => 5
 pipe(2, sum(3)); // => 5
@@ -54,9 +54,9 @@ pipe(2, sum(3)); // => 5
 **Example** (Selecting data-first or data-last style with a predicate)
 
 ```ts
-import { Function, pipe } from "effect";
+import { dual, pipe } from "@local/eff";
 
-const sum = Function.dual<
+const sum = dual<
   (that: number) => (self: number) => number,
   (self: number, that: number) => number
 >(
@@ -91,9 +91,9 @@ predicate when optional arguments make arity ambiguous.
 **Example** (Selecting data-first or data-last style by arity)
 
 ```ts
-import { Function, pipe } from "effect";
+import { dual, pipe } from "@local/eff";
 
-const sum = Function.dual<
+const sum = dual<
   (that: number) => (self: number) => number,
   (self: number, that: number) => number
 >(2, (self, that) => self + that);
@@ -105,12 +105,12 @@ pipe(2, sum(3)); // => 5
 **Example** (Defining overloads with call signatures)
 
 ```ts
-import { Function, pipe } from "effect";
+import { dual, pipe } from "@local/eff";
 
 const sum: {
   (that: number): (self: number) => number;
   (self: number, that: number): number;
-} = Function.dual(2, (self: number, that: number): number => self + that);
+} = dual(2, (self: number, that: number): number => self + that);
 
 sum(2, 3); // => 5
 pipe(2, sum(3)); // => 5
@@ -119,9 +119,9 @@ pipe(2, sum(3)); // => 5
 **Example** (Selecting data-first or data-last style with a predicate)
 
 ```ts
-import { Function, pipe } from "effect";
+import { dual, pipe } from "@local/eff";
 
-const sum = Function.dual<
+const sum = dual<
   (that: number) => (self: number) => number,
   (self: number, that: number) => number
 >(
@@ -178,9 +178,9 @@ predicate when optional arguments make arity ambiguous.
 **Example** (Selecting data-first or data-last style by arity)
 
 ```ts
-import { Function, pipe } from "effect";
+import { dual, pipe } from "@local/eff";
 
-const sum = Function.dual<
+const sum = dual<
   (that: number) => (self: number) => number,
   (self: number, that: number) => number
 >(2, (self, that) => self + that);
@@ -192,12 +192,12 @@ pipe(2, sum(3)); // => 5
 **Example** (Defining overloads with call signatures)
 
 ```ts
-import { Function, pipe } from "effect";
+import { dual, pipe } from "@local/eff";
 
 const sum: {
   (that: number): (self: number) => number;
   (self: number, that: number): number;
-} = Function.dual(2, (self: number, that: number): number => self + that);
+} = dual(2, (self: number, that: number): number => self + that);
 
 sum(2, 3); // => 5
 pipe(2, sum(3)); // => 5
@@ -206,9 +206,9 @@ pipe(2, sum(3)); // => 5
 **Example** (Selecting data-first or data-last style with a predicate)
 
 ```ts
-import { Function, pipe } from "effect";
+import { dual, pipe } from "@local/eff";
 
-const sum = Function.dual<
+const sum = dual<
   (that: number) => (self: number) => number,
   (self: number, that: number) => number
 >(

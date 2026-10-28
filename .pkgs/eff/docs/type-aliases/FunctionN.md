@@ -16,9 +16,9 @@ type.
 **Example** (Typing a variadic function)
 
 ```ts
-import type { Function } from "effect";
+import type { FunctionN } from "@local/eff";
 
-const sum: Function.FunctionN<[number, number], number> = (a, b) => a + b;
+const sum: FunctionN<[number, number], number> = (a, b) => a + b;
 sum(2, 3); // => 5
 ```
 

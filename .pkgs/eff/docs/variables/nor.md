@@ -13,7 +13,7 @@ Creates a predicate that returns `true` when neither predicate is `true`.
 
 **When to use**
 
-Use when you want to combine two `Predicate`s with logical NOR semantics.
+Use when you want to combine two predicates with logical NOR semantics.
 
 **Details**
 
@@ -22,9 +22,9 @@ Returns the negation of `or`.
 **Example** (Checking NOR conditions)
 
 ```ts
-import { Predicate } from "effect";
+import { isNumber, isString, nor } from "@local/eff";
 
-const neither = Predicate.nor(Predicate.isString, Predicate.isNumber);
+const neither = nor(isString, isNumber);
 
 neither(true); // => true
 ```

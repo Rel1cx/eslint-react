@@ -15,7 +15,7 @@ Use to return a value unchanged where a function is required.
 **Example** (Returning the same value)
 
 ```ts
-import { identity } from "effect";
+import { identity } from "@local/eff";
 
 identity(5); // => 5
 ```

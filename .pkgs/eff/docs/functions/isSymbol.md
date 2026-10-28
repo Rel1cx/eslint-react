@@ -10,7 +10,7 @@ Checks whether a value is a `symbol`.
 
 **When to use**
 
-Use when you need a `Predicate` guard to narrow an `unknown` value to a
+Use when you need a type guard to narrow an `unknown` value to a
 symbol.
 
 **Details**
@@ -20,11 +20,11 @@ Uses `typeof input === "symbol"`.
 **Example** (Guarding symbols)
 
 ```ts
-import { Predicate } from "effect";
+import { isSymbol } from "@local/eff";
 
 const data: unknown = Symbol.for("id");
 
-if (Predicate.isSymbol(data)) {
+if (isSymbol(data)) {
   data.description; // => "id"
 }
 ```

@@ -13,7 +13,7 @@ Creates a predicate that returns `true` unless both predicates are `true`.
 
 **When to use**
 
-Use when you want to combine two `Predicate`s with logical NAND semantics.
+Use when you want to combine two predicates with logical NAND semantics.
 
 **Details**
 
@@ -22,9 +22,9 @@ Returns the negation of `and`.
 **Example** (Checking NAND conditions)
 
 ```ts
-import { Predicate } from "effect";
+import { isNumber, isString, nand } from "@local/eff";
 
-const notBoth = Predicate.nand(Predicate.isString, Predicate.isNumber);
+const notBoth = nand(isString, isNumber);
 
 notBoth("a"); // => true
 ```

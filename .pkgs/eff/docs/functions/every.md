@@ -20,9 +20,9 @@ each time the predicate is called.
 **Example** (Checking all predicates)
 
 ```ts
-import { Predicate } from "effect";
+import { every, isNumber } from "@local/eff";
 
-const allChecks = Predicate.every([Predicate.isNumber, (n: number) => n > 0]);
+const allChecks = every([isNumber, (n: number) => n > 0]);
 
 allChecks(2); // => true
 ```

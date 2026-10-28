@@ -22,7 +22,7 @@ impossible at runtime.
 **Example** (Handling impossible values)
 
 ```ts
-import { absurd } from "effect";
+import { absurd } from "@local/eff";
 
 const handleNever = (value: never) => {
   return absurd(value); // This will throw an error if called

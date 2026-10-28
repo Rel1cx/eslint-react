@@ -10,7 +10,7 @@ Checks whether a value is a `Promise`-like object with `then` and `catch`.
 
 **When to use**
 
-Use when you need a `Predicate` guard for promise instances across realms.
+Use when you need a type guard for promise instances across realms.
 
 **Details**
 
@@ -19,11 +19,11 @@ Performs a structural check for `then` and `catch` functions.
 **Example** (Guarding promises)
 
 ```ts
-import { Predicate } from "effect";
+import { isPromise } from "@local/eff";
 
 const data: unknown = Promise.resolve(1);
 
-Predicate.isPromise(data); // => true
+isPromise(data); // => true
 ```
 
 ## Parameters

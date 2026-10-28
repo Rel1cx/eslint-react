@@ -10,7 +10,7 @@ Checks whether a value is not `null`.
 
 **When to use**
 
-Use when you need a `Predicate` refinement that filters out `null` while
+Use when you need a refinement that filters out `null` while
 preserving other falsy values.
 
 **Details**
@@ -20,10 +20,10 @@ Returns a refinement that excludes `null`.
 **Example** (Filtering null values)
 
 ```ts
-import { Predicate } from "effect";
+import { isNotNull } from "@local/eff";
 
 const values = [1, null, 2];
-const nonNull = values.filter(Predicate.isNotNull); // => [1, 2]
+const nonNull = values.filter(isNotNull); // => [1, 2]
 ```
 
 ## Type Parameters

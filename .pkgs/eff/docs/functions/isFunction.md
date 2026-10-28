@@ -10,7 +10,7 @@ Checks whether a value is a `function`.
 
 **When to use**
 
-Use when you need a `Predicate` guard to narrow an `unknown` value to a
+Use when you need a type guard to narrow an `unknown` value to a
 callable function.
 
 **Details**
@@ -20,11 +20,11 @@ Uses `typeof input === "function"`.
 **Example** (Guarding functions)
 
 ```ts
-import { Predicate } from "effect";
+import { isFunction } from "@local/eff";
 
 const data: unknown = () => 1;
 
-if (Predicate.isFunction(data)) {
+if (isFunction(data)) {
   data(); // => 1
 }
 ```

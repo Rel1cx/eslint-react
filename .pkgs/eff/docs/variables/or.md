@@ -17,7 +17,7 @@ Creates a predicate that returns `true` if either predicate is `true`.
 
 **When to use**
 
-Use when you want to combine `Predicate`s with OR, accepting values that
+Use when you want to combine predicates with OR, accepting values that
 satisfy at least one condition, including refinements that narrow to a union.
 
 **Details**
@@ -28,9 +28,9 @@ type is a union.
 **Example** (Checking either condition)
 
 ```ts
-import { Predicate } from "effect";
+import { isNumber, isString, or } from "@local/eff";
 
-const isStringOrNumber = Predicate.or(Predicate.isString, Predicate.isNumber);
+const isStringOrNumber = or(isString, isNumber);
 
 isStringOrNumber("a"); // => true
 ```

@@ -16,11 +16,11 @@ in the opposite order.
 **Example** (Flipping curried arguments)
 
 ```ts
-import { Function } from "effect";
+import { flip } from "@local/eff";
 
 const f = (a: number) => (b: string) => a - b.length;
 
-Function.flip(f)("aaa")(2); // => -1
+flip(f)("aaa")(2); // => -1
 ```
 
 ## Type Parameters

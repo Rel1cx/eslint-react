@@ -10,7 +10,8 @@ const isPropertyOrMethod: (
 
 Check if a node is a `MethodDefinition` or `PropertyDefinition`.
 
-Abstract and accessor member definitions (`TSAbstractMethodDefinition`, `TSAbstractPropertyDefinition`, `AccessorProperty`, `TSAbstractAccessorProperty`) are not included.
+Abstract and accessor member definitions (`TSAbstractMethodDefinition`, `TSAbstractPropertyDefinition`,
+`AccessorProperty`, `TSAbstractAccessorProperty`) are not included.
 
 ## Parameters
 

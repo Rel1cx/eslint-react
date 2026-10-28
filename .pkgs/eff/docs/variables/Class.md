@@ -11,8 +11,8 @@ method.
 
 **When to use**
 
-Use when you need to define a class that supports Effect-style method
-chaining through `.pipe(...)`.
+Use when you need to define a class that supports method chaining through
+`.pipe(...)`.
 
 ## Returns
 

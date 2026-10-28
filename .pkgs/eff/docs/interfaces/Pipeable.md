@@ -6,26 +6,29 @@ Interface for values that support method-style `pipe` composition.
 
 **When to use**
 
-Use to type values that expose an Effect-style `.pipe(...)` method.
+Use to type values that expose a `.pipe(...)` method.
 
 **Details**
 
 Calling `value.pipe(f, g, h)` passes the value through each function from
-left to right, returning the final result. Many Effect data types implement
-this so operations can be chained without nesting function calls.
+left to right, returning the final result. Classes can gain this method by
+extending `Class` or using `Mixin` so operations can be chained without
+nesting function calls.
 
 **Example** (Chaining operations with pipe)
 
 ```ts
-import { Effect } from "effect";
+import { Class } from "@local/eff";
 
-// The Pipeable interface allows Effect values to be chained using the pipe method
-const program = Effect.succeed(1).pipe(
-  Effect.map((x) => x + 1),
-  Effect.flatMap((x) => Effect.succeed(x * 2)),
-);
+// Classes that extend `Class` gain a `.pipe(...)` method
+class NumberBox extends Class {
+  constructor(readonly value: number) {
+    super();
+  }
+}
 
-Effect.runSync(program); // => 4
+const box = new NumberBox(1);
+box.pipe((self) => self.value + 1); // => 2
 ```
 
 ## Since

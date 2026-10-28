@@ -10,7 +10,7 @@ Checks whether a value is a `Map`.
 
 **When to use**
 
-Use when you need a `Predicate` runtime guard for `Map` values.
+Use when you need a type guard for `Map` values.
 
 **Details**
 
@@ -19,11 +19,11 @@ Uses `instanceof Map`.
 **Example** (Guarding a Map)
 
 ```ts
-import { Predicate } from "effect";
+import { isMap } from "@local/eff";
 
 const data: unknown = new Map([["a", 1]]);
 
-if (Predicate.isMap(data)) {
+if (isMap(data)) {
   data.size; // => 1
 }
 ```

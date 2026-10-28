@@ -14,7 +14,8 @@ const isProperty: (node: Node | null | undefined) => node is
 
 Check if a node is a `TSPropertySignature`, `PropertyDefinition`, `TSIndexSignature`, or `TSParameterProperty`.
 
-Abstract and accessor property definitions (`TSAbstractPropertyDefinition`, `AccessorProperty`, `TSAbstractAccessorProperty`) are not included.
+Abstract and accessor property definitions (`TSAbstractPropertyDefinition`, `AccessorProperty`,
+`TSAbstractAccessorProperty`) are not included.
 
 ## Parameters
 
