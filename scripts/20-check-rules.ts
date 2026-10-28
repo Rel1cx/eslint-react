@@ -32,7 +32,7 @@ import * as strictTypeScriptConfig from "#/plugins/eslint-plugin/src/configs/str
 import * as webApiConfig from "#/plugins/eslint-plugin/src/configs/web-api";
 import * as xConfig from "#/plugins/eslint-plugin/src/configs/x";
 
-const RULES_GLOB = ["plugins/eslint-plugin-react-*/src/rules/*/*.ts"];
+const GLOB_RULES = ["plugins/eslint-plugin-react-*/src/rules/*/*.ts"];
 
 const DOMAIN_CONFIGS: Record<string, Record<string, unknown>> = {
   "naming-convention": namingConventionConfig.rules,
@@ -53,7 +53,7 @@ interface RegisteredRule {
 }
 
 const collectRegisteredRules = Effect.gen(function*() {
-  const files = glob(RULES_GLOB).filter(isRuleEntryFile);
+  const files = glob(GLOB_RULES).filter(isRuleEntryFile);
   const rules: RegisteredRule[] = [];
 
   for (const file of files) {
@@ -170,8 +170,8 @@ const checkDomainConfigCompleteness = Effect.fnUntraced(
       const domainInfo = DOMAIN_META_BY_KEY[domain as PluginDomain];
       if (domainInfo == null) continue;
 
-      const domainRules = rules.filter((r) => r.domain === domain);
       const configKeys = keys(configRules);
+      const domainRules = rules.filter((r) => r.domain === domain);
       const domainRuleKeys = new Set(domainRules.map((r) => r.configKey));
 
       for (const key of configKeys) {
@@ -369,7 +369,7 @@ const retrieveRuleMeta = Effect.fnUntraced(
 const checkDocs = Effect.gen(function*() {
   const fs = yield* FileSystem.FileSystem;
   const path = yield* Path.Path;
-  const files = glob(RULES_GLOB).filter(isRuleEntryFile);
+  const files = glob(GLOB_RULES).filter(isRuleEntryFile);
   const errors = yield* Ref.make(Chunk.empty<CheckError>());
 
   for (const file of files) {

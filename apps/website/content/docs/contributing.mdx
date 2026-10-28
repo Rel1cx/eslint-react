@@ -30,16 +30,6 @@ flowchart TB
             Playground["Playground"]:::apps
         end
 
-        %% Examples Subgraph
-        subgraph "Examples"
-            ExampleNext["Next.js Example"]:::examples
-            ExamplePreact["Preact Example"]:::examples
-            ExamplePreactCompat["Preact Compat Example"]:::examples
-            ExampleReactDOM["React DOM Example"]:::examples
-            ExampleReactDOMJS["React DOM JS Example"]:::examples
-            ExampleReactDOMCustom["React DOM Custom Rules Example"]:::examples
-        end
-
         %% Packages Subgraph
         subgraph "Packages"
             Core["Core Functionality"]:::packages
@@ -67,19 +57,33 @@ flowchart TB
             end
         end
 
-        %% Scripts & Configurations
-        Scripts["Scripts & Configurations"]:::external
+        %% Documentation & Testing
+        Docs["Internal Docs"]:::internal
+        Tests["Testing Samples"]:::internal
 
-        %% Tests
-        Tests["Tests"]:::external
+        %% Scripts & Configurations
+        Scripts["Scripts & Configurations"]:::internal
     end
 
     %% Relationships
+    %% ESLint types & utils are used by the packages and plugins
+    ESLint -->|"dependency"| Core
+    ESLint -->|"dependency"| Shared
+    ESLint -->|"dependency"| Var
+    ESLint -->|"dependency"| JSX
+    ESLint -->|"dependency"| ReactX
+    ESLint -->|"dependency"| ReactJSX
+    ESLint -->|"dependency"| ReactRSC
+    ESLint -->|"dependency"| ReactDOM
+    ESLint -->|"dependency"| ReactWebAPI
+    ESLint -->|"dependency"| ReactNamingConvention
+    ESLint -->|"dependency"| ReactDebug
+
     %% Plugins depend on Core and Shared
+    Shared -->|"dependency"| Core
     Core -->|"dependency"| ReactX
     Core -->|"dependency"| ReactJSX
     Core -->|"dependency"| ReactRSC
-    Core -->|"dependency"| ReactDOM
     Core -->|"dependency"| ReactWebAPI
     Core -->|"dependency"| ReactNamingConvention
     Core -->|"dependency"| ReactDebug
@@ -92,18 +96,33 @@ flowchart TB
     Shared -->|"dependency"| ReactNamingConvention
     Shared -->|"dependency"| ReactDebug
 
-    %% Utilities used by Core and Plugins
+    %% Utilities used by Core and the other utility modules
     AST ---|"provides"| Core
     Var ---|"provides"| Core
     JSX ---|"provides"| Core
 
+    AST ---|"provides"| Var
+    AST ---|"provides"| JSX
+
+    %% Utilities used by the plugins
     AST ---|"provides"| ReactX
+    AST ---|"provides"| ReactJSX
+    AST ---|"provides"| ReactRSC
+    AST ---|"provides"| ReactDOM
+    AST ---|"provides"| ReactWebAPI
+    AST ---|"provides"| ReactNamingConvention
+    AST ---|"provides"| ReactDebug
+
     Var ---|"provides"| ReactX
+    Var ---|"provides"| ReactRSC
+    Var ---|"provides"| ReactDOM
+    Var ---|"provides"| ReactWebAPI
+    Var ---|"provides"| ReactNamingConvention
+    Var ---|"provides"| ReactDebug
+
     JSX ---|"provides"| ReactX
     JSX ---|"provides"| ReactDOM
     JSX ---|"provides"| ReactJSX
-    AST ---|"provides"| ReactDebug
-    Var ---|"provides"| ReactDebug
     JSX ---|"provides"| ReactDebug
 
     %% Kit dependencies
@@ -118,10 +137,16 @@ flowchart TB
     ReactDOM -->|"aggregated"| ReactAggregated
     ReactWebAPI -->|"aggregated"| ReactAggregated
     ReactNamingConvention -->|"aggregated"| ReactAggregated
+    Shared -->|"dependency"| ReactAggregated
 
-    %% Website Documentation uses Core and Shared docs
-    Website -->|"docs"| Core
-    Website -->|"docs"| Shared
+    %% Website documentation is generated from the plugins' rule docs
+    ReactX -->|"docs"| Website
+    ReactJSX -->|"docs"| Website
+    ReactRSC -->|"docs"| Website
+    ReactDOM -->|"docs"| Website
+    ReactWebAPI -->|"docs"| Website
+    ReactNamingConvention -->|"docs"| Website
+    ReactDebug -->|"docs"| Website
 
     %% Scripts & CI automation interactions
     Scripts -->|"CI/CD"| Core
@@ -144,12 +169,6 @@ flowchart TB
     %% Click Events
     click Website "https://github.com/Rel1cx/eslint-react/tree/main/apps/website"
     click Playground "https://github.com/Rel1cx/eslint-react/tree/main/apps/playground"
-    click ExampleNext "https://github.com/Rel1cx/eslint-react/tree/main/examples/next"
-    click ExamplePreact "https://github.com/Rel1cx/eslint-react/tree/main/examples/preact"
-    click ExamplePreactCompat "https://github.com/Rel1cx/eslint-react/tree/main/examples/preact-compat"
-    click ExampleReactDOM "https://github.com/Rel1cx/eslint-react/tree/main/examples/react-dom"
-    click ExampleReactDOMJS "https://github.com/Rel1cx/eslint-react/tree/main/examples/react-dom-js"
-    click ExampleReactDOMCustom "https://github.com/Rel1cx/eslint-react/tree/main/examples/react-dom-with-custom-rules"
     click Core "https://github.com/Rel1cx/eslint-react/tree/main/packages/core"
     click Shared "https://github.com/Rel1cx/eslint-react/tree/main/packages/shared"
     click ESLint "https://github.com/Rel1cx/eslint-react/tree/main/packages/eslint"
@@ -166,15 +185,15 @@ flowchart TB
     click ReactDebug "https://github.com/Rel1cx/eslint-react/tree/main/plugins/eslint-plugin-react-debug"
     click ReactAggregated "https://github.com/Rel1cx/eslint-react/tree/main/plugins/eslint-plugin"
     click Scripts "https://github.com/Rel1cx/eslint-react/tree/main/scripts"
-    click Tests "https://github.com/Rel1cx/eslint-react/tree/main/test"
+    click Docs "https://github.com/Rel1cx/eslint-react/tree/main/docs"
+    click Tests "https://github.com/Rel1cx/eslint-react/tree/main/testing"
 
     %% Styles
     classDef apps fill:#f9e79f,stroke:#7d6608,stroke-width:2px;
-    classDef examples fill:#fad7a0,stroke:#7e5109,stroke-width:2px;
     classDef packages fill:#aed6f1,stroke:#1b4f72,stroke-width:2px;
     classDef utilities fill:#a9dfbf,stroke:#145a32,stroke-width:2px;
     classDef plugins fill:#f5b7b1,stroke:#78281f,stroke-width:2px;
-    classDef external fill:#d2b4de,stroke:#4a235a,stroke-width:2px;
+    classDef internal fill:#d2b4de,stroke:#4a235a,stroke-width:2px;
 ```
 
 ## Packages Summary
@@ -183,11 +202,14 @@ This section provides a summary of the packages in the monorepo.
 
 ### Local Packages
 
-- [`.pkgs/configs`](https://github.com/Rel1cx/eslint-react/tree/main/.pkgs/configs): Workspace config bases
 - [`.pkgs/eff`](https://github.com/Rel1cx/eslint-react/tree/main/.pkgs/eff): JavaScript and TypeScript utilities
-- [`.pkgs/samples`](https://github.com/Rel1cx/eslint-react/tree/main/.pkgs/samples): Sample fixtures and configs
+- [`.pkgs/configs`](https://github.com/Rel1cx/eslint-react/tree/main/.pkgs/configs): Workspace config bases
+- [`.pkgs/samples`](https://github.com/Rel1cx/eslint-react/tree/main/.pkgs/samples): Sample custom rule implementations used by examples and documentation
+- [`.pkgs/testkit`](https://github.com/Rel1cx/eslint-react/tree/main/.pkgs/testkit): Shared test construction kit for unit tests and rule tests
 
-### Internal Packages
+### Utility Packages
+
+These packages are published to npm as dependencies of the ESLint plugins, but they are intended as internal building blocks rather than standalone public APIs.
 
 - **Utilities**
   - [`packages/ast`](https://github.com/Rel1cx/eslint-react/tree/main/packages/ast): TSESTree AST utility module for static analysis
@@ -219,7 +241,10 @@ This section provides a summary of the packages in the monorepo.
 - [`examples/preact-compat`](https://github.com/Rel1cx/eslint-react/tree/main/examples/preact-compat): Preact compat example
 - [`examples/react-dom`](https://github.com/Rel1cx/eslint-react/tree/main/examples/react-dom): React DOM example
 - [`examples/react-dom-js`](https://github.com/Rel1cx/eslint-react/tree/main/examples/react-dom-js): React DOM JS example
+- [`examples/react-dom-oxlint`](https://github.com/Rel1cx/eslint-react/tree/main/examples/react-dom-oxlint): React DOM with Oxlint example
 - [`examples/react-dom-with-custom-rules`](https://github.com/Rel1cx/eslint-react/tree/main/examples/react-dom-with-custom-rules): React DOM with custom rules example
+- [`examples/tanstack-redact`](https://github.com/Rel1cx/eslint-react/tree/main/examples/tanstack-redact): TanStack Redact example
+- [`examples/tanstack-start`](https://github.com/Rel1cx/eslint-react/tree/main/examples/tanstack-start): TanStack Start example
 
 ### Documentation
 
