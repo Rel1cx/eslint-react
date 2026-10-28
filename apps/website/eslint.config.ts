@@ -2,7 +2,7 @@ import react from "@eslint-react/eslint-plugin";
 import { includeIgnoreFile } from "@eslint/compat";
 import { disableTypeChecked, strictTypeChecked } from "@local/configs/eslint";
 import pluginReactHooks from "eslint-plugin-react-hooks";
-import pluginReactRefresh from "eslint-plugin-react-refresh";
+import { reactRefresh } from "eslint-plugin-react-refresh";
 import { defineConfig, globalIgnores } from "eslint/config";
 import importIntegrityPlugin from "import-integrity-lint";
 import path from "node:path";
@@ -51,6 +51,7 @@ export default defineConfig(
       tseslint.configs.base,
       react.configs["recommended-type-checked"],
       pluginReactHooks.configs.flat["recommended-latest"] ?? [],
+      reactRefresh.configs.next(),
     ],
     languageOptions: {
       parser: tseslint.parser,
@@ -58,9 +59,6 @@ export default defineConfig(
         projectService: true,
         tsconfigRootDir: import.meta.dirname,
       },
-    },
-    plugins: {
-      "react-refresh": pluginReactRefresh,
     },
     rules: {
       "@eslint-react/no-unused-props": "warn",

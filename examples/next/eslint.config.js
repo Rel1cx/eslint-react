@@ -40,8 +40,8 @@ export default defineConfig(
     files: TSCONFIG.include,
     extends: [
       eslintReact.configs["strict-typescript"],
-      reactRefresh.configs.next(),
       eslintPluginReactHooks.configs.flat["recommended-latest"] ?? [],
+      reactRefresh.configs.next(),
     ],
     plugins: {
       "@next/next": eslintPluginNext,
