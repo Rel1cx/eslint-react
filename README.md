@@ -160,6 +160,10 @@ export default defineConfig(
 
 ### Other
 
+- `all`\
+  Enable all rules that do not require type information.
+- `all-type-checked`\
+  Same as the `all` preset but enables additional rules that require type information.
 - `disable-jsx`\
   Disable rules in the `jsx` preset.
 - `disable-rsc`\
