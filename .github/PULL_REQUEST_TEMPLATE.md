@@ -2,7 +2,7 @@ Update "[ ]" to "[x]" to check a box
 
 ### What kind of change does this PR introduce?
 
-Check at least one. If you are introducing a new binding, you must reference an issue where this binding has been proposed, discussed and approved by the maintainers.
+Check at least one.
 
 - [ ] Bugfix
 - [ ] Feature
@@ -11,7 +11,6 @@ Check at least one. If you are introducing a new binding, you must reference an 
 - [ ] Test
 - [ ] Chore
 - [ ] Enhancement
-- [ ] New Binding issue #___
 - [ ] Code style update
 - [ ] Refactor
 - [ ] Build-related changes
