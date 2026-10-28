@@ -11,7 +11,7 @@ Checks whether a value is a non-null object value that is not an array.
 **When to use**
 
 Use to narrow unknown input to a non-null, non-array object with a
-`Predicate` guard.
+type guard.
 
 **Details**
 
@@ -22,10 +22,10 @@ typed arrays. It excludes `null` and arrays.
 **Example** (Guarding objects)
 
 ```ts
-import { Predicate } from "effect";
+import { isObject } from "@local/eff";
 
-Predicate.isObject({ a: 1 }); // => true
-Predicate.isObject([1, 2]); // => false
+isObject({ a: 1 }); // => true
+isObject([1, 2]); // => false
 ```
 
 ## Parameters
@@ -40,8 +40,7 @@ input is \{ \[x: string \| number \| symbol\]: unknown \}
 
 ## See
 
-- [isObjectOrArray](isObjectOrArray.md)
-- isReadonlyObject
+[isObjectOrArray](isObjectOrArray.md)
 
 ## Since
 

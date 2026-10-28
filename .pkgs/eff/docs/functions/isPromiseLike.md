@@ -10,7 +10,7 @@ Checks whether a value is `PromiseLike` (has a `then` method).
 
 **When to use**
 
-Use when you need a `Predicate` guard for promise-like values with a
+Use when you need a type guard for promise-like values with a
 callable `then` method.
 
 **Details**
@@ -20,11 +20,11 @@ Performs a structural check for a callable `then`.
 **Example** (Guarding promise-like values)
 
 ```ts
-import { Predicate } from "effect";
+import { isPromiseLike } from "@local/eff";
 
 const data: unknown = { then: () => {} };
 
-Predicate.isPromiseLike(data); // => true
+isPromiseLike(data); // => true
 ```
 
 ## Parameters

@@ -10,7 +10,7 @@ Checks whether a value is a `Date`.
 
 **When to use**
 
-Use when you need a `Predicate` runtime guard for dates.
+Use when you need a type guard for dates.
 
 **Details**
 
@@ -19,11 +19,11 @@ Uses `instanceof Date`.
 **Example** (Guarding Date values)
 
 ```ts
-import { Predicate } from "effect";
+import { isDate } from "@local/eff";
 
 const data: unknown = new Date();
 
-Predicate.isDate(data); // => true
+isDate(data); // => true
 ```
 
 ## Parameters

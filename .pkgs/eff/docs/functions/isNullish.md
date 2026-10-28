@@ -10,7 +10,7 @@ Checks whether a value is `null` or `undefined`.
 
 **When to use**
 
-Use when you need a `Predicate` guard for nullish values.
+Use when you need a type guard for nullish values.
 
 **Details**
 
@@ -19,10 +19,10 @@ Uses `input === null || input === undefined`.
 **Example** (Guarding nullish values)
 
 ```ts
-import { Predicate } from "effect";
+import { isNullish } from "@local/eff";
 
 const values = [0, null, "", undefined];
-const nullish = values.filter(Predicate.isNullish); // => [null, undefined]
+const nullish = values.filter(isNullish); // => [null, undefined]
 ```
 
 ## Type Parameters

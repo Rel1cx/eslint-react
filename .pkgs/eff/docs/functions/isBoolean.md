@@ -10,7 +10,7 @@ Checks whether a value is a `boolean`.
 
 **When to use**
 
-Use when you need a `Predicate` guard to narrow an `unknown` value to a
+Use when you need a type guard to narrow an `unknown` value to a
 boolean.
 
 **Details**
@@ -20,11 +20,11 @@ Uses `typeof input === "boolean"`.
 **Example** (Guarding booleans)
 
 ```ts
-import { Predicate } from "effect";
+import { isBoolean } from "@local/eff";
 
 const data: unknown = true;
 
-if (Predicate.isBoolean(data)) {
+if (isBoolean(data)) {
   data ? "yes" : "no"; // => "yes"
 }
 ```

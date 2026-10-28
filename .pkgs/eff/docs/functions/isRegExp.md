@@ -10,7 +10,7 @@ Checks whether a value is a `RegExp`.
 
 **When to use**
 
-Use when you need a `Predicate` runtime guard for regular expressions.
+Use when you need a type guard for regular expressions.
 
 **Details**
 
@@ -19,11 +19,11 @@ Uses `instanceof RegExp`.
 **Example** (Guarding RegExp values)
 
 ```ts
-import { Predicate } from "effect";
+import { isRegExp } from "@local/eff";
 
 const data: unknown = /abc/;
 
-Predicate.isRegExp(data); // => true
+isRegExp(data); // => true
 ```
 
 ## Parameters

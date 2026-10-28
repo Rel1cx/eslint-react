@@ -19,12 +19,12 @@ Use to compose exactly two unary functions into a reusable unary function.
 **Example** (Composing two functions)
 
 ```ts
-import { Function } from "effect";
+import { compose } from "@local/eff";
 
 const increment = (n: number) => n + 1;
 const square = (n: number) => n * n;
 
-Function.compose(increment, square)(2); // => 9
+compose(increment, square)(2); // => 9
 ```
 
 ## Call Signature
@@ -43,12 +43,12 @@ Use to compose exactly two unary functions into a reusable unary function.
 **Example** (Composing two functions)
 
 ```ts
-import { Function } from "effect";
+import { compose } from "@local/eff";
 
 const increment = (n: number) => n + 1;
 const square = (n: number) => n * n;
 
-Function.compose(increment, square)(2); // => 9
+compose(increment, square)(2); // => 9
 ```
 
 ### Type Parameters
@@ -93,12 +93,12 @@ Use to compose exactly two unary functions into a reusable unary function.
 **Example** (Composing two functions)
 
 ```ts
-import { Function } from "effect";
+import { compose } from "@local/eff";
 
 const increment = (n: number) => n + 1;
 const square = (n: number) => n * n;
 
-Function.compose(increment, square)(2); // => 9
+compose(increment, square)(2); // => 9
 ```
 
 ### Type Parameters

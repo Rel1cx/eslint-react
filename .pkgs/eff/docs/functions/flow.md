@@ -23,7 +23,7 @@ unary.
 **Example** (Composing functions left to right)
 
 ```ts
-import { flow } from "effect";
+import { flow } from "@local/eff";
 
 const len = (s: string): number => s.length;
 const double = (n: number): number => n * 2;
@@ -80,7 +80,7 @@ unary.
 **Example** (Composing functions left to right)
 
 ```ts
-import { flow } from "effect";
+import { flow } from "@local/eff";
 
 const len = (s: string): number => s.length;
 const double = (n: number): number => n * 2;
@@ -139,7 +139,7 @@ unary.
 **Example** (Composing functions left to right)
 
 ```ts
-import { flow } from "effect";
+import { flow } from "@local/eff";
 
 const len = (s: string): number => s.length;
 const double = (n: number): number => n * 2;
@@ -205,7 +205,7 @@ unary.
 **Example** (Composing functions left to right)
 
 ```ts
-import { flow } from "effect";
+import { flow } from "@local/eff";
 
 const len = (s: string): number => s.length;
 const double = (n: number): number => n * 2;
@@ -274,7 +274,7 @@ unary.
 **Example** (Composing functions left to right)
 
 ```ts
-import { flow } from "effect";
+import { flow } from "@local/eff";
 
 const len = (s: string): number => s.length;
 const double = (n: number): number => n * 2;
@@ -346,7 +346,7 @@ unary.
 **Example** (Composing functions left to right)
 
 ```ts
-import { flow } from "effect";
+import { flow } from "@local/eff";
 
 const len = (s: string): number => s.length;
 const double = (n: number): number => n * 2;
@@ -421,7 +421,7 @@ unary.
 **Example** (Composing functions left to right)
 
 ```ts
-import { flow } from "effect";
+import { flow } from "@local/eff";
 
 const len = (s: string): number => s.length;
 const double = (n: number): number => n * 2;
@@ -499,7 +499,7 @@ unary.
 **Example** (Composing functions left to right)
 
 ```ts
-import { flow } from "effect";
+import { flow } from "@local/eff";
 
 const len = (s: string): number => s.length;
 const double = (n: number): number => n * 2;
@@ -580,7 +580,7 @@ unary.
 **Example** (Composing functions left to right)
 
 ```ts
-import { flow } from "effect";
+import { flow } from "@local/eff";
 
 const len = (s: string): number => s.length;
 const double = (n: number): number => n * 2;

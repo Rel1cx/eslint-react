@@ -10,7 +10,7 @@ Checks whether a value is `null`.
 
 **When to use**
 
-Use when you need a `Predicate` guard for nullable values.
+Use when you need a type guard for nullable values.
 
 **Details**
 
@@ -19,11 +19,11 @@ Uses `input === null`.
 **Example** (Guarding null values)
 
 ```ts
-import { Predicate } from "effect";
+import { isNull } from "@local/eff";
 
 const data: unknown = null;
 
-Predicate.isNull(data); // => true
+isNull(data); // => true
 ```
 
 ## Parameters

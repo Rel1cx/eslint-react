@@ -15,9 +15,9 @@ Use to adapt a tuple-argument function so it accepts multiple arguments.
 **Example** (Converting a tuple to arguments)
 
 ```ts
-import { Function } from "effect";
+import { untupled } from "@local/eff";
 
-const getFirst = Function.untupled(<A, B>(tuple: [A, B]): A => tuple[0]);
+const getFirst = untupled(<A, B>(tuple: [A, B]): A => tuple[0]);
 
 getFirst(1, 2); // => 1
 ```

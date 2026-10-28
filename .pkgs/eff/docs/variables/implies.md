@@ -13,7 +13,7 @@ Creates a predicate representing logical implication: if `antecedent`, then `con
 
 **When to use**
 
-Use when you need to encode logical implication between `Predicate` rules,
+Use when you need to encode logical implication between predicate rules,
 where one rule only applies when a precondition holds.
 
 **Details**
@@ -24,13 +24,13 @@ is `false`.
 **Example** (Checking implication)
 
 ```ts
-import { Predicate } from "effect";
+import { implies } from "@local/eff";
 
 const isAdult = (age: number) => age >= 18;
 const canVote = (age: number) => age >= 18;
-const implies = Predicate.implies(isAdult, canVote);
+const adultImpliesVote = implies(isAdult, canVote);
 
-implies(16); // => true
+adultImpliesVote(16); // => true
 ```
 
 ## Call Signature

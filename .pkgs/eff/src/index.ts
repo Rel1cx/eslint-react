@@ -70,14 +70,14 @@ export type Pretty<T> =
 // #region Function
 
 /**
- * The `Pipeable` module defines the shared interface and implementation helpers
- * for values that support Effect-style method chaining with `.pipe(...)`.
+ * `Pipeable` defines the shared interface and implementation helpers for values
+ * that support method chaining with `.pipe(...)`.
  *
  * A `Pipeable` value can pass itself through a sequence of unary functions from
  * left to right, so code can be written as `value.pipe(f, g, h)` instead of
- * deeply nesting calls. This is the method form used by many Effect data types
- * to compose transformations, validations, and effectful operations while
- * keeping the original value as the starting point of the pipeline.
+ * deeply nesting calls. Use `Class`, `Prototype`, or `Mixin` to add the method
+ * to your own values while keeping the original value as the starting point of
+ * the pipeline.
  *
  * @since 2.0.0
  */
@@ -87,26 +87,29 @@ export type Pretty<T> =
  *
  * **When to use**
  *
- * Use to type values that expose an Effect-style `.pipe(...)` method.
+ * Use to type values that expose a `.pipe(...)` method.
  *
  * **Details**
  *
  * Calling `value.pipe(f, g, h)` passes the value through each function from
- * left to right, returning the final result. Many Effect data types implement
- * this so operations can be chained without nesting function calls.
+ * left to right, returning the final result. Classes can gain this method by
+ * extending `Class` or using `Mixin` so operations can be chained without
+ * nesting function calls.
  *
  * **Example** (Chaining operations with pipe)
  *
  * ```ts
- * import { Effect } from "effect"
+ * import { Class } from "@local/eff"
  *
- * // The Pipeable interface allows Effect values to be chained using the pipe method
- * const program = Effect.succeed(1).pipe(
- *   Effect.map((x) => x + 1),
- *   Effect.flatMap((x) => Effect.succeed(x * 2))
- * )
+ * // Classes that extend `Class` gain a `.pipe(...)` method
+ * class NumberBox extends Class {
+ *   constructor(readonly value: number) {
+ *     super()
+ *   }
+ * }
  *
- * Effect.runSync(program) // => 4
+ * const box = new NumberBox(1)
+ * box.pipe((self) => self.value + 1) // => 2
  * ```
  *
  * @category models
@@ -606,13 +609,13 @@ export interface Pipeable {
  * **Example** (Implementing a pipe method)
  *
  * ```ts
- * import { Pipeable } from "effect"
+ * import { pipeArguments } from "@local/eff"
  *
  * class NumberBox {
  *   constructor(readonly value: number) {}
  *
  *   pipe(..._fns: ReadonlyArray<(value: number) => number>): number {
- *     return Pipeable.pipeArguments(this.value, arguments) as number
+ *     return pipeArguments(this.value, arguments) as number
  *   }
  * }
  *
@@ -681,8 +684,8 @@ export const Prototype: Pipeable = {
  *
  * **When to use**
  *
- * Use when you need to define a class that supports Effect-style method
- * chaining through `.pipe(...)`.
+ * Use when you need to define a class that supports method chaining through
+ * `.pipe(...)`.
  *
  * @category constructors
  * @since 3.15.0
@@ -699,7 +702,7 @@ export const Class: new() => Pipeable = (function() {
  * **When to use**
  *
  * Use as the constructor-side type when a class value should be known to create
- * instances that support Effect-style method chaining with `.pipe(...)`.
+ * instances that support method chaining with `.pipe(...)`.
  *
  * @see {@link Pipeable} for the instance-side contract
  * @see {@link Class} for the base constructor
@@ -755,9 +758,9 @@ export const Mixin = <TBase extends new(...args: ReadonlyArray<any>) => any>(kla
  * **Example** (Selecting data-first or data-last style by arity)
  *
  * ```ts
- * import { Function, pipe } from "effect"
+ * import { dual, pipe } from "@local/eff"
  *
- * const sum = Function.dual<
+ * const sum = dual<
  *   (that: number) => (self: number) => number,
  *   (self: number, that: number) => number
  * >(2, (self, that) => self + that)
@@ -769,12 +772,12 @@ export const Mixin = <TBase extends new(...args: ReadonlyArray<any>) => any>(kla
  * **Example** (Defining overloads with call signatures)
  *
  * ```ts
- * import { Function, pipe } from "effect"
+ * import { dual, pipe } from "@local/eff"
  *
  * const sum: {
  *   (that: number): (self: number) => number
  *   (self: number, that: number): number
- * } = Function.dual(2, (self: number, that: number): number => self + that)
+ * } = dual(2, (self: number, that: number): number => self + that)
  *
  * sum(2, 3) // => 5
  * pipe(2, sum(3)) // => 5
@@ -783,9 +786,9 @@ export const Mixin = <TBase extends new(...args: ReadonlyArray<any>) => any>(kla
  * **Example** (Selecting data-first or data-last style with a predicate)
  *
  * ```ts
- * import { Function, pipe } from "effect"
+ * import { dual, pipe } from "@local/eff"
  *
- * const sum = Function.dual<
+ * const sum = dual<
  *   (that: number) => (self: number) => number,
  *   (self: number, that: number) => number
  * >(
@@ -819,9 +822,9 @@ export const dual: {
    * **Example** (Selecting data-first or data-last style by arity)
    *
    * ```ts
-   * import { Function, pipe } from "effect"
+   * import { dual, pipe } from "@local/eff"
    *
-   * const sum = Function.dual<
+   * const sum = dual<
    *   (that: number) => (self: number) => number,
    *   (self: number, that: number) => number
    * >(2, (self, that) => self + that)
@@ -833,12 +836,12 @@ export const dual: {
    * **Example** (Defining overloads with call signatures)
    *
    * ```ts
-   * import { Function, pipe } from "effect"
+   * import { dual, pipe } from "@local/eff"
    *
    * const sum: {
    *   (that: number): (self: number) => number
    *   (self: number, that: number): number
-   * } = Function.dual(2, (self: number, that: number): number => self + that)
+   * } = dual(2, (self: number, that: number): number => self + that)
    *
    * sum(2, 3) // => 5
    * pipe(2, sum(3)) // => 5
@@ -847,9 +850,9 @@ export const dual: {
    * **Example** (Selecting data-first or data-last style with a predicate)
    *
    * ```ts
-   * import { Function, pipe } from "effect"
+   * import { dual, pipe } from "@local/eff"
    *
-   * const sum = Function.dual<
+   * const sum = dual<
    *   (that: number) => (self: number) => number,
    *   (self: number, that: number) => number
    * >(
@@ -886,9 +889,9 @@ export const dual: {
    * **Example** (Selecting data-first or data-last style by arity)
    *
    * ```ts
-   * import { Function, pipe } from "effect"
+   * import { dual, pipe } from "@local/eff"
    *
-   * const sum = Function.dual<
+   * const sum = dual<
    *   (that: number) => (self: number) => number,
    *   (self: number, that: number) => number
    * >(2, (self, that) => self + that)
@@ -900,12 +903,12 @@ export const dual: {
    * **Example** (Defining overloads with call signatures)
    *
    * ```ts
-   * import { Function, pipe } from "effect"
+   * import { dual, pipe } from "@local/eff"
    *
    * const sum: {
    *   (that: number): (self: number) => number
    *   (self: number, that: number): number
-   * } = Function.dual(2, (self: number, that: number): number => self + that)
+   * } = dual(2, (self: number, that: number): number => self + that)
    *
    * sum(2, 3) // => 5
    * pipe(2, sum(3)) // => 5
@@ -914,9 +917,9 @@ export const dual: {
    * **Example** (Selecting data-first or data-last style with a predicate)
    *
    * ```ts
-   * import { Function, pipe } from "effect"
+   * import { dual, pipe } from "@local/eff"
    *
-   * const sum = Function.dual<
+   * const sum = dual<
    *   (that: number) => (self: number) => number,
    *   (self: number, that: number) => number
    * >(
@@ -997,9 +1000,11 @@ export const dual: {
  * **Example** (Applying an argument to a function)
  *
  * ```ts
- * import { Function, pipe, String } from "effect"
+ * import { apply, pipe } from "@local/eff"
  *
- * pipe(String.length, Function.apply("hello")) // => 5
+ * const length = (s: string) => s.length
+ *
+ * pipe(length, apply("hello")) // => 5
  * ```
  *
  * @see {@link pipe} for building left-to-right pipelines
@@ -1019,9 +1024,9 @@ export const apply = <A>(a: A) => <B>(self: (a: A) => B): B => self(a);
  * **Example** (Creating a lazy argument)
  *
  * ```ts
- * import { Function } from "effect"
+ * import { type LazyArg, constant } from "@local/eff"
  *
- * const constNull: Function.LazyArg<null> = Function.constant(null)
+ * const constNull: LazyArg<null> = constant(null)
  * constNull() // => null
  * ```
  *
@@ -1041,9 +1046,9 @@ export type LazyArg<A> = () => A;
  * **Example** (Typing a variadic function)
  *
  * ```ts
- * import type { Function } from "effect"
+ * import type { FunctionN } from "@local/eff"
  *
- * const sum: Function.FunctionN<[number, number], number> = (a, b) => a + b
+ * const sum: FunctionN<[number, number], number> = (a, b) => a + b
  * sum(2, 3) // => 5
  * ```
  *
@@ -1062,7 +1067,7 @@ export type FunctionN<A extends ReadonlyArray<unknown>, B> = (...args: A) => B;
  * **Example** (Returning the same value)
  *
  * ```ts
- * import { identity } from "effect"
+ * import { identity } from "@local/eff"
  *
  * identity(5) // => 5
  * ```
@@ -1084,12 +1089,12 @@ export const identity = <A>(a: A): A => a;
  * **Example** (Checking an expression against a type)
  *
  * ```ts
- * import { Function } from "effect"
+ * import { satisfies } from "@local/eff"
  *
- * const test1 = Function.satisfies<number>()(5 as const) // => 5
- * // ^? const test: 5
+ * const test1 = satisfies<number>()(5 as const) // => 5
+ * // ^? const test1: 5
  * // @ts-expect-error
- * const test2 = Function.satisfies<string>()(5)
+ * const test2 = satisfies<string>()(5)
  * // ^? Argument of type 'number' is not assignable to parameter of type 'string'
  * ```
  *
@@ -1131,9 +1136,9 @@ export const cast: <A, B>(a: A) => B = identity as any;
  * **Example** (Creating a constant thunk)
  *
  * ```ts
- * import { Function } from "effect"
+ * import { constant } from "@local/eff"
  *
- * const constNull = Function.constant(null)
+ * const constNull = constant(null)
  *
  * constNull() // => null
  * constNull() // => null
@@ -1154,9 +1159,9 @@ export const constant = <A>(value: A): LazyArg<A> => () => value;
  * **Example** (Returning true from a thunk)
  *
  * ```ts
- * import { Function } from "effect"
+ * import { constTrue } from "@local/eff"
  *
- * Function.constTrue() // => true
+ * constTrue() // => true
  * ```
  *
  * @category constants
@@ -1174,9 +1179,9 @@ export const constTrue: LazyArg<boolean> = constant(true);
  * **Example** (Returning false from a thunk)
  *
  * ```ts
- * import { Function } from "effect"
+ * import { constFalse } from "@local/eff"
  *
- * Function.constFalse() // => false
+ * constFalse() // => false
  * ```
  *
  * @category constants
@@ -1194,9 +1199,9 @@ export const constFalse: LazyArg<boolean> = constant(false);
  * **Example** (Returning null from a thunk)
  *
  * ```ts
- * import { Function } from "effect"
+ * import { constNull } from "@local/eff"
  *
- * Function.constNull() // => null
+ * constNull() // => null
  * ```
  *
  * @category constants
@@ -1214,9 +1219,9 @@ export const constNull: LazyArg<null> = constant(null);
  * **Example** (Returning undefined from a thunk)
  *
  * ```ts
- * import { Function } from "effect"
+ * import { constUndefined } from "@local/eff"
  *
- * Function.constUndefined() // => undefined
+ * constUndefined() // => undefined
  * ```
  *
  * @category constants
@@ -1235,9 +1240,9 @@ export const constUndefined: LazyArg<undefined> = constant(undefined);
  * **Example** (Returning void from a thunk)
  *
  * ```ts
- * import { Function } from "effect"
+ * import { constVoid } from "@local/eff"
  *
- * Function.constVoid() // => undefined
+ * constVoid() // => undefined
  * ```
  *
  * @category constants
@@ -1256,11 +1261,11 @@ export const constVoid: LazyArg<void> = constUndefined;
  * **Example** (Flipping curried arguments)
  *
  * ```ts
- * import { Function } from "effect"
+ * import { flip } from "@local/eff"
  *
  * const f = (a: number) => (b: string) => a - b.length
  *
- * Function.flip(f)("aaa")(2) // => -1
+ * flip(f)("aaa")(2) // => -1
  * ```
  *
  * @category combinators
@@ -1280,12 +1285,12 @@ export const flip = <A extends Array<unknown>, B extends Array<unknown>, C>(f: (
  * **Example** (Composing two functions)
  *
  * ```ts
- * import { Function } from "effect"
+ * import { compose } from "@local/eff"
  *
  * const increment = (n: number) => n + 1
  * const square = (n: number) => n * n
  *
- * Function.compose(increment, square)(2) // => 9
+ * compose(increment, square)(2) // => 9
  * ```
  *
  * @see {@link flow} for composing a left-to-right sequence of functions
@@ -1306,12 +1311,12 @@ export const compose: {
    * **Example** (Composing two functions)
    *
    * ```ts
-   * import { Function } from "effect"
+   * import { compose } from "@local/eff"
    *
    * const increment = (n: number) => n + 1
    * const square = (n: number) => n * n
    *
-   * Function.compose(increment, square)(2) // => 9
+   * compose(increment, square)(2) // => 9
    * ```
    *
    * @see {@link flow} for composing a left-to-right sequence of functions
@@ -1332,12 +1337,12 @@ export const compose: {
    * **Example** (Composing two functions)
    *
    * ```ts
-   * import { Function } from "effect"
+   * import { compose } from "@local/eff"
    *
    * const increment = (n: number) => n + 1
    * const square = (n: number) => n * n
    *
-   * Function.compose(increment, square)(2) // => 9
+   * compose(increment, square)(2) // => 9
    * ```
    *
    * @see {@link flow} for composing a left-to-right sequence of functions
@@ -1366,7 +1371,7 @@ export const compose: {
  * **Example** (Handling impossible values)
  *
  * ```ts
- * import { absurd } from "effect"
+ * import { absurd } from "@local/eff"
  *
  * const handleNever = (value: never) => {
  *   return absurd(value) // This will throw an error if called
@@ -1390,9 +1395,9 @@ export const absurd = <A>(_: never): A => {
  * **Example** (Converting arguments to a tuple)
  *
  * ```ts
- * import { Function } from "effect"
+ * import { tupled } from "@local/eff"
  *
- * const sumTupled = Function.tupled((x: number, y: number): number => x + y)
+ * const sumTupled = tupled((x: number, y: number): number => x + y)
  *
  * sumTupled([1, 2]) // => 3
  * ```
@@ -1414,9 +1419,9 @@ export const tupled = <A extends ReadonlyArray<unknown>, B>(f: (...a: A) => B): 
  * **Example** (Converting a tuple to arguments)
  *
  * ```ts
- * import { Function } from "effect"
+ * import { untupled } from "@local/eff"
  *
- * const getFirst = Function.untupled(<A, B>(tuple: [A, B]): A => tuple[0])
+ * const getFirst = untupled(<A, B>(tuple: [A, B]): A => tuple[0])
  *
  * getFirst(1, 2) // => 1
  * ```
@@ -1453,7 +1458,7 @@ export const untupled = <A extends ReadonlyArray<unknown>, B>(f: (a: A) => B): (
  * the input for the next function.
  *
  * ```ts
- * import { pipe } from "effect"
+ * import { pipe } from "@local/eff"
  *
  * pipe(
  *   1,
@@ -1465,10 +1470,10 @@ export const untupled = <A extends ReadonlyArray<unknown>, B>(f: (a: A) => B): (
  *
  * **Example** (Rewriting method chains with pipe)
  *
- * The same transformation can be written with data-last functions.
+ * The same transformation can be expressed as a `pipe` pipeline.
  *
  * ```ts
- * import { Array, pipe } from "effect"
+ * import { pipe } from "@local/eff"
  *
  * const numbers = [1, 2, 3, 4]
  * const double = (n: number) => n * 2
@@ -1476,8 +1481,8 @@ export const untupled = <A extends ReadonlyArray<unknown>, B>(f: (a: A) => B): (
  *
  * pipe(
  *   numbers,
- *   Array.map(double),
- *   Array.filter(greaterThanFour)
+ *   (self) => self.map(double),
+ *   (self) => self.filter(greaterThanFour)
  * ) // => [6, 8]
  * ```
  *
@@ -1910,7 +1915,7 @@ export function pipe(a: unknown, ...args: Array<any>): unknown {
  * **Example** (Composing functions left to right)
  *
  * ```ts
- * import { flow } from "effect"
+ * import { flow } from "@local/eff"
  *
  * const len = (s: string): number => s.length
  * const double = (n: number): number => n * 2
@@ -2066,7 +2071,7 @@ export function flow(
  * **Example** (Creating a development placeholder)
  *
  * ```ts
- * import { hole } from "effect"
+ * import { hole } from "@local/eff"
  *
  * // Intentionally not called: `hole` throws if the placeholder is evaluated.
  * const buildUser = (id: number): { readonly id: number; readonly name: string } => ({
@@ -2093,9 +2098,9 @@ export const hole: <T>() => T = cast(absurd);
  * **Example** (Discarding the first argument)
  *
  * ```ts
- * import { Function } from "effect"
+ * import { SK } from "@local/eff"
  *
- * Function.SK(0, "hello") // => "hello"
+ * SK(0, "hello") // => "hello"
  * ```
  *
  * @category combinators
@@ -2153,9 +2158,9 @@ export function memoize<A, O extends {} | null>(f: (a: A) => O): (a: A) => O {
  * **Example** (Negating a predicate)
  *
  * ```ts
- * import { Predicate } from "effect"
+ * import { isString, not } from "@local/eff"
  *
- * const isNotString = Predicate.not(Predicate.isString)
+ * const isNotString = not(isString)
  *
  * isNotString(1) // => true
  * ```
@@ -2177,7 +2182,7 @@ export function not<T>(predicate: (data: T) => boolean) {
  *
  * **When to use**
  *
- * Use when you want to combine `Predicate`s with AND, accepting values that
+ * Use when you want to combine predicates with AND, accepting values that
  * satisfy multiple conditions, including refinements that narrow to an
  * intersection.
  *
@@ -2189,11 +2194,11 @@ export function not<T>(predicate: (data: T) => boolean) {
  * **Example** (Checking both conditions)
  *
  * ```ts
- * import { Predicate } from "effect"
+ * import { and, hasProperty } from "@local/eff"
  *
- * const hasAAndB = Predicate.and(
- *   Predicate.hasProperty("a"),
- *   Predicate.hasProperty("b")
+ * const hasAAndB = and(
+ *   hasProperty("a"),
+ *   hasProperty("b")
  * )
  *
  * const input: unknown = JSON.parse(`{"a":1,"b":"ok"}`)
@@ -2225,7 +2230,7 @@ export const and: {
  *
  * **When to use**
  *
- * Use when you want to combine `Predicate`s with OR, accepting values that
+ * Use when you want to combine predicates with OR, accepting values that
  * satisfy at least one condition, including refinements that narrow to a union.
  *
  * **Details**
@@ -2236,9 +2241,9 @@ export const and: {
  * **Example** (Checking either condition)
  *
  * ```ts
- * import { Predicate } from "effect"
+ * import { isNumber, isString, or } from "@local/eff"
  *
- * const isStringOrNumber = Predicate.or(Predicate.isString, Predicate.isNumber)
+ * const isStringOrNumber = or(isString, isNumber)
  *
  * isStringOrNumber("a") // => true
  * ```
@@ -2262,7 +2267,7 @@ export const or: {
  *
  * **When to use**
  *
- * Use when you want to combine two `Predicate`s with exclusive-or semantics.
+ * Use when you want to combine two predicates with exclusive-or semantics.
  *
  * **Details**
  *
@@ -2276,11 +2281,11 @@ export const or: {
  * **Example** (Checking exclusive-or conditions)
  *
  * ```ts
- * import { Predicate } from "effect"
+ * import { xor } from "@local/eff"
  *
  * const isEven = (n: number) => n % 2 === 0
  * const isPositive = (n: number) => n > 0
- * const either = Predicate.xor(isEven, isPositive)
+ * const either = xor(isEven, isPositive)
  *
  * either(-2) // => true
  * ```
@@ -2300,7 +2305,7 @@ export const xor: {
  *
  * **When to use**
  *
- * Use when you want to check equivalence of two `Predicate`s.
+ * Use when you want to check equivalence of two predicates.
  *
  * **Details**
  *
@@ -2314,10 +2319,10 @@ export const xor: {
  * **Example** (Defining equivalence)
  *
  * ```ts
- * import { Predicate } from "effect"
+ * import { eqv } from "@local/eff"
  *
  * const isEven = (n: number) => n % 2 === 0
- * const same = Predicate.eqv(isEven, isEven)
+ * const same = eqv(isEven, isEven)
  *
  * same(3) // => true
  * ```
@@ -2336,7 +2341,7 @@ export const eqv: {
  *
  * **When to use**
  *
- * Use when you need to encode logical implication between `Predicate` rules,
+ * Use when you need to encode logical implication between predicate rules,
  * where one rule only applies when a precondition holds.
  *
  * **Details**
@@ -2347,13 +2352,13 @@ export const eqv: {
  * **Example** (Checking implication)
  *
  * ```ts
- * import { Predicate } from "effect"
+ * import { implies } from "@local/eff"
  *
  * const isAdult = (age: number) => age >= 18
  * const canVote = (age: number) => age >= 18
- * const implies = Predicate.implies(isAdult, canVote)
+ * const adultImpliesVote = implies(isAdult, canVote)
  *
- * implies(16) // => true
+ * adultImpliesVote(16) // => true
  * ```
  *
  * @see {@link and}
@@ -2374,7 +2379,7 @@ export const implies: {
  *
  * **When to use**
  *
- * Use when you want to combine two `Predicate`s with logical NOR semantics.
+ * Use when you want to combine two predicates with logical NOR semantics.
  *
  * **Details**
  *
@@ -2383,9 +2388,9 @@ export const implies: {
  * **Example** (Checking NOR conditions)
  *
  * ```ts
- * import { Predicate } from "effect"
+ * import { isNumber, isString, nor } from "@local/eff"
  *
- * const neither = Predicate.nor(Predicate.isString, Predicate.isNumber)
+ * const neither = nor(isString, isNumber)
  *
  * neither(true) // => true
  * ```
@@ -2405,7 +2410,7 @@ export const nor: {
  *
  * **When to use**
  *
- * Use when you want to combine two `Predicate`s with logical NAND semantics.
+ * Use when you want to combine two predicates with logical NAND semantics.
  *
  * **Details**
  *
@@ -2414,9 +2419,9 @@ export const nor: {
  * **Example** (Checking NAND conditions)
  *
  * ```ts
- * import { Predicate } from "effect"
+ * import { isNumber, isString, nand } from "@local/eff"
  *
- * const notBoth = Predicate.nand(Predicate.isString, Predicate.isNumber)
+ * const notBoth = nand(isString, isNumber)
  *
  * notBoth("a") // => true
  * ```
@@ -2446,9 +2451,9 @@ export const nand: {
  * **Example** (Checking all predicates)
  *
  * ```ts
- * import { Predicate } from "effect"
+ * import { every, isNumber } from "@local/eff"
  *
- * const allChecks = Predicate.every([Predicate.isNumber, (n: number) => n > 0])
+ * const allChecks = every([isNumber, (n: number) => n > 0])
  *
  * allChecks(2) // => true
  * ```
@@ -2484,9 +2489,9 @@ export function every<A>(collection: Iterable<(a: A) => boolean>): (a: A) => boo
  * **Example** (Checking any predicate)
  *
  * ```ts
- * import { Predicate } from "effect"
+ * import { isNumber, isString, some } from "@local/eff"
  *
- * const anyCheck = Predicate.some([Predicate.isString, Predicate.isNumber])
+ * const anyCheck = some([isString, isNumber])
  *
  * anyCheck("ok") // => true
  * ```
@@ -2512,7 +2517,7 @@ export function some<A>(collection: Iterable<(a: A) => boolean>): (a: A) => bool
  *
  * **When to use**
  *
- * Use when you need a `Predicate` guard to narrow an `unknown` value to a
+ * Use when you need a type guard to narrow an `unknown` value to a
  * string.
  *
  * **Details**
@@ -2522,18 +2527,17 @@ export function some<A>(collection: Iterable<(a: A) => boolean>): (a: A) => bool
  * **Example** (Guarding strings)
  *
  * ```ts
- * import { Predicate } from "effect"
+ * import { isString } from "@local/eff"
  *
  * const data: unknown = "hi"
  *
- * if (Predicate.isString(data)) {
+ * if (isString(data)) {
  *   data.toUpperCase() // => "HI"
  * }
  * ```
  *
  * @see {@link isNumber}
  * @see {@link isBoolean}
- * @see {@link Refinement}
  * @category guards
  * @since 2.0.0
  */
@@ -2546,7 +2550,7 @@ export function isString(input: unknown): input is string {
  *
  * **When to use**
  *
- * Use when you need a `Predicate` guard to narrow an `unknown` value to a
+ * Use when you need a type guard to narrow an `unknown` value to a
  * number.
  *
  * **Details**
@@ -2556,11 +2560,11 @@ export function isString(input: unknown): input is string {
  * **Example** (Guarding numbers)
  *
  * ```ts
- * import { Predicate } from "effect"
+ * import { isNumber } from "@local/eff"
  *
  * const data: unknown = 42
  *
- * if (Predicate.isNumber(data)) {
+ * if (isNumber(data)) {
  *   data + 1 // => 43
  * }
  * ```
@@ -2579,7 +2583,7 @@ export function isNumber(input: unknown): input is number {
  *
  * **When to use**
  *
- * Use when you need a `Predicate` guard to narrow an `unknown` value to a
+ * Use when you need a type guard to narrow an `unknown` value to a
  * boolean.
  *
  * **Details**
@@ -2589,11 +2593,11 @@ export function isNumber(input: unknown): input is number {
  * **Example** (Guarding booleans)
  *
  * ```ts
- * import { Predicate } from "effect"
+ * import { isBoolean } from "@local/eff"
  *
  * const data: unknown = true
  *
- * if (Predicate.isBoolean(data)) {
+ * if (isBoolean(data)) {
  *   data ? "yes" : "no" // => "yes"
  * }
  * ```
@@ -2612,7 +2616,7 @@ export function isBoolean(input: unknown): input is boolean {
  *
  * **When to use**
  *
- * Use when you need a `Predicate` guard to narrow an `unknown` value to a
+ * Use when you need a type guard to narrow an `unknown` value to a
  * bigint.
  *
  * **Details**
@@ -2622,11 +2626,11 @@ export function isBoolean(input: unknown): input is boolean {
  * **Example** (Guarding bigints)
  *
  * ```ts
- * import { Predicate } from "effect"
+ * import { isBigInt } from "@local/eff"
  *
  * const data: unknown = 1n
  *
- * if (Predicate.isBigInt(data)) {
+ * if (isBigInt(data)) {
  *   data + 2n // => 3n
  * }
  * ```
@@ -2644,7 +2648,7 @@ export function isBigInt(input: unknown): input is bigint {
  *
  * **When to use**
  *
- * Use when you need a `Predicate` guard to narrow an `unknown` value to a
+ * Use when you need a type guard to narrow an `unknown` value to a
  * symbol.
  *
  * **Details**
@@ -2654,11 +2658,11 @@ export function isBigInt(input: unknown): input is bigint {
  * **Example** (Guarding symbols)
  *
  * ```ts
- * import { Predicate } from "effect"
+ * import { isSymbol } from "@local/eff"
  *
  * const data: unknown = Symbol.for("id")
  *
- * if (Predicate.isSymbol(data)) {
+ * if (isSymbol(data)) {
  *   data.description // => "id"
  * }
  * ```
@@ -2676,7 +2680,7 @@ export function isSymbol(input: unknown): input is symbol {
  *
  * **When to use**
  *
- * Use when you need a `Predicate` guard for unknown property keys before
+ * Use when you need a type guard for unknown property keys before
  * indexing.
  *
  * **Details**
@@ -2686,12 +2690,12 @@ export function isSymbol(input: unknown): input is symbol {
  * **Example** (Guarding property keys)
  *
  * ```ts
- * import { Predicate } from "effect"
+ * import { isPropertyKey } from "@local/eff"
  *
  * const key: unknown = "name"
  * const obj: Record<PropertyKey, unknown> = { name: "Ada" }
  *
- * if (Predicate.isPropertyKey(key) && key in obj) {
+ * if (isPropertyKey(key) && key in obj) {
  *   obj[key] // => "Ada"
  * }
  * ```
@@ -2711,7 +2715,7 @@ export function isPropertyKey(u: unknown): u is PropertyKey {
  *
  * **When to use**
  *
- * Use when you need a `Predicate` guard to narrow an `unknown` value to a
+ * Use when you need a type guard to narrow an `unknown` value to a
  * callable function.
  *
  * **Details**
@@ -2721,11 +2725,11 @@ export function isPropertyKey(u: unknown): u is PropertyKey {
  * **Example** (Guarding functions)
  *
  * ```ts
- * import { Predicate } from "effect"
+ * import { isFunction } from "@local/eff"
  *
  * const data: unknown = () => 1
  *
- * if (Predicate.isFunction(data)) {
+ * if (isFunction(data)) {
  *   data() // => 1
  * }
  * ```
@@ -2754,10 +2758,10 @@ export function isFunction(input: unknown): input is Function {
  * **Example** (Filtering truthy values)
  *
  * ```ts
- * import { Predicate } from "effect"
+ * import { isTruthy } from "@local/eff"
  *
  * const values = [0, 1, "", "ok", false]
- * const truthy = values.filter(Predicate.isTruthy) // => [1, "ok"]
+ * const truthy = values.filter(isTruthy) // => [1, "ok"]
  * ```
  *
  * @see {@link isNullish}
@@ -2774,7 +2778,7 @@ export function isTruthy(input: unknown): boolean {
  *
  * **When to use**
  *
- * Use when you need a `Predicate` guard for values that are exactly
+ * Use when you need a type guard for values that are exactly
  * `undefined`.
  *
  * **Details**
@@ -2784,11 +2788,11 @@ export function isTruthy(input: unknown): boolean {
  * **Example** (Guarding undefined values)
  *
  * ```ts
- * import { Predicate } from "effect"
+ * import { isUndefined } from "@local/eff"
  *
  * const data: unknown = undefined
  *
- * Predicate.isUndefined(data) // => true
+ * isUndefined(data) // => true
  * ```
  *
  * @see {@link isNotUndefined}
@@ -2805,7 +2809,7 @@ export function isUndefined(input: unknown): input is undefined {
  *
  * **When to use**
  *
- * Use when you need a `Predicate` refinement that filters out `undefined`
+ * Use when you need a refinement that filters out `undefined`
  * while preserving other falsy values.
  *
  * **Details**
@@ -2815,10 +2819,10 @@ export function isUndefined(input: unknown): input is undefined {
  * **Example** (Filtering undefined values)
  *
  * ```ts
- * import { Predicate } from "effect"
+ * import { isNotUndefined } from "@local/eff"
  *
  * const values = [1, undefined, 2]
- * const defined = values.filter(Predicate.isNotUndefined) // => [1, 2]
+ * const defined = values.filter(isNotUndefined) // => [1, 2]
  * ```
  *
  * @see {@link isUndefined}
@@ -2835,7 +2839,7 @@ export function isNotUndefined<A>(input: A): input is Exclude<A, undefined> {
  *
  * **When to use**
  *
- * Use when you need a `Predicate` guard for nullable values.
+ * Use when you need a type guard for nullable values.
  *
  * **Details**
  *
@@ -2844,11 +2848,11 @@ export function isNotUndefined<A>(input: A): input is Exclude<A, undefined> {
  * **Example** (Guarding null values)
  *
  * ```ts
- * import { Predicate } from "effect"
+ * import { isNull } from "@local/eff"
  *
  * const data: unknown = null
  *
- * Predicate.isNull(data) // => true
+ * isNull(data) // => true
  * ```
  *
  * @see {@link isNotNull}
@@ -2865,7 +2869,7 @@ export function isNull(input: unknown): input is null {
  *
  * **When to use**
  *
- * Use when you need a `Predicate` refinement that filters out `null` while
+ * Use when you need a refinement that filters out `null` while
  * preserving other falsy values.
  *
  * **Details**
@@ -2875,10 +2879,10 @@ export function isNull(input: unknown): input is null {
  * **Example** (Filtering null values)
  *
  * ```ts
- * import { Predicate } from "effect"
+ * import { isNotNull } from "@local/eff"
  *
  * const values = [1, null, 2]
- * const nonNull = values.filter(Predicate.isNotNull) // => [1, 2]
+ * const nonNull = values.filter(isNotNull) // => [1, 2]
  * ```
  *
  * @see {@link isNull}
@@ -2895,7 +2899,7 @@ export function isNotNull<A>(input: A): input is Exclude<A, null> {
  *
  * **When to use**
  *
- * Use when you need a `Predicate` guard for nullish values.
+ * Use when you need a type guard for nullish values.
  *
  * **Details**
  *
@@ -2904,10 +2908,10 @@ export function isNotNull<A>(input: A): input is Exclude<A, null> {
  * **Example** (Guarding nullish values)
  *
  * ```ts
- * import { Predicate } from "effect"
+ * import { isNullish } from "@local/eff"
  *
  * const values = [0, null, "", undefined]
- * const nullish = values.filter(Predicate.isNullish) // => [null, undefined]
+ * const nullish = values.filter(isNullish) // => [null, undefined]
  * ```
  *
  * @see {@link isNotNullish}
@@ -2925,7 +2929,7 @@ export function isNullish<A>(input: A): input is A & (null | undefined) {
  *
  * **When to use**
  *
- * Use when you need a `Predicate` refinement that filters out nullish values
+ * Use when you need a refinement that filters out nullish values
  * but keeps other falsy ones.
  *
  * **Details**
@@ -2935,10 +2939,10 @@ export function isNullish<A>(input: A): input is A & (null | undefined) {
  * **Example** (Filtering non-nullish values)
  *
  * ```ts
- * import { Predicate } from "effect"
+ * import { isNotNullish } from "@local/eff"
  *
  * const values = [0, null, "", undefined]
- * const present = values.filter(Predicate.isNotNullish) // => [0, ""]
+ * const present = values.filter(isNotNullish) // => [0, ""]
  * ```
  *
  * @see {@link isNullish}
@@ -2956,14 +2960,14 @@ export function isNotNullish<A>(input: A): input is NonNullable<A> {
  *
  * **When to use**
  *
- * Use when you need a `Predicate` that never accepts, e.g. in default branches.
+ * Use when you need a type guard that never accepts, e.g. in default branches.
  *
  * **Example** (Matching no values)
  *
  * ```ts
- * import { Predicate } from "effect"
+ * import { isNever } from "@local/eff"
  *
- * Predicate.isNever("anything") // => false
+ * isNever("anything") // => false
  * ```
  *
  * @see {@link isUnknown}
@@ -2979,14 +2983,14 @@ export function isNever(_: unknown): _ is never {
  *
  * **When to use**
  *
- * Use when you need a `Predicate` that always accepts, e.g. as a placeholder.
+ * Use when you need a type guard that always accepts, e.g. as a placeholder.
  *
  * **Example** (Matching every value)
  *
  * ```ts
- * import { Predicate } from "effect"
+ * import { isUnknown } from "@local/eff"
  *
- * Predicate.isUnknown(123) // => true
+ * isUnknown(123) // => true
  * ```
  *
  * @see {@link isNever}
@@ -3016,7 +3020,7 @@ export function isArray(data: unknown): data is Array<unknown> {
  * **When to use**
  *
  * Use to narrow unknown input to a non-null, non-array object with a
- * `Predicate` guard.
+ * type guard.
  *
  * **Details**
  *
@@ -3027,14 +3031,13 @@ export function isArray(data: unknown): data is Array<unknown> {
  * **Example** (Guarding objects)
  *
  * ```ts
- * import { Predicate } from "effect"
+ * import { isObject } from "@local/eff"
  *
- * Predicate.isObject({ a: 1 }) // => true
- * Predicate.isObject([1, 2]) // => false
+ * isObject({ a: 1 }) // => true
+ * isObject([1, 2]) // => false
  * ```
  *
  * @see {@link isObjectOrArray}
- * @see {@link isReadonlyObject}
  * @category guards
  * @since 2.0.0
  */
@@ -3047,7 +3050,7 @@ export function isObject(input: unknown): input is { [x: PropertyKey]: unknown }
  *
  * **When to use**
  *
- * Use when you need a `Predicate` guard that accepts plain objects and arrays,
+ * Use when you need a type guard that accepts plain objects and arrays,
  * but not `null`.
  *
  * **Details**
@@ -3057,9 +3060,9 @@ export function isObject(input: unknown): input is { [x: PropertyKey]: unknown }
  * **Example** (Checking objects or arrays)
  *
  * ```ts
- * import { Predicate } from "effect"
+ * import { isObjectOrArray } from "@local/eff"
  *
- * Predicate.isObjectOrArray([]) // => true
+ * isObjectOrArray([]) // => true
  * ```
  *
  * @see {@link isObject}
@@ -3076,7 +3079,7 @@ export function isObjectOrArray(input: unknown): input is { [x: PropertyKey]: un
  *
  * **When to use**
  *
- * Use when you need a `Predicate` guard that accepts arrays and functions as
+ * Use when you need a type guard that accepts arrays and functions as
  * well as objects.
  *
  * **Details**
@@ -3086,10 +3089,10 @@ export function isObjectOrArray(input: unknown): input is { [x: PropertyKey]: un
  * **Example** (Checking object keywords)
  *
  * ```ts
- * import { Predicate } from "effect"
+ * import { isObjectKeyword } from "@local/eff"
  *
- * Predicate.isObjectKeyword(() => 1) // => true
- * Predicate.isObjectKeyword(null) // => false
+ * isObjectKeyword(() => 1) // => true
+ * isObjectKeyword(null) // => false
  * ```
  *
  * @see {@link isObject}
@@ -3106,7 +3109,7 @@ export function isObjectKeyword(input: unknown): input is object {
  *
  * **When to use**
  *
- * Use when you need a `Predicate` guard for property access on `unknown`
+ * Use when you need a type guard for property access on `unknown`
  * values with a simple structural object check.
  *
  * **Details**
@@ -3117,9 +3120,9 @@ export function isObjectKeyword(input: unknown): input is object {
  * **Example** (Guarding object properties)
  *
  * ```ts
- * import { Predicate } from "effect"
+ * import { hasProperty } from "@local/eff"
  *
- * const hasName = Predicate.hasProperty("name")
+ * const hasName = hasProperty("name")
  * const data: unknown = { name: "Ada" }
  *
  * if (hasName(data)) {
@@ -3127,7 +3130,6 @@ export function isObjectKeyword(input: unknown): input is object {
  * }
  * ```
  *
- * @see {@link isTagged}
  * @see {@link isObjectKeyword}
  * @category guards
  * @since 2.0.0
@@ -3145,7 +3147,7 @@ export const hasProperty: {
  *
  * **When to use**
  *
- * Use when you need a `Predicate` runtime guard for `Set` values.
+ * Use when you need a type guard for `Set` values.
  *
  * **Details**
  *
@@ -3154,11 +3156,11 @@ export const hasProperty: {
  * **Example** (Guarding a Set)
  *
  * ```ts
- * import { Predicate } from "effect"
+ * import { isSet } from "@local/eff"
  *
  * const data: unknown = new Set([1, 2])
  *
- * if (Predicate.isSet(data)) {
+ * if (isSet(data)) {
  *   data.size // => 2
  * }
  * ```
@@ -3177,7 +3179,7 @@ export function isSet(input: unknown): input is Set<unknown> {
  *
  * **When to use**
  *
- * Use when you need a `Predicate` runtime guard for `Map` values.
+ * Use when you need a type guard for `Map` values.
  *
  * **Details**
  *
@@ -3186,11 +3188,11 @@ export function isSet(input: unknown): input is Set<unknown> {
  * **Example** (Guarding a Map)
  *
  * ```ts
- * import { Predicate } from "effect"
+ * import { isMap } from "@local/eff"
  *
  * const data: unknown = new Map([["a", 1]])
  *
- * if (Predicate.isMap(data)) {
+ * if (isMap(data)) {
  *   data.size // => 1
  * }
  * ```
@@ -3209,7 +3211,7 @@ export function isMap(input: unknown): input is Map<unknown, unknown> {
  *
  * **When to use**
  *
- * Use when you need a `Predicate` runtime guard for dates.
+ * Use when you need a type guard for dates.
  *
  * **Details**
  *
@@ -3218,11 +3220,11 @@ export function isMap(input: unknown): input is Map<unknown, unknown> {
  * **Example** (Guarding Date values)
  *
  * ```ts
- * import { Predicate } from "effect"
+ * import { isDate } from "@local/eff"
  *
  * const data: unknown = new Date()
  *
- * Predicate.isDate(data) // => true
+ * isDate(data) // => true
  * ```
  *
  * @see {@link isRegExp}
@@ -3238,7 +3240,7 @@ export function isDate(input: unknown): input is Date {
  *
  * **When to use**
  *
- * Use when you need a `Predicate` guard for errors caught from unknown sources.
+ * Use when you need a type guard for errors caught from unknown sources.
  *
  * **Details**
  *
@@ -3247,11 +3249,11 @@ export function isDate(input: unknown): input is Date {
  * **Example** (Guarding errors)
  *
  * ```ts
- * import { Predicate } from "effect"
+ * import { isError } from "@local/eff"
  *
  * const data: unknown = new Error("boom")
  *
- * Predicate.isError(data) // => true
+ * isError(data) // => true
  * ```
  *
  * @see {@link isUnknown}
@@ -3267,7 +3269,7 @@ export function isError(input: unknown): input is Error {
  *
  * **When to use**
  *
- * Use when you need a `Predicate` runtime guard for regular expressions.
+ * Use when you need a type guard for regular expressions.
  *
  * **Details**
  *
@@ -3276,11 +3278,11 @@ export function isError(input: unknown): input is Error {
  * **Example** (Guarding RegExp values)
  *
  * ```ts
- * import { Predicate } from "effect"
+ * import { isRegExp } from "@local/eff"
  *
  * const data: unknown = /abc/
  *
- * Predicate.isRegExp(data) // => true
+ * isRegExp(data) // => true
  * ```
  *
  * @see {@link isDate}
@@ -3296,7 +3298,7 @@ export function isRegExp(input: unknown): input is RegExp {
  *
  * **When to use**
  *
- * Use when you need a `Predicate` runtime guard for binary data.
+ * Use when you need a type guard for binary data.
  *
  * **Details**
  *
@@ -3305,11 +3307,11 @@ export function isRegExp(input: unknown): input is RegExp {
  * **Example** (Guarding Uint8Array values)
  *
  * ```ts
- * import { Predicate } from "effect"
+ * import { isUint8Array } from "@local/eff"
  *
  * const data: unknown = new Uint8Array([1, 2])
  *
- * Predicate.isUint8Array(data) // => true
+ * isUint8Array(data) // => true
  * ```
  *
  * @see {@link isIterable}
@@ -3326,7 +3328,7 @@ export function isUint8Array(input: unknown): input is Uint8Array {
  *
  * **When to use**
  *
- * Use when you need a `Predicate` guard before iterating an unknown value.
+ * Use when you need a type guard before iterating an unknown value.
  *
  * **Details**
  *
@@ -3335,11 +3337,11 @@ export function isUint8Array(input: unknown): input is Uint8Array {
  * **Example** (Guarding iterables)
  *
  * ```ts
- * import { Predicate } from "effect"
+ * import { isIterable } from "@local/eff"
  *
  * const data: unknown = [1, 2, 3]
  *
- * Predicate.isIterable(data) // => true
+ * isIterable(data) // => true
  * ```
  *
  * @see {@link isSet}
@@ -3356,7 +3358,7 @@ export function isIterable(input: unknown): input is Iterable<unknown> {
  *
  * **When to use**
  *
- * Use when you need a `Predicate` guard for promise instances across realms.
+ * Use when you need a type guard for promise instances across realms.
  *
  * **Details**
  *
@@ -3365,11 +3367,11 @@ export function isIterable(input: unknown): input is Iterable<unknown> {
  * **Example** (Guarding promises)
  *
  * ```ts
- * import { Predicate } from "effect"
+ * import { isPromise } from "@local/eff"
  *
  * const data: unknown = Promise.resolve(1)
  *
- * Predicate.isPromise(data) // => true
+ * isPromise(data) // => true
  * ```
  *
  * @see {@link isPromiseLike}
@@ -3385,7 +3387,7 @@ export function isPromise(input: unknown): input is Promise<unknown> {
  *
  * **When to use**
  *
- * Use when you need a `Predicate` guard for promise-like values with a
+ * Use when you need a type guard for promise-like values with a
  * callable `then` method.
  *
  * **Details**
@@ -3395,11 +3397,11 @@ export function isPromise(input: unknown): input is Promise<unknown> {
  * **Example** (Guarding promise-like values)
  *
  * ```ts
- * import { Predicate } from "effect"
+ * import { isPromiseLike } from "@local/eff"
  *
  * const data: unknown = { then: () => {} }
  *
- * Predicate.isPromiseLike(data) // => true
+ * isPromiseLike(data) // => true
  * ```
  *
  * @see {@link isPromise}
@@ -3471,13 +3473,12 @@ export function getOrInsertComputed<K extends WeakKey, V>(map: WeakMap<K, V>, ke
  * **Example** (Dropping while condition holds)
  *
  * ```ts
- * import { Array } from "effect"
+ * import { dropWhile } from "@local/eff"
  *
- * Array.dropWhile([1, 2, 3, 4, 5], (x) => x < 4) // => [4, 5]
+ * dropWhile([1, 2, 3, 4, 5], (x) => x < 4) // => [4, 5]
  * ```
  *
  * @see {@link takeWhile} — keep the matching prefix instead
- * @see {@link drop} — drop a fixed count
  *
  * @category getters
  * @since 2.0.0
@@ -3510,14 +3511,12 @@ export const dropWhile: {
  * **Example** (Taking while condition holds)
  *
  * ```ts
- * import { Array } from "effect"
+ * import { takeWhile } from "@local/eff"
  *
- * Array.takeWhile([1, 3, 2, 4, 1, 2], (x) => x < 4) // => [1, 3, 2]
+ * takeWhile([1, 3, 2, 4, 1, 2], (x) => x < 4) // => [1, 3, 2]
  * ```
  *
- * @see {@link take} for keeping a fixed number of leading elements
  * @see {@link dropWhile} for removing the matching prefix and keeping the rest
- * @see {@link span} for splitting the matching prefix from the remaining elements
  *
  * @category getters
  * @since 2.0.0
