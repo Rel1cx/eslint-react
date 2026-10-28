@@ -50,6 +50,7 @@ export const rules = {
   "@eslint-react/set-state-in-effect": "warn",
   "@eslint-react/set-state-in-render": "error",
   "@eslint-react/static-components": "error",
+  "@eslint-react/unstable-exhaustive-deps": "warn",
   "@eslint-react/unsupported-syntax": "error",
   "@eslint-react/use-memo": "error",
   "@eslint-react/use-state": "warn",
