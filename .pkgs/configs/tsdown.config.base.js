@@ -1,7 +1,7 @@
 export function buildConfig(cwd) {
     return {
-        clean: true,
         cwd,
+        entry: ["src/index.ts"],
         deps: {
             alwaysBundle: [
                 "@local/eff",
@@ -11,12 +11,14 @@ export function buildConfig(cwd) {
                 "typescript",
             ],
         },
-        dts: true,
-        entry: ["src/index.ts"],
+        clean: true,
+        outDir: "dist",
         fixedExtension: false,
         format: ["esm"],
+        platform: "node",
+        target: "node20",
+        dts: true,
         minify: "dce-only",
-        outDir: "dist",
         outputOptions: {
             comments: {
                 annotation: true,
@@ -24,9 +26,7 @@ export function buildConfig(cwd) {
                 legal: true,
             },
         },
-        platform: "node",
         sourcemap: false,
-        target: "node20",
         treeshake: true,
     };
 }

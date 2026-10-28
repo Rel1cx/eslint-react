@@ -1,16 +1,18 @@
 export declare function buildConfig(cwd: string): {
-    readonly clean: true;
     readonly cwd: string;
+    readonly entry: ["src/index.ts"];
     readonly deps: {
         readonly alwaysBundle: ["@local/eff"];
         readonly neverBundle: ["eslint", "typescript"];
     };
-    readonly dts: true;
-    readonly entry: ["src/index.ts"];
+    readonly clean: true;
+    readonly outDir: "dist";
     readonly fixedExtension: false;
     readonly format: ["esm"];
+    readonly platform: "node";
+    readonly target: "node20";
+    readonly dts: true;
     readonly minify: "dce-only";
-    readonly outDir: "dist";
     readonly outputOptions: {
         readonly comments: {
             readonly annotation: true;
@@ -18,8 +20,6 @@ export declare function buildConfig(cwd: string): {
             readonly legal: true;
         };
     };
-    readonly platform: "node";
     readonly sourcemap: false;
-    readonly target: "node20";
     readonly treeshake: true;
 };

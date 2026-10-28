@@ -3,17 +3,22 @@
     "@tsconfig/strictest/tsconfig.json"
   ],
   "compilerOptions": {
-    "noEmit": true,
     "module": "ESNext",
     "moduleResolution": "bundler",
-    "skipLibCheck": true,
     "moduleDetection": "force",
+    "resolveJsonModule": true,
+
     "isolatedModules": true,
     "verbatimModuleSyntax": true,
-    "resolveJsonModule": true,
+
     "allowJs": false,
     "checkJs": false,
+
+    "noEmit": true,
     "erasableSyntaxOnly": true,
+
+    "skipLibCheck": true,
+
     "types": [
       "tsl/patches"
     ],

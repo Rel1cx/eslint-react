@@ -2,8 +2,9 @@ import type { UserConfig } from "tsdown";
 
 export function buildConfig(cwd: string) {
   return {
-    clean: true,
     cwd,
+    entry: ["src/index.ts"],
+
     deps: {
       alwaysBundle: [
         "@local/eff",
@@ -13,12 +14,17 @@ export function buildConfig(cwd: string) {
         "typescript",
       ],
     },
-    dts: true,
-    entry: ["src/index.ts"],
+
+    clean: true,
+    outDir: "dist",
+
     fixedExtension: false,
     format: ["esm"],
+    platform: "node",
+    target: "node20",
+
+    dts: true,
     minify: "dce-only",
-    outDir: "dist",
     outputOptions: {
       comments: {
         annotation: true,
@@ -26,9 +32,7 @@ export function buildConfig(cwd: string) {
         legal: true,
       },
     },
-    platform: "node",
     sourcemap: false,
-    target: "node20",
     treeshake: true,
   } as const satisfies UserConfig;
 }

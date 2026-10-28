@@ -40,7 +40,7 @@
     "@local/configs": "workspace:*",
     "@tsconfig/node20": "^20.1.10",
     "@types/node": "^20.19.43",
-    "tsdown": "^0.23.2"
+    "tsdown": "^0.23.3"
   },
   "engines": {
     "node": ">=20.19.0"
