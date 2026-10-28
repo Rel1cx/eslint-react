@@ -16,6 +16,7 @@ import { DOMAIN_METAS, DOMAIN_META_BY_KEY, EXCLUDED_VERIFY_DOMAINS, PLUGIN_DOMAI
 import { glob, isRuleEntryFile } from "./01-helpers";
 
 import * as allConfig from "#/plugins/eslint-plugin/src/configs/all";
+import * as allTypeCheckedConfig from "#/plugins/eslint-plugin/src/configs/all-type-checked";
 import * as disableExperimentalConfig from "#/plugins/eslint-plugin/src/configs/disable-experimental";
 import * as disableTypeCheckedConfig from "#/plugins/eslint-plugin/src/configs/disable-type-checked";
 import * as domConfig from "#/plugins/eslint-plugin/src/configs/dom";
@@ -220,6 +221,8 @@ const checkConfigs = Effect.gen(function*() {
   yield* Effect.log(ansis.bold("2. Checking config keys reference valid rules..."));
   const allKeyErrors = yield* checkConfigKeysValid(rules, "all", allConfig.rules);
   yield* logErrors(allKeyErrors);
+  const allTypeCheckedKeyErrors = yield* checkConfigKeysValid(rules, "all-type-checked", allTypeCheckedConfig.rules);
+  yield* logErrors(allTypeCheckedKeyErrors);
   const recommendedKeyErrors = yield* checkConfigKeysValid(rules, "recommended", recommendedConfig.rules);
   yield* logErrors(recommendedKeyErrors);
   const strictKeyErrors = yield* checkConfigKeysValid(rules, "strict", strictConfig.rules);
@@ -235,6 +238,15 @@ const checkConfigs = Effect.gen(function*() {
   yield* logErrors(recStrictErrors);
   const strictAllErrors = yield* checkHierarchy("strict", strictConfig.rules, "all", allConfig.rules);
   yield* logErrors(strictAllErrors);
+  const allTypeCheckedErrors = yield* checkHierarchy("all", allConfig.rules, "all-type-checked", allTypeCheckedConfig.rules);
+  yield* logErrors(allTypeCheckedErrors);
+  const allTypeCheckedTypeErrors = yield* checkHierarchy(
+    "disable-type-checked",
+    disableTypeCheckedConfig.rules,
+    "all-type-checked",
+    allTypeCheckedConfig.rules,
+  );
+  yield* logErrors(allTypeCheckedTypeErrors);
 
   yield* Effect.log("");
   const domainErrors = yield* checkDomainConfigCompleteness(rules);
@@ -243,12 +255,15 @@ const checkConfigs = Effect.gen(function*() {
   const totalErrors = Chunk.empty<CheckError>().pipe(
     Chunk.appendAll(accountedErrors),
     Chunk.appendAll(allKeyErrors),
+    Chunk.appendAll(allTypeCheckedKeyErrors),
     Chunk.appendAll(recommendedKeyErrors),
     Chunk.appendAll(strictKeyErrors),
     Chunk.appendAll(experimentalKeyErrors),
     Chunk.appendAll(typeCheckedKeyErrors),
     Chunk.appendAll(recStrictErrors),
     Chunk.appendAll(strictAllErrors),
+    Chunk.appendAll(allTypeCheckedErrors),
+    Chunk.appendAll(allTypeCheckedTypeErrors),
     Chunk.appendAll(domainErrors),
   );
 
