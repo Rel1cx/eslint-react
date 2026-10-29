@@ -3,7 +3,7 @@
 import { ruleTester, verifyAndFix } from "@local/testkit";
 import tsx from "dedent";
 import { describe, expect, it } from "vitest";
-import rule, { RULE_NAME } from "./unstable-exhaustive-deps";
+import rule, { RULE_NAME } from "./exhaustive-deps";
 
 ruleTester.run(RULE_NAME, rule, {
   invalid: [

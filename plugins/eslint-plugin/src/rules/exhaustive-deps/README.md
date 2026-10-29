@@ -1,18 +1,18 @@
-# `unstable-exhaustive-deps`
+# `exhaustive-deps`
 
 Verifies the list of dependencies for Hooks like `useEffect` and similar, with support for custom Hooks and stable Hook results.
 
 ## Forked from `exhaustive-deps`
 
-**THIS RULE IS A FORK OF** [`exhaustive-deps`](../exhaustive-deps/exhaustive-deps.ts), which is ported from [`eslint-plugin-react-hooks`](https://github.com/react/react/blob/main/packages/eslint-plugin-react-hooks/src/rules/ExhaustiveDeps.ts).
+**THIS RULE IS A FORK OF** [`exhaustive-deps`](../../../eslint-plugin-react-x/src/rules/exhaustive-deps/exhaustive-deps.ts) in `eslint-plugin-react-x`, which is ported from [`eslint-plugin-react-hooks`](https://github.com/react/react/blob/main/packages/eslint-plugin-react-hooks/src/rules/ExhaustiveDeps.ts).
 
 Unlike the base rule, this rule is maintained locally as an experimental fork. The `hooks` option and related behavior live here. Keep the shared rule logic in sync with `exhaustive-deps`; changes that belong to the original implementation should be made upstream in the React repository and re-ported.
 
-See [`unstable-exhaustive-deps.mdx`](./unstable-exhaustive-deps.mdx) for usage and options.
+See [`exhaustive-deps.mdx`](./exhaustive-deps.mdx) for usage and options.
 
 ### Source
 
-- **Forked From**: [`../exhaustive-deps/exhaustive-deps.ts`](../exhaustive-deps/exhaustive-deps.ts) (see its [README](../exhaustive-deps/README.md))
+- **Forked From**: [`../../../eslint-plugin-react-x/src/rules/exhaustive-deps/exhaustive-deps.ts`](../../../eslint-plugin-react-x/src/rules/exhaustive-deps/exhaustive-deps.ts) (see its [README](../../../eslint-plugin-react-x/src/rules/exhaustive-deps/README.md))
 - **Original Source**: [https://github.com/react/react/blob/main/packages/eslint-plugin-react-hooks/src/rules/ExhaustiveDeps.ts](https://github.com/react/react/blob/main/packages/eslint-plugin-react-hooks/src/rules/ExhaustiveDeps.ts)
 - **License**: MIT License (Copyright (c) Meta Platforms, Inc. and affiliates.)
 

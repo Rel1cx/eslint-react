@@ -1399,9 +1399,24 @@ importers:
 
   plugins/eslint-plugin:
     dependencies:
+      '@eslint-react/ast':
+        specifier: workspace:*
+        version: link:../../packages/ast
+      '@eslint-react/eslint':
+        specifier: workspace:*
+        version: link:../../packages/eslint
       '@eslint-react/shared':
         specifier: workspace:*
         version: link:../../packages/shared
+      '@typescript-eslint/scope-manager':
+        specifier: ^8.72.1
+        version: 8.72.1
+      '@typescript-eslint/types':
+        specifier: ^8.72.1
+        version: 8.72.1
+      '@typescript-eslint/utils':
+        specifier: ^8.72.1
+        version: 8.72.1(eslint@10.13.0(jiti@2.7.0)(supports-color@9.4.0))(supports-color@9.4.0)(typescript@6.0.3)
       eslint-plugin-react-dom:
         specifier: workspace:*
         version: link:../eslint-plugin-react-dom
@@ -1424,6 +1439,9 @@ importers:
       '@local/configs':
         specifier: workspace:*
         version: link:../../.pkgs/configs
+      '@local/testkit':
+        specifier: workspace:*
+        version: link:../../.pkgs/testkit
       '@tsconfig/node20':
         specifier: ^20.1.10
         version: 20.1.10
@@ -1442,6 +1460,9 @@ importers:
       eslint:
         specifier: ^10.13.0
         version: 10.13.0(jiti@2.7.0)(supports-color@9.4.0)
+      tinyglobby:
+        specifier: ^0.2.17
+        version: 0.2.17
       tsdown:
         specifier: ^0.23.3
         version: 0.23.3(publint@0.3.25)(tsx@4.23.15)(typescript@6.0.3)

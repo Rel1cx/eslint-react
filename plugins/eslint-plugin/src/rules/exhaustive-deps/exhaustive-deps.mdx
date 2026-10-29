@@ -4,14 +4,8 @@ description: Verifies the list of dependencies for Hooks like `useEffect` and si
 ---
 
 <Callout type="warn">
-  This rule is experimental and may change in the future or be removed. Its options may not be compatible with a future upstream solution in `eslint-plugin-react-hooks`.
+  This rule is unstable and may change in the future or be removed. Its options may not be compatible with a future upstream solution in `eslint-plugin-react-hooks`.
 </Callout>
-
-**Full Name in [`eslint-plugin-react-x`](https://npmx.dev/package/eslint-plugin-react-x/v/latest)**
-
-```plain copy
-react-x/unstable-exhaustive-deps
-```
 
 **Full Name in [`@eslint-react/eslint-plugin`](https://npmx.dev/package/@eslint-react/eslint-plugin/v/latest)**
 
@@ -40,7 +34,7 @@ The `hooks` option is based on the [`hooks` option](https://biomejs.dev/linter/r
 
 ```json
 {
-  "react-x/unstable-exhaustive-deps": ["warn", {
+  "@eslint-react/unstable-exhaustive-deps": ["warn", {
     "hooks": [
       { "name": "useCustomEffect", "closureIndex": 0, "dependenciesIndex": 1 },
       { "name": "useQuery", "closureIndex": 2, "dependenciesIndex": 1 }
@@ -75,7 +69,7 @@ function MyComponent({ userId }) {
 
 ```json
 {
-  "react-x/unstable-exhaustive-deps": ["warn", {
+  "@eslint-react/unstable-exhaustive-deps": ["warn", {
     "hooks": [
       { "name": "useDispatch", "stableResult": true },
       { "name": "useRecoilState", "stableResult": [1] }
@@ -167,9 +161,9 @@ Like `exhaustive-deps`, this rule reads custom effect Hooks from the `additional
 
 ## Resources
 
-- [Rule Source](https://github.com/Rel1cx/eslint-react/tree/main/plugins/eslint-plugin-react-x/src/rules/unstable-exhaustive-deps/unstable-exhaustive-deps.ts)
-- [Test Source](https://github.com/Rel1cx/eslint-react/tree/main/plugins/eslint-plugin-react-x/src/rules/unstable-exhaustive-deps/unstable-exhaustive-deps.spec.ts)
-- [Rule Changelog](https://github.com/Rel1cx/eslint-react/tree/main/plugins/eslint-plugin-react-x/src/rules/unstable-exhaustive-deps/CHANGELOG.md)
+- [Rule Source](https://github.com/Rel1cx/eslint-react/tree/main/plugins/eslint-plugin/src/rules/exhaustive-deps/exhaustive-deps.ts)
+- [Test Source](https://github.com/Rel1cx/eslint-react/tree/main/plugins/eslint-plugin/src/rules/exhaustive-deps/exhaustive-deps.spec.ts)
+- [Rule Changelog](https://github.com/Rel1cx/eslint-react/tree/main/plugins/eslint-plugin/src/rules/exhaustive-deps/CHANGELOG.md)
 
 ## Further Reading
 

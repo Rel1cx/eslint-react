@@ -1,9 +1,15 @@
 # Changelog
 
-All notable changes to the `react-x/unstable-exhaustive-deps` rule will be documented in this file.
+All notable changes to the `@eslint-react/unstable-exhaustive-deps` rule will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+
+## [Unreleased]
+
+### Changed
+
+- Moved the rule out of `eslint-plugin-react-x` (`react-x/unstable-exhaustive-deps`) into `@eslint-react/eslint-plugin`'s own `src/rules`, the home for unstable rules under active development; its name in the unified plugin remains `@eslint-react/unstable-exhaustive-deps`.
 
 ## [5.30.0-beta.13] - 2026-10-28
 

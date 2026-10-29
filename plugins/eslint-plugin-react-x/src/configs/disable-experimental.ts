@@ -15,5 +15,4 @@ export const rules: Linter.RulesRecord = {
   "react-x/refs": "off",
   "react-x/set-state-in-render": "off",
   "react-x/static-components": "off",
-  "react-x/unstable-exhaustive-deps": "off",
 };

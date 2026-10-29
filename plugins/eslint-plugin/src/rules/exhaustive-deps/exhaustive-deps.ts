@@ -1,6 +1,6 @@
 // @ts-nocheck
 // -----------------------------------------------------------------------------
-// THIS FILE IS FORKED FROM `../exhaustive-deps/exhaustive-deps.ts`, which is
+// THIS FILE IS FORKED FROM `../../../eslint-plugin-react-x/src/rules/exhaustive-deps/exhaustive-deps.ts`, which is
 // ported from eslint-plugin-react-hooks
 // Source: https://github.com/react/react/blob/main/packages/eslint-plugin-react-hooks/src/rules/ExhaustiveDeps.ts
 // Keep the rule logic in sync with `exhaustive-deps` when it is re-ported.
@@ -41,7 +41,7 @@ type PrivateIdentifier = TSESTree.PrivateIdentifier;
 type Super = TSESTree.Super;
 type VariableDeclarator = TSESTree.VariableDeclarator;
 
-export const RULE_NAME = "unstable-exhaustive-deps";
+export const RULE_NAME = "exhaustive-deps";
 
 export const RULE_FEATURES = [
   "CFG",
