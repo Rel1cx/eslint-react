@@ -2,11 +2,19 @@
 title: Changelog
 ---
 
-## Unreleased
+## v5.30.0-beta.14 (2026-10-29)
+
+### 📝 Documentation
+
+- Updated the contributing guide's monorepo architecture diagram and package and example listings.
 
 ### 🏗️ Internal
 
-- The experimental `unstable-exhaustive-deps` rule (introduced earlier in the v5.30.0 beta cycle and never part of a stable release) moved from `eslint-plugin-react-x` (`react-x/unstable-exhaustive-deps`) into `@eslint-react/eslint-plugin`'s own `src/rules`, the new home for unstable rules that are under active development. It was also removed from the `all` and `disable-experimental` presets while incubating; it can still be enabled manually as `@eslint-react/unstable-exhaustive-deps`.
+- The experimental `unstable-exhaustive-deps` rule (introduced earlier in the v5.30.0 beta cycle and never part of a stable release) moved from `eslint-plugin-react-x` (`react-x/unstable-exhaustive-deps`) into `@eslint-react/eslint-plugin`'s own `src/rules`, the new home for unstable rules that are under active development. It was also removed from the `all` and `disable-experimental` presets while incubating; it can still be enabled manually as `@eslint-react/unstable-exhaustive-deps`. (#2097)
+- Refactored the rule scaffolding script and unified website-update constants. (#2096)
+- Refactored the publish workflow trigger, pinned zizmor through its official action, and refreshed the GitHub templates and security policy.
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.30.0-beta.13...v5.30.0-beta.14
 
 ## v5.30.0-beta.13 (2026-10-28)
 
