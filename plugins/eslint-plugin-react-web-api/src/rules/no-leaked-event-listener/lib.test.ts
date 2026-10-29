@@ -9,7 +9,7 @@ describe("getSignalValueExpression", () => {
     const code = "const signal = controller.signal; useSignal(signal);";
     const fact = runInRule(code, (context, ast) => {
       const ref = findIdentifierReferences(ast, "signal").at(-1)!;
-      return getSignalValueExpression(context, ref);
+      return getSignalValueExpression({ context, node: ref });
     });
     expect(fact?.type).toBe(AST.MemberExpression);
   });
@@ -18,7 +18,7 @@ describe("getSignalValueExpression", () => {
     const code = "const s = controller.signal; const signal = s; useSignal(signal);";
     const fact = runInRule(code, (context, ast) => {
       const ref = findIdentifierReferences(ast, "signal").at(-1)!;
-      return getSignalValueExpression(context, ref);
+      return getSignalValueExpression({ context, node: ref });
     });
     expect(fact?.type).toBe(AST.MemberExpression);
   });
@@ -27,7 +27,7 @@ describe("getSignalValueExpression", () => {
     const code = "const a = b; const b = a; const signal = a; useSignal(signal);";
     const fact = runInRule(code, (context, ast) => {
       const ref = findIdentifierReferences(ast, "signal").at(-1)!;
-      return getSignalValueExpression(context, ref);
+      return getSignalValueExpression({ context, node: ref });
     });
     expect(fact).toBeNull();
   });
@@ -36,7 +36,7 @@ describe("getSignalValueExpression", () => {
     const code = "const a = a; useSignal(a);";
     const fact = runInRule(code, (context, ast) => {
       const ref = findIdentifierReferences(ast, "a").at(-1)!;
-      return getSignalValueExpression(context, ref);
+      return getSignalValueExpression({ context, node: ref });
     });
     expect(fact).toBeNull();
   });
@@ -45,7 +45,7 @@ describe("getSignalValueExpression", () => {
     const code = "const a = b as any; const b = a; useSignal(a);";
     const fact = runInRule(code, (context, ast) => {
       const ref = findIdentifierReferences(ast, "a").at(-1)!;
-      return getSignalValueExpression(context, ref);
+      return getSignalValueExpression({ context, node: ref });
     });
     expect(fact).toBeNull();
   });

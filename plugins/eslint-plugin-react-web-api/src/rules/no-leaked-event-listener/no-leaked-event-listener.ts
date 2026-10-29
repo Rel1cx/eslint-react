@@ -5,7 +5,17 @@ import { isInitializedFromReactNative } from "@eslint-react/var";
 import { getOrInsertComputed } from "@local/eff";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import { match } from "ts-pattern";
-import { type EventEntry, type EventMethodKind, getCallKind, getEffectContext, getListenerArguments, isInverseEntry, resolveCleanupCallee } from "./lib";
+import {
+  type CleanupCalleeEntries,
+  type CleanupCallees,
+  type EventEntry,
+  type EventMethodKind,
+  getCallKind,
+  getEffectContext,
+  getListenerArguments,
+  isInverseEntry,
+  resolveCleanupCallee,
+} from "./lib";
 
 // #region Rule Metadata
 
@@ -48,7 +58,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   }
   const aEntries: EventEntry[] = [];
   const rEntries: EventEntry[] = [];
-  const cEntries = new Map<TSESTree.Node, [Set<TSESTree.Node>, Set<string>]>();
+  const cEntries: CleanupCalleeEntries = new Map();
   function reportInlineListener(listener: TSESTree.CallExpressionArgument | undefined, callKind: EventMethodKind, signal: TSESTree.Node | null) {
     if (signal != null || !Check.isFunction(listener)) {
       return;
@@ -76,7 +86,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
           if (isFromReactNative) {
             return;
           }
-          const args = getListenerArguments(context, node);
+          const args = getListenerArguments({ context, node });
           if (args == null) {
             return;
           }
@@ -97,7 +107,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
           });
         })
         .with("removeEventListener", (callKind) => {
-          const args = getListenerArguments(context, node);
+          const args = getListenerArguments({ context, node });
           if (args == null) {
             return;
           }
@@ -116,11 +126,15 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
           if (phase !== "cleanup" || effect == null) {
             return;
           }
-          const cleanupCallee = resolveCleanupCallee(context, node);
+          const cleanupCallee = resolveCleanupCallee({ context, node });
           if (cleanupCallee == null) {
             return;
           }
-          const [functions, names] = getOrInsertComputed(cEntries, effect, (): [Set<TSESTree.Node>, Set<string>] => [new Set(), new Set()]);
+          const { functions, names } = getOrInsertComputed(
+            cEntries,
+            effect,
+            (): CleanupCallees => ({ functions: new Set(), names: new Set() }),
+          );
           if (cleanupCallee.kind === "function") {
             functions.add(cleanupCallee.node);
           } else {
@@ -131,7 +145,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
     },
     ["Program:exit"]() {
       for (const aEntry of aEntries) {
-        if (rEntries.some((rEntry) => isInverseEntry(context, aEntry, rEntry, cEntries))) {
+        if (rEntries.some((rEntry) => isInverseEntry({ context, addEntry: aEntry, removeEntry: rEntry, cleanupCalleeEntries: cEntries }))) {
           continue;
         }
         const effect = aEntry.effect;

@@ -29,6 +29,33 @@ export type ListenerOptions = {
   signal: TSESTree.Node | null;
 };
 
+export type ListenerArguments = {
+  type: TSESTree.CallExpressionArgument;
+  listener: TSESTree.CallExpressionArgument;
+  options: ListenerOptions;
+};
+
+export type EffectContext = {
+  effect: TSESTree.Node | null;
+  phase: EventPhase;
+};
+
+export type CleanupCallee =
+  | { kind: "function"; node: TSESTree.Node }
+  | { kind: "name"; name: string };
+
+export type CleanupCallees = {
+  functions: Set<TSESTree.Node>;
+  names: Set<string>;
+};
+
+export type CleanupCalleeEntries = Map<TSESTree.Node, CleanupCallees>;
+
+type RuleNodeParams<Node extends TSESTree.Node> = {
+  context: RuleContext;
+  node: Node;
+};
+
 // #endregion
 
 // #region Effect Context
@@ -40,7 +67,7 @@ const isUseEffectCallback = or(isUseEffectSetupCallback, isUseEffectCleanupCallb
  * @param node The node to inspect.
  * @returns The phase and effect call node, or null when the node is not inside an effect callback.
  */
-export function getEffectContext(node: TSESTree.CallExpression): { effect: TSESTree.Node | null; phase: EventPhase } | null {
+export function getEffectContext(node: TSESTree.CallExpression): EffectContext | null {
   const fn = Traverse.findParent(node, isUseEffectCallback);
   if (fn == null) {
     return null;
@@ -75,14 +102,12 @@ export function getCallKind(node: TSESTree.CallExpression): EventMethodKind | "o
 /**
  * Resolve a call inside an effect cleanup to the function it refers to.
  * Bare calls fall back to the callee name; member calls resolve only through a local object literal.
- * @param context The ESLint rule context.
- * @param node The call expression to resolve.
+ * @param params The function parameters.
+ * @param params.context The ESLint rule context.
+ * @param params.node The call expression to resolve.
  * @returns The resolved function or callee name, or null when unresolved.
  */
-export function resolveCleanupCallee(
-  context: RuleContext,
-  node: TSESTree.CallExpression,
-): { kind: "function"; node: TSESTree.Node } | { kind: "name"; name: string } | null {
+export function resolveCleanupCallee({ context, node }: RuleNodeParams<TSESTree.CallExpression>): CleanupCallee | null {
   const callee = Extract.unwrap(node.callee);
   // stop()
   if (callee.type === AST.Identifier) {
@@ -149,39 +174,43 @@ function isSignalPropertyBinding(context: RuleContext, node: TSESTree.Identifier
   return false;
 }
 
-export function getSignalValueExpression(context: RuleContext, node: TSESTree.Node | null, seen: Set<TSESTree.Node> = new Set()): TSESTree.Node | null {
-  if (node == null) return null;
-  // Guard against alias cycles (e.g. `const a = b; const b = a;`) causing
-  // infinite recursion.
-  if (seen.has(node)) return null;
-  seen.add(node);
-  switch (node.type) {
-    case AST.Identifier: {
-      const resolved = resolveOrigin(context, node);
-      const unwrapped = resolved == null ? null : Extract.unwrap(resolved);
-      // If the identifier is a function parameter (resolveOrigin returns the containing function),
-      // treat it as a valid signal expression (e.g. `signal` from foxact/use-abortable-effect).
-      if (unwrapped != null && Check.isFunction(unwrapped)) {
-        return node;
-      }
-      // A `signal` destructured from `new AbortController()` is a valid signal expression
-      // (e.g. `const { signal, abort } = new AbortController()`).
-      if (unwrapped != null && unwrapped.type === AST.NewExpression && isSignalPropertyBinding(context, node)) {
-        const newCallee = Extract.unwrap(unwrapped.callee);
-        if (newCallee.type === AST.Identifier && newCallee.name === "AbortController") {
+export function getSignalValueExpression({ context, node }: { context: RuleContext; node: TSESTree.Node | null }): TSESTree.Node | null {
+  const seen = new Set<TSESTree.Node>();
+  function visit(node: TSESTree.Node | null): TSESTree.Node | null {
+    if (node == null) return null;
+    // Guard against alias cycles (e.g. `const a = b; const b = a;`) causing
+    // infinite recursion.
+    if (seen.has(node)) return null;
+    seen.add(node);
+    switch (node.type) {
+      case AST.Identifier: {
+        const resolved = resolveOrigin(context, node);
+        const unwrapped = resolved == null ? null : Extract.unwrap(resolved);
+        // If the identifier is a function parameter (resolveOrigin returns the containing function),
+        // treat it as a valid signal expression (e.g. `signal` from foxact/use-abortable-effect).
+        if (unwrapped != null && Check.isFunction(unwrapped)) {
           return node;
         }
+        // A `signal` destructured from `new AbortController()` is a valid signal expression
+        // (e.g. `const { signal, abort } = new AbortController()`).
+        if (unwrapped != null && unwrapped.type === AST.NewExpression && isSignalPropertyBinding(context, node)) {
+          const newCallee = Extract.unwrap(unwrapped.callee);
+          if (newCallee.type === AST.Identifier && newCallee.name === "AbortController") {
+            return node;
+          }
+        }
+        return visit(unwrapped);
       }
-      return getSignalValueExpression(context, unwrapped, seen);
+      case AST.MemberExpression:
+        return node;
+      default:
+        return null;
     }
-    case AST.MemberExpression:
-      return node;
-    default:
-      return null;
   }
+  return visit(node);
 }
 
-export function getListenerOptions(context: RuleContext, node: TSESTree.CallExpressionArgument): ListenerOptions {
+export function getListenerOptions({ context, node }: RuleNodeParams<TSESTree.CallExpressionArgument>): ListenerOptions {
   function visit(node: TSESTree.Node): ListenerOptions {
     switch (node.type) {
       case AST.Identifier: {
@@ -210,7 +239,7 @@ export function getListenerOptions(context: RuleContext, node: TSESTree.CallExpr
           .otherwise(() => false);
         const pSignal = Extract.findProperty(node.properties, "signal");
         const vSignal = pSignal?.type === AST.Property
-          ? getSignalValueExpression(context, pSignal.value)
+          ? getSignalValueExpression({ context, node: pSignal.value })
           : null;
         return { capture: vCapture, signal: vSignal };
       }
@@ -224,11 +253,12 @@ export function getListenerOptions(context: RuleContext, node: TSESTree.CallExpr
 
 /**
  * Get the event type, listener, and options of an `addEventListener`/`removeEventListener` call.
- * @param context The ESLint rule context.
- * @param node The call expression to inspect.
+ * @param params The function parameters.
+ * @param params.context The ESLint rule context.
+ * @param params.node The call expression to inspect.
  * @returns The call arguments, or null when the event type or listener is missing.
  */
-export function getListenerArguments(context: RuleContext, node: TSESTree.CallExpression) {
+export function getListenerArguments({ context, node }: RuleNodeParams<TSESTree.CallExpression>): ListenerArguments | null {
   const [type, listener, options] = node.arguments;
   if (type == null || listener == null) {
     return null;
@@ -236,7 +266,7 @@ export function getListenerArguments(context: RuleContext, node: TSESTree.CallEx
   return {
     type,
     listener,
-    options: options == null ? defaultListenerOptions : getListenerOptions(context, options),
+    options: options == null ? defaultListenerOptions : getListenerOptions({ context, node: options }),
   };
 }
 
@@ -267,22 +297,25 @@ function isSameObject(a: TSESTree.Node, b: TSESTree.Node) {
   }
 }
 
+type IsInverseEntryParams = {
+  addEntry: EventEntry;
+  cleanupCalleeEntries: CleanupCalleeEntries;
+  context: RuleContext;
+  removeEntry: EventEntry;
+};
+
 /**
  * Check whether a `removeEventListener` entry tears down the listener registered by an `addEventListener` entry.
- * @param context The ESLint rule context.
- * @param aEntry The `addEventListener` entry.
- * @param rEntry The `removeEventListener` entry to compare.
- * @param cleanupCalleeEntries Functions called from each effect cleanup, keyed by the effect call node.
+ * @param params The function parameters.
+ * @param params.context The ESLint rule context.
+ * @param params.addEntry The `addEventListener` entry.
+ * @param params.removeEntry The `removeEventListener` entry to compare.
+ * @param params.cleanupCalleeEntries Functions called from each effect cleanup, keyed by the effect call node.
  * @returns `true` if the removal is the inverse of the registration.
  */
-export function isInverseEntry(
-  context: RuleContext,
-  aEntry: EventEntry,
-  rEntry: EventEntry,
-  cleanupCalleeEntries: Map<TSESTree.Node, [Set<TSESTree.Node>, Set<string>]>,
-): boolean {
-  const { type: aType, callee: aCallee, capture: aCapture, effect: aEffect, listener: aListener, phase: aPhase } = aEntry;
-  const { type: rType, callee: rCallee, capture: rCapture, effect: rEffect, listener: rListener, phase: rPhase } = rEntry;
+export function isInverseEntry({ context, addEntry, removeEntry, cleanupCalleeEntries }: IsInverseEntryParams): boolean {
+  const { type: aType, callee: aCallee, capture: aCapture, effect: aEffect, listener: aListener, phase: aPhase } = addEntry;
+  const { type: rType, callee: rCallee, capture: rCapture, effect: rEffect, listener: rListener, phase: rPhase } = removeEntry;
   if (aPhase !== "setup") {
     return false;
   }
@@ -298,7 +331,7 @@ export function isInverseEntry(
   if (aEffect == null || aEffect !== rEffect) {
     return false;
   }
-  const enclosingFunction = Traverse.findParent(rEntry.node, Check.isFunction);
+  const enclosingFunction = Traverse.findParent(removeEntry.node, Check.isFunction);
   if (enclosingFunction == null) {
     return false;
   }
@@ -306,7 +339,7 @@ export function isInverseEntry(
   if (callees == null) {
     return false;
   }
-  const [functions, names] = callees;
+  const { functions, names } = callees;
   if (functions.has(enclosingFunction)) {
     return true;
   }
