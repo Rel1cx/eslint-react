@@ -1,6 +1,7 @@
 export const projects = [
   { owner: "Ajaxy", repo: "telegram-tt" },
   { owner: "apache", repo: "hadoop" },
+  { owner: "apache", repo: "hugegraph-toolchain" },
   { owner: "argoproj", repo: "argo-cd" },
   { owner: "clash-verge-rev", repo: "clash-verge-rev" },
   { owner: "clientIO", repo: "joint" },
@@ -20,6 +21,7 @@ export const projects = [
   { owner: "marigold-ui", repo: "marigold" },
   { owner: "mcp-use", repo: "mcp-use" },
   { owner: "microsoft", repo: "griffel" },
+  { owner: "mifi", repo: "lossless-cut" },
   { owner: "mikotoIO", repo: "mikoto" },
   { owner: "mozilla", repo: "pontoon" },
   { owner: "Nexus-Mods", repo: "Vortex" },
