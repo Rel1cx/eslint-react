@@ -43,8 +43,9 @@ export function getFullyQualifiedName(node: TSESTree.Node, getText: (node: TSEST
   const expr = unwrap(node);
   switch (expr.type) {
     case AST.Identifier:
-    case AST.PrivateIdentifier:
       return expr.name;
+    case AST.PrivateIdentifier:
+      return `#${expr.name}`;
     case AST.JSXIdentifier:
     case AST.JSXMemberExpression:
     case AST.JSXNamespacedName:

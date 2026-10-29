@@ -163,6 +163,8 @@ describe("isRenderMethodLike", () => {
   it.each([
     ["class A { render() {} }", true],
     ["class A { renderHeader() {} }", true],
+    ['class A { "renderHeader"() {} }', true],
+    ['class A { ["render"]() {} }', false],
     ["class A { custom() {} }", false],
   ])("isRenderMethodLike(%s) === %s", (code, expected) => {
     const node = getFirstNodeOfType<TSESTree.MethodDefinition>(code, AST.MethodDefinition);
@@ -189,6 +191,14 @@ describe("isRenderMethodCallback", () => {
   it("should return true for the function of a render method in a class component", () => {
     const node = getFirstNodeOfType<TSESTree.FunctionExpression>(
       "class A extends Component { render() { return null; } }",
+      AST.FunctionExpression,
+    );
+    expect(isRenderMethodCallback(node)).toBe(true);
+  });
+
+  it("should return true for the function of a string-literal render method in a class component", () => {
+    const node = getFirstNodeOfType<TSESTree.FunctionExpression>(
+      'class A extends Component { "render"() { return null; } }',
       AST.FunctionExpression,
     );
     expect(isRenderMethodCallback(node)).toBe(true);

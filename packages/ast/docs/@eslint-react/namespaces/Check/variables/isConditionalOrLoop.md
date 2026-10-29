@@ -1,9 +1,9 @@
-[@eslint-react/ast](../../../../README.md) / [Check](../README.md) / isConditional
+[@eslint-react/ast](../../../../README.md) / [Check](../README.md) / isConditionalOrLoop
 
-# Variable: isConditional
+# Variable: isConditionalOrLoop
 
 ```ts
-const isConditional: (node: Node | null | undefined) => node is
+const isConditionalOrLoop: (node: Node | null | undefined) => node is
   | ConditionalExpression
   | DoWhileStatement
   | ForInStatement
@@ -15,7 +15,7 @@ const isConditional: (node: Node | null | undefined) => node is
   | WhileStatement;
 ```
 
-Check if a node is a conditional or logical expression, or a control flow statement.
+Check if a node is a conditional or logical expression, a conditional statement, or a loop statement.
 
 ## Parameters
 

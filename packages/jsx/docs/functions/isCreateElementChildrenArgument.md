@@ -8,8 +8,8 @@ function isCreateElementChildrenArgument(context: RuleContext, node: Node | null
 
 Check if the node itself is passed as a children argument (the third argument
 or later) of a `createElement` call. Contiguous TypeScript type-expression
-ancestors are skipped, and the node is unwrapped before the comparison;
-expressions nested inside an argument are not considered.
+and chain-expression ancestors are skipped, and the node is unwrapped before
+the comparison; expressions nested inside an argument are not considered.
 
 ## Parameters
 

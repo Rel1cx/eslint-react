@@ -65,6 +65,21 @@ describe("getFullyQualifiedName", () => {
     expect(getFullyQualifiedName(node, (n) => getTextOf(code, n))).toBe("foo");
   });
 
+  it("should preserve the prefix of a private identifier", () => {
+    const code = "class Foo { #bar; }";
+    const node = getFirstNodeOfType<TSESTree.PrivateIdentifier>(code, AST.PrivateIdentifier);
+    expect(getFullyQualifiedName(node, (n) => getTextOf(code, n))).toBe("#bar");
+  });
+
+  it("should distinguish private and public member properties", () => {
+    const privateCode = "class Foo { #bar; m() { return this.#bar; } }";
+    const publicCode = "class Foo { bar; m() { return this.bar; } }";
+    const privateNode = getFirstNodeOfType<TSESTree.MemberExpression>(privateCode, AST.MemberExpression);
+    const publicNode = getFirstNodeOfType<TSESTree.MemberExpression>(publicCode, AST.MemberExpression);
+    expect(getFullyQualifiedName(privateNode, (n) => getTextOf(privateCode, n))).toBe("this.#bar");
+    expect(getFullyQualifiedName(publicNode, (n) => getTextOf(publicCode, n))).toBe("this.bar");
+  });
+
   it("should return a member expression name", () => {
     const code = "foo.bar.baz;";
     const node = getFirstNodeOfType<TSESTree.MemberExpression>(code, AST.MemberExpression);

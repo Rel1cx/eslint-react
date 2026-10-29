@@ -115,6 +115,7 @@ export function getFunctionComponentCollector(
           const componentName = left.object.type === AST.Identifier
             ? left.object.name
             : null;
+          // Known limitation: name-based matching does not resolve lexical bindings, so nested scopes reusing a component name can cause the assignment to be attached to the wrong component.
           const component = [...components.values()].findLast(({ name }) => name != null && name === componentName);
           if (component == null) return;
           component.displayName = right;

@@ -177,7 +177,7 @@ describe("getFunctionComponentCollector", () => {
     expect(components[0]?.displayName).toBeNull();
   });
 
-  it("should mount the displayName on the component the assignment lexically refers to", () => {
+  it("should mount displayName on the only same-name component collected at assignment time", () => {
     const components = collectComponentsWithDisplayName(
       "function outer1() { const App = () => <div>1</div>; App.displayName = 'First'; return App; }"
         + " function outer2() { const App = () => <div>2</div>; return App; }",
@@ -188,6 +188,18 @@ describe("getFunctionComponentCollector", () => {
     expect(first?.displayName?.type).toBe("Literal");
     expect((first?.displayName as TSESTree.StringLiteral).value).toBe("First");
     expect(second?.displayName).toBeNull();
+  });
+
+  // Known failure: the collector selects the last same-name component instead of resolving the lexical binding.
+  it.fails("should mount displayName on the lexically referenced component when nested scopes reuse its name", () => {
+    const components = collectComponentsWithDisplayName(
+      "const App = () => <div>outer</div>;"
+        + " function nested() { const App = () => <div>inner</div>; App.displayName = 'Inner'; }"
+        + " App.displayName = 'Outer';",
+    );
+    expect(components).toHaveLength(2);
+    const displayNames = components.map((component) => component.displayName?.type === AST.Literal ? component.displayName.value : null);
+    expect(displayNames).toEqual(["Outer", "Inner"]);
   });
 
   it("should collect displayName assignment with a non-literal right side", () => {

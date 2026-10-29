@@ -11,7 +11,7 @@ Helpers for checking `TSESTree` node types.
 | [is](variables/is.md)                                               | Check if a node is of the given type.                                                                                              |
 | [isCallExpression](variables/isCallExpression.md)                   | Check if a node is a call expression.                                                                                              |
 | [isClass](variables/isClass.md)                                     | Check if a node is a class declaration or class expression.                                                                        |
-| [isConditional](variables/isConditional.md)                         | Check if a node is a conditional or logical expression, or a control flow statement.                                               |
+| [isConditionalOrLoop](variables/isConditionalOrLoop.md)             | Check if a node is a conditional or logical expression, a conditional statement, or a loop statement.                              |
 | [isExpression](variables/isExpression.md)                           | Check if a node is an expression node.                                                                                             |
 | [isFunction](variables/isFunction.md)                               | Check if a node is a function declaration, function expression, or arrow function expression.                                      |
 | [isFunctionOrClass](variables/isFunctionOrClass.md)                 | Check if a node is a function declaration, function expression, arrow function expression, class declaration, or class expression. |

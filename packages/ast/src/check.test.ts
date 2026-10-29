@@ -8,6 +8,7 @@ import {
   is,
   isArrayPatternElementDefault,
   isClass,
+  isConditionalOrLoop,
   isDirective,
   isExpression,
   isFunction,
@@ -167,6 +168,38 @@ describe("isExpression", () => {
   it("should return false for a non-expression node", () => {
     const node = getFirstNodeOfType<TSESTree.ExpressionStatement>("foo();", AST.ExpressionStatement);
     expect(isExpression(node)).toBe(false);
+  });
+});
+
+describe("isConditionalOrLoop", () => {
+  it("should return true for conditional and logical expressions", () => {
+    const conditional = getFirstNodeOfType<TSESTree.ConditionalExpression>("a ? b : c;", AST.ConditionalExpression);
+    const logical = getFirstNodeOfType<TSESTree.LogicalExpression>("a && b;", AST.LogicalExpression);
+    expect(isConditionalOrLoop(conditional)).toBe(true);
+    expect(isConditionalOrLoop(logical)).toBe(true);
+  });
+
+  it("should return true for conditional statements", () => {
+    const ifStatement = getFirstNodeOfType<TSESTree.IfStatement>("if (a) {}", AST.IfStatement);
+    const switchStatement = getFirstNodeOfType<TSESTree.SwitchStatement>("switch (a) { default: break; }", AST.SwitchStatement);
+    expect(isConditionalOrLoop(ifStatement)).toBe(true);
+    expect(isConditionalOrLoop(switchStatement)).toBe(true);
+  });
+
+  it.each([
+    [AST.WhileStatement, "while (a) {}"],
+    [AST.ForStatement, "for (;;) {}"],
+    [AST.ForInStatement, "for (const key in object) {}"],
+    [AST.ForOfStatement, "for (const value of object) {}"],
+    [AST.DoWhileStatement, "do {} while (a);"],
+  ])("should return true for %s", (type, code) => {
+    const node = getFirstNodeOfType<TSESTree.Node>(code, type);
+    expect(isConditionalOrLoop(node)).toBe(true);
+  });
+
+  it("should return false for other control flow statements", () => {
+    const node = getFirstNodeOfType<TSESTree.ReturnStatement>("function f() { return; }", AST.ReturnStatement);
+    expect(isConditionalOrLoop(node)).toBe(false);
   });
 });
 

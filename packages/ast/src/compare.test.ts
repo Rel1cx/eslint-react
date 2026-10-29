@@ -22,6 +22,14 @@ describe("isEqual", () => {
       expect(isEqual(nodes1[0]!, nodes2[0]!)).toBe(false);
     });
 
+    it("should compare private identifiers by name", () => {
+      const nodes1 = collectNodes<TSESTree.PrivateIdentifier>("class A { #foo; }", AST.PrivateIdentifier);
+      const nodes2 = collectNodes<TSESTree.PrivateIdentifier>("class B { #foo; }", AST.PrivateIdentifier);
+      const nodes3 = collectNodes<TSESTree.PrivateIdentifier>("class A { #bar; }", AST.PrivateIdentifier);
+      expect(isEqual(nodes1[0]!, nodes2[0]!)).toBe(true);
+      expect(isEqual(nodes1[0]!, nodes3[0]!)).toBe(false);
+    });
+
     it("should return true for literals with the same value", () => {
       const nodes1 = collectNodes<TSESTree.Literal>("const a = 42;", AST.Literal);
       const nodes2 = collectNodes<TSESTree.Literal>("const b = 42;", AST.Literal);
@@ -145,6 +153,14 @@ describe("isEqual", () => {
   });
 
   describe("MemberExpression equality", () => {
+    it("should distinguish private and public member properties", () => {
+      const privateNodes1 = collectNodes<TSESTree.MemberExpression>("class A { #id; m() { return this.#id; } }", AST.MemberExpression);
+      const privateNodes2 = collectNodes<TSESTree.MemberExpression>("class B { #id; m() { return this.#id; } }", AST.MemberExpression);
+      const publicNodes = collectNodes<TSESTree.MemberExpression>("class A { id; m() { return this.id; } }", AST.MemberExpression);
+      expect(isEqual(privateNodes1[0]!, privateNodes2[0]!)).toBe(true);
+      expect(isEqual(privateNodes1[0]!, publicNodes[0]!)).toBe(false);
+    });
+
     it("should return false for dot and computed access with the same property identifier", () => {
       const nodes = collectNodes<TSESTree.MemberExpression>("const k = 'x'; item.k; item[k];", AST.MemberExpression);
       expect(nodes).toHaveLength(2);

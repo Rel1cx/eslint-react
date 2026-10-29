@@ -156,6 +156,17 @@ describe("findParentAttribute", () => {
     expect(found).toBeNull();
   });
 
+  it("finds the nearest attribute when JSX attributes are nested", () => {
+    const { element } = parseJSXElement("<div outer={<span inner={value} />} />;");
+    const outer = getAttribute(element);
+    const innerElement = (outer.value as TSESTree.JSXExpressionContainer).expression;
+    if (innerElement.type !== AST.JSXElement) throw new Error("expected nested JSX element");
+    const inner = getAttribute(innerElement);
+    const expression = (inner.value as TSESTree.JSXExpressionContainer).expression;
+    expect(findParentAttribute(expression)).toBe(inner);
+    expect(findParentAttribute(expression, "outer")).toBe(outer);
+  });
+
   it("returns null when no attribute ancestor exists or the node is nullish", () => {
     const { element } = parseJSXElement("<div />;");
     expect(findParentAttribute(element)).toBeNull();

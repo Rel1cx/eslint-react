@@ -156,8 +156,8 @@ export const isGetDerivedStateFromError = createLifecycleChecker("getDerivedStat
  */
 export function isRenderMethodLike(node: TSESTree.Node): node is TSESTreeMethodOrPropertyDefinition {
   return Check.isPropertyOrMethod(node)
-    && Check.isIdentifier(node.key)
-    && node.key.name.startsWith("render")
+    && !node.computed
+    && getStaticKeyName(node.key, node.computed)?.startsWith("render") === true
     && Check.isClass(node.parent.parent);
 }
 

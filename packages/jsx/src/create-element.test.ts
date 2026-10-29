@@ -215,6 +215,40 @@ describe("isCreateElementChildrenArgument", () => {
     expect(isCreateElementChildrenArgument(context, node)).toBe(true);
   });
 
+  it("should return true when the node is the chain-expression children argument itself", () => {
+    const { context, node } = parseNode<TSESTree.ChainExpression>(
+      `React.createElement("div", null, child?.foo);`,
+      AST.ChainExpression,
+    );
+    expect(isCreateElementChildrenArgument(context, node)).toBe(true);
+  });
+
+  it("should return true for the expression inside a chain-expression children argument", () => {
+    const code = `React.createElement("div", null, child?.foo);`;
+    const parsed = parseCode(code);
+    const context = createScopeContext(parsed);
+    const node = collectNodes<TSESTree.MemberExpression>(code, AST.MemberExpression).at(-1);
+    expect(node?.optional).toBe(true);
+    expect(isCreateElementChildrenArgument(context, node)).toBe(true);
+  });
+
+  it("should return true through nested chain and type-expression wrappers", () => {
+    const code = `React.createElement("div", null, (child?.foo as any));`;
+    const parsed = parseCode(code);
+    const context = createScopeContext(parsed);
+    const node = collectNodes<TSESTree.MemberExpression>(code, AST.MemberExpression).at(-1);
+    expect(node?.optional).toBe(true);
+    expect(isCreateElementChildrenArgument(context, node)).toBe(true);
+  });
+
+  it("should return false for a chain expression nested inside another children expression", () => {
+    const { context, node } = parseNode<TSESTree.ChainExpression>(
+      `React.createElement("div", null, [child?.foo]);`,
+      AST.ChainExpression,
+    );
+    expect(isCreateElementChildrenArgument(context, node)).toBe(false);
+  });
+
   it.each<[string, TSESTree.Node["type"]]>([
     // The type argument is not a children argument
     [`createElement("div", null);`, AST.Literal],
