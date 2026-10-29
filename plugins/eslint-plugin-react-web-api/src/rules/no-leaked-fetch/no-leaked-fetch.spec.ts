@@ -62,6 +62,140 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
     },
+    {
+      code: tsx`
+        function Example() {
+          useEffect(() => {
+            self.fetch("/api/user");
+          }, []);
+        }
+      `,
+      errors: [
+        {
+          messageId: "expected-abort-controller",
+        },
+      ],
+    },
+    // A `fetch` declared in another scope does not shadow the global one here
+    {
+      code: tsx`
+        function helper() {
+          function fetch() {}
+          return fetch;
+        }
+        function Example() {
+          useEffect(() => {
+            fetch("/api/user");
+          }, []);
+        }
+      `,
+      errors: [
+        {
+          messageId: "expected-abort-controller",
+        },
+      ],
+    },
+    // Type-only declarations do not shadow the global `fetch` or `window`
+    {
+      code: tsx`
+        type fetch = string;
+        function Example() {
+          useEffect(() => {
+            fetch("/api/user");
+          }, []);
+        }
+      `,
+      errors: [
+        {
+          messageId: "expected-abort-controller",
+        },
+      ],
+    },
+    {
+      code: tsx`
+        function Example() {
+          interface fetch {}
+          useEffect(() => {
+            fetch("/api/user");
+          }, []);
+        }
+      `,
+      errors: [
+        {
+          messageId: "expected-abort-controller",
+        },
+      ],
+    },
+    {
+      code: tsx`
+        import type { fetch } from "undici";
+        function Example() {
+          useEffect(() => {
+            fetch("/api/user");
+          }, []);
+        }
+      `,
+      errors: [
+        {
+          messageId: "expected-abort-controller",
+        },
+      ],
+    },
+    {
+      code: tsx`
+        import { type fetch } from "undici";
+        function Example() {
+          useEffect(() => {
+            fetch("/api/user");
+          }, []);
+        }
+      `,
+      errors: [
+        {
+          messageId: "expected-abort-controller",
+        },
+      ],
+    },
+    {
+      code: tsx`
+        interface window {}
+        function Example() {
+          useEffect(() => {
+            window.fetch("/api/user");
+          }, []);
+        }
+      `,
+      errors: [
+        {
+          messageId: "expected-abort-controller",
+        },
+      ],
+    },
+    // Globals provided via configuration are still the global `fetch` and `window`
+    {
+      code: tsx`
+        function Example() {
+          useEffect(() => {
+            fetch("/api/user");
+            window.fetch("/api/user");
+          }, []);
+        }
+      `,
+      errors: [
+        {
+          messageId: "expected-abort-controller",
+        },
+        {
+          messageId: "expected-abort-controller",
+        },
+      ],
+      languageOptions: {
+        globals: {
+          fetch: "readonly",
+          window: "readonly",
+        },
+      },
+    },
     // Cleanup returns a non-function, so the fetch is never aborted
     {
       code: tsx`
@@ -722,6 +856,84 @@ ruleTester.run(RULE_NAME, rule, {
           const ctrl = new AbortController();
           globalThis.fetch("/api/user", { signal: ctrl.signal });
           return () => ctrl.abort();
+        }, []);
+      }
+    `,
+    // A local function named `fetch` shadows the global one
+    tsx`
+      import { useEffect } from "react";
+
+      function Example() {
+        function fetch() {}
+        useEffect(() => {
+          fetch();
+        }, []);
+      }
+    `,
+    // A method named `fetch` on an unrelated object is not the global one
+    tsx`
+      import { useEffect } from "react";
+
+      function Example() {
+        const api = { fetch: (url: string) => url };
+        useEffect(() => {
+          api.fetch("/api/user");
+        }, []);
+      }
+    `,
+    // An imported `fetch` is not the global one and is out of scope for this rule
+    tsx`
+      import { useEffect } from "react";
+      import fetch from "node-fetch";
+
+      function Example() {
+        useEffect(() => {
+          fetch("/api/user");
+        }, []);
+      }
+    `,
+    tsx`
+      import { useEffect } from "react";
+      import { fetch } from "undici";
+
+      function Example() {
+        useEffect(() => {
+          fetch("/api/user");
+        }, []);
+      }
+    `,
+    // A local `window` shadows the global object
+    tsx`
+      import { useEffect } from "react";
+
+      function Example() {
+        const window = { fetch: (url: string) => url };
+        useEffect(() => {
+          window.fetch("/api/user");
+        }, []);
+      }
+    `,
+    // A type-only declaration in an inner scope does not hide a local `fetch` in an outer scope
+    tsx`
+      import { useEffect } from "react";
+
+      function Example() {
+        const fetch = (url: string) => url;
+        function Inner() {
+          type fetch = string;
+          useEffect(() => {
+            fetch("/api/user");
+          }, []);
+        }
+      }
+    `,
+    // A parameter named `fetch` shadows the global one
+    tsx`
+      import { useEffect } from "react";
+
+      function Example({ fetch }: { fetch: (url: string) => void }) {
+        useEffect(() => {
+          fetch("/api/user");
         }, []);
       }
     `,
