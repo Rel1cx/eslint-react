@@ -60,7 +60,7 @@ export function getFullyQualifiedNameEx(checker: ts.TypeChecker, symbol: ts.Symb
   const namespace = parent.getSourceFile().statements.find((n) => ts.isNamespaceExportDeclaration(n))?.name.text;
   // If there's no namespace export declaration, return the name as is. Otherwise, prepend the namespace to the name.
   if (namespace == null) return name;
-  // If the name already starts with the namespace, don't prepend it again (Prevent duplication like "React.React.Attributes.key")
-  if (name.startsWith(`${namespace}.`)) return name;
+  // Avoid duplicating the namespace when the name is the namespace itself or is already qualified by it.
+  if (name === namespace || name.startsWith(`${namespace}.`)) return name;
   return `${namespace}.${name}`;
 }

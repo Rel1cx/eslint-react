@@ -116,8 +116,8 @@ export function findCreateElementProp(context: RuleContext, call: CreateElementC
 /**
  * Check if the node itself is passed as a children argument (the third argument
  * or later) of a `createElement` call. Contiguous TypeScript type-expression
- * ancestors are skipped, and the node is unwrapped before the comparison;
- * expressions nested inside an argument are not considered.
+ * and chain-expression ancestors are skipped, and the node is unwrapped before
+ * the comparison; expressions nested inside an argument are not considered.
  * @param context The ESLint rule context.
  * @param node The node to check; nullish values return `false`.
  * @returns `true` if the node is a direct children argument of a `createElement` call.
@@ -125,7 +125,7 @@ export function findCreateElementProp(context: RuleContext, call: CreateElementC
 export function isCreateElementChildrenArgument(context: RuleContext, node: TSESTree.Node | null | undefined): boolean {
   if (node == null) return false;
   let parent = node.parent;
-  while (Check.isTypeExpression(parent)) parent = parent.parent;
+  while (Check.isTypeOrChainExpression(parent)) parent = parent.parent;
   const target = Extract.unwrap(node);
   return parent?.type === AST.CallExpression
     && isCreateElementCall(context, parent)

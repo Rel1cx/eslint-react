@@ -13,6 +13,11 @@ describe("collapseMultilineText", () => {
     expect(collapseMultilineText("\n  foo\n  bar\n")).toBe("foo bar");
   });
 
+  it("collapses CRLF and CR line breaks", () => {
+    expect(collapseMultilineText("foo\r\n  bar")).toBe("foo bar");
+    expect(collapseMultilineText("foo\r  bar")).toBe("foo bar");
+  });
+
   it("collapses tabs into spaces", () => {
     expect(collapseMultilineText("\tfoo")).toBe(" foo");
   });

@@ -101,6 +101,11 @@ describe("isAnyType", () => {
     expect(type.isTypeParameter()).toBe(true);
     expect(isAnyType(type)).toBe(true);
   });
+  it("should treat a constrained type parameter as any-like", () => {
+    const type = getTypeOfDeclaredValue("function f<T extends string>(x: T) { return x; }", "x");
+    expect(type.isTypeParameter()).toBe(true);
+    expect(isAnyType(type)).toBe(true);
+  });
   it("should not treat unknown as any-like", () => {
     expect(isAnyType(getTypeOfDeclaredValue("declare const u: unknown;", "u"))).toBe(false);
   });

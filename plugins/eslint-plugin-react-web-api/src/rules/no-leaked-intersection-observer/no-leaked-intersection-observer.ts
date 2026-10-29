@@ -259,7 +259,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         }
         const matchedOEntries = oEntries.filter((e) => isSameObserver(e.observer));
         const matchedUEntries = uEntries.filter((e) => isSameObserver(e.observer));
-        const isDynamic = or(Check.isCallExpression, Check.isConditional);
+        const isDynamic = or(Check.isCallExpression, Check.isConditionalOrLoop);
         const hasDynamicallyAdded = matchedOEntries
           .some((e) => {
             const entryPhaseNode = phaseNode ?? Traverse.findParent(e.node, isUseEffectCallback);

@@ -108,8 +108,8 @@ export const isReturnStatement = is(AST.ReturnStatement);
 /** Check if a node is a class declaration or class expression. */
 export const isClass = isOneOf([AST.ClassDeclaration, AST.ClassExpression]);
 
-/** Check if a node is a conditional or logical expression, or a control flow statement. */
-export const isConditional = isOneOf([
+/** Check if a node is a conditional or logical expression, a conditional statement, or a loop statement. */
+export const isConditionalOrLoop = isOneOf([
   AST.IfStatement,
   AST.LogicalExpression,
   AST.ConditionalExpression,

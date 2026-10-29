@@ -79,6 +79,19 @@ describe("getFullyQualifiedNameEx", () => {
     expect(getFullyQualifiedNameEx(checker, symbol)).toBe("React.Attributes");
   });
 
+  it("should not duplicate the namespace for the namespace symbol itself", () => {
+    const code = dedent`
+      export as namespace React;
+      declare namespace React {
+        interface Attributes {
+          key?: string;
+        }
+      }
+    `;
+    const { checker, symbol } = getSymbolOfFirstDeclaration(code, "React");
+    expect(getFullyQualifiedNameEx(checker, symbol)).toBe("React");
+  });
+
   it("should qualify members of a namespace when there is no 'export as namespace' declaration", () => {
     const code = dedent`
       export {};
