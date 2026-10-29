@@ -5,6 +5,12 @@ All notable changes to the `react-web-api/no-leaked-resize-observer` rule will b
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [5.30.0-beta.16] - 2026-10-30
+
+### Changed
+
+- Updated dynamic-observation checks to use `Check.isConditionalOrLoop`, the renamed `Check.isConditional` helper, without changing diagnostic behavior. (#2099)
+
 ## [5.30.0-beta.12] - 2026-10-28
 
 ### Fixed

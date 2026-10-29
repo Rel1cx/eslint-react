@@ -1,5 +1,16 @@
 # Changelog
 
+## v5.30.0-beta.16 (2026-10-30)
+
+### 🏗️ Internal
+
+- `@eslint-react/ast`: renamed `Check.isConditional` to `Check.isConditionalOrLoop` and improved private identifier handling. (#2099)
+- `@eslint-react/jsx`: improved optional-chained `createElement` children detection. (#2099)
+- `@eslint-react/core`: improved render-method detection and qualified type names. (#2099)
+- `react-web-api/no-leaked-intersection-observer` and `react-web-api/no-leaked-resize-observer`: adopted the renamed AST helper. No behavior change. (#2099)
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.30.0-beta.15...v5.30.0-beta.16
+
 ## v5.30.0-beta.15 (2026-10-30)
 
 ### 📝 Documentation
