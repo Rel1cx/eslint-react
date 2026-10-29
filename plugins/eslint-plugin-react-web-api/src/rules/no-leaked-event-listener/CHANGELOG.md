@@ -5,6 +5,13 @@ All notable changes to the `react-web-api/no-leaked-event-listener` rule will be
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [5.30.0-beta.15] - 2026-10-30
+
+### Changed
+
+- Reorganized listener analysis into a fact-based `collect` → `origins` → `effect` pipeline with typed violation inference and centralized reporting, without changing diagnostic behavior.
+- Expanded layer-specific tests for call collection, origin resolution, violation inference, and helper functions.
+
 ## [5.30.0-beta.12] - 2026-10-28
 
 ### Fixed
