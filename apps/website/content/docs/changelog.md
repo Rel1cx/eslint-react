@@ -2,6 +2,12 @@
 title: Changelog
 ---
 
+## Unreleased
+
+### 🏗️ Internal
+
+- The experimental `unstable-exhaustive-deps` rule (introduced earlier in the v5.30.0 beta cycle and never part of a stable release) moved from `eslint-plugin-react-x` (`react-x/unstable-exhaustive-deps`) into `@eslint-react/eslint-plugin`'s own `src/rules`, the new home for unstable rules that are under active development. It was also removed from the `all` and `disable-experimental` presets while incubating; it can still be enabled manually as `@eslint-react/unstable-exhaustive-deps`.
+
 ## v5.30.0-beta.13 (2026-10-28)
 
 ### ✨ New

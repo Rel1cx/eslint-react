@@ -31,7 +31,7 @@ export default defineConfig(
     ignores: [
       "plugins/eslint-plugin-react-x/src/rules/exhaustive-deps",
       "plugins/eslint-plugin-react-x/src/rules/rules-of-hooks",
-      "plugins/eslint-plugin-react-x/src/rules/unstable-exhaustive-deps/unstable-exhaustive-deps.ts",
+      "plugins/eslint-plugin/src/rules/exhaustive-deps/exhaustive-deps.ts",
     ],
   },
   // TypeScript configuration (type-aware)
