@@ -1,5 +1,18 @@
 # Changelog
 
+## v5.30.0-beta.15 (2026-10-30)
+
+### 📝 Documentation
+
+- Updated the community projects list.
+
+### 🏗️ Internal
+
+- `react-web-api/no-leaked-event-listener`: reorganized listener analysis into a fact-based pipeline. No diagnostic behavior change. (#2098)
+- Bumped `effect` and `@effect/platform-node` to `4.1.0`, `fumadocs-core` and `fumadocs-ui` to `16.17.9`, `lucide-react` to `1.64.0`, `tsdown` to `0.23.4`, `tsl-dx` to `0.15.1`, `eslint-plugin-regexp` to `3.3.2`, and `@types/node` to `26.6.6` in the oxlint example, and `pnpm` to `12.16.1`.
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.30.0-beta.14...v5.30.0-beta.15
+
 ## v5.30.0-beta.14 (2026-10-29)
 
 ### 📝 Documentation
