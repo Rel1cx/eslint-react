@@ -1476,6 +1476,47 @@ ruleTester.run(RULE_NAME, rule, {
         }, []);
       }
     `,
+    // Dot and static computed access identify the same listener property
+    tsx`
+      import { useEffect } from "react";
+
+      function Example({ handlers }) {
+        useEffect(() => {
+          window.addEventListener("resize", handlers.onResize);
+          return () => {
+            window.removeEventListener("resize", handlers["onResize"]);
+          };
+        }, []);
+      }
+    `,
+    // Static computed access is normalized on receiver objects too
+    tsx`
+      import { useEffect } from "react";
+
+      function Example({ element }) {
+        useEffect(() => {
+          const handleResize = () => {};
+          element.ownerDocument.addEventListener("resize", handleResize);
+          return () => {
+            element["ownerDocument"].removeEventListener("resize", handleResize);
+          };
+        }, []);
+      }
+    `,
+    // Simple template-literal keys are normalized on event types too
+    tsx`
+      import { useEffect } from "react";
+
+      function Example({ config }) {
+        useEffect(() => {
+          const handleResize = () => {};
+          window.addEventListener(config.type, handleResize);
+          return () => {
+            window.removeEventListener(config[\`type\`], handleResize);
+          };
+        }, []);
+      }
+    `,
     // Optional-chained receiver objects pair structurally
     tsx`
       import { useEffect } from "react";
@@ -1597,6 +1638,21 @@ ruleTester.run(RULE_NAME, rule, {
           window.addEventListener("resize", handleResize, { capture: true });
           return () => {
             window.removeEventListener("resize", handleResize, { capture: true });
+          };
+        }, []);
+      }
+    `,
+    // Known limitation: the first property is currently used during option lookup,
+    // so the runtime capture mismatch is incorrectly accepted as a cleanup pair.
+    tsx`
+      import { useEffect } from "react";
+
+      function Example() {
+        useEffect(() => {
+          const handleResize = () => {};
+          window.addEventListener("resize", handleResize, { capture: true });
+          return () => {
+            window.removeEventListener("resize", handleResize, { capture: true, capture: false });
           };
         }, []);
       }

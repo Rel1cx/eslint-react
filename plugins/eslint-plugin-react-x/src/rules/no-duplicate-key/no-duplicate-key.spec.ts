@@ -259,6 +259,14 @@ ruleTester.run(RULE_NAME, rule, {
         };
       `,
     },
+    // Known limitation: expression containers are not unwrapped for comparison,
+    // so even identical dynamic keys currently produce no duplicate diagnostic.
+    {
+      name: "current behavior: identical dynamic keys are not compared",
+      code: tsx`
+        const App = () => [<div key={items.current}>1</div>, <div key={items.current}>2</div>];
+      `,
+    },
     {
       name: "unique keys in array literal",
       code: tsx`

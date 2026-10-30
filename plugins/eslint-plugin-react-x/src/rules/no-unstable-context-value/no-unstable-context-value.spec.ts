@@ -252,6 +252,20 @@ ruleTester.run(RULE_NAME, rule, {
         messageId: "unstable-context-value",
       }],
     },
+    {
+      code: tsx`
+        function App({ condition }) {
+          return <Context.Provider value={condition ? null : {}}></Context.Provider>;
+        }
+      `,
+      errors: [{
+        data: {
+          kind: "object expression",
+          suggestion: "Consider wrapping it in a useMemo hook.",
+        },
+        messageId: "unstable-context-value",
+      }],
+    },
   ],
   valid: [
     {
@@ -324,6 +338,21 @@ ruleTester.run(RULE_NAME, rule, {
           function App() {
             const foo = useMemo(() => [], [])
             return <Context.Provider value={foo}></Context.Provider>
+        }
+      `,
+      settings: {
+        "react-x": {
+          compilationMode: "annotation",
+        },
+      },
+    },
+    // Known limitation: the stable Hook branch currently hides the fresh object
+    // constructed in the fallback branch, so this produces no diagnostic.
+    {
+      code: tsx`
+        function App() {
+          const fallback = {};
+          return <Context.Provider value={useMemo(() => null, []) ?? fallback}></Context.Provider>;
         }
       `,
       settings: {

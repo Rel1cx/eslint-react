@@ -1445,6 +1445,48 @@ ruleTester.run(RULE_NAME, rule, {
         { data: { name: "setData" }, messageId: "default" },
       ],
     },
+    {
+      name: "setState in a generator driven by next in the setup",
+      code: tsx`
+        import { useEffect, useState } from "react";
+
+        function Component() {
+          const [data, setData] = useState(0);
+          function* gen() {
+            setData(1);
+          }
+          useEffect(() => {
+            gen().next();
+          }, []);
+          return null;
+        }
+      `,
+      errors: [
+        { data: { name: "setData" }, messageId: "default" },
+      ],
+    },
+    // Known limitation: merely instantiating a generator does not execute its body,
+    // but the current call graph reports its setter as a synchronous effect update.
+    {
+      name: "current behavior: setState in an undriven generator is reported",
+      code: tsx`
+        import { useEffect, useState } from "react";
+
+        function Component() {
+          const [data, setData] = useState(0);
+          function* gen() {
+            setData(1);
+          }
+          useEffect(() => {
+            gen();
+          }, []);
+          return null;
+        }
+      `,
+      errors: [
+        { data: { name: "setData" }, messageId: "default" },
+      ],
+    },
     // Gap B boundary: a write that lexically follows the use cannot flow into
     // it and must stay reported.
     {
