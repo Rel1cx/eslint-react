@@ -1,12 +1,12 @@
-[@eslint-react/ast](../../../../README.md) / [Extract](../README.md) / getAssignmentTargets
+[@eslint-react/var](../README.md) / resolveAssignmentTargets
 
-# Function: getAssignmentTargets()
+# Function: resolveAssignmentTargets()
 
 ```ts
-function getAssignmentTargets(node: Node): (Identifier | MemberExpression)[];
+function resolveAssignmentTargets(node: Node): (Identifier | MemberExpression)[];
 ```
 
-Collect every write target of an assignment or loop target, expanding
+Resolve every write target of an assignment or loop target, expanding
 destructuring patterns such as `[local, globalValue] = source` or
 `({ a: obj.x } = source)`. Defaults (`{ a = source }`) are not targets;
 their left side is.

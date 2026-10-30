@@ -84,8 +84,9 @@ export function getStateHookName(context: RuleContext, init: TSESTree.CallExpres
 // #region Hook Initialization
 
 export function isInitializedFromCall(context: RuleContext, node: TSESTree.Expression, isCall: (node: TSESTree.CallExpression) => boolean) {
-  const root = Extract.getMemberChain(node).at(0);
-  if (root == null || !Check.isIdentifier(root)) return false;
+  let root: TSESTree.Node = Extract.unwrap(node);
+  while (root.type === AST.MemberExpression) root = Extract.unwrap(root.object);
+  if (!Check.isIdentifier(root)) return false;
   const variable = findVariable(context.sourceCode.getScope(root), root);
   if (variable == null) return false;
   const origin = resolveVariableOrigin(context, variable);
@@ -147,8 +148,9 @@ export function classifyFrozenOrigin(
   if (def.node.init == null) {
     const loop = def.node.parent.parent;
     if (loop.type !== AST.ForOfStatement || loop.left !== def.node.parent) return null;
-    const root = Extract.getMemberChain(loop.right).at(0);
-    if (root == null || !Check.isIdentifier(root)) return null;
+    let root: TSESTree.Node = Extract.unwrap(loop.right);
+    while (root.type === AST.MemberExpression) root = Extract.unwrap(root.object);
+    if (!Check.isIdentifier(root)) return null;
     const source = findVariable(context.sourceCode.getScope(root), root);
     if (source == null) return null;
     const inner = classifyFrozenOrigin(context, source, components, mode, seen);
