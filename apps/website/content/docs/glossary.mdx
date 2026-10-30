@@ -17,7 +17,7 @@ ESLint React uses the Project Config to obtain information about the code being 
 
 ### Project Rules
 
-Custom ESLint rules built with [`@eslint-react/kit`](/docs/packages/kit) to enforce project-specific conventions and requirements. Unlike built-in rules, Project Rules are owned by your team and can be tailored to your coding standards.
+Custom ESLint rules built with [`@eslint-react/kit`](/docs/packages/kit) to enforce project-specific conventions and requirements. Unlike built-in rules, they are owned and maintained by your team.
 
 Project Rules are functions that return rule implementations and are registered using the `eslintReactKit().use()` builder API. A rule's name is automatically derived from its function name (e.g., `functionComponentDefinition` → `@eslint-react/kit/function-component-definition`).
 
@@ -27,6 +27,6 @@ See [Configure Project Rules](/docs/configuration/configure-project-rules) for s
 
 ### Recipe
 
-Ready-to-use custom ESLint rule definitions built with [`@eslint-react/kit`](/docs/packages/kit). Recipes are designed to be **copied and pasted** directly into your project, allowing you to customize the implementation to match your team's conventions.
+Ready-to-use definitions for [Project Rules](/docs/glossary#project-rules), built with [`@eslint-react/kit`](/docs/packages/kit). Recipes are not shipped as built-in rules; they are designed to be **copied and pasted** directly into your project, allowing you to customize the implementation to match your team's conventions.
 
 See [Recipes](/docs/recipes) for available recipes.
