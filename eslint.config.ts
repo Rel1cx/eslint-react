@@ -17,16 +17,14 @@ import path from "node:path";
 import tseslint from "typescript-eslint";
 
 export default defineConfig(
-  // Global ignores: .gitignore + shared defaults + project-specific exclusions
   ...buildIgnoreConfig(path.join(import.meta.dirname, ".gitignore"), [
     "**/*.d.ts",
-    ...GLOB_TESTS,
     "apps",
     "docs",
     "examples",
     "testing",
+    ...GLOB_TESTS,
   ]),
-  // Skip checks for rules ported directly from upstream
   {
     ignores: [
       "plugins/eslint-plugin-react-x/src/rules/exhaustive-deps",
@@ -34,7 +32,6 @@ export default defineConfig(
       "plugins/eslint-plugin/src/rules/exhaustive-deps/exhaustive-deps.ts",
     ],
   },
-  // TypeScript configuration (type-aware)
   {
     files: GLOB_TS,
     extends: [
@@ -60,7 +57,6 @@ export default defineConfig(
       "import-integrity/no-unused-exports": "off",
     },
   },
-  // Publishable packages: restrict runtime imports of ESLint internals
   {
     files: GLOB_PUBLISHABLE,
     rules: {
@@ -85,7 +81,6 @@ export default defineConfig(
       }],
     },
   },
-  // ESLint rule authoring
   {
     files: ["plugins/*/src/rules/**/*.ts"],
     extends: [
@@ -95,7 +90,6 @@ export default defineConfig(
       "perfectionist/sort-objects": "off",
     },
   },
-  // Scripts and configs (relaxed, no type checking)
   {
     files: [
       ...GLOB_CONFIGS,
@@ -116,10 +110,7 @@ export default defineConfig(
       "perfectionist/sort-objects": "off",
     },
   },
-  // package.json
   packageJson.configs["recommended-publishable"],
-  // Disable ESLint core rules replaced by TypeScript counterparts
   disableProblematicEslintJsRules,
-  // Un-ignore root-level CJS config files so they can be linted
   globalIgnores(["!*.cjs"]),
 );

@@ -10,6 +10,8 @@ import tseslint from "typescript-eslint";
 
 import TSCONFIG from "./tsconfig.json" with { type: "json" };
 
+const GLOB_JS = ["**/*.js", "**/*.jsx"];
+const GLOB_TS = ["**/*.ts", "**/*.tsx"];
 const GLOB_APP = ["app/**/*.{js,ts,jsx,tsx}"];
 const GLOB_CONFIG = ["**/*.config.{js,mjs,ts,tsx}"];
 const GLOB_IGNORES = [
@@ -17,14 +19,10 @@ const GLOB_IGNORES = [
   "eslint.config.ts",
   "testing",
 ];
-const GLOB_JS = ["**/*.js", "**/*.jsx"];
-const GLOB_TS = ["**/*.ts", "**/*.tsx"];
 
 export default defineConfig(
-  // Ignore patterns from .gitignore and additional exclusions
   includeIgnoreFile(path.join(import.meta.dirname, ".gitignore")),
   globalIgnores(GLOB_IGNORES),
-  // Base TypeScript config with strict type checking
   {
     files: GLOB_TS,
     extends: [
@@ -44,7 +42,6 @@ export default defineConfig(
       "no-restricted-syntax": "off",
     },
   },
-  // React type-checked configuration
   {
     files: TSCONFIG.include,
     extends: [
@@ -65,7 +62,6 @@ export default defineConfig(
       "react-refresh/only-export-components": "warn",
     },
   },
-  // App directory overrides
   {
     files: GLOB_APP,
     rules: {
@@ -73,7 +69,6 @@ export default defineConfig(
       "react-refresh/only-export-components": "off",
     },
   },
-  // JavaScript and config files (no type checking)
   {
     files: [...GLOB_JS, ...GLOB_CONFIG],
     extends: [
