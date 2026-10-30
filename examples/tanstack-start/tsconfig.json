@@ -1,6 +1,7 @@
 {
   "extends": [
-    "@tsconfig/strictest/tsconfig.json"
+    "@tsconfig/strictest/tsconfig.json",
+    "@tsconfig/node24/tsconfig.json"
   ],
   "compilerOptions": {
     "jsx": "react-jsx",
