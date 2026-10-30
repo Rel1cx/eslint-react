@@ -1,5 +1,15 @@
 # Changelog
 
+## v5.30.0-beta.18 (2026-10-31)
+
+### 🏗️ Internal
+
+- Bumped `eslint` to `10.14.0` and `string-ts` to `2.4.0`; updated the rule scaffolding script to use `String.camelCase` from `effect/String`.
+- Aligned Node.js TypeScript configurations and type declarations across the workspace and examples; bumped `@nubjs/nub` to `0.9.7`, `dprint` to `0.64.3`, `nx` to `24.0.2`, and `chokidar` to `6.0.0`. (#2101)
+- Removed the `@eslint-react/core` `type-is`, `type-name`, and `type-variant` test files and cleaned up ESLint configurations.
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.30.0-beta.17...v5.30.0-beta.18
+
 ## v5.30.0-beta.17 (2026-10-30)
 
 ### 🐞 Fixes
