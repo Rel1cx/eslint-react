@@ -5,6 +5,7 @@ import * as Data from "effect/Data";
 import * as Effect from "effect/Effect";
 import * as FileSystem from "effect/FileSystem";
 import * as Path from "effect/Path";
+import * as String from "effect/String";
 import { DOMAIN_META_BY_KEY, PLUGIN_DOMAINS, type PluginDomain, buildConfigKey, buildPluginPrefix } from "./00-constants";
 
 /**
@@ -21,10 +22,6 @@ import { DOMAIN_META_BY_KEY, PLUGIN_DOMAINS, type PluginDomain, buildConfigKey, 
  */
 
 class ScaffoldError extends Data.Error<{ readonly message: string }> {}
-
-function kebabToCamel(str: string): string {
-  return str.replace(/-([a-z])/g, (_, c) => c.toUpperCase());
-}
 
 function generateRuleTs(ruleName: string): string {
   return [
@@ -316,7 +313,7 @@ const updatePluginTs = Effect.fnUntraced(
     const fs = yield* FileSystem.FileSystem;
     const lines = (yield* fs.readFileString(pluginTsPath, "utf8")).split("\n");
 
-    const camelName = kebabToCamel(ruleName);
+    const camelName = String.camelCase(ruleName);
     const importLine = `import ${camelName} from "./rules/${ruleName}/${ruleName}";`;
     // 4-space indent matches the existing entries inside `rules: { ... }`.
     const ruleEntryLine = `    "${ruleName}": ${camelName},`;
