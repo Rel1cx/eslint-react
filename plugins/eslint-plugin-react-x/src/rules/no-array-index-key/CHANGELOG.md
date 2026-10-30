@@ -5,6 +5,12 @@ All notable changes to the `react-x/no-array-index-key` rule will be documented 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+### Changed
+
+- Inlined static `key` property matching after the shared AST helper was removed; no behavior change.
+
 ## [5.30.0-beta.6] - 2026-10-27
 
 ### Changed

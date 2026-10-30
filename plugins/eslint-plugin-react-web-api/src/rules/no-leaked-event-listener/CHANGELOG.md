@@ -5,6 +5,16 @@ All notable changes to the `react-web-api/no-leaked-event-listener` rule will be
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+### Fixed
+
+- Listener, event-type, and receiver matching now treats dot access and static computed access as the same property (ex: `handlers.onResize` and `handlers["onResize"]`), including simple template-literal keys, instead of reporting a missing cleanup.
+
+### Changed
+
+- Inlined listener option property lookup after the shared AST helper was removed; no behavior change.
+
 ## [5.30.0-beta.15] - 2026-10-30
 
 ### Changed
