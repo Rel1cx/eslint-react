@@ -2,6 +2,26 @@
 title: Changelog
 ---
 
+## v5.30.0-beta.17 (2026-10-30)
+
+### 🐞 Fixes
+
+- `react-web-api/no-leaked-event-listener`: listener, event-type, and receiver matching now treats dot access and static computed access as the same property (ex: `handlers.onResize` and `handlers["onResize"]`), including simple template-literal keys, instead of reporting a missing cleanup. (#2100)
+
+### 🏗️ Internal
+
+- `@eslint-react/ast`: removed the general-purpose `Extract.getMemberChain`, `Extract.getPropertyName`, `Extract.findProperty`, and `Extract.getAssignmentTargets` helpers; `@eslint-react/var`: added `resolveAssignmentTargets`. Rules now use specialized local lookup and traversal logic where appropriate. No behavior change. (#2100)
+
+  Affected rules:
+  - `react-web-api/no-leaked-fetch`
+  - `react-x/globals`
+  - `react-x/immutability`
+  - `react-x/no-array-index-key`
+  - `react-x/purity`
+  - `react-x/use-memo`
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.30.0-beta.16...v5.30.0-beta.17
+
 ## v5.30.0-beta.16 (2026-10-30)
 
 ### 🏗️ Internal
