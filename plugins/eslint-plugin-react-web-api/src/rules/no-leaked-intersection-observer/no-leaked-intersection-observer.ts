@@ -55,10 +55,13 @@ function getCallKind(context: RuleContext, node: TSESTree.CallExpression): CallK
     return "other";
   }
   const name = Extract.getCalleeName(node);
-  if (name != null && isMatching(P.union("observe", "unobserve", "disconnect"))(name) && isFromObserver(context, callee, "IntersectionObserver")) {
-    return name;
-  }
-  return "other";
+  // Observer operations must have a statically recognizable method name.
+  if (name == null) return "other";
+  // Only observation lifecycle methods participate in leak analysis.
+  if (!isMatching(P.union("observe", "unobserve", "disconnect"))(name)) return "other";
+  // Methods on unrelated objects must not be treated as observer operations.
+  if (!isFromObserver(context, callee, "IntersectionObserver")) return "other";
+  return name;
 }
 
 // Whether the new expression initializes a ref: `useRef(new IntersectionObserver(...))`

@@ -556,7 +556,13 @@ function getDestructuredPropertyName(pattern: TSESTree.ObjectPattern, name: TSES
     if (property.type !== AST.Property) continue;
     const target = property.value.type === AST.AssignmentPattern ? property.value.left : property.value;
     if (target !== name) continue;
-    return Extract.getPropertyName(property, "max");
+    const key = Extract.unwrap(property.key);
+    if (!property.computed && Check.isIdentifier(key)) return key.name;
+    if (key.type === AST.Literal && typeof key.value === "string") return key.value;
+    if (key.type === AST.TemplateLiteral && key.expressions.length === 0) {
+      return key.quasis[0]?.value.cooked ?? key.quasis[0]?.value.raw ?? null;
+    }
+    return null;
   }
   return null;
 }
@@ -570,13 +576,14 @@ function getDestructuredPropertyName(pattern: TSESTree.ObjectPattern, name: TSES
  * member segments (`window[fetch]`) do not resolve either.
  */
 export function resolveBuiltinMember(context: RuleContext, node: TSESTree.MemberExpression, seen = new Set<string>()): BuiltinResolution | null {
-  for (let current: TSESTree.Node = node; current.type === AST.MemberExpression; current = Extract.unwrap(current.object)) {
+  let rootId: TSESTree.Node = Extract.unwrap(node);
+  const segments: TSESTree.Node[] = [];
+  for (let current: TSESTree.Node = rootId; current.type === AST.MemberExpression; current = Extract.unwrap(current.object)) {
     if (current.computed) return null;
+    segments.unshift(Extract.unwrap(current.property));
+    rootId = Extract.unwrap(current.object);
   }
-  const chain = Extract.getMemberChain(node);
-  const rootId = chain.at(0);
-  if (rootId == null || !Check.isIdentifier(rootId)) return null;
-  const segments = chain.slice(1);
+  if (!Check.isIdentifier(rootId)) return null;
   if (segments.length === 0 || !segments.every((segment) => Check.isIdentifier(segment))) return null;
   const resolved = resolveBuiltinObjectName(context, rootId, seen);
   if (resolved == null) return null;

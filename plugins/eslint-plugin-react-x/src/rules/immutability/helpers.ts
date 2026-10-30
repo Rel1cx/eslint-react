@@ -1,5 +1,5 @@
 import { Check, Extract } from "@eslint-react/ast";
-import type { TSESTree } from "@typescript-eslint/types";
+import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 
 // #region Constants
 
@@ -59,9 +59,13 @@ export function isRefLikeName(name: string) {
 }
 
 export function hasRefLikeNameInChain(node: TSESTree.Node): boolean {
-  const expr = Extract.unwrap(node);
-  if (!Check.isExpression(expr)) return false;
-  return Extract.getMemberChain(expr).some((member) => Check.isIdentifier(member) && isRefLikeName(member.name));
+  let current: TSESTree.Node = Extract.unwrap(node);
+  while (current.type === AST.MemberExpression) {
+    const property = Extract.unwrap(current.property);
+    if (Check.isIdentifier(property) && isRefLikeName(property.name)) return true;
+    current = Extract.unwrap(current.object);
+  }
+  return Check.isIdentifier(current) && isRefLikeName(current.name);
 }
 
 // #endregion

@@ -109,7 +109,8 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       for (const property of propsObject.properties) {
         if (property.type !== AST.Property) continue;
         if (property.computed) continue;
-        if (Extract.getPropertyName(property, "max") !== "key") continue;
+        const key = Extract.unwrap(property.key);
+        if (Check.isIdentifier(key) ? key.name !== "key" : key.value !== "key") continue;
         const value = property.value;
         for (const desc of visitKeyExpression(value)) {
           context.report(desc);

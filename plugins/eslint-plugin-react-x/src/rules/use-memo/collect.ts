@@ -1,5 +1,6 @@
 import { Check, Collect, Extract, type TSESTreeFunction, Traverse } from "@eslint-react/ast";
 import type { RuleListener } from "@eslint-react/eslint";
+import { resolveAssignmentTargets } from "@eslint-react/var";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import { isResultUsed } from "./helpers";
 
@@ -58,7 +59,7 @@ export function createFactCollector(isUseMemoCall: (node: null | TSESTree.Node) 
       enter(node) {
         switch (node.type) {
           case AST.AssignmentExpression: {
-            for (const target of Extract.getAssignmentTargets(node.left)) {
+            for (const target of resolveAssignmentTargets(node.left)) {
               pushWrite(node, target);
             }
             return;
@@ -66,7 +67,7 @@ export function createFactCollector(isUseMemoCall: (node: null | TSESTree.Node) 
           case AST.ForInStatement:
           case AST.ForOfStatement: {
             if (node.left.type === AST.VariableDeclaration) return;
-            for (const target of Extract.getAssignmentTargets(node.left)) {
+            for (const target of resolveAssignmentTargets(node.left)) {
               pushWrite(node, target);
             }
             return;

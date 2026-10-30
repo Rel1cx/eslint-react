@@ -79,8 +79,15 @@ export function parseCreateElementCall(context: RuleContext, node: TSESTree.Node
  * @returns The statically resolved key, or `null` when it cannot be determined as a string.
  */
 function getStaticPropertyName(context: RuleContext, property: TSESTree.Property): string | null {
-  if (!property.computed) return Extract.getPropertyName(property, "max");
   const key = Extract.unwrap(property.key);
+  if (!property.computed) {
+    if (Check.isIdentifier(key)) return key.name;
+    if (key.type === AST.Literal && typeof key.value === "string") return key.value;
+    if (key.type === AST.TemplateLiteral && key.expressions.length === 0) {
+      return key.quasis[0]?.value.cooked ?? key.quasis[0]?.value.raw ?? null;
+    }
+    return null;
+  }
   const staticValue = getStaticValue(key, context.sourceCode.getScope(key));
   return typeof staticValue?.value === "string" ? staticValue.value : null;
 }

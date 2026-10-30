@@ -70,9 +70,9 @@ export function resolveCleanupCallee({ context, node }: RuleNodeParams<TSESTree.
   const objectExpression = init == null ? null : Extract.unwrap(init);
   if (objectExpression?.type !== AST.ObjectExpression) return null;
   for (const prop of objectExpression.properties) {
-    if (prop.type !== AST.Property || prop.computed || Extract.getPropertyName(prop, "max") !== property.name) {
-      continue;
-    }
+    if (prop.type !== AST.Property || prop.computed) continue;
+    const key = Extract.unwrap(prop.key);
+    if (Check.isIdentifier(key) ? key.name !== property.name : key.value !== property.name) continue;
     const value = Extract.unwrap(prop.value);
     if (Check.isFunction(value)) {
       return { kind: "function", node: value };
@@ -143,7 +143,27 @@ export function getListenerOptions({ context, node }: RuleNodeParams<TSESTree.Ca
         return { ...defaultListenerOptions, capture: Boolean(node.value) };
       }
       case AST.ObjectExpression: {
-        const pCapture = Extract.findProperty(node.properties, "capture");
+        const findOption = (properties: TSESTree.ObjectLiteralElement[], name: string): TSESTree.Property | null => {
+          for (const property of properties) {
+            if (property.type === AST.Property) {
+              const key = Extract.unwrap(property.key);
+              const propertyName = !property.computed && Check.isIdentifier(key)
+                ? key.name
+                : key.type === AST.Literal && typeof key.value === "string"
+                ? key.value
+                : key.type === AST.TemplateLiteral && key.expressions.length === 0
+                ? key.quasis[0]?.value.cooked ?? key.quasis[0]?.value.raw ?? null
+                : null;
+              if (propertyName === name) return property;
+            }
+            if (property.type === AST.SpreadElement && property.argument.type === AST.ObjectExpression) {
+              const found = findOption(property.argument.properties, name);
+              if (found != null) return found;
+            }
+          }
+          return null;
+        };
+        const pCapture = findOption(node.properties, "capture");
         const vCapture = match(pCapture)
           .with(P.nullish, () => false)
           .with({ type: AST.Property }, (prop) => {
@@ -156,7 +176,7 @@ export function getListenerOptions({ context, node }: RuleNodeParams<TSESTree.Ca
             }
           })
           .otherwise(() => false);
-        const pSignal = Extract.findProperty(node.properties, "signal");
+        const pSignal = findOption(node.properties, "signal");
         const vSignal = pSignal?.type === AST.Property
           ? getSignalValueExpression({ context, node: pSignal.value })
           : null;

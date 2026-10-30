@@ -36,10 +36,10 @@ function isGlobalObject(node: TSESTree.Node) {
   return Check.isIdentifier(node) && (node.name === "window" || node.name === "globalThis" || node.name === "self");
 }
 
-export function isSameObject(a: TSESTree.Node, b: TSESTree.Node) {
+export function isSameObject(a: TSESTree.Node, b: TSESTree.Node, isEqual: (a: TSESTree.Node, b: TSESTree.Node) => boolean = Compare.isEqual) {
   switch (true) {
     case a.type === AST.MemberExpression && b.type === AST.MemberExpression:
-      return Compare.isEqual(a.object, b.object);
+      return isEqual(a.object, b.object);
     case a.type === AST.MemberExpression:
       return isGlobalObject(a.object);
     case b.type === AST.MemberExpression:

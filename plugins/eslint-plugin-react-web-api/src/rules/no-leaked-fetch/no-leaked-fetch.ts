@@ -92,7 +92,27 @@ function getFetchController(context: RuleContext, node: TSESTree.CallExpression)
   const options = resolveToObjectExpression(context, optionsArg);
   if (options == null) return { controller: null, isParamSignal: false };
 
-  const signalProp = Extract.findProperty(options.properties, "signal");
+  const findSignal = (properties: TSESTree.ObjectLiteralElement[]): TSESTree.Property | null => {
+    for (const property of properties) {
+      if (property.type === AST.Property) {
+        const key = Extract.unwrap(property.key);
+        const name = !property.computed && Check.isIdentifier(key)
+          ? key.name
+          : key.type === AST.Literal && typeof key.value === "string"
+          ? key.value
+          : key.type === AST.TemplateLiteral && key.expressions.length === 0
+          ? key.quasis[0]?.value.cooked ?? key.quasis[0]?.value.raw ?? null
+          : null;
+        if (name === "signal") return property;
+      }
+      if (property.type === AST.SpreadElement && property.argument.type === AST.ObjectExpression) {
+        const found = findSignal(property.argument.properties);
+        if (found != null) return found;
+      }
+    }
+    return null;
+  };
+  const signalProp = findSignal(options.properties);
   if (signalProp?.type !== AST.Property) return { controller: null, isParamSignal: false };
 
   return getControllerFromSignal(context, signalProp.value);
