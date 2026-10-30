@@ -18,14 +18,12 @@ overrides:
   # Single-version pin: minimatch 9.x chain (glob 10.5.0, @npmcli/map-workspaces) would otherwise pull brace-expansion 2.x
   brace-expansion: "^5.0.12"
   # Single-version pin: unified-args 11.0.1 declares ^3.0.0 and would otherwise pull chokidar 3.x
-  chokidar: "^5.0.0"
+  chokidar: "^6.0.0"
   # Single-version pin: tsl and importx would otherwise pull esbuild 0.27.x/0.25.x
   esbuild: "^0.28.2"
   # Transitive dependency via ajv 8.20.0 (declares ^3.0.1), fixes CVE-2026-18446 (GHSA-7p8r-x3mc-p8w7)
   fast-uri: "^4.2.3"
   fumadocs-twoslash: "3.3.1"
-  # Single-version pin: nx 23.3.1 pins exact 10.2.5 and the glob 10.5.0 chain declares ^9
-  minimatch: "^10.2.6"
   next: "16.4.3"
   postcss: "^8.5.32"
   react-dom: "^19.3.1"
