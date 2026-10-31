@@ -2,6 +2,22 @@
 title: Changelog
 ---
 
+## v5.30.0-beta.21 (2026-11-01)
+
+### 🐞 Fixes
+
+- `react-dom/no-render` and `react-dom/no-hydrate`: autofixes now skip calls with extra or spread arguments and calls whose return values are used. (#2103)
+
+### 📝 Documentation
+
+- Added a known-issues reference for `eslint-plugin-react-dom` rules and reorganized the corresponding `eslint-plugin-react-jsx` reference. (#2103)
+
+### 🏗️ Internal
+
+- Removed the unused `inlinedDependencies` field from the monorepo package configuration.
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.30.0-beta.20...v5.30.0-beta.21
+
 ## v5.30.0-beta.20 (2026-10-31)
 
 ### 🏗️ Internal
