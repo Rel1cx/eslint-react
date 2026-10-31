@@ -99,6 +99,12 @@ function MyComponent({ price }) {
 }
 ```
 
+Because the rule cannot determine intent, this exemption can also miss an isolated `${expr}` copied accidentally from a template literal. Conversely, currency text with additional content, such as `<div>Total: ${price}</div>`, is reported because it no longer qualifies for the isolated-dollar exemption. Use an expression container to make an intentional dollar sign explicit:
+
+```tsx
+<div>Total: {"$"}{price}</div>
+```
+
 ## Resources
 
 - [Rule Source](https://github.com/Rel1cx/eslint-react/tree/main/plugins/eslint-plugin-react-jsx/src/rules/no-leaked-dollar/no-leaked-dollar.ts)

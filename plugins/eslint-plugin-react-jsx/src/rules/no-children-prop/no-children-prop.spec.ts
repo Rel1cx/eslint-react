@@ -294,17 +294,10 @@ ruleTester.run(RULE_NAME, rule, {
       code: 'React.createElement("div", { ["chi" + "ldren"]: "Children" });',
       errors: [{ messageId: "default" }],
     },
-    // A direct `children` attribute is inspected even when a spread is also present
+    // A following spread may override `children`, so no suggestion is offered
     {
       code: '<div children="Children" {...props} />;',
-      errors: [
-        {
-          messageId: "default",
-          suggestions: [
-            { messageId: "suggest", output: "<div {...props}>Children</div>;" },
-          ],
-        },
-      ],
+      errors: [{ messageId: "default", suggestions: [] }],
     },
     // JSX edge cases
     {

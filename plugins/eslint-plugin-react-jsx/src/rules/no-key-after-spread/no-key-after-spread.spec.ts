@@ -229,10 +229,9 @@ ruleTesterWithJSXAutomaticRuntime.run(`${RULE_NAME} (automatic runtime)`, rule, 
       `,
       errors: [{ messageId: "default" }],
     },
-    // An inline object literal spread is not treated differently: the rule
-    // reports 'key' after ANY spread attribute. The "inline object literal"
-    // exception mentioned in the rule's comment describes tsc's emit behavior
-    // (tsc still uses the JSX runtime there), not an exception in this rule
+    // Cross-compiler behavior: tsc emits inline object spreads through the JSX
+    // runtime, but Babel falls back to createElement when 'key' follows any
+    // spread. Keep reporting these forms so the rule remains correct for Babel.
     {
       code: tsx`
         const App = () => {
@@ -241,12 +240,19 @@ ruleTesterWithJSXAutomaticRuntime.run(`${RULE_NAME} (automatic runtime)`, rule, 
       `,
       errors: [{ messageId: "default" }],
     },
-    // A 'key' inside the spread object does not exempt the trailing 'key'
-    // attribute either — the rule only looks at attribute position
+    // A key inside the spread object does not exempt the trailing key attribute
     {
       code: tsx`
         const App = () => {
           return <div {...{ key: 1 }} key="k" />;
+        };
+      `,
+      errors: [{ messageId: "default" }],
+    },
+    {
+      code: tsx`
+        const App = () => {
+          return <div {...{ [key]: value }} key="k" />;
         };
       `,
       errors: [{ messageId: "default" }],

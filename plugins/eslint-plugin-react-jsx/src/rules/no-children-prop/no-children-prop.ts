@@ -62,11 +62,13 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         return;
       }
 
+      const hasFollowingSpread = node.openingElement.attributes.some((a) => a.type === AST.JSXSpreadAttribute && a.range[0] > prop.range[0]);
+
       // Turn the 'children' prop value into text usable as element content
       const childrenText = getChildrenText(context, prop);
 
-      // Cannot extract a meaningful children value – report without suggestion
-      if (childrenText == null) {
+      // Report without a suggestion when the value cannot be moved safely
+      if (childrenText == null || hasFollowingSpread) {
         context.report({ messageId: "default", node: prop });
         return;
       }
