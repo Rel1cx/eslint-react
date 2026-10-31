@@ -1,6 +1,5 @@
 import { createRule } from "@/utils/create-rule";
-import { getIteratorCallback } from "@/utils/jsx-iterator";
-import { Collect, type TSESTreeFunction, type TSESTreeJSXElementLike } from "@eslint-react/ast";
+import { Check, Collect, Extract, type TSESTreeFunction, type TSESTreeJSXElementLike } from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, type RuleListener } from "@eslint-react/eslint";
 import { hasAttribute } from "@eslint-react/jsx";
@@ -10,6 +9,12 @@ import type { ReportDescriptor } from "@typescript-eslint/utils/ts-eslint";
 export const RULE_NAME = "no-missing-key";
 
 export const RULE_FEATURES = [] as const satisfies RuleFeature[];
+
+const ITERATOR_CALLBACK_POSITIONS = new Map<string, number>([
+  ["flatMap", 0],
+  ["from", 1],
+  ["map", 0],
+]);
 
 export type MessageID =
   | "default"
@@ -96,13 +101,20 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       }
     },
     CallExpression(node) {
+      const call = node;
       if (core.isChildrenToArrayCall(context, node)) {
         childrenToArrayDepth += 1;
         return;
       }
       if (childrenToArrayDepth > 0) return;
-      const callback = getIteratorCallback(node);
-      if (callback == null) return;
+      const callee = Extract.unwrap(call.callee);
+      if (callee.type !== AST.MemberExpression || !Check.isIdentifier(callee.property)) return;
+      const position = ITERATOR_CALLBACK_POSITIONS.get(callee.property.name);
+      if (position == null) return;
+      const argument = call.arguments[position];
+      if (argument == null) return;
+      const callback = Extract.unwrap(argument);
+      if (!Check.isFunction(callback)) return;
       for (const desc of visitIteratorCallback(callback)) {
         context.report(desc);
       }
