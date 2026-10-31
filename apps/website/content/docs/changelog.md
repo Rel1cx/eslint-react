@@ -2,6 +2,25 @@
 title: Changelog
 ---
 
+## v5.30.0-beta.19 (2026-10-31)
+
+### 🐞 Fixes
+
+- `react-jsx/no-children-prop`: the suggestion to move `children` into element content is no longer offered when a following spread attribute could override it. (#2102)
+- `react-jsx/no-leaked-semicolon`: leaked semicolons between a JSX child and its parent's closing tag on the same line are now detected. (#2102)
+
+### 📝 Documentation
+
+- Documented known limitations and workarounds for `react-jsx/no-comment-textnodes`, `react-jsx/no-key-after-spread`, and `react-jsx/no-leaked-dollar`. (#2102)
+- Refined the glossary entries for project rules and recipes.
+
+### 🏗️ Internal
+
+- Bumped `effect` and `@effect/platform-node` to `4.1.1`, `lucide-react` to `1.66.0`, `nx` to `24.0.3`, and `preact` to `11.1.1`.
+- Pinned `minimatch` to `^10.2.6` via a pnpm override.
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.30.0-beta.18...v5.30.0-beta.19
+
 ## v5.30.0-beta.18 (2026-10-31)
 
 ### 🏗️ Internal
