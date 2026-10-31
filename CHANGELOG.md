@@ -1,5 +1,16 @@
 # Changelog
 
+## v5.30.0-beta.20 (2026-10-31)
+
+### 🏗️ Internal
+
+- `react-x/no-missing-key`: inlined iterator callback handling and removed the shared `getIteratorCallback` helper. No behavior change.
+- `react-x/set-state-in-effect`: added behavior boundary and unit tests, renamed `isParameterId` to `isInitializedFromParameter`, and refreshed the React Compiler spec comparison. No behavior change.
+- `react-x/set-state-in-render`: added unit tests for the `collect`, `effects`, `helpers`, and `origins` modules.
+- Bumped `tslib` to `2.9.1` in the lockfile.
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.30.0-beta.19...v5.30.0-beta.20
+
 ## v5.30.0-beta.19 (2026-10-31)
 
 ### 🐞 Fixes
