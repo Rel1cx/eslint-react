@@ -2,20 +2,79 @@
 
 Reviewed 2026-10-31 against `main@4d1fdbe` plus the current working-tree fixes; plugin `5.30.0-beta.18`, all 8 rules. Evidence comes from implementations, tests, docs, changelogs, and public issues/PRs.
 
-**10 findings: 8 current (3 medium, 5 low), 2 resolved.** No directly related open GitHub issue was found. Rule names below link to their primary evidence.
+**10 findings: 8 current (3 medium, 5 low), 2 resolved.** No directly related open GitHub issue was found. Each finding lists its affected rules and primary evidence.
 
-| ID      | Rule/evidence                                                                                                                                                                                                                                                        | Finding and current state                                                                                                                                                                                                 |
-| ------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| JSX-001 | [`no-children-prop`](../plugins/eslint-plugin-react-jsx/src/rules/no-children-prop/no-children-prop.ts)                                                                                                                                                              | **Resolved:** suggestions are suppressed when a spread follows `children`, preserving prop precedence.                                                                                                                    |
-| JSX-002 | [`no-children-prop`](../plugins/eslint-plugin-react-jsx/src/rules/no-children-prop/no-children-prop.spec.ts), [`no-children-prop-with-children`](../plugins/eslint-plugin-react-jsx/src/rules/no-children-prop-with-children/no-children-prop-with-children.spec.ts) | **Medium:** only direct props are inspected; spread and variable props cause false negatives.                                                                                                                             |
-| JSX-003 | [`no-key-after-spread`](../plugins/eslint-plugin-react-jsx/src/rules/no-key-after-spread/no-key-after-spread.spec.ts)                                                                                                                                                | **Medium/policy:** TypeScript uses `_jsx` for inline object spreads without nested spreads, but Babel falls back to `createElement`; reporting all trailing spreads is correct for Babel but conservative for TypeScript. |
-| JSX-004 | [`no-leaked-semicolon`](../plugins/eslint-plugin-react-jsx/src/rules/no-leaked-semicolon/no-leaked-semicolon.ts)                                                                                                                                                     | **Resolved:** same-line semicolons after a JSX child and before the closing tag are detected; standalone text and semicolons between children remain allowed.                                                             |
-| JSX-005 | [`no-useless-fragment`](../plugins/eslint-plugin-react-jsx/src/rules/no-useless-fragment/no-useless-fragment.ts)                                                                                                                                                     | **Medium:** every spread exempts a Fragment, even a static object without `key`/`ref`.                                                                                                                                    |
-| JSX-006 | [`no-useless-fragment`](../plugins/eslint-plugin-react-jsx/src/rules/no-useless-fragment/no-useless-fragment.ts)                                                                                                                                                     | **Low:** child counting is syntactic; `{null}` and `{cond && ...}` count even when rendering nothing.                                                                                                                     |
-| JSX-007 | [`no-useless-fragment`](../plugins/eslint-plugin-react-jsx/src/rules/no-useless-fragment/no-useless-fragment.spec.ts)                                                                                                                                                | **Low:** `allowEmptyFragment` suppresses only the child-count reason, not the independent host-element reason; docs need this exception.                                                                                  |
-| JSX-008 | [`no-useless-fragment`](../plugins/eslint-plugin-react-jsx/src/rules/no-useless-fragment/no-useless-fragment.spec.ts)                                                                                                                                                | **Low:** one Fragment can receive host-element and child-count diagnostics with the same fix; combine them.                                                                                                               |
-| JSX-009 | [`no-comment-textnodes`](../plugins/eslint-plugin-react-jsx/src/rules/no-comment-textnodes/no-comment-textnodes.mdx)                                                                                                                                                 | **Low/documented:** comment-like intentional text such as `//server/share` is reported; use `{"//server/share"}`. Detection is unchanged to avoid new false negatives.                                                    |
-| JSX-010 | [`no-leaked-dollar`](../plugins/eslint-plugin-react-jsx/src/rules/no-leaked-dollar/no-leaked-dollar.mdx)                                                                                                                                                             | **Low/documented:** isolated `${expr}` is allowed but currency text with other content is reported; use `{"$"}{expr}`. Detection is unchanged because intent is ambiguous.                                                |
+## Current findings
+
+### JSX-002: Spread and variable props are missed
+
+- **Severity:** Medium
+- **Rules:** `no-children-prop`, `no-children-prop-with-children`
+- **Evidence:** [`no-children-prop` spec](../plugins/eslint-plugin-react-jsx/src/rules/no-children-prop/no-children-prop.spec.ts), [`no-children-prop-with-children` spec](../plugins/eslint-plugin-react-jsx/src/rules/no-children-prop-with-children/no-children-prop-with-children.spec.ts)
+- **Finding:** Only direct props are inspected; spread and variable props cause false negatives.
+
+### JSX-003: Spread policy differs by compiler
+
+- **Severity:** Medium (policy)
+- **Rules:** `no-key-after-spread`
+- **Evidence:** [Rule spec](../plugins/eslint-plugin-react-jsx/src/rules/no-key-after-spread/no-key-after-spread.spec.ts)
+- **Finding:** TypeScript uses `_jsx` for inline object spreads without nested spreads, but Babel falls back to `createElement`; reporting all trailing spreads is correct for Babel but conservative for TypeScript.
+
+### JSX-005: Any spread exempts a Fragment
+
+- **Severity:** Medium
+- **Rules:** `no-useless-fragment`
+- **Evidence:** [Rule source](../plugins/eslint-plugin-react-jsx/src/rules/no-useless-fragment/no-useless-fragment.ts)
+- **Finding:** Every spread exempts a Fragment, even a static object without `key`/`ref`.
+
+### JSX-006: Child counting is syntactic
+
+- **Severity:** Low
+- **Rules:** `no-useless-fragment`
+- **Evidence:** [Rule source](../plugins/eslint-plugin-react-jsx/src/rules/no-useless-fragment/no-useless-fragment.ts)
+- **Finding:** `{null}` and `{cond && ...}` count as children even when rendering nothing.
+
+### JSX-007: `allowEmptyFragment` has a host-element exception
+
+- **Severity:** Low
+- **Rules:** `no-useless-fragment`
+- **Evidence:** [Rule spec](../plugins/eslint-plugin-react-jsx/src/rules/no-useless-fragment/no-useless-fragment.spec.ts)
+- **Finding:** `allowEmptyFragment` suppresses only the child-count reason, not the independent host-element reason; docs need this exception.
+
+### JSX-008: Duplicate Fragment diagnostics share a fix
+
+- **Severity:** Low
+- **Rules:** `no-useless-fragment`
+- **Evidence:** [Rule spec](../plugins/eslint-plugin-react-jsx/src/rules/no-useless-fragment/no-useless-fragment.spec.ts)
+- **Finding:** One Fragment can receive host-element and child-count diagnostics with the same fix; these reports should be combined.
+
+### JSX-009: Intentional comment-like text is reported
+
+- **Severity:** Low (documented)
+- **Rules:** `no-comment-textnodes`
+- **Evidence:** [Rule docs](../plugins/eslint-plugin-react-jsx/src/rules/no-comment-textnodes/no-comment-textnodes.mdx)
+- **Finding:** Comment-like intentional text such as `//server/share` is reported; use `{"//server/share"}`. Detection is unchanged to avoid new false negatives.
+
+### JSX-010: Currency text with expressions is reported
+
+- **Severity:** Low (documented)
+- **Rules:** `no-leaked-dollar`
+- **Evidence:** [Rule docs](../plugins/eslint-plugin-react-jsx/src/rules/no-leaked-dollar/no-leaked-dollar.mdx)
+- **Finding:** Isolated `${expr}` is allowed but currency text with other content is reported; use `{"$"}{expr}`. Detection is unchanged because intent is ambiguous.
+
+## Resolved findings
+
+### JSX-001: Spread precedence is preserved
+
+- **Rules:** `no-children-prop`
+- **Evidence:** [Rule source](../plugins/eslint-plugin-react-jsx/src/rules/no-children-prop/no-children-prop.ts)
+- **Resolution:** Suggestions are suppressed when a spread follows `children`, preserving prop precedence.
+
+### JSX-004: Same-line semicolons are detected
+
+- **Rules:** `no-leaked-semicolon`
+- **Evidence:** [Rule source](../plugins/eslint-plugin-react-jsx/src/rules/no-leaked-semicolon/no-leaked-semicolon.ts)
+- **Resolution:** Same-line semicolons after a JSX child and before the closing tag are detected; standalone text and semicolons between children remain allowed.
 
 ## Boundaries and next steps
 

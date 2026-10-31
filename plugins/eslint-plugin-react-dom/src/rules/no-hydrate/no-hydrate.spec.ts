@@ -59,18 +59,25 @@ ruleTester.run(RULE_NAME, rule, {
         hydrateRoot(rootEl, <Component />);
       `,
     },
-    // In assignment expression
+    // Return value used in an assignment (no auto-fix)
     {
       code: tsx`
         import { hydrate } from "react-dom";
         const fact = hydrate(<Component />, document.getElementById("app"));
       `,
       errors: [{ messageId: "default" }],
-      output: tsx`
-        import { hydrateRoot } from "react-dom/client";
+      output: null,
+    },
+    // Return value used in a return statement (no auto-fix)
+    {
+      code: tsx`
         import { hydrate } from "react-dom";
-        const fact = hydrateRoot(document.getElementById("app"), <Component />);
+        function mount() {
+          return hydrate(<Component />, document.getElementById("app"));
+        }
       `,
+      errors: [{ messageId: "default" }],
+      output: null,
     },
     {
       code: tsx`
@@ -83,6 +90,24 @@ ruleTester.run(RULE_NAME, rule, {
         import { hydrate } from "react-dom";
         hydrateRoot(document.body, <div />);
       `,
+    },
+    // Optional third callback argument (no auto-fix)
+    {
+      code: tsx`
+        import { hydrate } from "react-dom";
+        hydrate(<Component />, document.getElementById("app"), () => {});
+      `,
+      errors: [{ messageId: "default" }],
+      output: null,
+    },
+    // Arguments hidden in a spread (no auto-fix)
+    {
+      code: tsx`
+        import { hydrate } from "react-dom";
+        hydrate(<Component />, ...[document.getElementById("app"), () => {}]);
+      `,
+      errors: [{ messageId: "default" }],
+      output: null,
     },
     // Missing second argument (no auto-fix)
     {
