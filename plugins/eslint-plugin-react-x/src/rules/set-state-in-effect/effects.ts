@@ -27,9 +27,7 @@ export function inferViolations(context: RuleContext, facts: SetStateInEffectFac
 
   const queue: InvocationState[] = [];
   const visited = new Set<string>();
-  // Dedupe by effect-side report location and setter name: sinks reported at
-  // the same trigger collapse to one, while different setters each get a
-  // report
+  // Dedupe by effect-side report location and setter name: sinks reported at the same trigger collapse to one, while different setters each get a report
   const violations = new Map<string, SetStateViolation>();
 
   const enqueue = (state: InvocationState) => {
