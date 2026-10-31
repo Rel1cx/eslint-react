@@ -79,18 +79,34 @@ ruleTester.run(RULE_NAME, rule, {
         createRoot(document.getElementById("app")).render(<Component />);
       `,
     },
-    // In assignment expression
+    // Return value used in an assignment (no auto-fix)
     {
       code: tsx`
         import { render } from "react-dom";
         const fact = render(<Component />, document.getElementById("app"));
       `,
       errors: [{ messageId: "default" }],
-      output: tsx`
-        import { createRoot } from "react-dom/client";
+      output: null,
+    },
+    // Return value used in a return statement (no auto-fix)
+    {
+      code: tsx`
         import { render } from "react-dom";
-        const fact = createRoot(document.getElementById("app")).render(<Component />);
+        function mount() {
+          return render(<Component />, document.getElementById("app"));
+        }
       `,
+      errors: [{ messageId: "default" }],
+      output: null,
+    },
+    // Return value used as a call argument (no auto-fix)
+    {
+      code: tsx`
+        import { render } from "react-dom";
+        consume(render(<Component />, document.getElementById("app")));
+      `,
+      errors: [{ messageId: "default" }],
+      output: null,
     },
     {
       code: tsx`
@@ -104,20 +120,23 @@ ruleTester.run(RULE_NAME, rule, {
         createRoot(document.body).render(<div />);
       `,
     },
-    // Known behavior: the optional third callback argument of the legacy
-    // `render(element, container, callback?)` signature is dropped by the fix,
-    // because 'createRoot(...).render(...)' has no callback counterpart
+    // Optional third callback argument (no auto-fix)
     {
       code: tsx`
         import { render } from "react-dom";
         render(<Component />, document.getElementById("app"), () => {});
       `,
       errors: [{ messageId: "default" }],
-      output: tsx`
-        import { createRoot } from "react-dom/client";
+      output: null,
+    },
+    // Arguments hidden in a spread (no auto-fix)
+    {
+      code: tsx`
         import { render } from "react-dom";
-        createRoot(document.getElementById("app")).render(<Component />);
+        render(<Component />, ...[document.getElementById("app"), () => {}]);
       `,
+      errors: [{ messageId: "default" }],
+      output: null,
     },
     // Missing second argument (no auto-fix)
     {

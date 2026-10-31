@@ -33,6 +33,8 @@ react-dom/no-hydrate
 
 `ReactDOM.hydrate()` was deprecated in React 18 and removed in React 19. This rule encourages migrating to the new `hydrateRoot()` API which provides better error handling and concurrent features support.
 
+The autofix only handles standalone calls with exactly two non-spread arguments. Calls with additional arguments, spread arguments, or a used return value are reported without a fix because they require manual migration.
+
 ## Examples
 
 ### Using the deprecated `ReactDOM.hydrate()` API
