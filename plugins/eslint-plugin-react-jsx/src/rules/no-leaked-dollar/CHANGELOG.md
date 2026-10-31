@@ -5,6 +5,12 @@ All notable changes to the `react-jsx/no-leaked-dollar` rule will be documented 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [5.30.0-beta.18] - 2026-10-31
+
+### Changed
+
+- Documented that the isolated-dollar exemption may miss copied template syntax, while currency text with additional content may be reported. Added the explicit `{"$"}` expression-container workaround.
+
 ## [5.30.0-beta.6] - 2026-10-27
 
 ### Changed

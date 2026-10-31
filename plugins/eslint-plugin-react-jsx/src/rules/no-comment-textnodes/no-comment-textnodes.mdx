@@ -31,6 +31,12 @@ This rule prevents comment strings (ex: beginning with `//` or `/*`) from being 
 
 Comments inside JSX elements should be placed inside braces (`{/* comment */}`) to prevent them from being rendered as text.
 
+Because this rule is syntactic, intentional text beginning with `//` or `/*` may also be reported. For example, a UNC-style path such as `//server/share` cannot be distinguished from a misplaced comment. Use an expression container to make intentional text explicit:
+
+```tsx
+<div>{"//server/share"}</div>
+```
+
 ## Examples
 
 ### Writing JavaScript-style comments directly inside JSX

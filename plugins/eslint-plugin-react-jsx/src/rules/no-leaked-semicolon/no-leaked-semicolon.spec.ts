@@ -355,6 +355,21 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
     },
+    // Semicolon after a JSX child and directly before the closing tag
+    {
+      code: "<div><div />;</div>",
+      errors: [
+        {
+          messageId: "default",
+          suggestions: [
+            {
+              messageId: "suggest",
+              output: "<div><div /></div>",
+            },
+          ],
+        },
+      ],
+    },
   ],
   valid: [
     tsx`
@@ -440,8 +455,6 @@ ruleTester.run(RULE_NAME, rule, {
     `,
     // Not leaked: semicolon without following newline
     "<div>;<span /></div>",
-    // Not reported: semicolon directly before the closing tag on the same line (a following newline is required)
-    "<div><div />;</div>",
     // Not leaked: whitespace before semicolon+newline
     tsx`
       const Component = () => {

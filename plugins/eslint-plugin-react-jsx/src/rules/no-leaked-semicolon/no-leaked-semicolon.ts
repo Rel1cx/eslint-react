@@ -37,7 +37,14 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       if (!Check.isJSXElementOrFragment(node.parent)) {
         return;
       }
-      if (!/^;+[ \t]*(?:\r\n|\r|\n)/u.test(getText(context, node))) {
+      const text = getText(context, node);
+      const children = node.parent.children;
+      const previous = children.at(-2);
+      const isSameLineLeak = children.at(-1) === node
+        && previous != null
+        && Check.isJSXElementOrFragment(previous)
+        && /^;+[ \t]*$/u.test(text);
+      if (!/^;+[ \t]*(?:\r\n|\r|\n)/u.test(text) && !isSameLineLeak) {
         return;
       }
       context.report({

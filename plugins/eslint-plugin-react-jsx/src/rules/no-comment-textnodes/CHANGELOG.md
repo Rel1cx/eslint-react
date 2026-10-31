@@ -5,6 +5,12 @@ All notable changes to the `react-jsx/no-comment-textnodes` rule will be documen
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [5.30.0-beta.18] - 2026-10-31
+
+### Changed
+
+- Documented that intentional text beginning with `//` or `/*` may be reported, including UNC-style paths such as `//server/share`, and recommended an expression container for explicit text.
+
 ## [5.17.0] - 2026-07-17
 
 ### Changed
