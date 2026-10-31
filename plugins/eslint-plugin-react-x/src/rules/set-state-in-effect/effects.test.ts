@@ -1,4 +1,4 @@
-import { type TestRuleContext, runCollector } from "@local/testkit";
+import { type ParseCodeOptions, type TestRuleContext, fixturePath, runCollector } from "@local/testkit";
 import { describe, expect, it } from "vitest";
 
 import { createFactCollector } from "./collect";
@@ -6,7 +6,7 @@ import { inferViolations } from "./effects";
 
 const NO_ADDITIONAL_HOOKS = { test: () => false };
 
-function inferViolationNames(code: string): string[] {
+function inferViolationsFor(code: string, options: ParseCodeOptions = {}) {
   let context: TestRuleContext | null = null;
   return runCollector(
     code,
@@ -17,9 +17,14 @@ function inferViolationNames(code: string): string[] {
     },
     (facts) => {
       if (context == null) throw new Error("The rule context was not captured");
-      return inferViolations(context, facts).map((violation) => violation.name);
+      return inferViolations(context, facts);
     },
+    options,
   );
+}
+
+function inferViolationNames(code: string): string[] {
+  return inferViolationsFor(code).map((violation) => violation.name);
 }
 
 describe("inferViolations", () => {
@@ -518,5 +523,20 @@ describe("inferViolations", () => {
     const code =
       "function C() { const [node, setNode] = useState(null); const [width, setWidth] = useState(0); useEffect(() => { setWidth(node.getBoundingClientRect().width); }, [node]); return <div callback={setNode} />; }";
     expect(inferViolationNames(code)).toEqual(["setWidth"]);
+  });
+
+  it("should report a direct setter inside a TypeScript-wrapped inline setup at the setter call", () => {
+    const code = "function C() { const [data, setData] = useState(0); useEffect((() => { setData(1); }) as () => void, []); }";
+    const violations = inferViolationsFor(code, { filePath: fixturePath("file.ts") });
+    expect(violations.map((violation) => ({
+      name: violation.name,
+      node: code.slice(violation.node.range[0], violation.node.range[1]),
+    }))).toEqual([{ name: "setData", node: "setData(1)" }]);
+  });
+
+  it("should not infer ref provenance through an unsupported rest parameter", () => {
+    const code =
+      "function C() { const ref = useRef(0); const [data, setData] = useState(0); const update = (...values) => setData(values[0]); useEffect(() => { update(ref.current); }, []); }";
+    expect(inferViolationNames(code)).toEqual(["setData"]);
   });
 });

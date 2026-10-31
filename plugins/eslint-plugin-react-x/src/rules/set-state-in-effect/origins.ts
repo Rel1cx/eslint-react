@@ -284,6 +284,10 @@ export function createSetStateResolver(context: RuleContext, facts: SetStateInEf
     return variable.defs.some((d) => d.type === DefinitionType.Parameter && (refParams?.has(d.name) === true || (d.name.type === AST.Identifier && isRefLikeName(d.name.name))));
   }
 
+  function isInitializedFromParameter(id: TSESTree.Identifier) {
+    return findVariable(context.sourceCode.getScope(id), id)?.defs.some((d) => d.type === DefinitionType.Parameter) ?? false;
+  }
+
   function isRefValue(node: TSESTree.Node, refParams: RefParams | undefined, seen: Set<string>, mode: RefValueMode): boolean {
     const expression = Extract.unwrap(node);
     if (isUseRefCall(expression)) return true;
@@ -293,7 +297,7 @@ export function createSetStateResolver(context: RuleContext, facts: SetStateInEf
       case AST.MemberExpression: {
         const property = Extract.unwrap(expression.property);
         const object = Extract.unwrap(expression.object);
-        if (!expression.computed && Check.isIdentifier(property, "current") && object.type === AST.Identifier && isParameterId(object)) {
+        if (!expression.computed && Check.isIdentifier(property, "current") && object.type === AST.Identifier && isInitializedFromParameter(object)) {
           return true;
         }
         if (mode === "initializer") {
@@ -304,7 +308,7 @@ export function createSetStateResolver(context: RuleContext, facts: SetStateInEf
             if (!current.computed && Check.isIdentifier(currentProperty, "current")) {
               const sourceName = getRefSourceName(currentObject);
               if (sourceName != null && isRefLikeName(sourceName)) return true;
-              if (currentObject.type === AST.Identifier && isParameterId(currentObject)) return true;
+              if (currentObject.type === AST.Identifier && isInitializedFromParameter(currentObject)) return true;
             }
             current = currentObject;
           }
@@ -438,11 +442,7 @@ export function createSetStateResolver(context: RuleContext, facts: SetStateInEf
           if (child === current.body && isRefInExpression(current.test, refParams)) return true;
           break;
         case AST.ForStatement:
-          if (
-            (child === current.body || child === current.update)
-            && current.test != null
-            && isRefInExpression(current.test, refParams)
-          ) {
+          if ((child === current.body || child === current.update) && current.test != null && isRefInExpression(current.test, refParams)) {
             return true;
           }
           break;
@@ -457,10 +457,6 @@ export function createSetStateResolver(context: RuleContext, facts: SetStateInEf
       current = current.parent;
     }
     return false;
-  }
-
-  function isParameterId(id: TSESTree.Identifier) {
-    return findVariable(context.sourceCode.getScope(id), id)?.defs.some((d) => d.type === DefinitionType.Parameter) ?? false;
   }
 
   return {

@@ -177,6 +177,18 @@ describe("createSetStateResolver", () => {
       const fact = runInRule(code, (context, program) => createSetStateResolver(context).resolveValues(findReference(program, "a")));
       expect(fact).toEqual([]);
     });
+
+    it("should not resolve an alias declared with let", () => {
+      const code = "const [data, setData] = useState(); let alias = setData; alias;";
+      const fact = runInRule(code, (context, program) => createSetStateResolver(context).resolveValues(findReference(program, "alias")));
+      expect(fact).toEqual([]);
+    });
+
+    it("should not evaluate an async useMemo factory", () => {
+      const code = "const [data, setData] = useState(); const set = useMemo(async () => setData, []); set;";
+      const fact = runInRule(code, (context, program) => createSetStateResolver(context).resolveValues(findReference(program, "set")));
+      expect(fact).toEqual([]);
+    });
   });
 
   describe("isInitializedFromRef with callback refs", () => {
@@ -193,6 +205,12 @@ describe("createSetStateResolver", () => {
 
     it("should not match state whose setter is passed to another JSX attribute", () => {
       const code = "function C() { const [element, setElement] = useState(null); sink(element); return <div callback={setElement} />; }";
+      expect(isStateHeldElement(code)).toBe(false);
+    });
+
+    it("should not match state written by an async callback ref", () => {
+      const code =
+        "function C() { const [element, setElement] = useState(null); const elementRef = useCallback(async (node) => setElement(node), []); sink(element); return <div ref={elementRef} />; }";
       expect(isStateHeldElement(code)).toBe(false);
     });
   });
@@ -272,6 +290,12 @@ describe("isInitializedFromRef", () => {
 
   it("should match a local initialized from a conditional expression reading a ref", () => {
     const code = "function f() { const ref = useRef(0); const v = cond ? ref.current : 0; sink(v); }";
+    const fact = runInRule(code, (context, program) => isInitializedFromRef(context, findReference(program, "v")));
+    expect(fact).toBe(true);
+  });
+
+  it("should include a conditional test when tracing an initializer", () => {
+    const code = "function f() { const ref = useRef(false); const v = ref.current ? 0 : 1; sink(v); }";
     const fact = runInRule(code, (context, program) => isInitializedFromRef(context, findReference(program, "v")));
     expect(fact).toBe(true);
   });
@@ -547,6 +571,10 @@ describe("isArgumentUsingRefValue", () => {
 
   it("should match a ref-derived value in a conditional branch", () => {
     expect(check("const ref = useRef(0); setWidth(cond ? ref.current : 0);")).toBe(true);
+  });
+
+  it("should not treat a ref read only in a conditional test as the argument value", () => {
+    expect(check("const ref = useRef(false); setWidth(ref.current ? 0 : 1);")).toBe(false);
   });
 
   it("should match a function-expression updater reading a ref", () => {

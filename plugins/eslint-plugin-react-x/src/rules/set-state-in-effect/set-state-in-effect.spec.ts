@@ -2160,6 +2160,43 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [{ data: { name: "setData" }, messageId: "default" }],
     },
+    {
+      name: "ref read only in a conditional test does not exempt a direct setter argument",
+      code: tsx`
+        import { useEffect, useRef, useState } from "react";
+
+        function Component() {
+          const ref = useRef(false);
+          const [data, setData] = useState(0);
+          useEffect(() => {
+            setData(ref.current ? 0 : 1);
+          }, []);
+          return null;
+        }
+      `,
+      errors: [{ data: { name: "setData" }, messageId: "default" }],
+    },
+    {
+      name: "additionalEffectHooks without an Effect suffix runs when another effect hook is present",
+      code: tsx`
+        import { useEffect, useState } from "react";
+
+        function Component() {
+          const [data, setData] = useState(0);
+          useCustom(() => {
+            setData(1);
+          }, []);
+          useEffect(() => {}, []);
+          return null;
+        }
+      `,
+      settings: {
+        "react-x": {
+          additionalEffectHooks: "useCustom",
+        },
+      },
+      errors: [{ data: { name: "setData" }, messageId: "default" }],
+    },
   ],
   valid: [
     {
@@ -4365,6 +4402,61 @@ ruleTester.run(RULE_NAME, rule, {
           return null;
         }
       `,
+    },
+    {
+      name: "conditional test contributes to ref provenance through a local initializer",
+      code: tsx`
+        import { useEffect, useRef, useState } from "react";
+
+        function Component() {
+          const ref = useRef(false);
+          const [data, setData] = useState(0);
+          useEffect(() => {
+            const next = ref.current ? 0 : 1;
+            setData(next);
+          }, []);
+          return null;
+        }
+      `,
+    },
+    {
+      name: "additionalRefHooks recognizes a custom ref source",
+      code: tsx`
+        import { useEffect, useState } from "react";
+
+        function Component() {
+          const ref = useCustomRef(0);
+          const [data, setData] = useState(0);
+          useEffect(() => {
+            setData(ref.current);
+          }, []);
+          return null;
+        }
+      `,
+      settings: {
+        "react-x": {
+          additionalRefHooks: "useCustomRef",
+        },
+      },
+    },
+    {
+      name: "additionalEffectHooks without an Effect suffix is skipped by the source fast path",
+      code: tsx`
+        import { useState } from "react";
+
+        function Component() {
+          const [data, setData] = useState(0);
+          useCustom(() => {
+            setData(1);
+          }, []);
+          return null;
+        }
+      `,
+      settings: {
+        "react-x": {
+          additionalEffectHooks: "useCustom",
+        },
+      },
     },
   ],
 });

@@ -2,7 +2,7 @@ import { Collect, Extract, type TSESTreeFunction } from "@eslint-react/ast";
 import { type ParseCodeOptions, fixturePath, getFirstExpression, getFirstNodeOfType } from "@local/testkit";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import { describe, expect, it } from "vitest";
-import { getImmediateInvocation } from "./helpers";
+import { getConditionalBranch, getImmediateInvocation } from "./helpers";
 
 function getNames(node: TSESTree.Node): string[] {
   return Collect.getIdentifiers(node).map((id) => id.name);
@@ -276,5 +276,24 @@ describe("getImmediateInvocation", () => {
   it("should not match a function invoked through a member call", () => {
     const fn = getFirstNodeOfType<TSESTree.ArrowFunctionExpression>("(() => {}).call(null);", AST.ArrowFunctionExpression);
     expect(getImmediateInvocation(fn)).toBeNull();
+  });
+
+  it("should not match a function passed as a call argument", () => {
+    const fn = getFirstNodeOfType<TSESTree.ArrowFunctionExpression>("schedule(() => { sink(); });", AST.ArrowFunctionExpression);
+    expect(getImmediateInvocation(fn)).toBeNull();
+  });
+});
+
+describe("getConditionalBranch", () => {
+  it("should identify loop bodies and switch cases as conditional branches", () => {
+    const loopCall = getFirstNodeOfType<TSESTree.CallExpression>("while (ready) { sink(); }", AST.CallExpression);
+    const switchCall = getFirstNodeOfType<TSESTree.CallExpression>("switch (kind) { case 1: sink(); }", AST.CallExpression);
+    expect(getConditionalBranch(loopCall)?.type).toBe(AST.BlockStatement);
+    expect(getConditionalBranch(switchCall)?.type).toBe(AST.SwitchCase);
+  });
+
+  it("should not treat an if test as its own conditional branch", () => {
+    const testCall = getFirstNodeOfType<TSESTree.CallExpression>("if (sink()) { ready(); }", AST.CallExpression);
+    expect(getConditionalBranch(testCall)).toBeNull();
   });
 });

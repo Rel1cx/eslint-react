@@ -133,4 +133,32 @@ describe("createFactCollector", () => {
     const facts = collectFacts(code);
     expect(facts.jsxRefExprs.map((node) => code.slice(node.range[0], node.range[1]))).toEqual(["setNode"]);
   });
+
+  it("continues collecting nested calls inside state and effect hook arguments", () => {
+    const code = "function C() { const [s, setS] = useState(initial()); useEffect(setup(), [dep()]); }";
+    const facts = collectFacts(code);
+    expect(summarizeCalls(code, facts)).toEqual([
+      { enclosing: "function C() { const [s, setS] = useState(initial()); useEffect(setup(), [dep()]); }", text: "initial()" },
+      { enclosing: "function C() { const [s, setS] = useState(initial()); useEffect(setup(), [dep()]); }", text: "setup()" },
+      { enclosing: "function C() { const [s, setS] = useState(initial()); useEffect(setup(), [dep()]); }", text: "dep()" },
+    ]);
+    expect(summarizeRoots(code, facts)).toEqual([
+      { effect: "useEffect(setup(), [dep()])", setup: "setup()" },
+    ]);
+  });
+
+  it("restores the outer enclosing function after leaving a nested function", () => {
+    const code = "function C() { useEffect(() => { (() => { inner(); })(); outer(); }, []); }";
+    const facts = collectFacts(code);
+    expect(summarizeCalls(code, facts)).toEqual([
+      { enclosing: "() => { (() => { inner(); })(); outer(); }", text: "(() => { inner(); })()" },
+      { enclosing: "() => { inner(); }", text: "inner()" },
+      { enclosing: "() => { (() => { inner(); })(); outer(); }", text: "outer()" },
+    ]);
+  });
+
+  it("ignores JSX ref attributes without an expression container", () => {
+    const facts = collectFacts('const C = () => <><div ref /><div ref="node" /><div data-ref={setNode} /></>;');
+    expect(facts.jsxRefExprs).toEqual([]);
+  });
 });
