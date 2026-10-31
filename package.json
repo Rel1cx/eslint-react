@@ -102,8 +102,5 @@
   "packageManager": "pnpm@12.16.1",
   "engines": {
     "node": ">=24.21.0"
-  },
-  "inlinedDependencies": {
-    "@local/eff": "workspace:*"
   }
 }
