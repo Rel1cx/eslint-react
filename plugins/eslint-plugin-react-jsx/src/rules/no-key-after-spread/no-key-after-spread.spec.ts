@@ -1,6 +1,5 @@
-import { createRuleTesterForJSXEmit, ruleTester } from "@local/testkit";
+import { createRuleTesterForTsconfig, ruleTester } from "@local/testkit";
 import tsx from "dedent";
-import { JsxEmit } from "typescript";
 import rule, { RULE_NAME } from "./no-key-after-spread";
 
 // Default ruleTester tests (auto-detect runtime from tsconfig)
@@ -139,7 +138,7 @@ ruleTester.run(RULE_NAME, rule, {
 });
 
 // Test with classic runtime (from tsconfig) - deoptimization should NOT apply
-const ruleTesterWithJSXClassicRuntime = createRuleTesterForJSXEmit(JsxEmit.React);
+const ruleTesterWithJSXClassicRuntime = createRuleTesterForTsconfig("react-classic");
 
 ruleTesterWithJSXClassicRuntime.run(`${RULE_NAME} (classic runtime)`, rule, {
   invalid: [
@@ -169,7 +168,7 @@ ruleTesterWithJSXClassicRuntime.run(`${RULE_NAME} (classic runtime)`, rule, {
 });
 
 // Test with react-native runtime (from tsconfig) - classic-family emit, deoptimization should NOT apply
-const ruleTesterWithJSXReactNativeRuntime = createRuleTesterForJSXEmit(JsxEmit.ReactNative);
+const ruleTesterWithJSXReactNativeRuntime = createRuleTesterForTsconfig("react-native");
 
 ruleTesterWithJSXReactNativeRuntime.run(`${RULE_NAME} (react-native runtime)`, rule, {
   invalid: [],
@@ -183,7 +182,7 @@ ruleTesterWithJSXReactNativeRuntime.run(`${RULE_NAME} (react-native runtime)`, r
 });
 
 // Test with automatic runtime (from tsconfig) - deoptimization SHOULD apply
-const ruleTesterWithJSXAutomaticRuntime = createRuleTesterForJSXEmit(JsxEmit.ReactJSX);
+const ruleTesterWithJSXAutomaticRuntime = createRuleTesterForTsconfig("react-jsx");
 
 ruleTesterWithJSXAutomaticRuntime.run(`${RULE_NAME} (automatic runtime)`, rule, {
   invalid: [

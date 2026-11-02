@@ -1,9 +1,8 @@
-import { createRuleTesterForJSXEmit } from "@local/testkit";
+import { createRuleTesterForTsconfig } from "@local/testkit";
 import tsx from "dedent";
-import ts from "typescript";
 import rule, { RULE_NAME } from "./jsx";
 
-const ruleTester = createRuleTesterForJSXEmit(ts.JsxEmit.ReactJSX);
+const ruleTester = createRuleTesterForTsconfig("react-jsx");
 
 ruleTester.run(RULE_NAME, rule, {
   invalid: [

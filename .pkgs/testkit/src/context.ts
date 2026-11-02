@@ -1,7 +1,7 @@
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import { ASTUtils } from "@typescript-eslint/utils";
 
-import type { TestRuleContext } from "./linter";
+import type { TestRuleContext } from "./harness";
 import type { parseCode } from "./parse";
 
 /**

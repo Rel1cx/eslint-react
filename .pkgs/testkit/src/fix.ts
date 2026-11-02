@@ -1,16 +1,7 @@
-import { ESLint, Linter } from "eslint";
+import { Linter } from "eslint";
 import type { Rule } from "eslint";
 
-import { getTestRuleLanguageOptions } from "./linter";
-
-export async function lintWithConfig(config: Linter.Config | Linter.Config[], patterns: string[], cwd = process.cwd()) {
-  const eslint = new ESLint({
-    cwd,
-    overrideConfig: config,
-    overrideConfigFile: true,
-  });
-  return await eslint.lintFiles(patterns);
-}
+import { getTestRuleLanguageOptions } from "./harness";
 
 /**
  * Run a rule with fixes enabled until the code stabilizes (or ESLint's fix limit is reached).
