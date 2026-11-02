@@ -18,3 +18,30 @@ export function getFixturesRootDir(): string {
 export function fixturePath(name: string): string {
   return path.join(getFixturesRootDir(), name);
 }
+
+/**
+ * Registry of the tsconfig fixtures under the fixtures root directory,
+ * keyed by the scenario they model. Adding a new scenario is a matter of
+ * dropping a tsconfig file into the fixtures root and adding one entry here.
+ */
+export const tsconfigFixtures = {
+  /** Automatic JSX runtime with `jsxImportSource: preact`. */
+  preact: "tsconfig.jsx-preact.json",
+  /** Preserved JSX (`jsx: preserve`). */
+  preserve: "tsconfig.jsx-preserve.json",
+  /** Classic JSX runtime (`jsx: react`). */
+  "react-classic": "tsconfig.jsx-react.json",
+  /** Default automatic JSX runtime (`jsx: react-jsx`). */
+  "react-jsx": "tsconfig.json",
+  /** React Native JSX transform (`jsx: react-native`). */
+  "react-native": "tsconfig.jsx-react-native.json",
+} as const;
+
+export type TsconfigFixtureName = keyof typeof tsconfigFixtures;
+
+/**
+ * Resolve the absolute path of a registered tsconfig fixture.
+ */
+export function tsconfigFixturePath(name: TsconfigFixtureName): string {
+  return fixturePath(tsconfigFixtures[name]);
+}

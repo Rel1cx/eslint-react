@@ -1,7 +1,7 @@
-import * as tsParser from "@typescript-eslint/parser";
 import type { TSESTree } from "@typescript-eslint/types";
 import { Linter, type RuleContext, type RuleListener } from "@typescript-eslint/utils/ts-eslint";
 
+import { defineTestLanguageOptions, getFileExtension } from "./options";
 import type { ParseCodeOptions } from "./parse";
 
 /**
@@ -18,20 +18,12 @@ export type TestRuleContext = RuleContext<string, readonly unknown[]>;
  * Parser-facing options for the rule-channel helpers. `filePath` is passed
  * to `Linter#verify` as the filename (a `.ts` name disables TSX parsing),
  * `jsx` toggles JSX in `parserOptions`, and `sourceType` maps to
- * `parserOptions.sourceType`.
+ * `languageOptions.sourceType`.
  */
 export type RuleRunOptions = Pick<ParseCodeOptions, "filePath" | "jsx" | "sourceType">;
 
 export function getTestRuleLanguageOptions(options: RuleRunOptions) {
-  const { jsx = true, sourceType } = options;
-  return {
-    parser: tsParser,
-    parserOptions: {
-      ecmaFeatures: { jsx },
-      jsx,
-      ...(sourceType == null ? {} : { sourceType }),
-    },
-  } as const;
+  return defineTestLanguageOptions(options);
 }
 
 /**
@@ -40,15 +32,16 @@ export function getTestRuleLanguageOptions(options: RuleRunOptions) {
  * and returns the visitor that the rule should use.
  */
 function runInlineRule(code: string, createVisitor: (context: TestRuleContext) => RuleListener, options: RuleRunOptions = {}): TestRuleContext {
-  let context: TestRuleContext | null = null;
+  // Boxed so the closure assignment inside `create` is visible to the type checker.
+  const state: { context: TestRuleContext | null } = { context: null };
   // Flat config only applies a config entry to a filename it matches, so a
   // `files` pattern for the extension is required when a filename is passed.
   const files = options.filePath == null
     ? {}
-    : { files: [`**/*${options.filePath.match(/\.[^./\\]+$/)?.[0] ?? ""}`] };
+    : { files: [`**/*${getFileExtension(options.filePath)}`] };
   new Linter().verify(code, {
     ...files,
-    languageOptions: getTestRuleLanguageOptions(options),
+    languageOptions: defineTestLanguageOptions(options),
     plugins: {
       test: {
         rules: {
@@ -56,8 +49,8 @@ function runInlineRule(code: string, createVisitor: (context: TestRuleContext) =
             meta: { type: "problem", messages: {}, schema: [] },
             create(ctx: unknown) {
               // tsl-ignore dx/no-unsafe-as
-              context = ctx as TestRuleContext;
-              return createVisitor(context);
+              state.context = ctx as TestRuleContext;
+              return createVisitor(state.context);
             },
           },
         },
@@ -65,7 +58,13 @@ function runInlineRule(code: string, createVisitor: (context: TestRuleContext) =
     },
     rules: { "test/test-rule": "error" },
   }, options.filePath);
-  return context!;
+  if (state.context == null) {
+    throw new Error(
+      "runInlineRule: the inline rule was not invoked"
+        + (options.filePath == null ? "" : ` — check that the files pattern matches "${options.filePath}"`),
+    );
+  }
+  return state.context;
 }
 
 /**
@@ -117,7 +116,8 @@ export function getNodeInRule<T extends TSESTree.Node>(code: string, visitorKey:
 /**
  * Runs `code` through a real `Linter`, spreads the collector's own `visitor`
  * into the rule, and harvests the result via the collector's `api` on
- * `Program:exit`.
+ * `Program:exit`. The collector's visitor must not define its own `Program`
+ * or `Program:exit` listeners; those keys are owned by the harvest wiring.
  * @param code The source code to lint.
  * @param getCollector Builds the collector from the rule context.
  * @param harvest Extracts the result from the collector's api.
@@ -136,6 +136,11 @@ export function runCollector<A, R>(
   let api: A | undefined;
   runInlineRule(code, (context) => {
     const collector = getCollector(context);
+    if ("Program" in collector.visitor || "Program:exit" in collector.visitor) {
+      throw new Error(
+        "runCollector: collector.visitor must not define Program or Program:exit listeners; those keys are reserved for the harvest wiring",
+      );
+    }
     api = collector.api;
     return {
       ...collector.visitor,
