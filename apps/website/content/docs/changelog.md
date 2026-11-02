@@ -2,6 +2,27 @@
 title: Changelog
 ---
 
+## v5.30.0-beta.22 (2026-11-02)
+
+### 🐞 Fixes
+
+- Improved autofix-added imports: reuse existing imports when possible, avoid duplicates, and place new imports after file-level directives, header comments, and existing imports. (#2104)
+
+  Affected rules:
+  - `react-dom/no-render`
+  - `react-dom/no-hydrate`
+  - `react-dom/no-use-form-state`
+
+### 📝 Documentation
+
+- Updated the review metadata and corrected findings in the known-issues references for `eslint-plugin-react-dom` and `eslint-plugin-react-jsx`.
+
+### 🏗️ Internal
+
+- Bumped `effect` and `@effect/platform-node` to `4.1.2`, `ansis` to `4.5.0`, `eslint-plugin-package-json` to `1.13.0`, `eslint-plugin-regexp` to `3.3.3`, `globals` to `17.14.0`, and `tinybench` to `6.2.3`.
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.30.0-beta.21...v5.30.0-beta.22
+
 ## v5.30.0-beta.21 (2026-11-01)
 
 ### 🐞 Fixes
