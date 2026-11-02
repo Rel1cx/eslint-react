@@ -50,6 +50,22 @@ describe("createSetStateResolver", () => {
     it("should not match a setter from object destructuring", () => {
       expect(checkSetStateId("const { 1: setData } = useState(); setData;", "setData")).toBe(false);
     });
+
+    it("should match a setter declared with let", () => {
+      expect(checkSetStateId("let [, setData] = useState(); setData;", "setData")).toBe(true);
+    });
+
+    it("should not match a binding at index 2 of the state tuple", () => {
+      expect(checkSetStateId("const [a, b, setData] = useState(); setData;", "setData")).toBe(false);
+    });
+
+    it("should not match a setter with a default value in the pattern", () => {
+      expect(checkSetStateId("const [, setData = () => {}] = useState(); setData;", "setData")).toBe(false);
+    });
+
+    it("should not match a reference shadowed by a nested function parameter", () => {
+      expect(checkSetStateId("const [, setData] = useState(); function f(setData) { setData; }", "setData")).toBe(false);
+    });
   });
 
   describe("isSetStateCall", () => {
@@ -75,6 +91,18 @@ describe("createSetStateResolver", () => {
     it("should not match a call through a member expression", () => {
       expect(check("const [data, setData] = useState(); const obj = { setData }; obj.setData(1);", "obj.setData")).toBe(false);
     });
+
+    it("should match a call of a TS-asserted setter", () => {
+      expect(check("const [data, setData] = useState(); (setData as any)(1);", "(setData as any)")).toBe(true);
+    });
+
+    it("should not match a call of the state value at index 0", () => {
+      expect(check("const [data, setData] = useState(); data(1);", "data(1)")).toBe(false);
+    });
+
+    it("should not match a call of a shadowed setter", () => {
+      expect(check("const [, setData] = useState(); function f(setData) { setData(1); }", "setData(1)")).toBe(false);
+    });
   });
 
   describe("isUseStateCall", () => {
@@ -88,6 +116,16 @@ describe("createSetStateResolver", () => {
         });
       });
       expect(facts).toEqual([true, true, false]);
+    });
+
+    it("should not identify a non-call expression", () => {
+      const fact = runInRule("useState;", (context, program) => {
+        const resolver = createSetStateResolver(context);
+        const statement = program.body[0]!;
+        if (statement.type !== AST.ExpressionStatement) throw new Error("Expected an expression statement");
+        return resolver.isUseStateCall(statement.expression);
+      });
+      expect(fact).toBe(false);
     });
   });
 });

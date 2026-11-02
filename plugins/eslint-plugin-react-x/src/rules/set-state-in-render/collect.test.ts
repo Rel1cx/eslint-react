@@ -112,4 +112,68 @@ describe("createFactCollector", () => {
     expect(facts.earlyReturns).toHaveLength(1);
     expect(getTextOf(code, facts.earlyReturns[0]!.componentFunction)).toBe("function Inner({ cond }) { if (cond) return null; inner(); }");
   });
+
+  it("should not collect namespaced state hook calls", () => {
+    const code = "function Component() { const [count, setCount] = React.useState(0); setCount(1); }";
+    const facts = collectFacts(code);
+    expect(summarizeCalls(code, facts).map((call) => call.text)).toEqual(["setCount(1)"]);
+  });
+
+  it("should classify an immediately invoked function as other, not callback", () => {
+    const code = "function Component() { (() => { setCount(1); })(); }";
+    const facts = collectFacts(code);
+    expect(summarizeCalls(code, facts)).toEqual([
+      {
+        component: code,
+        enclosing: code,
+        kind: "component",
+        text: "(() => { setCount(1); })()",
+      },
+      {
+        component: code,
+        enclosing: "() => { setCount(1); }",
+        kind: "other",
+        text: "setCount(1)",
+      },
+    ]);
+  });
+
+  it("should classify a function assigned to a component-like member as a component", () => {
+    const code = "obj.Component = function () { setCount(1); };";
+    const facts = collectFacts(code);
+    expect(summarizeCalls(code, facts)).toEqual([
+      {
+        component: "function () { setCount(1); }",
+        enclosing: "function () { setCount(1); }",
+        kind: "component",
+        text: "setCount(1)",
+      },
+    ]);
+  });
+
+  it("should collect calls in an arrow component with an expression body", () => {
+    const code = "const Component = () => (setA(1), null);";
+    const facts = collectFacts(code);
+    expect(summarizeCalls(code, facts)).toEqual([
+      {
+        component: "() => (setA(1), null)",
+        enclosing: "() => (setA(1), null)",
+        kind: "component",
+        text: "setA(1)",
+      },
+    ]);
+    expect(facts.earlyReturns).toEqual([]);
+  });
+
+  it("should collect multiple early returns but not the final return", () => {
+    const code = "function Component({ a, b }) { if (a) return 1; if (b) return 2; return 3; }";
+    const facts = collectFacts(code);
+    expect(facts.earlyReturns.map((entry) => getTextOf(code, entry.node))).toEqual(["return 1;", "return 2;"]);
+  });
+
+  it("should not collect a return whose top-level statement is the last in the body", () => {
+    const code = "function Component({ cond }) { if (cond) { return null; } }";
+    const facts = collectFacts(code);
+    expect(facts.earlyReturns).toEqual([]);
+  });
 });

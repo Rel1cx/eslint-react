@@ -51,6 +51,19 @@ describe("isComponentOrHookLikeFunction", () => {
   it("should not match an anonymous callback passed to another function", () => {
     expect(checkFunction("schedule(() => {});", AST.ArrowFunctionExpression)).toBe(false);
   });
+
+  it("should match an arrow function assigned to a component-like or hook-like variable", () => {
+    expect(checkFunction("const Component = () => {};", AST.ArrowFunctionExpression)).toBe(true);
+    expect(checkFunction("const useHook = () => {};", AST.ArrowFunctionExpression)).toBe(true);
+  });
+
+  it("should not match an arrow function assigned to a lowercase variable", () => {
+    expect(checkFunction("const helper = () => {};", AST.ArrowFunctionExpression)).toBe(false);
+  });
+
+  it("should not match a member assignment with a lowercase property", () => {
+    expect(checkFunction("obj.helper = function () {};", AST.FunctionExpression)).toBe(false);
+  });
 });
 
 describe("isInsideConditional", () => {
@@ -81,5 +94,18 @@ describe("isInsideConditional", () => {
 
   it("should stop at the given function boundary", () => {
     expect(checkConditional("if (cond) { function Component() { setCount(1); } }")).toBe(false);
+  });
+
+  it("should match calls in an else branch and in logical OR expressions", () => {
+    expect(checkConditional("function Component({ cond }) { if (cond) {} else { setCount(1); } }")).toBe(true);
+    expect(checkConditional("function Component({ cond }) { cond || setCount(1); }")).toBe(true);
+  });
+
+  it("should match a call in the switch discriminant", () => {
+    expect(checkConditional("function Component() { switch (setCount(1)) { default: break; } }")).toBe(true);
+  });
+
+  it("should match a call in a conditional nested inside a loop", () => {
+    expect(checkConditional("function Component({ items, cond }) { for (const item of items) { if (cond) { setCount(item); } } }")).toBe(true);
   });
 });

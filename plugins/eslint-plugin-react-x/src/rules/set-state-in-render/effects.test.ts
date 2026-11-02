@@ -96,4 +96,55 @@ describe("inferViolations", () => {
     const code = "function Component() { const [count, setCount] = useState(0); const alias = setCount; alias(1); }";
     expect(inferViolationNames(code)).toEqual([]);
   });
+
+  it("should report a setState call in an arrow component with an expression body", () => {
+    const code = "const [a, setA] = useState(0); const Component = () => (setA(1), null);";
+    expect(inferViolationNames(code)).toEqual(["setA"]);
+  });
+
+  it("should report a setState call in a component assigned to a member", () => {
+    const code = "obj.Component = function () { const [a, setA] = useState(0); setA(1); };";
+    expect(inferViolationNames(code)).toEqual(["setA"]);
+  });
+
+  it("should report a setState call directly in a hook nested in a component", () => {
+    const code = "function Component() { const [a, setA] = useState(0); function useHelper() { setA(1); } }";
+    expect(inferViolationNames(code)).toEqual(["setA"]);
+  });
+
+  it("should report an optional setState call", () => {
+    const code = "function Component() { const [count, setCount] = useState(0); setCount?.(1); }";
+    expect(inferViolationNames(code)).toEqual(["setCount"]);
+  });
+
+  it("should report a setState call through a TS assertion under the unwrapped name", () => {
+    const code = "function Component() { const [count, setCount] = useState(0); (setCount as any)(1); }";
+    expect(inferViolationNames(code)).toEqual(["setCount"]);
+  });
+
+  it("should report a setter from a namespaced state hook", () => {
+    const code = "function Component() { const [a, setA] = React.useState(0); setA(1); }";
+    expect(inferViolationNames(code)).toEqual(["setA"]);
+  });
+
+  it("should apply early return guards per component across siblings", () => {
+    const code =
+      "function A() { const [a, setA] = useState(0); setA(1); } function B({ cond }) { const [b, setB] = useState(0); if (cond) return null; setB(2); }";
+    expect(inferViolationNames(code)).toEqual(["setA"]);
+  });
+
+  it("should not report a setState call guarded by a double-nested early return", () => {
+    const code = "function Component({ a, b }) { const [x, setX] = useState(0); if (a) { if (b) return null; } setX(1); }";
+    expect(inferViolationNames(code)).toEqual([]);
+  });
+
+  it("should not report a setState call in a block statement after an early return", () => {
+    const code = "function Component({ cond }) { const [a, setA] = useState(0); if (cond) return null; { setA(1); } }";
+    expect(inferViolationNames(code)).toEqual([]);
+  });
+
+  it("should not report a conditional setState call in a custom hook", () => {
+    const code = "function useHook({ cond }) { const [a, setA] = useState(0); if (cond) setA(1); }";
+    expect(inferViolationNames(code)).toEqual([]);
+  });
 });
