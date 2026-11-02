@@ -41,10 +41,10 @@ describe("createSetStateResolver", () => {
     it("should match the element at index 1 of an array-destructured useState tuple", () => {
       const code = "const [data, setData] = useState(); setData; data;";
       const fact = runInRule(code, (context, program) => {
-        const resolver = createSetStateResolver(context);
+        const r = createSetStateResolver(context);
         return [
-          resolver.isSetStateId(findReference(program, "setData")),
-          resolver.isSetStateId(findReference(program, "data")),
+          r.isSetStateId(findReference(program, "setData")),
+          r.isSetStateId(findReference(program, "data")),
         ];
       });
       expect(fact).toEqual([true, false]);
@@ -53,8 +53,7 @@ describe("createSetStateResolver", () => {
     it("should not match a binding initialized by a non-state hook", () => {
       const code = "const [, setData] = useFoo(); setData;";
       const fact = runInRule(code, (context, program) => {
-        const resolver = createSetStateResolver(context);
-        return resolver.isSetStateId(findReference(program, "setData"));
+        return createSetStateResolver(context).isSetStateId(findReference(program, "setData"));
       });
       expect(fact).toBe(false);
     });
@@ -62,8 +61,8 @@ describe("createSetStateResolver", () => {
     it("should not match an unresolvable identifier", () => {
       const code = "setData;";
       const fact = runInRule(code, (context, program) => {
-        const resolver = createSetStateResolver(context);
-        return resolver.isSetStateId(findReference(program, "setData"));
+        const r = createSetStateResolver(context);
+        return r.isSetStateId(findReference(program, "setData"));
       });
       expect(fact).toBe(false);
     });
@@ -71,8 +70,8 @@ describe("createSetStateResolver", () => {
     it("should match the setter of a tuple destructured with a hole", () => {
       const code = "const [, setData] = useState(); setData;";
       const fact = runInRule(code, (context, program) => {
-        const resolver = createSetStateResolver(context);
-        return resolver.isSetStateId(findReference(program, "setData"));
+        const r = createSetStateResolver(context);
+        return r.isSetStateId(findReference(program, "setData"));
       });
       expect(fact).toBe(true);
     });
@@ -80,8 +79,7 @@ describe("createSetStateResolver", () => {
     it("should match a setter destructured from a namespace state hook call", () => {
       const code = "const [, setData] = React.useState(); setData;";
       const fact = runInRule(code, (context, program) => {
-        const resolver = createSetStateResolver(context);
-        return resolver.isSetStateId(findReference(program, "setData"));
+        return createSetStateResolver(context).isSetStateId(findReference(program, "setData"));
       });
       expect(fact).toBe(true);
     });
@@ -89,8 +87,7 @@ describe("createSetStateResolver", () => {
     it("should not match a setter reached through an alias variable", () => {
       const code = "const [data, setData] = useState(); const alias = setData; alias;";
       const fact = runInRule(code, (context, program) => {
-        const resolver = createSetStateResolver(context);
-        return resolver.isSetStateId(findReference(program, "alias"));
+        return createSetStateResolver(context).isSetStateId(findReference(program, "alias"));
       });
       expect(fact).toBe(false);
     });
@@ -98,8 +95,31 @@ describe("createSetStateResolver", () => {
     it("should not match a binding initialized by a non-call expression", () => {
       const code = "const setData = foo; setData;";
       const fact = runInRule(code, (context, program) => {
-        const resolver = createSetStateResolver(context);
-        return resolver.isSetStateId(findReference(program, "setData"));
+        return createSetStateResolver(context).isSetStateId(findReference(program, "setData"));
+      });
+      expect(fact).toBe(false);
+    });
+
+    it("should not match a setter destructured with a default value", () => {
+      const code = "const [data, setData = () => {}] = useState(); setData;";
+      const fact = runInRule(code, (context, program) => {
+        return createSetStateResolver(context).isSetStateId(findReference(program, "setData"));
+      });
+      expect(fact).toBe(false);
+    });
+
+    it("should not match a name bound through an object-pattern numeric key", () => {
+      const code = "const { 1: setData } = useState(); setData;";
+      const fact = runInRule(code, (context, program) => {
+        return createSetStateResolver(context).isSetStateId(findReference(program, "setData"));
+      });
+      expect(fact).toBe(false);
+    });
+
+    it("should not match a name bound beyond the second tuple element", () => {
+      const code = "const [data, setData, extra] = useState(); extra;";
+      const fact = runInRule(code, (context, program) => {
+        return createSetStateResolver(context).isSetStateId(findReference(program, "extra"));
       });
       expect(fact).toBe(false);
     });
@@ -109,8 +129,7 @@ describe("createSetStateResolver", () => {
     it("should match a direct call of the destructured setter", () => {
       const code = "const [data, setData] = useState(); setData(1);";
       const fact = runInRule(code, (context, program) => {
-        const resolver = createSetStateResolver(context);
-        return resolver.isSetStateCall(findCall(context, program, "setData"));
+        return createSetStateResolver(context).isSetStateCall(findCall(context, program, "setData"));
       });
       expect(fact).toBe(true);
     });
@@ -118,8 +137,7 @@ describe("createSetStateResolver", () => {
     it("should not match a call of an unrelated function", () => {
       const code = "function foo() {} foo();";
       const fact = runInRule(code, (context, program) => {
-        const resolver = createSetStateResolver(context);
-        return resolver.isSetStateCall(findCall(context, program, "foo"));
+        return createSetStateResolver(context).isSetStateCall(findCall(context, program, "foo"));
       });
       expect(fact).toBe(false);
     });
@@ -127,8 +145,15 @@ describe("createSetStateResolver", () => {
     it("should match an optional call of the destructured setter", () => {
       const code = "const [data, setData] = useState(); setData?.(1);";
       const fact = runInRule(code, (context, program) => {
-        const resolver = createSetStateResolver(context);
-        return resolver.isSetStateCall(findCall(context, program, "setData"));
+        return createSetStateResolver(context).isSetStateCall(findCall(context, program, "setData"));
+      });
+      expect(fact).toBe(true);
+    });
+
+    it("should match a parenthesized call of the destructured setter", () => {
+      const code = "const [data, setData] = useState(); (setData)(1);";
+      const fact = runInRule(code, (context, program) => {
+        return createSetStateResolver(context).isSetStateCall(findCall(context, program, "(setData"));
       });
       expect(fact).toBe(true);
     });
@@ -138,10 +163,8 @@ describe("createSetStateResolver", () => {
     it("should resolve a setter through a stable alias", () => {
       const code = "const [data, setData] = useState(); const alias = setData; alias;";
       const fact = runInRule(code, (context, program) => {
-        const resolver = createSetStateResolver(context);
-        return resolver.resolveValues(findReference(program, "alias")).map((target) =>
-          target.kind === "setter" ? resolver.getSetterName(target.node) : target.kind
-        );
+        const r = createSetStateResolver(context);
+        return r.resolveValues(findReference(program, "alias")).map((target) => target.kind === "setter" ? r.getSetterName(target.node) : target.kind);
       });
       expect(fact).toEqual(["setData"]);
     });
@@ -149,8 +172,7 @@ describe("createSetStateResolver", () => {
     it("should resolve a function through multiple aliases", () => {
       const code = "const inner = () => setData(1); const outer = inner; outer;";
       const fact = runInRule(code, (context, program) => {
-        const resolver = createSetStateResolver(context);
-        return resolver.resolveValues(findReference(program, "outer")).map((target) => target.kind);
+        return createSetStateResolver(context).resolveValues(findReference(program, "outer")).map((target) => target.kind);
       });
       expect(fact).toEqual(["function"]);
     });
@@ -189,6 +211,115 @@ describe("createSetStateResolver", () => {
       const fact = runInRule(code, (context, program) => createSetStateResolver(context).resolveValues(findReference(program, "set")));
       expect(fact).toEqual([]);
     });
+
+    it("should resolve a function declaration by name", () => {
+      const code = "function setup() {} setup;";
+      const fact = runInRule(
+        code,
+        (context, program) => createSetStateResolver(context).resolveValues(findReference(program, "setup")).map((target) => target.kind),
+      );
+      expect(fact).toEqual(["function"]);
+    });
+
+    it("should resolve a function wrapped in useCallback", () => {
+      const code = "const cb = useCallback(() => {}, []); cb;";
+      const fact = runInRule(
+        code,
+        (context, program) => createSetStateResolver(context).resolveValues(findReference(program, "cb")).map((target) => target.kind),
+      );
+      expect(fact).toEqual(["function"]);
+    });
+
+    it("should resolve a function wrapped in useEffectEvent", () => {
+      const code = "const handler = useEffectEvent(() => {}); handler;";
+      const fact = runInRule(
+        code,
+        (context, program) => createSetStateResolver(context).resolveValues(findReference(program, "handler")).map((target) => target.kind),
+      );
+      expect(fact).toEqual(["function"]);
+    });
+
+    it("should resolve a function through a TypeScript-wrapped initializer", () => {
+      const code = "const f = (() => {}) as () => void; f;";
+      const fact = runInRule(
+        code,
+        (context, program) => createSetStateResolver(context).resolveValues(findReference(program, "f")).map((target) => target.kind),
+        { filePath: fixturePath("file.ts") },
+      );
+      expect(fact).toEqual(["function"]);
+    });
+
+    it("should not resolve an imported binding", () => {
+      const code = "import { helper } from './mod'; helper;";
+      const fact = runInRule(code, (context, program) => createSetStateResolver(context).resolveValues(findReference(program, "helper")));
+      expect(fact).toEqual([]);
+    });
+
+    it("should not resolve an alias declared with var", () => {
+      const code = "var f = () => {}; f;";
+      const fact = runInRule(code, (context, program) => createSetStateResolver(context).resolveValues(findReference(program, "f")));
+      expect(fact).toEqual([]);
+    });
+
+    it("should not resolve the result of a non-wrapper call", () => {
+      const code = "const f = makeFn(); f;";
+      const fact = runInRule(code, (context, program) => createSetStateResolver(context).resolveValues(findReference(program, "f")));
+      expect(fact).toEqual([]);
+    });
+
+    it("should not resolve a useMemo call with a spread argument", () => {
+      const code = "const set = useMemo(...args); set;";
+      const fact = runInRule(code, (context, program) => createSetStateResolver(context).resolveValues(findReference(program, "set")));
+      expect(fact).toEqual([]);
+    });
+
+    it("should resolve each occurrence of the same setter in a conditional as its own target", () => {
+      const code = "const [data, setData] = useState(); const f = cond ? setData : setData; f;";
+      const fact = runInRule(code, (context, program) => {
+        const resolver = createSetStateResolver(context);
+        return resolver.resolveValues(findReference(program, "f")).map((target) =>
+          target.kind === "setter" ? resolver.getSetterName(target.node) : target.kind
+        );
+      });
+      expect(fact).toEqual(["setData", "setData"]);
+    });
+  });
+
+  describe("getRefDerivedParams", () => {
+    function deriveParamNames(code: string, callText: string, seedFirstParam = false) {
+      return runInRule(code, (context, program) => {
+        const resolver = createSetStateResolver(context);
+        const arrow = collectNodes<TSESTree.ArrowFunctionExpression>(program, AST.ArrowFunctionExpression)[0];
+        if (arrow == null) throw new Error("No arrow function found");
+        const call = collectNodes<TSESTree.CallExpression>(program, AST.CallExpression)
+          .find((node) => getText(context, node) === callText);
+        if (call == null) throw new Error(`No call matching "${callText}" found`);
+        const firstParam = arrow.params[0];
+        const current = seedFirstParam && firstParam != null ? new Set<TSESTree.Node>([firstParam]) : undefined;
+        return [...resolver.getRefDerivedParams(call, arrow, current)]
+          .map((node) => node.type === AST.Identifier ? node.name : node.type);
+      });
+    }
+
+    it("should map a ref-derived argument to a default-valued parameter", () => {
+      const code = "const ref = useRef(0); const update = (el = 0) => el; update(ref.current);";
+      expect(deriveParamNames(code, "update(ref.current)")).toEqual(["el"]);
+    });
+
+    it("should not map a ref-derived argument to a destructured parameter", () => {
+      const code = "const ref = useRef(0); const update = ({ el }) => el; update(ref.current);";
+      expect(deriveParamNames(code, "update(ref.current)")).toEqual([]);
+    });
+
+    it("should drop a stale mapping when a recursive call passes a plain value", () => {
+      const code = "const update = (el) => { update(0); };";
+      expect(deriveParamNames(code, "update(0)", true)).toEqual([]);
+    });
+
+    it("should keep the mapping when a recursive call passes a ref-derived value", () => {
+      const code = "const ref = useRef(0); const update = (el) => { update(ref.current); };";
+      expect(deriveParamNames(code, "update(ref.current)", true)).toEqual(["el"]);
+    });
   });
 
   describe("isInitializedFromRef with callback refs", () => {
@@ -211,6 +342,22 @@ describe("createSetStateResolver", () => {
     it("should not match state written by an async callback ref", () => {
       const code =
         "function C() { const [element, setElement] = useState(null); const elementRef = useCallback(async (node) => setElement(node), []); sink(element); return <div ref={elementRef} />; }";
+      expect(isStateHeldElement(code)).toBe(false);
+    });
+
+    it("should match state whose setter is called by an inline JSX ref callback", () => {
+      const code = "function C() { const [element, setElement] = useState(null); sink(element); return <div ref={(node) => setElement(node)} />; }";
+      expect(isStateHeldElement(code)).toBe(true);
+    });
+
+    it("should not match state written by an async inline JSX ref callback", () => {
+      const code = "function C() { const [element, setElement] = useState(null); sink(element); return <div ref={async (node) => setElement(node)} />; }";
+      expect(isStateHeldElement(code)).toBe(false);
+    });
+
+    it("should not match state when the inline ref callback writes a different state", () => {
+      const code =
+        "function C() { const [element, setElement] = useState(null); const [other, setOther] = useState(null); sink(element); return <div ref={(node) => setOther(node)} />; }";
       expect(isStateHeldElement(code)).toBe(false);
     });
   });
@@ -494,6 +641,24 @@ describe("isInitializedFromRef", () => {
     const fact = runInRule(code, (context, program) => isInitializedFromRef(context, findReference(program, "v", -1)));
     expect(fact).toBe(false);
   });
+
+  it("should not match an unresolvable identifier", () => {
+    const code = "function f() { sink(el); }";
+    const fact = runInRule(code, (context, program) => isInitializedFromRef(context, findReference(program, "el")));
+    expect(fact).toBe(false);
+  });
+
+  it("should match a local read from a ref-like-named member chain", () => {
+    const code = "function f() { const myRef = getRef(); const w = myRef.current; sink(w); }";
+    const fact = runInRule(code, (context, program) => isInitializedFromRef(context, findReference(program, "w")));
+    expect(fact).toBe(true);
+  });
+
+  it("should retain ref provenance through an update expression", () => {
+    const code = "function f() { const ref = useRef(0); let v = ref.current; v++; sink(v); }";
+    const fact = runInRule(code, (context, program) => isInitializedFromRef(context, findReference(program, "v", -1)));
+    expect(fact).toBe(true);
+  });
 });
 
 describe("isArgumentUsingRefValue", () => {
@@ -624,6 +789,34 @@ describe("isArgumentUsingRefValue", () => {
 
   it("should not treat an async getter's promise as a ref value", () => {
     expect(check("const ref = useRef(0); const getValue = async () => ref.current; setWidth(getValue());")).toBe(false);
+  });
+
+  it("should match a ref-derived value in a spread argument", () => {
+    expect(check("const ref = useRef(0); setWidth(...[ref.current]);")).toBe(true);
+  });
+
+  it("should match an awaited ref value", () => {
+    expect(check("async function f() { const ref = useRef(0); setWidth(await ref.current); }")).toBe(true);
+  });
+
+  it("should match a ref-derived tag of a tagged template", () => {
+    expect(check("const ref = useRef(String.raw); setWidth(ref.current`hello`);")).toBe(true);
+  });
+
+  it("should match a value returned by a two-level ref-reading getter", () => {
+    expect(check("const ref = useRef(0); const getA = () => ref.current; const getB = () => getA(); setWidth(getB());")).toBe(true);
+  });
+
+  it("should match a getter fed by a ref-derived argument", () => {
+    expect(check("const ref = useRef(null); const read = (el) => el.offsetWidth; setWidth(read(ref.current));")).toBe(true);
+  });
+
+  it("should not match a getter fed by a plain value", () => {
+    expect(check("const read = (el) => el.offsetWidth; setWidth(read(document.body));")).toBe(false);
+  });
+
+  it("should match an updater capturing a ref-derived local", () => {
+    expect(check("const ref = useRef(null); const el = ref.current; setWidth(() => el);")).toBe(true);
   });
 });
 
@@ -821,5 +1014,27 @@ describe("isRefGatedContext", () => {
 
   it("should match a setState call after a ref-gated if whose try always returns", () => {
     expect(check("function f() { const ref = useRef(0); if (ref.current) { try { return; } finally {} } setData(1); }")).toBe(true);
+  });
+
+  it("should match a setState call in the alternate of a ref-gated conditional expression", () => {
+    expect(check("function f() { const ref = useRef(0); ref.current ? null : setData(1); }")).toBe(true);
+  });
+
+  it("should match a setState call after a ref-gated break in a loop", () => {
+    expect(check("function f() { const ref = useRef(0); while (x) { if (!ref.current) break; setData(1); } }")).toBe(true);
+  });
+
+  it("should match a setState call after a ref-gated continue in a loop", () => {
+    expect(check("function f() { const ref = useRef(0); while (x) { if (!ref.current) continue; setData(1); } }")).toBe(true);
+  });
+
+  it("should not match a setState call in a different switch case than the ref guard", () => {
+    expect(
+      check("function f({ kind }) { const ref = useRef(0); switch (kind) { case 1: if (!ref.current) return; break; case 2: setData(1); } }"),
+    ).toBe(false);
+  });
+
+  it("should match a setState call in the consequent of a ref-gated else-if", () => {
+    expect(check("function f() { const ref = useRef(0); if (a) { log(); } else if (ref.current) { setData(1); } }")).toBe(true);
   });
 });

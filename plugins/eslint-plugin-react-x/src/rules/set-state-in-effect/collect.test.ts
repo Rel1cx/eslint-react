@@ -161,4 +161,66 @@ describe("createFactCollector", () => {
     const facts = collectFacts('const C = () => <><div ref /><div ref="node" /><div data-ref={setNode} /></>;');
     expect(facts.jsxRefExprs).toEqual([]);
   });
+
+  it("attributes a call in an object method to the method", () => {
+    const code = "const o = { m() { foo(); } };";
+    expect(summarizeCalls(code, collectFacts(code))).toEqual([
+      { enclosing: "() { foo(); }", text: "foo()" },
+    ]);
+  });
+
+  it("attributes a call in a class method to the method", () => {
+    const code = "class X { m() { foo(); } }";
+    expect(summarizeCalls(code, collectFacts(code))).toEqual([
+      { enclosing: "() { foo(); }", text: "foo()" },
+    ]);
+  });
+
+  it("attributes a call in a static block to the nearest enclosing function", () => {
+    const code = "function C() { class X { static { foo(); } } }";
+    expect(summarizeCalls(code, collectFacts(code))).toEqual([
+      { enclosing: "function C() { class X { static { foo(); } } }", text: "foo()" },
+    ]);
+  });
+
+  it("does not collect a call in a top-level static block", () => {
+    expect(collectFacts("class X { static { foo(); } }").calls).toHaveLength(0);
+  });
+
+  it("does not collect a call of an additional state hook", () => {
+    const facts = collectFacts("function C() { const [s, setS] = useMyState(0); }", toRegExp("useMyState"));
+    expect(facts.calls).toHaveLength(0);
+  });
+
+  it("collects the setter call of an additional state hook as an ordinary call", () => {
+    const code = "function C() { const [s, setS] = useMyState(0); useEffect(() => { setS(1); }, []); }";
+    expect(summarizeCalls(code, collectFacts(code, toRegExp("useMyState")))).toEqual([
+      { enclosing: "() => { setS(1); }", text: "setS(1)" },
+    ]);
+  });
+
+  it("ignores JSX attributes with a namespaced name", () => {
+    const facts = collectFacts("const C = () => <div ns:ref={setNode} />;");
+    expect(facts.jsxRefExprs).toEqual([]);
+  });
+
+  it("collects a conditional JSX ref expression as a single entry", () => {
+    const code = "const C = () => <div ref={cond ? setA : setB} />;";
+    const facts = collectFacts(code);
+    expect(facts.jsxRefExprs.map((node) => code.slice(node.range[0], node.range[1]))).toEqual(["cond ? setA : setB"]);
+  });
+
+  it("collects a spread argument as the setup of an effect root", () => {
+    const code = "useEffect(...setups);";
+    expect(summarizeRoots(code, collectFacts(code))).toEqual([
+      { effect: "useEffect(...setups)", setup: "...setups" },
+    ]);
+  });
+
+  it("collects calls inside JSX expression containers of the enclosing function", () => {
+    const code = "function C() { return <div prop={foo()} />; }";
+    expect(summarizeCalls(code, collectFacts(code))).toEqual([
+      { enclosing: "function C() { return <div prop={foo()} />; }", text: "foo()" },
+    ]);
+  });
 });

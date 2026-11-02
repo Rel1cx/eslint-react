@@ -539,4 +539,78 @@ describe("inferViolations", () => {
       "function C() { const ref = useRef(0); const [data, setData] = useState(0); const update = (...values) => setData(values[0]); useEffect(() => { update(ref.current); }, []); }";
     expect(inferViolationNames(code)).toEqual(["setData"]);
   });
+
+  it("should report a setState call in a generator setup", () => {
+    const code = "function C() { const [data, setData] = useState(0); useEffect(function* () { setData(1); }, []); }";
+    expect(inferViolationNames(code)).toEqual(["setData"]);
+  });
+
+  it("should report a setState call in a generator function invoked from the setup", () => {
+    const code = "function C() { const [data, setData] = useState(0); function* gen() { setData(1); } useEffect(() => { gen(); }, []); }";
+    expect(inferViolationNames(code)).toEqual(["setData"]);
+  });
+
+  it("should not report a setState call in an async generator function invoked from the setup", () => {
+    const code = "function C() { const [data, setData] = useState(0); async function* load() { setData(1); } useEffect(() => { load(); }, []); }";
+    expect(inferViolationNames(code)).toEqual([]);
+  });
+
+  it("should report setState calls reached through either branch of a conditional setup", () => {
+    const code =
+      "function C() { const [a, setA] = useState(0); const [b, setB] = useState(0); function setupA() { setA(1); } function setupB() { setB(1); } useEffect(cond ? setupA : setupB, []); }";
+    expect(inferViolationNames(code)).toEqual(["setA", "setB"]);
+  });
+
+  it("should judge each call site of the same helper on its own ref context", () => {
+    const code =
+      "function C() { const ref = useRef(0); const [data, setData] = useState(0); const update = (el) => setData(el); useEffect(() => { update(ref.current); update(0); }, []); }";
+    expect(inferViolationNames(code)).toEqual(["setData"]);
+  });
+
+  it("should report every setter reached through the same effect-side trigger", () => {
+    const code =
+      "function C() { const [a, setA] = useState(0); const [b, setB] = useState(0); const update = () => { setA(1); setB(2); }; useEffect(() => { update(); }, []); }";
+    expect(inferViolationNames(code)).toEqual(["setA", "setB"]);
+  });
+
+  it("should point an indirect violation at the setup argument of the effect", () => {
+    const code = "function C() { const [data, setData] = useState(0); function setup() { setData(1); } useEffect(setup, []); }";
+    const violations = inferViolationsFor(code);
+    expect(violations.map((violation) => ({
+      name: violation.name,
+      node: code.slice(violation.node.range[0], violation.node.range[1]),
+    }))).toEqual([{ name: "setData", node: "setup" }]);
+  });
+
+  it("should report a setState call in a useInsertionEffect setup", () => {
+    const code = "function C() { const [data, setData] = useState(0); useInsertionEffect(() => { setData(1); }, []); }";
+    expect(inferViolationNames(code)).toEqual(["setData"]);
+  });
+
+  it("should not resolve a setup produced by a non-wrapper call", () => {
+    const code = "function C() { const [data, setData] = useState(0); useEffect(makeSetup(), []); }";
+    expect(inferViolationNames(code)).toEqual([]);
+  });
+
+  it("should report a functional updater that reads only its own parameter", () => {
+    const code = "function C() { const [data, setData] = useState(0); useEffect(() => { setData((prev) => prev + 1); }, []); }";
+    expect(inferViolationNames(code)).toEqual(["setData"]);
+  });
+
+  it("should not report a useCallback helper whose call-site argument is ref-derived", () => {
+    const code =
+      "function C() { const ref = useRef(null); const [w, setW] = useState(0); const measure = useCallback((el) => { setW(el.offsetWidth); }, []); useEffect(() => { measure(ref.current); }, []); }";
+    expect(inferViolationNames(code)).toEqual([]);
+  });
+
+  it("should deduplicate a conditional callee that may reach the same setter twice", () => {
+    const code = "function C() { const [data, setData] = useState(0); useEffect(() => { (cond ? setData : setData)(1); }, []); }";
+    expect(inferViolationNames(code)).toEqual(["setData"]);
+  });
+
+  it("should order violations by report location across effects", () => {
+    const code =
+      "function C() { const [a, setA] = useState(0); const [b, setB] = useState(0); const helper = () => setA(1); useEffect(() => { helper(); }, []); useEffect(() => { setB(1); }, []); }";
+    expect(inferViolationNames(code)).toEqual(["setA", "setB"]);
+  });
 });

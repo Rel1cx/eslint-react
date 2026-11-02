@@ -1,8 +1,8 @@
 import { Collect, Extract, type TSESTreeFunction } from "@eslint-react/ast";
-import { type ParseCodeOptions, fixturePath, getFirstExpression, getFirstNodeOfType } from "@local/testkit";
+import { type ParseCodeOptions, collectNodes, fixturePath, getFirstExpression, getFirstNodeOfType } from "@local/testkit";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import { describe, expect, it } from "vitest";
-import { getConditionalBranch, getImmediateInvocation } from "./helpers";
+import { getConditionalBranch, getImmediateInvocation, getParameterId, getRefSourceName, isRefLikeName, uniqueTargets } from "./helpers";
 
 function getNames(node: TSESTree.Node): string[] {
   return Collect.getIdentifiers(node).map((id) => id.name);
@@ -282,6 +282,30 @@ describe("getImmediateInvocation", () => {
     const fn = getFirstNodeOfType<TSESTree.ArrowFunctionExpression>("schedule(() => { sink(); });", AST.ArrowFunctionExpression);
     expect(getImmediateInvocation(fn)).toBeNull();
   });
+
+  it("should match an async arrow function invoked immediately", () => {
+    const { fn, expression } = getInvocation("(async () => { sink(); })();", AST.ArrowFunctionExpression);
+    expect(getImmediateInvocation(fn)).toBe(expression);
+  });
+
+  it("should match a generator function invoked immediately", () => {
+    const { fn, expression } = getInvocation("(function* () { sink(); })();", AST.FunctionExpression);
+    expect(getImmediateInvocation(fn)).toBe(expression);
+  });
+
+  it("should match a TypeScript instantiation wrapped invocation", () => {
+    const { fn, expression } = getInvocation(
+      "(() => { sink(); })<number>();",
+      AST.ArrowFunctionExpression,
+      { filePath: fixturePath("file.ts") },
+    );
+    expect(getImmediateInvocation(fn)).toBe(expression);
+  });
+
+  it("should not match a function invoked through a sequence callee", () => {
+    const fn = getFirstNodeOfType<TSESTree.ArrowFunctionExpression>("(0, () => { sink(); })();", AST.ArrowFunctionExpression);
+    expect(getImmediateInvocation(fn)).toBeNull();
+  });
 });
 
 describe("getConditionalBranch", () => {
@@ -295,5 +319,114 @@ describe("getConditionalBranch", () => {
   it("should not treat an if test as its own conditional branch", () => {
     const testCall = getFirstNodeOfType<TSESTree.CallExpression>("if (sink()) { ready(); }", AST.CallExpression);
     expect(getConditionalBranch(testCall)).toBeNull();
+  });
+
+  it("should return null for a statement outside any conditional", () => {
+    const call = getFirstNodeOfType<TSESTree.CallExpression>("sink();", AST.CallExpression);
+    expect(getConditionalBranch(call)).toBeNull();
+  });
+
+  it("should stop at a function boundary instead of an outer conditional", () => {
+    const code = "if (ready) { (() => { sink(); })(); }";
+    const call = collectNodes<TSESTree.CallExpression>(code, AST.CallExpression)
+      .find((node) => code.slice(node.range[0], node.range[1]) === "sink()");
+    if (call == null) throw new Error("No sink() call found");
+    expect(getConditionalBranch(call)).toBeNull();
+  });
+
+  it("should return the branch expression of a conditional or logical expression", () => {
+    const conditionalCall = getFirstNodeOfType<TSESTree.CallExpression>("ready ? sink() : null;", AST.CallExpression);
+    const logicalCall = getFirstNodeOfType<TSESTree.CallExpression>("ready && sink();", AST.CallExpression);
+    expect(getConditionalBranch(conditionalCall)).toBe(conditionalCall);
+    expect(getConditionalBranch(logicalCall)).toBe(logicalCall);
+  });
+
+  it("should return the nearest branch for a call in a nested if", () => {
+    const call = getFirstNodeOfType<TSESTree.CallExpression>("if (a) { if (b) { sink(); } }", AST.CallExpression);
+    expect(getConditionalBranch(call)).toBe(call.parent.parent);
+  });
+
+  it("should identify do-while and for bodies as conditional branches", () => {
+    const doWhileCall = getFirstNodeOfType<TSESTree.CallExpression>("do { sink(); } while (ready);", AST.CallExpression);
+    const forCall = getFirstNodeOfType<TSESTree.CallExpression>("for (;;) { sink(); }", AST.CallExpression);
+    expect(getConditionalBranch(doWhileCall)?.type).toBe(AST.BlockStatement);
+    expect(getConditionalBranch(forCall)?.type).toBe(AST.BlockStatement);
+  });
+});
+
+describe("isRefLikeName", () => {
+  it("should match ref and names ending with Ref", () => {
+    expect(isRefLikeName("ref")).toBe(true);
+    expect(isRefLikeName("Ref")).toBe(true);
+    expect(isRefLikeName("containerRef")).toBe(true);
+  });
+
+  it("should not match names that merely contain or start with ref", () => {
+    expect(isRefLikeName("myref")).toBe(false);
+    expect(isRefLikeName("refData")).toBe(false);
+    expect(isRefLikeName("reference")).toBe(false);
+    expect(isRefLikeName("")).toBe(false);
+  });
+});
+
+describe("getParameterId", () => {
+  function getParam(code: string, index = 0) {
+    const fn = getFirstNodeOfType<TSESTree.ArrowFunctionExpression>(code, AST.ArrowFunctionExpression);
+    const param = fn.params.at(index);
+    if (param == null) throw new Error(`No parameter at index ${String(index)} in: ${code}`);
+    return param;
+  }
+
+  it("should return the identifier of a plain parameter", () => {
+    expect(getParameterId(getParam("(a) => a;"))?.name).toBe("a");
+  });
+
+  it("should return the identifier of a default-valued parameter", () => {
+    expect(getParameterId(getParam("(a = 1) => a;"))?.name).toBe("a");
+  });
+
+  it("should return null for rest, object, and array parameters", () => {
+    expect(getParameterId(getParam("(...a) => a;"))).toBeNull();
+    expect(getParameterId(getParam("({ a }) => a;"))).toBeNull();
+    expect(getParameterId(getParam("([a]) => a;"))).toBeNull();
+  });
+});
+
+describe("getRefSourceName", () => {
+  it("should return the name of an identifier", () => {
+    expect(getRefSourceName(getFirstExpression("ref;"))).toBe("ref");
+  });
+
+  it("should return the property name of a non-computed member expression", () => {
+    expect(getRefSourceName(getFirstExpression("a.b;"))).toBe("b");
+    expect(getRefSourceName(getFirstExpression("a.b.c;"))).toBe("c");
+  });
+
+  it("should return null for computed member expressions and non-member nodes", () => {
+    expect(getRefSourceName(getFirstExpression("a[b];"))).toBeNull();
+    expect(getRefSourceName(getFirstExpression("a();"))).toBeNull();
+    expect(getRefSourceName(getFirstExpression("42;"))).toBeNull();
+  });
+});
+
+describe("uniqueTargets", () => {
+  it("should drop targets sharing a kind and node", () => {
+    const node = getFirstExpression("foo;");
+    const targets = uniqueTargets([
+      { kind: "setter", node },
+      { kind: "setter", node },
+      { kind: "function", node },
+    ]);
+    expect(targets.map((target) => target.kind)).toEqual(["setter", "function"]);
+  });
+
+  it("should keep same-kind targets located at different nodes", () => {
+    const [foo, bar] = collectNodes<TSESTree.Identifier>("foo; bar;", AST.Identifier);
+    if (foo == null || bar == null) throw new Error("Expected two identifiers");
+    const targets = uniqueTargets([
+      { kind: "setter", node: foo },
+      { kind: "setter", node: bar },
+    ]);
+    expect(targets).toHaveLength(2);
   });
 });
