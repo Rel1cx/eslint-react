@@ -76,8 +76,7 @@ Reviewed 2026-11-02 against `main@27c72f5e0` (the 2026-10-31 working-tree fixes 
 - **Evidence:** [Rule source](../plugins/eslint-plugin-react-jsx/src/rules/no-leaked-semicolon/no-leaked-semicolon.ts)
 - **Resolution:** Same-line semicolons after a JSX child and before the closing tag are detected; standalone text and semicolons between children remain allowed.
 
-## Boundaries and next steps
+## Boundaries
 
 - Additional boundaries: `$` must be raw and adjacent to an expression; comment checks apply only at text-node starts; consecutive-semicolon suggestions remove one at a time; unsafe Fragment fixes are withheld; `no-namespace` checks element names only.
-- Resolve JSX-003 by choosing a cross-compiler or compiler-specific policy. Consider limited static inline-object evaluation for JSX-002/005. Clarify JSX-006/007 and merge duplicate reports for JSX-008.
 - Historical fixes (#1805, #2044, #2045, #1381, #1567, #1035, #850) are excluded and retained as regression concerns.

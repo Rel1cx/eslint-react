@@ -114,10 +114,9 @@ Reviewed 2026-11-02 against `main@df5da2a7f`; plugin `5.30.0-beta.22`, all 6 rul
 - **Evidence:** Rule changelogs (5.30.0-beta.12, 5.30.0-beta.17)
 - **Resolution:** `signal`/`capture` options with string-literal or simple template-literal keys (`{ "signal": … }`, `{ ["capture"]: true }`), dropped in 5.14.9, are recognized again; identifier-computed keys (`{ [signal]: … }`) remain intentionally unrecognized (5.10.2).
 
-## Boundaries and next steps
+## Boundaries
 
 - Intentional matching boundaries: computed member calls (`obj["setTimeout"]()`) are unmatched by design (5.14.9); identifier-computed option keys are treated as dynamic (5.10.2); React Native `addEventListener` member calls are exempt from `no-leaked-event-listener` (#1323); class-component lifecycle detection was removed in 5.7.0 from the rules that had it (`no-leaked-event-listener`, `no-leaked-timeout`, `no-leaked-interval`); only inline effect callbacks are analyzed (WAPI-004).
 - Coverage gaps declined upstream: `no-leaked-mutation-observer` and `no-leaked-idle-callback` were closed as not planned (#762, #760), so `MutationObserver` and `requestIdleCallback` leaks are out of scope unless those decisions are revisited.
 - The text-based fast paths (`sourceCode.text.includes("setTimeout")`, `/use\w*Effect/`) only gate whether a file is analyzed; a mention in a comment or string merely costs a no-op traversal.
-- Prioritize WAPI-001 (tracked as open bug #2072; the same fix pattern applies to the timer and event-listener rules), the false negatives in WAPI-002/003/008, and the abort-side check in WAPI-005. The observer rules' receiver resolution (`isFromObserver`) is the natural model for binding-aware callee matching.
 - Historical issues #723, #725, #727, #728, #842, #1228, #1282, #1323, #1340, #1622, #1714, #1996, #1997, #2001, #2002, #2003, #2038, and #2039 are excluded and retained as regression concerns.
