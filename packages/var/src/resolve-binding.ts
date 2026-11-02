@@ -76,8 +76,9 @@ export function getBinding(context: RuleContext, node: TSESTree.Identifier, opti
  * Project a definition to the AST node it denotes in the requested mode.
  *
  * - `"value"`: the node that represents the binding's own value.
- * - `"origin"`: the node the value originates from (optional for destructured
- *   bindings, parameters, and imports).
+ * - `"origin"`: the node the value originates from (the fallback for
+ *   destructured bindings, parameters, and imports, which have no `"value"`
+ *   node).
  *
  * @param definition The definition to project.
  * @param projection The projection mode.

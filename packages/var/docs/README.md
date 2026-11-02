@@ -14,7 +14,7 @@
 
 | Type Alias                                                             | Description                                                                                                                    |
 | ---------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------ |
-| [EnclosingAssignmentTarget](type-aliases/EnclosingAssignmentTarget.md) | The possible assignment targets returned by [resolveEnclosingAssignmentTarget](functions/resolveEnclosingAssignmentTarget.md). |
+| [EnclosingAssignmentTarget](type-aliases/EnclosingAssignmentTarget.md) | The possible assignment targets returned by [resolveEnclosingAssignmentTarget](functions/resolveEnclosingAssignmentTarget.md): |
 | [ImportEntry](type-aliases/ImportEntry.md)                             | A single local import binding, modeled after the specification's ImportEntry.                                                  |
 | [ObjectType](type-aliases/ObjectType.md)                               | Represents the type classification of an object node.                                                                          |
 
