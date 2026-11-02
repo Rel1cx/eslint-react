@@ -18,4 +18,5 @@ Checks if the given node is a hook identifier.
 
 id is Identifier \| MemberExpression
 
-`true` if the node is a hook identifier or member expression with hook name, `false` otherwise.
+`true` if the node is a hook identifier or a non-computed member expression with a hook name
+(ex: `useState`, `React.useState`); computed member expressions (ex: `React["useState"]`) do not match.

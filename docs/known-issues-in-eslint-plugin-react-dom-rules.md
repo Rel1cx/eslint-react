@@ -1,17 +1,17 @@
 # Known Issues in eslint-plugin-react-dom Rules
 
-Reviewed 2026-11-02 against `main@27c72f5e0` (the 2026-11-01 working-tree fixes landed as #2103); plugin `5.30.0-beta.21`, all 16 rules. Evidence comes from implementations, tests, docs, changelogs, and public issues/PRs. Nine temporary RuleTester cases confirmed the source-review findings and were removed after the run.
+Reviewed 2026-11-02 against `main@6d9159c9b` (the 2026-11-01 working-tree fixes landed as #2103, the import-placement fixes as #2104); plugin `5.30.0-beta.22`, all 16 rules. Evidence comes from implementations, tests, docs, changelogs, and public issues/PRs. Nine temporary RuleTester cases confirmed the source-review findings and were removed after the run.
 
-**17 findings: 12 current (7 medium, 5 low), 5 resolved.** No directly related open GitHub bug was found. [#1739](https://github.com/Rel1cx/eslint-react/issues/1739) is a related feature proposal, not an implementation defect.
+**18 findings: 12 current (7 medium, 5 low), 6 resolved.** No directly related open GitHub bug was found. [#1739](https://github.com/Rel1cx/eslint-react/issues/1739) is a related feature proposal, not an implementation defect.
 
 ## Current findings
 
-### DOM-002: Duplicate imports and binding capture
+### DOM-002: Non-import binding collisions in import fixes
 
 - **Severity:** Medium
 - **Rules:** `no-render`, `no-hydrate`, `no-use-form-state`
-- **Evidence:** [`no-render` source](../plugins/eslint-plugin-react-dom/src/rules/no-render/no-render.ts), [`no-hydrate` source](../plugins/eslint-plugin-react-dom/src/rules/no-hydrate/no-hydrate.ts), [`no-use-form-state` source](../plugins/eslint-plugin-react-dom/src/rules/no-use-form-state/no-use-form-state.ts)
-- **Finding:** All three fixes unconditionally insert a `createRoot`, `hydrateRoot`, or `useActionState` import at the start of the file without checking existing imports or bindings. An existing target API import produces a duplicate import/declaration; a same-named local binding can also be captured. The insertion is at offset 0 (`insertTextBefore(context.sourceCode.ast, …)`), so it also lands ahead of any directive prologue: in a `"use client"` module the directive is demoted to a plain string expression and silently loses its effect.
+- **Evidence:** [`add-import-fix`](../plugins/eslint-plugin-react-dom/src/utils/add-import-fix.ts), [`no-render` source](../plugins/eslint-plugin-react-dom/src/rules/no-render/no-render.ts)
+- **Finding:** The shared `addImportFix` helper checks only top-level value imports for name collisions. A same-named non-import top-level binding (e.g. `const createRoot = …` or `function hydrateRoot() {}`) is not detected, so the inserted import still produces a duplicate declaration and breaks the file. And when the name is already bound by a value import from another source, the import is skipped but the call is still rewritten to `createRoot(…)`/`hydrateRoot(…)`/`useActionState(…)`, silently retargeting it to the unrelated binding. The offset-0 insertion (which demoted `"use client"` directives) and duplicate target-import parts of the original finding were fixed by #2104; see DOM-018.
 
 ### DOM-003: Incomplete return-value usage detection
 
@@ -122,10 +122,16 @@ Reviewed 2026-11-02 against `main@27c72f5e0` (the 2026-11-01 working-tree fixes 
 - **Evidence:** [Rule changelog](../plugins/eslint-plugin-react-dom/src/rules/no-missing-iframe-sandbox/CHANGELOG.md)
 - **Resolution:** A parser-tolerated fragment in the value position, `sandbox=<></>`, is no longer silently skipped and is reported as a non-static string value (#2048).
 
+### DOM-018: Import placement in legacy API autofixes
+
+- **Rules:** `no-render`, `no-hydrate`, `no-use-form-state`
+- **Evidence:** [`add-import-fix`](../plugins/eslint-plugin-react-dom/src/utils/add-import-fix.ts), [`no-render` changelog](../plugins/eslint-plugin-react-dom/src/rules/no-render/CHANGELOG.md)
+- **Resolution:** The three fixes now route import insertion through the shared `addImportFix` helper (#2104): the new import merges into an existing same-source import when possible, is skipped when the name is already imported, and is otherwise inserted after existing imports, the directive prologue, and header comments. `"use client"` directives are no longer demoted, and an existing target API import no longer produces a duplicate import. The remaining non-import binding collision stays current as DOM-002.
+
 ## Boundaries and next steps
 
 - Dynamic-value analysis remains a general boundary: `no-script-url`, `no-string-style-prop`, `no-unsafe-iframe-sandbox`, and `no-unsafe-target-blank` skip conditionals, function results, and interpolated templates that cannot be statically evaluated. `no-missing-button-type` checks only whether a direct `type` attribute exists and deliberately accepts values such as `type={undefined}`.
 - `no-string-style-prop` checks host elements only and does not use the polymorphic resolver. `no-unknown-property` checks lowercase standard HTML/SVG tags only, skipping React components, member components, and customized built-ins with `is`. These are current coverage boundaries, not separate defects.
 - [#1739](https://github.com/Rel1cx/eslint-react/issues/1739) proposes banning product-code construction of `__html` objects while allowing sanitized objects to be received. This is a new-rule request with a different policy from the existing blanket `no-dangerously-set-innerhtml` ban.
-- Prioritize DOM-002 to prevent `--fix` from generating invalid code. Next address the false negatives in DOM-003/005/009 and the false positives and unsafe suggestions in DOM-006/007. Shared import matching, JSX attribute resolution, and polymorphic resolution are the natural places for cross-rule fixes.
+- Prioritize the false negatives in DOM-003/005/009 and the false positives and unsafe suggestions in DOM-006/007. DOM-002 is narrowed by #2104 to non-import binding collisions and no longer breaks directive prologues or duplicates existing imports. Shared import matching, JSX attribute resolution, and polymorphic resolution are the natural places for cross-rule fixes.
 - Historical issues #700, #1163, #1247, #1262, #1789, #1802, #1943, #1954, and #2048, plus recent computed-key and member-component polymorphic fixes, are excluded and retained as regression concerns.

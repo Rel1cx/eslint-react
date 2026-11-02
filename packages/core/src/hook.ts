@@ -55,7 +55,8 @@ export function isHookName(name: string) {
 /**
  * Checks if the given node is a hook identifier.
  * @param id The AST node to check.
- * @returns `true` if the node is a hook identifier or member expression with hook name, `false` otherwise.
+ * @returns `true` if the node is a hook identifier or a non-computed member expression with a hook name
+ * (ex: `useState`, `React.useState`); computed member expressions (ex: `React["useState"]`) do not match.
  */
 export function isHookId(id: TSESTree.Node): id is TSESTree.Identifier | TSESTree.MemberExpression {
   switch (id.type) {

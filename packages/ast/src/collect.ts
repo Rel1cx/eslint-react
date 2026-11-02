@@ -82,10 +82,12 @@ const RETURN_VISITOR_KEYS: VisitorKeys = {
 /**
  * Traverse a node and collect every node matching a predicate, in source order.
  *
- * The root is collected when it matches. Only node types present in the visitor map are descended
- * into; every other node is visited as a leaf, so function and class nodes (including when they
- * are the root) are not traversed. Statement roots contribute only their listed expression-bearing
- * keys. Property names that are not references (`obj.prop` and non-computed object keys) are skipped.
+ * The root is collected when it matches, unless the root itself sits in a non-reference position
+ * (see below). Only node types present in the visitor map are descended into; every other node is
+ * visited as a leaf, so function and class nodes (including when they are the root) are not
+ * traversed. Statement roots contribute only their listed expression-bearing keys. Property names
+ * that are not references (`obj.prop` and non-computed object keys) are skipped — including when
+ * such a property name is passed as the root.
  * @param node The node whose subtree is traversed.
  * @param isNode The predicate a collected node must satisfy.
  * @returns The matching nodes in source order.
@@ -113,8 +115,9 @@ function collectNodes<T extends TSESTree.Node>(node: TSESTree.Node, isNode: (nod
  *
  * This is a syntactic walk, not a scope-aware reference search: identifiers in patterns are
  * collected too when the pattern is traversed (ex: `a` in `[a] = value`). The root is collected
- * when it is an identifier. The property name of a non-computed member access is not a reference,
- * so `obj.prop` collects only `obj`; non-computed object property keys are skipped as well.
+ * when it is an identifier, unless the root itself is a non-computed member property or object
+ * key. The property name of a non-computed member access is not a reference, so `obj.prop`
+ * collects only `obj`; non-computed object property keys are skipped as well.
  * Function and class nodes are not traversed, and statement roots contribute only their listed
  * expression-bearing keys.
  * @param node The node to collect identifiers from.
