@@ -34,8 +34,14 @@ export function defineTestLanguageOptions(input: TestLanguageOptionsInput = {}) 
     parserOptions: {
       ecmaFeatures: { jsx },
       jsx,
+      // For untyped parsing, `disallowAutomaticSingleRunInference` keeps
+      // typescript-estree out of single-run mode on CI (`CI=true`):
+      // single-run mode spawns a real isolated program once the same
+      // filename (e.g. "<input>") has been parsed twice in a process,
+      // which would make `parserServices.program` non-null here but null
+      // in local runs.
       ...(types === false
-        ? { project: false, projectService: false }
+        ? { disallowAutomaticSingleRunInference: true, project: false, projectService: false }
         : types === true
         ? { projectService: true, tsconfigRootDir }
         : { project: types.tsconfig, projectService: false, tsconfigRootDir }),
