@@ -14,9 +14,9 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [{ messageId: "default" }],
       output: tsx`
-        import { hydrateRoot } from "react-dom/client";
         import ReactDOM from "react-dom";
         import Component from "Component";
+        import { hydrateRoot } from "react-dom/client";
 
         hydrateRoot(document.getElementById("app"), <Component />);
       `,
@@ -31,10 +31,10 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [{ messageId: "default" }],
       output: tsx`
-        import { hydrateRoot } from "react-dom/client";
         import React from "react";
         import ReactDOM from "react-dom";
         import Component from "Component";
+        import { hydrateRoot } from "react-dom/client";
 
         hydrateRoot(document.getElementById("app")!, <Component />);
       `,
@@ -50,13 +50,45 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [{ messageId: "default" }],
       output: tsx`
-        import { hydrateRoot } from "react-dom/client";
         import React from "react";
         import ReactDOM from "react-dom";
         import Component from "Component";
+        import { hydrateRoot } from "react-dom/client";
 
         const rootEl = document.getElementById("app")!;
         hydrateRoot(rootEl, <Component />);
+      `,
+    },
+    // Merges into an existing import from the same source
+    {
+      code: tsx`
+        import { hydrate } from "react-dom";
+        import { createRoot } from "react-dom/client";
+
+        hydrate(<div />, document.body);
+      `,
+      errors: [{ messageId: "default" }],
+      output: tsx`
+        import { hydrate } from "react-dom";
+        import { createRoot, hydrateRoot } from "react-dom/client";
+
+        hydrateRoot(document.body, <div />);
+      `,
+    },
+    // No duplicate import when `hydrateRoot` is already imported
+    {
+      code: tsx`
+        import { hydrate } from "react-dom";
+        import { hydrateRoot } from "react-dom/client";
+
+        hydrate(<div />, document.body);
+      `,
+      errors: [{ messageId: "default" }],
+      output: tsx`
+        import { hydrate } from "react-dom";
+        import { hydrateRoot } from "react-dom/client";
+
+        hydrateRoot(document.body, <div />);
       `,
     },
     // Return value used in an assignment (no auto-fix)
@@ -86,8 +118,8 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [{ messageId: "default" }],
       output: tsx`
-        import { hydrateRoot } from "react-dom/client";
         import { hydrate } from "react-dom";
+        import { hydrateRoot } from "react-dom/client";
         hydrateRoot(document.body, <div />);
       `,
     },

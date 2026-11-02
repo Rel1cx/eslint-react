@@ -1,3 +1,4 @@
+import { addImportFix } from "@/utils/add-import-fix";
 import { createRule } from "@/utils/create-rule";
 import { isReactDOMCall } from "@/utils/is-react-dom-call";
 import { type RuleContext, type RuleFeature, type RuleFixer, type RuleListener, getText } from "@eslint-react/eslint";
@@ -74,9 +75,10 @@ function buildFix(context: RuleContext, node: TSESTree.CallExpression) {
     if (arg1.type === AST.SpreadElement) return null;
     if (node.parent.type !== AST.ExpressionStatement) return null;
     // The fix consists of two parts:
+    const importFix = addImportFix(context, fixer, "createRoot", "react-dom/client");
     return [
-      // 1. Add the new import for `createRoot`
-      fixer.insertTextBefore(context.sourceCode.ast, 'import { createRoot } from "react-dom/client";\n'),
+      // 1. Add the new import for `createRoot` unless it already exists
+      ...importFix == null ? [] : [importFix],
       // 2. Replace `render(element, container)` with `createRoot(container).render(element)`; note that the arguments are swapped
       fixer.replaceText(node, `createRoot(${getText(context, arg1)}).render(${getText(context, arg0)})`),
     ];

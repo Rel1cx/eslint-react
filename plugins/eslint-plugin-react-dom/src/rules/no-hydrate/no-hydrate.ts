@@ -1,3 +1,4 @@
+import { addImportFix } from "@/utils/add-import-fix";
 import { createRule } from "@/utils/create-rule";
 import { isReactDOMCall } from "@/utils/is-react-dom-call";
 import { type RuleContext, type RuleFeature, type RuleFixer, type RuleListener, getText } from "@eslint-react/eslint";
@@ -71,9 +72,10 @@ function buildFix(context: RuleContext, node: TSESTree.CallExpression) {
     if (arg1.type === AST.SpreadElement) return null;
     if (node.parent.type !== AST.ExpressionStatement) return null;
     // The fix consists of two parts:
+    const importFix = addImportFix(context, fixer, "hydrateRoot", "react-dom/client");
     return [
-      // 1. Add the new import for `hydrateRoot`
-      fixer.insertTextBefore(context.sourceCode.ast, 'import { hydrateRoot } from "react-dom/client";\n'),
+      // 1. Add the new import for `hydrateRoot` unless it already exists
+      ...importFix == null ? [] : [importFix],
       // 2. Replace `hydrate(element, container)` with `hydrateRoot(container, element)`; note that the arguments are swapped
       fixer.replaceText(node, `hydrateRoot(${getText(context, arg1)}, ${getText(context, arg0)})`),
     ];

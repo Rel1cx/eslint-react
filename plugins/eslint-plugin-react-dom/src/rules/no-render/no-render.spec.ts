@@ -15,10 +15,10 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [{ messageId: "default" }],
       output: tsx`
-        import { createRoot } from "react-dom/client";
         import React from "react";
         import ReactDOM from "react-dom";
         import Component from "Component";
+        import { createRoot } from "react-dom/client";
 
         createRoot(document.getElementById("app")).render(<Component />);
       `,
@@ -33,10 +33,10 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [{ messageId: "default" }],
       output: tsx`
-        import { createRoot } from "react-dom/client";
         import React from "react";
         import ReactDOM from "react-dom";
         import Component from "Component";
+        import { createRoot } from "react-dom/client";
 
         createRoot(document.getElementById("app")!).render(<Component />);
       `,
@@ -52,15 +52,16 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [{ messageId: "default" }],
       output: tsx`
-        import { createRoot } from "react-dom/client";
         import React from "react";
         import ReactDOM from "react-dom";
         import Component from "Component";
+        import { createRoot } from "react-dom/client";
 
         const rootEl = document.getElementById("app")!;
         createRoot(rootEl).render(<Component />);
       `,
     },
+    // Merges into an existing import from the same source
     {
       code: tsx`
         import React from "react";
@@ -71,12 +72,59 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [{ messageId: "default" }],
       output: tsx`
-        import { createRoot } from "react-dom/client";
         import React from "react";
-        import { render } from "react-dom/client";
+        import { render, createRoot } from "react-dom/client";
         import Component from "Component";
 
         createRoot(document.getElementById("app")).render(<Component />);
+      `,
+    },
+    // No duplicate import when `createRoot` is already imported
+    {
+      code: tsx`
+        import React from "react";
+        import { render } from "react-dom/client";
+        import { createRoot } from "react-dom/client";
+
+        render(<Component />, document.getElementById("app"));
+      `,
+      errors: [{ messageId: "default" }],
+      output: tsx`
+        import React from "react";
+        import { render } from "react-dom/client";
+        import { createRoot } from "react-dom/client";
+
+        createRoot(document.getElementById("app")).render(<Component />);
+      `,
+    },
+    // File-level directive stays at the very top of the file
+    {
+      code: tsx`
+        "use client";
+
+        ReactDOM.render(<div />, document.body);
+      `,
+      errors: [{ messageId: "default" }],
+      output: tsx`
+        "use client";
+        import { createRoot } from "react-dom/client";
+
+        createRoot(document.body).render(<div />);
+      `,
+    },
+    // Leading comments stay at the very top of the file
+    {
+      code: tsx`
+        // Copyright (c) Example Corp.
+
+        ReactDOM.render(<div />, document.body);
+      `,
+      errors: [{ messageId: "default" }],
+      output: tsx`
+        // Copyright (c) Example Corp.
+        import { createRoot } from "react-dom/client";
+
+        createRoot(document.body).render(<div />);
       `,
     },
     // Return value used in an assignment (no auto-fix)
@@ -115,8 +163,8 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [{ messageId: "default" }],
       output: tsx`
-        import { createRoot } from "react-dom/client";
         import { render } from "react-dom";
+        import { createRoot } from "react-dom/client";
         createRoot(document.body).render(<div />);
       `,
     },
