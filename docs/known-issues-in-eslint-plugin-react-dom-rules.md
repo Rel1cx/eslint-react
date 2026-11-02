@@ -1,6 +1,6 @@
 # Known Issues in eslint-plugin-react-dom Rules
 
-Reviewed 2026-11-01 against `main@ee4b5dc1b` plus the current working-tree fixes; plugin `5.30.0-beta.20`, all 16 rules. Evidence comes from implementations, tests, docs, changelogs, and public issues/PRs. Nine temporary RuleTester cases confirmed the source-review findings and were removed after the run.
+Reviewed 2026-11-02 against `main@27c72f5e0` (the 2026-11-01 working-tree fixes landed as #2103); plugin `5.30.0-beta.21`, all 16 rules. Evidence comes from implementations, tests, docs, changelogs, and public issues/PRs. Nine temporary RuleTester cases confirmed the source-review findings and were removed after the run.
 
 **17 findings: 12 current (7 medium, 5 low), 5 resolved.** No directly related open GitHub bug was found. [#1739](https://github.com/Rel1cx/eslint-react/issues/1739) is a related feature proposal, not an implementation defect.
 
@@ -11,7 +11,7 @@ Reviewed 2026-11-01 against `main@ee4b5dc1b` plus the current working-tree fixes
 - **Severity:** Medium
 - **Rules:** `no-render`, `no-hydrate`, `no-use-form-state`
 - **Evidence:** [`no-render` source](../plugins/eslint-plugin-react-dom/src/rules/no-render/no-render.ts), [`no-hydrate` source](../plugins/eslint-plugin-react-dom/src/rules/no-hydrate/no-hydrate.ts), [`no-use-form-state` source](../plugins/eslint-plugin-react-dom/src/rules/no-use-form-state/no-use-form-state.ts)
-- **Finding:** All three fixes unconditionally insert a `createRoot`, `hydrateRoot`, or `useActionState` import at the start of the file without checking existing imports or bindings. An existing target API import produces a duplicate import/declaration; a same-named local binding can also be captured.
+- **Finding:** All three fixes unconditionally insert a `createRoot`, `hydrateRoot`, or `useActionState` import at the start of the file without checking existing imports or bindings. An existing target API import produces a duplicate import/declaration; a same-named local binding can also be captured. The insertion is at offset 0 (`insertTextBefore(context.sourceCode.ast, …)`), so it also lands ahead of any directive prologue: in a `"use client"` module the directive is demoted to a plain string expression and silently loses its effect.
 
 ### DOM-003: Incomplete return-value usage detection
 
@@ -25,7 +25,7 @@ Reviewed 2026-11-01 against `main@ee4b5dc1b` plus the current working-tree fixes
 - **Severity:** Medium
 - **Rules:** `no-find-dom-node`, `no-flush-sync`, `no-hydrate`, `no-render`, `no-render-return-value`, `no-use-form-state`
 - **Evidence:** [`is-react-dom-call`](../plugins/eslint-plugin-react-dom/src/utils/is-react-dom-call.ts), [`create-import-lookup`](../packages/var/src/create-import-lookup.ts)
-- **Finding:** Imported callees are matched by name rather than by the binding at the call site, causing false positives on shadowing parameters/variables. Only ESM imports are indexed; CommonJS, post-import aliases, and computed member access (including static `ReactDOM["render"]`) are false negatives. `no-find-dom-node` also intentionally matches an unimported global `findDOMNode()`, which can catch an unrelated same-named function.
+- **Finding:** Imported callees are matched by name rather than by the binding at the call site, causing false positives on shadowing parameters/variables. Only ESM imports are indexed; CommonJS, post-import aliases, and computed member access (including static `ReactDOM["render"]`) are false negatives. One name-coincidence exception: `no-render`, `no-render-return-value`, and `no-find-dom-node` pre-register `ReactDOM` (and `React` for `no-find-dom-node`) as builtin namespaces, so `const ReactDOM = require("react-dom"); ReactDOM.render(...)` still matches. `no-find-dom-node` also intentionally matches an unimported global `findDOMNode()`, which can catch an unrelated same-named function.
 
 ### DOM-005: Spread attributes are ignored
 
@@ -46,7 +46,7 @@ Reviewed 2026-11-01 against `main@ee4b5dc1b` plus the current working-tree fixes
 - **Severity:** Medium (policy)
 - **Rules:** `no-missing-iframe-sandbox`
 - **Evidence:** [Rule spec](../plugins/eslint-plugin-react-dom/src/rules/no-missing-iframe-sandbox/no-missing-iframe-sandbox.spec.ts)
-- **Finding:** The implementation requires a static-string `sandbox`, not merely the explicit attribute described by the docs. Variables, function results, and interpolated templates are reported even when valid at runtime. The suggestion replaces the expression with `sandbox=""`, potentially removing permissions the iframe needs; this migration requires manual review.
+- **Finding:** The implementation requires a static-string `sandbox`, not merely the explicit attribute described by the docs. Variables that cannot be statically resolved, function results, and interpolated templates are reported even when valid at runtime; a `const` initialized to a static value is resolved through `getStaticValue` and accepted. The suggestion replaces the expression with `sandbox=""`, potentially removing permissions the iframe needs; this migration requires manual review.
 
 ### DOM-008: Limited polymorphic element resolution
 
