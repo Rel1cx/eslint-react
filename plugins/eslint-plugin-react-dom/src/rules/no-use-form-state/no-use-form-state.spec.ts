@@ -29,8 +29,8 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
       output: tsx`
-        import { useActionState } from "react";
         import { useFormState } from "react-dom";
+        import { useActionState } from "react";
 
         async function increment(previousState, formData) {
           return previousState + 1;
@@ -76,8 +76,8 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
       output: tsx`
-        import { useActionState } from "react";
         import ReactDOM from "react-dom";
+        import { useActionState } from "react";
 
         async function increment(previousState, formData) {
           return previousState + 1;
@@ -123,8 +123,8 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
       output: tsx`
-        import { useActionState } from "react";
         import * as ReactDOM from "react-dom";
+        import { useActionState } from "react";
 
         async function increment(previousState, formData) {
           return previousState + 1;
@@ -156,8 +156,8 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [{ messageId: "default" }],
       output: tsx`
-        import { useActionState } from "react";
         import { useFormState } from "react-dom";
+        import { useActionState } from "react";
         function getState() {
           return useActionState(action, 0);
         }
@@ -175,9 +175,41 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [{ messageId: "default" }],
       output: tsx`
-        import { useActionState } from "react";
         import { useFormState } from "react-dom";
+        import { useActionState } from "react";
         (useActionState)(action);
+      `,
+    },
+    // Merges into an existing import from the same source
+    {
+      code: tsx`
+        import { useFormState } from "react-dom";
+        import { useState } from "react";
+
+        const [state, formAction] = useFormState(action, 0);
+      `,
+      errors: [{ messageId: "default" }],
+      output: tsx`
+        import { useFormState } from "react-dom";
+        import { useState, useActionState } from "react";
+
+        const [state, formAction] = useActionState(action, 0);
+      `,
+    },
+    // No duplicate import when `useActionState` is already imported
+    {
+      code: tsx`
+        import { useFormState } from "react-dom";
+        import { useActionState } from "react";
+
+        const [state, formAction] = useFormState(action, 0);
+      `,
+      errors: [{ messageId: "default" }],
+      output: tsx`
+        import { useFormState } from "react-dom";
+        import { useActionState } from "react";
+
+        const [state, formAction] = useActionState(action, 0);
       `,
     },
   ],

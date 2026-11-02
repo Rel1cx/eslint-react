@@ -5,6 +5,12 @@ All notable changes to the `react-dom/no-hydrate` rule will be documented in thi
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [5.30.0-beta.22] - 2026-11-02
+
+### Fixed
+
+- The autofix no longer prepends the `hydrateRoot` import at the very top of the file: it merges into an existing `react-dom/client` import when possible, skips the import when `hydrateRoot` is already imported, and otherwise inserts the new import after existing imports, file-level directives, and header comments. (#2104)
+
 ## [5.30.0-beta.21] - 2026-11-01
 
 ### Fixed
