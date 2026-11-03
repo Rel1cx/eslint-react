@@ -1,5 +1,22 @@
 # Changelog
 
+## v5.30.0-beta.23 (2026-11-03)
+
+### 📝 Documentation
+
+- Added known-issues references for `eslint-plugin-react-web-api` and `eslint-plugin-react-x` rules.
+- Updated the FAQ, glossary, the `eslint-plugin-react-dom` known-issues reference, and the term-based rule implementation patterns.
+
+### 🏗️ Internal
+
+- `react-x/set-state-in-render`: expanded unit test coverage for the `collect`, `effects`, `helpers`, and `origins` modules. No behavior change.
+- `react-x/set-state-in-effect`: added edge-case tests for the `collect`, `effects`, `helpers`, and `origins` modules. No behavior change.
+- Unified test language options and reorganized the test harness: tsconfig fixtures now replace the per-JSX-emit tester factories. (#2105)
+- Untyped parsing in the test harness now disables typescript-estree's automatic single-run inference, so `parserServices.program` stays consistently `null` in both local and CI runs.
+- Bumped `vitest` to `5.1.0`, `tailwindcss` and `@tailwindcss/postcss` to `4.3.4`, `tsl-dx` to `0.15.2`, `semver` to `7.8.6`, `next` and `@next/eslint-plugin-next` to `16.4.4`, `fumadocs-core` and `fumadocs-ui` to `16.17.10`, `@vitejs/plugin-react` to `6.2.1`, the dprint markdown plugin to `0.28.2`, and `zizmor-action` to `0.8.1`.
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.30.0-beta.22...v5.30.0-beta.23
+
 ## v5.30.0-beta.22 (2026-11-02)
 
 ### 🐞 Fixes
