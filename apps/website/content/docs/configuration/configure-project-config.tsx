@@ -18,7 +18,6 @@ export function JSXConfigTypeTable() {
             <code style={{ whiteSpace: "pre" }}>
               {dedent`
                 type JSXTransform =
-                  | "none"
                   | "react-jsx"
                   | "react-jsxdev"
                   | "preserve"

@@ -18,6 +18,24 @@ The following compiler options are respected:
 
 Since this part does not perform type checking, there is **almost no performance impact**.
 
+### Pragma Annotations
+
+In addition to compiler options, ESLint React also respects JSX pragma comments found in the source file, mirroring `tsc` behavior:
+
+- `@jsx <factory>` — overrides `jsxFactory`
+- `@jsxFrag <factory>` — overrides `jsxFragmentFactory`
+- `@jsxRuntime classic | automatic` — overrides `jsx` (other values are ignored)
+- `@jsxImportSource <source>` — overrides `jsxImportSource`
+
+Pragma annotations take precedence over compiler options. When the same pragma appears multiple times, the first `@jsx`/`@jsxFrag` applies, while the last `@jsxRuntime`/`@jsxImportSource` applies.
+
+Example:
+
+```tsx
+// @jsxRuntime classic
+// @jsxImportSource preact
+```
+
 ## Type Information
 
 ESLint React uses the Typed Linting API from `typescript-eslint` to retrieve type information for the rules that require it.
