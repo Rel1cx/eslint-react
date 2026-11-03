@@ -67,7 +67,9 @@ function buildFix(context: RuleContext, node: TSESTree.FunctionDeclaration | TSE
     const body = src.getText(node.body);
 
     // `function Foo() {}` -> `const Foo = () => {};`
-    if (node.type === "FunctionDeclaration" && node.id != null) {
+    // Skips default-exported declarations: replacing only the function node would
+    // leave `export default const Foo = ...`, which is invalid syntax.
+    if (node.type === "FunctionDeclaration" && node.id != null && node.parent.type !== "ExportDefaultDeclaration") {
       // dprint-ignore
       return fixer.replaceText(node, `const ${node.id.name} = ${prefix}${typeParams}${params}${returnType} => ${body};`);
     }

@@ -6,7 +6,7 @@
 function maxComponentPerFile(options: MaxComponentPerFileOptions): RuleFunction;
 ```
 
-Prevent defining more than one component per file.
+Limit the number of components that can be defined per file.
 
 ## Parameters
 

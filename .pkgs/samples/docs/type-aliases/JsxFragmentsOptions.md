@@ -1,9 +1,9 @@
-[@local/samples](../README.md) / JsxsFragmentsOptions
+[@local/samples](../README.md) / JsxFragmentsOptions
 
-# Type Alias: JsxsFragmentsOptions
+# Type Alias: JsxFragmentsOptions
 
 ```ts
-type JsxsFragmentsOptions = {
+type JsxFragmentsOptions = {
   mode?: "syntax" | "element";
 };
 ```

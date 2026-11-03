@@ -8,12 +8,12 @@
 | [ForbidComponentPropsOptions](type-aliases/ForbidComponentPropsOptions.md) | Options for [forbidComponentProps](functions/forbidComponentProps.md). |
 | [ForbidDomPropsOptions](type-aliases/ForbidDomPropsOptions.md)             | Options for [forbidDomProps](functions/forbidDomProps.md).             |
 | [ForbidElementsOptions](type-aliases/ForbidElementsOptions.md)             | Options for [forbidElements](functions/forbidElements.md).             |
+| [JsxFragmentsOptions](type-aliases/JsxFragmentsOptions.md)                 | Options for [jsxFragments](functions/jsxFragments.md).                 |
 | [JsxHandlerNamesOptions](type-aliases/JsxHandlerNamesOptions.md)           | Options for [jsxHandlerNames](functions/jsxHandlerNames.md).           |
 | [JsxMaxDepthOptions](type-aliases/JsxMaxDepthOptions.md)                   | Options for [jsxMaxDepth](functions/jsxMaxDepth.md).                   |
 | [JsxNoDuplicatePropsOptions](type-aliases/JsxNoDuplicatePropsOptions.md)   | Options for [jsxNoDuplicateProps](functions/jsxNoDuplicateProps.md).   |
 | [JsxNoLiteralsOptions](type-aliases/JsxNoLiteralsOptions.md)               | Options for [jsxNoLiterals](functions/jsxNoLiterals.md).               |
 | [JsxPascalCaseOptions](type-aliases/JsxPascalCaseOptions.md)               | Options for [jsxPascalCase](functions/jsxPascalCase.md).               |
-| [JsxsFragmentsOptions](type-aliases/JsxsFragmentsOptions.md)               | Options for [jsxFragments](functions/jsxFragments.md).                 |
 | [MaxComponentPerFileOptions](type-aliases/MaxComponentPerFileOptions.md)   | Options for [maxComponentPerFile](functions/maxComponentPerFile.md).   |
 
 ## Functions
@@ -37,7 +37,7 @@
 | [jsxPascalCase](functions/jsxPascalCase.md)                                         | Enforce PascalCase for user-defined JSX components.                                                                 |
 | [jsxPropsNoSpreading](functions/jsxPropsNoSpreading.md)                             | Disallow JSX props spreading.                                                                                       |
 | [jsxPropsNoSpreadMulti](functions/jsxPropsNoSpreadMulti.md)                         | Disallow JSX prop spreading the same identifier multiple times.                                                     |
-| [maxComponentPerFile](functions/maxComponentPerFile.md)                             | Prevent defining more than one component per file.                                                                  |
+| [maxComponentPerFile](functions/maxComponentPerFile.md)                             | Limit the number of components that can be defined per file.                                                        |
 | [noAdjacentInlineElements](functions/noAdjacentInlineElements.md)                   | Disallow adjacent inline elements not separated by whitespace.                                                      |
 | [noCircularEffect](functions/noCircularEffect.md)                                   | Detect circular `set` function and dependency patterns across `useEffect`-like hooks in the same component or hook. |
 | [noDirectAccessProps](functions/noDirectAccessProps.md)                             | Enforce destructuring assignment for component props.                                                               |

@@ -3,16 +3,16 @@
 # Function: jsxFragments()
 
 ```ts
-function jsxFragments(options?: JsxsFragmentsOptions): RuleFunction;
+function jsxFragments(options?: JsxFragmentsOptions): RuleFunction;
 ```
 
 Enforce shorthand or standard form for React fragments.
 
 ## Parameters
 
-| Parameter  | Type                                                              |
-| ---------- | ----------------------------------------------------------------- |
-| `options?` | [`JsxsFragmentsOptions`](../type-aliases/JsxsFragmentsOptions.md) |
+| Parameter  | Type                                                            |
+| ---------- | --------------------------------------------------------------- |
+| `options?` | [`JsxFragmentsOptions`](../type-aliases/JsxFragmentsOptions.md) |
 
 ## Returns
 

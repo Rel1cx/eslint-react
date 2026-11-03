@@ -6,7 +6,7 @@ export type MaxComponentPerFileOptions = {
   max: number;
 };
 
-/** Prevent defining more than one component per file. */
+/** Limit the number of components that can be defined per file. */
 export function maxComponentPerFile(options: MaxComponentPerFileOptions): RuleFunction {
   const { max } = options;
   return (context, { collect }) => {
