@@ -11,6 +11,8 @@ This recipe contains one custom rule for validating state usage:
 
 ## preferStateUpdaterFunction
 
+### Rule
+
 Copy the following code into your project (e.g. `.config/preferStateUpdaterFunction.ts`):
 
 ```ts title=".config/preferStateUpdaterFunction.ts"
@@ -90,7 +92,7 @@ export function preferStateUpdaterFunction(): RuleFunction {
 }
 ```
 
-## Config
+### Config
 
 ```ts title="eslint.config.ts"
 import eslintReactKit from "@eslint-react/kit";
@@ -107,9 +109,9 @@ export default [
 ];
 ```
 
-## Examples
+### Examples
 
-### Referencing state directly in the setter
+#### Referencing state directly in the setter
 
 ```tsx
 import { useState } from "react";
@@ -171,7 +173,7 @@ function ItemList() {
 }
 ```
 
-### Using the updater function or a constant value
+#### Using the updater function or a constant value
 
 ```tsx
 import { useState } from "react";

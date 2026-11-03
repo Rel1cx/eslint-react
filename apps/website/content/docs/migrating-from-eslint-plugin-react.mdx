@@ -345,6 +345,11 @@ export function booleanPropNaming(options?: BooleanPropNamingOptions): RuleFunct
             const [decl] = decls;
             if (decl == null) continue;
 
+            // Guard: only declarations in the current file have an ESTree mapping;
+            // for cross-file or .d.ts declarations the lookup yields undefined
+            // and reporting on them would crash
+            if (decl.getSourceFile() !== tsNode.getSourceFile()) continue;
+
             // Report on the prop key when available
             const declNode = srv.tsNodeToESTreeNodeMap.get(decl);
             const node = "key" in declNode ? declNode.key : declNode;
@@ -569,7 +574,9 @@ function buildFix(context: RuleContext, node: TSESTree.FunctionDeclaration | TSE
     const body = src.getText(node.body);
 
     // `function Foo() {}` -> `const Foo = () => {};`
-    if (node.type === "FunctionDeclaration" && node.id != null) {
+    // Skips default-exported declarations: replacing only the function node would
+    // leave `export default const Foo = ...`, which is invalid syntax.
+    if (node.type === "FunctionDeclaration" && node.id != null && node.parent.type !== "ExportDefaultDeclaration") {
       // dprint-ignore
       return fixer.replaceText(node, `const ${node.id.name} = ${prefix}${typeParams}${params}${returnType} => ${body};`);
     }
@@ -631,13 +638,13 @@ import type { RuleFunction } from "@eslint-react/kit";
 import type { TSESTree } from "@typescript-eslint/types";
 
 /** Options for {@link jsxFragments}. */
-export type JsxsFragmentsOptions = {
+export type JsxFragmentsOptions = {
   /** The mode to enforce: "syntax" (default, shorthand) or "element" (standard form). */
   mode?: "syntax" | "element";
 };
 
 /** Enforce shorthand or standard form for React fragments. */
-export function jsxFragments(options: JsxsFragmentsOptions = {}): RuleFunction {
+export function jsxFragments(options: JsxFragmentsOptions = {}): RuleFunction {
   const { mode = "syntax" } = options;
   return (context) => {
     // Fast path: skip if the fragment form this mode targets is not present in the file
@@ -954,8 +961,14 @@ export function jsxNoLiterals(options: JsxNoLiteralsOptions = {}): RuleFunction 
           return;
         }
 
-        // Guard: already wrapped in an expression container
-        if (parent.type === "JSXExpressionContainer") return;
+        // Guard: already wrapped in an expression container, unless `noStrings` bans it as a child
+        if (parent.type === "JSXExpressionContainer") {
+          const grandparent = parent.parent;
+          if (noStrings && (grandparent.type === "JSXElement" || grandparent.type === "JSXFragment")) {
+            reportLiteralInChildren(node, text);
+          }
+          return;
+        }
 
         // Case: string literal used as a child of a JSX element or fragment
         if (parent.type === "JSXElement" || parent.type === "JSXFragment") {
