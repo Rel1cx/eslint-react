@@ -26,7 +26,7 @@ The following plugins cover areas not currently addressed by ESLint React and ar
 ]}
 />
 
-**[ESLint Stylistic](https://eslint.style/rules?filter=jsx#rules)** (`@stylistic/eslint-plugin`) provides **19 JSX-specific rules**, including:
+**[ESLint Stylistic](https://eslint.style/rules?filter=jsx#rules)** (`@stylistic/eslint-plugin`) provides **21 JSX-specific rules**, including:
 
 | Rule                                                                                              | Description                                              |
 | ------------------------------------------------------------------------------------------------- | -------------------------------------------------------- |
@@ -54,24 +54,24 @@ The following plugins cover areas not currently addressed by ESLint React and ar
 
 <GitHubRepoGrid
   repos={[
-{ owner: "es-tooling", repo: "eslint-plugin-jsx-a11y-x" },
+{ owner: "eslint-community", repo: "eslint-plugin-jsx-a11y-x" },
 ]}
 />
 
-**[`eslint-plugin-jsx-a11y-x`](https://github.com/es-tooling/eslint-plugin-jsx-a11y-x)** by [es-tooling](https://github.com/es-tooling) is a static AST checker for accessibility rules on JSX elements. It is a modern, actively maintained alternative to the classic `eslint-plugin-jsx-a11y`, with first-class support for ESLint Flat Config.
+**[`eslint-plugin-jsx-a11y-x`](https://github.com/eslint-community/eslint-plugin-jsx-a11y-x)** by [eslint-community](https://github.com/eslint-community) is a static AST checker for accessibility rules on JSX elements. It is a modern, actively maintained alternative to the classic `eslint-plugin-jsx-a11y`, with first-class support for ESLint Flat Config.
 
 | Rule                                                                                                                                              | Description                                                          |
 | ------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------- |
-| [`alt-text`](https://github.com/es-tooling/eslint-plugin-jsx-a11y-x/blob/main/docs/rules/alt-text.md)                                             | Enforce meaningful alternative text on images                        |
-| [`anchor-is-valid`](https://github.com/es-tooling/eslint-plugin-jsx-a11y-x/blob/main/docs/rules/anchor-is-valid.md)                               | Enforce all anchors are valid, navigable elements                    |
-| [`aria-props`](https://github.com/es-tooling/eslint-plugin-jsx-a11y-x/blob/main/docs/rules/aria-props.md)                                         | Enforce all `aria-*` props are valid                                 |
-| [`aria-role`](https://github.com/es-tooling/eslint-plugin-jsx-a11y-x/blob/main/docs/rules/aria-role.md)                                           | Enforce valid, non-abstract ARIA roles                               |
-| [`click-events-have-key-events`](https://github.com/es-tooling/eslint-plugin-jsx-a11y-x/blob/main/docs/rules/click-events-have-key-events.md)     | Enforce clickable elements have keyboard event listeners             |
-| [`interactive-supports-focus`](https://github.com/es-tooling/eslint-plugin-jsx-a11y-x/blob/main/docs/rules/interactive-supports-focus.md)         | Enforce interactive handlers are on focusable elements               |
-| [`label-has-associated-control`](https://github.com/es-tooling/eslint-plugin-jsx-a11y-x/blob/main/docs/rules/label-has-associated-control.md)     | Enforce `label` tags have text label and associated control          |
-| [`no-autofocus`](https://github.com/es-tooling/eslint-plugin-jsx-a11y-x/blob/main/docs/rules/no-autofocus.md)                                     | Disallow `autoFocus` prop                                            |
-| [`no-static-element-interactions`](https://github.com/es-tooling/eslint-plugin-jsx-a11y-x/blob/main/docs/rules/no-static-element-interactions.md) | Enforce non-interactive visible elements with handlers have a `role` |
-| [`prefer-tag-over-role`](https://github.com/es-tooling/eslint-plugin-jsx-a11y-x/blob/main/docs/rules/prefer-tag-over-role.md)                     | Enforce semantic DOM elements over ARIA `role` property              |
+| [`alt-text`](https://github.com/eslint-community/eslint-plugin-jsx-a11y-x/blob/main/docs/rules/alt-text.md)                                             | Enforce meaningful alternative text on images                        |
+| [`anchor-is-valid`](https://github.com/eslint-community/eslint-plugin-jsx-a11y-x/blob/main/docs/rules/anchor-is-valid.md)                               | Enforce all anchors are valid, navigable elements                    |
+| [`aria-props`](https://github.com/eslint-community/eslint-plugin-jsx-a11y-x/blob/main/docs/rules/aria-props.md)                                         | Enforce all `aria-*` props are valid                                 |
+| [`aria-role`](https://github.com/eslint-community/eslint-plugin-jsx-a11y-x/blob/main/docs/rules/aria-role.md)                                           | Enforce valid, non-abstract ARIA roles                               |
+| [`click-events-have-key-events`](https://github.com/eslint-community/eslint-plugin-jsx-a11y-x/blob/main/docs/rules/click-events-have-key-events.md)     | Enforce clickable elements have keyboard event listeners             |
+| [`interactive-supports-focus`](https://github.com/eslint-community/eslint-plugin-jsx-a11y-x/blob/main/docs/rules/interactive-supports-focus.md)         | Enforce interactive handlers are on focusable elements               |
+| [`label-has-associated-control`](https://github.com/eslint-community/eslint-plugin-jsx-a11y-x/blob/main/docs/rules/label-has-associated-control.md)     | Enforce `label` tags have text label and associated control          |
+| [`no-autofocus`](https://github.com/eslint-community/eslint-plugin-jsx-a11y-x/blob/main/docs/rules/no-autofocus.md)                                     | Disallow `autoFocus` prop                                            |
+| [`no-static-element-interactions`](https://github.com/eslint-community/eslint-plugin-jsx-a11y-x/blob/main/docs/rules/no-static-element-interactions.md) | Enforce non-interactive visible elements with handlers have a `role` |
+| [`prefer-tag-over-role`](https://github.com/eslint-community/eslint-plugin-jsx-a11y-x/blob/main/docs/rules/prefer-tag-over-role.md)                     | Enforce semantic DOM elements over ARIA `role` property              |
 
 ### React Refresh
 
@@ -90,8 +90,8 @@ The following plugins cover areas not currently addressed by ESLint React and ar
 **Key features**:
 
 - Single, focused rule that catches common Fast Refresh pitfalls
-- Built-in presets for **Vite** (`allowConstantExport`) and **Next.js** (allows exports like `revalidate` and `fetchCache`)
-- Configurable options for custom HOCs (`extraHOCs`) and framework-specific exports (`allowExportNames`)
+- Built-in presets for **Vite** (`allowConstantExport` and `allowCompoundComponents`) and **Next.js** (allows exports like `revalidate` and `fetchCache`)
+- Configurable options for custom HOCs (`extraHOCs`), framework-specific exports (`allowExportNames`), and `.js` files (`checkJS`)
 
 ### React Import Style
 
