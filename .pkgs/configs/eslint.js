@@ -147,6 +147,7 @@ export const strictTypeChecked = defineConfig({ ignores: GLOB_JS }, {
     rules: {
         "@typescript-eslint/no-deprecated": "warn",
         "@typescript-eslint/no-namespace": "off",
+        "@typescript-eslint/no-unnecessary-condition": ["error", { allowConstantLoopConditions: "only-allowed-literals" }],
         "@typescript-eslint/no-unused-vars": ["warn", {
                 args: "all",
                 argsIgnorePattern: "^_",

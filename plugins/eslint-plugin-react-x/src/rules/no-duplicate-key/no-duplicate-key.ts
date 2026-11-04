@@ -1,7 +1,9 @@
 import { createRule } from "@/utils/create-rule";
-import { Check, Compare, Extract, Traverse } from "@eslint-react/ast";
+import { Check, Extract, Traverse } from "@eslint-react/ast";
+import { isChildrenMap, isChildrenToArray } from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, type RuleListener } from "@eslint-react/eslint";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
+import { isKeyValueEqual, isRekeyedByChildrenCall, isReturnedBy, mapsProvablyAtMostOneElement } from "./lib";
 
 export const RULE_NAME = "no-duplicate-key";
 
@@ -11,10 +13,15 @@ export const RULE_FEATURES = [
 
 export type MessageID = "default";
 
+/** A recorded `key` attribute and whether it provably clashes with a sibling. */
+type KeyEntry = {
+  duplicate: boolean;
+  node: TSESTree.JSXAttribute;
+};
+
 /** Key attributes compared together, grouped by the JSX container or `.map()` call that repeats them. */
 type KeyGroup = {
-  hasDuplicate: boolean;
-  keys: TSESTree.JSXAttribute[];
+  keys: KeyEntry[];
 };
 
 export default createRule<[], MessageID>({
@@ -38,21 +45,33 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
 
   const keyGroups = new Map<TSESTree.Node, KeyGroup>();
 
+  function getGroup(root: TSESTree.Node): KeyGroup {
+    let group = keyGroups.get(root);
+    if (group == null) {
+      group = { keys: [] };
+      keyGroups.set(root, group);
+    }
+    return group;
+  }
+
   function recordSiblingKey(root: TSESTree.Node, key: TSESTree.JSXAttribute): void {
-    const prevKeys = keyGroups.get(root)?.keys ?? [];
-    keyGroups.set(root, {
-      // A later unique key clears an earlier duplicate flag (`[A, A, B]` is not reported).
-      hasDuplicate: prevKeys.some((prevKey) => isKeyValueEqual(prevKey, key)),
-      keys: [...prevKeys, key],
-    });
+    // React re-assigns keys collected through `Children.toArray`/`Children.map`,
+    // so duplicates there are impossible.
+    if (isRekeyedByChildrenCall(context, root)) return;
+    const group = getGroup(root);
+    let duplicate = false;
+    for (const entry of group.keys) {
+      if (isKeyValueEqual(entry.node, key)) {
+        entry.duplicate = true;
+        duplicate = true;
+      }
+    }
+    group.keys.push({ duplicate, node: key });
   }
 
   function recordMapCallbackKey(call: TSESTree.CallExpression, key: TSESTree.JSXAttribute): void {
-    keyGroups.set(call, {
-      // A literal key repeats on every iteration; a later key overwrites this entry.
-      hasDuplicate: key.value?.type === AST.Literal,
-      keys: [key],
-    });
+    // A literal key repeats on every iteration; dynamic keys may differ per item.
+    getGroup(call).keys.push({ duplicate: key.value?.type === AST.Literal, node: key });
   }
 
   return {
@@ -77,32 +96,28 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
             },
           );
           if (call == null) return;
+          // React re-assigns the keys of `Children.map` output.
+          if (isChildrenMap(context, call.callee) || isChildrenToArray(context, call.callee)) return;
           const callback = call.arguments[0];
           if (callback == null) return;
-          const enclosingFunction = Traverse.findParent(jsxElement, Check.isFunction, (n) => n === call);
-          if (enclosingFunction !== Extract.unwrap(callback)) return;
+          const callbackFn = Extract.unwrap(callback);
+          if (!Check.isFunction(callbackFn)) return;
+          if (!isReturnedBy(jsxElement, callbackFn)) return;
+          if (mapsProvablyAtMostOneElement(call)) return;
           recordMapCallbackKey(call, node);
         }
       }
     },
     "Program:exit"() {
-      for (const { hasDuplicate, keys } of keyGroups.values()) {
-        if (!hasDuplicate) continue;
-        for (const key of keys) {
+      for (const { keys } of keyGroups.values()) {
+        for (const { duplicate, node } of keys) {
+          if (!duplicate) continue;
           context.report({
             messageId: "default",
-            node: key,
+            node,
           });
         }
       }
     },
   };
-}
-
-function isKeyValueEqual(a: TSESTree.JSXAttribute, b: TSESTree.JSXAttribute): boolean {
-  const aValue = a.value;
-  const bValue = b.value;
-  // Valueless keys (`key`) never match.
-  if (aValue == null || bValue == null) return false;
-  return Compare.isEqual(aValue, bValue);
 }

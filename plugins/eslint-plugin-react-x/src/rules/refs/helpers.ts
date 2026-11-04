@@ -93,7 +93,6 @@ export function getRefAccess(node: TSESTree.MemberExpression): RefAccess {
 function isPatternWriteTarget(node: TSESTree.MemberExpression): boolean {
   let child: TSESTree.Node = node;
   let current: TSESTree.Node = node.parent;
-  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
   while (true) {
     switch (current.type) {
       case AST.MemberExpression:
@@ -134,7 +133,6 @@ function isPatternWriteTarget(node: TSESTree.MemberExpression): boolean {
 function isNestedRefCurrentWrite(node: TSESTree.MemberExpression): boolean {
   let outer: TSESTree.Node = node;
   let sawNesting = false;
-  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
   while (true) {
     let parent: TSESTree.Node = outer.parent;
     while (Check.isTypeExpression(parent)) parent = parent.parent;
