@@ -283,6 +283,33 @@ describe("createSetStateResolver", () => {
       });
       expect(fact).toEqual(["setData", "setData"]);
     });
+
+    it("should resolve every return of a named useMemo factory", () => {
+      const code =
+        "const [a, setA] = useState(); const [b, setB] = useState(); const factory = () => { if (cond) return setA; return setB; }; const set = useMemo(factory, []); set;";
+      const fact = runInRule(code, (context, program) => {
+        const resolver = createSetStateResolver(context);
+        return resolver.resolveValues(findReference(program, "set")).map((target) =>
+          target.kind === "setter" ? resolver.getSetterName(target.node) : target.kind
+        );
+      });
+      expect(fact).toEqual(["setA", "setB"]);
+    });
+
+    it("should not resolve a useMemo factory without a returned value", () => {
+      const code = "const set = useMemo(() => {}, []); set;";
+      const fact = runInRule(code, (context, program) => createSetStateResolver(context).resolveValues(findReference(program, "set")));
+      expect(fact).toEqual([]);
+    });
+
+    it("should not resolve useCallback calls with missing or spread arguments", () => {
+      const code = "const missing = useCallback(); const spread = useCallback(...args); missing; spread;";
+      const fact = runInRule(code, (context, program) => {
+        const resolver = createSetStateResolver(context);
+        return ["missing", "spread"].map((name) => resolver.resolveValues(findReference(program, name)));
+      });
+      expect(fact).toEqual([[], []]);
+    });
   });
 
   describe("getRefDerivedParams", () => {
@@ -359,6 +386,29 @@ describe("createSetStateResolver", () => {
       const code =
         "function C() { const [element, setElement] = useState(null); const [other, setOther] = useState(null); sink(element); return <div ref={(node) => setOther(node)} />; }";
       expect(isStateHeldElement(code)).toBe(false);
+    });
+
+    it("should match state whose setter is one branch of a conditional JSX ref", () => {
+      const code = "function C() { const [element, setElement] = useState(null); sink(element); return <div ref={cond ? setElement : null} />; }";
+      expect(isStateHeldElement(code)).toBe(true);
+    });
+
+    it("should match state written by a function declaration passed to a JSX ref", () => {
+      const code =
+        "function C() { const [element, setElement] = useState(null); function elementRef(node) { setElement(node); } sink(element); return <div ref={elementRef} />; }";
+      expect(isStateHeldElement(code)).toBe(true);
+    });
+
+    it("should match state written by a useMemo-returned callback ref", () => {
+      const code =
+        "function C() { const [element, setElement] = useState(null); const elementRef = useMemo(() => (node) => setElement(node), []); sink(element); return <div ref={elementRef} />; }";
+      expect(isStateHeldElement(code)).toBe(true);
+    });
+
+    it("should match state whose setter reaches a JSX ref through a stable alias", () => {
+      const code =
+        "function C() { const [element, setElement] = useState(null); const elementRef = setElement; sink(element); return <div ref={elementRef} />; }";
+      expect(isStateHeldElement(code)).toBe(true);
     });
   });
 });
@@ -659,6 +709,18 @@ describe("isInitializedFromRef", () => {
     const fact = runInRule(code, (context, program) => isInitializedFromRef(context, findReference(program, "v", -1)));
     expect(fact).toBe(true);
   });
+
+  it("should match a parameter whose default value reads a ref", () => {
+    const code = "const ref = useRef(null); function f(el = ref.current) { sink(el); }";
+    const fact = runInRule(code, (context, program) => isInitializedFromRef(context, findReference(program, "el", -1)));
+    expect(fact).toBe(true);
+  });
+
+  it("should match a variable written in a class static block", () => {
+    const code = "function f() { const ref = useRef(0); let v = 0; class C { static { v = ref.current; } } sink(v); }";
+    const fact = runInRule(code, (context, program) => isInitializedFromRef(context, findReference(program, "v", -1)));
+    expect(fact).toBe(true);
+  });
 });
 
 describe("isArgumentUsingRefValue", () => {
@@ -817,6 +879,11 @@ describe("isArgumentUsingRefValue", () => {
 
   it("should match an updater capturing a ref-derived local", () => {
     expect(check("const ref = useRef(null); const el = ref.current; setWidth(() => el);")).toBe(true);
+  });
+
+  it("should match a getter with a ref-derived value on any return path", () => {
+    const code = "const ref = useRef(0); function getValue() { if (cond) return 0; return ref.current; } setWidth(getValue());";
+    expect(check(code)).toBe(true);
   });
 });
 
@@ -1036,5 +1103,13 @@ describe("isRefGatedContext", () => {
 
   it("should match a setState call in the consequent of a ref-gated else-if", () => {
     expect(check("function f() { const ref = useRef(0); if (a) { log(); } else if (ref.current) { setData(1); } }")).toBe(true);
+  });
+
+  it("should match a setState call behind a ref-gated early return in the same catch block", () => {
+    expect(check("function f() { const ref = useRef(0); try { foo(); } catch { if (!ref.current) return; setData(1); } }")).toBe(true);
+  });
+
+  it("should not let a ref guard in a catch block gate statements after the try statement", () => {
+    expect(check("function f() { const ref = useRef(0); try { foo(); } catch { if (!ref.current) return; } setData(1); }")).toBe(false);
   });
 });

@@ -352,6 +352,13 @@ describe("getConditionalBranch", () => {
     expect(getConditionalBranch(doWhileCall)?.type).toBe(AST.BlockStatement);
     expect(getConditionalBranch(forCall)?.type).toBe(AST.BlockStatement);
   });
+
+  it("should identify for-in and for-of bodies as conditional branches", () => {
+    const forInCall = getFirstNodeOfType<TSESTree.CallExpression>("for (const key in object) { sink(); }", AST.CallExpression);
+    const forOfCall = getFirstNodeOfType<TSESTree.CallExpression>("for (const value of values) { sink(); }", AST.CallExpression);
+    expect(getConditionalBranch(forInCall)?.type).toBe(AST.BlockStatement);
+    expect(getConditionalBranch(forOfCall)?.type).toBe(AST.BlockStatement);
+  });
 });
 
 describe("isRefLikeName", () => {

@@ -613,4 +613,43 @@ describe("inferViolations", () => {
       "function C() { const [a, setA] = useState(0); const [b, setB] = useState(0); const helper = () => setA(1); useEffect(() => { helper(); }, []); useEffect(() => { setB(1); }, []); }";
     expect(inferViolationNames(code)).toEqual(["setA", "setB"]);
   });
+
+  it("should follow every function returned by a multi-return useMemo factory", () => {
+    const code =
+      "function C() { const [a, setA] = useState(0); const [b, setB] = useState(0); const helper = useMemo(() => { if (cond) return () => setA(1); return () => setB(2); }, []); useEffect(() => { helper(); }, []); }";
+    expect(inferViolationNames(code)).toEqual(["setA", "setB"]);
+  });
+
+  it("should propagate and reset ref-derived parameters through a helper chain", () => {
+    const code =
+      "function C() { const ref = useRef(0); const [data, setData] = useState(0); const inner = (value) => setData(value); const outer = (value) => inner(value); useEffect(() => { outer(ref.current); outer(0); }, []); }";
+    const violations = inferViolationsFor(code);
+    expect(violations.map((violation) => ({
+      name: violation.name,
+      node: code.slice(violation.node.range[0], violation.node.range[1]),
+    }))).toEqual([{ name: "setData", node: "outer(0)" }]);
+  });
+
+  it("should allow a default parameter that reads a ref when the helper argument is omitted", () => {
+    const code =
+      "function C() { const ref = useRef(0); const [data, setData] = useState(0); const measure = (value = ref.current) => setData(value); useEffect(() => { measure(); }, []); }";
+    expect(inferViolationNames(code)).toEqual([]);
+  });
+
+  it("should deduplicate direct and indirect paths to one setter at the same trigger", () => {
+    const code =
+      "function C() { const [data, setData] = useState(0); const helper = () => setData(2); useEffect(() => { (cond ? setData : helper)(1); }, []); }";
+    expect(inferViolationNames(code)).toEqual(["setData"]);
+  });
+
+  it("should deduplicate a shared helper reached from separate inline setups", () => {
+    const code =
+      "function C() { const [data, setData] = useState(0); const helper = () => setData(1); useEffect(() => { helper(); }, []); useEffect(() => { helper(); }, []); }";
+    expect(inferViolationNames(code)).toEqual(["setData"]);
+  });
+
+  it("should not follow a helper invoked through a dynamic member callee", () => {
+    const code = "function C() { const [data, setData] = useState(0); const helper = () => setData(1); useEffect(() => { helper.call(null); }, []); }";
+    expect(inferViolationNames(code)).toEqual([]);
+  });
 });

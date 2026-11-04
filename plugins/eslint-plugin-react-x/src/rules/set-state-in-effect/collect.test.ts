@@ -223,4 +223,17 @@ describe("createFactCollector", () => {
       { enclosing: "function C() { return <div prop={foo()} />; }", text: "foo()" },
     ]);
   });
+
+  it("collects unconfigured hook names ending in Effect", () => {
+    const code = "useCustomEffect(setup); React.useAnythingEffect?.(setup);";
+    expect(summarizeRoots(code, collectFacts(code))).toEqual([
+      { effect: "useCustomEffect(setup)", setup: "setup" },
+      { effect: "React.useAnythingEffect?.(setup)", setup: "setup" },
+    ]);
+  });
+
+  it("does not collect unsupported effect-like names or computed callees", () => {
+    const facts = collectFacts('useEffectEvent(setup); useEffectExtra(setup); React["useEffect"](setup);');
+    expect(facts.effectRoots).toEqual([]);
+  });
 });
