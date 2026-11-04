@@ -5,3 +5,4 @@ export * from "./harness";
 export * from "./options";
 export * from "./parse";
 export * from "./rule-tester";
+export * from "./type";

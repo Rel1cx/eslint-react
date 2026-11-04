@@ -41,7 +41,8 @@
     "@typescript-eslint/rule-tester": "^8.72.1",
     "@typescript-eslint/types": "^8.72.1",
     "@typescript-eslint/typescript-estree": "^8.72.1",
-    "@typescript-eslint/utils": "^8.72.1"
+    "@typescript-eslint/utils": "^8.72.1",
+    "typescript": "6.0.3"
   },
   "devDependencies": {
     "@local/configs": "workspace:*",
@@ -49,7 +50,6 @@
     "@types/node": "^20.19.43",
     "eslint": "^10.14.0",
     "tsdown": "^0.23.5",
-    "typescript": "6.0.3",
     "vitest": "^5.1.0"
   },
   "engines": {

@@ -455,6 +455,9 @@ importers:
       '@typescript-eslint/utils':
         specifier: ^8.72.1
         version: 8.72.1(eslint@10.14.0(jiti@2.7.0)(supports-color@9.4.0))(supports-color@9.4.0)(typescript@6.0.3)
+      typescript:
+        specifier: 6.0.3
+        version: 6.0.3
     devDependencies:
       '@local/configs':
         specifier: workspace:*
@@ -471,9 +474,6 @@ importers:
       tsdown:
         specifier: ^0.23.5
         version: 0.23.5(publint@0.3.25)(tsx@4.23.15)(typescript@6.0.3)
-      typescript:
-        specifier: 6.0.3
-        version: 6.0.3
       vitest:
         specifier: ^5.1.0
         version: 5.1.0(@types/node@20.19.43)(vite@8.3.5(@types/node@20.19.43)(esbuild@0.28.2)(jiti@2.7.0)(tsx@4.23.15)(yaml@2.9.1))
