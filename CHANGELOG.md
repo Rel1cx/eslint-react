@@ -1,5 +1,30 @@
 # Changelog
 
+## v5.30.0-beta.24 (2026-11-04)
+
+### 🐞 Fixes
+
+- `react-x/no-duplicate-key`: only keys that provably have a duplicate are now reported. (#2108)
+  - Unique siblings in a partially duplicate group (ex: `[A, B, B]`) are no longer reported, and duplicates followed by a unique key (ex: `[A, A, B]`) are now correctly reported.
+  - Keys collected through `Children.toArray()` and `Children.map()` are no longer reported, since React re-assigns the keys of their output; keys nested inside elements passed to these APIs are still reported.
+  - Inside `.map()` callbacks, only elements returned by the callback are checked, so keyed elements passed to other functions, used as prop values, or placed in expression containers are no longer reported.
+  - Literal keys in `.map()` callbacks are no longer overwritten by later keys; every returned element with a literal key is now reported.
+  - `.map()` calls on array literals with at most one element are no longer reported, since no duplicate can occur.
+
+### 📝 Documentation
+
+- Synced the migration tables with rule features and updated the configuration and third-party plugin docs. (#2106)
+- Synced the website recipe snippets with the hardened sample rules. (#2107)
+
+### 🏗️ Internal
+
+- `react-x/refs`: added unit tests for ref fact collection, inference, and origins. No behavior change.
+- `react-x/set-state-in-effect`: added unit tests for the `collect`, `effects`, `helpers`, and `origins` modules. No behavior change.
+- Hardened the sample rules (`booleanPropNaming`, `functionComponentDefinition`, `jsxFragments`, `jsxNoLiterals`, `maxComponentPerFile`). (#2107)
+- Bumped `next` and `@next/eslint-plugin-next` to `16.4.5`, `lucide-react` to `1.68.0`, `eslint-plugin-package-json` to `1.14.0`, `eslint-plugin-jsdoc` to `65.4.3`, `tsdown` to `0.23.5`, `nx` to `24.0.4`, `oxlint` to `1.91.0`, and `pnpm/action-setup` to `6.1.1`.
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.30.0-beta.23...v5.30.0-beta.24
+
 ## v5.30.0-beta.23 (2026-11-03)
 
 ### 📝 Documentation
