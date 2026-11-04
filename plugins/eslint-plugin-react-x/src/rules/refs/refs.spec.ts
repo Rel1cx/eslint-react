@@ -853,6 +853,50 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [{ messageId: "write-during-render" }],
     },
+    // A switch with a fall-through clause group is not recognized as terminating
+    {
+      code: tsx`
+        function Component({ kind }) {
+          const ref = useRef(null);
+          if (ref.current !== null) {
+            switch (kind) {
+              case 1:
+              case 2:
+                return <div>{ref.current}</div>;
+              default:
+                return <div>{ref.current}</div>;
+            }
+          }
+          ref.current = createValue();
+          return <div />;
+        }
+      `,
+      errors: [{ messageId: "write-during-render" }],
+    },
+    // A switch-guarded lazy init consumes the one allowed initialization per ref
+    {
+      code: tsx`
+        function Component({ kind }) {
+          const ref = useRef(null);
+          if (ref.current !== null) {
+            switch (kind) {
+              default:
+                return <div>{ref.current}</div>;
+            }
+          }
+          ref.current = createValue();
+          if (ref.current !== null) {
+            switch (kind) {
+              default:
+                return <div>{ref.current}</div>;
+            }
+          }
+          ref.current = createValue();
+          return <div />;
+        }
+      `,
+      errors: [{ messageId: "duplicate-ref-init" }],
+    },
     // A try whose catch handler can complete normally is not terminating
     {
       code: tsx`

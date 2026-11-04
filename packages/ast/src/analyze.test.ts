@@ -309,4 +309,87 @@ describe("isUnconditionallyTerminating", () => {
       ),
     ).toBe(false);
   });
+
+  it("should not match a do...while loop when a continue escapes through a nested switch", () => {
+    expect(
+      isUnconditionallyTerminating(
+        getFirstNodeOfType<TSESTree.DoWhileStatement>(
+          "function f() { do { switch (x) { case 1: if (c) continue; return; default: return; } } while (y); }",
+          AST.DoWhileStatement,
+        ),
+      ),
+    ).toBe(false);
+  });
+
+  it("should match a do...while loop when the continue is nested inside an inner loop", () => {
+    expect(
+      isUnconditionallyTerminating(
+        getFirstNodeOfType<TSESTree.DoWhileStatement>(
+          "function f() { do { while (x) { continue; } return; } while (y); }",
+          AST.DoWhileStatement,
+        ),
+      ),
+    ).toBe(true);
+  });
+
+  it("should match a switch whose clause terminates via a nested loop", () => {
+    expect(
+      isUnconditionallyTerminating(
+        getFirstNodeOfType<TSESTree.SwitchStatement>(
+          "function f() { switch (a) { case 1: while (true) { return; } default: return; } }",
+          AST.SwitchStatement,
+        ),
+      ),
+    ).toBe(true);
+  });
+
+  it("should not match an empty switch or a switch with an empty default", () => {
+    expect(
+      isUnconditionallyTerminating(getFirstNodeOfType<TSESTree.SwitchStatement>("function f() { switch (a) {} }", AST.SwitchStatement)),
+    ).toBe(false);
+    expect(
+      isUnconditionallyTerminating(getFirstNodeOfType<TSESTree.SwitchStatement>("function f() { switch (a) { default: } }", AST.SwitchStatement)),
+    ).toBe(false);
+  });
+
+  it("should not match a loop with a labeled break inside a nested labeled loop", () => {
+    expect(
+      isUnconditionallyTerminating(
+        getFirstNodeOfType<TSESTree.WhileStatement>(
+          "function f() { while (true) { inner: while (x) { break inner; } return; } }",
+          AST.WhileStatement,
+        ),
+      ),
+    ).toBe(false);
+  });
+
+  it("should match a while (true) loop whose body terminates via a nested switch", () => {
+    expect(
+      isUnconditionallyTerminating(
+        getFirstNodeOfType<TSESTree.WhileStatement>(
+          "function f() { while (true) { switch (x) { default: return; } } }",
+          AST.WhileStatement,
+        ),
+      ),
+    ).toBe(true);
+    expect(
+      isUnconditionallyTerminating(
+        getFirstNodeOfType<TSESTree.WhileStatement>(
+          "function f() { while (true) { switch (x) { case 1: break; default: return; } } }",
+          AST.WhileStatement,
+        ),
+      ),
+    ).toBe(false);
+  });
+
+  it("should match a while (true) loop when a continue escapes through a nested switch into the loop", () => {
+    expect(
+      isUnconditionallyTerminating(
+        getFirstNodeOfType<TSESTree.WhileStatement>(
+          "function f() { while (true) { switch (x) { case 1: continue; } return; } }",
+          AST.WhileStatement,
+        ),
+      ),
+    ).toBe(true);
+  });
 });
