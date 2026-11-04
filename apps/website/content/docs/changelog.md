@@ -2,6 +2,18 @@
 title: Changelog
 ---
 
+## v5.30.0-beta.25 (2026-11-04)
+
+### 🐞 Fixes
+
+- `react-x/refs`: inverted lazy-init guards whose non-null branch ends in an all-terminating `switch` with a `default` clause, or in a `while (true)`/`for (;;)`/`do...while` loop whose body always returns or throws, are no longer reported as render-time writes. (#2109)
+
+### 🏗️ Internal
+
+- `@eslint-react/ast`: `Analyze.isUnconditionallyTerminating` now recognizes terminating `switch` statements with a `default` clause and terminating `while (true)`/`for (;;)`/`do...while` loops, excluding constructs with an escaping `break`/`continue` (including labeled jumps), fall-through clause groups, switches without `default`, and non-literal-true loop tests. (#2109)
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.30.0-beta.24...v5.30.0-beta.25
+
 ## v5.30.0-beta.24 (2026-11-04)
 
 ### 🐞 Fixes
