@@ -5,6 +5,16 @@ All notable changes to the `react-x/no-duplicate-key` rule will be documented in
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [5.30.0-beta.24] - 2026-11-04
+
+### Fixed
+
+- Only keys that provably have a duplicate are now reported: unique siblings in a partially duplicate group (ex: `[A, B, B]`) are no longer reported, and duplicates followed by a unique key (ex: `[A, A, B]`) are now correctly reported.
+- Keys collected through `Children.toArray()` and `Children.map()` are no longer reported, since React re-assigns the keys of their output. Keys nested inside an element passed to these APIs are still reported, since they are not re-assigned.
+- Inside `.map()` callbacks, only elements returned by the callback are checked, so keyed elements passed to other functions, used as prop values, or placed in expression containers are no longer reported.
+- Literal keys in `.map()` callbacks are no longer overwritten by later keys; every returned element with a literal key is now reported.
+- `.map()` calls on array literals with at most one element are no longer reported, since no duplicate can occur.
+
 ## [5.30.0-beta.8] - 2026-10-27
 
 ### Changed

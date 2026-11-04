@@ -27,6 +27,13 @@ react-x/no-duplicate-key
 
 React uses keys to identify elements in an array. If two elements have the same key, React will not be able to distinguish them. This can lead to issues with state and rendering.
 
+To avoid false positives, the rule only reports duplicates it can prove statically:
+
+- Keys collected through `Children.toArray` or `Children.map` are not checked, since React re-assigns the keys of their output. Keys nested inside an element passed to these APIs are still checked, since they are not re-assigned.
+- Inside a `.map()` callback, only elements returned by the callback are checked, and only when the key is a literal that repeats on every iteration.
+- When the mapped array is a literal with at most one element, no duplicate can occur, so nothing is reported.
+- Dynamic keys (ex: `key={id}`) are not compared, since their values cannot be determined statically.
+
 ## Examples
 
 ### Returning sibling elements with duplicate keys in an array
