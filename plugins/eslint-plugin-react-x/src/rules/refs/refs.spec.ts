@@ -780,7 +780,100 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [{ messageId: "write-during-render" }],
     },
-    // A switch whose entry paths all return is not analyzed by the shared predicate
+    // A switch clause whose break can escape is not terminating
+    {
+      code: tsx`
+        function Component({ kind }) {
+          const ref = useRef(null);
+          if (ref.current !== null) {
+            switch (kind) {
+              case 1:
+                if (kind > 1) break;
+                return <div>{ref.current}</div>;
+              default:
+                return <div>{ref.current}</div>;
+            }
+          }
+          ref.current = createValue();
+          return <div />;
+        }
+      `,
+      errors: [{ messageId: "write-during-render" }],
+    },
+    // A switch without a default clause is not terminating
+    {
+      code: tsx`
+        function Component({ kind }) {
+          const ref = useRef(null);
+          if (ref.current !== null) {
+            switch (kind) {
+              case 1:
+                return <div>{ref.current}</div>;
+              case 2:
+                return <div>{ref.current}</div>;
+            }
+          }
+          ref.current = createValue();
+          return <div />;
+        }
+      `,
+      errors: [{ messageId: "write-during-render" }],
+    },
+    // A loop whose labeled break can escape the guard branch is not terminating
+    {
+      code: tsx`
+        function Component() {
+          const ref = useRef(null);
+          outer: if (ref.current !== null) {
+            while (true) {
+              if (Math.random()) break outer;
+              return <div>{ref.current}</div>;
+            }
+          }
+          ref.current = createValue();
+          return <div />;
+        }
+      `,
+      errors: [{ messageId: "write-during-render" }],
+    },
+    // A do...while whose continue can reach the test is not terminating
+    {
+      code: tsx`
+        function Component({ again }) {
+          const ref = useRef(null);
+          if (ref.current !== null) {
+            do {
+              if (again) continue;
+              return <div>{ref.current}</div>;
+            } while (again);
+          }
+          ref.current = createValue();
+          return <div />;
+        }
+      `,
+      errors: [{ messageId: "write-during-render" }],
+    },
+    // A switch with a fall-through clause group is not recognized as terminating
+    {
+      code: tsx`
+        function Component({ kind }) {
+          const ref = useRef(null);
+          if (ref.current !== null) {
+            switch (kind) {
+              case 1:
+              case 2:
+                return <div>{ref.current}</div>;
+              default:
+                return <div>{ref.current}</div>;
+            }
+          }
+          ref.current = createValue();
+          return <div />;
+        }
+      `,
+      errors: [{ messageId: "write-during-render" }],
+    },
+    // A switch-guarded lazy init consumes the one allowed initialization per ref
     {
       code: tsx`
         function Component({ kind }) {
@@ -792,10 +885,17 @@ ruleTester.run(RULE_NAME, rule, {
             }
           }
           ref.current = createValue();
+          if (ref.current !== null) {
+            switch (kind) {
+              default:
+                return <div>{ref.current}</div>;
+            }
+          }
+          ref.current = createValue();
           return <div />;
         }
       `,
-      errors: [{ messageId: "write-during-render" }],
+      errors: [{ messageId: "duplicate-ref-init" }],
     },
     // A try whose catch handler can complete normally is not terminating
     {
@@ -2367,6 +2467,86 @@ ruleTester.run(RULE_NAME, rule, {
             try {
               return <div>{ref.current}</div>;
             } finally {}
+          }
+          ref.current = createValue();
+          return <div />;
+        }
+      `,
+    },
+    // Inverted lazy init with a switch whose clauses all return
+    {
+      code: tsx`
+        function Component({ kind }) {
+          const ref = useRef(null);
+          if (ref.current !== null) {
+            switch (kind) {
+              case 1:
+                return <div>{ref.current}</div>;
+              default:
+                return <div>{ref.current}</div>;
+            }
+          }
+          ref.current = createValue();
+          return <div />;
+        }
+      `,
+    },
+    // Inverted lazy init with a switch whose breaks are nested inside a clause-local loop
+    {
+      code: tsx`
+        function Component({ kind, items }) {
+          const ref = useRef(null);
+          if (ref.current !== null) {
+            switch (kind) {
+              case 1:
+                while (items.length > 0) break;
+                return <div>{ref.current}</div>;
+              default:
+                return <div>{ref.current}</div>;
+            }
+          }
+          ref.current = createValue();
+          return <div />;
+        }
+      `,
+    },
+    // Inverted lazy init with loops whose bodies always return
+    {
+      code: tsx`
+        function Component() {
+          const ref = useRef(null);
+          if (ref.current !== null) {
+            while (true) {
+              return <div>{ref.current}</div>;
+            }
+          }
+          ref.current = createValue();
+          return <div />;
+        }
+      `,
+    },
+    {
+      code: tsx`
+        function Component() {
+          const ref = useRef(null);
+          if (ref.current !== null) {
+            for (;;) {
+              return <div>{ref.current}</div>;
+            }
+          }
+          ref.current = createValue();
+          return <div />;
+        }
+      `,
+    },
+    {
+      code: tsx`
+        function Component({ again }) {
+          const ref = useRef(null);
+          if (ref.current !== null) {
+            do {
+              return <div>{ref.current}</div>;
+            } while (again);
           }
           ref.current = createValue();
           return <div />;

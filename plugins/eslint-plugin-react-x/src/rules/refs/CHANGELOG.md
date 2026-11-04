@@ -5,6 +5,12 @@ All notable changes to the `react-x/refs` rule will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+### Fixed
+
+- Inverted lazy-init guards whose non-null branch ends in an all-terminating `switch` with a `default` clause, or in a `while (true)`/`for (;;)`/`do...while` loop whose body always returns or throws, are no longer reported as render-time writes; clauses and bodies with an escaping `break`/`continue` (including labeled jumps), fall-through clause groups, switches without `default`, and non-literal-true loop tests remain unrecognized.
+
 ## [5.30.0-beta.24] - 2026-11-04
 
 ### Changed

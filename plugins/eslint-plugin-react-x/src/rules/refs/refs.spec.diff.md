@@ -68,10 +68,15 @@ function state.
 
 **Remaining difference**: the IMPL uses structured AST analysis rather than a full control-flow
 graph. It recognizes enclosing guard regions and terminating sibling guards — a non-null branch is
-terminating when it ends in `return`/`throw`, when both branches of a nested `if` terminate, or when
-a `try` statement's finalizer terminates or its try block and catch handler both terminate (the
-shared `Analyze.isUnconditionallyTerminating` predicate) — but does not attempt general
-post-dominator analysis.
+terminating when it ends in `return`/`throw`, when both branches of a nested `if` terminate, when a
+`try` statement's finalizer terminates or its try block and catch handler both terminate, when a
+`switch` with a `default` clause has all clauses terminating without an escaping `break`/`continue`,
+or when a `while (true)`/`for (;;)`/`do...while` loop has a terminating body without an escaping
+`break` (or `continue`, for `do...while`) — the shared `Analyze.isUnconditionallyTerminating`
+predicate — but does not attempt general post-dominator analysis. Labeled statements, fall-through
+clause groups, and non-literal-true loop tests remain unrecognized. The switch/loop coverage is
+verified against local fixtures only: the compiler's 148 ref fixtures pin none of these forms, so
+parity there is inferred from the compiler's exact CFG reachability rather than fixture-verified.
 
 ## 2. What constitutes a ref
 
@@ -103,8 +108,12 @@ comparison:
 It also supports the inverted early-return form only when the non-null branch unconditionally
 returns or throws, where termination is decided by the shared `Analyze.isUnconditionallyTerminating`
 predicate: a `try` statement counts as terminating when its finalizer terminates or when its try
-block and catch handler both terminate, while `switch` and loop constructs are not analyzed even
-when every path through them returns. Unrelated nested conditions do not hide an outer null guard.
+block and catch handler both terminate; a `switch` with a `default` clause counts when every clause
+terminates and no `break`/`continue` escapes the switch; and a `while (true)`, `for (;;)` or
+`do...while` loop counts when its body terminates and no `break` (or `continue`, for `do...while`)
+escapes. Fall-through clause groups, switches without `default`, labeled statements, and
+non-literal-true loop tests are not recognized. Unrelated nested conditions do not hide an outer
+null guard.
 
 Reading `ref.current` inside the guard test itself is not reported, and reads in the complementary
 branch proven non-null are allowed; writes there are still reported.
@@ -211,8 +220,11 @@ the second initialization site. React diagnostics can attach multiple locations 
 ## 8. Known remaining gaps
 
 1. No full CFG/post-dominator analysis; complex labeled control flow and equivalent user-defined
-   guard abstractions are not proven safe. `switch` and loop constructs are not analyzed for
-   termination even when every path through them returns or throws.
+   guard abstractions are not proven safe. Termination analysis covers `return`/`throw`, nested
+   `if`, `try`, all-terminating `switch` with `default`, and `while (true)`/`for (;;)`/`do...while`
+   loops whose bodies terminate without escaping jumps; labeled statements, fall-through clause
+   groups, and non-literal-true loop tests remain unrecognized, and the switch/loop coverage is
+   local-fixture-verified only (see §1).
 2. Ref identity is not propagated into arbitrary local function parameters.
 3. The `ref`/`*Ref` naming heuristic is always enabled and can diverge when the compiler's corresponding
    option is disabled or when compiler type inference classifies the value differently.
