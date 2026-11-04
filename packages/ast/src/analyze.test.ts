@@ -124,4 +124,189 @@ describe("isUnconditionallyTerminating", () => {
       ),
     ).toBe(false);
   });
+
+  it("should match a switch statement when every clause terminates and a default exists", () => {
+    expect(
+      isUnconditionallyTerminating(
+        getFirstNodeOfType<TSESTree.SwitchStatement>(
+          "function f() { switch (a) { case 1: return 1; default: return 2; } }",
+          AST.SwitchStatement,
+        ),
+      ),
+    ).toBe(true);
+    expect(
+      isUnconditionallyTerminating(
+        getFirstNodeOfType<TSESTree.SwitchStatement>("function f() { switch (a) { default: return 1; } }", AST.SwitchStatement),
+      ),
+    ).toBe(true);
+  });
+
+  it("should not match a switch statement without a default clause", () => {
+    expect(
+      isUnconditionallyTerminating(
+        getFirstNodeOfType<TSESTree.SwitchStatement>("function f() { switch (a) { case 1: return 1; case 2: return 2; } }", AST.SwitchStatement),
+      ),
+    ).toBe(false);
+  });
+
+  it("should not match a switch statement with a clause that can complete normally", () => {
+    expect(
+      isUnconditionallyTerminating(
+        getFirstNodeOfType<TSESTree.SwitchStatement>("function f() { switch (a) { case 1: return 1; default: foo(); } }", AST.SwitchStatement),
+      ),
+    ).toBe(false);
+  });
+
+  it("should not match a switch statement with a fall-through clause group", () => {
+    expect(
+      isUnconditionallyTerminating(
+        getFirstNodeOfType<TSESTree.SwitchStatement>(
+          "function f() { switch (a) { case 1: case 2: return 1; default: return 2; } }",
+          AST.SwitchStatement,
+        ),
+      ),
+    ).toBe(false);
+  });
+
+  it("should not match a switch statement with a clause break", () => {
+    expect(
+      isUnconditionallyTerminating(
+        getFirstNodeOfType<TSESTree.SwitchStatement>(
+          "function f() { switch (a) { case 1: if (b) break; return 1; default: return 2; } }",
+          AST.SwitchStatement,
+        ),
+      ),
+    ).toBe(false);
+  });
+
+  it("should not match a switch statement with a clause continue", () => {
+    expect(
+      isUnconditionallyTerminating(
+        getFirstNodeOfType<TSESTree.SwitchStatement>(
+          "function f() { while (b) { switch (a) { case 1: if (c) continue; return 1; default: return 2; } } }",
+          AST.SwitchStatement,
+        ),
+      ),
+    ).toBe(false);
+  });
+
+  it("should match a switch statement when breaks are nested inside a loop or switch", () => {
+    expect(
+      isUnconditionallyTerminating(
+        getFirstNodeOfType<TSESTree.SwitchStatement>(
+          "function f() { switch (a) { case 1: while (b) { break; } return 1; default: return 2; } }",
+          AST.SwitchStatement,
+        ),
+      ),
+    ).toBe(true);
+    expect(
+      isUnconditionallyTerminating(
+        getFirstNodeOfType<TSESTree.SwitchStatement>(
+          "function f() { switch (a) { case 1: switch (b) { case 2: break; } return 1; default: return 2; } }",
+          AST.SwitchStatement,
+        ),
+      ),
+    ).toBe(true);
+  });
+
+  it("should match a while (true) loop with a terminating body", () => {
+    expect(
+      isUnconditionallyTerminating(getFirstNodeOfType<TSESTree.WhileStatement>("function f() { while (true) { return 1; } }", AST.WhileStatement)),
+    ).toBe(true);
+    expect(
+      isUnconditionallyTerminating(getFirstNodeOfType<TSESTree.WhileStatement>("function f() { while (true) return 1; }", AST.WhileStatement)),
+    ).toBe(true);
+  });
+
+  it("should not match a while loop with a non-constant or falsy test", () => {
+    expect(
+      isUnconditionallyTerminating(getFirstNodeOfType<TSESTree.WhileStatement>("function f() { while (a) { return 1; } }", AST.WhileStatement)),
+    ).toBe(false);
+    expect(
+      isUnconditionallyTerminating(getFirstNodeOfType<TSESTree.WhileStatement>("function f() { while (false) { return 1; } }", AST.WhileStatement)),
+    ).toBe(false);
+  });
+
+  it("should not match a while (true) loop whose body can break", () => {
+    expect(
+      isUnconditionallyTerminating(
+        getFirstNodeOfType<TSESTree.WhileStatement>("function f() { while (true) { if (a) break; return 1; } }", AST.WhileStatement),
+      ),
+    ).toBe(false);
+  });
+
+  it("should not match a loop with a labeled break", () => {
+    expect(
+      isUnconditionallyTerminating(
+        getFirstNodeOfType<TSESTree.WhileStatement>(
+          "function f() { outer: while (true) { if (a) break outer; return 1; } }",
+          AST.WhileStatement,
+        ),
+      ),
+    ).toBe(false);
+  });
+
+  it("should match a while (true) loop when jumps are nested inside an inner loop", () => {
+    expect(
+      isUnconditionallyTerminating(
+        getFirstNodeOfType<TSESTree.WhileStatement>(
+          "function f() { while (true) { while (a) { break; } return 1; } }",
+          AST.WhileStatement,
+        ),
+      ),
+    ).toBe(true);
+    expect(
+      isUnconditionallyTerminating(
+        getFirstNodeOfType<TSESTree.WhileStatement>(
+          "function f() { while (true) { while (a) { continue; } return 1; } }",
+          AST.WhileStatement,
+        ),
+      ),
+    ).toBe(true);
+  });
+
+  it("should match a for loop with no test or a true test and a terminating body", () => {
+    expect(
+      isUnconditionallyTerminating(getFirstNodeOfType<TSESTree.ForStatement>("function f() { for (;;) { return 1; } }", AST.ForStatement)),
+    ).toBe(true);
+    expect(
+      isUnconditionallyTerminating(getFirstNodeOfType<TSESTree.ForStatement>("function f() { for (; true; ) { return 1; } }", AST.ForStatement)),
+    ).toBe(true);
+  });
+
+  it("should not match a for loop with a non-constant test", () => {
+    expect(
+      isUnconditionallyTerminating(getFirstNodeOfType<TSESTree.ForStatement>("function f() { for (; a; ) { return 1; } }", AST.ForStatement)),
+    ).toBe(false);
+  });
+
+  it("should match a do...while loop with a terminating body", () => {
+    expect(
+      isUnconditionallyTerminating(getFirstNodeOfType<TSESTree.DoWhileStatement>("function f() { do { return 1; } while (a); }", AST.DoWhileStatement)),
+    ).toBe(true);
+    expect(
+      isUnconditionallyTerminating(getFirstNodeOfType<TSESTree.DoWhileStatement>("function f() { do return 1; while (a); }", AST.DoWhileStatement)),
+    ).toBe(true);
+  });
+
+  it("should not match a do...while loop whose body can break or continue", () => {
+    expect(
+      isUnconditionallyTerminating(
+        getFirstNodeOfType<TSESTree.DoWhileStatement>("function f() { do { if (a) break; return 1; } while (b); }", AST.DoWhileStatement),
+      ),
+    ).toBe(false);
+    expect(
+      isUnconditionallyTerminating(
+        getFirstNodeOfType<TSESTree.DoWhileStatement>("function f() { do { if (a) continue; return 1; } while (b); }", AST.DoWhileStatement),
+      ),
+    ).toBe(false);
+  });
+
+  it("should not match a labeled loop", () => {
+    expect(
+      isUnconditionallyTerminating(
+        getFirstNodeOfType<TSESTree.LabeledStatement>("function f() { outer: while (true) { return 1; } }", AST.LabeledStatement),
+      ),
+    ).toBe(false);
+  });
 });
