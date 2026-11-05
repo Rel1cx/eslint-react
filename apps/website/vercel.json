@@ -3,9 +3,6 @@
   "installCommand": "cd ../.. && pnpm install",
   "buildCommand": "cd ../.. && node --run build && node --run update:website && pnpm -F \"./apps/website\" run build",
   "git": {
-    "deploymentEnabled": {
-      "main": true,
-      "*": false
-    }
+    "deploymentEnabled": false
   }
 }
