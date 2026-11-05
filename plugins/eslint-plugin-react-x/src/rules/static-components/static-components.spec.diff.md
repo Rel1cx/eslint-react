@@ -5,9 +5,9 @@
 - **IMPL**: `static-components.ts` + `collect.ts` + `origins.ts` + `effects.ts` + `helpers.ts` (ESLint rule)
 - **SPEC**: `static-components.spec.md` (React Compiler `ValidateStaticComponents`)
 - **Implementation commit**: `55c10db7bae04d49606792767530cc1e786dd5a0` (last full verification; the IMPL has since been restructured into the fact-based layout listed below, and the behaviors enumerated in this report were re-verified against the restructured sources)
-- **React commit**: `c0c39a6b3907eaab35f43074949e2957a2a734c1`
-- **Last verified**: `2026-10-12`
-- **Recent implementation changes**: `c02e9cd8dda91049391e733f2bb13f4367cddc99` refactored `helpers.ts` to use `Traverse.hasParent` instead of `Traverse.findParent(...) != null`; this is a behavior-preserving API rename and does not affect the reported limitations.
+- **React commit**: `76baa3b5434fad315ece9cfd4d20d7a8d6c34a25`
+- **Last verified**: `2026-11-05`
+- **Recent implementation changes**: All changes since the `2026-10-12` verification are behavior-preserving and do not affect the reported limitations: `280c93156b16e9922ad22662a5c673329dbb5f4a` renamed the boundary predicate in `helpers.ts` to `Check.isFunctionOrClass`; `3ac2729d7d74aa45dc1d3565db5282c7c23369f9` restructured `origins.ts` and `static-components.ts` for readability (guard clauses and comments); `6d334cbb89baeced25d66bceffb2e6f4a06651ef` added React Compiler fixture cases to `static-components.spec.ts`; `b68cfb6b9ae7ad05855e627fe979711780a8eb41` aligned docs and comments; `b094c97af6212f9445cfbc47dab78c1d66953935` renamed detection hint constants to all-caps JSX casing.
 - **React package**: `compiler/packages/babel-plugin-react-compiler`
 - **Implementation sources/tests**:
   - `static-components.ts`
@@ -16,6 +16,10 @@
   - `effects.ts`
   - `helpers.ts`
   - `static-components.spec.ts`
+  - `collect.test.ts`
+  - `origins.test.ts`
+  - `effects.test.ts`
+  - `helpers.test.ts`
 - **React sources/fixtures**:
   - `src/Validation/ValidateStaticComponents.ts`
   - `src/Entrypoint/Pipeline.ts`
@@ -55,7 +59,7 @@ Both implementations report the JSX use and the creation location. Their diagnos
 These behaviors are supported by the implementation and `static-components.spec.ts`, but none is locked by the five explicit React `static-components` fixtures:
 
 1. **Any call result is treated as dynamic.** The IMPL reports a component variable reassigned from `useMemo(() => Component, ...)` because it stops at the AST `CallExpression`; it does not inspect the callback's returned component. The SPEC pass would likewise mark a surviving HIR call result dynamic, but `DropManualMemoization` can run earlier in the React Pipeline. The verified evidence therefore does not establish whether this source pattern is reported end to end by React.
-2. **Class-field arrow render helper is missed.** The local valid test with `_renderMessage = () => { const Message = () => ...; return <Message />; }` receives no IMPL report because that helper is not a collected component boundary. This is a confirmed IMPL blind spot; there is no verified upstream fixture proving whether React reports the same source pattern.
+2. **Non-component-named class-field arrow render helpers are missed.** The local valid test with `_renderMessage = () => { const Message = () => ...; return <Message />; }` receives no IMPL report because that helper's name is not a component name, so it is not a collected component boundary. The miss is name-dependent: the detection hint does not exclude class properties, so a component-named class-field arrow (`RenderMessage = () => ...` returning JSX) IS collected as a boundary and a component nested inside it is flagged (locked by a local invalid test). The blind spot is confirmed only for non-component-named helpers; there is no verified upstream fixture proving whether React reports the same source pattern.
 3. **JSX member tags are skipped.** `JSXOpeningElement` returns early unless the name is a `JSXIdentifier`, so the local `<Namespace.Bar />` case is not analyzed. This is a confirmed IMPL blind spot; the SPEC pass's `Identifier` check does not by itself prove how a source `JSXMemberExpression` is lowered, and no verified upstream fixture locks that behavior.
 
 ## 5. Upstream fixture boundary

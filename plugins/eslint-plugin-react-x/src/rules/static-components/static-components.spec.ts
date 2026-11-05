@@ -17,11 +17,9 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          data: { name: "ChildComponent" },
           messageId: "created-here",
         },
         {
-          data: { name: "ChildComponent" },
           messageId: "default",
         },
       ],
@@ -39,11 +37,9 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          data: { name: "ChildComponent" },
           messageId: "created-here",
         },
         {
-          data: { name: "ChildComponent" },
           messageId: "default",
         },
       ],
@@ -60,11 +56,9 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          data: { name: "Component" },
           messageId: "created-here",
         },
         {
-          data: { name: "Component" },
           messageId: "default",
         },
       ],
@@ -81,11 +75,9 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          data: { name: "ChildComponent" },
           messageId: "created-here",
         },
         {
-          data: { name: "ChildComponent" },
           messageId: "default",
         },
       ],
@@ -104,11 +96,9 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          data: { name: "ChildComponent" },
           messageId: "created-here",
         },
         {
-          data: { name: "ChildComponent" },
           messageId: "default",
         },
       ],
@@ -123,11 +113,9 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          data: { name: "ChildComponent" },
           messageId: "created-here",
         },
         {
-          data: { name: "ChildComponent" },
           messageId: "default",
         },
       ],
@@ -143,11 +131,9 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          data: { name: "ChildComponent" },
           messageId: "created-here",
         },
         {
-          data: { name: "ChildComponent" },
           messageId: "default",
         },
       ],
@@ -165,11 +151,9 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          data: { name: "Nested" },
           messageId: "created-here",
         },
         {
-          data: { name: "Nested" },
           messageId: "default",
         },
       ],
@@ -184,11 +168,9 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          data: { name: "B" },
           messageId: "created-here",
         },
         {
-          data: { name: "B" },
           messageId: "default",
         },
       ],
@@ -203,11 +185,9 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          data: { name: "B" },
           messageId: "created-here",
         },
         {
-          data: { name: "B" },
           messageId: "default",
         },
       ],
@@ -222,11 +202,9 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          data: { name: "B" },
           messageId: "created-here",
         },
         {
-          data: { name: "B" },
           messageId: "default",
         },
       ],
@@ -242,11 +220,9 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          data: { name: "B" },
           messageId: "created-here",
         },
         {
-          data: { name: "B" },
           messageId: "default",
         },
       ],
@@ -263,11 +239,9 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          data: { name: "Component" },
           messageId: "created-here",
         },
         {
-          data: { name: "Component" },
           messageId: "default",
         },
       ],
@@ -281,11 +255,9 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          data: { name: "Component" },
           messageId: "created-here",
         },
         {
-          data: { name: "Component" },
           messageId: "default",
         },
       ],
@@ -299,11 +271,9 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          data: { name: "Component" },
           messageId: "created-here",
         },
         {
-          data: { name: "Component" },
           messageId: "default",
         },
       ],
@@ -317,11 +287,9 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          data: { name: "Component" },
           messageId: "created-here",
         },
         {
-          data: { name: "Component" },
           messageId: "default",
         },
       ],
@@ -340,11 +308,9 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          data: { name: "Component" },
           messageId: "created-here",
         },
         {
-          data: { name: "Component" },
           messageId: "default",
         },
       ],
@@ -363,11 +329,9 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          data: { name: "Inner" },
           messageId: "created-here",
         },
         {
-          data: { name: "Inner" },
           messageId: "default",
         },
       ],
@@ -384,11 +348,9 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          data: { name: "Foo" },
           messageId: "created-here",
         },
         {
-          data: { name: "Foo" },
           messageId: "default",
         },
       ],
@@ -408,11 +370,9 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          data: { name: "Component" },
           messageId: "created-here",
         },
         {
-          data: { name: "Component" },
           messageId: "default",
         },
       ],
@@ -433,11 +393,9 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          data: { name: "ChildComponent" },
           messageId: "created-here",
         },
         {
-          data: { name: "ChildComponent" },
           messageId: "default",
         },
       ],
@@ -456,11 +414,9 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          data: { name: "Component" },
           messageId: "created-here",
         },
         {
-          data: { name: "Component" },
           messageId: "default",
         },
       ],
@@ -479,11 +435,9 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          data: { name: "Component" },
           messageId: "created-here",
         },
         {
-          data: { name: "Component" },
           messageId: "default",
         },
       ],
@@ -502,11 +456,9 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          data: { name: "A" },
           messageId: "created-here",
         },
         {
-          data: { name: "A" },
           messageId: "default",
         },
       ],
@@ -522,11 +474,9 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          data: { name: "C" },
           messageId: "created-here",
         },
         {
-          data: { name: "C" },
           messageId: "default",
         },
       ],
@@ -542,11 +492,9 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          data: { name: "C" },
           messageId: "created-here",
         },
         {
-          data: { name: "C" },
           messageId: "default",
         },
       ],
@@ -568,11 +516,9 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          data: { name: "C" },
           messageId: "created-here",
         },
         {
-          data: { name: "C" },
           messageId: "default",
         },
       ],
@@ -591,11 +537,9 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          data: { name: "C" },
           messageId: "created-here",
         },
         {
-          data: { name: "C" },
           messageId: "default",
         },
       ],
@@ -613,15 +557,12 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          data: { name: "C" },
           messageId: "created-here",
         },
         {
-          data: { name: "C" },
           messageId: "default",
         },
         {
-          data: { name: "C" },
           messageId: "default",
         },
       ],
@@ -638,11 +579,9 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          data: { name: "C" },
           messageId: "created-here",
         },
         {
-          data: { name: "C" },
           messageId: "default",
         },
       ],
@@ -660,11 +599,9 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          data: { name: "C" },
           messageId: "created-here",
         },
         {
-          data: { name: "C" },
           messageId: "default",
         },
       ],
@@ -681,11 +618,9 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          data: { name: "C" },
           messageId: "created-here",
         },
         {
-          data: { name: "C" },
           messageId: "default",
         },
       ],
@@ -702,11 +637,9 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          data: { name: "C" },
           messageId: "created-here",
         },
         {
-          data: { name: "C" },
           messageId: "default",
         },
       ],
@@ -722,11 +655,35 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          data: { name: "C" },
           messageId: "created-here",
         },
         {
-          data: { name: "C" },
+          messageId: "default",
+        },
+      ],
+    },
+    // Boundary: a component-named class-field arrow returning JSX is collected as a
+    // component boundary (the detection hint does not exclude class properties), so a
+    // component nested inside it is flagged — unlike the lowercase `_renderMessage`
+    // helper in the valid cases below, which is not a component boundary.
+    {
+      code: tsx`
+        class Component {
+          RenderMessage = () => {
+            const Message = () => <div />;
+            return <Message />;
+          };
+
+          render() {
+            return this.RenderMessage();
+          }
+        }
+      `,
+      errors: [
+        {
+          messageId: "created-here",
+        },
+        {
           messageId: "default",
         },
       ],
@@ -900,7 +857,8 @@ ruleTester.run(RULE_NAME, rule, {
     },
     // Class component with render helper containing nested component (from React Compiler fixtures)
     // NOTE: The IMPL does not flag this because the class-field arrow _renderMessage is not
-    // recognized as a function-component boundary, and the nested Message definition is traced
+    // recognized as a function-component boundary (its name is not a component name), and the
+    // nested Message definition is traced
     // through class-component detection in a way that does not surface here.
     {
       code: tsx`

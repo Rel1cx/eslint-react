@@ -6,10 +6,9 @@ import type { TSESLint } from "@typescript-eslint/utils";
 import { findVariable } from "@typescript-eslint/utils/ast-utils";
 import { type IsInsideRender, KNOWN_DYNAMIC_EXPRESSION_TYPES } from "./helpers";
 
-export type DynamicComponentOrigin = {
-  creationNode: TSESTree.Node | null;
-  isDynamic: boolean;
-};
+export type DynamicComponentOrigin =
+  | { creationNode: TSESTree.Node; isDynamic: true }
+  | { creationNode: null; isDynamic: false };
 
 /**
  * Resolves an expression down to the node that dynamically created its value, if any.
