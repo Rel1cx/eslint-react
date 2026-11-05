@@ -74,7 +74,6 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
             messageId: "default",
             node: effect.node,
           });
-          if (effect.creationNode == null) continue;
           if (reportedCreations.has(effect.creationNode)) continue;
           reportedCreations.add(effect.creationNode);
           context.report({
