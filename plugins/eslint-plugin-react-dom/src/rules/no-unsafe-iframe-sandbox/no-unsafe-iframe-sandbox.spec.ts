@@ -136,6 +136,10 @@ ruleTester.run(RULE_NAME, rule, {
     '<iframe sandbox="allow-top-navigation-by-user-activation" />;',
     // Multiple safe permissions without unsafe combination
     '<iframe sandbox="allow-downloads allow-forms" />;',
+    // Tokens that merely contain an unsafe token as a substring grant no permission
+    '<iframe sandbox="not-allow-scripts not-allow-same-origin" />;',
+    '<iframe sandbox="not-allow-scripts allow-same-origin" />;',
+    '<iframe sandbox="allow-scripts not-allow-same-origin" />;',
     '<iframe sandbox="allow-popups allow-modals" />;',
     '<iframe sandbox="allow-popups allow-popups-to-escape-sandbox" />;',
     '<iframe sandbox="allow-pointer-lock allow-orientation-lock" />;',
