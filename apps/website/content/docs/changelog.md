@@ -2,6 +2,21 @@
 title: Changelog
 ---
 
+## v5.30.0-beta.26 (2026-11-05)
+
+### 📝 Documentation
+
+- Added mriviewer and react-i18next to the website's community projects list.
+- Corrected the verification commands in the rule-rename checklist. (#2110)
+
+### 🏗️ Internal
+
+- `react-x/static-components`: added unit tests for the `collect`, `effects`, `helpers`, and `origins` modules, and refreshed the React Compiler spec comparison. (#2110)
+- Added tests for AST tree types, core semantic interfaces, and type utilities.
+- Restricted website deployments to stable releases via a Vercel deploy hook.
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.30.0-beta.25...v5.30.0-beta.26
+
 ## v5.30.0-beta.25 (2026-11-04)
 
 ### 🐞 Fixes
