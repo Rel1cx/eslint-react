@@ -1,4 +1,4 @@
-<p align="center"><img src="https://eslint-react.xyz/logo.svg" alt="logo" width="150" /></p>
+<p align="center"><img src="https://cdn.jsdelivr.net/gh/Rel1cx/eslint-react@main/apps/website/public/logo.svg" alt="logo" width="150" /></p>
 
 <h1 align="center" alt="title">ESLint React</h1>
 
@@ -216,7 +216,7 @@ A huge thank you to our amazing sponsors who make this project possible.
 
 <p align="center">
   <a href="https://ko-fi.com/Rel1cx">
-    <img src="https://eslint-react.xyz/sponsors.svg" alt="sponsors" />
+    <img src="https://cdn.jsdelivr.net/gh/Rel1cx/eslint-react@main/apps/website/public/sponsors.svg" alt="sponsors" />
   </a>
 </p>
 
