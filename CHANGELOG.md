@@ -2,8 +2,6 @@
 
 ## v5.30.0-rc.0 (2026-11-06)
 
-> This entry consolidates all changes since v5.28.8 (2026-10-24), up to v5.30.0-rc.0 (2026-11-06).
-
 ### ✨ New
 
 - `@eslint-react/eslint-plugin`: added the `all-type-checked` preset, which extends `all` with the rules that require type information. (#2095)
@@ -81,9 +79,6 @@
 
 ### 📝 Documentation
 
-- `@eslint-react/unstable-exhaustive-deps`: added documentation and a README covering the `hooks` option. (#2078, #2081)
-- `@local/eff`: aligned JSDoc examples with the package's exports. (#2094)
-- `react-x/set-state-in-effect`: documented synchronous helper calls, deferred callbacks, the expanded ref-derived value rules, and the skip behavior for files without a `use…Effect` name. (#2075, #2082)
 - Added a TanStack Redact example and updated the website's community projects list. (#2079)
 - Added known-issues references for `eslint-plugin-react-jsx` (#2102), `eslint-plugin-react-dom` (#2103), `eslint-plugin-react-web-api`, and `eslint-plugin-react-x`, and removed their next-step sections.
 - Corrected the verification commands in the rule-rename checklist. (#2110)
@@ -94,23 +89,17 @@
 
 ### 🏗️ Internal
 
+- `@eslint-react/ast`, `@eslint-react/core`, and `@local/testkit`: added tests for AST tree types, core semantic interfaces, and type utilities.
 - `@eslint-react/ast`: added the `Collect` and `Analyze` namespaces and `Traverse.simpleTraverse`; `Analyze.isUnconditionallyTerminating` now handles `try` statements, terminating `switch` statements with a `default` clause, and terminating `while (true)`/`for (;;)`/`do...while` loops; `Compare.isEqual` now compares `ChainExpression`, regex literals, and member `computed`/`optional` flags; `Collect` now traverses `for` initializers and updates; renamed `Check.isConditional` to `Check.isConditionalOrLoop`; added `Check.isArrayPatternElementDefault`, `Check.isObjectPatternElementDefault`, `Check.isLoopStatement`, and `Extract.getJSXName`; improved private identifier handling; removed the general-purpose `Extract.getMemberChain`, `Extract.getPropertyName`, `Extract.findProperty`, and `Extract.getAssignmentTargets` helpers in favor of `resolveAssignmentTargets` from `@eslint-react/var` and rule-local traversal. (#2080, #2083, #2084, #2086, #2092, #2093, #2099, #2100)
 - `@eslint-react/core`: moved the `createElement` helpers to `@eslint-react/jsx`; component detection now checks wrapper argument positions and unwraps chain expressions; improved render-method detection and qualified type names; narrowed the accepted node types of hook/component detection helpers. (#2075, #2077, #2084, #2099)
-- `@eslint-react/eslint`: removed the `complete` option-merging helper; rules now read `context.options[0] ?? {}` directly and capture defaults with `??`. (#2090)
-- `@eslint-react/jsx`: rewrote the package around descriptor-based attribute and `createElement` APIs. `findAttribute` now returns only direct `JSXAttribute` nodes (spread attributes are no longer resolved); `isAttribute` is replaced by `isPlainAttribute`/`isAttributeNamed`; `hasChildren` is replaced by `hasMeaningfulChildren`; the `getCreateElement*` helpers are replaced by `parseCreateElementCall`/`findCreateElementProp`; and `findSpreadProperty`, `AttributeValue.toStatic()`, and `resolveAttributeValue` were removed. Added `getAttributeValueByName`, `getAttributeStaticValueByName`, `getMeaningfulChildren`, `isEmptyExpressionContainer`, `isMeaningfulChild`, `isCreateElementCall`, and the `AttributeTest`/`CreateElementCall` types. Padding detection follows Babel's `cleanJSXElementLiteralChild`, including `\r` and `\r\n`; optional-chained `createElement` children detection improved. (#2086, #2092, #2099)
-- `@eslint-react/kit`: narrowed the matching `RuleToolkit.is` signatures. (#2075)
 - `@eslint-react/var`: added `resolveOriginChain`, `isProvenanceEqual`, `hasDefault`, and `resolveAssignmentTargets`; expanded `resolveObjectType` and `createImportLookup`, which now exposes `isModuleBinding` instead of `hasNamespace`; made `isValueEqual` identity-only (use `isProvenanceEqual` for structural provenance); and removed `resolveBindingTarget`/`BindingTarget`, with binding targets now unwrapped inline. (#2085, #2086, #2088, #2100)
-- `@local/testkit`: added a `verifyAndFix` helper for testing rules with autofixes. (#2078)
-- `eslint-plugin-react-x`: added shared iterator-callback detection for `no-missing-key` and `no-duplicate-key`, then inlined it into `no-missing-key`; added unit tests for `static-components`, `refs`, `set-state-in-effect`, and `set-state-in-render`. (#2088, #2105, #2108, #2110)
 - `@local/samples`: hardened the sample rules. (#2107)
-- `@eslint-react/ast`, `@eslint-react/core`, and `@local/testkit`: added tests for AST tree types, core semantic interfaces, and type utilities.
-- `eslint-plugin-react-web-api`: reorganized `no-leaked-event-listener` into a fact-based `collect` → `origins` → `effect` pipeline and moved its helpers into `helpers.ts`. (#2092, #2098)
-- Aligned Node.js TypeScript configurations and type declarations across the workspace and examples. (#2101)
+- `@local/testkit`: added a `verifyAndFix` helper for testing rules with autofixes. (#2078)
 - Bumped dependencies across the workspace, including `eslint` to `10.14.0`, `typescript-eslint` to `8.72.1`, `next` to `16.4.5`, `vitest` to `5.1.0`, `tsdown` to `0.23.5`, `nx` to `24.0.4`, `oxlint` to `1.91.0`, `vite` to `8.3.6`, `effect` to `4.1.2`, and the `fumadocs` packages to `16.18.0`.
-- Enforced a 1-day dependency maturity period; served README assets from the jsDelivr CDN; restricted website deployments to stable releases via a Vercel deploy hook; refactored the publish workflow trigger and pinned zizmor through its official action.
 - Removed the now-unused `@typescript-eslint/typescript-estree` dependency from `@eslint-react/ast`, `@eslint-react/core`, `@eslint-react/var`, and `eslint-plugin-react-x`. (#2080)
 - Removed the unused `inlinedDependencies` field from the monorepo package configuration.
 - Unified test language options and reorganized the test harness: tsconfig fixtures replace the per-JSX-emit tester factories, and untyped parsing disables typescript-estree's single-run inference. (#2105)
+- Enforced a 1-day dependency maturity period; served README assets from the jsDelivr CDN; restricted website deployments to stable releases via a Vercel deploy hook; refactored the publish workflow trigger and pinned zizmor through its official action.
 
 ### New Contributors
 
