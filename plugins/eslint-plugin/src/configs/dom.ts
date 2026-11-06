@@ -11,6 +11,8 @@ export const rules = {
   "@eslint-react/dom-no-render": "error",
   "@eslint-react/dom-no-render-return-value": "error",
   "@eslint-react/dom-no-script-url": "warn",
+  "@eslint-react/dom-no-string-style-prop": "error",
+  "@eslint-react/dom-no-unknown-property": "warn",
   "@eslint-react/dom-no-unsafe-iframe-sandbox": "warn",
   "@eslint-react/dom-no-use-form-state": "error",
   "@eslint-react/dom-no-void-elements-with-children": "error",
