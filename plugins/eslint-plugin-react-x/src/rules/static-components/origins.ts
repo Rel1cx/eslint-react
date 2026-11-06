@@ -1,4 +1,5 @@
-import { Extract } from "@eslint-react/ast";
+import { Check, Collect, Extract } from "@eslint-react/ast";
+import * as core from "@eslint-react/core";
 import type { RuleContext } from "@eslint-react/eslint";
 import { DefinitionType } from "@typescript-eslint/scope-manager";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
@@ -11,9 +12,37 @@ export type DynamicComponentOrigin =
   | { creationNode: null; isDynamic: false };
 
 /**
+ * Expressions that produce the value of a manual-memoization hook.
+ *
+ * `useMemo(factory, deps)` evaluates to the factory's return value, and
+ * `useCallback(callback, deps)` evaluates to `callback`. Returns `null` for every
+ * other call, and for a memo hook whose factory cannot be inspected, so the caller
+ * keeps treating that call itself as dynamic.
+ * @param context The rule context
+ * @param call The call that might be `useMemo` or `useCallback`
+ * @returns The expressions that produce the memoized value, or `null` when the call
+ * should be treated as an ordinary dynamic call
+ */
+function getMemoizedValueExpressions(context: RuleContext, call: TSESTree.CallExpression): readonly TSESTree.Expression[] | null {
+  const [factory] = call.arguments;
+  if (factory == null || factory.type === AST.SpreadElement) return null;
+
+  // useCallback returns its callback, so the callback is the component value
+  if (core.isUseCallbackCall(context, call)) return [factory];
+  if (!core.isUseMemoCall(context, call)) return null;
+
+  const callback = Extract.unwrap(factory);
+  // An async or generator factory yields a promise or iterator, not its return
+  // expressions. A non-literal factory has no body to inspect. Both stay dynamic.
+  if (!Check.isFunction(callback) || callback.async || callback.generator) return null;
+  return Collect.getReturnExpressions(callback);
+}
+
+/**
  * Resolves an expression down to the node that dynamically created its value, if any.
  * Recurses through identifier references, both branches of ternaries and logical
- * expressions, and the final element of sequence expressions.
+ * expressions, the final element of sequence expressions, and the value preserved by
+ * `useMemo` or `useCallback`.
  */
 function findDynamicCreationSite(
   context: RuleContext,
@@ -22,6 +51,20 @@ function findDynamicCreationSite(
   seen: Set<TSESLint.Scope.Variable>,
 ): TSESTree.Node | null {
   const expr = Extract.unwrap(node);
+
+  // The hook call is not itself a new component type. Trace the memoized value
+  // and report only when that value is created dynamically (ex: `useMemo(() => External, [])`
+  // is static, while `useMemo(() => () => <div />, [])` is the inner arrow).
+  if (expr.type === AST.CallExpression) {
+    const memoized = getMemoizedValueExpressions(context, expr);
+    if (memoized != null) {
+      for (const value of memoized) {
+        const source = findDynamicCreationSite(context, value, isInsideRender, seen);
+        if (source != null) return source;
+      }
+      return null;
+    }
+  }
 
   if (KNOWN_DYNAMIC_EXPRESSION_TYPES.has(expr.type)) {
     return expr;

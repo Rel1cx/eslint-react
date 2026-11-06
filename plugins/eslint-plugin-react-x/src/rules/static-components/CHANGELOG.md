@@ -5,6 +5,12 @@ All notable changes to the `react-x/static-components` rule will be documented i
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+### Fixed
+
+- Fixed a false positive where a static component wrapped by `useMemo` (ex: `useMemo(() => External, [])`) or `useCallback` (ex: `useCallback(External, [])`) was reported. The memoized value is traced instead of treating the hook call itself as a component created during render. A component that is actually created inside the hook is still reported. (#1762)
+
 ## [5.30.0-rc.0] - 2026-11-06
 
 ### Added

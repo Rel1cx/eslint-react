@@ -355,17 +355,65 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
     },
-    // Context variable reassigned via useMemo then used as JSX tag (from React Compiler fixtures)
-    // NOTE: The IMPL flags this as dynamic because it sees the CallExpression (useMemo)
-    // in the reassignment, even though the result is an external component.
+    // An inline component returned from useMemo is still created during render.
+    // The creation site is the inner component, not the useMemo call.
     {
       code: tsx`
-        function Component(props) {
-          let Component = Stringify;
-          Component = useMemo(() => {
-            return Component;
-          }, [Component]);
-          return <Component {...props} />;
+        function Parent() {
+          const Memoized = useMemo(() => () => <div />, []);
+          return <Memoized />;
+        }
+      `,
+      errors: [
+        {
+          messageId: "created-here",
+        },
+        {
+          messageId: "default",
+        },
+      ],
+    },
+    // A factory call returned from useMemo still produces a new component type.
+    {
+      code: tsx`
+        function Parent() {
+          const Memoized = useMemo(() => createComponent(), []);
+          return <Memoized />;
+        }
+      `,
+      errors: [
+        {
+          messageId: "created-here",
+        },
+        {
+          messageId: "default",
+        },
+      ],
+    },
+    // Memoizing a component that was itself created during render does not make it static.
+    {
+      code: tsx`
+        function Parent() {
+          const Message = () => <div />;
+          const Memoized = useMemo(() => Message, []);
+          return <Memoized />;
+        }
+      `,
+      errors: [
+        {
+          messageId: "created-here",
+        },
+        {
+          messageId: "default",
+        },
+      ],
+    },
+    // useCallback returns its callback. An inline callback used as a component is dynamic.
+    {
+      code: tsx`
+        function Parent() {
+          const Memoized = useCallback(() => <div />, []);
+          return <Memoized />;
         }
       `,
       errors: [
@@ -925,6 +973,56 @@ ruleTester.run(RULE_NAME, rule, {
           let C = DefaultComponent;
           [C] = [createComponent()];
           return <C />;
+        }
+      `,
+    },
+    // https://github.com/Rel1cx/eslint-react/issues/1762
+    // An external component returned from useMemo is still that component. The hook
+    // call itself is not a new component type.
+    {
+      code: tsx`
+        function Component() {
+          const Memoized = useMemo(() => Message, []);
+          return <Memoized />;
+        }
+      `,
+    },
+    {
+      code: tsx`
+        function Component() {
+          const Memoized = useMemo(() => {
+            return Message;
+          }, []);
+          return <Memoized />;
+        }
+      `,
+    },
+    {
+      code: tsx`
+        function Component(props) {
+          const Memoized = React.useMemo(() => Message, [props.id]);
+          return <Memoized />;
+        }
+      `,
+    },
+    {
+      code: tsx`
+        function Component() {
+          const Memoized = useCallback(Message, []);
+          return <Memoized />;
+        }
+      `,
+    },
+    // Context variable reassigned via useMemo then used as JSX tag (from React Compiler fixtures).
+    // The memoized value is the existing external component, so the reassignment is static.
+    {
+      code: tsx`
+        function Component(props) {
+          let Component = Stringify;
+          Component = useMemo(() => {
+            return Component;
+          }, [Component]);
+          return <Component {...props} />;
         }
       `,
     },

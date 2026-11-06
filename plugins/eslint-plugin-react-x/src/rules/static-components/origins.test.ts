@@ -144,4 +144,62 @@ describe("resolveDynamicComponentOrigin", () => {
   it("returns static for a declaration without an initializer and no reassignment", () => {
     expect(resolveOrigin("let C; C;", "C")).toEqual({ creation: null, isDynamic: false });
   });
+
+  it("treats useMemo of an external component as static", () => {
+    expect(resolveOrigin("const C = useMemo(() => External, []); C;", "C")).toEqual({ creation: null, isDynamic: false });
+  });
+
+  it("treats a block-bodied useMemo that returns an external component as static", () => {
+    expect(resolveOrigin("const C = useMemo(() => { return External; }, []); C;", "C")).toEqual({ creation: null, isDynamic: false });
+  });
+
+  it("treats React.useMemo of an external component as static", () => {
+    expect(resolveOrigin("const C = React.useMemo(() => External, [dep]); C;", "C")).toEqual({ creation: null, isDynamic: false });
+  });
+
+  it("treats useCallback of an external component as static", () => {
+    expect(resolveOrigin("const C = useCallback(External, []); C;", "C")).toEqual({ creation: null, isDynamic: false });
+  });
+
+  it("traces a useMemo factory that returns an inline component to that component", () => {
+    expect(resolveOrigin("const C = useMemo(() => () => 1, []); C;", "C")).toEqual({ creation: "() => 1", isDynamic: true });
+  });
+
+  it("traces a block-bodied useMemo factory that returns an inline component", () => {
+    expect(resolveOrigin("const C = useMemo(() => { return () => 1; }, []); C;", "C")).toEqual({ creation: "() => 1", isDynamic: true });
+  });
+
+  it("traces a useMemo factory that returns a call to that call", () => {
+    expect(resolveOrigin("const C = useMemo(() => make(), []); C;", "C")).toEqual({ creation: "make()", isDynamic: true });
+  });
+
+  it("traces a useMemo factory that returns a component created in the same scope", () => {
+    expect(resolveOrigin("const A = () => 1; const C = useMemo(() => A, []); C;", "C")).toEqual({ creation: "() => 1", isDynamic: true });
+  });
+
+  it("treats a useCallback of an inline function as that function", () => {
+    expect(resolveOrigin("const C = useCallback(() => 1, []); C;", "C")).toEqual({ creation: "() => 1", isDynamic: true });
+  });
+
+  it("treats a useMemo reassignment that returns the same static component as static", () => {
+    expect(resolveOrigin("let C = External; C = useMemo(() => { return C; }, [C]); C;", "C")).toEqual({ creation: null, isDynamic: false });
+  });
+
+  it("flags a useMemo factory when any returned value is dynamic", () => {
+    expect(resolveOrigin("const C = useMemo(() => { if (cond) return External; return () => 1; }, []); C;", "C")).toEqual({
+      creation: "() => 1",
+      isDynamic: true,
+    });
+  });
+
+  it("does not unwrap a call that is not a memoization hook", () => {
+    expect(resolveOrigin("const C = notMemo(() => External); C;", "C")).toEqual({ creation: "notMemo(() => External)", isDynamic: true });
+  });
+
+  it("does not inspect a useMemo factory that is not a function literal", () => {
+    expect(resolveOrigin("const factory = () => External; const C = useMemo(factory, []); C;", "C")).toEqual({
+      creation: "useMemo(factory, [])",
+      isDynamic: true,
+    });
+  });
 });
