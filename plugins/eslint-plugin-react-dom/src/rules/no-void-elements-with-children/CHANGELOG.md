@@ -5,17 +5,12 @@ All notable changes to the `react-dom/no-void-elements-with-children` rule will 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [5.30.0-beta.11] - 2026-10-28
-
-### Fixed
-
-- Lone-CR whitespace, including the `&#13;` entity, no longer counts as children of void elements. Padding detection now follows Babel's `cleanJSXElementLiteralChild`, which splits lines on `\r\n`, `\n`, and `\r`.
-
-## [5.30.0-beta.6] - 2026-10-27
+## [5.30.0-rc.0] - 2026-11-06
 
 ### Fixed
 
 - Comment-only/empty containers and newline-only formatting whitespace no longer count as children of void elements, since the JSX transform omits them and React's `assertValidProps` does not see them. Empty strings and same-line whitespace still count.
+- Lone-CR whitespace, including the `&#13;` entity, no longer counts as children. Padding detection now follows Babel's `cleanJSXElementLiteralChild`, which splits lines on `\r\n`, `\n`, and `\r`.
 
 ### Changed
 

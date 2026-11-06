@@ -5,33 +5,16 @@ All notable changes to the `react-x/use-state` rule will be documented in this f
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [5.30.0-beta.10] - 2026-10-27
-
-### Changed
-
-- Options are now read directly from `context.options[0] ?? {}` and defaults are captured per property with `??`, replacing the spread copy and `??=` mutation; the `RuleOptions` alias was removed. No change to reported problems.
-
-## [5.30.0-beta.9] - 2026-10-27
-
-### Changed
-
-- Options are now resolved in `create` by copying `context.options[0]` into a mutable options object and applying defaults per property with `??=`, replacing the shared `complete` helper; `meta.defaultOptions: [{}]` now only provides the merge slot. No change to reported problems.
-
-## [5.30.0-beta.7] - 2026-10-27
-
-### Changed
-
-- Options are now resolved with `complete(context.options[0], defaultOptions[0])`, and the option schema properties use descriptions instead of inline `default` values. No behavior change.
-
-## [5.30.0-beta.2] - 2026-10-25
-
-### Changed
-
-- Nested call and `new` expression collection now uses the shared `Collect.getCallExpressions` and `Collect.getNewExpressions` helpers from `@eslint-react/ast`; the rule-local visitor-key tables were removed. (#2080)
+## [5.30.0-rc.0] - 2026-11-06
 
 ### Fixed
 
 - Calls in computed object property keys (ex: `useState({ [getKey()]: value })`) and JSX subtrees are now detected by the lazy-initialization check instead of being missed. (#2080)
+
+### Changed
+
+- Options are now read directly from `context.options[0] ?? {}` and defaults are captured per property with `??`; the `RuleOptions` alias was removed. No change to reported problems.
+- Nested call and `new` expression collection now uses the shared `Collect.getCallExpressions` and `Collect.getNewExpressions` helpers from `@eslint-react/ast`; the rule-local visitor-key tables were removed. (#2080)
 
 ## [5.24.0] - 2026-10-04
 

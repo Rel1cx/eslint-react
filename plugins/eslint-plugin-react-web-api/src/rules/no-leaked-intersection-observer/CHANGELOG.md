@@ -5,17 +5,15 @@ All notable changes to the `react-web-api/no-leaked-intersection-observer` rule 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [5.30.0-beta.16] - 2026-10-30
+## [5.30.0-rc.0] - 2026-11-06
+
+### Fixed
+
+- `observe(...)` and `unobserve(...)` now pair when the observed element is an optional-chained expression (ex: `observer.observe(ref?.current)` with `observer.unobserve(ref?.current)`), instead of reporting the cleanup as missing.
 
 ### Changed
 
 - Updated dynamic-observation checks to use `Check.isConditionalOrLoop`, the renamed `Check.isConditional` helper, without changing diagnostic behavior. (#2099)
-
-## [5.30.0-beta.12] - 2026-10-28
-
-### Fixed
-
-- `observe(...)` and `unobserve(...)` now pair when the observed element is an optional-chained expression (e.g. `observer.observe(ref?.current)` with `observer.unobserve(ref?.current)`), instead of reporting the cleanup as missing.
 
 ## [5.27.1] - 2026-10-15
 

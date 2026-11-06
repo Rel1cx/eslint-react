@@ -5,17 +5,11 @@ All notable changes to the `react-x/use-memo` rule will be documented in this fi
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [5.30.0-beta.17] - 2026-10-30
+## [5.30.0-rc.0] - 2026-11-06
 
 ### Changed
 
-- Assignment-target resolution now uses `resolveAssignmentTargets` from `@eslint-react/var`; no behavior change.
-
-## [5.30.0-beta.2] - 2026-10-25
-
-### Changed
-
-- Return-statement collection now uses `Collect.getReturnStatements` from `@eslint-react/ast`, and the callback traversal uses the lighter `Traverse.simpleTraverse`; the rule-local `getReturnStatements` implementation was removed. No behavior change. (#2080)
+- Return-statement collection now uses `Collect.getReturnStatements` from `@eslint-react/ast`, and the callback traversal uses the lighter `Traverse.simpleTraverse`; the rule-local `getReturnStatements` implementation was removed. Assignment-target resolution now uses `resolveAssignmentTargets` from `@eslint-react/var`. No behavior change. (#2080)
 
 ## [5.24.0] - 2026-10-04
 

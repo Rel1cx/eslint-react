@@ -5,23 +5,12 @@ All notable changes to the `react-x/set-state-in-render` rule will be documented
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [5.30.0-beta.23] - 2026-11-03
-
-### Changed
-
-- Expanded unit test coverage for the `collect`, `effects`, `helpers`, and `origins` modules. No behavior change.
-
-## [5.30.0-beta.20] - 2026-10-31
-
-### Changed
-
-- Added unit tests for the `collect`, `effects`, `helpers`, and `origins` modules. No behavior change.
-
-## [5.30.0-beta.0] - 2026-10-25
+## [5.30.0-rc.0] - 2026-11-06
 
 ### Changed
 
 - Setters are now recognized only as the second element of a `useState` array destructuring (ex: `const [, setData] = useState()`); tuple-index access (`data[1]()`, `data.at(1)()`) and object-pattern numeric keys are no longer recognized. (#2075)
+- Added and expanded unit tests for the `collect`, `effects`, `helpers`, and `origins` modules. No behavior change.
 
 ## [5.24.7] - 2026-10-07
 

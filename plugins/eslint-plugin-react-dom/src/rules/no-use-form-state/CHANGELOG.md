@@ -5,13 +5,11 @@ All notable changes to the `react-dom/no-use-form-state` rule will be documented
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [5.30.0-beta.22] - 2026-11-02
+## [5.30.0-rc.0] - 2026-11-06
 
 ### Fixed
 
 - The autofix no longer prepends the `useActionState` import at the very top of the file: it merges into an existing import from the configured `importSource` when possible, skips the import when `useActionState` is already imported, and otherwise inserts the new import after existing imports, file-level directives, and header comments. (#2104)
-
-## [5.30.0-beta.6] - 2026-10-27
 
 ### Changed
 

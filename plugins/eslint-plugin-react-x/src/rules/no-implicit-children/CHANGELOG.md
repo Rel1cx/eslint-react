@@ -5,16 +5,11 @@ All notable changes to the `react-x/no-implicit-children` rule will be documente
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [5.30.0-beta.13] - 2026-10-28
+## [5.30.0-rc.0] - 2026-11-06
 
 ### Changed
 
 - Added the rule to the `all-type-checked` preset.
-
-## [5.30.0-beta.7] - 2026-10-27
-
-### Changed
-
 - Added a fast-path text check that skips the rule when `...` does not appear in the file. No behavior change.
 
 ## [5.2.3-beta.0] - 2026-04-14

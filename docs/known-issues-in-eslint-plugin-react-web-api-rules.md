@@ -82,7 +82,7 @@ Reviewed 2026-11-02 against `main@df5da2a7f`; plugin `5.30.0-beta.22`, all 6 rul
 
 - **Rules:** `no-leaked-timeout`, `no-leaked-interval`, `no-leaked-fetch`, `no-leaked-resize-observer`, `no-leaked-intersection-observer`
 - **Evidence:** Rule changelogs (5.21.1)
-- **Resolution:** Entries created in one effect no longer pair with same-named but different variables in another effect's cleanup; identifiers are resolved to their variables by scope (`isAssignmentTargetEqual`, `isProvenanceEqual`) instead of comparing names. `no-leaked-event-listener` received the analogous treatment separately (5.23.5 cleanup-callee resolution, 5.30.0-beta.6 `isProvenanceEqual` matching). The remaining cross-effect looseness is WAPI-003.
+- **Resolution:** Entries created in one effect no longer pair with same-named but different variables in another effect's cleanup; identifiers are resolved to their variables by scope (`isAssignmentTargetEqual`, `isProvenanceEqual`) instead of comparing names. `no-leaked-event-listener` received the analogous treatment separately (5.23.5 cleanup-callee resolution, 5.30.0-rc.0 `isProvenanceEqual` matching). The remaining cross-effect looseness is WAPI-003.
 
 ### Cleanup-phase enforcement for observers
 
@@ -111,7 +111,7 @@ Reviewed 2026-11-02 against `main@df5da2a7f`; plugin `5.30.0-beta.22`, all 6 rul
 ### Statically named computed option keys
 
 - **Rules:** `no-leaked-event-listener`, `no-leaked-fetch`
-- **Evidence:** Rule changelogs (5.30.0-beta.12, 5.30.0-beta.17)
+- **Evidence:** Rule changelogs (5.30.0-rc.0)
 - **Resolution:** `signal`/`capture` options with string-literal or simple template-literal keys (`{ "signal": … }`, `{ ["capture"]: true }`), dropped in 5.14.9, are recognized again; identifier-computed keys (`{ [signal]: … }`) remain intentionally unrecognized (5.10.2).
 
 ## Boundaries

@@ -5,17 +5,12 @@ All notable changes to the `react-jsx/no-children-prop` rule will be documented 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [5.30.0-beta.19] - 2026-10-31
-
-### Fixed
-
-- The suggestion to move a `children` prop into element content is no longer offered when a spread attribute follows it. The spread may also contain `children`, so moving the prop could change which value takes precedence.
-
-## [5.30.0-beta.6] - 2026-10-27
+## [5.30.0-rc.0] - 2026-11-06
 
 ### Fixed
 
 - `children` supplied through a statically resolvable computed key in a `createElement` props object is now detected (ex: `const propName = "children"; createElement("div", { [propName]: "x" })`). Direct properties follow JavaScript object semantics (later entries win).
+- The suggestion to move a `children` prop into element content is no longer offered when a spread attribute follows it. The spread may also contain `children`, so moving the prop could change which value takes precedence.
 
 ### Changed
 

@@ -5,15 +5,15 @@ All notable changes to the `react-dom/no-script-url` rule will be documented in 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [5.30.0-beta.6] - 2026-10-27
-
-### Changed
-
-- Adapted to the rewritten `@eslint-react/jsx` value APIs: attribute values are resolved as pure descriptors and collapsed with `getAttributeStaticValue`; no behavior change.
+## [5.30.0-rc.0] - 2026-11-06
 
 ### Fixed
 
 - Namespaced attributes such as `xlink:href` are now checked for `javascript:` URLs; they were previously skipped.
+
+### Changed
+
+- Adapted to the rewritten `@eslint-react/jsx` value APIs: attribute values are resolved as pure descriptors and collapsed with `getAttributeStaticValue`; no behavior change.
 
 ## [5.2.3-beta.0] - 2026-04-14
 

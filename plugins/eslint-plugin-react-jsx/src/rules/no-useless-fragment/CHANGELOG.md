@@ -5,38 +5,16 @@ All notable changes to the `react-jsx/no-useless-fragment` rule will be document
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [5.30.0-beta.11] - 2026-10-28
-
-### Fixed
-
-- Lone-CR whitespace, including the `&#13;` entity, is now treated as formatting padding, matching LF and CRLF. Fragments that use it around a single child are now reported as having fewer than two children, and fragments containing only such text are reported as useless. This follows Babel's `cleanJSXElementLiteralChild`, which splits lines on `\r\n`, `\n`, and `\r`.
-
-## [5.30.0-beta.10] - 2026-10-27
-
-### Changed
-
-- Options are now read directly from `context.options[0] ?? {}` and defaults are captured per property with `??`, replacing the spread copy and `??=` mutation; the `RuleOptions` alias was removed. No change to reported problems.
-
-## [5.30.0-beta.9] - 2026-10-27
-
-### Changed
-
-- Options are now resolved in `create` by copying `context.options[0]` into a mutable options object and applying defaults per property with `??=`, replacing the shared `complete` helper; `meta.defaultOptions: [{}]` now only provides the merge slot. No change to reported problems.
-
-## [5.30.0-beta.7] - 2026-10-27
-
-### Changed
-
-- Options are now resolved with the shared `complete` helper from `@eslint-react/eslint` (`complete(context.options[0], defaultOptions[0])`). No behavior change.
-
-## [5.30.0-beta.6] - 2026-10-27
+## [5.30.0-rc.0] - 2026-11-06
 
 ### Fixed
 
 - Fragments with a spread attribute are no longer reported, since spread props are not statically resolved and may provide `key` or `ref`.
+- Lone-CR whitespace, including the `&#13;` entity, is now treated as formatting padding, matching LF and CRLF. Fragments that use it around a single child are now reported as having fewer than two children, and fragments containing only such text are reported as useless. This follows Babel's `cleanJSXElementLiteralChild`, which splits lines on `\r\n`, `\n`, and `\r`.
 
 ### Changed
 
+- Options are now read directly from `context.options[0] ?? {}` and defaults are captured per property with `??`; the `RuleOptions` alias was removed. No change to reported problems.
 - Uses the simplified direct-attribute lookup after `@eslint-react/jsx` removed spread-property resolution.
 
 ## [5.28.1] - 2026-10-17

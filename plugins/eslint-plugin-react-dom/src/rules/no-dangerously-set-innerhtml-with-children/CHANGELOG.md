@@ -5,17 +5,12 @@ All notable changes to the `react-dom/no-dangerously-set-innerhtml-with-children
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [5.30.0-beta.11] - 2026-10-28
-
-### Fixed
-
-- Lone-CR whitespace, including the `&#13;` entity, no longer counts as children alongside `dangerouslySetInnerHTML`. Padding detection now follows Babel's `cleanJSXElementLiteralChild`, which splits lines on `\r\n`, `\n`, and `\r`.
-
-## [5.30.0-beta.6] - 2026-10-27
+## [5.30.0-rc.0] - 2026-11-06
 
 ### Fixed
 
 - Empty expression containers (`{}` and comments) no longer count as children alongside `dangerouslySetInnerHTML`, since the JSX transform omits them. Same-line whitespace and empty strings still count; this matches `react-jsx/no-children-prop-with-children` only for empty containers.
+- Lone-CR whitespace, including the `&#13;` entity, no longer counts as children. Padding detection now follows Babel's `cleanJSXElementLiteralChild`, which splits lines on `\r\n`, `\n`, and `\r`.
 
 ### Changed
 

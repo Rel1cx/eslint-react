@@ -5,17 +5,11 @@ All notable changes to the `react-x/globals` rule will be documented in this fil
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [5.30.0-beta.17] - 2026-10-30
+## [5.30.0-rc.0] - 2026-11-06
 
 ### Changed
 
-- Assignment-target resolution now uses `resolveAssignmentTargets` from `@eslint-react/var`; no behavior change.
-
-## [5.30.0-beta.6] - 2026-10-27
-
-### Changed
-
-- Function targets are now resolved with `resolveOriginChain` from `@eslint-react/var`, which provides cycle detection and a bounded traversal; no behavior change.
+- Function targets are now resolved with `resolveOriginChain` from `@eslint-react/var`, which provides cycle detection and a bounded traversal, and assignment-target resolution uses `resolveAssignmentTargets`. No behavior change.
 
 ## [5.23.0] - 2026-09-30
 

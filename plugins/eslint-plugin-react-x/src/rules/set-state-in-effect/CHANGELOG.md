@@ -5,58 +5,7 @@ All notable changes to the `react-x/set-state-in-effect` rule will be documented
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [5.30.0-beta.24] - 2026-11-04
-
-### Changed
-
-- Added unit tests for the `collect`, `effects`, `helpers`, and `origins` modules. No behavior change.
-
-## [5.30.0-beta.23] - 2026-11-03
-
-### Changed
-
-- Added edge-case tests for the `collect`, `effects`, `helpers`, and `origins` modules. No behavior change.
-
-## [5.30.0-beta.20] - 2026-10-31
-
-### Changed
-
-- Added behavior boundary and unit tests, renamed `isParameterId` to `isInitializedFromParameter`, and refreshed the React Compiler spec comparison. No behavior change.
-
-## [5.30.0-beta.6] - 2026-10-27
-
-### Changed
-
-- Effect setup parameters are now unwrapped inline after `resolveBindingTarget` was removed from `@eslint-react/var`; no behavior change.
-
-## [5.30.0-beta.5] - 2026-10-27
-
-### Changed
-
-- Effect setup parameters are now resolved with `resolveBindingTarget` from `@eslint-react/var`; no behavior change. (#2084)
-
-## [5.30.0-beta.4] - 2026-10-26
-
-### Fixed
-
-- A synchronous setter call whose callee may resolve to more than one setter (ex: `(cond ? setA : setB)(1)`, or a `useMemo` selector returning one of two setters) now reports every possible setter instead of only the first one.
-- The ref-derived exemption now also applies when the ref-derived value is not the first argument of a custom state hook's setter (ex: `setValue(0, ref.current)` with `additionalStateHooks`).
-- A ref-derived early-return guard now also gates the statements after it when it sits inside a `try` block (with no catch, or a catch that terminates), a `switch` case, or a bare block, when it terminates the `else` branch, and when the setState runs inside a `while`/`for` body or a `for` update clause whose test reads a ref. A branch that is a `try` whose paths all terminate now counts as terminating too.
-- Ref provenance now recognizes a value written in an IIFE, including nested and TypeScript-wrapped ones (ex: `let next = 0; (() => { next = ref.current; })(); setData(next)`). Internal branches of the write are preserved, writes in deferred positions (instance class field initializers and parameter defaults) are excluded, and an assignment whose right-hand side is the IIFE is ordered after the writes it performs. Writes inside async/generator IIFEs or non-invoked nested functions remain excluded.
-- Multiple setter calls reached through the same effect-side trigger are now reported once per setter name instead of printing identical diagnostics at the same location.
-
-## [5.30.0-beta.2] - 2026-10-25
-
-### Changed
-
-- Identifier and return-expression collection now uses the shared `Collect` helpers from `@eslint-react/ast`. Identifier collection now also visits computed property keys, rest elements, and JSX expression containers, so ref provenance is recognized in these positions. (#2080)
-
-## [5.30.0-beta.0] - 2026-10-25
-
-### Changed
-
-- Reworked around explicit effect roots, recursive value resolution, and a synchronous call graph. Stable aliases, multi-level helpers, named setups, IIFEs, and `useCallback`/`useMemo`/`useEffectEvent` wrappers now share one resolution path; indirect diagnostics point at the effect-side trigger and dedupe by setter sink. Async functions remain deferred (documented limitation). (#2075)
-- Setters are now recognized only as the second element of a `useState` array destructuring; tuple-index access (`data[1]()`, `data.at(1)()`, `data[index]()`) and object-pattern numeric keys are no longer detected. (#2075)
+## [5.30.0-rc.0] - 2026-11-06
 
 ### Fixed
 
@@ -65,6 +14,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Timer or event callbacks nested in `useCallback`/`useEffectEvent` are no longer treated as synchronous setters.
 - Ref provenance now also covers TypeScript assertions, computed member keys, local getters, and state-held DOM nodes from callback refs; same-branch plain writes replace earlier ref-derived writes, guard-test setters cannot self-exempt, and ref guards propagate through helpers and IIFEs.
 - Nested and outer effect setups are now analyzed independently.
+- A synchronous setter call whose callee may resolve to more than one setter (ex: `(cond ? setA : setB)(1)`, or a `useMemo` selector returning one of two setters) now reports every possible setter instead of only the first one.
+- The ref-derived exemption now also applies when the ref-derived value is not the first argument of a custom state hook's setter (ex: `setValue(0, ref.current)` with `additionalStateHooks`).
+- A ref-derived early-return guard now also gates the statements after it when it sits inside a `try` block (with no catch, or a catch that terminates), a `switch` case, or a bare block, when it terminates the `else` branch, and when the setState runs inside a `while`/`for` body or a `for` update clause whose test reads a ref. A branch that is a `try` whose paths all terminate now counts as terminating too.
+- Ref provenance now recognizes a value written in an IIFE, including nested and TypeScript-wrapped ones (ex: `let next = 0; (() => { next = ref.current; })(); setData(next)`). Internal branches of the write are preserved, writes in deferred positions (instance class field initializers and parameter defaults) are excluded, and an assignment whose right-hand side is the IIFE is ordered after the writes it performs. Writes inside async/generator IIFEs or non-invoked nested functions remain excluded.
+- Multiple setter calls reached through the same effect-side trigger are now reported once per setter name instead of printing identical diagnostics at the same location.
+
+### Changed
+
+- Reworked around explicit effect roots, recursive value resolution, and a synchronous call graph. Stable aliases, multi-level helpers, named setups, IIFEs, and `useCallback`/`useMemo`/`useEffectEvent` wrappers now share one resolution path; indirect diagnostics point at the effect-side trigger and dedupe by setter sink. Async functions remain deferred (documented limitation). (#2075)
+- Setters are now recognized only as the second element of a `useState` array destructuring; tuple-index access (`data[1]()`, `data.at(1)()`, `data[index]()`) and object-pattern numeric keys are no longer detected. (#2075)
+- Identifier and return-expression collection now uses the shared `Collect` helpers from `@eslint-react/ast`. Identifier collection now also visits computed property keys, rest elements, and JSX expression containers, so ref provenance is recognized in these positions. (#2080)
+- Effect setup parameters are now unwrapped inline after `resolveBindingTarget` was removed from `@eslint-react/var`; no behavior change.
+- Added behavior boundary, edge-case, and unit tests, renamed `isParameterId` to `isInitializedFromParameter`, and refreshed the React Compiler spec comparison. No behavior change.
 
 ## [5.28.6] - 2026-10-22
 
