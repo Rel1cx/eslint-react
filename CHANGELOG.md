@@ -10,7 +10,7 @@
 
 - Enforced a 1-day dependency maturity period.
 - Served some README assets from the jsDelivr CDN.
-- Bumped `vite` to `8.3.6`, `fumadocs-core` and `fumadocs-ui` to `16.18.0`, `fumadocs-mdx` to `15.5.0`, `lucide-react` to `1.69.0`, `undici` to `8.12.4`, `pnpm` to `12.18.0`, and the `katex` override to `0.19.1`.
+- Bumped `vite` to `8.3.6`, `fumadocs-core` and `fumadocs-ui` to `16.18.0`, `fumadocs-mdx` to `15.5.0`, `lucide-react` to `1.69.0`, `undici` to `8.12.4`, and the `katex` override to `0.19.1`.
 
 **Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.30.0-beta.26...v5.30.0-beta.27
 
