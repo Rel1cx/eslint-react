@@ -156,8 +156,7 @@ describe("resolveObjectType", () => {
 
   describe("issue verification", () => {
     it("FIXED: LogicalExpression (||) now checks left side first", () => {
-      // Previously only evaluated the right side. Now evaluates left first,
-      // falling back to right — consistent with ConditionalExpression behavior.
+      // Previously only evaluated the right side. Now evaluates left first, falling back to right — consistent with ConditionalExpression behavior.
       const code = "const arr = [1, 2]; const x = arr || {};";
       const fact = runInRule(code, (context, ast) => {
         const node = getFirstNodeOfType<TSESTree.LogicalExpression>(ast, AST.LogicalExpression);
@@ -170,8 +169,7 @@ describe("resolveObjectType", () => {
     });
 
     it("FIXED: LogicalExpression (??) now checks left side first", () => {
-      // The `??` operator returns left if not null/undefined, so the left side
-      // should have priority. Now correctly evaluates left first.
+      // The `??` operator returns left if not null/undefined, so the left side should have priority. Now correctly evaluates left first.
       const code = "const arr = [1]; const x = arr ?? {};";
       const fact = runInRule(code, (context, ast) => {
         const node = getFirstNodeOfType<TSESTree.LogicalExpression>(ast, AST.LogicalExpression);

@@ -66,8 +66,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         ].map((component) => component.node);
         const isInsideRender = createRenderBoundaryChecker(componentNodes);
 
-        // Report each dynamic component usage, plus a single subordinate
-        // report at the creation site (deduplicated across usages)
+        // Report each dynamic component usage, plus a single subordinate report at the creation site (deduplicated across usages)
         const reportedCreations = new Set<TSESTree.Node>();
         for (const effect of inferCreatedComponents(context, facts.componentUsages, isInsideRender)) {
           context.report({

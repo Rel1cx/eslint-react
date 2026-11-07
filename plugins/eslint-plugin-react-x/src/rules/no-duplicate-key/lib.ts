@@ -60,8 +60,7 @@ export function isRekeyedByChildrenCall(context: RuleContext, root: TSESTree.Nod
   while (node != null) {
     if (isChildrenToArrayCall(context, node) || isChildrenMapCall(context, node)) return true;
     switch (node.type) {
-      // Flattenable containers: `Children.toArray`/`Children.map` recurse into
-      // these and re-key every child they find.
+      // Flattenable containers: `Children.toArray`/`Children.map` recurse into these and re-key every child they find.
       case AST.ArrayExpression:
       case AST.ConditionalExpression:
       case AST.JSXExpressionContainer:

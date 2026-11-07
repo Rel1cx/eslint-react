@@ -425,8 +425,7 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
     },
-    // Boundary: a `ClassDeclaration` nested directly inside render is dynamic,
-    // mirroring the `FunctionDeclaration` case above.
+    // Boundary: a `ClassDeclaration` nested directly inside render is dynamic, mirroring the `FunctionDeclaration` case above.
     {
       code: tsx`
         function Parent() {
@@ -529,8 +528,7 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
     },
-    // Boundary: an optional-chaining call (`factory?.()`) produces a ChainExpression,
-    // which is unwrapped to the inner CallExpression and treated as dynamic.
+    // Boundary: an optional-chaining call (`factory?.()`) produces a ChainExpression, which is unwrapped to the inner CallExpression and treated as dynamic.
     {
       code: tsx`
         function Parent() {
@@ -654,8 +652,7 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
     },
-    // Boundary: ternary branches are traced in reassignment right-hand sides too, not
-    // only in declarator initializers.
+    // Boundary: ternary branches are traced in reassignment right-hand sides too, not only in declarator initializers.
     {
       code: tsx`
         function Parent({ cond }) {
@@ -692,8 +689,7 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
     },
-    // Boundary: a sequence expression resolves to its final element; the creation site
-    // points at that element, not the sequence.
+    // Boundary: a sequence expression resolves to its final element; the creation site points at that element, not the sequence.
     {
       code: tsx`
         function Parent() {
@@ -846,8 +842,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
     },
-    // Boundary: JSX member expression tags (e.g. `<Namespace.Bar />`) are ignored entirely,
-    // even when the referenced property is dynamically created.
+    // Boundary: JSX member expression tags (e.g. `<Namespace.Bar />`) are ignored entirely, even when the referenced property is dynamically created.
     {
       code: tsx`
         function Parent() {
@@ -880,8 +875,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
     },
-    // Boundary: both branches of the ternary resolve to static/external references,
-    // so the assembled component is not considered dynamic.
+    // Boundary: both branches of the ternary resolve to static/external references, so the assembled component is not considered dynamic.
     {
       code: tsx`
         function Parent({ type }) {
@@ -890,8 +884,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
     },
-    // Boundary: mutual reassignment between two variables must not cause infinite
-    // recursion; the cycle-detection guard should terminate and treat it as static.
+    // Boundary: mutual reassignment between two variables must not cause infinite recursion; the cycle-detection guard should terminate and treat it as static.
     {
       code: tsx`
         function Parent() {
@@ -965,8 +958,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
     },
     // Boundary: only plain `C = value` assignment writes are traced as reassignments.
-    // A destructuring write `[C] = [...]` is not recognized, so the dynamic value
-    // flowing through it is missed.
+    // A destructuring write `[C] = [...]` is not recognized, so the dynamic value flowing through it is missed.
     {
       code: tsx`
         function Parent() {
@@ -977,8 +969,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
     },
     // https://github.com/Rel1cx/eslint-react/issues/1762
-    // An external component returned from useMemo is still that component. The hook
-    // call itself is not a new component type.
+    // An external component returned from useMemo is still that component. The hook call itself is not a new component type.
     {
       code: tsx`
         function Component() {

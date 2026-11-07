@@ -176,8 +176,7 @@ const RE_RULE_ENTRY_KEY = /^(?:\[?")?([^"[\]]+)(?:"\]?)?:/u;
 const isAlphabeticallyBefore = (a: string, b: string): boolean => a.localeCompare(b) < 0;
 
 // Locate the insertion point for a new rule import in plugin.ts.
-// Rule imports form a contiguous block; insert in alphabetical order within it,
-// or after the last import when no rule imports exist yet.
+// Rule imports form a contiguous block; insert in alphabetical order within it, or after the last import when no rule imports exist yet.
 function findRuleImportInsertionIndex(lines: readonly string[], importLine: string): number {
   const ruleImportIndices: number[] = [];
   for (const [i, line] of lines.entries()) {
@@ -202,18 +201,15 @@ function findRuleImportInsertionIndex(lines: readonly string[], importLine: stri
     }
   }
 
-  // Comparing full lines is equivalent to comparing identifiers here,
-  // because all rule import lines share the same `import ` prefix.
+  // Comparing full lines is equivalent to comparing identifiers here, because all rule import lines share the same `import ` prefix.
   const insertIndex = ruleImportIndices.find(
     (i) => i >= firstRuleImportIndex && isAlphabeticallyBefore(importLine, lines[i]!),
   );
   return insertIndex ?? lastRuleImportIndex + 1;
 }
 
-// Returns the index of the line containing the `}` that closes the `{` opened
-// on `openLineIndex`, or -1 if it is never closed.
-// Every brace character is counted, including ones inside strings and comments;
-// that is intentionally the behavior this script has always relied on.
+// Returns the index of the line containing the `}` that closes the `{` opened on `openLineIndex`, or -1 if it is never closed.
+// Every brace character is counted, including ones inside strings and comments; that is intentionally the behavior this script has always relied on.
 function findClosingBraceLine(lines: readonly string[], openLineIndex: number): number {
   let depth = 0;
   for (let i = openLineIndex; i < lines.length; i++) {
@@ -226,8 +222,7 @@ function findClosingBraceLine(lines: readonly string[], openLineIndex: number): 
   return -1;
 }
 
-// Locate the line where the new `"rule-name": ruleName,` entry belongs inside
-// the `rules: { ... }` object of plugin.ts. Returns -1 when that object is missing.
+// Locate the line where the new `"rule-name": ruleName,` entry belongs inside the `rules: { ... }` object of plugin.ts. Returns -1 when that object is missing.
 function findRuleEntryInsertionIndex(lines: readonly string[], ruleName: string): number {
   const rulesStartIndex = lines.findIndex((line) => RE_RULES_OBJECT.test(line));
   if (rulesStartIndex === -1) return -1;

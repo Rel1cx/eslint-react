@@ -1034,8 +1034,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      // Optional-chained createElement returns are JSX-like, so the local function
-      // is still collected as a component definition.
+      // Optional-chained createElement returns are JSX-like, so the local function is still collected as a component definition.
       code: tsx`
         function ParentComponent() {
           const ChildComponent = () => React?.createElement("div", null);
@@ -1067,8 +1066,7 @@ ruleTester.run(RULE_NAME, rule, {
         return <NestedComponent />;
       }
     `,
-    // memo's propsAreEqual comparator is not a component definition, so it must
-    // not be named after the surrounding binding and reported as nested.
+    // memo's propsAreEqual comparator is not a component definition, so it must not be named after the surrounding binding and reported as nested.
     tsx`
       function ParentComponent() {
         const ChildComponent = memo(ComponentImpl, () => <div />);
@@ -1514,16 +1512,14 @@ ruleTester.run(RULE_NAME, rule, {
         return <ul>{List}</ul>;
       }
     `,
-    // Only well-known wrappers and `with*` HOCs are unwrapped for name resolution;
-    // arbitrary factory calls are not
+    // Only well-known wrappers and `with*` HOCs are unwrapped for name resolution; arbitrary factory calls are not
     tsx`
       function ParentComponent() {
         const Wrapped = register(() => <div />);
         return <Wrapped />;
       }
     `,
-    // Loaders passed to `lazy`/`dynamic` are not render functions and are covered by
-    // no-nested-lazy-component-declarations instead
+    // Loaders passed to `lazy`/`dynamic` are not render functions and are covered by no-nested-lazy-component-declarations instead
     tsx`
       function ParentComponent() {
         const LazyComponent = lazy(() => import("./Foo"));
@@ -1569,8 +1565,7 @@ ruleTester.run(RULE_NAME, rule, {
       }
     `,
     // Ported from https://github.com/oxc-project/oxc/issues/22608
-    // oxlint flagged event handlers that pass JSX to a function; the handler does not return
-    // JSX, so it is not a component definition
+    // oxlint flagged event handlers that pass JSX to a function; the handler does not return JSX, so it is not a component definition
     tsx`
       function MyComponent() {
         return (

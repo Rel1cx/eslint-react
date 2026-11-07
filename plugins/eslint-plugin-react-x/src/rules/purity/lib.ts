@@ -634,8 +634,7 @@ export function resolveBuiltinObjectName(context: RuleContext, node: TSESTree.Id
       ? resolveBuiltinMember(context, init, seen)
       : null;
     if (resolved == null) return null;
-    // Destructured declarations (`const { random } = Math`) bind the pattern
-    // key's property of the source object, not the source object itself.
+    // Destructured declarations (`const { random } = Math`) bind the pattern key's property of the source object, not the source object itself.
     if (def.node.id.type === AST.ObjectPattern) {
       const key = getDestructuredPropertyName(def.node.id, def.name);
       if (key == null) return null;

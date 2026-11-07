@@ -770,8 +770,7 @@ ruleTester.run(RULE_NAME, rule, {
     // -------------------------------------------------------------------------
     // -------------------------------------------------------------------------
     // NewExpression with type expressions wrapping the callee
-    // (getUnderlyingExpression unwraps TSAsExpression, TSNonNullExpression,
-    //  TSSatisfiesExpression, and nested type expressions)
+    // (getUnderlyingExpression unwraps TSAsExpression, TSNonNullExpression, TSSatisfiesExpression, and nested type expressions)
     // -------------------------------------------------------------------------
     {
       code: tsx`
@@ -831,8 +830,7 @@ ruleTester.run(RULE_NAME, rule, {
     },
     // -------------------------------------------------------------------------
     // CallExpression with type expressions wrapping the callee
-    // (getUnderlyingExpression unwraps TSAsExpression, TSNonNullExpression,
-    //  TSSatisfiesExpression, and nested type expressions)
+    // (getUnderlyingExpression unwraps TSAsExpression, TSNonNullExpression, TSSatisfiesExpression, and nested type expressions)
     // -------------------------------------------------------------------------
     {
       code: tsx`
@@ -1834,8 +1832,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
     },
     // -------------------------------------------------------------------------
-    // Server Components: async function components in modules without a
-    // `use client` directive render once per request on the server
+    // Server Components: async function components in modules without a `use client` directive render once per request on the server
     // -------------------------------------------------------------------------
     {
       code: tsx`
@@ -1861,8 +1858,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
     },
-    // `Map` is not in IMPURE_CTORS (it only appeared in the removed PURE_CTORS
-    // list), so constructing it during render is not flagged
+    // `Map` is not in IMPURE_CTORS (it only appeared in the removed PURE_CTORS list), so constructing it during render is not flagged
     {
       code: tsx`
         function Component() {

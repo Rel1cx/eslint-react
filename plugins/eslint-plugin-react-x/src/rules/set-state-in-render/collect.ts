@@ -73,8 +73,7 @@ export function createFactCollector(context: RuleContext) {
       return "component";
     }
     const parent = Traverse.findParent(node, not(Check.isTypeExpression)) ?? node.parent;
-    // A function passed as an argument is treated as a callback that runs
-    // outside of the synchronous render (event handlers, effect setups, etc.)
+    // A function passed as an argument is treated as a callback that runs outside of the synchronous render (event handlers, effect setups, etc.)
     if (parent.type === AST.CallExpression && parent.callee !== node) {
       return "callback";
     }

@@ -60,8 +60,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
           ? [{ messageId: "default", node }]
           : [];
       // Case: key={`foo-${index}`}
-      // Note: only direct interpolations are checked; composite expressions
-      // like `${item.type + index}` derive the key from item data as well
+      // Note: only direct interpolations are checked; composite expressions like `${item.type + index}` derive the key from item data as well
       case AST.TemplateLiteral:
         return node.expressions
           .filter(isArrayIndex)

@@ -110,8 +110,7 @@ export function create(context: RuleContext<MessageID, Options>): RuleListener {
       let parent = node.parent;
       while (Check.isTypeExpression(parent)) parent = parent.parent;
 
-      // Allow returning the useState result directly, e.g., `return useState()`,
-      // a common pattern in custom hooks, regardless of the rule's options.
+      // Allow returning the useState result directly, e.g., `return useState()`, a common pattern in custom hooks, regardless of the rule's options.
       // https://github.com/Rel1cx/eslint-react/issues/1963
       if (parent.type === AST.ReturnStatement) return;
       if (parent.type === AST.ArrowFunctionExpression) return;
@@ -140,8 +139,7 @@ export function create(context: RuleContext<MessageID, Options>): RuleListener {
       if (setter == null || !enforceSetterName) return;
 
       // Only enforce setter naming when the value is a plain identifier.
-      // Destructured patterns (ObjectPattern, ArrayPattern, etc.) cannot be
-      // symmetrically named, so report them as an invalid assignment form.
+      // Destructured patterns (ObjectPattern, ArrayPattern, etc.) cannot be symmetrically named, so report them as an invalid assignment form.
       if (value.type !== AST.Identifier) {
         context.report({ messageId: "invalid-assignment", node: value });
         return;

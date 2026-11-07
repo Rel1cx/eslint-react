@@ -50,8 +50,7 @@ export function inferViolations(context: RuleContext, facts: SetStateInEffectFac
 
   const isExemptCall = (call: TSESTree.CallExpression, state: InvocationState) => {
     if (state.inheritedRefGate || resolver.isRefGatedContext(call, state.refParams)) return true;
-    // React setters take one value, but custom state hooks may accept more; a
-    // ref-derived value in any position makes the update ref-derived
+    // React setters take one value, but custom state hooks may accept more; a ref-derived value in any position makes the update ref-derived
     return call.arguments.some((argument) => resolver.isArgumentUsingRefValue(argument, state.refParams));
   };
 

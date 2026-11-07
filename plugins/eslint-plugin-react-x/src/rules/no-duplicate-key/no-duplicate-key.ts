@@ -55,8 +55,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   }
 
   function recordSiblingKey(root: TSESTree.Node, key: TSESTree.JSXAttribute): void {
-    // React re-assigns keys collected through `Children.toArray`/`Children.map`,
-    // so duplicates there are impossible.
+    // React re-assigns keys collected through `Children.toArray`/`Children.map`, so duplicates there are impossible.
     if (isRekeyedByChildrenCall(context, root)) return;
     const group = getGroup(root);
     let duplicate = false;

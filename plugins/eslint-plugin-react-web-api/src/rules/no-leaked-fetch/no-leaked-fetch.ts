@@ -69,8 +69,7 @@ function getControllerFromSignal(
       if (resolvedUnwrapped?.type === AST.MemberExpression) {
         return { controller: resolvedUnwrapped.object, isParamSignal: false };
       }
-      // If the identifier is a function parameter, treat it as a valid signal expression
-      // (e.g. `signal` from foxact/use-abortable-effect).
+      // If the identifier is a function parameter, treat it as a valid signal expression (e.g. `signal` from foxact/use-abortable-effect).
       if (resolved != null && Check.isFunction(resolved)) {
         return { controller: node, isParamSignal: true };
       }
@@ -203,8 +202,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
           });
           continue;
         }
-        // If the signal comes from a function parameter (e.g. use-abortable-effect),
-        // assume the caller manages the abort lifecycle.
+        // If the signal comes from a function parameter (e.g. use-abortable-effect), assume the caller manages the abort lifecycle.
         if (fEntry.isParamSignal) {
           continue;
         }

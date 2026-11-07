@@ -43,8 +43,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       }
 
       const prop = findCreateElementProp(context, call, "children");
-      // `createElement(type, props, ...children)` already has conflicting
-      // children content; that case belongs to 'no-children-prop-with-children'
+      // `createElement(type, props, ...children)` already has conflicting children content; that case belongs to 'no-children-prop-with-children'
       if (prop == null || call.childrenArguments.length > 0) {
         return;
       }
@@ -56,8 +55,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
     },
     JSXElement(node) {
       const prop = findAttribute(node, "children");
-      // Nested children content already conflicts with the prop; that case
-      // belongs to 'no-children-prop-with-children'
+      // Nested children content already conflicts with the prop; that case belongs to 'no-children-prop-with-children'
       if (prop == null || hasMeaningfulChildren(node)) {
         return;
       }
@@ -140,9 +138,7 @@ function buildFix(context: RuleContext, node: TSESTree.JSXElement, prop: TSESTre
       const selfCloseOffset = elementText.lastIndexOf("/>");
       const selfCloseStart = openingElement.range[0] + selfCloseOffset;
 
-      // Also consume any whitespace that sits between the last
-      // remaining token and the `/>` marker so we don't leave a
-      // trailing space before `>`.
+      // Also consume any whitespace that sits between the last remaining token and the `/>` marker so we don't leave a trailing space before `>`.
       let wsStart = selfCloseStart;
       // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       while (wsStart > prop.range[1] && /\s/.test(context.sourceCode.text[wsStart - 1]!)) {
@@ -155,8 +151,7 @@ function buildFix(context: RuleContext, node: TSESTree.JSXElement, prop: TSESTre
       ];
     }
 
-    // Non-self-closing: remove prop and append children before the
-    // closing tag (after any remaining children content).
+    // Non-self-closing: remove prop and append children before the closing tag (after any remaining children content).
     if (node.closingElement == null) return [removePropFix];
     return [
       removePropFix,

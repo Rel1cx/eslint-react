@@ -346,8 +346,7 @@ ruleTester.run(RULE_NAME, rule, {
         },
       },
     },
-    // Known limitation: the stable Hook branch currently hides the fresh object
-    // constructed in the fallback branch, so this produces no diagnostic.
+    // Known limitation: the stable Hook branch currently hides the fresh object constructed in the fallback branch, so this produces no diagnostic.
     {
       code: tsx`
         function App() {

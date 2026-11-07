@@ -303,8 +303,7 @@ ruleTester.run(RULE_NAME, rule, {
     },
     {
       name: "chained call expression (callee is a call) in useState initial value",
-      // getFactory()() — the outer call's callee is a CallExpression (no "name"),
-      // so only the inner getFactory() passes the "name" in expr.callee filter.
+      // getFactory()() — the outer call's callee is a CallExpression (no "name"), so only the inner getFactory() passes the "name" in expr.callee filter.
       code: `import { useState } from "react"; useState(getFactory()())`,
       errors: [
         {
@@ -454,8 +453,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [{ messageId: "invalid-setter-name" }],
     },
     // --- Lazy initialization: complex nested structures ---
-    // Error order below follows source position (ESLint sorts messages by line/column),
-    // not the rule's internal news-then-calls loop order.
+    // Error order below follows source position (ESLint sorts messages by line/column), not the rule's internal news-then-calls loop order.
     {
       name: "call and new expression in different conditional branches are both reported",
       code: `import { useState } from "react"; useState(cond ? compute() : new Foo())`,
@@ -612,8 +610,7 @@ ruleTester.run(RULE_NAME, rule, {
     },
     {
       name: "new expression with a call callee is skipped, but the callee call is reported",
-      // new (getFactory())() — the new expression's callee is a CallExpression (no "name"),
-      // so only getFactory() passes the "name" in expr.callee filter.
+      // new (getFactory())() — the new expression's callee is a CallExpression (no "name"), so only getFactory() passes the "name" in expr.callee filter.
       code: `import { useState } from "react"; useState(new (getFactory())())`,
       errors: [
         { type: AST.CallExpression, messageId: "invalid-initialization" },
@@ -869,8 +866,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
     },
     // Ported from https://github.com/oxc-project/oxc/issues/24952
-    // Intentionally unused getter/setter names are allowed when setter-name enforcement is
-    // opted out via `enforceSetterName: false`
+    // Intentionally unused getter/setter names are allowed when setter-name enforcement is opted out via `enforceSetterName: false`
     {
       code: tsx`
         const Component = () => {
@@ -888,8 +884,7 @@ ruleTester.run(RULE_NAME, rule, {
       options: [{ enforceSetterName: false }],
     },
     // --- Lazy initialization: complex nested structures (valid) ---
-    // A call with a member expression callee is collected by getCallExpressions but
-    // skipped by the rule because its callee has no "name" property.
+    // A call with a member expression callee is collected by getCallExpressions but skipped by the rule because its callee has no "name" property.
     "const [mapped, setMapped] = useState(items.map(transform));",
     // Same, and function bodies are never descended into, so transform(x) is not visited.
     "const [doubled, setDoubled] = useState([1, 2].map((x) => transform(x)));",
@@ -899,8 +894,7 @@ ruleTester.run(RULE_NAME, rule, {
     "const [state, setState] = useState({ [key]: value });",
     // Extra destructured elements beyond the value/setter pair are ignored.
     "const [state, setState, extra] = useState(0);",
-    // A new expression with a member expression callee is collected by getNewExpressions
-    // but skipped by the rule because its callee has no "name" property.
+    // A new expression with a member expression callee is collected by getNewExpressions but skipped by the rule because its callee has no "name" property.
     {
       code: "useState(new ns.Foo())",
       options: [{ enforceAssignment: false }],

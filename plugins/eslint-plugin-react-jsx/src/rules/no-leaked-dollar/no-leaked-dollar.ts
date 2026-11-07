@@ -99,8 +99,7 @@ function visitForLeakedDollar(context: RuleContext<MessageID, []>, node: TSESTre
  * @returns `true` if the dollar should not be reported.
  */
 function isIsolatedDollar(child: TSESTree.JSXText, next: TSESTree.JSXExpressionContainer, meaningfulChildren: number) {
-  // The `$` text node itself is meaningful, so only the next sibling may add
-  // another meaningful child.
+  // The `$` text node itself is meaningful, so only the next sibling may add another meaningful child.
   return child.value.trim() === "$"
     && meaningfulChildren === 1 + (isMeaningfulChild(next) ? 1 : 0);
 }

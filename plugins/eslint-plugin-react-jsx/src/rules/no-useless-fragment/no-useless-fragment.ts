@@ -105,8 +105,7 @@ function hasIdentityAttribute(node: TSESTree.JSXElement): boolean {
 function visitFragment(context: RuleContext, node: TSESTreeJSXElementLike, allowEmptyFragment: boolean, allowExpressions: boolean) {
   const reasons: string[] = [];
 
-  // A fragment inside a host component is always redundant — the host
-  // element already accepts an arbitrary number of children.
+  // A fragment inside a host component is always redundant — the host element already accepts an arbitrary number of children.
   if (isHostElement(node.parent)) reasons.push("placed inside a host component");
 
   // A fragment with too few meaningful children serves no purpose.
@@ -138,10 +137,8 @@ function isContentUseless(node: TSESTreeJSXElementLike, allowEmptyFragment: bool
     return !allowEmptyFragment;
   }
 
-  // A single text child outside JSX keeps its exception: unwrapping would
-  // silently turn the text into an identifier reference (ex:
-  // `content={<>text</>}` → `content={text}`), and multi-word text would
-  // not even parse.
+  // A single text child outside JSX keeps its exception: unwrapping would silently turn the text into an identifier reference (ex:
+  // `content={<>text</>}` → `content={text}`), and multi-word text would not even parse.
   const insideJSX = Check.isJSXElementOrFragment(node.parent);
   if (allowExpressions && !insideJSX && node.children.length === 1 && node.children[0]?.type === AST.JSXText) {
     return false;
@@ -209,8 +206,7 @@ function buildFix(context: RuleContext, node: TSESTreeJSXElementLike): ((fixer: 
 
     let start = node.range[0];
 
-    // When unwrapping leaves nothing behind and only indentation precedes
-    // the fragment on its line, also remove that indentation.
+    // When unwrapping leaves nothing behind and only indentation precedes the fragment on its line, also remove that indentation.
     if (text === "" && node.children.length > 0) {
       const lineStart = Math.max(
         sourceCode.text.lastIndexOf("\n", start - 1),

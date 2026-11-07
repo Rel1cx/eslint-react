@@ -61,8 +61,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
       output: '<svg renderingIntent="auto" />;',
     },
-    // All-lowercase variant: `getStandardName` matches DOM property names
-    // case-insensitively, so it is reported and fixed to `renderingIntent`
+    // All-lowercase variant: `getStandardName` matches DOM property names case-insensitively, so it is reported and fixed to `renderingIntent`
     {
       code: '<svg renderingintent="auto" />;',
       errors: [
@@ -1040,8 +1039,7 @@ ruleTester.run(RULE_NAME, rule, {
     {
       code: '<Foo.Bar abc="def" />',
     },
-    // Invalid version settings must not throw when no attribute reaches the
-    // version-dependent attribute-tags lookup.
+    // Invalid version settings must not throw when no attribute reaches the version-dependent attribute-tags lookup.
     {
       code: "const x = 1;",
       settings: {

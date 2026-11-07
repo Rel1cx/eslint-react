@@ -32,8 +32,7 @@ export function inferCreatedComponents(
     // Unresolvable bindings (ex: globals) cannot be traced to a creation site
     if (variable == null) continue;
 
-    // At least one declaration of the component's value must live inside a component's
-    // render body for it to be a candidate for "created during render".
+    // At least one declaration of the component's value must live inside a component's render body for it to be a candidate for "created during render".
     if (!variable.defs.some((def) => isInsideRender(def.node))) continue;
 
     const { creationNode, isDynamic } = resolveDynamicComponentOrigin(context, variable, isInsideRender);

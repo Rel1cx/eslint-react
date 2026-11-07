@@ -31,8 +31,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   return merge(
     visitor,
     {
-      // Defer inference until the whole file has been traversed so that all
-      // call and early-return facts are complete
+      // Defer inference until the whole file has been traversed so that all call and early-return facts are complete
       "Program:exit"() {
         for (const violation of inferViolations(context, facts)) {
           context.report({

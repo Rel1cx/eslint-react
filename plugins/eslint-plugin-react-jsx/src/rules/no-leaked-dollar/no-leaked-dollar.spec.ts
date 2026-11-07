@@ -181,8 +181,7 @@ ruleTester.run(RULE_NAME, rule, {
     },
     // --- Boundary tests start here ---
     {
-      // Boundary: '$$' + expression — the text trims to '$$', not '$', so the
-      // isolated-'$' exemption does not apply.
+      // Boundary: '$$' + expression — the text trims to '$$', not '$', so the isolated-'$' exemption does not apply.
       // Fix removes only the last '$', leaving '$' + expression which becomes valid
       code: tsx`
         const App = () => <>$$\${user.name}</>
@@ -202,8 +201,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      // Boundary: isolated '$' + expression with MORE than 2 children
-      // <div>${a}{b}</div> has 3 children: JSXText('$'), JSXExpr(a), JSXExpr(b)
+      // Boundary: isolated '$' + expression with MORE than 2 children <div>${a}{b}</div> has 3 children: JSXText('$'), JSXExpr(a), JSXExpr(b)
       code: tsx`
         function App() {
           return <div>\${a}{b}</div>;
@@ -230,8 +228,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      // Boundary: '$' between text and expression with more children
-      // <div>Hello {world} ${price}</div>
+      // Boundary: '$' between text and expression with more children <div>Hello {world} ${price}</div>
       // children: JSXText('Hello '), JSXExpr(world), JSXText(' $'), JSXExpr(price)
       code: tsx`
         function App() {
@@ -353,8 +350,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      // Boundary: '$' at the very start of element with expression
-      // <div>$${expr}</div> — but let's verify with $$$ which triggers
+      // Boundary: '$' at the very start of element with expression <div>$${expr}</div> — but let's verify with $$$ which triggers
       code: tsx`
         function App() {
           return <div>$$$\${expr}</div>;
@@ -540,22 +536,19 @@ ruleTester.run(RULE_NAME, rule, {
         return <div>Hello $world</div>;
       }
     `,
-    // Boundary: '$' followed by another text node before expression
-    // <div>$text{expr}</div> → JSXText("$text"), JSXExpressionContainer → text doesn't end with $
+    // Boundary: '$' followed by another text node before expression <div>$text{expr}</div> → JSXText("$text"), JSXExpressionContainer → text doesn't end with $
     tsx`
       function App() {
         return <div>$text{expr}</div>;
       }
     `,
-    // Boundary: whitespace-only text with '$' at end
-    // <div>  $  {expr}</div> → JSXText("  $  ") doesn't end with $ → valid
+    // Boundary: whitespace-only text with '$' at end <div>  $  {expr}</div> → JSXText("  $  ") doesn't end with $ → valid
     tsx`
       function App() {
         return <div>  $  {expr}</div>;
       }
     `,
-    // Boundary: tab/newline before expression
-    // <div>Hello $	{expr}</div> → JSXText("Hello $\t") ends with tab → valid
+    // Boundary: tab/newline before expression <div>Hello $	{expr}</div> → JSXText("Hello $\t") ends with tab → valid
     tsx`
       function App() {
         return <div>Hello $	{expr}</div>;

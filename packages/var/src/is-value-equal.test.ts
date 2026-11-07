@@ -72,8 +72,7 @@ describe("isValueEqual", () => {
     });
 
     it("should return true for references to the same configured global", () => {
-      // Configured globals have no scope-manager definition; identity still
-      // comes from the shared variable object.
+      // Configured globals have no scope-manager definition; identity still comes from the shared variable object.
       const code = "/* global EVENT */\nfoo(EVENT); bar(EVENT);";
       const fact = runInRule(code, (context, ast) => {
         const refs = findIdentifierReferences(ast, "EVENT");
@@ -112,8 +111,7 @@ describe("isValueEqual", () => {
       // MemberExpression properties, which is structural equality. For computed properties
       // the property nodes of `obj[1 + 1]` and `obj[2]` are structurally different
       // (BinaryExpression and Literal, respectively) even though they evaluate to the same value.
-      // The fix uses `isValueEqual` for computed properties, which falls through to
-      // `getStaticValue` and correctly evaluates both to `2`.
+      // The fix uses `isValueEqual` for computed properties, which falls through to `getStaticValue` and correctly evaluates both to `2`.
       const code = [
         "const obj = {};",
         "foo(obj[1 + 1]);",
@@ -125,8 +123,7 @@ describe("isValueEqual", () => {
         expect(members).toHaveLength(2);
         return isValueEqual(context, members[0]!, members[1]!);
       });
-      // Fixed: computed properties now use isValueEqual instead of isNodeEqual,
-      // so obj[1 + 1] and obj[2] are correctly recognized as equal.
+      // Fixed: computed properties now use isValueEqual instead of isNodeEqual, so obj[1 + 1] and obj[2] are correctly recognized as equal.
       expect(fact).toBe(true);
     });
 

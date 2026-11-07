@@ -78,8 +78,7 @@ describe("getFunctionComponentFlagFromInitPath", () => {
   });
 
   it("should keep the memo flag when the wrapper call is a later argument of a generic HOC", () => {
-    // memo's own first argument is still the wrapped component; the outer call is
-    // not a component wrapper, so its argument position carries no React semantics.
+    // memo's own first argument is still the wrapped component; the outer call is not a component wrapper, so its argument position carries no React semantics.
     const code = "const Component = compose(enhance, memo(() => {}))";
     const node = getFirstNodeOfType<TSESTree.ArrowFunctionExpression>(code, AST.ArrowFunctionExpression);
     const initPath = getFunctionInitPath(node);
@@ -430,8 +429,7 @@ describe("isFunctionComponentDefinition", () => {
   });
 
   it("excludes functions used as array pattern element defaults when hint is set", () => {
-    // Defaults sit under an AssignmentPattern (`[Nav = () => {}]`); direct element
-    // forms are covered by the separate parser-accepted case below.
+    // Defaults sit under an AssignmentPattern (`[Nav = () => {}]`); direct element forms are covered by the separate parser-accepted case below.
     const code = "const [Nav = () => <div />] = arr;";
     const node = getFirstNodeOfType<TSESTree.ArrowFunctionExpression>(code, AST.ArrowFunctionExpression);
     const hintWithExclude = DEFAULT_COMPONENT_DETECTION_HINT

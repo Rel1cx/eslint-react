@@ -70,8 +70,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       if (usages?.has(methodName) ?? false) {
         continue;
       }
-      // Skip lifecycle methods, except shouldComponentUpdate in PureComponent,
-      // which is implicitly unused
+      // Skip lifecycle methods, except shouldComponentUpdate in PureComponent, which is implicitly unused
       const isPureComponentShouldUpdate = methodName === "shouldComponentUpdate" && core.isPureComponent(node);
       if (LIFECYCLE_METHODS.has(methodName) && !isPureComponentShouldUpdate) {
         continue;
@@ -138,8 +137,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         }
         return;
       }
-      // Detect usages like `this.property()` or `x = this.property`, including
-      // statically resolvable computed reads such as `this["property"]`
+      // Detect usages like `this.property()` or `x = this.property`, including statically resolvable computed reads such as `this["property"]`
       const propertyName = getStaticName(node.property, node.computed);
       if (propertyName == null) return;
       getOrInsertComputed(propertyUsages, currentClass, () => new Set<string>()).add(propertyName);

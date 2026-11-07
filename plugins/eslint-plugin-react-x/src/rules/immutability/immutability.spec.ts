@@ -165,8 +165,7 @@ ruleTester.run(RULE_NAME, rule, {
         { data: { name: "cache" }, messageId: "indirect-mutation" },
       ],
     },
-    // Mutation happens before the (aliased) freeze usage in source order,
-    // so the "This modifies" diagnostic sorts first.
+    // Mutation happens before the (aliased) freeze usage in source order, so the "This modifies" diagnostic sorts first.
     {
       code: tsx`
         function Component() {
@@ -182,8 +181,7 @@ ruleTester.run(RULE_NAME, rule, {
         { data: { name: "cache" }, messageId: "indirect-mutation" },
       ],
     },
-    // Inline function passed directly as a JSX prop: the freeze usage (the
-    // function itself) starts before the mutation nested inside its body.
+    // Inline function passed directly as a JSX prop: the freeze usage (the function itself) starts before the mutation nested inside its body.
     {
       code: tsx`
         function Component() {
@@ -297,8 +295,7 @@ ruleTester.run(RULE_NAME, rule, {
         { data: { name: "cache" }, messageId: "mutation-site" },
       ],
     },
-    // A hook defined as an arrow function assigned to a `use*` variable is
-    // recognized for return-value sinks.
+    // A hook defined as an arrow function assigned to a `use*` variable is recognized for return-value sinks.
     {
       code: tsx`
         const useFoo = () => {
@@ -407,8 +404,7 @@ ruleTester.run(RULE_NAME, rule, {
         { data: { name: "cache" }, messageId: "indirect-mutation" },
       ],
     },
-    // An alias declared inside the callback is traced back to the captured
-    // binding it was initialized from.
+    // An alias declared inside the callback is traced back to the captured binding it was initialized from.
     {
       code: tsx`
         function Component() {
@@ -461,8 +457,7 @@ ruleTester.run(RULE_NAME, rule, {
         { data: { name: "cache" }, messageId: "indirect-mutation" },
       ],
     },
-    // Mutation nested inside multiple closure layers still marks the outermost
-    // passed function as mutable.
+    // Mutation nested inside multiple closure layers still marks the outermost passed function as mutable.
     {
       code: tsx`
         function Component() {
@@ -484,8 +479,7 @@ ruleTester.run(RULE_NAME, rule, {
         { data: { name: "cache" }, messageId: "indirect-mutation" },
       ],
     },
-    // Same mutable function passed to two different sinks reports two usage-site
-    // diagnostics plus one mutation-site diagnostic for each usage.
+    // Same mutable function passed to two different sinks reports two usage-site diagnostics plus one mutation-site diagnostic for each usage.
     {
       code: tsx`
         function Component() {
@@ -503,8 +497,7 @@ ruleTester.run(RULE_NAME, rule, {
         { data: { name: "cache" }, messageId: "indirect-mutation" },
       ],
     },
-    // JSX props are purely syntactic freeze contexts: even a lowercase
-    // non-component helper rendering a host element gets flagged.
+    // JSX props are purely syntactic freeze contexts: even a lowercase non-component helper rendering a host element gets flagged.
     {
       code: tsx`
         function renderItem() {
@@ -536,8 +529,7 @@ ruleTester.run(RULE_NAME, rule, {
         { data: { name: "obj" }, messageId: "indirect-mutation" },
       ],
     },
-    // When a function mutates multiple captured variables, only the first
-    // mutation site encountered in source order is reported.
+    // When a function mutates multiple captured variables, only the first mutation site encountered in source order is reported.
     {
       code: tsx`
         function Component() {
@@ -555,8 +547,7 @@ ruleTester.run(RULE_NAME, rule, {
         { data: { name: "a" }, messageId: "indirect-mutation" },
       ],
     },
-    // The enclosing-function walk stops exactly at the function declaring the
-    // mutated variable: `inner` is mutable, but `helper` is not.
+    // The enclosing-function walk stops exactly at the function declaring the mutated variable: `inner` is mutable, but `helper` is not.
     {
       code: tsx`
         function Component() {
@@ -627,8 +618,7 @@ ruleTester.run(RULE_NAME, rule, {
         { data: { name: "x" }, messageId: "indirect-mutation" },
       ],
     },
-    // A callback that reassigns its own binding (ported from React Compiler's
-    // error.function-expression-references-variable-its-assigned-to).
+    // A callback that reassigns its own binding (ported from React Compiler's error.function-expression-references-variable-its-assigned-to).
     {
       code: tsx`
         function Component() {
@@ -659,8 +649,7 @@ ruleTester.run(RULE_NAME, rule, {
         { data: { name: "x" }, messageId: "mutation-site" },
       ],
     },
-    // Conditional reassignment plus a mutating method in a JSX event handler
-    // (ported from React Compiler's error.mutable-range-shared-inner-outer-function).
+    // Conditional reassignment plus a mutating method in a JSX event handler (ported from React Compiler's error.mutable-range-shared-inner-outer-function).
     {
       code: tsx`
         function Component(props) {
@@ -686,8 +675,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
 
-    // Direct mutation of a useState value, with no closure reaching a freeze
-    // sink (https://github.com/Rel1cx/eslint-react/issues/1941).
+    // Direct mutation of a useState value, with no closure reaching a freeze sink (https://github.com/Rel1cx/eslint-react/issues/1941).
     {
       code: tsx`
         function Example({ initial }) {
@@ -708,8 +696,7 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
     },
-    // Mutation reached through a shallow copy of state: the copy's own slots are
-    // new, but `copyValues[itemId]` still references the original nested object
+    // Mutation reached through a shallow copy of state: the copy's own slots are new, but `copyValues[itemId]` still references the original nested object
     // (https://github.com/Rel1cx/eslint-react/issues/1941).
     {
       code: tsx`
@@ -750,8 +737,7 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
     },
-    // Direct mutation of a destructured prop inside a handler that is never
-    // passed to a freeze sink.
+    // Direct mutation of a destructured prop inside a handler that is never passed to a freeze sink.
     {
       code: tsx`
         function Component({ items }) {
@@ -935,8 +921,7 @@ ruleTester.run(RULE_NAME, rule, {
         },
       },
     },
-    // A mutation already reported through a freeze sink is not reported again
-    // by the direct-mutation pass.
+    // A mutation already reported through a freeze sink is not reported again by the direct-mutation pass.
     {
       code: tsx`
         function Component(props) {
@@ -952,8 +937,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
 
-    // Logical assignment operators (`||=`) on a captured identifier count as
-    // binding mutations; the collector does not filter by operator.
+    // Logical assignment operators (`||=`) on a captured identifier count as binding mutations; the collector does not filter by operator.
     {
       code: tsx`
         function Component() {
@@ -987,8 +971,7 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
     },
-    // A mutating method invoked through a member chain resolves to the root
-    // identifier of the chain.
+    // A mutating method invoked through a member chain resolves to the root identifier of the chain.
     {
       code: tsx`
         function Component() {
@@ -1051,8 +1034,7 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
     },
-    // A shallow copy of a shallow copy is traced one hop: the detail names the
-    // intermediate copy as the original.
+    // A shallow copy of a shallow copy is traced one hop: the detail names the intermediate copy as the original.
     {
       code: tsx`
         function Component() {
@@ -1075,8 +1057,7 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
     },
-    // A property destructured from props is traced back to the props origin, so
-    // the report names 'props', not the destructured binding.
+    // A property destructured from props is traced back to the props origin, so the report names 'props', not the destructured binding.
     {
       code: tsx`
         function Component(props) {
@@ -1118,8 +1099,7 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
     },
-    // The navigation-hook exemption is an exact allowlist: a value returned
-    // from any other hook is not exempt from the `.push()` heuristic.
+    // The navigation-hook exemption is an exact allowlist: a value returned from any other hook is not exempt from the `.push()` heuristic.
     {
       code: tsx`
         function Component() {
@@ -1172,8 +1152,7 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
     },
-    // A returned component whose JSX return is behind a conditional is still
-    // confirmed (both branches are JSX).
+    // A returned component whose JSX return is behind a conditional is still confirmed (both branches are JSX).
     {
       code: tsx`
         const withFoo = (v) => (props) => {
@@ -1191,8 +1170,7 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
     },
-    // A named function expression returned by a factory is confirmed by its
-    // JSX return; the name plays no role.
+    // A named function expression returned by a factory is confirmed by its JSX return; the name plays no role.
     {
       code: tsx`
         const factory = () => function Inner(props) {
@@ -1246,8 +1224,7 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
     },
-    // Direct mutations are not deduplicated against each other: two distinct
-    // mutation sites of the same state value are both reported.
+    // Direct mutations are not deduplicated against each other: two distinct mutation sites of the same state value are both reported.
     {
       code: tsx`
         function Component() {
@@ -1278,8 +1255,7 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
     },
-    // Mutating a for-of iterator variable over props mutates an element of the
-    // props value in place (https://github.com/Rel1cx/eslint-react/issues/1764).
+    // Mutating a for-of iterator variable over props mutates an element of the props value in place (https://github.com/Rel1cx/eslint-react/issues/1764).
     {
       code: tsx`
         function Component({ items }) {
@@ -1361,8 +1337,7 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
     },
-    // Iterating a shallow copy still shares elements with the original, so the
-    // detail names the copy the iterator was bound from.
+    // Iterating a shallow copy still shares elements with the original, so the detail names the copy the iterator was bound from.
     {
       code: tsx`
         function Component() {
@@ -1384,8 +1359,7 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
     },
-    // `for await` shares the ForOfStatement node type, so its iterator
-    // variable is traced exactly like a synchronous for-of.
+    // `for await` shares the ForOfStatement node type, so its iterator variable is traced exactly like a synchronous for-of.
     {
       code: tsx`
         function Component({ items }) {
@@ -1405,8 +1379,7 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
     },
-    // An array-pattern iterator binding is traced the same way as a plain
-    // identifier binding; the mutated pattern element is the reported name.
+    // An array-pattern iterator binding is traced the same way as a plain identifier binding; the mutated pattern element is the reported name.
     {
       code: tsx`
         function Component() {
@@ -1427,8 +1400,7 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
     },
-    // `let` vs `const` does not matter for value mutations through the
-    // iterator variable; only rebinding the binding itself is exempt.
+    // `let` vs `const` does not matter for value mutations through the iterator variable; only rebinding the binding itself is exempt.
     {
       code: tsx`
         function Component({ items }) {
@@ -1488,8 +1460,7 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
     },
-    // The iterated collection is resolved through optional chaining to its
-    // props root.
+    // The iterated collection is resolved through optional chaining to its props root.
     {
       code: tsx`
         function Component(props) {
@@ -1509,8 +1480,7 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
     },
-    // Type assertions around the iterated collection are unwrapped before the
-    // root identifier is extracted.
+    // Type assertions around the iterated collection are unwrapped before the root identifier is extracted.
     {
       code: tsx`
         function Component({ items }) {
@@ -1550,8 +1520,7 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
     },
-    // A member-expression collection rooted at a useReducer state value
-    // resolves to the state origin.
+    // A member-expression collection rooted at a useReducer state value resolves to the state origin.
     {
       code: tsx`
         function Component() {
@@ -1572,8 +1541,7 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
     },
-    // Nested for-of loops: the inner iterator's origin is the outer iterator
-    // variable, so the detail names the outer iterator one hop up.
+    // Nested for-of loops: the inner iterator's origin is the outer iterator variable, so the detail names the outer iterator one hop up.
     {
       code: tsx`
         function Component({ groups }) {
@@ -1595,8 +1563,7 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
     },
-    // An iterator mutation nested in a closure that never reaches a freeze
-    // sink is still caught by the direct-mutation pass.
+    // An iterator mutation nested in a closure that never reaches a freeze sink is still caught by the direct-mutation pass.
     {
       code: tsx`
         function Component({ items }) {
@@ -1785,8 +1752,7 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
     },
-    // Reassigning a binding destructured from props is a direct mutation of the
-    // shared props binding, not just of a local alias (#1979 design, kept in #1995).
+    // Reassigning a binding destructured from props is a direct mutation of the shared props binding, not just of a local alias (#1979 design, kept in #1995).
     {
       code: tsx`
         function Component(props) {
@@ -1805,8 +1771,7 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
     },
-    // A member write through a plain alias of a prop is a value mutation: the
-    // alias folds back to the prop origin, so it stays reported (#1995).
+    // A member write through a plain alias of a prop is a value mutation: the alias folds back to the prop origin, so it stays reported (#1995).
     {
       code: tsx`
         function Component({ error }) {
@@ -1825,8 +1790,7 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
     },
-    // An update expression on a binding destructured from props is a
-    // binding-kind mutation and stays reported (#1995).
+    // An update expression on a binding destructured from props is a binding-kind mutation and stays reported (#1995).
     {
       code: tsx`
         function Component({ error }) {
@@ -1844,8 +1808,7 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
     },
-    // A `for...in` loop without a declaration rebinds a binding destructured
-    // from props, which is a binding-kind mutation (#1995).
+    // A `for...in` loop without a declaration rebinds a binding destructured from props, which is a binding-kind mutation (#1995).
     {
       code: tsx`
         function Component({ error }) {
@@ -1864,8 +1827,7 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
     },
-    // A member write folds through a multi-level plain alias chain back to the
-    // prop origin (#1995).
+    // A member write folds through a multi-level plain alias chain back to the prop origin (#1995).
     {
       code: tsx`
         function Component({ error }) {
@@ -1885,8 +1847,7 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
     },
-    // A member write through a plain alias of the props object itself folds
-    // back to the props origin.
+    // A member write through a plain alias of the props object itself folds back to the props origin.
     {
       code: tsx`
         function Component(props) {
@@ -1905,8 +1866,7 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
     },
-    // A delete through a plain alias of a prop is a value mutation and stays
-    // reported (#1995).
+    // A delete through a plain alias of a prop is a value mutation and stays reported (#1995).
     {
       code: tsx`
         function Component({ error }) {
@@ -2063,8 +2023,7 @@ ruleTester.run(RULE_NAME, rule, {
         return () => cache.get("key");
       }
     `,
-    // Mutation in the component body itself never marks the passed function;
-    // the function only reads the variable.
+    // Mutation in the component body itself never marks the passed function; the function only reads the variable.
     tsx`
       function Component() {
         const cache = new Map();
@@ -2154,8 +2113,7 @@ ruleTester.run(RULE_NAME, rule, {
         return <Foo fn={fn} />;
       }
     `,
-    // Mutating methods on non-identifier roots (call results) are ignored
-    // because no root identifier can be extracted.
+    // Mutating methods on non-identifier roots (call results) are ignored because no root identifier can be extracted.
     tsx`
       function Component() {
         const fn = () => {
@@ -2177,8 +2135,7 @@ ruleTester.run(RULE_NAME, rule, {
         return <Foo fn={outer} />;
       }
     `,
-    // A parameter shadowing the outer variable keeps the mutation local: the
-    // enclosing-function walk breaks as soon as the declaration is inside.
+    // A parameter shadowing the outer variable keeps the mutation local: the enclosing-function walk breaks as soon as the declaration is inside.
     tsx`
       function Component() {
         const cache = new Map();
@@ -2252,8 +2209,7 @@ ruleTester.run(RULE_NAME, rule, {
         return <Foo onClick={makeFn()} />;
       }
     `,
-    // A mutable function returned inside an object literal from a hook is not
-    // resolved back to the function node.
+    // A mutable function returned inside an object literal from a hook is not resolved back to the function node.
     tsx`
       function useFoo() {
         const cache = new Map();
@@ -2263,8 +2219,7 @@ ruleTester.run(RULE_NAME, rule, {
         return { fn };
       }
     `,
-    // Returns from nested non-hook functions inside a hook are not
-    // hook-return sinks.
+    // Returns from nested non-hook functions inside a hook are not hook-return sinks.
     tsx`
       function useFoo() {
         const cache = new Map();
@@ -2393,8 +2348,7 @@ ruleTester.run(RULE_NAME, rule, {
         return <button onClick={() => history.push('/dashboard')} />
       }
     `,
-    // `navigate('/x')` calls the function returned by `useNavigate()`; it does
-    // not mutate any captured value.
+    // `navigate('/x')` calls the function returned by `useNavigate()`; it does not mutate any captured value.
     tsx`
       function Component() {
         const router = useRouter()
@@ -2417,16 +2371,14 @@ ruleTester.run(RULE_NAME, rule, {
       }
     `,
     // https://github.com/Rel1cx/eslint-react/issues/1898
-    // Regression: `router.push()` inside a frozen callback is navigation, not
-    // an in-place mutation of the captured router value.
+    // Regression: `router.push()` inside a frozen callback is navigation, not an in-place mutation of the captured router value.
     tsx`
       function Component() {
         const router = useRouter()
         return <button onClick={() => router.push('/dashboard')} />
       }
     `,
-    // Reassignment to implicit globals in a JSX event handler is ignored
-    // (ported from React Compiler's allow-reassignment-to-global-function-jsx-prop).
+    // Reassignment to implicit globals in a JSX event handler is ignored (ported from React Compiler's allow-reassignment-to-global-function-jsx-prop).
     tsx`
       function Component() {
         const onClick = () => {
@@ -2436,8 +2388,7 @@ ruleTester.run(RULE_NAME, rule, {
         return <div onClick={onClick} />;
       }
     `,
-    // Function-call mutations are not tracked syntactically
-    // (ported from React Compiler's maybe-mutate-object-in-callback).
+    // Function-call mutations are not tracked syntactically (ported from React Compiler's maybe-mutate-object-in-callback).
     tsx`
       function Component(props) {
         const object = {};
@@ -2447,8 +2398,7 @@ ruleTester.run(RULE_NAME, rule, {
         return <Foo callback={onClick}>{props.children}</Foo>;
       }
     `,
-    // useCallback wrapping a ref mutation is allowed
-    // (ported from React Compiler's useCallback-set-ref-nested-property).
+    // useCallback wrapping a ref mutation is allowed (ported from React Compiler's useCallback-set-ref-nested-property).
     tsx`
       import { useCallback, useRef } from "react";
 
@@ -2497,8 +2447,7 @@ ruleTester.run(RULE_NAME, rule, {
         props.count = 1;
       }
     `,
-    // A parameter of an arrow function returned by another function is not
-    // props unless the returned function is actually a component
+    // A parameter of an arrow function returned by another function is not props unless the returned function is actually a component
     // (https://github.com/Rel1cx/eslint-react/issues/1951).
     tsx`
       export const curriedArrow = (v) => (obj) => {
@@ -2537,22 +2486,19 @@ ruleTester.run(RULE_NAME, rule, {
         };
       }
     `,
-    // A component-like name alone is not enough: without a JSX return or hook
-    // calls the returned function is not a confirmed component.
+    // A component-like name alone is not enough: without a JSX return or hook calls the returned function is not a confirmed component.
     tsx`
       const factory = () => function Transform(props) {
         props.count = 1;
       };
     `,
-    // A function that never returns JSX and calls no hooks is not confirmed
-    // as a component, even with a component-like name.
+    // A function that never returns JSX and calls no hooks is not confirmed as a component, even with a component-like name.
     tsx`
       function Component(props) {
         props.count = 1;
       }
     `,
-    // Only the first parameter of a confirmed component is props; mutating a
-    // later parameter of a returned component is allowed.
+    // Only the first parameter of a confirmed component is props; mutating a later parameter of a returned component is allowed.
     tsx`
       const withFoo = (v) => (props, ctx) => {
         ctx.count = 1;
@@ -2604,8 +2550,7 @@ ruleTester.run(RULE_NAME, rule, {
         onClick();
       }
     `,
-    // A `useState` result that is not destructured into an array pattern is
-    // not classified as a state value.
+    // A `useState` result that is not destructured into an array pattern is not classified as a state value.
     tsx`
       function Component() {
         const pair = useState({});
@@ -2639,8 +2584,7 @@ ruleTester.run(RULE_NAME, rule, {
         return <div />;
       }
     `,
-    // Returning a mutable function from a component is not a freeze context;
-    // only hook return values are sinks.
+    // Returning a mutable function from a component is not a freeze context; only hook return values are sinks.
     tsx`
       function Component() {
         const cache = new Map();
@@ -2649,8 +2593,7 @@ ruleTester.run(RULE_NAME, rule, {
         };
       }
     `,
-    // Only spread literals create shallow-copy origins; `Object.assign` copies
-    // are not tracked.
+    // Only spread literals create shallow-copy origins; `Object.assign` copies are not tracked.
     tsx`
       function Component() {
         const [values, setValues] = useState({});
@@ -2661,8 +2604,7 @@ ruleTester.run(RULE_NAME, rule, {
         handle();
       }
     `,
-    // A spread argument that is not a plain identifier is not traced back to
-    // an origin.
+    // A spread argument that is not a plain identifier is not traced back to an origin.
     tsx`
       function Component() {
         const [values, setValues] = useState({});
@@ -2673,8 +2615,7 @@ ruleTester.run(RULE_NAME, rule, {
         handle();
       }
     `,
-    // Mutating the iterator variable of a for-of over a local mutable value is
-    // allowed; only collections derived from props/state are frozen.
+    // Mutating the iterator variable of a for-of over a local mutable value is allowed; only collections derived from props/state are frozen.
     tsx`
       function Component() {
         const items = [{ done: false }];
@@ -2702,8 +2643,7 @@ ruleTester.run(RULE_NAME, rule, {
         return <div />;
       }
     `,
-    // Rebinding a plain alias initialized from a prop discards only the local
-    // alias, not a shared binding; matching upstream react-hooks/immutability
+    // Rebinding a plain alias initialized from a prop discards only the local alias, not a shared binding; matching upstream react-hooks/immutability
     // (https://github.com/Rel1cx/eslint-react/issues/1995).
     tsx`
       export function ErrorCauses({ error }: Props) {
@@ -2743,8 +2683,7 @@ ruleTester.run(RULE_NAME, rule, {
         return <div />;
       }
     `,
-    // A for-of whose right side has no root identifier is not traced back to
-    // an origin.
+    // A for-of whose right side has no root identifier is not traced back to an origin.
     tsx`
       function Component({ items }) {
         for (const item of getItems()) {
@@ -2753,8 +2692,7 @@ ruleTester.run(RULE_NAME, rule, {
         return <div />;
       }
     `,
-    // Iterating over a parameter of a non-component function is not iterating
-    // over props.
+    // Iterating over a parameter of a non-component function is not iterating over props.
     tsx`
       function helper({ items }) {
         for (const item of items) {
@@ -2762,8 +2700,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       }
     `,
-    // An uninitialized declarator outside a for-of is not an iterator binding;
-    // a later assignment from a props element is not tracked.
+    // An uninitialized declarator outside a for-of is not an iterator binding; a later assignment from a props element is not tracked.
     tsx`
       function Component({ items }) {
         let item;
@@ -2772,8 +2709,7 @@ ruleTester.run(RULE_NAME, rule, {
         return <div />;
       }
     `,
-    // A classic for statement is not a for-of: its uninitialized declarator
-    // does not share any iterated collection's origin.
+    // A classic for statement is not a for-of: its uninitialized declarator does not share any iterated collection's origin.
     tsx`
       function Component({ items }) {
         for (let item;;) {
@@ -2803,8 +2739,7 @@ ruleTester.run(RULE_NAME, rule, {
         return <div />;
       }
     `,
-    // Cyclic spread aliases terminate via the `seen` guard and yield no
-    // frozen origin instead of recursing forever.
+    // Cyclic spread aliases terminate via the `seen` guard and yield no frozen origin instead of recursing forever.
     tsx`
       function Component() {
         const a = [...b];
@@ -2828,8 +2763,7 @@ ruleTester.run(RULE_NAME, rule, {
         return <button onClick={onClick} />;
       }
     `,
-    // Scope resolution is exact: after the loop the identifier refers to the
-    // shadowed outer local binding, which has no frozen origin.
+    // Scope resolution is exact: after the loop the identifier refers to the shadowed outer local binding, which has no frozen origin.
     tsx`
       function Component({ items }) {
         const item = { done: false };
@@ -2864,8 +2798,7 @@ ruleTester.run(RULE_NAME, rule, {
         },
       },
     },
-    // Companion case: the same write placed directly in the component body is
-    // exempt for the same `additionalRefHooks` reason.
+    // Companion case: the same write placed directly in the component body is exempt for the same `additionalRefHooks` reason.
     {
       code: tsx`
         import { useSharedValue } from 'react-native-reanimated';
@@ -2906,8 +2839,7 @@ ruleTester.run(RULE_NAME, rule, {
         return { handleVote$ };
       };
     `,
-    // Rebinding a plain alias at any depth of the alias chain discards only the
-    // local alias (#1995).
+    // Rebinding a plain alias at any depth of the alias chain discards only the local alias (#1995).
     tsx`
       function Component({ error }) {
         let a = error;
@@ -2925,8 +2857,7 @@ ruleTester.run(RULE_NAME, rule, {
       }
     `,
     // Reassigning a `for...of` iterator binding is documented as not covered:
-    // the iterator is classified as an iterator origin, not a props/state
-    // binding, so binding-kind mutations through it stay allowed.
+    // the iterator is classified as an iterator origin, not a props/state binding, so binding-kind mutations through it stay allowed.
     tsx`
       function Component(props) {
         for (let item of props.items) {

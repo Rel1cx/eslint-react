@@ -141,10 +141,8 @@ export function classifyFrozenOrigin(
     return { kind: "props", name: origin.name };
   }
   if (def.type !== DefinitionType.Variable) return null;
-  // `for (const item of items)`: the iterator variable is bound to each element
-  // of the iterated collection, so it shares the collection's frozen origin.
-  // The right side is traced through its root identifier, so member-expression
-  // collections (`for (const item of props.items)`) resolve to their root.
+  // `for (const item of items)`: the iterator variable is bound to each element of the iterated collection, so it shares the collection's frozen origin.
+  // The right side is traced through its root identifier, so member-expression collections (`for (const item of props.items)`) resolve to their root.
   if (def.node.init == null) {
     const loop = def.node.parent.parent;
     if (loop.type !== AST.ForOfStatement || loop.left !== def.node.parent) return null;
@@ -167,8 +165,7 @@ export function classifyFrozenOrigin(
       if (first == null || !isNodeWithin(def.name, first)) return null;
       return { kind: "state", name: origin.name, hook };
     }
-    // `const copy = { ...state }` / `const copy = [...state]`: the copy's own
-    // top-level slots are new, but nested values still reference the original.
+    // `const copy = { ...state }` / `const copy = [...state]`: the copy's own top-level slots are new, but nested values still reference the original.
     case AST.ArrayExpression:
     case AST.ObjectExpression: {
       const elements: (TSESTree.Node | null)[] = init.type === AST.ObjectExpression ? init.properties : init.elements;

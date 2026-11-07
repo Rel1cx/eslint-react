@@ -6,8 +6,7 @@ import { isAssignmentTargetEqual } from "./is-assignment-target-equal";
 
 describe("isAssignmentTargetEqual", () => {
   it("should return true for structurally equal nodes", () => {
-    // Two separate `obj.x` member expressions are structurally identical,
-    // so `Compare.isEqual` returns true and short-circuits.
+    // Two separate `obj.x` member expressions are structurally identical, so `Compare.isEqual` returns true and short-circuits.
     const code = "foo(obj.x); bar(obj.x);";
     const fact = runInRule(code, (context, ast) => {
       const members = collectNodes<TSESTree.MemberExpression>(ast, AST.MemberExpression);
@@ -28,10 +27,8 @@ describe("isAssignmentTargetEqual", () => {
   });
 
   it("should return true for value-equal but structurally different nodes", () => {
-    // A literal `2` and a binary expression `1 + 1` are structurally different
-    // (different AST node types), so `Compare.isEqual` returns false.
-    // However, `isValueEqual` falls through to `getStaticValue` which evaluates
-    // both to the same value (2), so `isAssignmentTargetEqual` returns true.
+    // A literal `2` and a binary expression `1 + 1` are structurally different (different AST node types), so `Compare.isEqual` returns false.
+    // However, `isValueEqual` falls through to `getStaticValue` which evaluates both to the same value (2), so `isAssignmentTargetEqual` returns true.
     const code = "foo(2); bar(1 + 1);";
     const fact = runInRule(code, (context, ast) => {
       const calls = collectNodes<TSESTree.CallExpression>(ast, AST.CallExpression);
@@ -47,8 +44,7 @@ describe("isAssignmentTargetEqual", () => {
   });
 
   it("should return false for nodes that are neither structurally nor value-equal", () => {
-    // `x` and `y` are different variables with different values,
-    // so both `Compare.isEqual` (different names) and `isValueEqual`
+    // `x` and `y` are different variables with different values, so both `Compare.isEqual` (different names) and `isValueEqual`
     // (different variables) return false.
     const code = "const x = 1; const y = 2; foo(x); bar(y);";
     const fact = runInRule(code, (context, ast) => {
@@ -74,9 +70,7 @@ describe("isAssignmentTargetEqual", () => {
   });
 
   it("should return false for same-name identifiers referring to different variables", () => {
-    // The two `x` bindings live in different function scopes, so they are
-    // different variables even though `Compare.isEqual` would call them equal
-    // by name.
+    // The two `x` bindings live in different function scopes, so they are different variables even though `Compare.isEqual` would call them equal by name.
     const code = "function a() { const x = 1; foo(x); } function b() { const x = 2; bar(x); }";
     const fact = runInRule(code, (context, ast) => {
       const refs = findIdentifierReferences(ast, "x").filter((r) => r.parent.type === AST.CallExpression);

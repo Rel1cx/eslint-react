@@ -1189,8 +1189,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
         return <div>{props[0]}</div>;
       }
     `,
-    // Boundary: computed member access with an identifier key is dynamic
-    // (getKeyOfExpression returns null, rule bails out — 'foo' is actually used here)
+    // Boundary: computed member access with an identifier key is dynamic (getKeyOfExpression returns null, rule bails out — 'foo' is actually used here)
     tsx`
       function Component(props: { foo: string }) {
         const key = "foo";
@@ -1205,16 +1204,14 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
         return <div>{value}</div>;
       }
     `,
-    // Boundary: props aliased to another variable is tracked through the alias,
-    // so using the alias's property counts as usage of the prop
+    // Boundary: props aliased to another variable is tracked through the alias, so using the alias's property counts as usage of the prop
     tsx`
       function Component(props: { foo: string }) {
         const p = props;
         return <div>{p.foo}</div>;
       }
     `,
-    // Boundary: props alias used in an untrackable way causes a conservative bailout
-    // (collectUsedPropKeysOfReference on the alias's reference returns false)
+    // Boundary: props alias used in an untrackable way causes a conservative bailout (collectUsedPropKeysOfReference on the alias's reference returns false)
     tsx`
       import { anyFunction } from "./anyFunction";
 
@@ -1230,30 +1227,26 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
         return <div>{props[\`foo\`]}</div>;
       }
     `,
-    // Boundary: numeric literal destructuring key is not a known prop key
-    // (getKeyOfExpression returns null, rule bails out)
+    // Boundary: numeric literal destructuring key is not a known prop key (getKeyOfExpression returns null, rule bails out)
     tsx`
       function Component(props: { foo: string }) {
         const { 0: zero } = props;
         return <div>{zero}</div>;
       }
     `,
-    // Boundary: props referenced as a computed member key (not the object) of a member
-    // expression (parent.object !== valueNode, rule bails out)
+    // Boundary: props referenced as a computed member key (not the object) of a member expression (parent.object !== valueNode, rule bails out)
     tsx`
       function Component(props: { foo: string }) {
         return <div>{wrapper[props]}</div>;
       }
     `,
-    // Boundary: parameter with a default value (AssignmentPattern) is unwrapped,
-    // so member access on it counts as usage
+    // Boundary: parameter with a default value (AssignmentPattern) is unwrapped, so member access on it counts as usage
     tsx`
       function Component(props: { foo: string } = { foo: "" }) {
         return <div>{props.foo}</div>;
       }
     `,
-    // Boundary: array pattern parameter is not an Identifier or ObjectPattern,
-    // rule bails out without crashing
+    // Boundary: array pattern parameter is not an Identifier or ObjectPattern, rule bails out without crashing
     tsx`
       function Component([foo]: [string]) {
         return <div>{foo}</div>;

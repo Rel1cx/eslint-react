@@ -34,8 +34,7 @@ export function addImportFix(context: RuleContext, fixer: RuleFixer, name: strin
     }
     if (statement.type !== AST.ImportDeclaration) continue;
     lastImport = statement;
-    // `import type ...` is erased at compile time: it binds no runtime value
-    // and does not block adding one.
+    // `import type ...` is erased at compile time: it binds no runtime value and does not block adding one.
     if (statement.importKind === "type") continue;
     for (const specifier of statement.specifiers) {
       if (specifier.type === AST.ImportSpecifier && specifier.importKind === "type") continue;
@@ -49,8 +48,7 @@ export function addImportFix(context: RuleContext, fixer: RuleFixer, name: strin
     sameSourceImport ??= statement;
   }
   // Merge into the existing import from the same source, e.g.
-  // `import { createRoot } from "react-dom/client"` becomes
-  // `import { createRoot, hydrateRoot } from "react-dom/client"`.
+  // `import { createRoot } from "react-dom/client"` becomes `import { createRoot, hydrateRoot } from "react-dom/client"`.
   const namedSpecifiers = sameSourceImport?.specifiers.filter((s) => s.type === AST.ImportSpecifier) ?? [];
   const lastNamedSpecifier = namedSpecifiers.at(-1);
   if (lastNamedSpecifier != null) {

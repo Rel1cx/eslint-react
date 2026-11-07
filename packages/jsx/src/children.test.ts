@@ -26,8 +26,7 @@ function childAt(code: string, index = 0) {
   return child;
 }
 
-// Cases within each suite are ordered from the most typical JSX usage to rarer
-// edge cases.
+// Cases within each suite are ordered from the most typical JSX usage to rarer edge cases.
 
 describe("getChildren", () => {
   it("keeps meaningful children in order", () => {
@@ -107,8 +106,7 @@ describe("getChildren", () => {
   });
 
   it("keeps whitespace string expressions (definitional difference)", () => {
-    // Unlike JSXText " ", the expression {" "} is not whitespace-only text and
-    // renders a space, so it is not filtered.
+    // Unlike JSXText " ", the expression {" "} is not whitespace-only text and renders a space, so it is not filtered.
     expect(getChildren(parseJSX('<div>{" "}</div>;')).length).toBe(1);
   });
 
@@ -149,8 +147,7 @@ describe("getChildren", () => {
   });
 
   it("keeps tabs but filters CR-only whitespace (CR is a line break)", () => {
-    // A tab is not a line break, so same-line tab text is kept. Lone CR is a
-    // line break in Babel's cleanJSXElementLiteralChild, so CR-only text is padding.
+    // A tab is not a line break, so same-line tab text is kept. Lone CR is a line break in Babel's cleanJSXElementLiteralChild, so CR-only text is padding.
     expect(getChildren(parseJSX("<div> \t </div>;")).length).toBe(1);
     expect(getChildren(parseJSX("<div>\r  \r</div>;"))).toEqual([]);
   });
@@ -496,8 +493,7 @@ describe("isWhitespaceText", () => {
 });
 
 describe("syntactic contract", () => {
-  // Executable version of the comparison table in `children.ts`. Both APIs
-  // answer "is this syntactically content?", not "does React render something?".
+  // Executable version of the comparison table in `children.ts`. Both APIs answer "is this syntactically content?", not "does React render something?".
   const matrix: { children: boolean; code: string; meaningful: boolean; name: string }[] = [
     { children: true, code: "<div> </div>;", meaningful: false, name: "same-line space text" },
     { children: true, code: "<div>\t</div>;", meaningful: false, name: "same-line tab text" },

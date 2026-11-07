@@ -245,8 +245,7 @@ ruleTester.run(RULE_NAME, rule, {
       }],
     },
     // A class declaration in the component scope is a per-render construction.
-    // The rule reports the kind of the default-value expression itself, which
-    // here is the identifier referencing the class.
+    // The rule reports the kind of the default-value expression itself, which here is the identifier referencing the class.
     {
       code: tsx`
         function Component(props) {

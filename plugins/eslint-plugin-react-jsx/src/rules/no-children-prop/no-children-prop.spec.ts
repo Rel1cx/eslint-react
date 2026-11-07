@@ -254,8 +254,7 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
     },
-    // Empty expression containers (comment-only or bare) do not conflict with
-    // the 'children' prop, so the prop is still reported with a suggestion
+    // Empty expression containers (comment-only or bare) do not conflict with the 'children' prop, so the prop is still reported with a suggestion
     {
       code: tsx`<div children="x">{/* comment */}</div>;`,
       errors: [

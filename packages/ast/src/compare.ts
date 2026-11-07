@@ -30,8 +30,7 @@ export const isEqual: {
       return false;
     case a.type === AST.Literal
       && b.type === AST.Literal: {
-      // Every regex literal evaluates to a distinct `RegExp` object, so compare
-      // the pattern and flags instead of the `value` object identity.
+      // Every regex literal evaluates to a distinct `RegExp` object, so compare the pattern and flags instead of the `value` object identity.
       if ("regex" in a || "regex" in b) {
         return "regex" in a && "regex" in b && a.regex.pattern === b.regex.pattern && a.regex.flags === b.regex.flags;
       }

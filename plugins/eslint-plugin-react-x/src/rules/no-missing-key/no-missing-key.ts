@@ -39,8 +39,7 @@ export default createRule<[], MessageID>({
 export function create(context: RuleContext<MessageID, []>): RuleListener {
   type Descriptor = ReportDescriptor<MessageID> & { node: TSESTreeJSXElementLike };
 
-  // Tracks how many `Children.toArray()` calls we are currently inside of;
-  // `Children.toArray()` assigns keys automatically, so checks are skipped there
+  // Tracks how many `Children.toArray()` calls we are currently inside of; `Children.toArray()` assigns keys automatically, so checks are skipped there
   let childrenToArrayDepth = 0;
 
   /**

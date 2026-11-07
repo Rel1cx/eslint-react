@@ -48,8 +48,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         const hooks = hc.api.getAllHooks(node);
         const funcs = [...comps, ...hooks];
         for (const call of facts) {
-          // Report only calls nested in a function component or Hook; calls in class
-          // components, at module top-level, or in utility functions are allowed
+          // Report only calls nested in a function component or Hook; calls in class components, at module top-level, or in utility functions are allowed
           if (!Traverse.hasParent(call, (n) => funcs.some((f) => f.node === n))) continue;
           context.report({ messageId: "default", node: call });
         }

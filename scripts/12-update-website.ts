@@ -60,8 +60,7 @@ const loadRuleRelations = Effect.gen(function*() {
   return parseRuleRelations(content);
 });
 
-// Convert a file-based rule name ("dom-no-render") to the canonical
-// "react-<domain>/<name>" form used in rule-relations-table.md.
+// Convert a file-based rule name ("dom-no-render") to the canonical "react-<domain>/<name>" form used in rule-relations-table.md.
 const getFullRuleName = (meta: RuleMeta): string => {
   const parsed = parseRuleFileName(meta.name);
   if (parsed == null) return `react-x/${meta.name}`;
@@ -182,8 +181,7 @@ const processChangelog = Effect.gen(function*() {
   const targetPath = path.join("apps", "website", "content", "docs", "changelog.md");
 
   const source = yield* fs.readFileString(changelogPath, "utf8");
-  // Wrap with Docusaurus frontmatter and strip the top-level "# Changelog"
-  // heading since the website layout provides its own title.
+  // Wrap with Docusaurus frontmatter and strip the top-level "# Changelog" heading since the website layout provides its own title.
   const wrapped = [
     "---",
     "title: Changelog",

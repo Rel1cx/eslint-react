@@ -83,8 +83,7 @@ describe("resolveEnclosingAssignmentTarget", () => {
       const code = "const items = [1, 2, 3];\nfor (const item of items) { item; }";
       const { ast } = parseCode(code);
 
-      // Find the `item` Identifier reference inside the for-of body (ExpressionStatement),
-      // not the declaration site in the VariableDeclarator.
+      // Find the `item` Identifier reference inside the for-of body (ExpressionStatement), not the declaration site in the VariableDeclarator.
       let itemRef: TSESTree.Identifier | null = null;
       Traverse.simpleTraverse(ast, {
         enter(node, parent) {
@@ -98,8 +97,7 @@ describe("resolveEnclosingAssignmentTarget", () => {
 
       // Starting from the `item` reference in the body, the function walks up:
       // Identifier → ExpressionStatement → BlockStatement → returns null.
-      // The for-of assignment context is not reachable because BlockStatement
-      // acts as a boundary.
+      // The for-of assignment context is not reachable because BlockStatement acts as a boundary.
       const fact = resolveEnclosingAssignmentTarget(itemRef!);
 
       expect(fact).toBeNull();
@@ -132,9 +130,7 @@ describe("resolveEnclosingAssignmentTarget", () => {
       // guard in the implementation).
       expect((ast as any).parent).toBeUndefined();
 
-      // Verify that no node in a standard AST has parent === node — a
-      // self-referencing parent would cause infinite recursion in the
-      // default branch.
+      // Verify that no node in a standard AST has parent === node — a self-referencing parent would cause infinite recursion in the default branch.
       const allNodes: TSESTree.Node[] = [];
       Traverse.simpleTraverse(ast, {
         enter(node) {

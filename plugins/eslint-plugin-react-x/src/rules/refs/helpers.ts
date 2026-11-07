@@ -97,8 +97,7 @@ function isPatternWriteTarget(node: TSESTree.MemberExpression): boolean {
     switch (current.type) {
       case AST.MemberExpression:
         // The ref access may be the root of a deeper member target, e.g.
-        // `({ a: ref.current.x } = value)`. Only the object position extends
-        // the write target; a computed property (`b[ref.current]`) is a read.
+        // `({ a: ref.current.x } = value)`. Only the object position extends the write target; a computed property (`b[ref.current]`) is a read.
         if (current.object !== child && Extract.unwrap(current.object) !== child) return false;
         break;
       case AST.Property:

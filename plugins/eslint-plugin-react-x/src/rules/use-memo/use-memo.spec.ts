@@ -472,8 +472,7 @@ ruleTester.run(RULE_NAME, rule, {
         { messageId: "no-reassigning-outer-variables" },
       ],
     },
-    // The only value return lives in a nested arrow function; the callback's
-    // own returns are bare, so the nested value return must not count
+    // The only value return lives in a nested arrow function; the callback's own returns are bare, so the nested value return must not count
     {
       code: tsx`
         import { useMemo } from "react";
@@ -491,8 +490,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [{ messageId: "must-return-a-value" }],
     },
-    // The only return at any depth belongs to a nested function declaration;
-    // the callback body itself never returns
+    // The only return at any depth belongs to a nested function declaration; the callback body itself never returns
     {
       code: tsx`
         import { useMemo } from "react";
@@ -509,8 +507,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [{ messageId: "must-return-a-value" }],
     },
-    // Value returns inside a class getter nested in the callback are excluded;
-    // the callback's own bare return still violates must-return-a-value
+    // Value returns inside a class getter nested in the callback are excluded; the callback's own bare return still violates must-return-a-value
     {
       code: tsx`
         import { useMemo } from "react";
@@ -530,8 +527,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [{ messageId: "must-return-a-value" }],
     },
-    // Rest parameter: the first parameter is not an Identifier, so the report
-    // falls back to the callback node
+    // Rest parameter: the first parameter is not an Identifier, so the report falls back to the callback node
     {
       code: tsx`
         import { useMemo } from "react";
@@ -543,8 +539,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [{ messageId: "no-parameters" }],
     },
-    // Destructured object parameter: same non-Identifier fallback to the
-    // callback node
+    // Destructured object parameter: same non-Identifier fallback to the callback node
     {
       code: tsx`
         import { useMemo } from "react";
@@ -605,8 +600,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [{ messageId: "no-reassigning-outer-variables" }],
     },
-    // A write inside a nested useMemo callback is attributed to the inner call
-    // only, not to the outer callback that contains it
+    // A write inside a nested useMemo callback is attributed to the inner call only, not to the outer callback that contains it
     {
       code: tsx`
         import { useMemo } from "react";
@@ -625,8 +619,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [{ messageId: "no-reassigning-outer-variables" }],
     },
-    // A result used only as a switch discriminant is outside the result-use
-    // allow-list, so it is reported as unused
+    // A result used only as a switch discriminant is outside the result-use allow-list, so it is reported as unused
     {
       code: tsx`
         import { useMemo } from "react";
@@ -641,8 +634,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [{ messageId: "result-must-be-used" }],
     },
-    // Nested useMemo: the inner call's concise-body result feeds the outer
-    // callback, but the outer call's own result is discarded
+    // Nested useMemo: the inner call's concise-body result feeds the outer callback, but the outer call's own result is discarded
     {
       code: tsx`
         import { useMemo } from "react";
@@ -654,8 +646,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [{ messageId: "result-must-be-used" }],
     },
-    // Async callback with a parameter, an outer-variable reassignment, and no
-    // return value: all four violations are reported on the same call
+    // Async callback with a parameter, an outer-variable reassignment, and no return value: all four violations are reported on the same call
     {
       code: tsx`
         import { useMemo } from "react";
@@ -676,8 +667,7 @@ ruleTester.run(RULE_NAME, rule, {
         { messageId: "no-reassigning-outer-variables" },
       ],
     },
-    // The rule does not require a component or hook context; a useMemo call at
-    // module scope is checked the same way
+    // The rule does not require a component or hook context; a useMemo call at module scope is checked the same way
     {
       code: tsx`
         import { useMemo } from "react";
@@ -1235,8 +1225,7 @@ ruleTester.run(RULE_NAME, rule, {
         return [outer, y];
       }
     `,
-    // Local reassignment inside a nested forEach callback (adapted from React
-    // Compiler's reassign-variable-in-usememo.js Flow fixture)
+    // Local reassignment inside a nested forEach callback (adapted from React Compiler's reassign-variable-in-usememo.js Flow fixture)
     tsx`
       import { useMemo } from "react";
 
@@ -1319,8 +1308,7 @@ ruleTester.run(RULE_NAME, rule, {
         return <div>{value}</div>;
       }
     `,
-    // Destructured property targets are property mutations, not variable reassignments,
-    // and stay exempt like plain `ref.current = ...`
+    // Destructured property targets are property mutations, not variable reassignments, and stay exempt like plain `ref.current = ...`
     tsx`
       import { useMemo } from "react";
 
@@ -1366,8 +1354,7 @@ ruleTester.run(RULE_NAME, rule, {
         return useMemo(() => value ?? '', [value]);
       };
     `,
-    // Returns scattered across try/catch, switch cases, and nested blocks all
-    // count as the callback's own returns
+    // Returns scattered across try/catch, switch cases, and nested blocks all count as the callback's own returns
     tsx`
       import { useMemo } from "react";
 
@@ -1392,8 +1379,7 @@ ruleTester.run(RULE_NAME, rule, {
         return <div>{value}</div>;
       }
     `,
-    // Returns in some branches but falls through in others: the rule only
-    // requires at least one value return, not a return on every path
+    // Returns in some branches but falls through in others: the rule only requires at least one value return, not a return on every path
     tsx`
       import { useMemo } from "react";
 
@@ -1408,8 +1394,7 @@ ruleTester.run(RULE_NAME, rule, {
         return <div>{value}</div>;
       }
     `,
-    // A nested function's return never satisfies the callback's own return
-    // requirement, but here the callback returns the nested function's result
+    // A nested function's return never satisfies the callback's own return requirement, but here the callback returns the nested function's result
     tsx`
       import { useMemo } from "react";
 
@@ -1434,8 +1419,7 @@ ruleTester.run(RULE_NAME, rule, {
         return <div>{value}</div>;
       }
     `,
-    // A void-wrapped result counts as used: UnaryExpression is in the
-    // result-use allow-list
+    // A void-wrapped result counts as used: UnaryExpression is in the result-use allow-list
     tsx`
       import { useMemo } from "react";
 
@@ -1454,8 +1438,7 @@ ruleTester.run(RULE_NAME, rule, {
         return <div>{x}</div>;
       }
     `,
-    // An immediately invoked result counts as used: the call's parent is a
-    // CallExpression
+    // An immediately invoked result counts as used: the call's parent is a CallExpression
     tsx`
       import { useMemo } from "react";
 
@@ -1464,8 +1447,7 @@ ruleTester.run(RULE_NAME, rule, {
         return <div>{value}</div>;
       }
     `,
-    // A variable declared inside the callback shadows the outer one, so
-    // writing to it is not an outer-variable reassignment
+    // A variable declared inside the callback shadows the outer one, so writing to it is not an outer-variable reassignment
     tsx`
       import { useMemo } from "react";
 

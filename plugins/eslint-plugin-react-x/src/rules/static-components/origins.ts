@@ -32,8 +32,7 @@ function getMemoizedValueExpressions(context: RuleContext, call: TSESTree.CallEx
   if (!core.isUseMemoCall(context, call)) return null;
 
   const callback = Extract.unwrap(factory);
-  // An async or generator factory yields a promise or iterator, not its return
-  // expressions. A non-literal factory has no body to inspect. Both stay dynamic.
+  // An async or generator factory yields a promise or iterator, not its return expressions. A non-literal factory has no body to inspect. Both stay dynamic.
   if (!Check.isFunction(callback) || callback.async || callback.generator) return null;
   return Collect.getReturnExpressions(callback);
 }
@@ -109,8 +108,7 @@ function findReassignmentCreationSite(
   for (const ref of variable.references) {
     if (!ref.isWrite()) continue;
     const { identifier } = ref;
-    // Only direct assignments to the variable itself
-    // (ex: `Component = ...`, not `Component.prop = ...`)
+    // Only direct assignments to the variable itself (ex: `Component = ...`, not `Component.prop = ...`)
     if (identifier.parent.type !== AST.AssignmentExpression) continue;
     if (identifier.parent.left !== identifier) continue;
     const source = findDynamicCreationSite(context, identifier.parent.right, isInsideRender, seen);
@@ -150,8 +148,7 @@ export function resolveDynamicComponentOrigin(
 
     if (defNode.type !== AST.VariableDeclarator) continue;
 
-    // The declaration initializer may create the component
-    // (ex: `const Component = () => ...`)
+    // The declaration initializer may create the component (ex: `const Component = () => ...`)
     if (defNode.init != null) {
       const initSource = findDynamicCreationSite(context, defNode.init, isInsideRender, seen);
       if (initSource != null) {
@@ -159,8 +156,7 @@ export function resolveDynamicComponentOrigin(
       }
     }
 
-    // A later reassignment may create the component
-    // (ex: `let Component; ...; Component = () => ...`)
+    // A later reassignment may create the component (ex: `let Component; ...; Component = () => ...`)
     const reassignmentSource = findReassignmentCreationSite(context, variable, isInsideRender, seen);
     if (reassignmentSource != null) {
       return { creationNode: reassignmentSource, isDynamic: true };

@@ -479,8 +479,7 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
     },
-    // An abort in another effect's cleanup does not pair when the controllers have
-    // different names
+    // An abort in another effect's cleanup does not pair when the controllers have different names
     {
       code: tsx`
         function Example() {
@@ -524,8 +523,7 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
     },
-    // A signal alias chain that does not resolve to an AbortController's signal
-    // member expression is reported, even when the chain is multiple levels deep
+    // A signal alias chain that does not resolve to an AbortController's signal member expression is reported, even when the chain is multiple levels deep
     {
       code: tsx`
         function Example() {
@@ -559,8 +557,7 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
     },
-    // A self-referencing alias is a degenerate cycle: the initializer resolves back
-    // to itself, so the cycle guard must kick in without hanging
+    // A self-referencing alias is a degenerate cycle: the initializer resolves back to itself, so the cycle guard must kick in without hanging
     {
       code: tsx`
         function Example() {
@@ -576,8 +573,7 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
     },
-    // Aliases of two different controllers must not cross-pair: `b` resolves to
-    // `ctrl2`, which is never aborted, so only the second fetch is reported
+    // Aliases of two different controllers must not cross-pair: `b` resolves to `ctrl2`, which is never aborted, so only the second fetch is reported
     {
       code: tsx`
         function Example() {
@@ -639,8 +635,7 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
     },
-    // Setup wrapped in a type expression is still recognized as a setup callback, so
-    // the fetch inside is checked
+    // Setup wrapped in a type expression is still recognized as a setup callback, so the fetch inside is checked
     {
       code: tsx`
         function Example() {
@@ -847,8 +842,7 @@ ruleTester.run(RULE_NAME, rule, {
         }, []);
       }
     `,
-    // signal alias declared in an outer scope (the alias chain resolution walks
-    // the scope chain upward via findVariable)
+    // signal alias declared in an outer scope (the alias chain resolution walks the scope chain upward via findVariable)
     tsx`
       import { useEffect } from "react";
 
@@ -863,8 +857,7 @@ ruleTester.run(RULE_NAME, rule, {
         }, []);
       }
     `,
-    // A shadowed binding with the same name in a nested scope is a distinct AST
-    // node, so it neither confuses the alias resolution nor trips the cycle guard
+    // A shadowed binding with the same name in a nested scope is a distinct AST node, so it neither confuses the alias resolution nor trips the cycle guard
     tsx`
       import { useEffect } from "react";
 
@@ -898,8 +891,7 @@ ruleTester.run(RULE_NAME, rule, {
         }, []);
       }
     `,
-    // Parameter signal (e.g. foxact/use-abortable-effect) aliased through a local
-    // variable: the chain resolves back to the function parameter
+    // Parameter signal (e.g. foxact/use-abortable-effect) aliased through a local variable: the chain resolves back to the function parameter
     tsx`
       import { useEffect } from "foxact/use-abortable-effect";
 
@@ -1261,8 +1253,7 @@ ruleTester.run(RULE_NAME, rule, {
         }, []);
       }
     `,
-    // fetch in an async IIFE inside the setup function is not checked: the innermost
-    // function is the IIFE, not the setup callback
+    // fetch in an async IIFE inside the setup function is not checked: the innermost function is the IIFE, not the setup callback
     tsx`
       import { useEffect } from "react";
 
@@ -1290,8 +1281,7 @@ ruleTester.run(RULE_NAME, rule, {
         }, []);
       }
     `,
-    // fetch inside the cleanup function is not checked: the innermost function is
-    // the cleanup callback, not the setup callback
+    // fetch inside the cleanup function is not checked: the innermost function is the cleanup callback, not the setup callback
     tsx`
       import { useEffect } from "react";
 
@@ -1323,8 +1313,7 @@ ruleTester.run(RULE_NAME, rule, {
         return null;
       }
     `,
-    // Setup passed as an identifier reference is not recognized (the setup must be
-    // an inline function expression), so the fetch inside is not checked
+    // Setup passed as an identifier reference is not recognized (the setup must be an inline function expression), so the fetch inside is not checked
     tsx`
       import { useEffect } from "react";
 
@@ -1335,8 +1324,7 @@ ruleTester.run(RULE_NAME, rule, {
         useEffect(setup, []);
       }
     `,
-    // fetch in the dependency array is not checked: the innermost function is the
-    // component, not a setup callback
+    // fetch in the dependency array is not checked: the innermost function is the component, not a setup callback
     tsx`
       import { useEffect } from "react";
 
@@ -1344,8 +1332,7 @@ ruleTester.run(RULE_NAME, rule, {
         useEffect(() => {}, [fetch("/api/user")]);
       }
     `,
-    // An abort in another effect's cleanup pairs when it references the same
-    // controller variable (matching is file-wide, not per-effect)
+    // An abort in another effect's cleanup pairs when it references the same controller variable (matching is file-wide, not per-effect)
     tsx`
       import { useEffect } from "react";
 

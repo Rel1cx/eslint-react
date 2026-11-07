@@ -126,8 +126,7 @@ export function inferDirectMutations(context: RuleContext, mutations: readonly M
         break;
       }
       case "shallow-copy": {
-        // A shallow copy's own top-level slots are new; only mutations reaching
-        // a nested value (which is still shared with the original) are reported.
+        // A shallow copy's own top-level slots are new; only mutations reaching a nested value (which is still shared with the original) are reported.
         if (getMutatedObject(mutation).type !== AST.MemberExpression) continue;
         directMutations.push({
           name: origin.name,

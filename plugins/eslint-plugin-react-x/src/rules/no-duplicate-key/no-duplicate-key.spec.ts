@@ -332,16 +332,14 @@ ruleTester.run(RULE_NAME, rule, {
         };
       `,
     },
-    // Known limitation: expression containers are not unwrapped for comparison,
-    // so even identical dynamic keys currently produce no duplicate diagnostic.
+    // Known limitation: expression containers are not unwrapped for comparison, so even identical dynamic keys currently produce no duplicate diagnostic.
     {
       name: "current behavior: identical dynamic keys are not compared",
       code: tsx`
         const App = () => [<div key={items.current}>1</div>, <div key={items.current}>2</div>];
       `,
     },
-    // Known limitation: elements stored in variables are not traced into the
-    // return value of a map callback.
+    // Known limitation: elements stored in variables are not traced into the return value of a map callback.
     {
       name: "current behavior: keyed element returned via a variable is not traced",
       code: tsx`

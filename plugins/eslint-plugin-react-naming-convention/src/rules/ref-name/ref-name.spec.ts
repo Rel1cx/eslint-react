@@ -117,8 +117,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [{ messageId: "invalid-ref-name" }],
     },
-    // Contrast with the computed-member-key valid cases: a plain variable
-    // assignment is a naming target, so a name without the 'Ref' suffix is reported
+    // Contrast with the computed-member-key valid cases: a plain variable assignment is a naming target, so a name without the 'Ref' suffix is reported
     {
       name: "Plain variable assignment without member access is still checked",
       code: tsx`
@@ -363,8 +362,7 @@ ruleTester.run(RULE_NAME, rule, {
         const value = obj[useRef(null)!];
       `,
     },
-    // The TS `as` wrapper is unwrapped before the member-expression check,
-    // so a computed member key is still not treated as a naming assignment
+    // The TS `as` wrapper is unwrapped before the member-expression check, so a computed member key is still not treated as a naming assignment
     {
       name: "Computed member key using the type-casted useRef result",
       code: tsx`
