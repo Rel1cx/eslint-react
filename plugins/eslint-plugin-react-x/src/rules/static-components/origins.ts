@@ -26,11 +26,9 @@ export type DynamicComponentOrigin =
 function getMemoizedValueExpressions(context: RuleContext, call: TSESTree.CallExpression): readonly TSESTree.Expression[] | null {
   const [factory] = call.arguments;
   if (factory == null || factory.type === AST.SpreadElement) return null;
-
   // useCallback returns its callback, so the callback is the component value
   if (core.isUseCallbackCall(context, call)) return [factory];
   if (!core.isUseMemoCall(context, call)) return null;
-
   const callback = Extract.unwrap(factory);
   // An async or generator factory yields a promise or iterator, not its return expressions. A non-literal factory has no body to inspect. Both stay dynamic.
   if (!Check.isFunction(callback) || callback.async || callback.generator) return null;
@@ -72,12 +70,10 @@ function findDynamicCreationSite(
   switch (expr.type) {
     // Both branches of a ternary may produce the component's value
     case AST.ConditionalExpression:
-      return findDynamicCreationSite(context, expr.consequent, isInsideRender, seen)
-        ?? findDynamicCreationSite(context, expr.alternate, isInsideRender, seen);
+      return findDynamicCreationSite(context, expr.consequent, isInsideRender, seen) ?? findDynamicCreationSite(context, expr.alternate, isInsideRender, seen);
     // Both sides of a short-circuit expression may produce the value
     case AST.LogicalExpression:
-      return findDynamicCreationSite(context, expr.left, isInsideRender, seen)
-        ?? findDynamicCreationSite(context, expr.right, isInsideRender, seen);
+      return findDynamicCreationSite(context, expr.left, isInsideRender, seen) ?? findDynamicCreationSite(context, expr.right, isInsideRender, seen);
     // A sequence expression evaluates to its last element
     case AST.SequenceExpression: {
       const last = expr.expressions.at(-1);
