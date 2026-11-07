@@ -1,5 +1,21 @@
 # Changelog
 
+## v5.30.0-rc.1 (2026-11-07)
+
+### 🐞 Fixes
+
+- `react-x/static-components`: static components wrapped by `useMemo` or `useCallback` (ex: `useMemo(() => External, [])`) are no longer reported; the memoized value is traced instead of the hook call itself. (#2113, closes #1762) Thanks to @itisrmk!
+
+### 🏗️ Internal
+
+- Unwrapped multi-line comments to single lines across packages, plugins, and scripts; no behavioral changes.
+
+### New Contributors
+
+- **Rahul Kashyap** (@itisrmk) made their first contribution in #2113.
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.30.0-rc.0...v5.30.0-rc.1
+
 ## v5.30.0-rc.0 (2026-11-06)
 
 ### ✨ New
