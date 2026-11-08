@@ -2,6 +2,20 @@
 title: Changelog
 ---
 
+## v5.30.0-rc.2 (2026-11-08)
+
+### ✨ New
+
+- `react-x/static-components`: JSX member expression tags (ex: `<Namespace.Bar />`) are now analyzed. The tag is collected as a root binding plus a property path, and the value the path selects is traced through object literals, namespace aliases, member expression initializers, and namespace reassignments; a property holding a component created during render is reported, while one holding a stable outer-scope component stays static. Member accesses in variable initializers (ex: `const C = Ns.Bar`) are traced the same way. (#2114)
+
+### 🏗️ Internal
+
+- Bumped `tsdown` to `0.23.7` and website dependencies.
+- Removed the ko-fi sponsorship and funding configuration.
+- Collapsed multi-line expressions in `react-x/static-components` origins; no behavioral changes.
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.30.0-rc.1...v5.30.0-rc.2
+
 ## v5.30.0-rc.1 (2026-11-07)
 
 ### 🐞 Fixes
