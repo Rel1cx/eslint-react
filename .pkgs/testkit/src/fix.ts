@@ -1,5 +1,5 @@
-import { Linter } from "eslint";
 import type { Rule } from "eslint";
+import { Linter } from "eslint";
 
 import { getTestRuleLanguageOptions } from "./harness";
 
