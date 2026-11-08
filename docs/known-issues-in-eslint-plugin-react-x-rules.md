@@ -111,12 +111,12 @@ Reviewed 2026-11-02 against `main@df5da2a7f`; plugin `5.30.0-beta.22`, all 53 ru
 - **Evidence:** [Rule source](../plugins/eslint-plugin-react-x/src/rules/no-leaked-conditional-rendering/no-leaked-conditional-rendering.ts)
 - **Finding:** A source TODO notes that directly inspecting the type variants of `node.expression` inside a JSX expression container could improve coverage but is currently unimplemented to reduce false positives. Left sides whose leaked-render risk depends on the unwrapped expression's type variants are therefore missed.
 
-### RX-016: Component-collection blind spots in `static-components`
+### RX-016: Component-collection blind spot in `static-components`
 
 - **Severity:** Low
 - **Rules:** `static-components`
 - **Evidence:** [`static-components.spec.diff.md`](../plugins/eslint-plugin-react-x/src/rules/static-components/static-components.spec.diff.md)
-- **Finding:** Two confirmed implementation blind spots with no verified upstream fixture: a nested component created inside a class-field arrow render helper (`_renderMessage = () => { const Message = () => ...; return <Message />; }`) is not reported because the helper is not a collected component boundary, and JSX member tags (`<Namespace.Bar />`) are skipped entirely because only `JSXIdentifier` names are analyzed.
+- **Finding:** One confirmed implementation blind spot with no verified upstream fixture: a nested component created inside a class-field arrow render helper (`_renderMessage = () => { const Message = () => ...; return <Message />; }`) is not reported because the helper is not a collected component boundary. (The second original blind spot — JSX member tags (`<Namespace.Bar />`) being skipped — is resolved: member tags are now collected as a root binding plus a property path, and the selected value is traced through the namespace object.)
 
 ## Resolved findings
 

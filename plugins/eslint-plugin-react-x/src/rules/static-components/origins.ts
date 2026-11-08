@@ -1,6 +1,7 @@
 import { Check, Collect, Extract } from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
 import type { RuleContext } from "@eslint-react/eslint";
+import { isString } from "@local/eff";
 import { DefinitionType } from "@typescript-eslint/scope-manager";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import type { TSESLint } from "@typescript-eslint/utils";
@@ -36,10 +37,76 @@ function getMemoizedValueExpressions(context: RuleContext, call: TSESTree.CallEx
 }
 
 /**
+ * Resolves an expression down a property path to the value the path selects, if it
+ * can be determined statically. Recurses through object literals (selecting the
+ * named property's value), identifier references (ex: one namespace object aliasing
+ * another), and member expressions (prepending their property to the remaining
+ * path). Returns `null` whenever the value cannot be resolved — a spread or
+ * computed property, a call result, or a binding outside render — so the caller
+ * keeps treating the usage as static rather than guessing.
+ */
+function resolveValueAtPath(
+  context: RuleContext,
+  node: TSESTree.Expression,
+  path: readonly string[],
+  isInsideRender: IsInsideRender,
+  seen: Set<TSESLint.Scope.Variable>,
+): TSESTree.Expression | null {
+  const expr = Extract.unwrap(node);
+  if (path.length === 0) return expr;
+
+  switch (expr.type) {
+    // An object literal selects the value of the named property
+    case AST.ObjectExpression: {
+      const [head, ...rest] = path;
+      for (const property of expr.properties) {
+        if (property.type !== AST.Property || property.computed) continue;
+        const keyName = property.key.type === AST.Identifier
+          ? property.key.name
+          : isString(property.key.value)
+          ? property.key.value
+          : null;
+        if (keyName !== head) continue;
+        const { value } = property;
+        // The shared `Property` type also covers destructuring patterns, which
+        // cannot appear in an object expression; only real value expressions are traced
+        if (value.type === AST.ArrayPattern) continue;
+        if (value.type === AST.ObjectPattern) continue;
+        if (value.type === AST.AssignmentPattern) continue;
+        if (value.type === AST.TSEmptyBodyFunctionExpression) continue;
+        return resolveValueAtPath(context, value, rest, isInsideRender, seen);
+      }
+      return null;
+    }
+    // Follow identifier references to their declarations, requiring every hop to
+    // stay inside render so a stable module-scope namespace is never traced through
+    case AST.Identifier: {
+      const variable = findVariable(context.sourceCode.getScope(expr), expr.name);
+      if (variable == null || seen.has(variable)) return null;
+      seen.add(variable);
+      for (const def of variable.defs) {
+        if (!isInsideRender(def.node)) continue;
+        if (def.node.type !== AST.VariableDeclarator || def.node.init == null) continue;
+        const value = resolveValueAtPath(context, def.node.init, path, isInsideRender, seen);
+        if (value != null) return value;
+      }
+      return null;
+    }
+    // A member access prepends its property to the path and continues at the object
+    case AST.MemberExpression: {
+      if (expr.computed || expr.property.type !== AST.Identifier) return null;
+      return resolveValueAtPath(context, expr.object, [expr.property.name, ...path], isInsideRender, seen);
+    }
+    default:
+      return null;
+  }
+}
+
+/**
  * Resolves an expression down to the node that dynamically created its value, if any.
  * Recurses through identifier references, both branches of ternaries and logical
- * expressions, the final element of sequence expressions, and the value preserved by
- * `useMemo` or `useCallback`.
+ * expressions, the final element of sequence expressions, member accesses into
+ * namespace objects, and the value preserved by `useMemo` or `useCallback`.
  */
 function findDynamicCreationSite(
   context: RuleContext,
@@ -79,6 +146,12 @@ function findDynamicCreationSite(
       const last = expr.expressions.at(-1);
       return last == null ? null : findDynamicCreationSite(context, last, isInsideRender, seen);
     }
+    // A member access resolves down the object's property path (ex: `const C = Ns.Bar`)
+    case AST.MemberExpression: {
+      if (expr.computed || expr.property.type !== AST.Identifier) return null;
+      const value = resolveValueAtPath(context, expr.object, [expr.property.name], isInsideRender, seen);
+      return value == null ? null : findDynamicCreationSite(context, value, isInsideRender, seen);
+    }
     // Follow identifier references to their declarations
     case AST.Identifier:
     case AST.JSXIdentifier: {
@@ -92,8 +165,23 @@ function findDynamicCreationSite(
 }
 
 /**
- * Looks for a reassignment of `variable` (e.g. `Component = createComponent();`) whose
- * right-hand side is dynamically created.
+ * Collects the right-hand sides of direct assignments to `variable` (ex: `Component = ...`, not `Component.prop = ...`).
+ */
+function getReassignmentValues(variable: TSESLint.Scope.Variable): TSESTree.Expression[] {
+  const values: TSESTree.Expression[] = [];
+  for (const ref of variable.references) {
+    if (!ref.isWrite()) continue;
+    const { identifier } = ref;
+    // Only direct assignments to the variable itself (ex: `Component = ...`, not `Component.prop = ...`)
+    if (identifier.parent.type !== AST.AssignmentExpression) continue;
+    if (identifier.parent.left !== identifier) continue;
+    values.push(identifier.parent.right);
+  }
+  return values;
+}
+
+/**
+ * Looks for a reassignment of `variable` (e.g. `Component = createComponent();`) whose right-hand side is dynamically created.
  */
 function findReassignmentCreationSite(
   context: RuleContext,
@@ -101,13 +189,26 @@ function findReassignmentCreationSite(
   isInsideRender: IsInsideRender,
   seen: Set<TSESLint.Scope.Variable>,
 ): TSESTree.Node | null {
-  for (const ref of variable.references) {
-    if (!ref.isWrite()) continue;
-    const { identifier } = ref;
-    // Only direct assignments to the variable itself (ex: `Component = ...`, not `Component.prop = ...`)
-    if (identifier.parent.type !== AST.AssignmentExpression) continue;
-    if (identifier.parent.left !== identifier) continue;
-    const source = findDynamicCreationSite(context, identifier.parent.right, isInsideRender, seen);
+  for (const value of getReassignmentValues(variable)) {
+    const source = findDynamicCreationSite(context, value, isInsideRender, seen);
+    if (source != null) return source;
+  }
+  return null;
+}
+
+/**
+ * Looks for a reassignment of a namespace `variable` (ex: `Ns = { Bar: () => ... };`) whose right-hand side selects a dynamically created value down the property path.
+ */
+function findMemberReassignmentCreationSite(
+  context: RuleContext,
+  variable: TSESLint.Scope.Variable,
+  path: readonly string[],
+  isInsideRender: IsInsideRender,
+  seen: Set<TSESLint.Scope.Variable>,
+): TSESTree.Node | null {
+  for (const value of getReassignmentValues(variable)) {
+    const selected = resolveValueAtPath(context, value, path, isInsideRender, seen);
+    const source = selected == null ? null : findDynamicCreationSite(context, selected, isInsideRender, seen);
     if (source != null) return source;
   }
   return null;
@@ -154,6 +255,55 @@ export function resolveDynamicComponentOrigin(
 
     // A later reassignment may create the component (ex: `let Component; ...; Component = () => ...`)
     const reassignmentSource = findReassignmentCreationSite(context, variable, isInsideRender, seen);
+    if (reassignmentSource != null) {
+      return { creationNode: reassignmentSource, isDynamic: true };
+    }
+  }
+
+  return { creationNode: null, isDynamic: false };
+}
+
+/**
+ * Resolves a namespace binding used through a JSX member tag (ex: `<Ns.Bar />`) to
+ * the node that dynamically created the value at the given property path, if that
+ * value is created during render. The namespace object must be declared inside a
+ * render body, and the value the path selects must itself be dynamically created — a
+ * property holding a stable outer-scope component stays static even though the
+ * object holding it is rebuilt on every render.
+ * @param context The rule context
+ * @param variable The variable binding the namespace object
+ * @param path The property path after the root (ex: `["Bar"]` for `<Ns.Bar />`)
+ * @param isInsideRender The predicate telling whether a node lies within a component's render body
+ * @param seen Variables already visited, to prevent infinite recursion
+ * @returns The creation node and whether the referenced component is dynamically created
+ */
+export function resolveDynamicMemberOrigin(
+  context: RuleContext,
+  variable: TSESLint.Scope.Variable,
+  path: readonly string[],
+  isInsideRender: IsInsideRender,
+  seen = new Set<TSESLint.Scope.Variable>(),
+): DynamicComponentOrigin {
+  if (path.length === 0) return resolveDynamicComponentOrigin(context, variable, isInsideRender, seen);
+  if (seen.has(variable)) return { creationNode: null, isDynamic: false };
+  seen.add(variable);
+
+  for (const def of variable.defs) {
+    const defNode = def.node;
+    if (!isInsideRender(defNode)) continue;
+    if (defNode.type !== AST.VariableDeclarator) continue;
+
+    // The declaration initializer may create the namespace object (ex: `const Ns = { Bar: () => ... }`)
+    if (defNode.init != null) {
+      const selected = resolveValueAtPath(context, defNode.init, path, isInsideRender, seen);
+      const initSource = selected == null ? null : findDynamicCreationSite(context, selected, isInsideRender, seen);
+      if (initSource != null) {
+        return { creationNode: initSource, isDynamic: true };
+      }
+    }
+
+    // A later reassignment may re-create the namespace object (ex: `Ns = { Bar: () => ... }`)
+    const reassignmentSource = findMemberReassignmentCreationSite(context, variable, path, isInsideRender, seen);
     if (reassignmentSource != null) {
       return { creationNode: reassignmentSource, isDynamic: true };
     }

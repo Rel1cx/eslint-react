@@ -10,7 +10,7 @@ function collectUsages(code: string) {
       const collector = createFactCollector();
       return { api: collector.facts, visitor: collector.visitor };
     },
-    (facts) => facts.componentUsages.map(({ name, node }) => ({ name, text: code.slice(node.range[0], node.range[1]) })),
+    (facts) => facts.componentUsages.map(({ name, path, node }) => ({ name, path, text: code.slice(node.range[0], node.range[1]) })),
   );
 }
 
@@ -24,7 +24,7 @@ describe("createFactCollector", () => {
   });
 
   it("points each usage node at the opening element's tag identifier", () => {
-    expect(collectUsages("<Foo attr={1} />;")).toEqual([{ name: "Foo", text: "Foo" }]);
+    expect(collectUsages("<Foo attr={1} />;")).toEqual([{ name: "Foo", path: [], text: "Foo" }]);
   });
 
   it("collects each usage in traversal order, including repeats", () => {
@@ -47,8 +47,20 @@ describe("createFactCollector", () => {
     expect(collectUsageNames("<_Foo />;")).toEqual([]);
   });
 
-  it("ignores JSX member expression tags", () => {
-    expect(collectUsageNames("<Foo.Bar />;")).toEqual([]);
+  it("collects a JSX member expression tag as a root name plus property path", () => {
+    expect(collectUsages("<Foo.Bar />;")).toEqual([{ name: "Foo", path: ["Bar"], text: "Foo.Bar" }]);
+  });
+
+  it("flattens a nested JSX member expression tag", () => {
+    expect(collectUsages("<Foo.Bar.Baz />;")).toEqual([{ name: "Foo", path: ["Bar", "Baz"], text: "Foo.Bar.Baz" }]);
+  });
+
+  it("collects a member tag with a lowercase root, as member tags are never intrinsic elements", () => {
+    expect(collectUsages("<ns.Bar />;")).toEqual([{ name: "ns", path: ["Bar"], text: "ns.Bar" }]);
+  });
+
+  it("collects a member tag rooted at `this`; the unresolvable root is dropped downstream", () => {
+    expect(collectUsages("<this.Foo />;")).toEqual([{ name: "this", path: ["Foo"], text: "this.Foo" }]);
   });
 
   it("ignores JSX namespaced name tags", () => {

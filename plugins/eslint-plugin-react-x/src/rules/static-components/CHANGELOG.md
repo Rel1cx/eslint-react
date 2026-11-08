@@ -5,6 +5,12 @@ All notable changes to the `react-x/static-components` rule will be documented i
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+### Added
+
+- JSX member expression tags (ex: `<Namespace.Bar />`) are now analyzed. The tag is collected as a root binding plus a property path, and the value the path selects is traced through object literals, namespace aliases, member expression initializers, and namespace reassignments. A property holding a component created during render is reported; a property holding a stable outer-scope component stays static even though the object is rebuilt every render. Member accesses in variable initializers (ex: `const C = Ns.Bar`) are traced the same way.
+
 ## [5.30.0-rc.1] - 2026-11-07
 
 ### Fixed

@@ -3,12 +3,12 @@ import type { TSESTree } from "@typescript-eslint/types";
 import { findVariable } from "@typescript-eslint/utils/ast-utils";
 import type { ComponentUsageFact } from "./collect";
 import type { IsInsideRender } from "./helpers";
-import { resolveDynamicComponentOrigin } from "./origins";
+import { resolveDynamicComponentOrigin, resolveDynamicMemberOrigin } from "./origins";
 
 export type CreatedComponentEffect = {
   name: string;
   creationNode: TSESTree.Node;
-  node: TSESTree.JSXIdentifier;
+  node: TSESTree.JSXIdentifier | TSESTree.JSXMemberExpression;
 };
 
 /**
@@ -35,7 +35,11 @@ export function inferCreatedComponents(
     // At least one declaration of the component's value must live inside a component's render body for it to be a candidate for "created during render".
     if (!variable.defs.some((def) => isInsideRender(def.node))) continue;
 
-    const { creationNode, isDynamic } = resolveDynamicComponentOrigin(context, variable, isInsideRender);
+    // A member tag (`<Ns.Bar />`) resolves the root binding down its property
+    // path; a plain identifier tag resolves the binding directly
+    const { creationNode, isDynamic } = usage.path.length === 0
+      ? resolveDynamicComponentOrigin(context, variable, isInsideRender)
+      : resolveDynamicMemberOrigin(context, variable, usage.path, isInsideRender);
     // Static values (ex: a reference to an outer-scope component) are allowed
     if (!isDynamic) continue;
 

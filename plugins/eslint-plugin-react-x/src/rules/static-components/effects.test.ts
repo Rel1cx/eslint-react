@@ -78,4 +78,41 @@ describe("inferCreatedComponents", () => {
   it("skips a dynamic declaration that is never used as a JSX tag", () => {
     expect(inferEffects("function Parent() { const C = () => <div />; return <div />; }")).toEqual([]);
   });
+
+  it("reports a component created in an object property and used via a member tag", () => {
+    const code = "function Parent() { const Ns = { Bar: () => <div /> }; return <Ns.Bar />; }";
+    expect(inferEffects(code)).toEqual([{ creation: "() => <div />", name: "Ns", usage: "Ns.Bar" }]);
+  });
+
+  it("reports a member tag whose property holds a factory call", () => {
+    const code = "function Parent() { const Ns = { Bar: createComponent() }; return <Ns.Bar />; }";
+    expect(inferEffects(code)).toEqual([{ creation: "createComponent()", name: "Ns", usage: "Ns.Bar" }]);
+  });
+
+  it("reports each member-tag usage of the same creation site in order", () => {
+    const code = "function Parent() { const Ns = { Bar: () => <div /> }; return <><Ns.Bar /><Ns.Bar /></>; }";
+    expect(inferEffects(code)).toEqual([
+      { creation: "() => <div />", name: "Ns", usage: "Ns.Bar" },
+      { creation: "() => <div />", name: "Ns", usage: "Ns.Bar" },
+    ]);
+  });
+
+  it("skips a member tag whose property holds an outer-scope component", () => {
+    const code = "const External = () => <div />; function Parent() { const Ns = { Bar: External }; return <Ns.Bar />; }";
+    expect(inferEffects(code)).toEqual([]);
+  });
+
+  it("skips a member tag on a module-scope namespace object", () => {
+    const code = "const Ns = { Bar: () => <div /> }; function Parent() { return <Ns.Bar />; }";
+    expect(inferEffects(code)).toEqual([]);
+  });
+
+  it("skips a member tag whose namespace is a call result", () => {
+    const code = "function Parent() { const Ns = makeNamespace(); return <Ns.Bar />; }";
+    expect(inferEffects(code)).toEqual([]);
+  });
+
+  it("skips a member tag with an unresolvable root binding", () => {
+    expect(inferEffects("function Parent() { return <Ns.Bar />; }")).toEqual([]);
+  });
 });
