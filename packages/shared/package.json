@@ -50,7 +50,7 @@
     "@types/picomatch": "^4.0.3",
     "eslint": "^10.14.0",
     "tinybench": "6.2.3",
-    "tsdown": "^0.23.5",
+    "tsdown": "^0.23.7",
     "typescript": "6.0.3"
   },
   "peerDependencies": {

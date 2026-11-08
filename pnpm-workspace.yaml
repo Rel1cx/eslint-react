@@ -48,10 +48,3 @@ trustPolicyExclude:
 minimumReleaseAge: 1440 # 1 day
 patchedDependencies:
   import-integrity-lint: patches/import-integrity-lint.patch
-minimumReleaseAgeExclude:
-  - fumadocs-core@16.18.0
-  - fumadocs-mdx@15.5.0
-  - fumadocs-ui@16.18.0
-  - lucide-react@1.69.0
-  - undici@8.12.4
-  - vite@8.3.6
