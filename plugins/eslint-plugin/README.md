@@ -215,9 +215,7 @@ This project is, and will remain, [90% of its code written by humans](https://es
 A huge thank you to our amazing sponsors who make this project possible.
 
 <p align="center">
-  <a href="https://ko-fi.com/Rel1cx">
-    <img src="https://cdn.jsdelivr.net/gh/Rel1cx/eslint-react@main/apps/website/public/sponsors.svg" alt="sponsors" />
-  </a>
+  <img src="https://cdn.jsdelivr.net/gh/Rel1cx/eslint-react@main/apps/website/public/sponsors.svg" alt="sponsors" />
 </p>
 
 ## Contributing
