@@ -732,6 +732,280 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
     },
+    // JSX member expression tags are analyzed: the property path selects the value
+    // to trace, and an inline component held by the property is created during render.
+    {
+      code: tsx`
+        function Parent() {
+          const Namespace = { Bar: () => <div /> };
+          return <Namespace.Bar />;
+        }
+      `,
+      errors: [
+        {
+          messageId: "created-here",
+        },
+        {
+          messageId: "default",
+        },
+      ],
+    },
+    // Boundary: a member tag resolves down the property path to a factory call held by the property.
+    {
+      code: tsx`
+        function Parent() {
+          const Namespace = { Bar: createComponent() };
+          return <Namespace.Bar />;
+        }
+      `,
+      errors: [
+        {
+          messageId: "created-here",
+        },
+        {
+          messageId: "default",
+        },
+      ],
+    },
+    // Boundary: nested property paths are traced (`<Ns.Deep.Bar />`).
+    {
+      code: tsx`
+        function Parent() {
+          const Ns = { Deep: { Bar: () => <div /> } };
+          return <Ns.Deep.Bar />;
+        }
+      `,
+      errors: [
+        {
+          messageId: "created-here",
+        },
+        {
+          messageId: "default",
+        },
+      ],
+    },
+    // Boundary: a shorthand property traces through the aliased binding's creation site.
+    {
+      code: tsx`
+        function Parent() {
+          const Bar = () => <div />;
+          const Ns = { Bar };
+          return <Ns.Bar />;
+        }
+      `,
+      errors: [
+        {
+          messageId: "created-here",
+        },
+        {
+          messageId: "default",
+        },
+      ],
+    },
+    // Boundary: a namespace object rebuilt by reassignment is traced the same way.
+    {
+      code: tsx`
+        function Parent() {
+          let Ns = DefaultNamespace;
+          Ns = { Bar: () => <div /> };
+          return <Ns.Bar />;
+        }
+      `,
+      errors: [
+        {
+          messageId: "created-here",
+        },
+        {
+          messageId: "default",
+        },
+      ],
+    },
+    // Boundary: a member access in an initializer is traced as well (`const C = Ns.Bar`).
+    {
+      code: tsx`
+        function Parent() {
+          const Ns = { Bar: () => <div /> };
+          const C = Ns.Bar;
+          return <C />;
+        }
+      `,
+      errors: [
+        {
+          messageId: "created-here",
+        },
+        {
+          messageId: "default",
+        },
+      ],
+    },
+    // Boundary: a lowercase member root is still a component reference (member tags
+    // are never intrinsic elements), so a dynamic property value is flagged.
+    {
+      code: tsx`
+        function Parent() {
+          const ns = { Bar: () => <div /> };
+          return <ns.Bar />;
+        }
+      `,
+      errors: [
+        {
+          messageId: "created-here",
+        },
+        {
+          messageId: "default",
+        },
+      ],
+    },
+    // Boundary: the property value gets the full creation-site tracing — a component
+    // created inside a useMemo factory held by the property is flagged.
+    {
+      code: tsx`
+        function Parent() {
+          const Ns = { Bar: useMemo(() => () => <div />, []) };
+          return <Ns.Bar />;
+        }
+      `,
+      errors: [
+        {
+          messageId: "created-here",
+        },
+        {
+          messageId: "default",
+        },
+      ],
+    },
+    // Boundary: the property value gets the full creation-site tracing — a ternary branch holding an inline component is flagged.
+    {
+      code: tsx`
+        function Parent({ cond }) {
+          const Ns = { Bar: cond ? () => <div /> : External };
+          return <Ns.Bar />;
+        }
+      `,
+      errors: [
+        {
+          messageId: "created-here",
+        },
+        {
+          messageId: "default",
+        },
+      ],
+    },
+    // Boundary: type expressions wrapping the namespace initializer are unwrapped before the property path is resolved.
+    {
+      code: tsx`
+        function Parent() {
+          const Ns = { Bar: () => <div /> } as const;
+          return <Ns.Bar />;
+        }
+      `,
+      errors: [
+        {
+          messageId: "created-here",
+        },
+        {
+          messageId: "default",
+        },
+      ],
+    },
+    // Boundary: scope resolution picks the nearest binding for a member tag's root.
+    // The inner dynamic namespace shadows the static module-scope one, so the usage is flagged.
+    {
+      code: tsx`
+        const Ns = { Bar: ExternalComponent };
+
+        function Parent() {
+          const Ns = { Bar: () => <div /> };
+          return <Ns.Bar />;
+        }
+      `,
+      errors: [
+        {
+          messageId: "created-here",
+        },
+        {
+          messageId: "default",
+        },
+      ],
+    },
+    // Boundary: the creation-site report is deduplicated across usage channels —
+    // the identifier tag and the member tag share a single `created-here` report.
+    {
+      code: tsx`
+        function Parent() {
+          const Bar = () => <div />;
+          const Ns = { Bar };
+          return <><Bar /><Ns.Bar /></>;
+        }
+      `,
+      errors: [
+        {
+          messageId: "created-here",
+        },
+        {
+          messageId: "default",
+        },
+        {
+          messageId: "default",
+        },
+      ],
+    },
+    // Boundary: a method shorthand property is a fresh function on every rebuild of
+    // the namespace object, so it is flagged like an inline component.
+    {
+      code: tsx`
+        function Parent() {
+          const Ns = { Bar() { return <div />; } };
+          return <Ns.Bar />;
+        }
+      `,
+      errors: [
+        {
+          messageId: "created-here",
+        },
+        {
+          messageId: "default",
+        },
+      ],
+    },
+    // Boundary: a getter that creates the component on each access is genuinely
+    // dynamic, and the getter function is the creation site.
+    {
+      code: tsx`
+        function Parent() {
+          const Ns = { get Bar() { return () => <div />; } };
+          return <Ns.Bar />;
+        }
+      `,
+      errors: [
+        {
+          messageId: "created-here",
+        },
+        {
+          messageId: "default",
+        },
+      ],
+    },
+    // Boundary: a getter is flagged even when it returns a stable outer-scope
+    // component — the getter function itself is recreated with the namespace object
+    // every render, and the IMPL does not trace getter return values. An accepted
+    // over-approximation; accessor properties holding components are rare.
+    {
+      code: tsx`
+        function Parent() {
+          const Ns = { get Bar() { return ExternalComponent; } };
+          return <Ns.Bar />;
+        }
+      `,
+      errors: [
+        {
+          messageId: "created-here",
+        },
+        {
+          messageId: "default",
+        },
+      ],
+    },
   ],
   valid: [
     {
@@ -842,12 +1116,87 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
     },
-    // Boundary: JSX member expression tags (e.g. `<Namespace.Bar />`) are ignored entirely, even when the referenced property is dynamically created.
+    // Boundary: a member tag whose property holds a stable outer-scope component is
+    // static — the object is rebuilt every render, but the component type is not.
+    {
+      code: tsx`
+        const ExternalComponent = () => <div />;
+
+        function Parent() {
+          const Namespace = { Bar: ExternalComponent };
+          return <Namespace.Bar />;
+        }
+      `,
+    },
+    // Boundary: a namespace object declared at module scope is stable even though its property holds an inline component.
+    {
+      code: tsx`
+        const Namespace = { Bar: () => <div /> };
+
+        function Parent() {
+          return <Namespace.Bar />;
+        }
+      `,
+    },
+    // Boundary: a namespace produced by a call is opaque — the property value cannot be resolved, so the usage is not flagged.
     {
       code: tsx`
         function Parent() {
-          const Namespace = { Bar: () => <div /> };
+          const Namespace = createNamespace();
           return <Namespace.Bar />;
+        }
+      `,
+    },
+    // Boundary: a member tag whose root binding cannot be resolved is skipped.
+    {
+      code: tsx`
+        function Parent() {
+          return <Namespace.Bar />;
+        }
+      `,
+    },
+    // Boundary: a member tag rooted at `this` resolves to no variable binding and is skipped.
+    {
+      code: tsx`
+        class Parent extends React.Component {
+          render() {
+            return <this.Foo />;
+          }
+        }
+      `,
+    },
+    // Boundary: a component memoized by useMemo and held by a property stays the
+    // memoized value — a stable external component is not created during render.
+    {
+      code: tsx`
+        function Parent() {
+          const Ns = { Bar: useMemo(() => ExternalComponent, []) };
+          return <Ns.Bar />;
+        }
+      `,
+    },
+    // Boundary: scope resolution picks the nearest binding for a member tag's root.
+    // The inner static namespace shadows the dynamic module-scope one, so the usage is not flagged.
+    {
+      code: tsx`
+        const ExternalComponent = () => <div />;
+
+        function Parent() {
+          const Ns = { Bar: ExternalComponent };
+          return <Ns.Bar />;
+        }
+      `,
+    },
+    // Boundary: a class used as a namespace is not descended into — its static
+    // properties are not traced, so the inline component is missed. A confirmed
+    // conservative limitation; class namespaces are rare in modern code.
+    {
+      code: tsx`
+        function Parent() {
+          class Ns {
+            static Bar = () => <div />;
+          }
+          return <Ns.Bar />;
         }
       `,
     },

@@ -1,11 +1,17 @@
+import { Traverse } from "@eslint-react/ast";
 import { findIdentifierReferences, runInRule } from "@local/testkit";
+import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 import { findVariable } from "@typescript-eslint/utils/ast-utils";
 import { describe, expect, it } from "vitest";
 
 import type { IsInsideRender } from "./helpers";
-import { resolveDynamicComponentOrigin } from "./origins";
+import { resolveDynamicComponentOrigin, resolveDynamicMemberOrigin } from "./origins";
 
 const EVERYWHERE: IsInsideRender = () => true;
+
+// Treats only nodes inside `function Parent() { ... }` as render content, so
+// module-scope declarations count as static outer scope.
+const INSIDE_PARENT: IsInsideRender = (node) => Traverse.hasParent(node, (n) => n.type === AST.FunctionDeclaration && n.id?.name === "Parent");
 
 function resolveOrigin(code: string, name: string, isInsideRender: IsInsideRender = EVERYWHERE) {
   return runInRule(code, (context, program) => {
@@ -14,6 +20,20 @@ function resolveOrigin(code: string, name: string, isInsideRender: IsInsideRende
     const variable = findVariable(context.sourceCode.getScope(reference), name);
     if (variable == null) throw new Error(`No variable named "${name}" found`);
     const { creationNode, isDynamic } = resolveDynamicComponentOrigin(context, variable, isInsideRender);
+    return {
+      creation: creationNode == null ? null : code.slice(creationNode.range[0], creationNode.range[1]),
+      isDynamic,
+    };
+  });
+}
+
+function resolveMemberOrigin(code: string, name: string, path: string[], isInsideRender: IsInsideRender = EVERYWHERE) {
+  return runInRule(code, (context, program) => {
+    const reference = findIdentifierReferences(program, name).at(-1);
+    if (reference == null) throw new Error(`No reference to "${name}" found`);
+    const variable = findVariable(context.sourceCode.getScope(reference), name);
+    if (variable == null) throw new Error(`No variable named "${name}" found`);
+    const { creationNode, isDynamic } = resolveDynamicMemberOrigin(context, variable, path, isInsideRender);
     return {
       creation: creationNode == null ? null : code.slice(creationNode.range[0], creationNode.range[1]),
       isDynamic,
@@ -201,5 +221,101 @@ describe("resolveDynamicComponentOrigin", () => {
       creation: "useMemo(factory, [])",
       isDynamic: true,
     });
+  });
+
+  it("traces an initializer that is a member access on an in-render namespace", () => {
+    expect(resolveOrigin("const Ns = { Bar: () => 1 }; const C = Ns.Bar; C;", "C")).toEqual({ creation: "() => 1", isDynamic: true });
+  });
+
+  it("returns static for a member access on an unresolvable namespace", () => {
+    expect(resolveOrigin("const C = Ns.Bar; C;", "C")).toEqual({ creation: null, isDynamic: false });
+  });
+
+  it("returns static for a member access whose property is missing", () => {
+    expect(resolveOrigin("const Ns = { Other: () => 1 }; const C = Ns.Bar; C;", "C")).toEqual({ creation: null, isDynamic: false });
+  });
+
+  it("returns static for a member access whose property value is static", () => {
+    expect(resolveOrigin("const Ns = { Bar: 1 }; const C = Ns.Bar; C;", "C")).toEqual({ creation: null, isDynamic: false });
+  });
+
+  it("returns static for a member access on `this`", () => {
+    expect(resolveOrigin("class Foo { m() { const C = this.Foo; C; } }", "C")).toEqual({ creation: null, isDynamic: false });
+  });
+});
+
+describe("resolveDynamicMemberOrigin", () => {
+  it("resolves a member tag to the property's inline component", () => {
+    expect(resolveMemberOrigin("const Ns = { Bar: () => 1 }; Ns.Bar;", "Ns", ["Bar"])).toEqual({ creation: "() => 1", isDynamic: true });
+  });
+
+  it("resolves a nested property path", () => {
+    expect(resolveMemberOrigin("const Ns = { Deep: { Bar: () => 1 } }; Ns.Deep.Bar;", "Ns", ["Deep", "Bar"])).toEqual({
+      creation: "() => 1",
+      isDynamic: true,
+    });
+  });
+
+  it("resolves a member tag to a factory call held by the property", () => {
+    expect(resolveMemberOrigin("const Ns = { Bar: make() }; Ns.Bar;", "Ns", ["Bar"])).toEqual({ creation: "make()", isDynamic: true });
+  });
+
+  it("traces a shorthand property through the aliased binding", () => {
+    expect(resolveMemberOrigin("const Bar = () => 1; const Ns = { Bar }; Ns.Bar;", "Ns", ["Bar"])).toEqual({
+      creation: "() => 1",
+      isDynamic: true,
+    });
+  });
+
+  it("follows a namespace alias", () => {
+    const code = "function Parent() { const Ns1 = { Bar: () => 1 }; const Ns2 = Ns1; Ns2.Bar; }";
+    expect(resolveMemberOrigin(code, "Ns2", ["Bar"], INSIDE_PARENT)).toEqual({ creation: "() => 1", isDynamic: true });
+  });
+
+  it("resolves through a member expression initializer", () => {
+    const code = "function Parent() { const Outer = { Inner: { Bar: () => 1 } }; const Ns = Outer.Inner; Ns.Bar; }";
+    expect(resolveMemberOrigin(code, "Ns", ["Bar"], INSIDE_PARENT)).toEqual({ creation: "() => 1", isDynamic: true });
+  });
+
+  it("resolves a namespace reassignment", () => {
+    const code = "function Parent() { let Ns = DefaultNs; Ns = { Bar: () => 1 }; Ns.Bar; }";
+    expect(resolveMemberOrigin(code, "Ns", ["Bar"], INSIDE_PARENT)).toEqual({ creation: "() => 1", isDynamic: true });
+  });
+
+  it("resolves a namespace reassigned after a declaration without an initializer", () => {
+    const code = "function Parent() { let Ns; Ns = { Bar: () => 1 }; Ns.Bar; }";
+    expect(resolveMemberOrigin(code, "Ns", ["Bar"], INSIDE_PARENT)).toEqual({ creation: "() => 1", isDynamic: true });
+  });
+
+  it("returns static for a property holding a component declared outside render", () => {
+    const code = "const External = () => 1; function Parent() { const Ns = { Bar: External }; Ns.Bar; }";
+    expect(resolveMemberOrigin(code, "Ns", ["Bar"], INSIDE_PARENT)).toEqual({ creation: null, isDynamic: false });
+  });
+
+  it("honors the render boundary gate on the namespace declaration", () => {
+    const code = "const Ns = { Bar: () => 1 }; function Parent() { Ns.Bar; }";
+    expect(resolveMemberOrigin(code, "Ns", ["Bar"], INSIDE_PARENT)).toEqual({ creation: null, isDynamic: false });
+  });
+
+  it("returns static for a namespace produced by a call", () => {
+    const code = "function Parent() { const Ns = makeNamespace(); Ns.Bar; }";
+    expect(resolveMemberOrigin(code, "Ns", ["Bar"], INSIDE_PARENT)).toEqual({ creation: null, isDynamic: false });
+  });
+
+  it("returns static for a spread property it cannot resolve", () => {
+    expect(resolveMemberOrigin("const Ns = { ...Other }; Ns.Bar;", "Ns", ["Bar"])).toEqual({ creation: null, isDynamic: false });
+  });
+
+  it("returns static for a computed property it cannot resolve", () => {
+    expect(resolveMemberOrigin("const Ns = { ['Bar']: () => 1 }; Ns.Bar;", "Ns", ["Bar"])).toEqual({ creation: null, isDynamic: false });
+  });
+
+  it("treats a property cycle as static instead of recursing indefinitely", () => {
+    const code = "function Parent() { const Ns = { Bar: Ns.Bar }; Ns.Bar; }";
+    expect(resolveMemberOrigin(code, "Ns", ["Bar"], INSIDE_PARENT)).toEqual({ creation: null, isDynamic: false });
+  });
+
+  it("delegates to identifier resolution for an empty path", () => {
+    expect(resolveMemberOrigin("const C = () => 1; C;", "C", [])).toEqual({ creation: "() => 1", isDynamic: true });
   });
 });
