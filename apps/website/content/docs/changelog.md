@@ -6,7 +6,7 @@ title: Changelog
 
 ### ✨ New
 
-- `react-x/static-components`: JSX member expression tags (ex: `<Namespace.Bar />`) are now analyzed. The tag is collected as a root binding plus a property path, and the value the path selects is traced through object literals, namespace aliases, member expression initializers, and namespace reassignments; a property holding a component created during render is reported, while one holding a stable outer-scope component stays static. Member accesses in variable initializers (ex: `const C = Ns.Bar`) are traced the same way. (#2114)
+- `react-x/static-components`: JSX member expression tags (ex: `<Namespace.Bar />`) are now analyzed. (#2114)
 
 ### 🏗️ Internal
 
