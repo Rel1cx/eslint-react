@@ -18,10 +18,7 @@
     "allowed": false
   },
   "file_types": {
-    "Markdown": [
-      "md",
-      "mdx"
-    ]
+    "MDX": ["mdx"]
   },
   "languages": {
     "Markdown": {
