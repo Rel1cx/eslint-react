@@ -1,7 +1,7 @@
 import { createRule } from "@/utils/create-rule";
 import { type RuleContext, type RuleFeature, type RuleListener, merge } from "@eslint-react/eslint";
 import { createFactCollector } from "./collect";
-import { inferEventListenerViolations } from "./effect";
+import { inferViolations } from "./effect";
 import { resolveEventListenerFacts } from "./origins";
 
 export const RULE_NAME = "no-leaked-event-listener";
@@ -38,7 +38,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
     {
       "Program:exit"() {
         const resolvedFacts = resolveEventListenerFacts(context, facts);
-        for (const violation of inferEventListenerViolations(context, resolvedFacts)) {
+        for (const violation of inferViolations(context, resolvedFacts)) {
           context.report({
             data: violation.data,
             messageId: violation.kind,

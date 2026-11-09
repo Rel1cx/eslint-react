@@ -2,7 +2,7 @@ import { type TestRuleContext, getTextOf, runCollector } from "@local/testkit";
 import tsx from "dedent";
 import { describe, expect, it } from "vitest";
 import { createFactCollector } from "./collect";
-import { inferEventListenerViolations } from "./effect";
+import { inferViolations } from "./effect";
 import { resolveEventListenerFacts } from "./origins";
 
 function inferViolationSummaries(code: string) {
@@ -17,7 +17,7 @@ function inferViolationSummaries(code: string) {
     (facts) => {
       if (context == null) throw new Error("The rule context was not captured");
       const resolved = resolveEventListenerFacts(context, facts);
-      return inferEventListenerViolations(context, resolved).map((violation) => ({
+      return inferViolations(context, resolved).map((violation) => ({
         data: violation.data,
         kind: violation.kind,
         text: getTextOf(code, violation.node),

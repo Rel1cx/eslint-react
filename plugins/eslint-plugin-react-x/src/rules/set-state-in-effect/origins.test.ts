@@ -26,7 +26,7 @@ function isStateHeldElement(code: string): boolean {
     code,
     (ctx) => {
       context = ctx;
-      const collector = createFactCollector(NO_ADDITIONAL_HOOKS, NO_ADDITIONAL_HOOKS);
+      const collector = createFactCollector([NO_ADDITIONAL_HOOKS, NO_ADDITIONAL_HOOKS]);
       return { api: collector.facts, visitor: collector.visitor };
     },
     (facts) => {

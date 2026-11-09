@@ -1,3 +1,4 @@
+import type { RegExpLike } from "@eslint-react/shared";
 import { toRegExp } from "@eslint-react/shared";
 import { runCollector } from "@local/testkit";
 import { describe, expect, it } from "vitest";
@@ -6,15 +7,11 @@ import { type SetStateInEffectFacts, createFactCollector } from "./collect";
 
 const NO_ADDITIONAL_HOOKS = { test: () => false };
 
-function collectFacts(
-  code: string,
-  additionalStateHooks: { test: (s: string) => boolean } = NO_ADDITIONAL_HOOKS,
-  additionalEffectHooks: { test: (s: string) => boolean } = NO_ADDITIONAL_HOOKS,
-) {
+function collectFacts(code: string, additionalHooks: [RegExpLike, RegExpLike] = [NO_ADDITIONAL_HOOKS, NO_ADDITIONAL_HOOKS]) {
   return runCollector(
     code,
     () => {
-      const collector = createFactCollector(additionalStateHooks, additionalEffectHooks);
+      const collector = createFactCollector(additionalHooks);
       return { api: collector.facts, visitor: collector.visitor };
     },
     (facts) => facts,
@@ -72,14 +69,14 @@ describe("createFactCollector", () => {
 
   it("collects an additional effect root even without Effect in its name", () => {
     const code = "function C() { useCustom(() => { foo(); }); }";
-    const facts = collectFacts(code, NO_ADDITIONAL_HOOKS, toRegExp("useCustom"));
+    const facts = collectFacts(code, [NO_ADDITIONAL_HOOKS, toRegExp("useCustom")]);
     expect(summarizeRoots(code, facts)).toEqual([
       { effect: "useCustom(() => { foo(); })", setup: "() => { foo(); }" },
     ]);
   });
 
   it("classifies a hook configured as both state and effect as state first", () => {
-    const facts = collectFacts("function C() { useWeird(setup, []); }", toRegExp("useWeird"), toRegExp("useWeird"));
+    const facts = collectFacts("function C() { useWeird(setup, []); }", [toRegExp("useWeird"), toRegExp("useWeird")]);
     expect(facts.calls).toHaveLength(0);
     expect(facts.effectRoots).toHaveLength(0);
   });
@@ -188,13 +185,13 @@ describe("createFactCollector", () => {
   });
 
   it("does not collect a call of an additional state hook", () => {
-    const facts = collectFacts("function C() { const [s, setS] = useMyState(0); }", toRegExp("useMyState"));
+    const facts = collectFacts("function C() { const [s, setS] = useMyState(0); }", [toRegExp("useMyState"), NO_ADDITIONAL_HOOKS]);
     expect(facts.calls).toHaveLength(0);
   });
 
   it("collects the setter call of an additional state hook as an ordinary call", () => {
     const code = "function C() { const [s, setS] = useMyState(0); useEffect(() => { setS(1); }, []); }";
-    expect(summarizeCalls(code, collectFacts(code, toRegExp("useMyState")))).toEqual([
+    expect(summarizeCalls(code, collectFacts(code, [toRegExp("useMyState"), NO_ADDITIONAL_HOOKS]))).toEqual([
       { enclosing: "() => { setS(1); }", text: "setS(1)" },
     ]);
   });

@@ -89,7 +89,7 @@ function isInverseEntry({ context, addEntry, remEntry, cleanupCalleeEntries }: I
   return names.has(id.name);
 }
 
-export function inferEventListenerViolations(context: RuleContext, facts: ResolvedEventListenerFacts): EventListenerViolation[] {
+export function inferViolations(context: RuleContext, facts: ResolvedEventListenerFacts): EventListenerViolation[] {
   const violations: EventListenerViolation[] = [];
   const addEntries: ResolvedEventEntry[] = [];
   const removeEntries: ResolvedEventEntry[] = [];

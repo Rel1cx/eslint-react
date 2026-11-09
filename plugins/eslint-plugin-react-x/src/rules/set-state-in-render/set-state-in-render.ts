@@ -1,7 +1,9 @@
 import { createRule } from "@/utils/create-rule";
 import { type RuleContext, type RuleFeature, type RuleListener, merge } from "@eslint-react/eslint";
+import { getSettingsFromContext } from "@eslint-react/shared";
 import { createFactCollector } from "./collect";
 import { inferViolations } from "./effects";
+import { isComponentOrHookLikeFunction } from "./helpers";
 
 export const RULE_NAME = "set-state-in-render";
 
@@ -27,7 +29,8 @@ export default createRule<[], MessageID>({
 });
 
 export function create(context: RuleContext<MessageID, []>): RuleListener {
-  const { facts, visitor } = createFactCollector(context);
+  const { additionalStateHooks } = getSettingsFromContext(context);
+  const { facts, visitor } = createFactCollector(additionalStateHooks, (node) => isComponentOrHookLikeFunction(context, node));
   return merge(
     visitor,
     {

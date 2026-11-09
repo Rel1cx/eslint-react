@@ -5,27 +5,27 @@ import type { ComponentUsageFact } from "./collect";
 import type { IsInsideRender } from "./helpers";
 import { resolveDynamicComponentOrigin, resolveDynamicMemberOrigin } from "./origins";
 
-export type CreatedComponentEffect = {
+export type CreatedComponentViolation = {
   name: string;
   creationNode: TSESTree.Node;
   node: TSESTree.JSXIdentifier | TSESTree.JSXMemberExpression;
 };
 
 /**
- * Turn collected JSX component usages into effects: a usage is an effect when the
+ * Turn collected JSX component usages into violations: a usage is a violation when the
  * binding it refers to is declared inside a component's render body and its value is
  * dynamically created, i.e. the component is recreated on every render.
  * @param context The rule context
  * @param componentUsages The collected JSX component usages
  * @param isInsideRender The predicate telling whether a node lies within a component's render body
- * @returns The effects to report, in report order
+ * @returns The violations to report, in report order
  */
-export function inferCreatedComponents(
+export function inferViolations(
   context: RuleContext,
   componentUsages: readonly ComponentUsageFact[],
   isInsideRender: IsInsideRender,
-): CreatedComponentEffect[] {
-  const effects: CreatedComponentEffect[] = [];
+): CreatedComponentViolation[] {
+  const violations: CreatedComponentViolation[] = [];
 
   for (const usage of componentUsages) {
     const variable = findVariable(context.sourceCode.getScope(usage.node), usage.name);
@@ -43,8 +43,8 @@ export function inferCreatedComponents(
     // Static values (ex: a reference to an outer-scope component) are allowed
     if (!isDynamic) continue;
 
-    effects.push({ name: usage.name, creationNode, node: usage.node });
+    violations.push({ name: usage.name, creationNode, node: usage.node });
   }
 
-  return effects;
+  return violations;
 }

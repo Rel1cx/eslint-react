@@ -1,13 +1,18 @@
+import { getSettingsFromContext } from "@eslint-react/shared";
 import { getTextOf, runCollector } from "@local/testkit";
 import { describe, expect, it } from "vitest";
 
 import { type SetStateInRenderFacts, createFactCollector } from "./collect";
+import { isComponentOrHookLikeFunction } from "./helpers";
 
 function collectFacts(code: string) {
   return runCollector(
     code,
     (context) => {
-      const collector = createFactCollector(context);
+      const collector = createFactCollector(
+        getSettingsFromContext(context).additionalStateHooks,
+        (node) => isComponentOrHookLikeFunction(context, node),
+      );
       return { api: collector.facts, visitor: collector.visitor };
     },
     (facts) => facts,
