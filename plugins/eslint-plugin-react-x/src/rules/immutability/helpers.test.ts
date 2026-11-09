@@ -19,8 +19,8 @@ describe("KNOWN_MUTATING_METHODS", () => {
 });
 
 describe("KNOWN_MUTATING_HOOKS", () => {
-  it("should contain the navigation hooks whose return values collide with mutating method names", () => {
-    for (const hook of ["useHistory", "useNavigate", "useNavigation", "useRouter"]) {
+  it("should contain the allowlisted hooks whose return values collide with mutating method names", () => {
+    for (const hook of ["useHistory", "useNavigate", "useNavigation", "useRouter", "useWorld"]) {
       expect(KNOWN_MUTATING_HOOKS.has(hook)).toBe(true);
     }
   });

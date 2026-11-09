@@ -35,6 +35,7 @@ export const KNOWN_MUTATING_HOOKS = new Set([
   "useNavigate",
   "useNavigation",
   "useRouter",
+  "useWorld",
 ]);
 
 // #endregion

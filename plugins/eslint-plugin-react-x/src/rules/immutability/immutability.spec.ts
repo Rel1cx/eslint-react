@@ -2348,6 +2348,13 @@ ruleTester.run(RULE_NAME, rule, {
         return <button onClick={() => history.push('/dashboard')} />
       }
     `,
+    // `useWorld` is exempted like the navigation hooks: its return value's methods are not treated as mutations.
+    tsx`
+      function Component() {
+        const world = useWorld()
+        return <button onClick={() => world.set('key', 'value')} />
+      }
+    `,
     // `navigate('/x')` calls the function returned by `useNavigate()`; it does not mutate any captured value.
     tsx`
       function Component() {
