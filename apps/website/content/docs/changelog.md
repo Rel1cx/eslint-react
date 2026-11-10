@@ -6,7 +6,7 @@ title: Changelog
 
 ### 🐞 Fixes
 
-- `react-x/no-duplicate-key`: in `.map()` callbacks, all statically known keys are now treated as repeating, not only bare string literal attributes: expression-container literals (`key={1}`, `key={"a"}`), static template literals (``key={`a`}``), TS-wrapped literals (`key={"a" as const}`), and bare `key` attributes (`key={true}`) are reported, while `key={null}` and `key={undefined}` remain unreported since React falls back to index keys for them.
+- `react-x/no-duplicate-key`: in `.map()` callbacks, all statically known keys are now treated as repeating, not only bare string literals.
 - `react-jsx/no-leaked-semicolon`: same-line leaked semicolons after an expression container are now detected (ex: `<div>{x};</div>`, `<div>{cond && <span />};</div>`).
 
 ### 🏗️ Internal
