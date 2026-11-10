@@ -1,5 +1,18 @@
 # Changelog
 
+## v5.30.1 (2026-11-10)
+
+### 🐞 Fixes
+
+- `react-x/no-duplicate-key`: in `.map()` callbacks, all statically known keys are now treated as repeating, not only bare string literal attributes: expression-container literals (`key={1}`, `key={"a"}`), static template literals (``key={`a`}``), TS-wrapped literals (`key={"a" as const}`), and bare `key` attributes (`key={true}`) are reported, while `key={null}` and `key={undefined}` remain unreported since React falls back to index keys for them.
+- `react-jsx/no-leaked-semicolon`: same-line leaked semicolons after an expression container are now detected (ex: `<div>{x};</div>`, `<div>{cond && <span />};</div>`).
+
+### 🏗️ Internal
+
+- Removed the Vercel deploy step from the release workflow.
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.30.0...v5.30.1
+
 ## v5.30.0 (2026-11-10)
 
 ### ✨ New
