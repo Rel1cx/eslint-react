@@ -119,9 +119,3 @@ jobs:
             --notes-file final_release_notes.md \
             $PRERELEASE_FLAG \
             packages/*/*.tgz plugins/*/*.tgz
-
-      - name: Deploy website to Vercel
-        if: steps.release.outputs.is_release == 'true' && steps.release.outputs.prerelease == 'false'
-        env:
-          VERCEL_DEPLOY_HOOK: ${{ secrets.VERCEL_DEPLOY_HOOK }}
-        run: curl -X POST --fail-with-body "$VERCEL_DEPLOY_HOOK"
