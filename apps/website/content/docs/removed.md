@@ -3,6 +3,8 @@ title: Removed
 description: Reference for removed rules, presets, and settings
 ---
 
+import { Callout } from "fumadocs-ui/components/callout";
+
 <Callout type="warn" title="Under Construction">
   This page is under construction.
 </Callout>

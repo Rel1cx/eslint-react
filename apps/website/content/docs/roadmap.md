@@ -2,6 +2,8 @@
 title: Roadmap
 ---
 
+import { Callout } from "fumadocs-ui/components/callout";
+
 <Callout type="warn" title="Under Construction">
   This page is under construction.
 </Callout>

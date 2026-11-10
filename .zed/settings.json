@@ -36,6 +36,13 @@
     }
   },
   "lsp": {
+    "mdx-analyzer": {
+      "initialization_options": {
+        "typescript": {
+          "enabled": true
+        }
+      }
+    },
     "eslint": {
       "settings": {
         "workingDirectory": {
