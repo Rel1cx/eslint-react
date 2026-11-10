@@ -370,6 +370,65 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
     },
+    // Semicolon after an expression container and directly before the closing tag
+    {
+      code: "<div>{x};</div>",
+      errors: [
+        {
+          messageId: "default",
+          suggestions: [
+            {
+              messageId: "suggest",
+              output: "<div>{x}</div>",
+            },
+          ],
+        },
+      ],
+    },
+    // Semicolon after a conditional expression container leaks when the condition is falsy
+    {
+      code: "<div>{cond && <span />};</div>",
+      errors: [
+        {
+          messageId: "default",
+          suggestions: [
+            {
+              messageId: "suggest",
+              output: "<div>{cond && <span />}</div>",
+            },
+          ],
+        },
+      ],
+    },
+    // An empty expression container renders nothing; the semicolon still leaks
+    {
+      code: "<div>{};</div>",
+      errors: [
+        {
+          messageId: "default",
+          suggestions: [
+            {
+              messageId: "suggest",
+              output: "<div>{}</div>",
+            },
+          ],
+        },
+      ],
+    },
+    {
+      code: "<div>{/* c */};</div>",
+      errors: [
+        {
+          messageId: "default",
+          suggestions: [
+            {
+              messageId: "suggest",
+              output: "<div>{/* c */}</div>",
+            },
+          ],
+        },
+      ],
+    },
   ],
   valid: [
     tsx`
@@ -479,5 +538,9 @@ ruleTester.run(RULE_NAME, rule, {
     "<div><span>;</span></div>",
     // Not leaked: attribute value
     "<div attr='a;b' />",
+    // Not leaked: text with content beyond semicolons after an expression container
+    "<div>{x}; text</div>",
+    // Out of scope: a semicolon between two expression containers is not adjacent to the closing tag
+    "<div>{x};{y}</div>",
   ],
 });

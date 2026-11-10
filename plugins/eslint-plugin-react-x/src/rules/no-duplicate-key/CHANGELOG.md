@@ -5,7 +5,13 @@ All notable changes to the `react-x/no-duplicate-key` rule will be documented in
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [5.30.0-rc.0] - 2026-11-06
+## [Unreleased]
+
+### Fixed
+
+- In `.map()` callbacks, all statically known keys are now treated as repeating, not only bare string literal attributes: expression-container literals (`key={1}`, `key={"a"}`), static template literals (``key={`a`}``), TS-wrapped literals (`key={"a" as const}`), and bare `key` attributes (`key={true}`) are reported, while `key={null}` and `key={undefined}` remain unreported since React falls back to index keys for them.
+
+## [5.30.0] - 2026-11-10
 
 ### Fixed
 

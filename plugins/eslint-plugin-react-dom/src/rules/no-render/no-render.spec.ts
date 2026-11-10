@@ -204,6 +204,16 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [{ messageId: "default" }],
       output: null,
     },
+    // `createRoot` is already bound by another module (no auto-fix)
+    {
+      code: tsx`
+        import { render } from "react-dom";
+        import { createRoot } from "some-other-lib";
+        render(<Component />, document.getElementById("app"));
+      `,
+      errors: [{ messageId: "default" }],
+      output: null,
+    },
   ],
   valid: [
     tsx`

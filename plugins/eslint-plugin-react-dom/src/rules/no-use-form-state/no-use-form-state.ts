@@ -67,9 +67,11 @@ function buildFix(context: RuleContext, node: TSESTree.CallExpression, importSou
   return (fixer: RuleFixer) => {
     // The fix consists of two parts:
     const importFix = addImportFix(context, fixer, "useActionState", importSource);
+    // The import cannot be added without changing semantics or syntax; suppress the whole fix
+    if (importFix.kind === "conflict") return null;
     return [
       // 1. Add the new import for `useActionState` unless it already exists
-      ...importFix == null ? [] : [importFix],
+      ...importFix.kind === "add" ? [importFix.fix] : [],
       // 2. Replace `useFormState` with `useActionState` in the function call
       fixer.replaceText(node.callee, "useActionState"),
     ];

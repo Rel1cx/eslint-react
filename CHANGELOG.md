@@ -1,42 +1,13 @@
 # Changelog
 
-## v5.30.0-rc.2 (2026-11-08)
-
-### ✨ New
-
-- `react-x/static-components`: JSX member expression tags (ex: `<Namespace.Bar />`) are now analyzed. (#2114)
-
-### 🏗️ Internal
-
-- Bumped `tsdown` to `0.23.7` and website dependencies.
-- Removed the ko-fi sponsorship and funding configuration.
-- Collapsed multi-line expressions in `react-x/static-components` origins; no behavioral changes.
-
-**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.30.0-rc.1...v5.30.0-rc.2
-
-## v5.30.0-rc.1 (2026-11-07)
-
-### 🐞 Fixes
-
-- `react-x/static-components`: static components wrapped by `useMemo` or `useCallback` (ex: `useMemo(() => External, [])`) are no longer reported; the memoized value is traced instead of the hook call itself. (#2113, closes #1762) Thanks to @itisrmk!
-
-### 🏗️ Internal
-
-- Unwrapped multi-line comments to single lines across packages, plugins, and scripts; no behavioral changes.
-
-### New Contributors
-
-- **Rahul Kashyap** (@itisrmk) made their first contribution in #2113.
-
-**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.30.0-rc.0...v5.30.0-rc.1
-
-## v5.30.0-rc.0 (2026-11-06)
+## v5.30.0 (2026-11-10)
 
 ### ✨ New
 
 - `@eslint-react/eslint-plugin`: added the `all-type-checked` preset, which extends `all` with the rules that require type information. (#2095)
-- `@eslint-react/eslint-plugin`: added the experimental `@eslint-react/unstable-exhaustive-deps` rule, forked from `exhaustive-deps`, with a `hooks` option modeled on Biome's `useExhaustiveDependencies` (`closureIndex`/`dependenciesIndex` for custom Hooks, and `stableResult` for stable results). The rule lives in the unified plugin's own `src/rules` while incubating and is not enabled by any preset. (#1698, #2078) Thanks to @dgesteves!
+- `@eslint-react/eslint-plugin`: added the experimental `@eslint-react/unstable-exhaustive-deps` rule, forked from `exhaustive-deps`, with a `hooks` option modeled on Biome's `useExhaustiveDependencies` (`closureIndex`/`dependenciesIndex` for custom Hooks, and `stableResult` for stable results). The rule lives in the unified plugin's own `src/rules` while incubating and is enabled in the `all` preset (and thereby in `all-type-checked`). (#1698, #2078, #2095) Thanks to @dgesteves!
 - `react-x/set-state-in-effect`: reworked around explicit effect roots, recursive value resolution, and a synchronous call graph. Stable aliases, multi-level helpers, named setups, IIFEs, and `useCallback`/`useMemo`/`useEffectEvent` wrappers now share one resolution path; indirect diagnostics point at the effect-side trigger and dedupe by setter sink; async functions remain deferred. (#2075)
+- `react-x/static-components`: JSX member expression tags (ex: `<Namespace.Bar />`) are now analyzed. (#2114)
 
 ### 🐞 Fixes
 
@@ -53,6 +24,7 @@
 - `react-x/refs`: non-null guards whose terminating branch is a `try` statement, an all-terminating `switch` with a `default` clause, or an all-terminating `while (true)`/`for (;;)`/`do...while` loop are now recognized, so ref writes reached only when the ref is null are no longer reported. (#2093, #2109)
 - `react-x/set-state-in-effect`: TypeScript-wrapped setups are resolved; zero-argument setters called directly in the setup are reported; timer or event callbacks nested in `useCallback`/`useEffectEvent` are no longer treated as synchronous setters; every possible setter is reported when the callee may resolve to more than one; the ref-derived exemption applies to any argument position of a custom state hook's setter; ref-derived early-return guards gate the following statements inside `try`/`switch`/bare blocks and loop bodies or update clauses; ref provenance follows IIFEs; nested and outer effect setups are analyzed independently; and setter calls reached through the same effect-side trigger are reported once per setter name. (#2075, #2082, #2083)
 - `react-x/static-components`: the render-boundary check now requires that at least one declaration of the component binding lives inside a render body, instead of only checking the first declaration. (#2110)
+- `react-x/static-components`: static components wrapped by `useMemo` or `useCallback` (ex: `useMemo(() => External, [])`) are no longer reported; the memoized value is traced instead of the hook call itself. (#2113, closes #1762) Thanks to @itisrmk!
 - `react-x/use-state`: calls in computed object property keys and JSX subtrees are now detected by the lazy-initialization check. (#2080)
 - `react-jsx/no-children-prop-with-children`: `children` supplied through a statically resolvable computed key in a `createElement` props object is now detected. (#2086)
 - `react-jsx/no-children-prop`: `children` supplied through a statically resolvable computed key in a `createElement` props object is now detected, and the suggestion to move `children` into element content is no longer offered when a following spread attribute could override it. (#2086, #2102)
@@ -111,7 +83,6 @@
 
 - Added a TanStack Redact example and updated the website's community projects list. (#2079)
 - Added known-issues references for `eslint-plugin-react-jsx` (#2102), `eslint-plugin-react-dom` (#2103), `eslint-plugin-react-web-api`, and `eslint-plugin-react-x`, and removed their next-step sections.
-- Corrected the verification commands in the rule-rename checklist. (#2110)
 - Documented known limitations and workarounds for `react-jsx/no-comment-textnodes`, `react-jsx/no-key-after-spread`, and `react-jsx/no-leaked-dollar`. (#2102)
 - Synced the migration tables with rule features and updated the configuration and third-party plugin docs. (#2106)
 - Synced the website recipe snippets with the hardened sample rules, and corrected the `noExplicitSpreadProps` recipe to state that it provides no autofix. (#2089, #2107)
@@ -125,17 +96,21 @@
 - `@eslint-react/var`: added `resolveOriginChain`, `isProvenanceEqual`, `hasDefault`, and `resolveAssignmentTargets`; expanded `resolveObjectType` and `createImportLookup`, which now exposes `isModuleBinding` instead of `hasNamespace`; made `isValueEqual` identity-only (use `isProvenanceEqual` for structural provenance); and removed `resolveBindingTarget`/`BindingTarget`, with binding targets now unwrapped inline. (#2085, #2086, #2088, #2100)
 - `@local/samples`: hardened the sample rules. (#2107)
 - `@local/testkit`: added a `verifyAndFix` helper for testing rules with autofixes. (#2078)
-- Bumped dependencies across the workspace, including `eslint` to `10.14.0`, `typescript-eslint` to `8.72.1`, `next` to `16.4.5`, `vitest` to `5.1.0`, `tsdown` to `0.23.5`, `nx` to `24.0.4`, `oxlint` to `1.91.0`, `vite` to `8.3.6`, `effect` to `4.1.2`, and the `fumadocs` packages to `16.18.0`.
+- Bumped dependencies across the workspace, including `eslint` to `10.14.0`, `typescript-eslint` to `8.72.1`, `next` to `16.4.5`, `vitest` to `5.1.0`, `tsdown` to `0.23.7`, `nx` to `24.0.4`, `oxlint` to `1.91.0`, `vite` to `8.3.6`, `effect` to `4.1.2`, and the `fumadocs` packages to `16.18.0`.
+- Collapsed multi-line expressions in `react-x/static-components` origins; no behavioral changes.
+- Enforced a 1-day dependency maturity period; served README assets from the jsDelivr CDN; restricted website deployments to stable releases via a Vercel deploy hook; refactored the publish workflow trigger and pinned zizmor through its official action.
+- Removed the ko-fi sponsorship and funding configuration.
 - Removed the now-unused `@typescript-eslint/typescript-estree` dependency from `@eslint-react/ast`, `@eslint-react/core`, `@eslint-react/var`, and `eslint-plugin-react-x`. (#2080)
 - Removed the unused `inlinedDependencies` field from the monorepo package configuration.
 - Unified test language options and reorganized the test harness: tsconfig fixtures replace the per-JSX-emit tester factories, and untyped parsing disables typescript-estree's single-run inference. (#2105)
-- Enforced a 1-day dependency maturity period; served README assets from the jsDelivr CDN; restricted website deployments to stable releases via a Vercel deploy hook; refactored the publish workflow trigger and pinned zizmor through its official action.
+- Unwrapped multi-line comments to single lines across packages, plugins, and scripts; no behavioral changes.
 
 ### New Contributors
 
 - **Diogo Esteves** (@dgesteves) made their first contribution in #2078.
+- **Rahul Kashyap** (@itisrmk) made their first contribution in #2113.
 
-**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.28.8...v5.30.0-rc.0
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.28.8...v5.30.0
 
 ## v5.28.8 (2026-10-24)
 

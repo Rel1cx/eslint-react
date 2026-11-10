@@ -73,9 +73,11 @@ function buildFix(context: RuleContext, node: TSESTree.CallExpression) {
     if (node.parent.type !== AST.ExpressionStatement) return null;
     // The fix consists of two parts:
     const importFix = addImportFix(context, fixer, "hydrateRoot", "react-dom/client");
+    // The import cannot be added without changing semantics or syntax; suppress the whole fix
+    if (importFix.kind === "conflict") return null;
     return [
       // 1. Add the new import for `hydrateRoot` unless it already exists
-      ...importFix == null ? [] : [importFix],
+      ...importFix.kind === "add" ? [importFix.fix] : [],
       // 2. Replace `hydrate(element, container)` with `hydrateRoot(container, element)`; note that the arguments are swapped
       fixer.replaceText(node, `hydrateRoot(${getText(context, arg1)}, ${getText(context, arg0)})`),
     ];

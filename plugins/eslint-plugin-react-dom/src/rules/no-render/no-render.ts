@@ -76,9 +76,11 @@ function buildFix(context: RuleContext, node: TSESTree.CallExpression) {
     if (node.parent.type !== AST.ExpressionStatement) return null;
     // The fix consists of two parts:
     const importFix = addImportFix(context, fixer, "createRoot", "react-dom/client");
+    // The import cannot be added without changing semantics or syntax; suppress the whole fix
+    if (importFix.kind === "conflict") return null;
     return [
       // 1. Add the new import for `createRoot` unless it already exists
-      ...importFix == null ? [] : [importFix],
+      ...importFix.kind === "add" ? [importFix.fix] : [],
       // 2. Replace `render(element, container)` with `createRoot(container).render(element)`; note that the arguments are swapped
       fixer.replaceText(node, `createRoot(${getText(context, arg1)}).render(${getText(context, arg0)})`),
     ];

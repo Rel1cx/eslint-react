@@ -42,7 +42,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       const previous = children.at(-2);
       const isSameLineLeak = children.at(-1) === node
         && previous != null
-        && Check.isJSXElementOrFragment(previous)
+        && (Check.isJSXElementOrFragment(previous) || Check.isJSXExpressionContainer(previous))
         && /^;+[ \t]*$/u.test(text);
       if (!/^;+[ \t]*(?:\r\n|\r|\n)/u.test(text) && !isSameLineLeak) {
         return;

@@ -2170,6 +2170,38 @@ ruleTester.run(RULE_NAME, rule, {
       },
       errors: [{ data: { name: "setData" }, messageId: "default" }],
     },
+    {
+      name: "zero-argument setter called directly in the setup is reported",
+      code: tsx`
+        import { useEffect, useState } from "react";
+
+        function Component() {
+          const [count, setCount] = useState(0);
+          useEffect(() => {
+            setCount();
+          }, []);
+          return null;
+        }
+      `,
+      errors: [{ messageId: "default" }],
+    },
+    {
+      name: "ambiguous callee reports every candidate setter",
+      code: tsx`
+        import { useEffect, useState } from "react";
+
+        function Component({ cond }) {
+          const [a, setA] = useState(0);
+          const [b, setB] = useState(0);
+          const setter = cond ? setA : setB;
+          useEffect(() => {
+            setter(1);
+          }, []);
+          return null;
+        }
+      `,
+      errors: [{ messageId: "default" }, { messageId: "default" }],
+    },
   ],
   valid: [
     {
@@ -4402,6 +4434,37 @@ ruleTester.run(RULE_NAME, rule, {
           additionalEffectHooks: "useCustom",
         },
       },
+    },
+    {
+      name: "setter accessed via tuple index is not recognized",
+      code: tsx`
+        import { useEffect, useState } from "react";
+
+        function Component() {
+          const state = useState(0);
+          useEffect(() => {
+            state[1](1);
+          }, []);
+          return null;
+        }
+      `,
+    },
+    {
+      name: "timer nested in useCallback in the setup is asynchronous, not synchronous",
+      code: tsx`
+        import { useCallback, useEffect, useState } from "react";
+
+        function Component() {
+          const [count, setCount] = useState(0);
+          useEffect(() => {
+            const schedule = useCallback(() => {
+              setTimeout(() => setCount(1), 100);
+            }, []);
+            schedule();
+          }, []);
+          return null;
+        }
+      `,
     },
   ],
 });

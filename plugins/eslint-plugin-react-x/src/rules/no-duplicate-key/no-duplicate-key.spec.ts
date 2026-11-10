@@ -322,6 +322,51 @@ ruleTester.run(RULE_NAME, rule, {
         { messageId: "default" },
       ],
     },
+    {
+      name: "numeric literal key in expression container in map callback",
+      code: tsx`
+        const App = ({ items }) => items.map((item) => <div key={1}>{item}</div>);
+      `,
+      errors: [
+        { messageId: "default" },
+      ],
+    },
+    {
+      name: "string literal key in expression container in map callback",
+      code: tsx`
+        const App = ({ items }) => items.map((item) => <div key={"a"}>{item}</div>);
+      `,
+      errors: [
+        { messageId: "default" },
+      ],
+    },
+    {
+      name: "static template literal key in map callback",
+      code: tsx`
+        const App = ({ items }) => items.map((item) => <div key={\`a\`}>{item}</div>);
+      `,
+      errors: [
+        { messageId: "default" },
+      ],
+    },
+    {
+      name: "TS-wrapped literal key in map callback",
+      code: tsx`
+        const App = ({ items }) => items.map((item) => <div key={"a" as const}>{item}</div>);
+      `,
+      errors: [
+        { messageId: "default" },
+      ],
+    },
+    {
+      name: "bare key attribute in map callback",
+      code: tsx`
+        const App = ({ items }) => items.map((item) => <div key>{item}</div>);
+      `,
+      errors: [
+        { messageId: "default" },
+      ],
+    },
   ],
   valid: [
     {
@@ -533,6 +578,24 @@ ruleTester.run(RULE_NAME, rule, {
         const App = ({ renderItem }) => {
             return Children.map([<a key="1" />, <a key="1" />], renderItem)
         };
+      `,
+    },
+    {
+      name: "null key in map callback falls back to index keys",
+      code: tsx`
+        const App = ({ items }) => items.map((item) => <div key={null}>{item}</div>);
+      `,
+    },
+    {
+      name: "undefined key in map callback falls back to index keys",
+      code: tsx`
+        const App = ({ items }) => items.map((item) => <div key={undefined}>{item}</div>);
+      `,
+    },
+    {
+      name: "map index parameter key is dynamic",
+      code: tsx`
+        const App = ({ items }) => items.map((item, index) => <div key={index}>{item}</div>);
       `,
     },
   ],

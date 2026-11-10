@@ -3,7 +3,7 @@ import { Check, Extract, Traverse } from "@eslint-react/ast";
 import { isChildrenMap, isChildrenToArray } from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, type RuleListener } from "@eslint-react/eslint";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
-import { isKeyValueEqual, isRekeyedByChildrenCall, isReturnedBy, mapsProvablyAtMostOneElement } from "./lib";
+import { isKeyValueEqual, isRekeyedByChildrenCall, isRepeatingStaticKey, isReturnedBy, mapsProvablyAtMostOneElement } from "./lib";
 
 export const RULE_NAME = "no-duplicate-key";
 
@@ -69,8 +69,8 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   }
 
   function recordMapCallbackKey(call: TSESTree.CallExpression, key: TSESTree.JSXAttribute): void {
-    // A literal key repeats on every iteration; dynamic keys may differ per item.
-    getGroup(call).keys.push({ duplicate: key.value?.type === AST.Literal, node: key });
+    // A statically known key repeats on every iteration; dynamic keys may differ per item.
+    getGroup(call).keys.push({ duplicate: isRepeatingStaticKey(key), node: key });
   }
 
   return {

@@ -212,6 +212,17 @@ ruleTester.run(RULE_NAME, rule, {
         const [state, formAction] = useActionState(action, 0);
       `,
     },
+    // `useActionState` is already bound by another module (no auto-fix)
+    {
+      code: tsx`
+        import { useFormState } from "react-dom";
+        import { useActionState } from "some-other-lib";
+
+        const [state, formAction] = useFormState(action, 0);
+      `,
+      errors: [{ messageId: "default" }],
+      output: null,
+    },
   ],
   valid: [
     tsx`

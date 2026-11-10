@@ -159,6 +159,48 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [{ messageId: "default" }],
       output: null,
     },
+    // `hydrateRoot` is already bound by another module (no auto-fix)
+    {
+      code: tsx`
+        import { hydrate } from "react-dom";
+        import { hydrateRoot } from "some-other-lib";
+
+        hydrate(<div />, document.body);
+      `,
+      errors: [{ messageId: "default" }],
+      output: null,
+    },
+    // A default import bound to `hydrateRoot` does not provide the named export (no auto-fix)
+    {
+      code: tsx`
+        import { hydrate } from "react-dom";
+        import hydrateRoot from "react-dom/client";
+
+        hydrate(<div />, document.body);
+      `,
+      errors: [{ messageId: "default" }],
+      output: null,
+    },
+    // Known limitation: only import declarations are scanned for name conflicts, so a
+    // local top-level binding is not detected and the fix inserts a duplicate import
+    {
+      code: tsx`
+        import { hydrate } from "react-dom";
+
+        const hydrateRoot = () => {};
+
+        hydrate(<div />, document.body);
+      `,
+      errors: [{ messageId: "default" }],
+      output: tsx`
+        import { hydrate } from "react-dom";
+        import { hydrateRoot } from "react-dom/client";
+
+        const hydrateRoot = () => {};
+
+        hydrateRoot(document.body, <div />);
+      `,
+    },
   ],
   valid: [
     tsx`

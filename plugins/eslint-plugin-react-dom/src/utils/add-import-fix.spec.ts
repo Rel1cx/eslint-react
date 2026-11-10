@@ -37,7 +37,10 @@ const testRule = createRule<TestOptions, "default">({
     return {
       Program(node) {
         context.report({
-          fix: (fixer) => addImportFix(context, fixer, options.name, options.source),
+          fix: (fixer) => {
+            const result = addImportFix(context, fixer, options.name, options.source);
+            return result.kind === "add" ? result.fix : null;
+          },
           messageId: "default",
           node,
         });

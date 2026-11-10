@@ -97,3 +97,25 @@ export function isKeyValueEqual(a: TSESTree.JSXAttribute, b: TSESTree.JSXAttribu
   if (aValue == null || bValue == null) return false;
   return Compare.isEqual(aValue, bValue);
 }
+
+/**
+ * Check whether a `key` attribute value is a compile-time constant that repeats on
+ * every iteration of a `.map()` callback.
+ *
+ * `null` and `undefined` are excluded: React treats both as "no key" and falls back
+ * to index keys, so they cannot duplicate. Dynamic expressions (`item.id`, call
+ * results, ...) and scope-dependent bindings are not evaluated.
+ * @param key The `key` attribute to check.
+ * @returns `true` if the key provably has the same value on every iteration.
+ */
+export function isRepeatingStaticKey(key: TSESTree.JSXAttribute): boolean {
+  const { value } = key;
+  // A bare `key` attribute is `key={true}`, the same on every iteration.
+  if (value == null) return true;
+  if (value.type === AST.Literal) return true;
+  if (value.type !== AST.JSXExpressionContainer) return false;
+  const expr = Extract.unwrap(value.expression);
+  if (expr.type === AST.Literal) return expr.value != null;
+  if (expr.type === AST.TemplateLiteral) return expr.expressions.length === 0;
+  return false;
+}

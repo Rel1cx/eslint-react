@@ -5,7 +5,13 @@ All notable changes to the `react-jsx/no-leaked-semicolon` rule will be document
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [5.30.0-rc.0] - 2026-11-06
+## [Unreleased]
+
+### Fixed
+
+- Same-line leaked semicolons after an expression container are now detected, matching the element and fragment cases (ex: `<div>{x};</div>`, `<div>{cond && <span />};</div>`).
+
+## [5.30.0] - 2026-11-10
 
 ### Fixed
 
