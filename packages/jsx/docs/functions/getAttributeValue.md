@@ -23,9 +23,3 @@ are outside this API.
 [`AttributeValue`](../type-aliases/AttributeValue.md)
 
 A discriminated-union descriptor of the attribute's value.
-
-## Remarks
-
-A `JSXSpreadChild` in attribute value position is not valid JSX and is not
-produced by current parsers, but it is part of the TSESTree union. It is
-treated as its inner expression, or as `missing` when that expression is empty.

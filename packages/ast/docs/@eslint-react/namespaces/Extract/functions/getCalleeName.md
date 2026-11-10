@@ -18,4 +18,4 @@ Get the name of the callee of a call expression.
 
 `string` \| `null`
 
-The callee name (ex: `"useState"`), or `null` when it cannot be statically determined.
+The callee name (ex: `"useState"`), or `null` for computed member expressions and other unsupported callee forms.

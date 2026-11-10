@@ -263,8 +263,7 @@ describe("isJSXLike", () => {
     });
 
     it("should return false for an identifier bound to a function parameter", () => {
-      // With value semantics (`resolve`), a parameter has no statically known value —
-      // it is supplied by the caller.
+      // With value semantics (`resolve`), a parameter has no statically known value — it is supplied by the caller.
       const code = "function f(x) { return x; }";
       const parsed = parseCode(code);
       const context = createScopeContext(parsed, code);
@@ -292,8 +291,7 @@ describe("isJSXLike", () => {
     });
 
     it("should resolve a shadowed 'undefined' binding to its initializer", () => {
-      // A local binding named `undefined` shadows the global value, so the
-      // identifier resolves to its initializer instead of the undefined value.
+      // A local binding named `undefined` shadows the global value, so the identifier resolves to its initializer instead of the undefined value.
       expect(run("const undefined = <div />; undefined;")).toBe(true);
     });
 

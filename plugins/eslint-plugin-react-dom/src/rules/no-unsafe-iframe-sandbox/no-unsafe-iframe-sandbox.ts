@@ -44,7 +44,13 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       }
 
       const value = getAttributeStaticValue(context, sandboxValue);
-      if (!isString(value) || !UNSAFE_SANDBOX_VALUES.every((a) => value.includes(a))) {
+      if (!isString(value)) {
+        return;
+      }
+
+      // Match whole whitespace-separated tokens: a substring such as "not-allow-scripts" does not grant the "allow-scripts" permission.
+      const tokens = new Set(value.split(/\s+/u));
+      if (!UNSAFE_SANDBOX_VALUES.every((a) => tokens.has(a))) {
         return;
       }
 

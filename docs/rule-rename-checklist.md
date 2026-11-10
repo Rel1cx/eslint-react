@@ -61,7 +61,7 @@ Checklist for renaming or moving rules in `eslint-plugin-react-x` and `@eslint-r
 ### A9. Verify
 
 - [ ] `pnpm tsc --noEmit` (run from the repo root)
-- [ ] `pnpm vitest run src/rules/<new-name>/<new-name>.spec.ts` (run from `plugins/eslint-plugin-react-x/`)
+- [ ] `pnpm vitest run plugins/eslint-plugin-react-x/src/rules/<new-name>/<new-name>.spec.ts` (run from the repo root; running inside `plugins/eslint-plugin-react-x/` misses the root vitest config's `@/` tsconfig-path alias)
 - [ ] `rg "<old-name>" plugins/ packages/ --glob '!node_modules/' --glob '!dist/'` — no leftover references (run from the repo root)
 
 ---
@@ -118,7 +118,7 @@ Checklist for renaming or moving rules in `eslint-plugin-react-x` and `@eslint-r
 ### B8. Verify
 
 - [ ] `pnpm tsc --noEmit` in all affected packages (run from each package directory, or from the repo root).
-- [ ] `pnpm vitest run src/rules/<rule-name>/<rule-name>.spec.ts` (run from `plugins/eslint-plugin-react-x/`)
+- [ ] `pnpm vitest run plugins/eslint-plugin-react-x/src/rules/<rule-name>/<rule-name>.spec.ts` (run from the repo root; running inside `plugins/eslint-plugin-react-x/` misses the root vitest config's `@/` tsconfig-path alias)
 - [ ] `rg "react-<source>/<rule-name>" plugins/ packages/ --glob '!node_modules/' --glob '!dist/'` — no stale references (run from the repo root)
 
 ---

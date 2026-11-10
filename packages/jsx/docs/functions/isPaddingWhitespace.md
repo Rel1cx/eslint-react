@@ -7,12 +7,12 @@ function isPaddingWhitespace(node: Node | null | undefined): boolean;
 ```
 
 Check if the node is whitespace-only `JSXText` that this module treats as
-padding: it cleans to nothing (see [collapseMultilineText](collapseMultilineText.md)) and contains
-a line feed (`\n`).
+padding: it cleans to nothing (see [collapseMultilineText](collapseMultilineText.md)) and holds a
+line break (`\r\n`, `\n`, or `\r`), matching Babel's
+`cleanJSXElementLiteralChild` line splitting.
 
-Reads the entity-decoded `node.value`, so an entity-encoded line break such as
-`&#10;` matches even though the raw text contains no line break. For a
-whitespace check based on raw source text, see [isWhitespaceText](isWhitespaceText.md).
+Uses the entity-decoded `value`, so `&#10;`/`&#13;` match even though the raw
+text has no line break; [isWhitespaceText](isWhitespaceText.md) is the raw-text counterpart.
 
 ## Parameters
 
@@ -24,9 +24,11 @@ whitespace check based on raw source text, see [isWhitespaceText](isWhitespaceTe
 
 `boolean`
 
-`true` if the node is purely formatting whitespace by its decoded value.
+`true` if the node is formatting whitespace by its decoded value.
 
 ## Remarks
 
-This is a content predicate, not a type guard: a `false` result does not
-mean the node is not `JSXText`.
+Entity-decoded line breaks follow Babel's cleaning; `tsc --jsx` may emit them
+as children instead.
+A content predicate, not a type guard: `false` does not mean the node is not
+`JSXText`.

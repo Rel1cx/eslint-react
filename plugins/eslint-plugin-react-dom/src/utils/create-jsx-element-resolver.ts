@@ -49,8 +49,7 @@ export function createJSXElementResolver(context: RuleContext) {
       // Try to get the value of the polymorphic prop (ex: 'as' or 'component')
       const polyPropValue = getAttributeStaticValueByName(context, node, polymorphicPropName);
 
-      // If we have a string value, use it as the DOM element type; tag names are
-      // case-insensitive in HTML, so normalize to lowercase for comparison
+      // If we have a string value, use it as the DOM element type; tag names are case-insensitive in HTML, so normalize to lowercase for comparison
       if (isString(polyPropValue)) {
         return {
           ...result,

@@ -1,10 +1,9 @@
 import { Check, type TSESTreeFunction, Traverse } from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
-import type { RuleContext, RuleListener } from "@eslint-react/eslint";
-import { getSettingsFromContext } from "@eslint-react/shared";
+import type { RuleListener } from "@eslint-react/eslint";
+import type { RegExpLike } from "@eslint-react/shared";
 import { not } from "@local/eff";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
-import { isComponentOrHookLikeFunction } from "./helpers";
 
 export type FunctionKind =
   | "component"
@@ -42,11 +41,11 @@ export type SetStateInRenderFacts = {
  * setState calls during render: observed call expressions with their enclosing
  * function and component context, and the early returns that guard the
  * statements after them
- * @param context The rule context
+ * @param additionalStateHooks Regex pattern matching custom hooks that should be treated as state hooks
+ * @param isComponentOrHookLike Classify whether a function is a component or a hook, injected by the rule file
  * @returns The collected facts and the visitor that fills them
  */
-export function createFactCollector(context: RuleContext) {
-  const { additionalStateHooks } = getSettingsFromContext(context);
+export function createFactCollector(additionalStateHooks: RegExpLike, isComponentOrHookLike: (node: TSESTreeFunction) => boolean) {
   const facts: SetStateInRenderFacts = {
     calls: [],
     earlyReturns: [],
@@ -69,12 +68,11 @@ export function createFactCollector(context: RuleContext) {
    */
   function getFunctionKind(node: TSESTreeFunction): FunctionKind {
     // Component and hook bodies run during render
-    if (isComponentOrHookLikeFunction(context, node)) {
+    if (isComponentOrHookLike(node)) {
       return "component";
     }
     const parent = Traverse.findParent(node, not(Check.isTypeExpression)) ?? node.parent;
-    // A function passed as an argument is treated as a callback that runs
-    // outside of the synchronous render (event handlers, effect setups, etc.)
+    // A function passed as an argument is treated as a callback that runs outside of the synchronous render (event handlers, effect setups, etc.)
     if (parent.type === AST.CallExpression && parent.callee !== node) {
       return "callback";
     }

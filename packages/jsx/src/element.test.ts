@@ -132,6 +132,11 @@ describe("isHostElement", () => {
     expect(isHostElement(parseJSX("<svg:rect />;"))).toBe(true);
   });
 
+  it("checks the local part rather than the namespace of namespaced names", () => {
+    expect(isHostElement(parseJSX("<SVG:rect />;"))).toBe(true);
+    expect(isHostElement(parseJSX("<svg:Rect />;"))).toBe(false);
+  });
+
   it("does not match fragments or nullish nodes", () => {
     expect(isHostElement(parseJSX("<></>;"))).toBe(false);
     expect(isHostElement(null)).toBe(false);

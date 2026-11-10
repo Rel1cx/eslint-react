@@ -139,8 +139,7 @@ function resolveObjectTypeInner(
       return null;
     }
     case AST.Identifier: {
-      // Guard against cyclic alias chains (e.g. `const a = b; const b = a;`),
-      // which would otherwise recurse until the call stack overflows.
+      // Guard against cyclic alias chains (e.g. `const a = b; const b = a;`), which would otherwise recurse until the call stack overflows.
       if (seen.has(node)) return null;
       seen.add(node);
       const scope = context.sourceCode.getScope(node);
@@ -149,8 +148,7 @@ function resolveObjectTypeInner(
       // earlier definitions are shadowed and no longer represent the value
       // this identifier evaluates to at this point in the program.
       const binding = getBindingFromScope(scope, node, { at: options.at, localOnly: options.localOnly });
-      // Parameters are externally supplied values whose type cannot be statically
-      // determined — skip resolution and treat them as unknown.
+      // Parameters are externally supplied values whose type cannot be statically determined — skip resolution and treat them as unknown.
       if (binding?.definition?.type === DefinitionType.Parameter) return null;
       const initNode = binding?.definition == null ? null : projectBinding(binding.definition, "value");
       if (initNode == null) return null;
@@ -164,8 +162,7 @@ function resolveObjectTypeInner(
       return resolveObjectTypeInner(context, node.right, seen, options);
     }
     case AST.LogicalExpression: {
-      // Use independent `seen` sets per branch: resolving one side must not
-      // suppress resolution of the other.
+      // Use independent `seen` sets per branch: resolving one side must not suppress resolution of the other.
       return resolveObjectTypeInner(context, node.left, new Set(seen), options)
         ?? resolveObjectTypeInner(context, node.right, new Set(seen), options);
     }

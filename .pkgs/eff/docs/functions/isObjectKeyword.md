@@ -10,7 +10,7 @@ Checks whether a value is an `object` in the JavaScript sense (objects, arrays, 
 
 **When to use**
 
-Use when you need a `Predicate` guard that accepts arrays and functions as
+Use when you need a type guard that accepts arrays and functions as
 well as objects.
 
 **Details**
@@ -20,10 +20,10 @@ Returns `true` for arrays and functions, and `false` for `null`.
 **Example** (Checking object keywords)
 
 ```ts
-import { Predicate } from "effect";
+import { isObjectKeyword } from "@local/eff";
 
-Predicate.isObjectKeyword(() => 1); // => true
-Predicate.isObjectKeyword(null); // => false
+isObjectKeyword(() => 1); // => true
+isObjectKeyword(null); // => false
 ```
 
 ## Parameters

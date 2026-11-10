@@ -5,6 +5,24 @@ All notable changes to the `react-x/static-components` rule will be documented i
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [5.30.0] - 2026-11-10
+
+### Added
+
+- JSX member expression tags (ex: `<Namespace.Bar />`) are now analyzed. The tag is collected as a root binding plus a property path, and the value the path selects is traced through object literals, namespace aliases, member expression initializers, and namespace reassignments. A property holding a component created during render is reported; a property holding a stable outer-scope component stays static even though the object is rebuilt every render. Member accesses in variable initializers (ex: `const C = Ns.Bar`) are traced the same way.
+- Added unit tests for the `collect`, `effects`, `helpers`, and `origins` modules. (#2110)
+- Added a spec test locking that a component-named class-field arrow function returning JSX (ex: `RenderMessage = () => { ... }`) is collected as a component boundary, so components nested inside it are flagged — unlike non-component-named helpers (ex: `_renderMessage`), which are missed. (#2110)
+
+### Changed
+
+- The render-boundary check in `inferCreatedComponents` now requires that at least one declaration of the component binding lives inside a render body, instead of only checking the binding's first declaration. (#2110)
+- Narrowed `DynamicComponentOrigin` to a discriminated union so `creationNode` is non-null when `isDynamic` is `true`. (#2110)
+- Refreshed the React Compiler spec comparison (`static-components.spec.diff.md`): verified against React commit `76baa3b5434fad315ece9cfd4d20d7a8d6c34a25`, last verified 2026-11-05. (#2110)
+
+### Fixed
+
+- Fixed a false positive where a static component wrapped by `useMemo` (ex: `useMemo(() => External, [])`) or `useCallback` (ex: `useCallback(External, [])`) was reported. The memoized value is traced instead of treating the hook call itself as a component created during render. A component that is actually created inside the hook is still reported. (#1762)
+
 ## [5.23.0] - 2026-09-30
 
 ### Added

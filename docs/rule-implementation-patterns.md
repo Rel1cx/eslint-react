@@ -115,7 +115,7 @@ ruleTester.run(RULE_NAME, rule, {
 });
 ```
 
-Type-aware rules use `ruleTesterWithTypes`; JSX-emit-sensitive rules use `createRuleTesterForJSXEmit(jsxEmit)`.
+Type-aware rules use `ruleTesterWithTypes`. Rules sensitive to the JSX runtime or `jsxImportSource` use `createRuleTesterForTsconfig(name)`, where `name` is a key of the `tsconfigFixtures` registry in `@local/testkit` (`"react-jsx"`, `"react-classic"`, `"react-native"`, `"preserve"`, `"preact"`); each key maps to a tsconfig fixture under `testing/samples`. Anything not covered by the presets can be built with `createRuleTester(options)`.
 
 ## Registration
 

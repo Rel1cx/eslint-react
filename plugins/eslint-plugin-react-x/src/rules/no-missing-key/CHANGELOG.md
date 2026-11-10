@@ -5,27 +5,16 @@ All notable changes to the `react-x/no-missing-key` rule will be documented in t
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [5.30.0-beta.7] - 2026-10-27
-
-### Fixed
-
-- Iterator callbacks wrapped in TypeScript expressions (ex: `items.map((item => <Row />) as Callback)`) are now unwrapped before checking, so missing keys are still reported.
-
-### Changed
-
-- Iterator callback detection now uses the shared `getIteratorCallback` helper from `src/utils/jsx-iterator.ts`; the rule-local `lib.ts` helper was removed.
-
-## [5.30.0-beta.6] - 2026-10-27
+## [5.30.0] - 2026-11-10
 
 ### Fixed
 
 - Elements with a spread attribute are no longer reported as missing `key`, since spread props are not statically resolved and may provide `key`.
-
-## [5.30.0-beta.2] - 2026-10-25
+- Iterator callbacks wrapped in TypeScript expressions (ex: `items.map((item => <Row />) as Callback)`) are now unwrapped before checking, so missing keys are still reported.
 
 ### Changed
 
-- Return-expression collection now uses the shared `Collect.getReturnExpressions` helper from `@eslint-react/ast`, replacing the rule-local `getReturnStatements` implementation. No behavior change. (#2080)
+- Iterator callback handling is inlined after the shared `getIteratorCallback` helper was removed, and return-expression collection uses the shared `Collect` helpers from `@eslint-react/ast`. No behavior change.
 
 ## [5.10.2] - 2026-07-03
 

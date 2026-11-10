@@ -27,9 +27,7 @@ export function inferViolations(context: RuleContext, facts: SetStateInEffectFac
 
   const queue: InvocationState[] = [];
   const visited = new Set<string>();
-  // Dedupe by effect-side report location and setter name: sinks reported at
-  // the same trigger collapse to one, while different setters each get a
-  // report
+  // Dedupe by effect-side report location and setter name: sinks reported at the same trigger collapse to one, while different setters each get a report
   const violations = new Map<string, SetStateViolation>();
 
   const enqueue = (state: InvocationState) => {
@@ -52,8 +50,7 @@ export function inferViolations(context: RuleContext, facts: SetStateInEffectFac
 
   const isExemptCall = (call: TSESTree.CallExpression, state: InvocationState) => {
     if (state.inheritedRefGate || resolver.isRefGatedContext(call, state.refParams)) return true;
-    // React setters take one value, but custom state hooks may accept more; a
-    // ref-derived value in any position makes the update ref-derived
+    // React setters take one value, but custom state hooks may accept more; a ref-derived value in any position makes the update ref-derived
     return call.arguments.some((argument) => resolver.isArgumentUsingRefValue(argument, state.refParams));
   };
 

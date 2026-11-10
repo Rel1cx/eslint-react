@@ -156,8 +156,8 @@ export const isGetDerivedStateFromError = createLifecycleChecker("getDerivedStat
  */
 export function isRenderMethodLike(node: TSESTree.Node): node is TSESTreeMethodOrPropertyDefinition {
   return Check.isPropertyOrMethod(node)
-    && Check.isIdentifier(node.key)
-    && node.key.name.startsWith("render")
+    && !node.computed
+    && getStaticKeyName(node.key, node.computed)?.startsWith("render") === true
     && Check.isClass(node.parent.parent);
 }
 
@@ -168,8 +168,7 @@ export function isRenderMethodLike(node: TSESTree.Node): node is TSESTreeMethodO
  * @returns `true` if the function implements a class component's render method.
  */
 export function isRenderMethodCallback(node: TSESTreeFunction) {
-  // Traverse up past type expressions (e.g. `as any` in `render = (() => null) as any`)
-  // so the immediate syntactic parent is the method or property definition.
+  // Traverse up past type expressions (e.g. `as any` in `render = (() => null) as any`) so the immediate syntactic parent is the method or property definition.
   let parent: TSESTree.Node = node.parent;
   while (Check.isTypeExpression(parent)) {
     parent = parent.parent;

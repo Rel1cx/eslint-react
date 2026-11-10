@@ -43,7 +43,6 @@ export function resolveOriginChain(context: RuleContext, node: TSESTree.Identifi
     if (origin == null) return null;
     current = Extract.unwrap(origin);
   }
-  // The last step may have produced a non-identifier origin exactly at the
-  // depth limit; an identifier still waiting to be resolved means we gave up.
+  // The last step may have produced a non-identifier origin exactly at the depth limit; an identifier still waiting to be resolved means we gave up.
   return Check.isIdentifier(current) ? null : current;
 }

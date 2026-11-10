@@ -10,7 +10,7 @@ Checks whether a value is a `Set`.
 
 **When to use**
 
-Use when you need a `Predicate` runtime guard for `Set` values.
+Use when you need a type guard for `Set` values.
 
 **Details**
 
@@ -19,11 +19,11 @@ Uses `instanceof Set`.
 **Example** (Guarding a Set)
 
 ```ts
-import { Predicate } from "effect";
+import { isSet } from "@local/eff";
 
 const data: unknown = new Set([1, 2]);
 
-if (Predicate.isSet(data)) {
+if (isSet(data)) {
   data.size; // => 2
 }
 ```

@@ -7,7 +7,7 @@ Constructor type for classes whose instances implement `Pipeable`.
 **When to use**
 
 Use as the constructor-side type when a class value should be known to create
-instances that support Effect-style method chaining with `.pipe(...)`.
+instances that support method chaining with `.pipe(...)`.
 
 ## See
 

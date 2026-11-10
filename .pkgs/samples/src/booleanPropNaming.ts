@@ -65,6 +65,11 @@ export function booleanPropNaming(options?: BooleanPropNamingOptions): RuleFunct
             const [decl] = decls;
             if (decl == null) continue;
 
+            // Guard: only declarations in the current file have an ESTree mapping;
+            // for cross-file or .d.ts declarations the lookup yields undefined
+            // and reporting on them would crash
+            if (decl.getSourceFile() !== tsNode.getSourceFile()) continue;
+
             // Report on the prop key when available
             const declNode = srv.tsNodeToESTreeNodeMap.get(decl);
             const node = "key" in declNode ? declNode.key : declNode;

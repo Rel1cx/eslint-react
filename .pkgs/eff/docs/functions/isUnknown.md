@@ -10,14 +10,14 @@ Type guard that always returns `true`.
 
 **When to use**
 
-Use when you need a `Predicate` that always accepts, e.g. as a placeholder.
+Use when you need a type guard that always accepts, e.g. as a placeholder.
 
 **Example** (Matching every value)
 
 ```ts
-import { Predicate } from "effect";
+import { isUnknown } from "@local/eff";
 
-Predicate.isUnknown(123); // => true
+isUnknown(123); // => true
 ```
 
 ## Parameters

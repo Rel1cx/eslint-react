@@ -16,9 +16,9 @@ invocation.
 **Example** (Creating a constant thunk)
 
 ```ts
-import { Function } from "effect";
+import { constant } from "@local/eff";
 
-const constNull = Function.constant(null);
+const constNull = constant(null);
 
 constNull(); // => null
 constNull(); // => null

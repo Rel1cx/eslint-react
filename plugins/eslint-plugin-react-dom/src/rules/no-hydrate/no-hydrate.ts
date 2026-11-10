@@ -1,9 +1,10 @@
+import { addImportFix } from "@/utils/add-import-fix";
 import { createRule } from "@/utils/create-rule";
 import { isReactDOMCall } from "@/utils/is-react-dom-call";
 import { type RuleContext, type RuleFeature, type RuleFixer, type RuleListener, getText } from "@eslint-react/eslint";
 import { getSettingsFromContext } from "@eslint-react/shared";
 import { createImportLookup } from "@eslint-react/var";
-import type { TSESTree } from "@typescript-eslint/types";
+import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import { compare } from "compare-versions";
 
 export const RULE_NAME = "no-hydrate";
@@ -59,16 +60,24 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
  * Build the fix that replaces `hydrate(element, container)` with `hydrateRoot(container, element)`.
  * @param context The rule context.
  * @param node The `hydrate` call expression.
- * @returns A fixer function, or `null` when the call lacks the required arguments.
+ * @returns A fixer function that returns `null` unless the call is a standalone expression with exactly two non-spread arguments.
  */
 function buildFix(context: RuleContext, node: TSESTree.CallExpression) {
   return (fixer: RuleFixer) => {
     const [arg0, arg1] = node.arguments;
-    if (arg0 == null || arg1 == null) return null;
+    if (arg0 == null) return null;
+    if (arg1 == null) return null;
+    if (node.arguments.length !== 2) return null;
+    if (arg0.type === AST.SpreadElement) return null;
+    if (arg1.type === AST.SpreadElement) return null;
+    if (node.parent.type !== AST.ExpressionStatement) return null;
     // The fix consists of two parts:
+    const importFix = addImportFix(context, fixer, "hydrateRoot", "react-dom/client");
+    // The import cannot be added without changing semantics or syntax; suppress the whole fix
+    if (importFix.kind === "conflict") return null;
     return [
-      // 1. Add the new import for `hydrateRoot`
-      fixer.insertTextBefore(context.sourceCode.ast, 'import { hydrateRoot } from "react-dom/client";\n'),
+      // 1. Add the new import for `hydrateRoot` unless it already exists
+      ...importFix.kind === "add" ? [importFix.fix] : [],
       // 2. Replace `hydrate(element, container)` with `hydrateRoot(container, element)`; note that the arguments are swapped
       fixer.replaceText(node, `hydrateRoot(${getText(context, arg1)}, ${getText(context, arg0)})`),
     ];

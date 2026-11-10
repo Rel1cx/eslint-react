@@ -8,6 +8,8 @@ import reactXPlugin from "eslint-plugin-react-x";
 import { name, version } from "../package.json";
 import { padKeysLeft } from "./utils/pad-keys-left";
 
+import unstableExhaustiveDeps from "./rules/exhaustive-deps/exhaustive-deps";
+
 const plugin: ESLint.Plugin = {
   meta: {
     name,
@@ -21,6 +23,8 @@ const plugin: ESLint.Plugin = {
     ...padKeysLeft(reactDomPlugin.rules, "dom-"),
     ...padKeysLeft(reactWebApiPlugin.rules, "web-api-"),
     ...padKeysLeft(reactNamingConventionPlugin.rules, "naming-convention-"),
+    // Unstable rules under active development live in this package's own src/rules
+    "unstable-exhaustive-deps": unstableExhaustiveDeps,
   },
 };
 

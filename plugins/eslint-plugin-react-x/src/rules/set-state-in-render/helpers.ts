@@ -16,8 +16,7 @@ const isComponentOrHookName = or(core.isFunctionComponentName, core.isHookName);
 export function isComponentOrHookLikeFunction(context: RuleContext, node: TSESTreeFunction) {
   const id = core.getFunctionId(node);
   if (id == null) {
-    // Anonymous callbacks passed directly to `memo()`/`forwardRef()` have no
-    // function id, but they are still component render functions.
+    // Anonymous callbacks passed directly to `memo()`/`forwardRef()` have no function id, but they are still component render functions.
     return core.isFunctionComponentWrapperCallback(context, node);
   }
   if (Check.isIdentifier(id)) {

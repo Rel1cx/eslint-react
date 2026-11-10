@@ -39,8 +39,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
     // For PropsWithChildren the FQN is "React.PropsWithChildren.children"
     // For @rbxts/react the FQN is "React.Attributes.children"
     isAllowedProp: (fqn) => fqn.endsWith("attributes.children") || fqn.endsWith("propswithchildren.children"),
-    // Allow when the children property's type is a React children type alias
-    // e.g. React.ReactNode, React.ReactElement, React.ReactPortal, JSX.Element
+    // Allow when the children property's type is a React children type alias e.g. React.ReactNode, React.ReactElement, React.ReactPortal, JSX.Element
     isAllowedType: (fqn) => RE_REACT_CHILDREN_TYPE.test(fqn) || fqn === "jsx.element",
     // Report implicit children prop usage when both checkers fail
     onImplicitProp(node) {

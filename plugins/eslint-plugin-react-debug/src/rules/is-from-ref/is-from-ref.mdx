@@ -55,7 +55,7 @@ function MyComponent() {
 
 ### Shared Settings
 
-Custom ref hooks can be configured via shared ESLint settings under `react-x`. The value must be a JavaScript RegExp string with delimiters and flags (see [Configure Analyzer](/docs/configuration/configure-analyzer#additionalrefhooks)).
+Custom ref hooks can be configured via shared ESLint settings under `react-x`. The value should be a JavaScript RegExp string with delimiters and flags; a plain string is treated as an exact match (see [Configure Analyzer](/docs/configuration/configure-analyzer#additionalrefhooks)).
 
 ```json
 {

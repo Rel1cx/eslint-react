@@ -1051,8 +1051,7 @@ ruleTester.run(RULE_NAME, rule, {
     // `setSettledLayoutOffset(Math.max(0, 42))` in the setup, which is reported
     // inline too. (In the source, this call is a reopen reset that sits next to
     // inline resets already suppressed for this rule.)
-    // Distilled from facebook/astryx packages/core/src/BottomSheet/useSheetGestures.ts
-    // (recordSettledLayoutOffset).
+    // Distilled from facebook/astryx packages/core/src/BottomSheet/useSheetGestures.ts (recordSettledLayoutOffset).
     {
       name: "setState with a measurement value passed through a recording helper's parameter",
       code: tsx`
@@ -1072,8 +1071,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [{ messageId: "default" }],
     },
-    // The indirect setB diagnostic is at helper() on line 10, immediately
-    // before the direct setA diagnostic on line 11.
+    // The indirect setB diagnostic is at helper() on line 10, immediately before the direct setA diagnostic on line 11.
     {
       name: "direct and indirectly reached setState in the same setup",
       code: tsx`
@@ -1097,8 +1095,7 @@ ruleTester.run(RULE_NAME, rule, {
         { data: { name: "setA" }, messageId: "default", line: 11, column: 5 },
       ],
     },
-    // The indirect setB diagnostic is at helper() on line 10; a setter passed
-    // directly as setup is reported at its own identifier on line 12.
+    // The indirect setB diagnostic is at helper() on line 10; a setter passed directly as setup is reported at its own identifier on line 12.
     {
       name: "setState passed as setup alongside a tracked call in another effect",
       code: tsx`
@@ -1122,8 +1119,7 @@ ruleTester.run(RULE_NAME, rule, {
         { data: { name: "setA" }, messageId: "default", line: 12, column: 13 },
       ],
     },
-    // Effect-side locations put helper() in the earlier inline setup (line 13)
-    // before the setupFn argument in the later Effect (line 15).
+    // Effect-side locations put helper() in the earlier inline setup (line 13) before the setupFn argument in the later Effect (line 15).
     {
       name: "setState via a tracked call is reported before setState via a setup identifier",
       code: tsx`
@@ -1150,8 +1146,7 @@ ruleTester.run(RULE_NAME, rule, {
         { data: { name: "setA" }, messageId: "default", line: 15, column: 13 },
       ],
     },
-    // Explicit Effect roots keep nested and outer setups independent, so both
-    // synchronous setter calls are reported at their own positions.
+    // Explicit Effect roots keep nested and outer setups independent, so both synchronous setter calls are reported at their own positions.
     {
       name: "setState in both nested and outer effect setups",
       code: tsx`
@@ -1173,8 +1168,7 @@ ruleTester.run(RULE_NAME, rule, {
         { data: { name: "setData" }, messageId: "default", line: 9, column: 5 },
       ],
     },
-    // The setup argument is resolved independently of the dependency array,
-    // including when the dependencies contain computed member accesses.
+    // The setup argument is resolved independently of the dependency array, including when the dependencies contain computed member accesses.
     {
       name: "setState via a named setup with a computed and member-heavy deps array",
       code: tsx`
@@ -1193,8 +1187,7 @@ ruleTester.run(RULE_NAME, rule, {
         { data: { name: "setData" }, messageId: "default" },
       ],
     },
-    // getIdentifiers never visits non-computed member properties, so a
-    // ref-looking name in property position does not make the test ref-gated.
+    // getIdentifiers never visits non-computed member properties, so a ref-looking name in property position does not make the test ref-gated.
     {
       name: "setState gated by a ref-looking non-computed member property",
       code: tsx`
@@ -1214,8 +1207,7 @@ ruleTester.run(RULE_NAME, rule, {
         { data: { name: "setData" }, messageId: "default" },
       ],
     },
-    // getIdentifiers never descends into function bodies, so a ref read
-    // inside a callback nested in the test does not make the test ref-gated.
+    // getIdentifiers never descends into function bodies, so a ref read inside a callback nested in the test does not make the test ref-gated.
     {
       name: "setState gated by a test whose only ref read is inside a nested callback",
       code: tsx`
@@ -1257,8 +1249,7 @@ ruleTester.run(RULE_NAME, rule, {
         { data: { name: "setData" }, messageId: "default" },
       ],
     },
-    // A function declared inside the setup and invoked synchronously from the
-    // setup body is resolved like a component-level helper.
+    // A function declared inside the setup and invoked synchronously from the setup body is resolved like a component-level helper.
     {
       name: "setState in a function declared inside the setup and called from the setup",
       code: tsx`
@@ -1279,8 +1270,7 @@ ruleTester.run(RULE_NAME, rule, {
         { data: { name: "setData" }, messageId: "default" },
       ],
     },
-    // Extract.unwrap strips the chain expression, so a helper invoked through
-    // an optional call in the setup is still resolved to its setState.
+    // Extract.unwrap strips the chain expression, so a helper invoked through an optional call in the setup is still resolved to its setState.
     {
       name: "setState behind a local function invoked via optional call in the setup",
       code: tsx`
@@ -1299,8 +1289,7 @@ ruleTester.run(RULE_NAME, rule, {
         { data: { name: "setData" }, messageId: "default" },
       ],
     },
-    // A helper invoked in a conditional expression in the setup body is still a
-    // call made directly in the setup, so its setState is reached.
+    // A helper invoked in a conditional expression in the setup body is still a call made directly in the setup, so its setState is reached.
     {
       name: "setState behind a local function invoked in a conditional expression in the setup",
       code: tsx`
@@ -1319,8 +1308,7 @@ ruleTester.run(RULE_NAME, rule, {
         { data: { name: "setData" }, messageId: "default" },
       ],
     },
-    // A helper invoked in a sequence expression in the setup body is still a
-    // call made directly in the setup, so its setState is reached.
+    // A helper invoked in a sequence expression in the setup body is still a call made directly in the setup, so its setState is reached.
     {
       name: "setState behind a local function invoked in a sequence expression in the setup",
       code: tsx`
@@ -1339,8 +1327,7 @@ ruleTester.run(RULE_NAME, rule, {
         { data: { name: "setData" }, messageId: "default" },
       ],
     },
-    // The ref-gating exemption does not apply to a prop-gated conditional
-    // inside a helper reached from the setup.
+    // The ref-gating exemption does not apply to a prop-gated conditional inside a helper reached from the setup.
     {
       name: "setState inside a prop-gated conditional in a helper invoked from the setup",
       code: tsx`
@@ -1381,8 +1368,7 @@ ruleTester.run(RULE_NAME, rule, {
         { data: { name: "setData" }, messageId: "default" },
       ],
     },
-    // Loops are not analyzed; a setState in a loop body in the setup is treated
-    // like any other direct call in the setup.
+    // Loops are not analyzed; a setState in a loop body in the setup is treated like any other direct call in the setup.
     {
       name: "setState in a for-of loop body in the setup",
       code: tsx`
@@ -1421,8 +1407,7 @@ ruleTester.run(RULE_NAME, rule, {
         { data: { name: "setData" }, messageId: "default" },
       ],
     },
-    // A generator's body is not async or deferred, so driving it from the setup
-    // resolves its setState like any other local function.
+    // A generator's body is not async or deferred, so driving it from the setup resolves its setState like any other local function.
     {
       name: "setState in a generator driven by a for-of loop in the setup",
       code: tsx`
@@ -1445,8 +1430,49 @@ ruleTester.run(RULE_NAME, rule, {
         { data: { name: "setData" }, messageId: "default" },
       ],
     },
-    // Gap B boundary: a write that lexically follows the use cannot flow into
-    // it and must stay reported.
+    {
+      name: "setState in a generator driven by next in the setup",
+      code: tsx`
+        import { useEffect, useState } from "react";
+
+        function Component() {
+          const [data, setData] = useState(0);
+          function* gen() {
+            setData(1);
+          }
+          useEffect(() => {
+            gen().next();
+          }, []);
+          return null;
+        }
+      `,
+      errors: [
+        { data: { name: "setData" }, messageId: "default" },
+      ],
+    },
+    // Known limitation: merely instantiating a generator does not execute its body,
+    // but the current call graph reports its setter as a synchronous effect update.
+    {
+      name: "current behavior: setState in an undriven generator is reported",
+      code: tsx`
+        import { useEffect, useState } from "react";
+
+        function Component() {
+          const [data, setData] = useState(0);
+          function* gen() {
+            setData(1);
+          }
+          useEffect(() => {
+            gen();
+          }, []);
+          return null;
+        }
+      `,
+      errors: [
+        { data: { name: "setData" }, messageId: "default" },
+      ],
+    },
+    // Gap B boundary: a write that lexically follows the use cannot flow into it and must stay reported.
     {
       name: "setState with a variable written from a ref measurement only after the use",
       code: tsx`
@@ -1494,8 +1520,7 @@ ruleTester.run(RULE_NAME, rule, {
         { data: { name: "setWidth" }, messageId: "default" },
       ],
     },
-    // A self-referencing assignment is not ref-derived; the recursion into its
-    // own identifiers terminates via the `seen` set instead of looping.
+    // A self-referencing assignment is not ref-derived; the recursion into its own identifiers terminates via the `seen` set instead of looping.
     {
       name: "setState with a variable reassigned from itself",
       code: tsx`
@@ -1558,9 +1583,7 @@ ruleTester.run(RULE_NAME, rule, {
         { data: { name: "setWidth" }, messageId: "default" },
       ],
     },
-    // Ref-fed parameter tracking matches parameter definitions by node
-    // identity, so a block-scoped shadow of the parameter name is not
-    // treated as ref-derived.
+    // Ref-fed parameter tracking matches parameter definitions by node identity, so a block-scoped shadow of the parameter name is not treated as ref-derived.
     {
       name: "setState in a helper where the parameter name is shadowed by a plain local",
       code: tsx`
@@ -1612,8 +1635,7 @@ ruleTester.run(RULE_NAME, rule, {
         { data: { name: "setAtTop" }, messageId: "default" },
       ],
     },
-    // Call-site arguments map onto a useCallback-wrapped helper's parameters
-    // too, so a plain argument still reaches setState as a plain value
+    // Call-site arguments map onto a useCallback-wrapped helper's parameters too, so a plain argument still reaches setState as a plain value
     {
       name: "setState in a useCallback-wrapped helper fed a plain argument",
       code: tsx`
@@ -1634,8 +1656,7 @@ ruleTester.run(RULE_NAME, rule, {
         { data: { name: "setWidth" }, messageId: "default" },
       ],
     },
-    // Only the helper call behind the ref guard is gated; the one before it
-    // runs unconditionally
+    // Only the helper call behind the ref guard is gated; the one before it runs unconditionally
     {
       name: "setState in a helper called both before and behind a ref guard",
       code: tsx`
@@ -1659,8 +1680,7 @@ ruleTester.run(RULE_NAME, rule, {
         { data: { name: "setCount" }, messageId: "default" },
       ],
     },
-    // The param-rooted `.current` heuristic applies to parameters only; a
-    // plain local object with a `.current` property is not a ref.
+    // The param-rooted `.current` heuristic applies to parameters only; a plain local object with a `.current` property is not a ref.
     {
       name: "setState with .current on a plain local object",
       code: tsx`
@@ -1725,8 +1745,7 @@ ruleTester.run(RULE_NAME, rule, {
         { data: { name: "setWidth" }, messageId: "default" },
       ],
     },
-    // Mutually-referencing assignments are not ref-derived; the recursion
-    // terminates via the `seen` set instead of looping.
+    // Mutually-referencing assignments are not ref-derived; the recursion terminates via the `seen` set instead of looping.
     {
       name: "setState with mutually-referencing assignments",
       code: tsx`
@@ -1765,8 +1784,7 @@ ruleTester.run(RULE_NAME, rule, {
         { data: { name: "setData" }, messageId: "default", line: 6, column: 5 },
       ],
     },
-    // Synchronous IIFEs are traversed at any depth; the outer IIFE is the
-    // Effect-side trigger for the indirect diagnostic.
+    // Synchronous IIFEs are traversed at any depth; the outer IIFE is the Effect-side trigger for the indirect diagnostic.
     {
       name: "setState in a doubly nested IIFE inside the setup",
       code: tsx`
@@ -1809,8 +1827,7 @@ ruleTester.run(RULE_NAME, rule, {
         { data: { name: "setData" }, messageId: "default", line: 6, column: 5 },
       ],
     },
-    // The first call in the Effect is the report location for a sink reached
-    // through multiple levels of synchronous helpers.
+    // The first call in the Effect is the report location for a sink reached through multiple levels of synchronous helpers.
     {
       name: "setState behind two levels of local helpers",
       code: tsx`
@@ -1870,8 +1887,7 @@ ruleTester.run(RULE_NAME, rule, {
         { data: { name: "setData" }, messageId: "default", line: 7, column: 5 },
       ],
     },
-    // The closest preceding write determines the value's origin, so a later
-    // plain write does not inherit an earlier ref-derived write's exemption.
+    // The closest preceding write determines the value's origin, so a later plain write does not inherit an earlier ref-derived write's exemption.
     {
       name: "setState with a ref-derived write followed by a plain write",
       code: tsx`
@@ -1933,8 +1949,7 @@ ruleTester.run(RULE_NAME, rule, {
         { data: { name: "setData" }, messageId: "default", line: 8, column: 13 },
       ],
     },
-    // Both sinks are reported at the named setup argument, in their original
-    // setter order rather than at the helper or IIFE bodies.
+    // Both sinks are reported at the named setup argument, in their original setter order rather than at the helper or IIFE bodies.
     {
       name: "setState via a helper and an IIFE inside a named setup",
       code: tsx`
@@ -2117,6 +2132,75 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [{ data: { name: "setData" }, messageId: "default" }],
+    },
+    {
+      name: "ref read only in a conditional test does not exempt a direct setter argument",
+      code: tsx`
+        import { useEffect, useRef, useState } from "react";
+
+        function Component() {
+          const ref = useRef(false);
+          const [data, setData] = useState(0);
+          useEffect(() => {
+            setData(ref.current ? 0 : 1);
+          }, []);
+          return null;
+        }
+      `,
+      errors: [{ data: { name: "setData" }, messageId: "default" }],
+    },
+    {
+      name: "additionalEffectHooks without an Effect suffix runs when another effect hook is present",
+      code: tsx`
+        import { useEffect, useState } from "react";
+
+        function Component() {
+          const [data, setData] = useState(0);
+          useCustom(() => {
+            setData(1);
+          }, []);
+          useEffect(() => {}, []);
+          return null;
+        }
+      `,
+      settings: {
+        "react-x": {
+          additionalEffectHooks: "useCustom",
+        },
+      },
+      errors: [{ data: { name: "setData" }, messageId: "default" }],
+    },
+    {
+      name: "zero-argument setter called directly in the setup is reported",
+      code: tsx`
+        import { useEffect, useState } from "react";
+
+        function Component() {
+          const [count, setCount] = useState(0);
+          useEffect(() => {
+            setCount();
+          }, []);
+          return null;
+        }
+      `,
+      errors: [{ messageId: "default" }],
+    },
+    {
+      name: "ambiguous callee reports every candidate setter",
+      code: tsx`
+        import { useEffect, useState } from "react";
+
+        function Component({ cond }) {
+          const [a, setA] = useState(0);
+          const [b, setB] = useState(0);
+          const setter = cond ? setA : setB;
+          useEffect(() => {
+            setter(1);
+          }, []);
+          return null;
+        }
+      `,
+      errors: [{ messageId: "default" }, { messageId: "default" }],
     },
   ],
   valid: [
@@ -3196,8 +3280,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
     },
-    // The ref-derived value exemption also applies to setState reached indirectly
-    // (via a function or hook callback invoked from the setup)
+    // The ref-derived value exemption also applies to setState reached indirectly (via a function or hook callback invoked from the setup)
     {
       name: "setState with ref-derived value inside a useCallback invoked from the effect",
       code: tsx`
@@ -3292,8 +3375,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
     },
-    // The body of an async function is skipped entirely, so an async helper
-    // invoked synchronously from the setup is not resolved to its setState.
+    // The body of an async function is skipped entirely, so an async helper invoked synchronously from the setup is not resolved to its setState.
     {
       name: "setState inside an async function invoked from the setup",
       code: tsx`
@@ -3311,8 +3393,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
     },
-    // A hook name configured as both a state hook and an effect hook is classified
-    // as a state hook first, so the call is not treated as an effect setup.
+    // A hook name configured as both a state hook and an effect hook is classified as a state hook first, so the call is not treated as an effect setup.
     {
       name: "hook name configured as both additionalStateHooks and additionalEffectHooks",
       code: tsx`
@@ -3335,8 +3416,7 @@ ruleTester.run(RULE_NAME, rule, {
         },
       },
     },
-    // The recursive argument walk traces the ref through the call's arguments
-    // and the nested logical expression, so the argument is ref-derived.
+    // The recursive argument walk traces the ref through the call's arguments and the nested logical expression, so the argument is ref-derived.
     {
       name: "setState with ref.current nested in a call argument with logical fallback",
       code: tsx`
@@ -3368,8 +3448,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
     },
-    // The TemplateLiteral branch of isArgumentUsingRefValue walks the
-    // interpolated expressions, so a ref read in a template is ref-derived.
+    // The TemplateLiteral branch of isArgumentUsingRefValue walks the interpolated expressions, so a ref read in a template is ref-derived.
     {
       name: "setState with ref.current inside a template literal argument",
       code: tsx`
@@ -3385,8 +3464,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
     },
-    // The TaggedTemplateExpression branch walks the quasi, so a ref read
-    // interpolated in a tagged template is ref-derived.
+    // The TaggedTemplateExpression branch walks the quasi, so a ref read interpolated in a tagged template is ref-derived.
     {
       name: "setState with ref.current inside a tagged template argument",
       code: tsx`
@@ -3402,8 +3480,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
     },
-    // The tag itself is checked like a call callee, so a tag stored in a ref
-    // makes the result ref-derived.
+    // The tag itself is checked like a call callee, so a tag stored in a ref makes the result ref-derived.
     {
       name: "setState with a tagged template whose tag is ref-derived",
       code: tsx`
@@ -3419,8 +3496,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
     },
-    // The ObjectExpression branch walks property values, so a ref read nested
-    // in an object literal argument is ref-derived.
+    // The ObjectExpression branch walks property values, so a ref read nested in an object literal argument is ref-derived.
     {
       name: "setState with ref.current nested in an object literal argument",
       code: tsx`
@@ -3436,8 +3512,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
     },
-    // The ArrayExpression branch walks elements (skipping holes) and unwraps
-    // spreads, so a ref read nested in an array literal argument is ref-derived.
+    // The ArrayExpression branch walks elements (skipping holes) and unwraps spreads, so a ref read nested in an array literal argument is ref-derived.
     {
       name: "setState with ref.current nested in an array literal argument",
       code: tsx`
@@ -3453,8 +3528,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
     },
-    // The SpreadElement branch unwraps the spread argument, so spreading a
-    // ref-held object into the argument is ref-derived.
+    // The SpreadElement branch unwraps the spread argument, so spreading a ref-held object into the argument is ref-derived.
     {
       name: "setState with ref.current spread into an object literal argument",
       code: tsx`
@@ -3470,8 +3544,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
     },
-    // Ref-origin tracing recursively visits binary operands, so a local
-    // initialized from `ref.current * 2` is ref-derived.
+    // Ref-origin tracing recursively visits binary operands, so a local initialized from `ref.current * 2` is ref-derived.
     {
       name: "setState with a local initialized from ref.current through a binary expression",
       code: tsx`
@@ -3488,8 +3561,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
     },
-    // isRefInExpression collects identifiers from the whole test, so a ref read
-    // nested under a logical operator and a comparison still gates the setState.
+    // isRefInExpression collects identifiers from the whole test, so a ref read nested under a logical operator and a comparison still gates the setState.
     {
       name: "setState inside a ref-gated if with a logical and comparison test",
       code: tsx`
@@ -3507,8 +3579,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
     },
-    // The ref-derived value exemption also applies to a setState reached
-    // through a setup identifier passed to useEffect.
+    // The ref-derived value exemption also applies to a setState reached through a setup identifier passed to useEffect.
     {
       name: "setState with ref-derived value inside a named setup passed to useEffect",
       code: tsx`
@@ -3525,8 +3596,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
     },
-    // Only the setup argument is an Effect root. A setter identifier in the
-    // dependency array is not a synchronous setter call in the setup.
+    // Only the setup argument is an Effect root. A setter identifier in the dependency array is not a synchronous setter call in the setup.
     {
       name: "setState identifier in the deps array of a named setup",
       code: tsx`
@@ -3542,9 +3612,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
     },
-    // The cleanup returned from the setup runs at unmount or before re-running
-    // the effect, not synchronously during the setup, so its setState is not
-    // reported.
+    // The cleanup returned from the setup runs at unmount or before re-running the effect, not synchronously during the setup, so its setState is not reported.
     {
       name: "setState in the cleanup returned from the setup",
       code: tsx`
@@ -3561,8 +3629,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
     },
-    // The ref-gating exemption applies to setState calls reached indirectly
-    // through a helper invoked from the setup as well.
+    // The ref-gating exemption applies to setState calls reached indirectly through a helper invoked from the setup as well.
     {
       name: "setState inside a ref-gated conditional in a helper invoked from the setup",
       code: tsx`
@@ -3583,8 +3650,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
     },
-    // Setup value resolution does not follow arbitrary member expressions, so
-    // a function stored as an object property is not an Effect setup target.
+    // Setup value resolution does not follow arbitrary member expressions, so a function stored as an object property is not an Effect setup target.
     {
       name: "setState via a setup referenced through a member expression",
       code: tsx`
@@ -3602,8 +3668,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
     },
-    // A setState call in the deps array runs during render, not in the effect
-    // setup, so this rule does not report it.
+    // A setState call in the deps array runs during render, not in the effect setup, so this rule does not report it.
     {
       name: "setState call in the deps array of an inline setup",
       code: tsx`
@@ -3616,8 +3681,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
     },
-    // A ref-derived value that reaches the setter through an assignment
-    // statement (rather than the declaration initializer) keeps its origin.
+    // A ref-derived value that reaches the setter through an assignment statement (rather than the declaration initializer) keeps its origin.
     // (zakodium-oss/react-science useCheckOverflow)
     {
       name: "setState with a variable reassigned from a ref measurement in a branch",
@@ -3698,8 +3762,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
     },
-    // The mapping reaches through useCallback to the wrapped callback's
-    // parameters
+    // The mapping reaches through useCallback to the wrapped callback's parameters
     {
       name: "setState in a useCallback-wrapped helper fed ref.current",
       code: tsx`
@@ -3736,8 +3799,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
     },
-    // A helper call made where a setState call would be ref-gated is gated
-    // the same way, whatever it passes
+    // A helper call made where a setState call would be ref-gated is gated the same way, whatever it passes
     {
       name: "setState in a helper called inside a ref-gated if statement",
       code: tsx`
@@ -3831,8 +3893,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
     },
-    // A default-value parameter fed a ref-derived argument at the call site is
-    // ref-derived as well.
+    // A default-value parameter fed a ref-derived argument at the call site is ref-derived as well.
     {
       name: "setState in a helper with a default-value parameter fed ref.current",
       code: tsx`
@@ -3851,8 +3912,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
     },
-    // The call-site-fed parameter exemption also covers ref-gated guards on
-    // the parameter inside the helper.
+    // The call-site-fed parameter exemption also covers ref-gated guards on the parameter inside the helper.
     {
       name: "setState behind a ref-gated guard on a ref-fed parameter inside a helper",
       code: tsx`
@@ -3872,8 +3932,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
     },
-    // A `.current` read rooted at a parameter marks the parameter as a
-    // ref-like object passed via props, regardless of its name.
+    // A `.current` read rooted at a parameter marks the parameter as a ref-like object passed via props, regardless of its name.
     // (Frontify/fondue Popper: anchor?.current)
     {
       name: "setState with prop.current where the prop is not ref-named",
@@ -3936,9 +3995,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
     },
-    // Write tracing applies to parameters as well: a parameter reassigned
-    // from ref.current before the use is ref-derived regardless of the
-    // call-site argument.
+    // Write tracing applies to parameters as well: a parameter reassigned from ref.current before the use is ref-derived regardless of the call-site argument.
     {
       name: "setState in a helper whose parameter is reassigned from ref.current",
       code: tsx`
@@ -4013,8 +4070,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
     },
-    // A local getter's actual return value is traced when checking whether the
-    // setter argument is ref-derived.
+    // A local getter's actual return value is traced when checking whether the setter argument is ref-derived.
     {
       name: "setState with an argument calling a local getter that returns ref.current",
       code: tsx`
@@ -4319,6 +4375,92 @@ ruleTester.run(RULE_NAME, rule, {
               } finally {}
             }
             setData(1);
+          }, []);
+          return null;
+        }
+      `,
+    },
+    {
+      name: "conditional test contributes to ref provenance through a local initializer",
+      code: tsx`
+        import { useEffect, useRef, useState } from "react";
+
+        function Component() {
+          const ref = useRef(false);
+          const [data, setData] = useState(0);
+          useEffect(() => {
+            const next = ref.current ? 0 : 1;
+            setData(next);
+          }, []);
+          return null;
+        }
+      `,
+    },
+    {
+      name: "additionalRefHooks recognizes a custom ref source",
+      code: tsx`
+        import { useEffect, useState } from "react";
+
+        function Component() {
+          const ref = useCustomRef(0);
+          const [data, setData] = useState(0);
+          useEffect(() => {
+            setData(ref.current);
+          }, []);
+          return null;
+        }
+      `,
+      settings: {
+        "react-x": {
+          additionalRefHooks: "useCustomRef",
+        },
+      },
+    },
+    {
+      name: "additionalEffectHooks without an Effect suffix is skipped by the source fast path",
+      code: tsx`
+        import { useState } from "react";
+
+        function Component() {
+          const [data, setData] = useState(0);
+          useCustom(() => {
+            setData(1);
+          }, []);
+          return null;
+        }
+      `,
+      settings: {
+        "react-x": {
+          additionalEffectHooks: "useCustom",
+        },
+      },
+    },
+    {
+      name: "setter accessed via tuple index is not recognized",
+      code: tsx`
+        import { useEffect, useState } from "react";
+
+        function Component() {
+          const state = useState(0);
+          useEffect(() => {
+            state[1](1);
+          }, []);
+          return null;
+        }
+      `,
+    },
+    {
+      name: "timer nested in useCallback in the setup is asynchronous, not synchronous",
+      code: tsx`
+        import { useCallback, useEffect, useState } from "react";
+
+        function Component() {
+          const [count, setCount] = useState(0);
+          useEffect(() => {
+            const schedule = useCallback(() => {
+              setTimeout(() => setCount(1), 100);
+            }, []);
+            schedule();
           }, []);
           return null;
         }

@@ -26,21 +26,19 @@ export default defineConfig(
     ...GLOB_TESTS,
   ]),
   {
-    // Skip checks for rules ported directly from upstream
     ignores: [
       "plugins/eslint-plugin-react-x/src/rules/exhaustive-deps",
       "plugins/eslint-plugin-react-x/src/rules/rules-of-hooks",
-      "plugins/eslint-plugin-react-x/src/rules/unstable-exhaustive-deps/unstable-exhaustive-deps.ts",
+      "plugins/eslint-plugin/src/rules/exhaustive-deps/exhaustive-deps.ts",
     ],
   },
-  // TypeScript Configuration (Main)
   {
+    files: GLOB_TS,
     extends: [
       strictTypeChecked,
       // @ts-expect-error - import-integrity plugin has incompatible type definitions
       importIntegrityPlugin.configs.recommended,
     ],
-    files: GLOB_TS,
     languageOptions: {
       parser: tseslint.parser,
       parserOptions: {
@@ -48,15 +46,15 @@ export default defineConfig(
         tsconfigRootDir: import.meta.dirname,
       },
     },
-    rules: {
-      "import-integrity/no-test-only-imports": "off",
-      "import-integrity/no-unresolved-imports": "off",
-      "import-integrity/no-unused-exports": "off",
-    },
     settings: {
       "import-integrity": {
         packageRootDir: import.meta.dirname,
       },
+    },
+    rules: {
+      "import-integrity/no-test-only-imports": "off",
+      "import-integrity/no-unresolved-imports": "off",
+      "import-integrity/no-unused-exports": "off",
     },
   },
   {
@@ -83,24 +81,22 @@ export default defineConfig(
       }],
     },
   },
-  // ESLint Rule Authoring
   {
+    files: ["plugins/*/src/rules/**/*.ts"],
     extends: [
       eslintPlugin.configs.recommended,
     ],
-    files: ["plugins/*/src/rules/**/*.ts"],
     rules: {
       "perfectionist/sort-objects": "off",
     },
   },
-  // Scripts and Configs (Relaxed, No Type Checking)
   {
-    extends: [
-      disableTypeChecked,
-    ],
     files: [
       ...GLOB_CONFIGS,
       ...GLOB_SCRIPTS,
+    ],
+    extends: [
+      disableTypeChecked,
     ],
     languageOptions: {
       parserOptions: {
@@ -114,9 +110,7 @@ export default defineConfig(
       "perfectionist/sort-objects": "off",
     },
   },
-  // Other Presets
   packageJson.configs["recommended-publishable"],
   disableProblematicEslintJsRules,
-  // Un-ignore root-level CJS config files so they can be linted
   globalIgnores(["!*.cjs"]),
 );

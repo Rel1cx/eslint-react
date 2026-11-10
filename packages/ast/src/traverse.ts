@@ -12,7 +12,7 @@ export type SimpleTraverseOptions = {
   enter?: (node: TSESTree.Node, parent: TSESTree.Node | undefined) => void;
   /** Called for each visited node after its children are visited. */
   leave?: (node: TSESTree.Node, parent: TSESTree.Node | undefined) => void;
-  /** Attach parent pointers to every visited node. */
+  /** Attach parent pointers to every visited node; the root's parent is removed. */
   setParentPointers?: boolean;
   /** Visitor keys to use instead of the default ESTree keys (ex: to prune subtrees). */
   visitorKeys?: VisitorKeys;

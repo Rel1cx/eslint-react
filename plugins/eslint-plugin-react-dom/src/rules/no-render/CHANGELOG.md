@@ -5,7 +5,12 @@ All notable changes to the `react-dom/no-render` rule will be documented in this
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [5.30.0-beta.6] - 2026-10-27
+## [5.30.0] - 2026-11-10
+
+### Fixed
+
+- The autofix no longer prepends the `createRoot` import at the very top of the file: it merges into an existing `react-dom/client` import when possible, skips the import when `createRoot` is already imported, and otherwise inserts the new import after existing imports, file-level directives, and header comments. (#2104)
+- The autofixes now skip calls with extra or spread arguments and calls whose return values are used.
 
 ### Changed
 

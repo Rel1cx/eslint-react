@@ -4,6 +4,7 @@ description: How to configure ESLint React analyzer settings
 ---
 
 import { AnalyzerPropertyTypeTable } from "./configure-analyzer";
+import { Callout } from "fumadocs-ui/components/callout";
 
 ESLint React reads analyzer properties from the `react-x` key within ESLint's [`settings`](https://eslint.org/docs/latest/use/configure/configuration-files#configuring-shared-settings) object.
 
@@ -71,7 +72,7 @@ Example with `polymorphicPropName` set to `as`:
 
 ### `additionalRefHooks`
 
-A regex pattern for matching custom hooks that should be treated as ref hooks. The value must be a valid JavaScript RegExp string with delimiters and flags.
+A regex pattern for matching custom hooks that should be treated as ref hooks. The value should be a valid JavaScript RegExp string with delimiters and flags; a plain string is treated as an exact match.
 
 Example matching `useMyRef` and `useCustomRef`:
 
@@ -81,7 +82,7 @@ additionalRefHooks: "/^(useMyRef|useCustomRef)$/u",
 
 ### `additionalStateHooks`
 
-A regex pattern for matching custom hooks that should be treated as state hooks. The value must be a valid JavaScript RegExp string with delimiters and flags.
+A regex pattern for matching custom hooks that should be treated as state hooks. The value should be a valid JavaScript RegExp string with delimiters and flags; a plain string is treated as an exact match.
 
 Example matching `useMyState` and `useCustomState`:
 
@@ -91,7 +92,7 @@ additionalStateHooks: "/^(useMyState|useCustomState)$/u",
 
 ### `additionalEffectHooks`
 
-A regex pattern for matching custom hooks that should be treated as effect hooks. The value must be a valid JavaScript RegExp string with delimiters and flags.
+A regex pattern for matching custom hooks that should be treated as effect hooks. The value should be a valid JavaScript RegExp string with delimiters and flags; a plain string is treated as an exact match.
 
 Example matching `useMyEffect` and `useCustomEffect`:
 
@@ -102,8 +103,6 @@ additionalEffectHooks: "/^(useMyEffect|useCustomEffect)$/u",
 ## Basic Configuration Example
 
 ```ts title="eslint.config.ts"
-import eslintReact from "@eslint-react/eslint-plugin";
-
 export default [
   {
     files: ["**/*.ts", "**/*.tsx"],
@@ -120,8 +119,6 @@ export default [
 ## Advanced Configuration Example
 
 ```ts title="eslint.config.ts"
-import eslintReact from "@eslint-react/eslint-plugin";
-
 export default [
   {
     files: ["**/*.ts", "**/*.tsx"],
@@ -156,8 +153,6 @@ export default {
 ```
 
 ```ts title="eslint.config.ts"
-import eslintReact from "@eslint-react/eslint-plugin";
-
 import { compilationMode } from "./babel.config.ts";
 
 export default [

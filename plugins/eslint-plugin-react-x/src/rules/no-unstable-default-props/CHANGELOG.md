@@ -5,34 +5,15 @@ All notable changes to the `react-x/no-unstable-default-props` rule will be docu
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [5.30.0-beta.10] - 2026-10-27
-
-### Changed
-
-- Options are now read directly from `context.options[0] ?? {}` and defaults are captured per property with `??`, replacing the spread copy and `??=` mutation; the `RuleOptions` alias was removed. No change to reported problems.
-
-## [5.30.0-beta.9] - 2026-10-27
-
-### Changed
-
-- Options are now resolved in `create` by copying `context.options[0]` into a mutable options object and applying defaults per property with `??=`, replacing the shared `complete` helper; `meta.defaultOptions: [{}]` now only provides the merge slot. No change to reported problems.
-
-## [5.30.0-beta.8] - 2026-10-27
+## [5.30.0] - 2026-11-10
 
 ### Fixed
 
 - Calls to shadowed `Boolean()`, `String()`, and `Number()` are no longer reported as unstable default props.
 
-## [5.30.0-beta.7] - 2026-10-27
-
 ### Changed
 
-- Options are now resolved with `complete(context.options[0], defaultOptions[0])`, the schema is declared as a type-annotated constant, and the `safeDefaultProps` schema property gained a description. No behavior change.
-
-## [5.30.0-beta.5] - 2026-10-27
-
-### Changed
-
+- Options are now read directly from `context.options[0] ?? {}` and defaults are captured per property with `??`; the `RuleOptions` alias was removed. No change to reported problems.
 - Object-pattern defaults are now detected with `Check.isObjectPatternElementDefault` from `@eslint-react/ast`; no behavior change. (#2084)
 
 ## [5.28.4] - 2026-10-21

@@ -31,6 +31,8 @@ react-dom/no-render
 
 ## Rule Details
 
+The autofix only handles standalone calls with exactly two non-spread arguments. Calls with additional arguments, spread arguments, or a used return value are reported without a fix because they require manual migration.
+
 ## Examples
 
 ### Bootstrapping a React app with the legacy API

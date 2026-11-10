@@ -10,7 +10,7 @@ Checks whether a value is not `undefined`.
 
 **When to use**
 
-Use when you need a `Predicate` refinement that filters out `undefined`
+Use when you need a refinement that filters out `undefined`
 while preserving other falsy values.
 
 **Details**
@@ -20,10 +20,10 @@ Returns a refinement that excludes `undefined`.
 **Example** (Filtering undefined values)
 
 ```ts
-import { Predicate } from "effect";
+import { isNotUndefined } from "@local/eff";
 
 const values = [1, undefined, 2];
-const defined = values.filter(Predicate.isNotUndefined); // => [1, 2]
+const defined = values.filter(isNotUndefined); // => [1, 2]
 ```
 
 ## Type Parameters

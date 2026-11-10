@@ -55,10 +55,13 @@ function getCallKind(context: RuleContext, node: TSESTree.CallExpression): CallK
     return "other";
   }
   const name = Extract.getCalleeName(node);
-  if (name != null && isMatching(P.union("observe", "unobserve", "disconnect"))(name) && isFromObserver(context, callee, "IntersectionObserver")) {
-    return name;
-  }
-  return "other";
+  // Observer operations must have a statically recognizable method name.
+  if (name == null) return "other";
+  // Only observation lifecycle methods participate in leak analysis.
+  if (!isMatching(P.union("observe", "unobserve", "disconnect"))(name)) return "other";
+  // Methods on unrelated objects must not be treated as observer operations.
+  if (!isFromObserver(context, callee, "IntersectionObserver")) return "other";
+  return name;
 }
 
 // Whether the new expression initializes a ref: `useRef(new IntersectionObserver(...))`
@@ -74,8 +77,7 @@ function isUseRefInitialValue(node: TSESTree.NewExpression) {
     && isUseRefLikeCall(parent);
 }
 
-// Resolve an identifier to the local function it refers to, or `null` when it is not a locally
-// declared function (ex: received via props or imported)
+// Resolve an identifier to the local function it refers to, or `null` when it is not a locally declared function (ex: received via props or imported)
 function resolveLocalFunction(context: RuleContext, node: TSESTree.Node, id: TSESTree.Identifier) {
   const variable = findVariable(context.sourceCode.getScope(node), id);
   const defNode = variable?.defs.at(-1)?.node;
@@ -130,12 +132,10 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   // Functions returned by an effect setup as its cleanup (`function cleanup() {...}; return cleanup;`),
   // resolved from the returned identifier; the effect predicates only recognize inline cleanups
   const returnedCleanups = new Set<TSESTree.Node>();
-  // Local functions called from within an effect cleanup (`return () => stop();`);
-  // a disconnect/unobserve inside them runs in the cleanup phase as well
+  // Local functions called from within an effect cleanup (`return () => stop();`); a disconnect/unobserve inside them runs in the cleanup phase as well
   const cleanupCallees = new Set<TSESTree.Node>();
   // A disconnect/unobserve only counts when it runs in the cleanup phase: inside the cleanup
-  // callback, inside a named function the setup returns as its cleanup, or inside a local
-  // function the cleanup calls
+  // callback, inside a named function the setup returns as its cleanup, or inside a local function the cleanup calls
   function isInCleanupPhase(node: TSESTree.Node) {
     if (Traverse.hasParent(node, isUseEffectCleanupCallback)) {
       return true;
@@ -154,8 +154,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         return;
       }
       const callee = Extract.unwrap(node.callee);
-      // A bare call directly inside a cleanup callback (`stop()`) may delegate the
-      // disconnect/unobserve to a local function; record it for the phase check
+      // A bare call directly inside a cleanup callback (`stop()`) may delegate the disconnect/unobserve to a local function; record it for the phase check
       if (callee.type === AST.Identifier) {
         if (isUseEffectCleanupCallback(effectCallback)) {
           const fn = resolveLocalFunction(context, node, callee);
@@ -246,8 +245,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
 
     ["Program:exit"]() {
       for (const { id, node, phaseNode } of observers) {
-        // A ref-held instance is referenced through `ref.current` (or a local alias of it)
-        // instead of the assignment target of the creation site
+        // A ref-held instance is referenced through `ref.current` (or a local alias of it) instead of the assignment target of the creation site
         const isSameObserver = phaseNode == null
           ? (observer: TSESTree.Node) => isFromRefCurrent(context, observer, id)
           : (observer: TSESTree.Node) => isAssignmentTargetEqual(context, observer, id);
@@ -259,7 +257,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         }
         const matchedOEntries = oEntries.filter((e) => isSameObserver(e.observer));
         const matchedUEntries = uEntries.filter((e) => isSameObserver(e.observer));
-        const isDynamic = or(Check.isCallExpression, Check.isConditional);
+        const isDynamic = or(Check.isCallExpression, Check.isConditionalOrLoop);
         const hasDynamicallyAdded = matchedOEntries
           .some((e) => {
             const entryPhaseNode = phaseNode ?? Traverse.findParent(e.node, isUseEffectCallback);

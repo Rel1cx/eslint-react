@@ -152,8 +152,7 @@ describe("getJSXConfigFromAnnotation", () => {
   });
 
   it("should pick up @jsxFrag in a file whose only pragma is @jsxFrag", () => {
-    // Guards the fast path in getJSXConfigFromAnnotation: the '@jsx' substring
-    // check must not skip files that only contain '@jsxFrag'/'@jsxRuntime'/etc.
+    // Guards the fast path in getJSXConfigFromAnnotation: the '@jsx' substring check must not skip files that only contain '@jsxFrag'/'@jsxRuntime'/etc.
     runInRule("/* @jsxFrag Fragment */\nconst a = 1;", (context) => {
       expect(getJSXConfigFromAnnotation(context)).toEqual({ jsxFragmentFactory: "Fragment" });
     });

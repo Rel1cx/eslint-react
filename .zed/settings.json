@@ -18,10 +18,7 @@
     "allowed": false
   },
   "file_types": {
-    "Markdown": [
-      "md",
-      "mdx"
-    ]
+    "MDX": ["mdx"]
   },
   "languages": {
     "Markdown": {
@@ -39,6 +36,13 @@
     }
   },
   "lsp": {
+    "mdx-analyzer": {
+      "initialization_options": {
+        "typescript": {
+          "enabled": true
+        }
+      }
+    },
     "eslint": {
       "settings": {
         "workingDirectory": {

@@ -1,0 +1,13 @@
+{
+  "extends": [
+    "@local/configs/typedoc.base.json"
+  ],
+  "name": "@local/configs",
+  "entryPoints": [
+    "eslint.ts",
+    "textlint.ts",
+    "tsdown.config.base.ts",
+    "tsl.config.base.ts"
+  ],
+  "out": "docs"
+}

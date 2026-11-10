@@ -252,8 +252,7 @@ describe("getFunctionInitPath", () => {
   });
 
   it("should not recognize a wrapper call nested in a later wrapper argument as a nested HOC", () => {
-    // `forwardRef(...)` is memo's propsAreEqual argument, not its wrapped component,
-    // so its render function is not bound through the outer memo call.
+    // `forwardRef(...)` is memo's propsAreEqual argument, not its wrapped component, so its render function is not bound through the outer memo call.
     const code = "const Component = memo(ComponentImpl, forwardRef((props, ref) => null))";
     const node = getFirstNodeOfType<TSESTree.ArrowFunctionExpression>(code, AST.ArrowFunctionExpression);
     expect(getFunctionInitPath(node)).toBeNull();

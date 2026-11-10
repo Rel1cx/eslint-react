@@ -6,14 +6,14 @@
 function getMeaningfulChildren(element: TSESTreeJSXElementLike): JSXChild[];
 ```
 
-Get the children of a JSX element or fragment that are not syntactically empty.
+Get the children of a JSX element or fragment that are not syntactically
+empty.
 
-Unlike [getChildren](getChildren.md), all whitespace-only `JSXText` as determined by
-[isWhitespaceText](isWhitespaceText.md) is excluded, so `getMeaningfulChildren` is stricter
-for same-line whitespace (ex: `<div> </div>` yields no children here but one
-child from `getChildren`). Like `getChildren`, empty expression containers and
-empty string literal expressions are also excluded, and this is a syntactic
-check: `{null}`, `{false}`, and other dynamic expressions count as children.
+Stricter than [getChildren](getChildren.md) for same-line whitespace
+(`<div> </div>` yields no children here). Dynamic expressions count, and
+entity line breaks (`&#10;`, `&#13;`) are kept because the raw text is not
+whitespace, whereas `getChildren` excludes them through Babel's decoded-value
+cleaning. See [getChildren](getChildren.md) for a comparison table.
 
 ## Parameters
 

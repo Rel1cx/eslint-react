@@ -16,9 +16,9 @@ meaningful return value.
 **Example** (Returning void from a thunk)
 
 ```ts
-import { Function } from "effect";
+import { constVoid } from "@local/eff";
 
-Function.constVoid(); // => undefined
+constVoid(); // => undefined
 ```
 
 ## Since

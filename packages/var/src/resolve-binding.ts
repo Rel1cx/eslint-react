@@ -56,8 +56,7 @@ export function getBindingFromScope(scope: Scope, node: TSESTree.Identifier, opt
   const { at = 0, localOnly = false } = options ?? {};
   const variable = localOnly ? scope.set.get(node.name) : findVariable(scope, node);
   if (variable == null) return null;
-  // A variable may exist without a definition (configured/global variables,
-  // `arguments`); callers that need a definition check for `null` themselves.
+  // A variable may exist without a definition (configured/global variables, `arguments`); callers that need a definition check for `null` themselves.
   return { definition: variable.defs.at(at) ?? null, variable };
 }
 
@@ -76,8 +75,9 @@ export function getBinding(context: RuleContext, node: TSESTree.Identifier, opti
  * Project a definition to the AST node it denotes in the requested mode.
  *
  * - `"value"`: the node that represents the binding's own value.
- * - `"origin"`: the node the value originates from (optional for destructured
- *   bindings, parameters, and imports).
+ * - `"origin"`: the node the value originates from (the fallback for
+ *   destructured bindings, parameters, and imports, which have no `"value"`
+ *   node).
  *
  * @param definition The definition to project.
  * @param projection The projection mode.
@@ -103,8 +103,7 @@ export function projectBinding(definition: Definition, projection: BindingProjec
       return init;
     }
 
-    // A parameter's value is supplied by the caller; only its declaration site
-    // (the containing function) is a meaningful origin.
+    // A parameter's value is supplied by the caller; only its declaration site (the containing function) is a meaningful origin.
     case DefinitionType.Parameter:
       return projection === "origin" && Check.isFunction(definition.node) ? definition.node : null;
 
@@ -116,13 +115,11 @@ export function projectBinding(definition: Definition, projection: BindingProjec
     case DefinitionType.TSEnumMember:
       return definition.node.initializer ?? null;
 
-    // Import bindings reference external values; the import specifier is their
-    // closest local origin, while they have no locally available value.
+    // Import bindings reference external values; the import specifier is their closest local origin, while they have no locally available value.
     case DefinitionType.ImportBinding:
       return projection === "origin" ? definition.node : null;
 
-    // Catch clause, module, type, and implicit-global definitions have no
-    // value/origin node that rule analysis can use.
+    // Catch clause, module, type, and implicit-global definitions have no value/origin node that rule analysis can use.
     case DefinitionType.CatchClause:
     case DefinitionType.ImplicitGlobalVariable:
     case DefinitionType.TSModuleName:

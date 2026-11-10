@@ -13,7 +13,7 @@ Creates a predicate that returns `true` when both predicates agree.
 
 **When to use**
 
-Use when you want to check equivalence of two `Predicate`s.
+Use when you want to check equivalence of two predicates.
 
 **Details**
 
@@ -27,10 +27,10 @@ equivalence semantics.
 **Example** (Defining equivalence)
 
 ```ts
-import { Predicate } from "effect";
+import { eqv } from "@local/eff";
 
 const isEven = (n: number) => n % 2 === 0;
-const same = Predicate.eqv(isEven, isEven);
+const same = eqv(isEven, isEven);
 
 same(3); // => true
 ```

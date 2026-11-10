@@ -59,8 +59,7 @@ export function isArrayIndexReference(context: RuleContext, node: TSESTree.Ident
     ? 1
     : 0;
   if (call.arguments[callbackPosition] !== argument) return false;
-  // The resolved binding must be the parameter at the index position itself,
-  // possibly wrapped in a default value assignment (e.g. `(item, i = 0) => ...`)
+  // The resolved binding must be the parameter at the index position itself, possibly wrapped in a default value assignment (e.g. `(item, i = 0) => ...`)
   const param = callback.params[indexPosition];
   if (param == null) return false;
   return (param.type === AST.AssignmentPattern ? param.left : param) === def.name;

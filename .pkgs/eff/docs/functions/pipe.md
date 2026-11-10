@@ -32,7 +32,7 @@ In this example, `1` is passed to the first function, and each result becomes
 the input for the next function.
 
 ```ts
-import { pipe } from "effect";
+import { pipe } from "@local/eff";
 
 pipe(
   1,
@@ -44,10 +44,10 @@ pipe(
 
 **Example** (Rewriting method chains with pipe)
 
-The same transformation can be written with data-last functions.
+The same transformation can be expressed as a `pipe` pipeline.
 
 ```ts
-import { Array, pipe } from "effect";
+import { pipe } from "@local/eff";
 
 const numbers = [1, 2, 3, 4];
 const double = (n: number) => n * 2;
@@ -55,8 +55,8 @@ const greaterThanFour = (n: number) => n > 4;
 
 pipe(
   numbers,
-  Array.map(double),
-  Array.filter(greaterThanFour),
+  (self) => self.map(double),
+  (self) => self.filter(greaterThanFour),
 ); // => [6, 8]
 ```
 
@@ -110,7 +110,7 @@ In this example, `1` is passed to the first function, and each result becomes
 the input for the next function.
 
 ```ts
-import { pipe } from "effect";
+import { pipe } from "@local/eff";
 
 pipe(
   1,
@@ -122,10 +122,10 @@ pipe(
 
 **Example** (Rewriting method chains with pipe)
 
-The same transformation can be written with data-last functions.
+The same transformation can be expressed as a `pipe` pipeline.
 
 ```ts
-import { Array, pipe } from "effect";
+import { pipe } from "@local/eff";
 
 const numbers = [1, 2, 3, 4];
 const double = (n: number) => n * 2;
@@ -133,8 +133,8 @@ const greaterThanFour = (n: number) => n > 4;
 
 pipe(
   numbers,
-  Array.map(double),
-  Array.filter(greaterThanFour),
+  (self) => self.map(double),
+  (self) => self.filter(greaterThanFour),
 ); // => [6, 8]
 ```
 
@@ -190,7 +190,7 @@ In this example, `1` is passed to the first function, and each result becomes
 the input for the next function.
 
 ```ts
-import { pipe } from "effect";
+import { pipe } from "@local/eff";
 
 pipe(
   1,
@@ -202,10 +202,10 @@ pipe(
 
 **Example** (Rewriting method chains with pipe)
 
-The same transformation can be written with data-last functions.
+The same transformation can be expressed as a `pipe` pipeline.
 
 ```ts
-import { Array, pipe } from "effect";
+import { pipe } from "@local/eff";
 
 const numbers = [1, 2, 3, 4];
 const double = (n: number) => n * 2;
@@ -213,8 +213,8 @@ const greaterThanFour = (n: number) => n > 4;
 
 pipe(
   numbers,
-  Array.map(double),
-  Array.filter(greaterThanFour),
+  (self) => self.map(double),
+  (self) => self.filter(greaterThanFour),
 ); // => [6, 8]
 ```
 
@@ -272,7 +272,7 @@ In this example, `1` is passed to the first function, and each result becomes
 the input for the next function.
 
 ```ts
-import { pipe } from "effect";
+import { pipe } from "@local/eff";
 
 pipe(
   1,
@@ -284,10 +284,10 @@ pipe(
 
 **Example** (Rewriting method chains with pipe)
 
-The same transformation can be written with data-last functions.
+The same transformation can be expressed as a `pipe` pipeline.
 
 ```ts
-import { Array, pipe } from "effect";
+import { pipe } from "@local/eff";
 
 const numbers = [1, 2, 3, 4];
 const double = (n: number) => n * 2;
@@ -295,8 +295,8 @@ const greaterThanFour = (n: number) => n > 4;
 
 pipe(
   numbers,
-  Array.map(double),
-  Array.filter(greaterThanFour),
+  (self) => self.map(double),
+  (self) => self.filter(greaterThanFour),
 ); // => [6, 8]
 ```
 
@@ -356,7 +356,7 @@ In this example, `1` is passed to the first function, and each result becomes
 the input for the next function.
 
 ```ts
-import { pipe } from "effect";
+import { pipe } from "@local/eff";
 
 pipe(
   1,
@@ -368,10 +368,10 @@ pipe(
 
 **Example** (Rewriting method chains with pipe)
 
-The same transformation can be written with data-last functions.
+The same transformation can be expressed as a `pipe` pipeline.
 
 ```ts
-import { Array, pipe } from "effect";
+import { pipe } from "@local/eff";
 
 const numbers = [1, 2, 3, 4];
 const double = (n: number) => n * 2;
@@ -379,8 +379,8 @@ const greaterThanFour = (n: number) => n > 4;
 
 pipe(
   numbers,
-  Array.map(double),
-  Array.filter(greaterThanFour),
+  (self) => self.map(double),
+  (self) => self.filter(greaterThanFour),
 ); // => [6, 8]
 ```
 
@@ -449,7 +449,7 @@ In this example, `1` is passed to the first function, and each result becomes
 the input for the next function.
 
 ```ts
-import { pipe } from "effect";
+import { pipe } from "@local/eff";
 
 pipe(
   1,
@@ -461,10 +461,10 @@ pipe(
 
 **Example** (Rewriting method chains with pipe)
 
-The same transformation can be written with data-last functions.
+The same transformation can be expressed as a `pipe` pipeline.
 
 ```ts
-import { Array, pipe } from "effect";
+import { pipe } from "@local/eff";
 
 const numbers = [1, 2, 3, 4];
 const double = (n: number) => n * 2;
@@ -472,8 +472,8 @@ const greaterThanFour = (n: number) => n > 4;
 
 pipe(
   numbers,
-  Array.map(double),
-  Array.filter(greaterThanFour),
+  (self) => self.map(double),
+  (self) => self.filter(greaterThanFour),
 ); // => [6, 8]
 ```
 
@@ -545,7 +545,7 @@ In this example, `1` is passed to the first function, and each result becomes
 the input for the next function.
 
 ```ts
-import { pipe } from "effect";
+import { pipe } from "@local/eff";
 
 pipe(
   1,
@@ -557,10 +557,10 @@ pipe(
 
 **Example** (Rewriting method chains with pipe)
 
-The same transformation can be written with data-last functions.
+The same transformation can be expressed as a `pipe` pipeline.
 
 ```ts
-import { Array, pipe } from "effect";
+import { pipe } from "@local/eff";
 
 const numbers = [1, 2, 3, 4];
 const double = (n: number) => n * 2;
@@ -568,8 +568,8 @@ const greaterThanFour = (n: number) => n > 4;
 
 pipe(
   numbers,
-  Array.map(double),
-  Array.filter(greaterThanFour),
+  (self) => self.map(double),
+  (self) => self.filter(greaterThanFour),
 ); // => [6, 8]
 ```
 
@@ -644,7 +644,7 @@ In this example, `1` is passed to the first function, and each result becomes
 the input for the next function.
 
 ```ts
-import { pipe } from "effect";
+import { pipe } from "@local/eff";
 
 pipe(
   1,
@@ -656,10 +656,10 @@ pipe(
 
 **Example** (Rewriting method chains with pipe)
 
-The same transformation can be written with data-last functions.
+The same transformation can be expressed as a `pipe` pipeline.
 
 ```ts
-import { Array, pipe } from "effect";
+import { pipe } from "@local/eff";
 
 const numbers = [1, 2, 3, 4];
 const double = (n: number) => n * 2;
@@ -667,8 +667,8 @@ const greaterThanFour = (n: number) => n > 4;
 
 pipe(
   numbers,
-  Array.map(double),
-  Array.filter(greaterThanFour),
+  (self) => self.map(double),
+  (self) => self.filter(greaterThanFour),
 ); // => [6, 8]
 ```
 
@@ -746,7 +746,7 @@ In this example, `1` is passed to the first function, and each result becomes
 the input for the next function.
 
 ```ts
-import { pipe } from "effect";
+import { pipe } from "@local/eff";
 
 pipe(
   1,
@@ -758,10 +758,10 @@ pipe(
 
 **Example** (Rewriting method chains with pipe)
 
-The same transformation can be written with data-last functions.
+The same transformation can be expressed as a `pipe` pipeline.
 
 ```ts
-import { Array, pipe } from "effect";
+import { pipe } from "@local/eff";
 
 const numbers = [1, 2, 3, 4];
 const double = (n: number) => n * 2;
@@ -769,8 +769,8 @@ const greaterThanFour = (n: number) => n > 4;
 
 pipe(
   numbers,
-  Array.map(double),
-  Array.filter(greaterThanFour),
+  (self) => self.map(double),
+  (self) => self.filter(greaterThanFour),
 ); // => [6, 8]
 ```
 
@@ -851,7 +851,7 @@ In this example, `1` is passed to the first function, and each result becomes
 the input for the next function.
 
 ```ts
-import { pipe } from "effect";
+import { pipe } from "@local/eff";
 
 pipe(
   1,
@@ -863,10 +863,10 @@ pipe(
 
 **Example** (Rewriting method chains with pipe)
 
-The same transformation can be written with data-last functions.
+The same transformation can be expressed as a `pipe` pipeline.
 
 ```ts
-import { Array, pipe } from "effect";
+import { pipe } from "@local/eff";
 
 const numbers = [1, 2, 3, 4];
 const double = (n: number) => n * 2;
@@ -874,8 +874,8 @@ const greaterThanFour = (n: number) => n > 4;
 
 pipe(
   numbers,
-  Array.map(double),
-  Array.filter(greaterThanFour),
+  (self) => self.map(double),
+  (self) => self.filter(greaterThanFour),
 ); // => [6, 8]
 ```
 
@@ -959,7 +959,7 @@ In this example, `1` is passed to the first function, and each result becomes
 the input for the next function.
 
 ```ts
-import { pipe } from "effect";
+import { pipe } from "@local/eff";
 
 pipe(
   1,
@@ -971,10 +971,10 @@ pipe(
 
 **Example** (Rewriting method chains with pipe)
 
-The same transformation can be written with data-last functions.
+The same transformation can be expressed as a `pipe` pipeline.
 
 ```ts
-import { Array, pipe } from "effect";
+import { pipe } from "@local/eff";
 
 const numbers = [1, 2, 3, 4];
 const double = (n: number) => n * 2;
@@ -982,8 +982,8 @@ const greaterThanFour = (n: number) => n > 4;
 
 pipe(
   numbers,
-  Array.map(double),
-  Array.filter(greaterThanFour),
+  (self) => self.map(double),
+  (self) => self.filter(greaterThanFour),
 ); // => [6, 8]
 ```
 
@@ -1070,7 +1070,7 @@ In this example, `1` is passed to the first function, and each result becomes
 the input for the next function.
 
 ```ts
-import { pipe } from "effect";
+import { pipe } from "@local/eff";
 
 pipe(
   1,
@@ -1082,10 +1082,10 @@ pipe(
 
 **Example** (Rewriting method chains with pipe)
 
-The same transformation can be written with data-last functions.
+The same transformation can be expressed as a `pipe` pipeline.
 
 ```ts
-import { Array, pipe } from "effect";
+import { pipe } from "@local/eff";
 
 const numbers = [1, 2, 3, 4];
 const double = (n: number) => n * 2;
@@ -1093,8 +1093,8 @@ const greaterThanFour = (n: number) => n > 4;
 
 pipe(
   numbers,
-  Array.map(double),
-  Array.filter(greaterThanFour),
+  (self) => self.map(double),
+  (self) => self.filter(greaterThanFour),
 ); // => [6, 8]
 ```
 
@@ -1184,7 +1184,7 @@ In this example, `1` is passed to the first function, and each result becomes
 the input for the next function.
 
 ```ts
-import { pipe } from "effect";
+import { pipe } from "@local/eff";
 
 pipe(
   1,
@@ -1196,10 +1196,10 @@ pipe(
 
 **Example** (Rewriting method chains with pipe)
 
-The same transformation can be written with data-last functions.
+The same transformation can be expressed as a `pipe` pipeline.
 
 ```ts
-import { Array, pipe } from "effect";
+import { pipe } from "@local/eff";
 
 const numbers = [1, 2, 3, 4];
 const double = (n: number) => n * 2;
@@ -1207,8 +1207,8 @@ const greaterThanFour = (n: number) => n > 4;
 
 pipe(
   numbers,
-  Array.map(double),
-  Array.filter(greaterThanFour),
+  (self) => self.map(double),
+  (self) => self.filter(greaterThanFour),
 ); // => [6, 8]
 ```
 
@@ -1301,7 +1301,7 @@ In this example, `1` is passed to the first function, and each result becomes
 the input for the next function.
 
 ```ts
-import { pipe } from "effect";
+import { pipe } from "@local/eff";
 
 pipe(
   1,
@@ -1313,10 +1313,10 @@ pipe(
 
 **Example** (Rewriting method chains with pipe)
 
-The same transformation can be written with data-last functions.
+The same transformation can be expressed as a `pipe` pipeline.
 
 ```ts
-import { Array, pipe } from "effect";
+import { pipe } from "@local/eff";
 
 const numbers = [1, 2, 3, 4];
 const double = (n: number) => n * 2;
@@ -1324,8 +1324,8 @@ const greaterThanFour = (n: number) => n > 4;
 
 pipe(
   numbers,
-  Array.map(double),
-  Array.filter(greaterThanFour),
+  (self) => self.map(double),
+  (self) => self.filter(greaterThanFour),
 ); // => [6, 8]
 ```
 
@@ -1437,7 +1437,7 @@ In this example, `1` is passed to the first function, and each result becomes
 the input for the next function.
 
 ```ts
-import { pipe } from "effect";
+import { pipe } from "@local/eff";
 
 pipe(
   1,
@@ -1449,10 +1449,10 @@ pipe(
 
 **Example** (Rewriting method chains with pipe)
 
-The same transformation can be written with data-last functions.
+The same transformation can be expressed as a `pipe` pipeline.
 
 ```ts
-import { Array, pipe } from "effect";
+import { pipe } from "@local/eff";
 
 const numbers = [1, 2, 3, 4];
 const double = (n: number) => n * 2;
@@ -1460,8 +1460,8 @@ const greaterThanFour = (n: number) => n > 4;
 
 pipe(
   numbers,
-  Array.map(double),
-  Array.filter(greaterThanFour),
+  (self) => self.map(double),
+  (self) => self.filter(greaterThanFour),
 ); // => [6, 8]
 ```
 
@@ -1577,7 +1577,7 @@ In this example, `1` is passed to the first function, and each result becomes
 the input for the next function.
 
 ```ts
-import { pipe } from "effect";
+import { pipe } from "@local/eff";
 
 pipe(
   1,
@@ -1589,10 +1589,10 @@ pipe(
 
 **Example** (Rewriting method chains with pipe)
 
-The same transformation can be written with data-last functions.
+The same transformation can be expressed as a `pipe` pipeline.
 
 ```ts
-import { Array, pipe } from "effect";
+import { pipe } from "@local/eff";
 
 const numbers = [1, 2, 3, 4];
 const double = (n: number) => n * 2;
@@ -1600,8 +1600,8 @@ const greaterThanFour = (n: number) => n > 4;
 
 pipe(
   numbers,
-  Array.map(double),
-  Array.filter(greaterThanFour),
+  (self) => self.map(double),
+  (self) => self.filter(greaterThanFour),
 ); // => [6, 8]
 ```
 
@@ -1721,7 +1721,7 @@ In this example, `1` is passed to the first function, and each result becomes
 the input for the next function.
 
 ```ts
-import { pipe } from "effect";
+import { pipe } from "@local/eff";
 
 pipe(
   1,
@@ -1733,10 +1733,10 @@ pipe(
 
 **Example** (Rewriting method chains with pipe)
 
-The same transformation can be written with data-last functions.
+The same transformation can be expressed as a `pipe` pipeline.
 
 ```ts
-import { Array, pipe } from "effect";
+import { pipe } from "@local/eff";
 
 const numbers = [1, 2, 3, 4];
 const double = (n: number) => n * 2;
@@ -1744,8 +1744,8 @@ const greaterThanFour = (n: number) => n > 4;
 
 pipe(
   numbers,
-  Array.map(double),
-  Array.filter(greaterThanFour),
+  (self) => self.map(double),
+  (self) => self.filter(greaterThanFour),
 ); // => [6, 8]
 ```
 
@@ -1869,7 +1869,7 @@ In this example, `1` is passed to the first function, and each result becomes
 the input for the next function.
 
 ```ts
-import { pipe } from "effect";
+import { pipe } from "@local/eff";
 
 pipe(
   1,
@@ -1881,10 +1881,10 @@ pipe(
 
 **Example** (Rewriting method chains with pipe)
 
-The same transformation can be written with data-last functions.
+The same transformation can be expressed as a `pipe` pipeline.
 
 ```ts
-import { Array, pipe } from "effect";
+import { pipe } from "@local/eff";
 
 const numbers = [1, 2, 3, 4];
 const double = (n: number) => n * 2;
@@ -1892,8 +1892,8 @@ const greaterThanFour = (n: number) => n > 4;
 
 pipe(
   numbers,
-  Array.map(double),
-  Array.filter(greaterThanFour),
+  (self) => self.map(double),
+  (self) => self.filter(greaterThanFour),
 ); // => [6, 8]
 ```
 
@@ -2021,7 +2021,7 @@ In this example, `1` is passed to the first function, and each result becomes
 the input for the next function.
 
 ```ts
-import { pipe } from "effect";
+import { pipe } from "@local/eff";
 
 pipe(
   1,
@@ -2033,10 +2033,10 @@ pipe(
 
 **Example** (Rewriting method chains with pipe)
 
-The same transformation can be written with data-last functions.
+The same transformation can be expressed as a `pipe` pipeline.
 
 ```ts
-import { Array, pipe } from "effect";
+import { pipe } from "@local/eff";
 
 const numbers = [1, 2, 3, 4];
 const double = (n: number) => n * 2;
@@ -2044,8 +2044,8 @@ const greaterThanFour = (n: number) => n > 4;
 
 pipe(
   numbers,
-  Array.map(double),
-  Array.filter(greaterThanFour),
+  (self) => self.map(double),
+  (self) => self.filter(greaterThanFour),
 ); // => [6, 8]
 ```
 
@@ -2177,7 +2177,7 @@ In this example, `1` is passed to the first function, and each result becomes
 the input for the next function.
 
 ```ts
-import { pipe } from "effect";
+import { pipe } from "@local/eff";
 
 pipe(
   1,
@@ -2189,10 +2189,10 @@ pipe(
 
 **Example** (Rewriting method chains with pipe)
 
-The same transformation can be written with data-last functions.
+The same transformation can be expressed as a `pipe` pipeline.
 
 ```ts
-import { Array, pipe } from "effect";
+import { pipe } from "@local/eff";
 
 const numbers = [1, 2, 3, 4];
 const double = (n: number) => n * 2;
@@ -2200,8 +2200,8 @@ const greaterThanFour = (n: number) => n > 4;
 
 pipe(
   numbers,
-  Array.map(double),
-  Array.filter(greaterThanFour),
+  (self) => self.map(double),
+  (self) => self.filter(greaterThanFour),
 ); // => [6, 8]
 ```
 

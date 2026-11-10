@@ -13,7 +13,7 @@ Checks whether a value has a given property key.
 
 **When to use**
 
-Use when you need a `Predicate` guard for property access on `unknown`
+Use when you need a type guard for property access on `unknown`
 values with a simple structural object check.
 
 **Details**
@@ -24,9 +24,9 @@ value types.
 **Example** (Guarding object properties)
 
 ```ts
-import { Predicate } from "effect";
+import { hasProperty } from "@local/eff";
 
-const hasName = Predicate.hasProperty("name");
+const hasName = hasProperty("name");
 const data: unknown = { name: "Ada" };
 
 if (hasName(data)) {
@@ -81,8 +81,7 @@ if (hasName(data)) {
 
 ## See
 
-- isTagged
-- [isObjectKeyword](../functions/isObjectKeyword.md)
+[isObjectKeyword](../functions/isObjectKeyword.md)
 
 ## Since
 

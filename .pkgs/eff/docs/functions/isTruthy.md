@@ -21,10 +21,10 @@ This uses `Boolean(input)` and treats `0`, `""`, `false`, `null`, and
 **Example** (Filtering truthy values)
 
 ```ts
-import { Predicate } from "effect";
+import { isTruthy } from "@local/eff";
 
 const values = [0, 1, "", "ok", false];
-const truthy = values.filter(Predicate.isTruthy); // => [1, "ok"]
+const truthy = values.filter(isTruthy); // => [1, "ok"]
 ```
 
 ## Parameters

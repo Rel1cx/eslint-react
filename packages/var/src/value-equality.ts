@@ -48,6 +48,9 @@ export function isEqualWith(context: RuleContext, a: TSESTree.Node, b: TSESTree.
   const { identifierComparison = "identity" } = options ?? {};
   a = Check.isTypeExpression(a) ? Extract.unwrap(a) : a;
   b = Check.isTypeExpression(b) ? Extract.unwrap(b) : b;
+  // A chain expression only marks optional chaining; the optional flags that affect the value live on the inner member or call expression.
+  a = a.type === AST.ChainExpression ? a.expression : a;
+  b = b.type === AST.ChainExpression ? b.expression : b;
   const [aScope, bScope] = [context.sourceCode.getScope(a), context.sourceCode.getScope(b)];
   switch (true) {
     case a === b: {
@@ -55,8 +58,7 @@ export function isEqualWith(context: RuleContext, a: TSESTree.Node, b: TSESTree.
     }
     case a.type === AST.Literal
       && b.type === AST.Literal: {
-      // Every regex literal evaluates to a distinct `RegExp` object, so compare
-      // the pattern and flags instead of the `value` object identity.
+      // Every regex literal evaluates to a distinct `RegExp` object, so compare the pattern and flags instead of the `value` object identity.
       if (isRegExpLiteral(a)) {
         return isRegExpLiteral(b) && a.regex.pattern === b.regex.pattern && a.regex.flags === b.regex.flags;
       }
@@ -106,8 +108,7 @@ export function isEqualWith(context: RuleContext, a: TSESTree.Node, b: TSESTree.
               return false;
             }
             // When both variables come from the SAME for-of statement (e.g.
-            // `for (const [a, b] of items)`), fall back to variable identity
-            // so that `a` and `b` are not incorrectly treated as equal.
+            // `for (const [a, b] of items)`), fall back to variable identity so that `a` and `b` are not incorrectly treated as equal.
             // When they come from DIFFERENT for-of statements iterating the
             // same source (e.g. `for (const event of xs)` and
             // `for (const evt of xs)`), they represent the same values.
@@ -122,7 +123,10 @@ export function isEqualWith(context: RuleContext, a: TSESTree.Node, b: TSESTree.
     }
     case a.type === AST.MemberExpression
       && b.type === AST.MemberExpression: {
-      const propEqual = a.computed && b.computed
+      if (a.computed !== b.computed || a.optional !== b.optional) {
+        return false;
+      }
+      const propEqual = a.computed
         ? isEqualWith(context, a.property, b.property, options)
         : Compare.isEqual(a.property, b.property);
       return propEqual && isEqualWith(context, a.object, b.object, options);

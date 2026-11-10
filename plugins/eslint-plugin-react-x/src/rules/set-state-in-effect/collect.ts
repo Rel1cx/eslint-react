@@ -20,17 +20,14 @@ export type SetStateInEffectFacts = {
   jsxRefExprs: TSESTree.Node[];
 };
 
-export function createFactCollector(additionalStateHooks: RegExpLike, additionalEffectHooks: RegExpLike) {
+export function createFactCollector(additionalHooks: [state: RegExpLike, effect: RegExpLike]) {
+  const [stateHooks, effectHooks] = additionalHooks;
   const facts: SetStateInEffectFacts = {
     calls: [],
     effectRoots: [],
     jsxRefExprs: [],
   };
   const functionEntries: TSESTreeFunction[] = [];
-
-  const isUseStateCall = (node: TSESTree.Node) => node.type === AST.CallExpression && core.isUseStateLikeCall(node, additionalStateHooks);
-  const isUseEffectCall = (node: TSESTree.Node) => node.type === AST.CallExpression && core.isUseEffectLikeCall(node, additionalEffectHooks);
-
   const visitor: RuleListener = {
     ":function"(node: TSESTreeFunction) {
       functionEntries.push(node);
@@ -44,8 +41,8 @@ export function createFactCollector(additionalStateHooks: RegExpLike, additional
       facts.jsxRefExprs.push(node.value.expression);
     },
     CallExpression(node: TSESTree.CallExpression) {
-      if (isUseStateCall(node)) return;
-      if (isUseEffectCall(node)) {
+      if (core.isUseStateLikeCall(node, stateHooks)) return;
+      if (core.isUseEffectLikeCall(node, effectHooks)) {
         const setup = node.arguments.at(0);
         if (setup != null) {
           facts.effectRoots.push({ node, setup });

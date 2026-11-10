@@ -4,9 +4,9 @@
 
 - **IMPL**: `refs.ts` + `collect.ts` + `effects.ts` + `origins.ts` + `helpers.ts` (ESLint rule)
 - **SPEC**: `refs.spec.md` (React Compiler `ValidateNoRefAccessInRender`)
-- **Implementation commit**: `7649b8a761385105b964f6d408e672eda2050b3d`
-- **React commit**: `7c6ac13e19fef500b7f669a16bbd01ecc95965ca`
-- **Last verified**: `2026-10-12`
+- **Implementation commit**: `10c7065bec61376e5080da78d11c0888aba58feb`
+- **React commit**: `a703ca64f9ea5c1b650af0face1a98fb8c6b3a13`
+- **Last verified**: `2026-11-04`
 - **React package**: `compiler/packages/babel-plugin-react-compiler`
 - **Implementation sources/tests**:
   - `refs.ts`
@@ -15,6 +15,10 @@
   - `origins.ts`
   - `helpers.ts`
   - `refs.spec.ts`
+  - `collect.test.ts`
+  - `effects.test.ts`
+  - `origins.test.ts`
+  - `helpers.test.ts`
 - **React sources/fixtures**:
   - `src/Validation/ValidateNoRefAccessInRender.ts`
   - `src/Entrypoint/Pipeline.ts`
@@ -23,9 +27,30 @@
   - `src/__tests__/fixtures/compiler/error.ref-initialization-nonif.{js,expect.md}`
   - `src/__tests__/fixtures/compiler/allow-ref-lazy-initialization-with-logical.{js,expect.md}`
   - `src/__tests__/fixtures/compiler/error.invalid-set-and-read-ref-nested-property-during-render.{js,expect.md}`
+  - `src/__tests__/fixtures/compiler/error.ref-initialization-post-access.{js,expect.md}`
+  - `src/__tests__/fixtures/compiler/error.ref-initialization-call.{js,expect.md}`
+  - `src/__tests__/fixtures/compiler/allow-comparing-ref-accessing-function-identity.{js,expect.md}`
+  - `src/__tests__/fixtures/compiler/allow-ref-access-in-intersection-observer.{ts,expect.md}`
+  - `src/__tests__/fixtures/compiler/error.invalid-ref-in-intersection-observer-shadowed.{js,expect.md}`
+  - `src/__tests__/fixtures/compiler/error.invalid-ref-in-unknown-constructor.{js,expect.md}`
 
 This report tracks the remaining behavioral differences between the ESLint implementation and the
 React Compiler validation pass. For change history, see `CHANGELOG.md`.
+
+Upstream changes reviewed since the previous verification (`7c6ac13e`, 2026-10-12):
+
+- facebook/react#37688 (`2f5370a8`, 2026-10-12): comparing the identity of a function that reads a
+  ref when called is no longer treated as a ref access. The IMPL never flagged such comparisons — it
+  only inspects `.current` member accesses and ref-valued identifiers passed to functions — so this
+  fix removes a potential divergence rather than creating one.
+- facebook/react#37764 (`efa31895`, 2026-10-14): the global `IntersectionObserver` constructor is
+  modeled with a deferred callback, and `NewExpression` now reuses the standard call-effect ref
+  validation. The IMPL already checks constructor pass sites like plain calls and never resolves
+  constructor callees into the render call graph, so the fixed false positive never occurred in the
+  IMPL (verified against the fixture scenarios). One new divergence was introduced for shadowed or
+  user-defined constructors; see §5 and §8.
+- facebook/react#36921 (`a703ca64`, 2026-10-30): preserves AST source offsets; no validation
+  semantics change.
 
 ## 1. Underlying mechanism
 
@@ -42,8 +67,16 @@ position-aware, so shadowed names, separate components, and reassignment do not 
 function state.
 
 **Remaining difference**: the IMPL uses structured AST analysis rather than a full control-flow
-graph. It recognizes enclosing guard regions and terminating sibling guards, but does not attempt
-general post-dominator analysis.
+graph. It recognizes enclosing guard regions and terminating sibling guards — a non-null branch is
+terminating when it ends in `return`/`throw`, when both branches of a nested `if` terminate, when a
+`try` statement's finalizer terminates or its try block and catch handler both terminate, when a
+`switch` with a `default` clause has all clauses terminating without an escaping `break`/`continue`,
+or when a `while (true)`/`for (;;)`/`do...while` loop has a terminating body without an escaping
+`break` (or `continue`, for `do...while`) — the shared `Analyze.isUnconditionallyTerminating`
+predicate — but does not attempt general post-dominator analysis. Labeled statements, fall-through
+clause groups, and non-literal-true loop tests remain unrecognized. The switch/loop coverage is
+verified against local fixtures only: the compiler's 148 ref fixtures pin none of these forms, so
+parity there is inferred from the compiler's exact CFG reachability rather than fixture-verified.
 
 ## 2. What constitutes a ref
 
@@ -73,7 +106,14 @@ comparison:
 - reversed operands and a negated binary comparison.
 
 It also supports the inverted early-return form only when the non-null branch unconditionally
-returns or throws. Unrelated nested conditions do not hide an outer null guard.
+returns or throws, where termination is decided by the shared `Analyze.isUnconditionallyTerminating`
+predicate: a `try` statement counts as terminating when its finalizer terminates or when its try
+block and catch handler both terminate; a `switch` with a `default` clause counts when every clause
+terminates and no `break`/`continue` escapes the switch; and a `while (true)`, `for (;;)` or
+`do...while` loop counts when its body terminates and no `break` (or `continue`, for `do...while`)
+escapes. Fall-through clause groups, switches without `default`, labeled statements, and
+non-literal-true loop tests are not recognized. Unrelated nested conditions do not hide an outer
+null guard.
 
 Reading `ref.current` inside the guard test itself is not reported, and reads in the complementary
 branch proven non-null are allowed; writes there are still reported.
@@ -105,6 +145,12 @@ before branching, while `allow-ref-lazy-initialization-with-logical` accepts a d
 crosses a logical-expression block. These fixtures define specific CFG boundaries rather than a general
 guard-data-flow guarantee.
 
+Since facebook/react#37688, a `BinaryExpression` that does not form a nullish guard flags only a
+direct ref value operand (`ref.current === other`); comparing the identity of a function that merely
+reads a ref when called (`sampleFunc !== other`, `allow-comparing-ref-accessing-function-identity`)
+is not a ref access. The IMPL never treated function-identity comparisons as ref accesses, so the
+two sides are aligned here.
+
 ## 4. Nested functions and synchronous callbacks
 
 The IMPL builds a scoped call graph for:
@@ -132,8 +178,21 @@ named `render` retain their compatibility exemptions. Constructor calls and tagg
 are checked the same way as plain calls; their callees are not resolved into the render call
 graph.
 
+Since facebook/react#37764, the compiler routes `NewExpression` through the same call-effect ref
+validation as plain calls and models the global `IntersectionObserver` constructor with a deferred
+(`Effect.Freeze`) callback: a ref read inside the callback passed to the global constructor is
+allowed (`allow-ref-access-in-intersection-observer`), while an unknown constructor receiving a ref
+directly is rejected (`error.invalid-ref-in-unknown-constructor`). Both behaviors match the IMPL,
+which checks constructor pass sites like plain calls and never reaches constructor callbacks through
+the render call graph; the upstream false positive never occurred in the IMPL.
+
 **Remaining difference**: without compiler type/calling-convention information, a member named
 `render` or function named `mergeRefs` cannot always be proven to be the intended helper.
+Additionally, the compiler distinguishes the known global `IntersectionObserver` (deferred callback)
+from a shadowed or user-defined constructor of the same name: `error.invalid-ref-in-intersection-observer-shadowed`
+rejects a ref-reading callback passed to a shadowed constructor. The IMPL does not resolve
+constructor callees or inspect callback arguments of `new` for deferred-versus-immediate semantics
+at all, so such callbacks escape detection (a false negative against the current SPEC).
 
 ## 6. Nested property writes
 
@@ -160,8 +219,12 @@ the second initialization site. React diagnostics can attach multiple locations 
 
 ## 8. Known remaining gaps
 
-1. No full CFG/post-dominator analysis; complex labeled control flow, `try`/`finally`, and equivalent
-   user-defined guard abstractions are not proven safe.
+1. No full CFG/post-dominator analysis; complex labeled control flow and equivalent user-defined
+   guard abstractions are not proven safe. Termination analysis covers `return`/`throw`, nested
+   `if`, `try`, all-terminating `switch` with `default`, and `while (true)`/`for (;;)`/`do...while`
+   loops whose bodies terminate without escaping jumps; labeled statements, fall-through clause
+   groups, and non-literal-true loop tests remain unrecognized, and the switch/loop coverage is
+   local-fixture-verified only (see §1).
 2. Ref identity is not propagated into arbitrary local function parameters.
 3. The `ref`/`*Ref` naming heuristic is always enabled and can diverge when the compiler's corresponding
    option is disabled or when compiler type inference classifies the value differently.
@@ -171,3 +234,7 @@ the second initialization site. React diagnostics can attach multiple locations 
    render runs in a microtask, but is conservatively reported as a render-time write.
 6. `while`/`do-while` conditions do not form null-guard regions. The compiler's guard recognition is
    likewise limited to `if` terminals, so this is kept as a parity-preserving limitation.
+7. Constructor callbacks are not modeled: a ref-reading callback passed to a user-defined or
+   shadowing constructor (upstream `error.invalid-ref-in-intersection-observer-shadowed`) is not
+   reported, and the deferred-callback allowance for known global constructors such as
+   `IntersectionObserver` is matched only implicitly because constructor callees are never resolved.

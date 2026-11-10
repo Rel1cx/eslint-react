@@ -1,3 +1,4 @@
+import { addImportFix } from "@/utils/add-import-fix";
 import { createRule } from "@/utils/create-rule";
 import { isReactDOMCall } from "@/utils/is-react-dom-call";
 import { type RuleContext, type RuleFeature, type RuleFixer, type RuleListener } from "@eslint-react/eslint";
@@ -65,9 +66,12 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
 function buildFix(context: RuleContext, node: TSESTree.CallExpression, importSource: string) {
   return (fixer: RuleFixer) => {
     // The fix consists of two parts:
+    const importFix = addImportFix(context, fixer, "useActionState", importSource);
+    // The import cannot be added without changing semantics or syntax; suppress the whole fix
+    if (importFix.kind === "conflict") return null;
     return [
-      // 1. Add the new import for `useActionState`
-      fixer.insertTextBefore(context.sourceCode.ast, `import { useActionState } from "${importSource}";\n`),
+      // 1. Add the new import for `useActionState` unless it already exists
+      ...importFix.kind === "add" ? [importFix.fix] : [],
       // 2. Replace `useFormState` with `useActionState` in the function call
       fixer.replaceText(node.callee, "useActionState"),
     ];

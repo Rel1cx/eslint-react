@@ -10,14 +10,14 @@ Type guard that always returns `false`.
 
 **When to use**
 
-Use when you need a `Predicate` that never accepts, e.g. in default branches.
+Use when you need a type guard that never accepts, e.g. in default branches.
 
 **Example** (Matching no values)
 
 ```ts
-import { Predicate } from "effect";
+import { isNever } from "@local/eff";
 
-Predicate.isNever("anything"); // => false
+isNever("anything"); // => false
 ```
 
 ## Parameters

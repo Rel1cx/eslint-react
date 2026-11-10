@@ -1,7 +1,8 @@
 import type { Linter } from "eslint";
 
 // This rulelist should be kept in sync with `apps/website/content/docs/migrating-from-eslint-plugin-react.mdx`
-// Rules provided by `eslint-plugin-react` that exist in this plugin.
+// Rules provided by `eslint-plugin-react` that exist in this plugin, or that are intentionally
+// not supported by design (e.g. `prop-types`, see the migration table).
 // Rules provided by `@stylistic` are also omitted from this list.
 const conflictingRules = [
   "react/button-has-type",
@@ -12,7 +13,6 @@ const conflictingRules = [
   "react/hook-use-state",
   "react/iframe-missing-sandbox",
   "react/jsx-boolean-value",
-  "react/jsx-filename-extension",
   "react/jsx-fragments",
   "react/jsx-key",
   "react/jsx-no-comment-textnodes",
@@ -34,12 +34,13 @@ const conflictingRules = [
   "react/no-find-dom-node",
   "react/no-namespace",
   "react/no-object-type-as-default-prop",
+  "react/no-redundant-should-component-update",
   "react/no-render-return-value",
   "react/no-string-refs",
   "react/no-unknown-property",
   "react/no-unsafe",
   "react/no-unstable-nested-components",
-  "react/no-unused-class-component-members",
+  "react/no-unused-class-component-methods",
   "react/no-unused-state",
   "react/no-will-update-set-state",
   "react/prop-types",

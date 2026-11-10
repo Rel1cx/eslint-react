@@ -8,9 +8,9 @@ import { DOMAIN_METAS, PLUGIN_DOMAINS, type PluginDomain, buildRuleFileName, par
 import { glob } from "./01-helpers";
 
 // Collect .mdx files from every sub-plugin's rules directory
-const DOCS_GLOB = ["plugins/eslint-plugin-react-*/src/rules/*/*.mdx"];
+const GLOB_DOCS = ["plugins/eslint-plugin-react-*/src/rules/*/*.mdx"];
 const RULE_RELATIONS_PATH = "docs/rule-relations-table.md";
-// Captures the table body (rows) from the "## Detailed References" section
+/** Regular expression for matching the "## Detailed References" section and capturing its table body. */
 const RE_DETAILED_REFERENCES = /## Detailed References[\s\S]*?\n\|[^\n]+\|\n\|[-\s|]+\|\n([\s\S]*?)(?=\n##|$)/u;
 
 interface RuleMeta {
@@ -60,8 +60,7 @@ const loadRuleRelations = Effect.gen(function*() {
   return parseRuleRelations(content);
 });
 
-// Convert a file-based rule name ("dom-no-render") to the canonical
-// "react-<domain>/<name>" form used in rule-relations-table.md.
+// Convert a file-based rule name ("dom-no-render") to the canonical "react-<domain>/<name>" form used in rule-relations-table.md.
 const getFullRuleName = (meta: RuleMeta): string => {
   const parsed = parseRuleFileName(meta.name);
   if (parsed == null) return `react-x/${meta.name}`;
@@ -91,14 +90,14 @@ const generateSeeAlsoSection = (meta: RuleMeta, relations: RuleRelationsMap) => 
 
 // Determines the section order in the generated meta.json.
 // Headings act as section dividers in the website sidebar.
-const orderedCategories = DOMAIN_METAS.map((meta) => ({
+const ORDERED_CATEGORIES = DOMAIN_METAS.map((meta) => ({
   key: meta.key,
   heading: `---${meta.heading}---`,
 })) as { key: PluginDomain; heading: string }[];
 
 const collectDocs = Effect.gen(function*() {
   const path = yield* Path.Path;
-  const docs = yield* Effect.sync(() => glob(DOCS_GLOB));
+  const docs = yield* Effect.sync(() => glob(GLOB_DOCS));
   return docs.map<RuleMeta>((doc) => {
     const catename = /^plugins\/eslint-plugin-react-([^/]+)/u.exec(doc)?.[1] ?? "";
     const basename = path.parse(path.basename(doc)).name;
@@ -152,7 +151,7 @@ const generateRuleMetaJson = Effect.fnUntraced(
       };
     }, {});
 
-    const pages = orderedCategories.reduce<string[]>((acc, cat) => {
+    const pages = ORDERED_CATEGORIES.reduce<string[]>((acc, cat) => {
       const rules = grouped[cat.key];
       if (rules == null || rules.length === 0) return acc;
 
@@ -182,8 +181,7 @@ const processChangelog = Effect.gen(function*() {
   const targetPath = path.join("apps", "website", "content", "docs", "changelog.md");
 
   const source = yield* fs.readFileString(changelogPath, "utf8");
-  // Wrap with Docusaurus frontmatter and strip the top-level "# Changelog"
-  // heading since the website layout provides its own title.
+  // Wrap with Docusaurus frontmatter and strip the top-level "# Changelog" heading since the website layout provides its own title.
   const wrapped = [
     "---",
     "title: Changelog",

@@ -2,67 +2,60 @@
 title: Changelog
 ---
 
-## v5.30.0-beta.10 (2026-10-27)
-
-### 🏗️ Internal
-
-- Rules with options now read `context.options[0] ?? {}` directly and capture defaults with `??`. No behavior change.
-
-  Affected rules:
-  - `react-x/no-unstable-default-props`
-  - `react-x/use-state`
-  - `react-jsx/no-useless-fragment`
-  - `react-dom/no-unknown-property`
-  - `react-dom/no-unsafe-target-blank`
-
-- Bumped `preact` to `11.1.0`, `oxlint` to `1.90.0`, `postcss` to `8.5.32`, `lucide-react` to `1.62.0`, and `eslint-plugin-package-json` to `1.12.0`, plus related tooling.
-
-**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.30.0-beta.9...v5.30.0-beta.10
-
-## v5.30.0-beta.9 (2026-10-27)
-
-### 🏗️ Internal
-
-- `@eslint-react/eslint`: removed the `complete` option-merging helper. Rules now resolve options in `create` from `context.options[0]` with per-property `??=` defaults. (#2090)
-
-  Affected rules:
-  - `react-x/no-unstable-default-props`
-  - `react-x/use-state`
-  - `react-jsx/no-useless-fragment`
-  - `react-dom/no-unknown-property`
-  - `react-dom/no-unsafe-target-blank`
-
-**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.30.0-beta.8...v5.30.0-beta.9
-
-## v5.30.0-beta.8 (2026-10-27)
+## v5.30.1 (2026-11-10)
 
 ### 🐞 Fixes
 
-- `react-x/no-duplicate-key`: reverted to the v5.28.8 implementation, dropping the v5.30.0-beta.7 changes. (#2089)
-- `react-x/no-missing-context-display-name`: the autofix now also applies to exported contexts. (#2089)
-- `react-x/no-unstable-context-value`: shadowed `Boolean()`, `String()`, and `Number()` calls are no longer reported. (#2089)
-- `react-x/no-unstable-default-props`: shadowed `Boolean()`, `String()`, and `Number()` calls are no longer reported. (#2089)
-
-### 📝 Documentation
-
-- Corrected the `noExplicitSpreadProps` recipe to state that it provides no autofix. (#2089)
+- `react-x/no-duplicate-key`: in `.map()` callbacks, all statically known keys are now treated as repeating, not only bare string literals.
+- `react-jsx/no-leaked-semicolon`: same-line leaked semicolons after an expression container are now detected (ex: `<div>{x};</div>`, `<div>{cond && <span />};</div>`).
 
 ### 🏗️ Internal
 
-- `@eslint-react/ast`: `Compare.isEqual` now also compares `computed` and `optional` on member expressions. (#2089)
-- `@eslint-react/var`: `resolveObjectType` now treats shadowed `Boolean()`, `String()`, and `Number()` calls as non-object values. (#2089)
+- Removed the Vercel deploy step from the release workflow.
 
-**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.30.0-beta.7...v5.30.0-beta.8
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.30.0...v5.30.1
 
-## v5.30.0-beta.7 (2026-10-27)
+## v5.30.0 (2026-11-10)
+
+### ✨ New
+
+- `@eslint-react/eslint-plugin`: added the `all-type-checked` preset, which extends `all` with the rules that require type information. (#2095)
+- `@eslint-react/eslint-plugin`: added the experimental `@eslint-react/unstable-exhaustive-deps` rule, forked from `exhaustive-deps`, with a `hooks` option modeled on Biome's `useExhaustiveDependencies` (`closureIndex`/`dependenciesIndex` for custom Hooks, and `stableResult` for stable results). The rule lives in the unified plugin's own `src/rules` while incubating and is enabled in the `all` preset (and thereby in `all-type-checked`). (#1698, #2078, #2095) Thanks to @dgesteves!
+- `react-x/set-state-in-effect`: reworked around explicit effect roots, recursive value resolution, and a synchronous call graph. Stable aliases, multi-level helpers, named setups, IIFEs, and `useCallback`/`useMemo`/`useEffectEvent` wrappers now share one resolution path; indirect diagnostics point at the effect-side trigger and dedupe by setter sink; async functions remain deferred. (#2075)
+- `react-x/static-components`: JSX member expression tags (ex: `<Namespace.Bar />`) are now analyzed. (#2114)
 
 ### 🐞 Fixes
 
-- `react-x/no-duplicate-key`: reworked duplicate detection to cover non-adjacent and static keys, `.flatMap()`/`Array.from()` callbacks, and `Children`-rekeyed output; bare or whitespace-separated `key` attributes are no longer skipped. (#2088)
-- `react-x/no-direct-mutation-state`: state assignments in nested constructor blocks are no longer reported. (#2088)
-- `react-x/no-missing-context-display-name`: the autofix no longer produces invalid syntax for multi-declarator declarations. (#2088)
-- `react-x/no-missing-key`: TypeScript-wrapped iterator callbacks are now unwrapped before checking. (#2088)
-- `react-x/no-unused-class-component-members`: statically resolvable computed reads and destructuring are now counted as usages. (#2088)
+- `react-x/error-boundaries`: optional-chained `createElement` calls are recognized as JSX-like return values. (#2084)
+- `react-x/no-direct-mutation-state`: state assignments in nested constructor blocks (`if`, loops, `try`, and bare blocks) are no longer reported. (#2088)
+- `react-x/no-duplicate-key`: only keys that provably have a duplicate are now reported. Unique siblings in a partially duplicate group (ex: `[A, B, B]`) are no longer reported, and duplicates followed by a unique key (ex: `[A, A, B]`) are now correctly reported; keys collected through `Children.toArray()` and `Children.map()` are no longer reported; only elements returned by `.map()` callbacks are checked; literal keys are no longer overwritten by later keys; and `.map()` calls on array literals with at most one element are skipped. (#2108)
+- `react-x/no-duplicate-key`: the fast-path text check now matches bare `key` attributes and keys separated from `=` by whitespace (ex: `<div key />`, `<div key = {id} />`), so such elements are no longer silently skipped.
+- `react-x/no-missing-component-display-name`: `memo` components passed to generic HOCs are recognized, so anonymous ones require a display name. (#2084)
+- `react-x/no-missing-context-display-name`: the autofix now applies to exported contexts and no longer produces invalid syntax for multi-declarator declarations. (#2088, #2089)
+- `react-x/no-missing-key`: elements with a spread attribute are no longer reported as missing `key`, and TypeScript-wrapped iterator callbacks are unwrapped before checking. (#2086, #2088)
+- `react-x/no-nested-component-definitions`: array pattern element defaults and `memo` `propsAreEqual` comparators are no longer reported as nested components; optional-chained `createElement` returns are recognized. (#2084)
+- `react-x/no-unstable-context-value` and `react-x/no-unstable-default-props`: shadowed `Boolean()`, `String()`, and `Number()` calls are no longer reported. (#2089)
+- `react-x/no-unused-class-component-members`: statically resolvable computed member reads and destructuring are counted as usages. (#2088)
+- `react-x/refs`: non-null guards whose terminating branch is a `try` statement, an all-terminating `switch` with a `default` clause, or an all-terminating `while (true)`/`for (;;)`/`do...while` loop are now recognized, so ref writes reached only when the ref is null are no longer reported. (#2093, #2109)
+- `react-x/set-state-in-effect`: TypeScript-wrapped setups are resolved; zero-argument setters called directly in the setup are reported; timer or event callbacks nested in `useCallback`/`useEffectEvent` are no longer treated as synchronous setters; every possible setter is reported when the callee may resolve to more than one; the ref-derived exemption applies to any argument position of a custom state hook's setter; ref-derived early-return guards gate the following statements inside `try`/`switch`/bare blocks and loop bodies or update clauses; ref provenance follows IIFEs; nested and outer effect setups are analyzed independently; and setter calls reached through the same effect-side trigger are reported once per setter name. (#2075, #2082, #2083)
+- `react-x/static-components`: the render-boundary check now requires that at least one declaration of the component binding lives inside a render body, instead of only checking the first declaration. (#2110)
+- `react-x/static-components`: static components wrapped by `useMemo` or `useCallback` (ex: `useMemo(() => External, [])`) are no longer reported; the memoized value is traced instead of the hook call itself. (#2113, closes #1762) Thanks to @itisrmk!
+- `react-x/use-state`: calls in computed object property keys and JSX subtrees are now detected by the lazy-initialization check. (#2080)
+- `react-jsx/no-children-prop-with-children`: `children` supplied through a statically resolvable computed key in a `createElement` props object is now detected. (#2086)
+- `react-jsx/no-children-prop`: `children` supplied through a statically resolvable computed key in a `createElement` props object is now detected, and the suggestion to move `children` into element content is no longer offered when a following spread attribute could override it. (#2086, #2102)
+- `react-jsx/no-leaked-semicolon`: leaked semicolons between a JSX child and its parent's closing tag on the same line are now detected. (#2102)
+- `react-jsx/no-useless-fragment`: fragments with a spread attribute are no longer reported, and lone-CR whitespace, including `&#13;`, is treated as formatting padding like LF and CRLF. (#2086, #2092)
+- `react-dom/no-dangerously-set-innerhtml-with-children`: empty expression containers and comment-only children no longer count as children; lone-CR whitespace, including `&#13;`, no longer counts either. (#2086, #2092)
+- `react-dom/no-hydrate` and `react-dom/no-render`: autofixes now skip calls with extra or spread arguments and calls whose return values are used, and no longer prepend the new import at the top of the file — existing imports are reused, duplicates are skipped, and new imports are placed after file-level directives, header comments, and existing imports. (#2103, #2104)
+- `react-dom/no-script-url`: namespaced attributes such as `xlink:href` are now checked for `javascript:` URLs. (#2086)
+- `react-dom/no-unsafe-iframe-sandbox`: `sandbox` permissions are matched as whole whitespace-separated tokens, fixing false positives like `sandbox="not-allow-scripts"`. (#2112)
+- `react-dom/no-unsafe-target-blank`: the suggestion for a missing `rel` attribute now inserts it after the last JSX attribute, so a spread attribute cannot override the suggested value. (#2086)
+- `react-dom/no-use-form-state`: autofix-added imports now reuse existing imports, avoid duplicates, and follow file-level directives, header comments, and existing imports. (#2104)
+- `react-dom/no-void-elements-with-children`: comment-only/empty containers, newline-only formatting whitespace, and lone-CR whitespace, including `&#13;`, no longer count as children. (#2086, #2092)
+- `react-web-api/no-leaked-event-listener`: dot access and static computed access (including simple template-literal keys) now match as the same property; optional-chained listeners, event types, and receivers pair with their cleanup; string-literal and template-literal option keys are recognized; cyclic `signal` alias chains no longer recurse forever; and function-parameter callees are no longer mistaken for the enclosing function. (#2085, #2092, #2093, #2100)
+- `react-web-api/no-leaked-fetch`: `signal` option keys written as string literals or simple template literals are recognized. (#2093)
+- `react-web-api/no-leaked-intersection-observer` and `react-web-api/no-leaked-resize-observer`: `observe(...)` and `unobserve(...)` now pair on optional-chained elements. (#2093)
+- `react-debug/function-component`: only the first argument of `memo`/`forwardRef` is treated as the wrapped component; `propsAreEqual` comparators returning JSX are no longer reported, and functions in that position no longer inherit the surrounding binding or wrapper flags. Array pattern element defaults are no longer reported, and optional-chained `createElement` returns are recognized. (#2084)
 
 ### 🪄 Improvements
 
@@ -82,31 +75,6 @@ title: Changelog
   - `react-x/no-nested-lazy-component-declarations`
   - `react-x/no-unused-class-component-members`
 
-### 🏗️ Internal
-
-- `@eslint-react/eslint`: added a `complete` helper for merging rule options with defaults; rules now use it, with type-annotated schemas and defaults kept in `meta.defaultOptions`. No behavior change. (#2088)
-- `eslint-plugin-react-x`: added shared iterator-callback detection for `no-missing-key` and `no-duplicate-key`; updated rule implementation docs and cleaned up stale comments and JSDoc. No behavior change. (#2088)
-
-**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.30.0-beta.6...v5.30.0-beta.7
-
-## v5.30.0-beta.6 (2026-10-27)
-
-### 🐞 Fixes
-
-- `react-x/no-missing-key`: elements with a spread attribute are no longer reported as missing `key`. (#2086)
-- `react-jsx/no-useless-fragment`: fragments with a spread attribute are no longer reported. (#2086)
-- `react-dom/no-dangerously-set-innerhtml-with-children`: empty expression containers (`{}` and comments) no longer count as children. (#2086)
-- `react-dom/no-script-url`: namespaced attributes such as `xlink:href` are now checked for `javascript:` URLs. (#2086)
-- `react-dom/no-void-elements-with-children`: comment-only/empty containers and newline-only formatting whitespace no longer count as children. (#2086)
-- `react-web-api/no-leaked-event-listener`: cyclic alias chains no longer cause infinite recursion when resolving a `signal` option. (#2085)
-- `children` supplied through a statically resolvable computed key in a `createElement` props object is now detected. (#2086)
-
-  Affected rules:
-  - `react-jsx/no-children-prop`
-  - `react-jsx/no-children-prop-with-children`
-
-### 🪄 Improvements
-
 - JSX and `createElement` rules no longer resolve spread props, since a spread's contents are unknown; only direct attributes and properties are inspected. (#2086)
 
   Affected rules:
@@ -123,147 +91,41 @@ title: Changelog
   - `react-dom/no-unsafe-target-blank`
   - `react-dom/no-void-elements-with-children`
 
-### 🏗️ Internal
-
-- `@eslint-react/jsx` / `@eslint-react/ast`: rewrote the jsx module around direct-attribute descriptors and `parseCreateElementCall` (dropping its `@eslint-react/var` and `ts-pattern` dependencies and spread-property resolution), added `Extract.getJSXName`, and made `getChildren` return meaningful children. (#2086)
-- `@eslint-react/var`: added `resolveOriginChain`, `isProvenanceEqual`, and `hasDefault`, expanded `resolveObjectType` and `createImportLookup` (`isModuleBinding` replaces `hasNamespace`), made `isValueEqual` identity-only, and removed `resolveBindingTarget`/`BindingTarget`. (#2085)
-- Rules now use the shared callee, JSX-name, and resolution helpers and unwrap `AssignmentPattern` defaults inline; `react-x/no-unknown-property` also caches its lookups per React version. No behavior change. (#2085, #2086)
-
-  Affected rules:
-  - `react-x/globals`
-  - `react-x/immutability`
-  - `react-x/no-array-index-key`
-  - `react-x/no-unknown-property`
-  - `react-x/no-unused-props`
-  - `react-x/purity`
-  - `react-x/set-state-in-effect`
-  - `react-x/unstable-exhaustive-deps`
-  - `react-jsx/no-namespace`
-  - `react-dom/no-find-dom-node`
-  - `react-dom/no-flush-sync`
-  - `react-dom/no-hydrate`
-  - `react-dom/no-render`
-  - `react-dom/no-render-return-value`
-  - `react-dom/no-use-form-state`
-
-**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.30.0-beta.5...v5.30.0-beta.6
-
-## v5.30.0-beta.5 (2026-10-27)
-
-### 🐞 Fixes
-
-- `react-x/error-boundaries`: treat optional-chained `createElement` calls as JSX-like returns. (#2084)
-- `react-x/no-missing-component-display-name`: recognize `memo` components passed to generic HOCs, so anonymous ones require a display name. (#2084)
-- `react-x/no-nested-component-definitions`: no longer report array pattern element defaults or `memo` `propsAreEqual` comparators as nested components; recognize optional-chained `createElement` returns. (#2084)
-- `react-debug/function-component`: treat only the first `memo`/`forwardRef` argument as the wrapped component; ignore array pattern element defaults; recognize optional-chained `createElement` returns. (#2084)
+- `react-x/no-unknown-property`: attribute-tag, DOM-property, and standard-name lookups are cached per React version and resolved lazily. (#2086)
+- `react-x/set-state-in-effect` and `react-x/set-state-in-render`: setters are recognized only as the second element of a `useState` array destructuring; tuple-index access and object-pattern numeric keys are no longer detected. (#2075)
 
 ### 📝 Documentation
 
-- Updated the community projects list.
+- Added a TanStack Redact example and updated the website's community projects list. (#2079)
+- Added known-issues references for `eslint-plugin-react-jsx` (#2102), `eslint-plugin-react-dom` (#2103), `eslint-plugin-react-web-api`, and `eslint-plugin-react-x`, and removed their next-step sections.
+- Documented known limitations and workarounds for `react-jsx/no-comment-textnodes`, `react-jsx/no-key-after-spread`, and `react-jsx/no-leaked-dollar`. (#2102)
+- Synced the migration tables with rule features and updated the configuration and third-party plugin docs. (#2106)
+- Synced the website recipe snippets with the hardened sample rules, and corrected the `noExplicitSpreadProps` recipe to state that it provides no autofix. (#2089, #2107)
+- Updated the FAQ, glossary, examples pages, the contributing guide's monorepo architecture diagram and package/example listings, and the term-based rule implementation patterns.
 
 ### 🏗️ Internal
 
-- `@eslint-react/ast`: added `Check.isArrayPatternElementDefault` and `Check.isObjectPatternElementDefault`. (#2084)
-- `@eslint-react/var`: added `resolveBindingTarget` and the `BindingTarget` type, now used by `no-array-index-key`, `no-unused-props`, `purity`, `set-state-in-effect`, and `unstable-exhaustive-deps`. (#2084)
-- `@eslint-react/core`: component detection now checks wrapper argument positions; `DoNotIncludeFunctionDefinedAsArrayPatternElement` now covers defaults; `isJSXLike` unwraps chain expressions. (#2084)
-- `react-x/no-unstable-default-props`: use `Check.isObjectPatternElementDefault`; no behavior change. (#2084)
-- Bumped `typescript-eslint` to `8.72.1`.
-
-**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.30.0-beta.4...v5.30.0-beta.5
-
-## v5.30.0-beta.4 (2026-10-26)
-
-### 🐞 Fixes
-
-- `react-x/set-state-in-effect`: report every possible setter when the callee may resolve to multiple setters (ex: `(cond ? setA : setB)(1)`). (#2082)
-- `react-x/set-state-in-effect`: apply the ref-derived exemption to any argument position of a custom state hook's setter (ex: `setValue(0, ref.current)`). (#2082)
-- `react-x/set-state-in-effect`: ref-derived early-return guards now gate the following statements as the `else` branch inside `try`/`switch`/bare blocks and in loop bodies or update clauses; a `try` whose paths all terminate now counts as terminating. (#2082, #2083)
-- `react-x/set-state-in-effect`: follow ref provenance through IIFEs, including nested and TypeScript-wrapped ones; deferred and async/generator writes stay excluded. (#2082)
-- `react-x/set-state-in-effect`: report setter calls reached through the same effect-side trigger once per setter name. (#2082)
-
-### 📝 Documentation
-
-- `react-x/set-state-in-effect`: note that files without a `use…Effect` name in their source are skipped, limiting `additionalEffectHooks` patterns that lack the `Effect` suffix. (#2082)
-
-### 🏗️ Internal
-
-- `@eslint-react/ast`: added the `Analyze` namespace (`isTerminatingStatement`, `isUnconditionallyTerminating`), now used by `react-x/set-state-in-effect` and `react-x/refs`. (#2083)
-
-**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.30.0-beta.3...v5.30.0-beta.4
-
-## v5.30.0-beta.3 (2026-10-26)
-
-### ✨ New
-
-- `react-x/unstable-exhaustive-deps`: new experimental rule forked from `exhaustive-deps`; its `hooks` option (modeled on Biome's `useExhaustiveDependencies`) configures custom Hooks via `closureIndex`/`dependenciesIndex` and stable results via `stableResult`. (#1698, #2078) Thanks to @dgesteves!
-
-### 📝 Documentation
-
-- Added documentation and a README for `react-x/unstable-exhaustive-deps`, covering the `hooks` option, examples, and fork-specific adaptations. (#2078, #2081)
-
-### 🏗️ Internal
-
+- `@eslint-react/ast`, `@eslint-react/core`, and `@local/testkit`: added tests for AST tree types, core semantic interfaces, and type utilities.
+- `@eslint-react/ast`: added the `Collect` and `Analyze` namespaces and `Traverse.simpleTraverse`; `Analyze.isUnconditionallyTerminating` now handles `try` statements, terminating `switch` statements with a `default` clause, and terminating `while (true)`/`for (;;)`/`do...while` loops; `Compare.isEqual` now compares `ChainExpression`, regex literals, and member `computed`/`optional` flags; `Collect` now traverses `for` initializers and updates; renamed `Check.isConditional` to `Check.isConditionalOrLoop`; added `Check.isArrayPatternElementDefault`, `Check.isObjectPatternElementDefault`, `Check.isLoopStatement`, and `Extract.getJSXName`; improved private identifier handling; removed the general-purpose `Extract.getMemberChain`, `Extract.getPropertyName`, `Extract.findProperty`, and `Extract.getAssignmentTargets` helpers in favor of `resolveAssignmentTargets` from `@eslint-react/var` and rule-local traversal. (#2080, #2083, #2084, #2086, #2092, #2093, #2099, #2100)
+- `@eslint-react/core`: moved the `createElement` helpers to `@eslint-react/jsx`; component detection now checks wrapper argument positions and unwraps chain expressions; improved render-method detection and qualified type names; narrowed the accepted node types of hook/component detection helpers. (#2075, #2077, #2084, #2099)
+- `@eslint-react/var`: added `resolveOriginChain`, `isProvenanceEqual`, `hasDefault`, and `resolveAssignmentTargets`; expanded `resolveObjectType` and `createImportLookup`, which now exposes `isModuleBinding` instead of `hasNamespace`; made `isValueEqual` identity-only (use `isProvenanceEqual` for structural provenance); and removed `resolveBindingTarget`/`BindingTarget`, with binding targets now unwrapped inline. (#2085, #2086, #2088, #2100)
+- `@local/samples`: hardened the sample rules. (#2107)
 - `@local/testkit`: added a `verifyAndFix` helper for testing rules with autofixes. (#2078)
+- Bumped dependencies across the workspace, including `eslint` to `10.14.0`, `typescript-eslint` to `8.72.1`, `next` to `16.4.5`, `vitest` to `5.1.0`, `tsdown` to `0.23.7`, `nx` to `24.0.4`, `oxlint` to `1.91.0`, `vite` to `8.3.6`, `effect` to `4.1.2`, and the `fumadocs` packages to `16.18.0`.
+- Collapsed multi-line expressions in `react-x/static-components` origins; no behavioral changes.
+- Enforced a 1-day dependency maturity period; served README assets from the jsDelivr CDN; restricted website deployments to stable releases via a Vercel deploy hook; refactored the publish workflow trigger and pinned zizmor through its official action.
+- Removed the ko-fi sponsorship and funding configuration.
+- Removed the now-unused `@typescript-eslint/typescript-estree` dependency from `@eslint-react/ast`, `@eslint-react/core`, `@eslint-react/var`, and `eslint-plugin-react-x`. (#2080)
+- Removed the unused `inlinedDependencies` field from the monorepo package configuration.
+- Unified test language options and reorganized the test harness: tsconfig fixtures replace the per-JSX-emit tester factories, and untyped parsing disables typescript-estree's single-run inference. (#2105)
+- Unwrapped multi-line comments to single lines across packages, plugins, and scripts; no behavioral changes.
 
 ### New Contributors
 
 - **Diogo Esteves** (@dgesteves) made their first contribution in #2078.
+- **Rahul Kashyap** (@itisrmk) made their first contribution in #2113.
 
-**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.30.0-beta.2...v5.30.0-beta.3
-
-## v5.30.0-beta.2 (2026-10-25)
-
-### 🐞 Fixes
-
-- `react-x/use-state`: detect calls in computed object property keys (ex: `useState({ [getKey()]: value })`) and JSX subtrees in the lazy-initialization check. (#2080)
-
-### 📝 Documentation
-
-- Added a TanStack Redact example. (#2079)
-- Improved the FAQ, glossary, and examples pages.
-
-### 🏗️ Internal
-
-- `@eslint-react/ast`: added the `Collect` namespace and a lightweight `Traverse.simpleTraverse` independent of `@typescript-eslint/typescript-estree`; adopted by `react-x/no-missing-key`, `react-x/set-state-in-effect`, `react-x/use-memo`, and `react-x/use-state`. (#2080)
-- `react-x/set-state-in-effect`: identifier collection now also visits computed property keys, rest elements, and JSX expression containers when resolving ref provenance. (#2080)
-- Removed the now-unused `@typescript-eslint/typescript-estree` dependency from `@eslint-react/ast`, `@eslint-react/core`, `@eslint-react/var`, and `eslint-plugin-react-x`. (#2080)
-
-**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.30.0-beta.1...v5.30.0-beta.2
-
-## v5.30.0-beta.1 (2026-10-25)
-
-### 🏗️ Internal
-
-- Moved the `createElement` helpers from `@eslint-react/core` to `@eslint-react/jsx`. (#2077)
-- Bumped `zod` to `4.6.7`.
-
-**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.30.0-beta.0...v5.30.0-beta.1
-
-## v5.30.0-beta.0 (2026-10-25)
-
-### ✨ New
-
-- `react-x/set-state-in-effect`: reworked around explicit effect roots and a synchronous call graph, unifying stable aliases, multi-level helpers, named setups, IIFEs, and `useCallback`/`useMemo`/`useEffectEvent` wrappers; indirect diagnostics point at the effect-side trigger, and async functions stay deferred. (#2075)
-
-### 🐞 Fixes
-
-- `react-x/set-state-in-effect`: resolve TypeScript-wrapped setups (ex: `useEffect((setup as () => void)!, [])`). (#2075)
-- `react-x/set-state-in-effect`: report zero-argument setters called directly in the setup (ex: `setData()`), matching indirect calls. (#2075)
-- `react-x/set-state-in-effect`: no longer treat timer or event callbacks nested in `useCallback`/`useEffectEvent` as synchronous setters. (#2075)
-- `react-x/set-state-in-effect`: extend ref provenance to TypeScript assertions, computed keys, local getters, and state-held DOM nodes from callback refs; same-branch plain writes replace ref-derived ones, guard-test setters cannot self-exempt, and ref guards propagate through helpers and IIFEs. (#2075)
-- `react-x/set-state-in-effect`: analyze nested and outer effect setups independently. (#2075)
-
-### 📝 Documentation
-
-- `react-x/set-state-in-effect`: documented synchronous helper calls, deferred callbacks, and the expanded ref-derived value rules. (#2075)
-
-### 🏗️ Internal
-
-- `react-x/set-state-in-effect`, `react-x/set-state-in-render`: recognize setters only as the second element of a `useState` array destructuring; tuple-index access and object-pattern numeric keys are no longer detected. (#2075)
-- `@eslint-react/ast`: added `Check.isLoopStatement`; `@eslint-react/core` and `@eslint-react/kit`: narrowed the accepted node types of hook/component detection helpers and matching `RuleToolkit.is` signatures, and updated the custom-rule sample. (#2075)
-- Bumped `next` to `16.4.3`, the `fumadocs` packages, `tsdown` to `0.23.2`, `nx` to `23.3.1`, `eslint-plugin-package-json` to `1.11.0`, and `preact` to `11.0.2`.
-
-**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.28.8...v5.30.0-beta.0
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.28.8...v5.30.0
 
 ## v5.28.8 (2026-10-24)
 

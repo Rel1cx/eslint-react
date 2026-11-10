@@ -5,11 +5,17 @@ All notable changes to the `react-x/refs` rule will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [5.30.0-beta.4] - 2026-10-26
+## [5.30.0] - 2026-11-10
+
+### Fixed
+
+- A non-null guard whose terminating branch is a `try` statement is now recognized as terminating when its finalizer terminates, or when its try block and catch handler both terminate.
+- Inverted lazy-init guards whose non-null branch ends in an all-terminating `switch` with a `default` clause, or in a `while (true)`/`for (;;)`/`do...while` loop whose body always returns or throws, are no longer reported as render-time writes; clauses and bodies with an escaping `break`/`continue` (including labeled jumps), fall-through clause groups, switches without `default`, and non-literal-true loop tests remain unrecognized.
 
 ### Changed
 
 - The rule-local `isUnconditionallyTerminating` helper was replaced with the shared `Analyze.isUnconditionallyTerminating` from `@eslint-react/ast`; no behavior change. (#2083)
+- Added unit tests for ref fact collection, inference, and origins in the `collect`, `effects`, and `origins` modules. No behavior change.
 
 ## [5.23.0] - 2026-09-30
 

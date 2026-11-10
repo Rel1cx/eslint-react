@@ -22,9 +22,9 @@ The predicate receives `(element, index)`.
 **Example** (Dropping while condition holds)
 
 ```ts
-import { Array } from "effect";
+import { dropWhile } from "@local/eff";
 
-Array.dropWhile([1, 2, 3, 4, 5], (x) => x < 4); // => [4, 5]
+dropWhile([1, 2, 3, 4, 5], (x) => x < 4); // => [4, 5]
 ```
 
 ## Call Signature
@@ -74,8 +74,7 @@ Array.dropWhile([1, 2, 3, 4, 5], (x) => x < 4); // => [4, 5]
 
 ## See
 
-- [takeWhile](takeWhile.md) — keep the matching prefix instead
-- drop — drop a fixed count
+[takeWhile](takeWhile.md) — keep the matching prefix instead
 
 ## Since
 

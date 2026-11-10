@@ -60,8 +60,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
           ? [{ messageId: "default", node }]
           : [];
       // Case: key={`foo-${index}`}
-      // Note: only direct interpolations are checked; composite expressions
-      // like `${item.type + index}` derive the key from item data as well
+      // Note: only direct interpolations are checked; composite expressions like `${item.type + index}` derive the key from item data as well
       case AST.TemplateLiteral:
         return node.expressions
           .filter(isArrayIndex)
@@ -109,7 +108,8 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       for (const property of propsObject.properties) {
         if (property.type !== AST.Property) continue;
         if (property.computed) continue;
-        if (Extract.getPropertyName(property, "max") !== "key") continue;
+        const key = Extract.unwrap(property.key);
+        if (Check.isIdentifier(key) ? key.name !== "key" : key.value !== "key") continue;
         const value = property.value;
         for (const desc of visitKeyExpression(value)) {
           context.report(desc);

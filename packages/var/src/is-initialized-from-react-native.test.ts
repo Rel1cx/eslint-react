@@ -23,8 +23,7 @@ describe("isInitializedFromReactNative", () => {
     });
 
     it("should match 'react-native-web' by prefix", () => {
-      // Prefix matching is intentional: react-native-web is treated as part of
-      // the React Native family.
+      // Prefix matching is intentional: react-native-web is treated as part of the React Native family.
       expect(isInitialized('import { View } from "react-native-web"; View();', "View")).toBe(true);
     });
 

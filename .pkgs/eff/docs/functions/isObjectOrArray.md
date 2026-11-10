@@ -10,7 +10,7 @@ Checks whether a value is an object or an array (non-null object).
 
 **When to use**
 
-Use when you need a `Predicate` guard that accepts plain objects and arrays,
+Use when you need a type guard that accepts plain objects and arrays,
 but not `null`.
 
 **Details**
@@ -20,9 +20,9 @@ Uses `typeof input === "object" && input !== null` and includes arrays.
 **Example** (Checking objects or arrays)
 
 ```ts
-import { Predicate } from "effect";
+import { isObjectOrArray } from "@local/eff";
 
-Predicate.isObjectOrArray([]); // => true
+isObjectOrArray([]); // => true
 ```
 
 ## Parameters

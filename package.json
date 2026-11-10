@@ -1,6 +1,6 @@
 {
   "name": "@eslint-react/monorepo",
-  "version": "5.30.0-beta.10",
+  "version": "5.30.1",
   "private": true,
   "description": "Monorepo for eslint-plugin-react-[x, jsx, rsc, dom, web-api, naming-convention].",
   "keywords": [
@@ -29,7 +29,7 @@
   "type": "module",
   "scripts": {
     "build": "node --run build:pkgs && node --run build:packages && node --run build:plugins",
-    "build:docs": "nx run-many -t build:docs --parallel",
+    "build:docs": "dprint check && nx run-many -t build:docs --parallel && dprint fmt",
     "build:examples": "pnpm m -F \"./examples/*\" run build",
     "build:packages": "nx run-many -t build -p 'packages/*' --parallel",
     "build:pkgs": "nx run-many -t build -p '.pkgs/*' --parallel",
@@ -58,28 +58,28 @@
   },
   "devDependencies": {
     "@effect/language-service": "^0.87.5",
-    "@effect/platform-node": "^4.0.6",
+    "@effect/platform-node": "^4.1.2",
     "@local/configs": "workspace:*",
     "@local/eff": "workspace:*",
     "@local/testkit": "workspace:*",
-    "@nubjs/nub": "^0.8.3",
+    "@nubjs/nub": "^0.9.7",
     "@textlint-rule/textlint-rule-pattern": "^2.0.2",
     "@textlint/textlint-plugin-markdown": "^15.8.0",
     "@tsconfig/node20": "^20.1.10",
     "@tsconfig/node24": "^24.0.5",
     "@tsconfig/strictest": "^2.0.8",
-    "@types/node": "^20.19.43",
+    "@types/node": "^24.19.2",
     "@types/react": "^19.3.0",
     "@types/react-dom": "^19.3.0",
-    "ansis": "^4.4.0",
-    "dprint": "^0.57.4",
-    "effect": "^4.0.6",
-    "eslint": "^10.13.0",
+    "ansis": "^4.5.0",
+    "dprint": "^0.64.3",
+    "effect": "^4.1.2",
+    "eslint": "^10.14.0",
     "eslint-plugin-eslint-plugin": "^7.6.2",
-    "eslint-plugin-package-json": "^1.12.0",
+    "eslint-plugin-package-json": "^1.14.0",
     "import-integrity-lint": "^1.3.1",
     "mdxlint": "^1.0.0",
-    "nx": "^23.3.1",
+    "nx": "^24.0.5",
     "publint": "^0.3.25",
     "react": "^19.3.1",
     "react-dom": "^19.3.1",
@@ -89,7 +89,7 @@
     "textlint": "^15.8.0",
     "tinyglobby": "^0.2.17",
     "ts-pattern": "^5.9.2",
-    "tsdown": "^0.23.2",
+    "tsdown": "^0.23.7",
     "tsl": "^1.0.30",
     "typedoc": "^0.28.20",
     "typedoc-plugin-file-overview": "^0.2.0",
@@ -97,13 +97,10 @@
     "typedoc-plugin-mdn-links": "^5.1.1",
     "typescript": "6.0.3",
     "typescript-eslint": "^8.72.1",
-    "vitest": "^5.0.5"
+    "vitest": "^5.1.0"
   },
-  "packageManager": "pnpm@12.15.0",
+  "packageManager": "pnpm@12.16.1",
   "engines": {
     "node": ">=24.21.0"
-  },
-  "inlinedDependencies": {
-    "@local/eff": "workspace:*"
   }
 }

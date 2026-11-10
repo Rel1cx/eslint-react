@@ -26,7 +26,11 @@ export type TSESTreeFunctionOrClass =
   | TSESTreeClass
   | TSESTreeFunction;
 
-/** Union of method and property definition node types. */
+/**
+ * Union of `MethodDefinition` and `PropertyDefinition` node types.
+ *
+ * Abstract and accessor member definitions are not included.
+ */
 export type TSESTreeMethodOrPropertyDefinition =
   | TSESTree.MethodDefinition
   | TSESTree.PropertyDefinition;

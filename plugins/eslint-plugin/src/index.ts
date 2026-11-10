@@ -1,5 +1,6 @@
 import type { ESLint, Linter } from "eslint";
 import * as allConfig from "./configs/all";
+import * as allTypeCheckedConfig from "./configs/all-type-checked";
 import * as disableConflictEslintPluginReact from "./configs/disable-conflict-eslint-plugin-react";
 import * as disableConflictEslintPluginReactHooks from "./configs/disable-conflict-eslint-plugin-react-hooks";
 import * as disableDomConfig from "./configs/disable-dom";
@@ -26,6 +27,7 @@ import plugin from "./plugin";
 
 type ConfigName =
   | "all"
+  | "all-type-checked"
   | "disable-conflict-eslint-plugin-react"
   | "disable-conflict-eslint-plugin-react-hooks"
   | "disable-dom"
@@ -75,6 +77,7 @@ const finalPlugin: ESLint.Plugin & {
   ...plugin,
   configs: {
     ["all"]: createConfig(allConfig),
+    ["all-type-checked"]: createConfig(allTypeCheckedConfig),
     ["disable-conflict-eslint-plugin-react"]: createConfig(disableConflictEslintPluginReact),
     ["disable-conflict-eslint-plugin-react-hooks"]: createConfig(disableConflictEslintPluginReactHooks),
     ["disable-dom"]: createConfig(disableDomConfig),

@@ -3,6 +3,7 @@ title: Recipes
 description: Ready-to-use custom ESLint rule definitions built with @eslint-react/kit
 ---
 
+import { Callout } from "fumadocs-ui/components/callout";
 import { Card, Cards } from "fumadocs-ui/components/card";
 
 <Callout type="warn" title="Under Construction">
@@ -27,6 +28,12 @@ Recipes require the `@eslint-react/kit` package:
 npm install --save-dev @eslint-react/kit
 ```
 
+Some recipes also import from `@typescript-eslint/*` packages (e.g. `@typescript-eslint/types`, `@typescript-eslint/utils`, `@typescript-eslint/scope-manager`, `@typescript-eslint/typescript-estree`). If your package manager uses a strict `node_modules` layout (e.g. pnpm), install them explicitly:
+
+```package-install copy
+npm install --save-dev @typescript-eslint/types @typescript-eslint/utils @typescript-eslint/scope-manager @typescript-eslint/typescript-estree
+```
+
 ## Usage
 
 Each recipe page provides:
@@ -40,7 +47,7 @@ Here's the general pattern:
 ```ts title=".config/noForwardRef.ts"
 import type { RuleFunction } from "@eslint-react/kit";
 
-function noForwardRef(): RuleFunction {
+export function noForwardRef(): RuleFunction {
   return (context, { is }) => ({
     CallExpression(node) {
       if (is.forwardRefCall(node)) {

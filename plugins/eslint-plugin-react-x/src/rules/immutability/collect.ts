@@ -1,6 +1,7 @@
 import { Check, Extract, type TSESTreeFunction, Traverse } from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
 import type { RuleListener } from "@eslint-react/eslint";
+import { resolveAssignmentTargets } from "@eslint-react/var";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import { KNOWN_MUTATING_METHODS } from "./helpers";
 
@@ -35,8 +36,9 @@ export function createFactCollector() {
   }
 
   function pushMemberMutation(node: TSESTree.Node, target: TSESTree.Expression) {
-    const root = Extract.getMemberChain(target).at(0);
-    if (root == null || !Check.isIdentifier(root)) return;
+    let root: TSESTree.Node = Extract.unwrap(target);
+    while (root.type === AST.MemberExpression) root = Extract.unwrap(root.object);
+    if (!Check.isIdentifier(root)) return;
     pushMutation("value", node, target, root);
   }
 
@@ -50,7 +52,7 @@ export function createFactCollector() {
 
   const visitor: RuleListener = {
     AssignmentExpression(node: TSESTree.AssignmentExpression) {
-      for (const target of Extract.getAssignmentTargets(node.left)) {
+      for (const target of resolveAssignmentTargets(node.left)) {
         pushTargetMutation(node, target);
       }
     },
@@ -70,13 +72,13 @@ export function createFactCollector() {
     },
     ForInStatement(node: TSESTree.ForInStatement) {
       if (node.left.type === AST.VariableDeclaration) return;
-      for (const target of Extract.getAssignmentTargets(node.left)) {
+      for (const target of resolveAssignmentTargets(node.left)) {
         pushTargetMutation(node, target);
       }
     },
     ForOfStatement(node: TSESTree.ForOfStatement) {
       if (node.left.type === AST.VariableDeclaration) return;
-      for (const target of Extract.getAssignmentTargets(node.left)) {
+      for (const target of resolveAssignmentTargets(node.left)) {
         pushTargetMutation(node, target);
       }
     },

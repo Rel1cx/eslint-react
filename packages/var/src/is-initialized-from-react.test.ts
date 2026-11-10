@@ -40,8 +40,7 @@ describe("isInitializedFromReact", () => {
     });
 
     it("should match packages sharing the prefix", () => {
-      // Prefix matching is intentional: react-dom is treated as part of the
-      // React family. Pass a more specific importSource to narrow it.
+      // Prefix matching is intentional: react-dom is treated as part of the React family. Pass a more specific importSource to narrow it.
       const code = 'import { flushSync } from "react-dom"; flushSync();';
       expect(isInitialized(code, "flushSync")).toBe(true);
     });

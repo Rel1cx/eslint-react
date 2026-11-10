@@ -160,8 +160,7 @@ ruleTester.run(RULE_NAME, rule, {
     tsx`<br>{}</br>;`,
     tsx`<br>
     </br>;`,
-    // Only direct `children`/`dangerouslySetInnerHTML` attributes are inspected;
-    // spreads may provide them
+    // Only direct `children`/`dangerouslySetInnerHTML` attributes are inspected; spreads may provide them
     tsx`<img {...props} />;`,
     tsx`<img {...{ children: "Foo" }} />;`,
     tsx`<img {...{ dangerouslySetInnerHTML: { __html: "Foo" } }} />;`,

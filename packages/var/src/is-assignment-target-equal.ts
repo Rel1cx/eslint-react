@@ -14,8 +14,7 @@ import { isProvenanceEqual } from "./is-provenance-equal";
 export function isAssignmentTargetEqual(context: RuleContext, a: TSESTree.Node, b: TSESTree.Node): boolean {
   const unwrappedA = Check.isTypeExpression(a) ? Extract.unwrap(a) : a;
   const unwrappedB = Check.isTypeExpression(b) ? Extract.unwrap(b) : b;
-  // Same-name identifiers in different scopes are different variables,
-  // so they must be compared by scope-aware value equality, not by name.
+  // Same-name identifiers in different scopes are different variables, so they must be compared by scope-aware value equality, not by name.
   if (Check.isIdentifier(unwrappedA) && Check.isIdentifier(unwrappedB)) {
     return isProvenanceEqual(context, unwrappedA, unwrappedB);
   }

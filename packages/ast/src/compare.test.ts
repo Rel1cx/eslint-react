@@ -1,4 +1,4 @@
-import { collectNodes } from "@local/testkit";
+import { collectNodes, getFirstExpression } from "@local/testkit";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import { describe, expect, it } from "vitest";
 
@@ -20,6 +20,14 @@ describe("isEqual", () => {
       const nodes1 = collectNodes<TSESTree.Identifier>("const a = 1;", AST.Identifier);
       const nodes2 = collectNodes<TSESTree.Identifier>("const b = 1;", AST.Identifier);
       expect(isEqual(nodes1[0]!, nodes2[0]!)).toBe(false);
+    });
+
+    it("should compare private identifiers by name", () => {
+      const nodes1 = collectNodes<TSESTree.PrivateIdentifier>("class A { #foo; }", AST.PrivateIdentifier);
+      const nodes2 = collectNodes<TSESTree.PrivateIdentifier>("class B { #foo; }", AST.PrivateIdentifier);
+      const nodes3 = collectNodes<TSESTree.PrivateIdentifier>("class A { #bar; }", AST.PrivateIdentifier);
+      expect(isEqual(nodes1[0]!, nodes2[0]!)).toBe(true);
+      expect(isEqual(nodes1[0]!, nodes3[0]!)).toBe(false);
     });
 
     it("should return true for literals with the same value", () => {
@@ -145,6 +153,14 @@ describe("isEqual", () => {
   });
 
   describe("MemberExpression equality", () => {
+    it("should distinguish private and public member properties", () => {
+      const privateNodes1 = collectNodes<TSESTree.MemberExpression>("class A { #id; m() { return this.#id; } }", AST.MemberExpression);
+      const privateNodes2 = collectNodes<TSESTree.MemberExpression>("class B { #id; m() { return this.#id; } }", AST.MemberExpression);
+      const publicNodes = collectNodes<TSESTree.MemberExpression>("class A { id; m() { return this.id; } }", AST.MemberExpression);
+      expect(isEqual(privateNodes1[0]!, privateNodes2[0]!)).toBe(true);
+      expect(isEqual(privateNodes1[0]!, publicNodes[0]!)).toBe(false);
+    });
+
     it("should return false for dot and computed access with the same property identifier", () => {
       const nodes = collectNodes<TSESTree.MemberExpression>("const k = 'x'; item.k; item[k];", AST.MemberExpression);
       expect(nodes).toHaveLength(2);
@@ -167,6 +183,31 @@ describe("isEqual", () => {
       const nodes = collectNodes<TSESTree.MemberExpression>("item?.id; item?.id;", AST.MemberExpression);
       expect(nodes).toHaveLength(2);
       expect(isEqual(nodes[0]!, nodes[1]!)).toBe(true);
+    });
+  });
+
+  describe("ChainExpression equality", () => {
+    it("should return true for identical optional chains", () => {
+      expect(isEqual(getFirstExpression("a?.b;"), getFirstExpression("a?.b;"))).toBe(true);
+    });
+
+    it("should return false for chains with different properties", () => {
+      expect(isEqual(getFirstExpression("a?.b;"), getFirstExpression("a?.c;"))).toBe(false);
+    });
+
+    it("should return false for optional and non-optional access", () => {
+      expect(isEqual(getFirstExpression("a?.b;"), getFirstExpression("a.b;"))).toBe(false);
+    });
+  });
+
+  describe("regex literal equality", () => {
+    it("should compare regex literals by pattern and flags", () => {
+      expect(isEqual(getFirstExpression("/a/gi;"), getFirstExpression("/a/gi;"))).toBe(true);
+      expect(isEqual(getFirstExpression("/a/g;"), getFirstExpression("/a/i;"))).toBe(false);
+    });
+
+    it("should distinguish regex literals from string literals", () => {
+      expect(isEqual(getFirstExpression("/a/;"), getFirstExpression('"a";'))).toBe(false);
     });
   });
 

@@ -13,7 +13,7 @@ Creates a predicate that returns `true` if exactly one predicate is `true`.
 
 **When to use**
 
-Use when you want to combine two `Predicate`s with exclusive-or semantics.
+Use when you want to combine two predicates with exclusive-or semantics.
 
 **Details**
 
@@ -27,11 +27,11 @@ exclusive-or semantics.
 **Example** (Checking exclusive-or conditions)
 
 ```ts
-import { Predicate } from "effect";
+import { xor } from "@local/eff";
 
 const isEven = (n: number) => n % 2 === 0;
 const isPositive = (n: number) => n > 0;
-const either = Predicate.xor(isEven, isPositive);
+const either = xor(isEven, isPositive);
 
 either(-2); // => true
 ```

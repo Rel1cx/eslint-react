@@ -319,8 +319,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      // A `disconnect` called right in the setup (no cleanup returned) does not satisfy the
-      // check: only cleanup-phase disconnects count
+      // A `disconnect` called right in the setup (no cleanup returned) does not satisfy the check: only cleanup-phase disconnects count
       code: tsx`
         import { useEffect } from "react";
 
@@ -341,8 +340,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      // A `disconnect` inside a nested function of the setup body that is never returned as
-      // the cleanup has phase "setup", so it does not satisfy the check
+      // A `disconnect` inside a nested function of the setup body that is never returned as the cleanup has phase "setup", so it does not satisfy the check
       code: tsx`
         import { useEffect } from "react";
 
@@ -365,8 +363,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      // An `unobserve` called right in the setup (no cleanup returned) does not pair with the
-      // `observe`: only cleanup-phase unobserves count
+      // An `unobserve` called right in the setup (no cleanup returned) does not pair with the `observe`: only cleanup-phase unobserves count
       code: tsx`
         import { useEffect } from "react";
 
@@ -387,8 +384,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      // A `ResizeObserver` instance held by a ref is observed in the effect but never
-      // disconnected or unobserved in the cleanup
+      // A `ResizeObserver` instance held by a ref is observed in the effect but never disconnected or unobserved in the cleanup
       code: tsx`
         import { useEffect, useRef } from "react";
 
@@ -491,8 +487,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      // A local helper whose `disconnect` is only invoked from the setup (never from the
-      // cleanup) has phase "setup", so it does not satisfy the check
+      // A local helper whose `disconnect` is only invoked from the setup (never from the cleanup) has phase "setup", so it does not satisfy the check
       code: tsx`
         import { useEffect } from "react";
 
@@ -542,8 +537,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      // A ref-held instance whose cleanup `unobserve` targets a different element than the
-      // `observe` does not pair - elements are matched by identity
+      // A ref-held instance whose cleanup `unobserve` targets a different element than the `observe` does not pair - elements are matched by identity
       code: tsx`
         import { useEffect, useRef } from "react";
 
@@ -591,8 +585,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      // A ref-held instance observed from a `setTimeout` callback is dynamically added and
-      // requires a `disconnect` in the cleanup, which is missing here
+      // A ref-held instance observed from a `setTimeout` callback is dynamically added and requires a `disconnect` in the cleanup, which is missing here
       code: tsx`
         import { useEffect, useRef } from "react";
 
@@ -635,6 +628,32 @@ ruleTester.run(RULE_NAME, rule, {
           }, []);
 
           return <div />;
+        }
+      `,
+      errors: [
+        {
+          messageId: "expected-disconnect-or-unobserve-in-cleanup",
+        },
+      ],
+    },
+    // Optional-chained elements with different bases do not pair
+    {
+      code: tsx`
+        import { useEffect, useRef } from "react";
+
+        function Component() {
+          const ref = useRef<HTMLDivElement>(null);
+          const otherRef = useRef<HTMLDivElement>(null);
+
+          useEffect(() => {
+            const observer = new ResizeObserver(() => {});
+            observer.observe(ref?.current);
+            return () => {
+              observer.unobserve(otherRef?.current);
+            };
+          }, []);
+
+          return <div ref={ref} />;
         }
       `,
       errors: [
@@ -847,8 +866,7 @@ ruleTester.run(RULE_NAME, rule, {
       }
     `,
     // The observed/unobserved element is derived from a CallExpression (`getEl()`).
-    // Relies on `Compare.isEqual` supporting `CallExpression` so observe/unobserve
-    // are matched.
+    // Relies on `Compare.isEqual` supporting `CallExpression` so observe/unobserve are matched.
     tsx`
       import { useEffect } from "react";
 
@@ -973,8 +991,7 @@ ruleTester.run(RULE_NAME, rule, {
         return <div />;
       }
     `,
-    // Setup wrapped in another call is not analyzed: the function is not the direct first
-    // argument of the effect call, so the leak is not detected
+    // Setup wrapped in another call is not analyzed: the function is not the direct first argument of the effect call, so the leak is not detected
     tsx`
       import { useEffect } from "react";
 
@@ -1011,8 +1028,7 @@ ruleTester.run(RULE_NAME, rule, {
         return <div />;
       }
     `,
-    // A `ResizeObserver` instance held by a ref (`useRef(new ResizeObserver(...))`), accessed
-    // through a local alias of `ref.current` inside the effect
+    // A `ResizeObserver` instance held by a ref (`useRef(new ResizeObserver(...))`), accessed through a local alias of `ref.current` inside the effect
     tsx`
       import { useEffect, useRef } from "react";
 
@@ -1066,8 +1082,7 @@ ruleTester.run(RULE_NAME, rule, {
         return <div />;
       }
     `,
-    // A `disconnect` delegated to a local function declared in the setup that the cleanup
-    // calls (`return () => stop();`) runs in the cleanup phase
+    // A `disconnect` delegated to a local function declared in the setup that the cleanup calls (`return () => stop();`) runs in the cleanup phase
     tsx`
       import { useEffect } from "react";
 
@@ -1260,8 +1275,7 @@ ruleTester.run(RULE_NAME, rule, {
         return <div />;
       }
     `,
-    // A ref-held instance observed through an optional-chained member call and
-    // disconnected in the cleanup
+    // A ref-held instance observed through an optional-chained member call and disconnected in the cleanup
     tsx`
       import { useEffect, useRef } from "react";
 
@@ -1275,8 +1289,7 @@ ruleTester.run(RULE_NAME, rule, {
         return <div />;
       }
     `,
-    // A ref-held instance disconnected through an optional-chained member call
-    // in the cleanup
+    // A ref-held instance disconnected through an optional-chained member call in the cleanup
     tsx`
       import { useEffect, useRef } from "react";
 
@@ -1306,6 +1319,24 @@ ruleTester.run(RULE_NAME, rule, {
         }, []);
 
         return <div />;
+      }
+    `,
+    // Optional-chained elements pair structurally
+    tsx`
+      import { useEffect, useRef } from "react";
+
+      function Component() {
+        const ref = useRef<HTMLDivElement>(null);
+
+        useEffect(() => {
+          const observer = new ResizeObserver(() => {});
+          observer.observe(ref?.current);
+          return () => {
+            observer.unobserve(ref?.current);
+          };
+        }, []);
+
+        return <div ref={ref} />;
       }
     `,
   ],

@@ -48,8 +48,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
           case Check.isIdentifier(expr): {
             const resolved = resolveBuiltinObjectName(context, expr);
             if (resolved == null) return;
-            // Bare globals (`fetch()`) resolve without a property; member-function
-            // aliases (`const r = Math.random; r()`) resolve with one.
+            // Bare globals (`fetch()`) resolve without a property; member-function aliases (`const r = Math.random; r()`) resolve with one.
             const isImpure = resolved.property != null
               ? IMPURE_FUNCS.get(resolved.object)?.has(resolved.property) ?? false
               : IMPURE_FUNCS.get("globalThis")?.has(resolved.object) ?? false;
@@ -77,14 +76,12 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         if (!Check.isIdentifier(expr)) return;
         const resolved = resolveBuiltinObjectName(context, expr);
         if (resolved == null) return;
-        // A member alias (`const W = window.WebSocket`) names the constructor in its
-        // property; trust it only when the source object is a known catalog global.
+        // A member alias (`const W = window.WebSocket`) names the constructor in its property; trust it only when the source object is a known catalog global.
         const ctorName = resolved.property != null && isCatalogObject(resolved.object)
           ? resolved.property
           : resolved.object;
         if (!IMPURE_CTORS.has(ctorName)) return;
-        // `new Date(arg)` with arguments is pure (deterministic),
-        // only `new Date()` without arguments is impure (depends on current time).
+        // `new Date(arg)` with arguments is pure (deterministic), only `new Date()` without arguments is impure (depends on current time).
         if (ctorName === "Date" && node.arguments.length > 0) return;
         const func = Traverse.findParent(node, Check.isFunction);
         if (func == null) return;

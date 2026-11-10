@@ -10,7 +10,7 @@ Checks whether a value is an `Error`.
 
 **When to use**
 
-Use when you need a `Predicate` guard for errors caught from unknown sources.
+Use when you need a type guard for errors caught from unknown sources.
 
 **Details**
 
@@ -19,11 +19,11 @@ Uses `instanceof Error`.
 **Example** (Guarding errors)
 
 ```ts
-import { Predicate } from "effect";
+import { isError } from "@local/eff";
 
 const data: unknown = new Error("boom");
 
-Predicate.isError(data); // => true
+isError(data); // => true
 ```
 
 ## Parameters

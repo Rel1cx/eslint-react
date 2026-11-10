@@ -1,10 +1,10 @@
 # Rule Implementation Patterns Term-Based
 
-How term-based rules use cheap text prechecks to skip files that cannot contain violations. Related: [`rule-implementation-patterns.md`](./rule-implementation-patterns.md) for the general anatomy of a rule file.
+How term-based rules use cheap text prechecks to skip most irrelevant files before AST traversal. Related: [`rule-implementation-patterns.md`](./rule-implementation-patterns.md) for the general anatomy of a rule file.
 
 ## What Is a Term-Based Rule?
 
-A term-based rule targets specific React, React DOM, or Web API identifiers (hooks, lifecycle methods, global constructors, JSX attributes). A raw-text precheck can rule out most irrelevant files before any AST work, but it is best-effort: Unicode-escaped identifiers and whitespace around punctuation can defeat it. A precheck is _necessary but not sufficient_: passing it only means the term's text exists somewhere in the file; the real semantic check still happens in AST visitors via helpers like `core.isForwardRefCall`.
+A term-based rule targets recurring source terms: specific React, React DOM, or Web API identifiers (hooks, lifecycle methods, global constructors, JSX attributes), as well as related keywords, directives, or punctuation. A raw-text precheck can skip most irrelevant files before AST traversal, but it is best-effort: Unicode-escaped identifiers and whitespace or comments around punctuation can defeat it. Passing the precheck is not evidence of a violation; it only means the term's text exists somewhere in the file. The real semantic check still happens in AST visitors via helpers like `core.isForwardRefCall`.
 
 ## Fast-Path Precheck Patterns
 
@@ -22,7 +22,7 @@ Used by:
 - react-web-api: `no-leaked-event-listener` (first check), `no-leaked-fetch` (first check), `no-leaked-intersection-observer`, `no-leaked-interval`, `no-leaked-resize-observer`, `no-leaked-timeout`
 - react-naming-convention: `context-name`, `id-name`
 
-Notable term-based rules that currently omit the text precheck: `react-naming-convention/ref-name`. Other rules use tokens that are too common to be useful filters (`key`, `use`) or are gated by configuration.
+A notable term-based rule that currently omits the text precheck is `react-naming-convention/ref-name`: its `additionalRefHooks` setting makes a fixed `useRef` filter insufficient. Other rules use tokens that are too common to be useful filters (`key`, `use`) or are gated by configuration.
 
 ### Multi-term check
 
@@ -54,11 +54,11 @@ if (!/key\s*=/.test(context.sourceCode.text)) return {}; // no-key-after-spread
 
 ### Choosing the precheck term
 
-The precheck term is a superset filter, not necessarily the full API name. It should be a substring of every source form the AST helper can match; a false positive only costs work, while a false negative silently skips a real violation. Treat the check as best-effort: the parser decodes Unicode escapes in identifiers, and whitespace or comments can separate punctuation such as `key` and `=`, so a raw-text token cannot cover every spelling.
+The precheck term is a superset filter, not necessarily the full API name. For the source spellings the precheck is intended to cover, choose a substring or pattern that matches every form the AST helper can match. A false positive only costs work, while a false negative silently skips a real violation. This coverage is necessarily best-effort: the parser decodes Unicode escapes in identifiers, and whitespace or comments can separate punctuation such as `key` and `=`, so a raw-text token cannot cover every spelling.
 
 - **Prefer the stable family identifier over the dotted FQN.** `Extract.getFullyQualifiedName` normalizes member access, so `Children /* c */ . count` still resolves to `Children.count`, but its source text does not contain the contiguous string `Children.count`. Use `includes("Children")`, not `includes("Children.count")`.
 - **Do not include call punctuation or type arguments.** `lazy(` and `lazy<` can be separated by whitespace, comments, or type parameters; use `includes("lazy")`.
-- **Computed access does not constrain the token.** `isAPI` generally does not match computed access such as `React["Children"]["count"]`, because the computed FQN is the raw source text rather than a dotted name.
+- **Do not broaden the token for unsupported computed access.** `isAPI` generally does not match computed access such as `React["Children"]["count"]`, because the computed FQN is the raw source text rather than a dotted name.
 - **Keep the token specific enough to be useful.** `Children`, `cloneElement`, and `lazy` are distinctive; `state` or `use` would match too much to justify a precheck.
 - **Keywords, punctuators, and structural names can be valid tokens.** `includes("Component")` covers the superclass names accepted by `isClassComponent`; `includes("...")` is safe for JSX spread rules.
 
@@ -130,7 +130,7 @@ A precheck can also front a collector + `Program:exit` pipeline — see `no-clas
 | `set-state-in-effect`                        | `react-x`                 | `/use\w*Effect/u`                                    | —                           | Fact-based pipeline                      |
 | `use-memo`                                   | `react-x`                 | `includes("useMemo")`                                | —                           | Fact-based pipeline                      |
 | `error-boundaries`                           | `react-x`                 | `includes("try")`                                    | —                           | Dual collector + `Program:exit`          |
-| `no-leaked-event-listener`                   | `react-web-api`           | `includes("addEventListener")` + `/use\w*Effect/u`   | —                           | Web-API collect-and-match                |
+| `no-leaked-event-listener`                   | `react-web-api`           | `includes("addEventListener")` + `/use\w*Effect/u`   | —                           | Fact-based pipeline                      |
 | `no-leaked-fetch`                            | `react-web-api`           | `includes("fetch")` + `/use\w*Effect/u`              | —                           | Web-API collect-and-match                |
 | `no-leaked-timeout`                          | `react-web-api`           | `includes("setTimeout")`                             | —                           | Web-API collect-and-match                |
 | `no-leaked-interval`                         | `react-web-api`           | `includes("setInterval")`                            | —                           | Web-API collect-and-match                |

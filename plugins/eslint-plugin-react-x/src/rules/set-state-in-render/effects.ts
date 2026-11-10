@@ -22,8 +22,7 @@ export type SetStateViolation = {
 export function inferViolations(context: RuleContext, facts: SetStateInRenderFacts): SetStateViolation[] {
   const resolver = createSetStateResolver(context);
 
-  // Collect the start positions of early returns per component so that a
-  // setState call positioned after one is known to be conditionally guarded
+  // Collect the start positions of early returns per component so that a setState call positioned after one is known to be conditionally guarded
   const earlyReturnPositions = new Map<TSESTreeFunction, number[]>();
   for (const { componentFunction, node } of facts.earlyReturns) {
     getOrInsertComputed(earlyReturnPositions, componentFunction, () => []).push(node.range[0]);

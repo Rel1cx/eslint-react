@@ -4,10 +4,10 @@
 
 - **IMPL**: `set-state-in-effect.ts` + `collect.ts` + `origins.ts` + `effects.ts` + `helpers.ts` (ESLint rule)
 - **SPEC**: `set-state-in-effect.spec.md` (React Compiler `ValidateNoSetStateInEffects`)
-- **Implementation revision**: `main` @ `e95e02140` + working-tree set-state-in-effect changes
-- **React commit**: `7c6ac13e19fef500b7f669a16bbd01ecc95965ca` (re-pin if upstream moved)
-- **React comparison verified**: `2026-10-24`
-- **IMPL description reviewed**: `2026-10-26`
+- **Implementation revision**: `main` @ `10f7fc304`
+- **React commit**: `e84e14927537821acfa553c9995a655d23bbf755` (re-pin if upstream moved)
+- **React comparison verified**: `2026-10-31`
+- **IMPL description reviewed**: `2026-10-31`
 - **React package**: `compiler/packages/babel-plugin-react-compiler`
 - **Implementation sources/tests**:
   - `set-state-in-effect.ts`
@@ -34,7 +34,7 @@ React runs `inlineImmediatelyInvokedFunctionExpressions` before `validateNoSetSt
 
 The IMPL collects explicit effect roots and calls grouped by their directly enclosing function. At `Program:exit`, recursive value resolution maps stable aliases and transparent wrappers to functions or setters, then a worklist follows resolvable synchronous call edges from each root. Ordinary nested callbacks are not flattened into their containing function or hook summary. Recursion is bounded by function identity and ref-call context. Parameters and imports remain unresolved so a prop function cannot attribute the component's render-phase setState to an effect (#1944).
 
-Async functions are still skipped wholesale at the root or call edge. This deliberately preserves the existing before-await and conditional-await blind spots; the refactor does not add CodePath, CFG, or await-phase analysis. Promise/timer/event/cleanup callbacks remain outside the synchronous graph unless the implementation can resolve a direct synchronous invocation, which it does not infer for scheduler APIs.
+Async functions are still skipped wholesale at the root or call edge. This deliberately preserves the existing before-await and conditional-await blind spots; the current implementation does not add CodePath, CFG, or await-phase analysis. Promise/timer/event/cleanup callbacks remain outside the synchronous graph unless the implementation can resolve a direct synchronous invocation, which it does not infer for scheduler APIs.
 
 ## 2. Verified behavior boundaries
 
@@ -53,7 +53,7 @@ Async functions are still skipped wholesale at the root or call edge. This delib
 Notes:
 
 1. Upstream `set-state-after-await-in-effect.js`, `invalid-setState-in-useEffect-before-await.js`, and `invalid-setState-in-useEffect-after-conditional-await.js` continue to define the async difference. The IMPL intentionally retains its documented limitation rather than introducing a new control-flow analyzer.
-2. Ref analysis covers `useRef`-like calls (including `additionalRefHooks`), ref-like member chains and parameters, TypeScript/chain wrappers, computed member keys, local getter returns, updater functions, helper arguments, and guards propagated along synchronous call edges. Guards cover ref-gated `if`/conditional/short-circuit operands, ref-gated early exits in blocks, `try` blocks (when there is no catch or the catch terminates), `switch` cases, and terminating `else` branches, plus `while`/`for` loop tests. `break`/`continue` count as terminations, as does a `try` statement whose paths all terminate. A ref-derived value in any setter call argument exempts the call. Writes in the read's own execution flow are evaluated using the nearest eligible preceding initializer/assignment within each lexical branch rather than full reaching-definitions; writes inside synchronously invoked (non-async, non-generator) IIFEs, including nested and TypeScript-wrapped ones, are located at the invocation, keep their internal branch, and are ordered before a write whose right-hand side is the same invocation; writes in deferred positions (instance class field initializers and parameter defaults) and inside other nested functions remain excluded. A later plain overwrite in the same branch removes an earlier ref exemption, while sibling-branch alternatives and captured writes remain heuristic. Compound assignments retain the preceding value's provenance. A setter located inside an `if`/conditional test cannot use that test to exempt itself.
+2. Ref analysis covers `useRef`-like calls (including `additionalRefHooks`), ref-like member chains and parameters, TypeScript/chain wrappers, computed member keys, local getter returns, updater functions, helper arguments, and guards propagated along synchronous call edges. Guards cover ref-gated `if`/conditional/short-circuit operands, ref-gated early exits in blocks, `try` blocks (when there is no catch or the catch terminates), `switch` cases, and terminating `else` branches, plus `while`/`for` loop tests. `break`/`continue` count as terminations, as does a `try` statement whose paths all terminate. A ref-derived value in any setter call argument exempts the call. Writes in the read's own execution flow are evaluated using the nearest eligible preceding initializer/assignment within each lexical branch rather than full reaching-definitions; writes inside synchronously invoked (non-async, non-generator) IIFEs, including nested and TypeScript-wrapped ones, are located at the invocation, keep their internal branch, and are ordered before a write whose right-hand side is the same invocation; writes in deferred positions (instance class field initializers and parameter defaults) and inside other nested functions remain excluded. A later plain overwrite in the same branch removes an earlier ref exemption, while sibling-branch alternatives and captured writes remain heuristic. Compound assignments retain the preceding value's provenance. A setter located inside an `if`/conditional test cannot use that test to exempt itself. Conditional-test handling is mode-dependent: a ref read only in the test does not make a direct setter argument ref-derived, while the same conditional in a local initializer does propagate ref provenance. Helper parameter remapping supports identifier and default-value parameters, but not rest or destructured parameters.
 
 ## 3. Cleanup status
 
@@ -65,5 +65,6 @@ The IMPL does not currently check cleanup functions. At the verified React commi
 2. React's ref exemption is feature-controlled HIR data flow. The IMPL's exemption is unconditional and heuristic, including lexical write/invocation positions and local return analysis; it is not a full control-flow or type-level model.
 3. React resolves values through its HIR and progressive summaries. The IMPL deliberately limits itself to stable local bindings and supported wrappers; imports, parameters used as functions, dynamic member callees, and arbitrary higher-order calls remain unknown.
 4. React has a verbose diagnostic mode; the IMPL does not.
+5. React recognizes the three built-in effect hooks. The IMPL also recognizes other `use…Effect` names and configured custom effect/state/ref hooks, but its source-text fast path skips files without a `use…Effect` match even when `additionalEffectHooks` would match another name.
 
 `ValidateNoDerivedComputationsInEffects` is a separate Pipeline pass and is outside this rule comparison.

@@ -1,5 +1,6 @@
 import { describe, expect, expectTypeOf, it, vi } from "vitest";
 
+import type { FunctionN, LazyArg, Pipeable, PipeableConstructor, Pretty } from "./index";
 import {
   Class,
   Mixin,
@@ -71,7 +72,6 @@ import {
   untupled,
   xor,
 } from "./index";
-import type { FunctionN, LazyArg, Pipeable, PipeableConstructor, Pretty } from "./index";
 
 // #region Function
 

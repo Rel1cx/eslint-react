@@ -106,6 +106,7 @@ export const isObjectType = (type: ts.Type) =>
       | ts.TypeFlags.StringLike
       | ts.TypeFlags.NumberLike
       | ts.TypeFlags.BigIntLike
+      | ts.TypeFlags.ESSymbolLike
       | ts.TypeFlags.TypeParameter
       | ts.TypeFlags.Any
       | ts.TypeFlags.Unknown

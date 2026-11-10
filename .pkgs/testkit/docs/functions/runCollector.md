@@ -16,7 +16,8 @@ function runCollector<A, R>(
 
 Runs `code` through a real `Linter`, spreads the collector's own `visitor`
 into the rule, and harvests the result via the collector's `api` on
-`Program:exit`.
+`Program:exit`. The collector's visitor must not define its own `Program`
+or `Program:exit` listeners; those keys are owned by the harvest wiring.
 
 ## Type Parameters
 

@@ -2209,8 +2209,7 @@ ruleTester.run(RULE_NAME, rule, {
       }],
     },
     {
-      // A memo call passed as a later argument of a generic HOC still memoizes
-      // its own first argument; the wrapped component is anonymous.
+      // A memo call passed as a later argument of a generic HOC still memoizes its own first argument; the wrapped component is anonymous.
       code: tsx`
         const App = compose(enhance, memo(() => <div />));
       `,
@@ -2253,8 +2252,7 @@ ruleTester.run(RULE_NAME, rule, {
     tsx`
       const [Nav = (() => <div />) as any] = arr;
     `,
-    // memo's propsAreEqual comparator is not the wrapped component; it must not
-    // inherit the surrounding binding or be reported even when it returns JSX.
+    // memo's propsAreEqual comparator is not the wrapped component; it must not inherit the surrounding binding or be reported even when it returns JSX.
     tsx`
       const App = memo(ComponentImpl, () => <div />);
     `,
@@ -2324,34 +2322,28 @@ ruleTester.run(RULE_NAME, rule, {
       }) as ActionFUnction satisfies ActionFUnction;
     `,
     // --------------------------------------------------------------------------
-    // Tests for type expression parent traversal
-    // (isFunctionComponentDefinition, packages/core/src/function-component.ts)
+    // Tests for type expression parent traversal (isFunctionComponentDefinition, packages/core/src/function-component.ts)
     // Ensures contextual exclusions correctly apply through type expression wrappers
     // --------------------------------------------------------------------------
-    // Anonymous function in arbitrary call expression wrapped in `as` — excluded by
-    // DoNotIncludeFunctionDefinedAsArbitraryCallExpressionCallback
+    // Anonymous function in arbitrary call expression wrapped in `as` — excluded by DoNotIncludeFunctionDefinedAsArbitraryCallExpressionCallback
     "someFunction((() => null) as any)",
     "someFunction((() => null) satisfies any)",
     "someFunction((() => null)! as any satisfies any)",
-    // Anonymous function in .map() wrapped in type expressions — excluded by
-    // DoNotIncludeFunctionDefinedAsArrayMapCallback
+    // Anonymous function in .map() wrapped in type expressions — excluded by DoNotIncludeFunctionDefinedAsArrayMapCallback
     "items.map((() => <div />) as any)",
     "items.map((() => <div />) satisfies any)",
     "items.map((() => <div />)! as any)",
-    // Callee of .map() wrapped in type expressions — excluded by
-    // DoNotIncludeFunctionDefinedAsArrayMapCallback
+    // Callee of .map() wrapped in type expressions — excluded by DoNotIncludeFunctionDefinedAsArrayMapCallback
     "(items.map as any)((x) => <div />)",
     "(items.map satisfies typeof items.map)((x) => <div />)",
     // Named function passed to createElement wrapped in a type expression — still
     // excluded because isCreateElementChildrenArgument itself unwraps type
     // expressions (packages/core/src/create-element.ts)
     "React.createElement('div', null, (function App() { return <div />; }) as any)",
-    // Anonymous function in .flatMap() wrapped in type expressions — excluded by
-    // DoNotIncludeFunctionDefinedAsArrayFlatMapCallback
+    // Anonymous function in .flatMap() wrapped in type expressions — excluded by DoNotIncludeFunctionDefinedAsArrayFlatMapCallback
     "items.flatMap((() => <div />) as any)",
     "items.flatMap((() => <div />) satisfies any)",
-    // Anonymous function in array expression wrapped in type expressions — excluded by
-    // DoNotIncludeFunctionDefinedAsArrayExpressionElement
+    // Anonymous function in array expression wrapped in type expressions — excluded by DoNotIncludeFunctionDefinedAsArrayExpressionElement
     "[(() => <div />) as any]",
     "[(() => <div />) satisfies any]",
     "[(() => <div />)! as any satisfies any]",

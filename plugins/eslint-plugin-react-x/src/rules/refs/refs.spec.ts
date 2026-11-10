@@ -780,15 +780,19 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [{ messageId: "write-during-render" }],
     },
-    // try/finally termination is not analyzed by the shared predicate
+    // A switch clause whose break can escape is not terminating
     {
       code: tsx`
-        function Component() {
+        function Component({ kind }) {
           const ref = useRef(null);
           if (ref.current !== null) {
-            try {
-              return <div>{ref.current}</div>;
-            } finally {}
+            switch (kind) {
+              case 1:
+                if (kind > 1) break;
+                return <div>{ref.current}</div>;
+              default:
+                return <div>{ref.current}</div>;
+            }
           }
           ref.current = createValue();
           return <div />;
@@ -796,7 +800,80 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [{ messageId: "write-during-render" }],
     },
-    // A switch whose entry paths all return is not analyzed by the shared predicate
+    // A switch without a default clause is not terminating
+    {
+      code: tsx`
+        function Component({ kind }) {
+          const ref = useRef(null);
+          if (ref.current !== null) {
+            switch (kind) {
+              case 1:
+                return <div>{ref.current}</div>;
+              case 2:
+                return <div>{ref.current}</div>;
+            }
+          }
+          ref.current = createValue();
+          return <div />;
+        }
+      `,
+      errors: [{ messageId: "write-during-render" }],
+    },
+    // A loop whose labeled break can escape the guard branch is not terminating
+    {
+      code: tsx`
+        function Component() {
+          const ref = useRef(null);
+          outer: if (ref.current !== null) {
+            while (true) {
+              if (Math.random()) break outer;
+              return <div>{ref.current}</div>;
+            }
+          }
+          ref.current = createValue();
+          return <div />;
+        }
+      `,
+      errors: [{ messageId: "write-during-render" }],
+    },
+    // A do...while whose continue can reach the test is not terminating
+    {
+      code: tsx`
+        function Component({ again }) {
+          const ref = useRef(null);
+          if (ref.current !== null) {
+            do {
+              if (again) continue;
+              return <div>{ref.current}</div>;
+            } while (again);
+          }
+          ref.current = createValue();
+          return <div />;
+        }
+      `,
+      errors: [{ messageId: "write-during-render" }],
+    },
+    // A switch with a fall-through clause group is not recognized as terminating
+    {
+      code: tsx`
+        function Component({ kind }) {
+          const ref = useRef(null);
+          if (ref.current !== null) {
+            switch (kind) {
+              case 1:
+              case 2:
+                return <div>{ref.current}</div>;
+              default:
+                return <div>{ref.current}</div>;
+            }
+          }
+          ref.current = createValue();
+          return <div />;
+        }
+      `,
+      errors: [{ messageId: "write-during-render" }],
+    },
+    // A switch-guarded lazy init consumes the one allowed initialization per ref
     {
       code: tsx`
         function Component({ kind }) {
@@ -805,6 +882,31 @@ ruleTester.run(RULE_NAME, rule, {
             switch (kind) {
               default:
                 return <div>{ref.current}</div>;
+            }
+          }
+          ref.current = createValue();
+          if (ref.current !== null) {
+            switch (kind) {
+              default:
+                return <div>{ref.current}</div>;
+            }
+          }
+          ref.current = createValue();
+          return <div />;
+        }
+      `,
+      errors: [{ messageId: "duplicate-ref-init" }],
+    },
+    // A try whose catch handler can complete normally is not terminating
+    {
+      code: tsx`
+        function Component() {
+          const ref = useRef(null);
+          if (ref.current !== null) {
+            try {
+              return <div>{ref.current}</div>;
+            } catch {
+              console.log("caught");
             }
           }
           ref.current = createValue();
@@ -1074,8 +1176,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [{ messageId: "read-during-render" }],
     },
     // error.invalid-disallow-mutating-refs-in-render-transitive
-    // A helper function that mutates a ref is tracked, and calling it (even through a simple
-    // alias) during render is flagged.
+    // A helper function that mutates a ref is tracked, and calling it (even through a simple alias) during render is flagged.
     {
       code: tsx`
         function Component() {
@@ -1309,8 +1410,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [{ messageId: "read-during-render" }],
     },
-    // Synchronous array callbacks are recognized by method name only: a `map` member call on a
-    // non-array receiver is still treated as executing during render
+    // Synchronous array callbacks are recognized by method name only: a `map` member call on a non-array receiver is still treated as executing during render
     {
       code: tsx`
         function Component({ store }) {
@@ -1332,8 +1432,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [{ messageId: "read-during-render" }],
     },
-    // A write in the non-null branch of a null guard is still a violation: only reads are
-    // exempt on the branch where the ref is known to be initialized
+    // A write in the non-null branch of a null guard is still a violation: only reads are exempt on the branch where the ref is known to be initialized
     {
       code: tsx`
         function Component() {
@@ -1348,8 +1447,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [{ messageId: "write-during-render" }],
     },
-    // Compound assignment inside a null guard is not lazy initialization: only a direct `=`
-    // assignment initializes the ref container
+    // Compound assignment inside a null guard is not lazy initialization: only a direct `=` assignment initializes the ref container
     {
       code: tsx`
         function Component() {
@@ -1362,8 +1460,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [{ messageId: "write-during-render" }],
     },
-    // `??=` inside a null guard is not lazy initialization either, even though it is
-    // semantically equivalent here
+    // `??=` inside a null guard is not lazy initialization either, even though it is semantically equivalent here
     {
       code: tsx`
         function Component() {
@@ -1392,8 +1489,7 @@ ruleTester.run(RULE_NAME, rule, {
         { messageId: "write-during-render" },
       ],
     },
-    // `typeof` checks are not null guards: only exact `==`/`===`/`!=`/`!==` comparisons against
-    // null, undefined, or void expressions qualify
+    // `typeof` checks are not null guards: only exact `==`/`===`/`!=`/`!==` comparisons against null, undefined, or void expressions qualify
     {
       code: tsx`
         function Component() {
@@ -1409,8 +1505,7 @@ ruleTester.run(RULE_NAME, rule, {
         { messageId: "write-during-render" },
       ],
     },
-    // A locally bound `undefined` is not the global undefined value, so the comparison is not
-    // a null guard
+    // A locally bound `undefined` is not the global undefined value, so the comparison is not a null guard
     {
       code: tsx`
         function Component() {
@@ -1427,8 +1522,7 @@ ruleTester.run(RULE_NAME, rule, {
         { messageId: "write-during-render" },
       ],
     },
-    // Double negation is not unwrapped: only a single `!` around the comparison flips the
-    // guarded branch
+    // Double negation is not unwrapped: only a single `!` around the comparison flips the guarded branch
     {
       code: tsx`
         function Component() {
@@ -1444,8 +1538,7 @@ ruleTester.run(RULE_NAME, rule, {
         { messageId: "write-during-render" },
       ],
     },
-    // The nearest preceding sibling guard decides: a closer non-terminating guard hides an
-    // earlier terminating one, so the write is not protected
+    // The nearest preceding sibling guard decides: a closer non-terminating guard hides an earlier terminating one, so the write is not protected
     {
       code: tsx`
         function Component() {
@@ -1479,8 +1572,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [{ messageId: "write-during-render" }],
     },
-    // Guard regions are built from `if` statements only: a conditional expression with the
-    // same shape is not a null guard
+    // Guard regions are built from `if` statements only: a conditional expression with the same shape is not a null guard
     {
       code: tsx`
         function Component() {
@@ -1494,8 +1586,7 @@ ruleTester.run(RULE_NAME, rule, {
         { messageId: "write-during-render" },
       ],
     },
-    // Duplicate lazy initialization through an alias: the initialization budget is tracked per
-    // ref identity, not per access path
+    // Duplicate lazy initialization through an alias: the initialization budget is tracked per ref identity, not per access path
     {
       code: tsx`
         function Component() {
@@ -1528,8 +1619,7 @@ ruleTester.run(RULE_NAME, rule, {
         { messageId: "write-during-render" },
       ],
     },
-    // The `render` exemption for passing refs applies to member calls only (`props.render(ref)`);
-    // a bare function named `render` is not exempt
+    // The `render` exemption for passing refs applies to member calls only (`props.render(ref)`); a bare function named `render` is not exempt
     {
       code: tsx`
         function Component() {
@@ -1540,8 +1630,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [{ messageId: "ref-passed-to-function" }],
     },
-    // Render reachability is not condition-sensitive: a call guarded by an unrelated condition
-    // still reaches the callee during render
+    // Render reachability is not condition-sensitive: a call guarded by an unrelated condition still reaches the callee during render
     {
       code: tsx`
         function Component({ cond }) {
@@ -1594,8 +1683,7 @@ ruleTester.run(RULE_NAME, rule, {
         { messageId: "ref-passed-to-function" },
       ],
     },
-    // Nested property update expressions (`ref.current.count++`) are classified as
-    // render-time writes, same as nested property assignments
+    // Nested property update expressions (`ref.current.count++`) are classified as render-time writes, same as nested property assignments
     {
       code: tsx`
         function Component() {
@@ -1639,8 +1727,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [{ messageId: "write-during-render" }],
     },
-    // Destructuring writes to a nested property of ref.current are classified as
-    // render-time writes, not reads
+    // Destructuring writes to a nested property of ref.current are classified as render-time writes, not reads
     {
       code: tsx`
         function Component() {
@@ -1651,8 +1738,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [{ messageId: "write-during-render" }],
     },
-    // A nested property write through a pattern is still a write inside the non-null
-    // branch of a null guard, where reads are exempt
+    // A nested property write through a pattern is still a write inside the non-null branch of a null guard, where reads are exempt
     {
       code: tsx`
         function Component() {
@@ -1678,8 +1764,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [{ messageId: "write-during-render" }],
     },
-    // A computed member expression using ref.current as its key inside a pattern is a
-    // read, not a write
+    // A computed member expression using ref.current as its key inside a pattern is a read, not a write
     {
       code: tsx`
         function Component({ items }) {
@@ -1692,8 +1777,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [{ messageId: "read-during-render" }],
     },
-    // A default value inside a destructuring pattern is evaluated, not assigned: the access
-    // stays a read
+    // A default value inside a destructuring pattern is evaluated, not assigned: the access stays a read
     {
       code: tsx`
         function Component() {
@@ -1778,8 +1862,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [{ messageId: "write-during-render" }],
     },
-    // Refs created by custom hooks configured via `additionalRefHooks` are validated even when
-    // the bound name is not ref-like
+    // Refs created by custom hooks configured via `additionalRefHooks` are validated even when the bound name is not ref-like
     {
       code: tsx`
         function Component() {
@@ -1796,8 +1879,7 @@ ruleTester.run(RULE_NAME, rule, {
       },
     },
     // -------------------------------------------------------------------------
-    // Defect verification: known gaps and conservative limits
-    // Each case locks the currently observed behavior of a suspected defect.
+    // Defect verification: known gaps and conservative limits Each case locks the currently observed behavior of a suspected defect.
     // Cases marked KNOWN GAP misclassify or miss a violation and are fix candidates.
     // -------------------------------------------------------------------------
     // Conservative limit: the await boundary is not modeled — a write after `await` inside an
@@ -1841,8 +1923,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [{ messageId: "read-during-render" }],
     },
-    // Reading ref.current on the right-hand side of the initialization write is itself a
-    // render-time read; only the guard test access is exempt
+    // Reading ref.current on the right-hand side of the initialization write is itself a render-time read; only the guard test access is exempt
     {
       code: tsx`
         function Component() {
@@ -1855,8 +1936,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [{ messageId: "read-during-render" }],
     },
-    // While-loop conditions are not null guards (only `if` statements build guard regions),
-    // so both the loop test read and the body write are reported
+    // While-loop conditions are not null guards (only `if` statements build guard regions), so both the loop test read and the body write are reported
     {
       code: tsx`
         function Component() {
@@ -1883,8 +1963,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [{ messageId: "ref-passed-to-function" }],
     },
-    // Passing a ref to a constructor during render is checked the same way as passing it to
-    // a plain function
+    // Passing a ref to a constructor during render is checked the same way as passing it to a plain function
     {
       code: tsx`
         function Component() {
@@ -2350,6 +2429,101 @@ ruleTester.run(RULE_NAME, rule, {
             } else {
               throw new Error("already initialized");
             }
+          }
+          ref.current = createValue();
+          return <div />;
+        }
+      `,
+    },
+    // Inverted lazy init with a try/finally whose try block always returns
+    {
+      code: tsx`
+        function Component() {
+          const ref = useRef(null);
+          if (ref.current !== null) {
+            try {
+              return <div>{ref.current}</div>;
+            } finally {}
+          }
+          ref.current = createValue();
+          return <div />;
+        }
+      `,
+    },
+    // Inverted lazy init with a switch whose clauses all return
+    {
+      code: tsx`
+        function Component({ kind }) {
+          const ref = useRef(null);
+          if (ref.current !== null) {
+            switch (kind) {
+              case 1:
+                return <div>{ref.current}</div>;
+              default:
+                return <div>{ref.current}</div>;
+            }
+          }
+          ref.current = createValue();
+          return <div />;
+        }
+      `,
+    },
+    // Inverted lazy init with a switch whose breaks are nested inside a clause-local loop
+    {
+      code: tsx`
+        function Component({ kind, items }) {
+          const ref = useRef(null);
+          if (ref.current !== null) {
+            switch (kind) {
+              case 1:
+                while (items.length > 0) break;
+                return <div>{ref.current}</div>;
+              default:
+                return <div>{ref.current}</div>;
+            }
+          }
+          ref.current = createValue();
+          return <div />;
+        }
+      `,
+    },
+    // Inverted lazy init with loops whose bodies always return
+    {
+      code: tsx`
+        function Component() {
+          const ref = useRef(null);
+          if (ref.current !== null) {
+            while (true) {
+              return <div>{ref.current}</div>;
+            }
+          }
+          ref.current = createValue();
+          return <div />;
+        }
+      `,
+    },
+    {
+      code: tsx`
+        function Component() {
+          const ref = useRef(null);
+          if (ref.current !== null) {
+            for (;;) {
+              return <div>{ref.current}</div>;
+            }
+          }
+          ref.current = createValue();
+          return <div />;
+        }
+      `,
+    },
+    {
+      code: tsx`
+        function Component({ again }) {
+          const ref = useRef(null);
+          if (ref.current !== null) {
+            do {
+              return <div>{ref.current}</div>;
+            } while (again);
           }
           ref.current = createValue();
           return <div />;
@@ -2993,8 +3167,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
     },
-    // A single negation flips the guarded branch: `!(ref.current != null)` protects the
-    // consequent, so lazy initialization there is allowed
+    // A single negation flips the guarded branch: `!(ref.current != null)` protects the consequent, so lazy initialization there is allowed
     {
       code: tsx`
         function Component() {
@@ -3006,8 +3179,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
     },
-    // `throw` terminates a function like `return`: an inverted guard whose non-null branch
-    // throws protects the following initialization
+    // `throw` terminates a function like `return`: an inverted guard whose non-null branch throws protects the following initialization
     {
       code: tsx`
         function Component() {
@@ -3020,8 +3192,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
     },
-    // Termination is checked recursively: a non-null branch ending in an if/else where both
-    // sides return still protects the following initialization
+    // Termination is checked recursively: a non-null branch ending in an if/else where both sides return still protects the following initialization
     {
       code: tsx`
         function Component({ cond }) {
@@ -3038,8 +3209,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
     },
-    // Timers are deferred callbacks: even created directly in the component body, they remain
-    // outside render
+    // Timers are deferred callbacks: even created directly in the component body, they remain outside render
     {
       code: tsx`
         function Component() {
@@ -3071,8 +3241,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
     },
-    // Reachability propagates only outward from the render boundary: a helper called solely
-    // from an unreached event handler is itself unreached
+    // Reachability propagates only outward from the render boundary: a helper called solely from an unreached event handler is itself unreached
     {
       code: tsx`
         function Component() {
@@ -3158,8 +3327,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
     },
-    // Null-guard matching is identity-based: a guard on `ref.current` protects an
-    // initialization written through an alias of the same ref
+    // Null-guard matching is identity-based: a guard on `ref.current` protects an initialization written through an alias of the same ref
     {
       code: tsx`
         function Component() {
@@ -3172,8 +3340,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
     },
-    // The single-initialization budget is per ref identity: two distinct refs may each be
-    // lazily initialized once
+    // The single-initialization budget is per ref identity: two distinct refs may each be lazily initialized once
     {
       code: tsx`
         function Component() {
@@ -3192,8 +3359,7 @@ ruleTester.run(RULE_NAME, rule, {
     // -------------------------------------------------------------------------
     // Defect verification: known gaps and conservative limits
     // -------------------------------------------------------------------------
-    // Lazy initialization is recognized inside a helper reached during render: guard analysis
-    // applies within the helper's own function body
+    // Lazy initialization is recognized inside a helper reached during render: guard analysis applies within the helper's own function body
     {
       code: tsx`
         function Component() {
@@ -3208,8 +3374,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
     },
-    // Reads anywhere in the else chain of a null guard are in the proven non-null region,
-    // including the tests of nested else-if conditions
+    // Reads anywhere in the else chain of a null guard are in the proven non-null region, including the tests of nested else-if conditions
     {
       code: tsx`
         function Component() {
@@ -3223,8 +3388,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
     },
-    // Passing a ref to a constructor inside an event handler is allowed: the handler runs
-    // outside render
+    // Passing a ref to a constructor inside an event handler is allowed: the handler runs outside render
     {
       code: tsx`
         function Component() {

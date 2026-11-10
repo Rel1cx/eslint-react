@@ -12,10 +12,21 @@ import * as Ref from "effect/Ref";
 import * as NodePath from "node:path";
 import { pathToFileURL } from "node:url";
 import { P, match } from "ts-pattern";
-import { DOMAIN_METAS, DOMAIN_META_BY_KEY, EXCLUDED_VERIFY_DOMAINS, PLUGIN_DOMAINS, type PluginDomain, buildConfigKey, entries, keys } from "./00-constants";
+import {
+  DOMAIN_METAS,
+  DOMAIN_META_BY_KEY,
+  EXCLUDED_VERIFY_DOMAINS,
+  PLUGIN_DOMAINS,
+  type PluginDomain,
+  buildConfigKey,
+  entries,
+  keys,
+  parseRuleFileName,
+} from "./00-constants";
 import { glob, isRuleEntryFile } from "./01-helpers";
 
 import * as allConfig from "#/plugins/eslint-plugin/src/configs/all";
+import * as allTypeCheckedConfig from "#/plugins/eslint-plugin/src/configs/all-type-checked";
 import * as disableExperimentalConfig from "#/plugins/eslint-plugin/src/configs/disable-experimental";
 import * as disableTypeCheckedConfig from "#/plugins/eslint-plugin/src/configs/disable-type-checked";
 import * as domConfig from "#/plugins/eslint-plugin/src/configs/dom";
@@ -31,7 +42,7 @@ import * as strictTypeScriptConfig from "#/plugins/eslint-plugin/src/configs/str
 import * as webApiConfig from "#/plugins/eslint-plugin/src/configs/web-api";
 import * as xConfig from "#/plugins/eslint-plugin/src/configs/x";
 
-const RULES_GLOB = ["plugins/eslint-plugin-react-*/src/rules/*/*.ts"];
+const GLOB_RULES = ["plugins/eslint-plugin-react-*/src/rules/*/*.ts"];
 
 const DOMAIN_CONFIGS: Record<string, Record<string, unknown>> = {
   "naming-convention": namingConventionConfig.rules,
@@ -52,7 +63,7 @@ interface RegisteredRule {
 }
 
 const collectRegisteredRules = Effect.gen(function*() {
-  const files = glob(RULES_GLOB).filter(isRuleEntryFile);
+  const files = glob(GLOB_RULES).filter(isRuleEntryFile);
   const rules: RegisteredRule[] = [];
 
   for (const file of files) {
@@ -169,8 +180,8 @@ const checkDomainConfigCompleteness = Effect.fnUntraced(
       const domainInfo = DOMAIN_META_BY_KEY[domain as PluginDomain];
       if (domainInfo == null) continue;
 
-      const domainRules = rules.filter((r) => r.domain === domain);
       const configKeys = keys(configRules);
+      const domainRules = rules.filter((r) => r.domain === domain);
       const domainRuleKeys = new Set(domainRules.map((r) => r.configKey));
 
       for (const key of configKeys) {
@@ -220,6 +231,8 @@ const checkConfigs = Effect.gen(function*() {
   yield* Effect.log(ansis.bold("2. Checking config keys reference valid rules..."));
   const allKeyErrors = yield* checkConfigKeysValid(rules, "all", allConfig.rules);
   yield* logErrors(allKeyErrors);
+  const allTypeCheckedKeyErrors = yield* checkConfigKeysValid(rules, "all-type-checked", allTypeCheckedConfig.rules);
+  yield* logErrors(allTypeCheckedKeyErrors);
   const recommendedKeyErrors = yield* checkConfigKeysValid(rules, "recommended", recommendedConfig.rules);
   yield* logErrors(recommendedKeyErrors);
   const strictKeyErrors = yield* checkConfigKeysValid(rules, "strict", strictConfig.rules);
@@ -235,6 +248,15 @@ const checkConfigs = Effect.gen(function*() {
   yield* logErrors(recStrictErrors);
   const strictAllErrors = yield* checkHierarchy("strict", strictConfig.rules, "all", allConfig.rules);
   yield* logErrors(strictAllErrors);
+  const allTypeCheckedErrors = yield* checkHierarchy("all", allConfig.rules, "all-type-checked", allTypeCheckedConfig.rules);
+  yield* logErrors(allTypeCheckedErrors);
+  const allTypeCheckedTypeErrors = yield* checkHierarchy(
+    "disable-type-checked",
+    disableTypeCheckedConfig.rules,
+    "all-type-checked",
+    allTypeCheckedConfig.rules,
+  );
+  yield* logErrors(allTypeCheckedTypeErrors);
 
   yield* Effect.log("");
   const domainErrors = yield* checkDomainConfigCompleteness(rules);
@@ -243,12 +265,15 @@ const checkConfigs = Effect.gen(function*() {
   const totalErrors = Chunk.empty<CheckError>().pipe(
     Chunk.appendAll(accountedErrors),
     Chunk.appendAll(allKeyErrors),
+    Chunk.appendAll(allTypeCheckedKeyErrors),
     Chunk.appendAll(recommendedKeyErrors),
     Chunk.appendAll(strictKeyErrors),
     Chunk.appendAll(experimentalKeyErrors),
     Chunk.appendAll(typeCheckedKeyErrors),
     Chunk.appendAll(recStrictErrors),
     Chunk.appendAll(strictAllErrors),
+    Chunk.appendAll(allTypeCheckedErrors),
+    Chunk.appendAll(allTypeCheckedTypeErrors),
     Chunk.appendAll(domainErrors),
   );
 
@@ -354,7 +379,7 @@ const retrieveRuleMeta = Effect.fnUntraced(
 const checkDocs = Effect.gen(function*() {
   const fs = yield* FileSystem.FileSystem;
   const path = yield* Path.Path;
-  const files = glob(RULES_GLOB).filter(isRuleEntryFile);
+  const files = glob(GLOB_RULES).filter(isRuleEntryFile);
   const errors = yield* Ref.make(Chunk.empty<CheckError>());
 
   for (const file of files) {
@@ -701,6 +726,80 @@ const checkIndex = Effect.gen(function*() {
   return yield* Ref.get(errors);
 });
 
+const MIGRATION_TABLE_PATH = ["apps", "website", "content", "docs", "migrating-from-eslint-plugin-react.mdx"];
+
+// Verify the migration table's "Status" column matches the linked rules' RULE_FEATURES
+const checkMigrationTable = Effect.gen(function*() {
+  const fs = yield* FileSystem.FileSystem;
+  const path = yield* Path.Path;
+  const target = path.join(...MIGRATION_TABLE_PATH);
+  const content = yield* fs.readFileString(target, "utf8");
+  const contentLines = content.split("\n");
+
+  yield* Effect.log(ansis.green(`Verifying migration table at ${target}...`));
+
+  const errors = yield* Ref.make(Chunk.empty<CheckError>());
+
+  const tableStartIndex = contentLines.findIndex((line) => line.startsWith("| `eslint-plugin-react` Rule Name"));
+  const tableEndIndex = contentLines.findIndex((line, index) => index > tableStartIndex && line.trim() === "");
+  if (tableStartIndex === -1 || tableEndIndex === -1) {
+    yield* Ref.update(
+      errors,
+      Chunk.append(new CheckError({ message: ansis.red(`Could not find the rule comparison table in ${target}`) })),
+    );
+    return yield* Ref.get(errors);
+  }
+
+  // Verify each table row (skip header and separator rows)
+  const tableLines = contentLines.slice(tableStartIndex + 2, tableEndIndex);
+  for (const line of tableLines) {
+    const columns = line.split("|").slice(1, -1).map((column) => column.trim());
+    const [upstream, mapped, , status] = columns;
+    if (upstream == null || mapped == null || status == null) {
+      yield* Ref.update(errors, Chunk.append(new CheckError({ message: ansis.red(`Malformed table line (skipped): ${line}`) })));
+      continue;
+    }
+
+    const upstreamName = upstream.match(/\[`([^`]+)`\]/)?.[1] ?? upstream;
+    const docNames = [...mapped.matchAll(/\/docs\/rules\/([a-z0-9-]+)/gu)]
+      .map((matched) => matched[1])
+      .filter((docName): docName is string => docName != null);
+    // External plugin or custom rule mappings carry no RULE_FEATURES to verify
+    if (docNames.length === 0) continue;
+
+    const features: string[] = [];
+    for (const docName of docNames) {
+      const parsed = parseRuleFileName(docName);
+      if (parsed == null) continue;
+      const meta = yield* retrieveRuleMeta(parsed.domain, parsed.ruleName);
+      features.push(...meta.features);
+    }
+
+    const hasFix = features.includes("FIX") || features.includes("MOD");
+    const report = (reason: string) =>
+      Ref.update(
+        errors,
+        Chunk.append(
+          new CheckError({
+            message: ansis.red(`  Found 1 mismatched status for upstream rule ${upstreamName}`)
+              + `\n    Status in table: ${ansis.bgYellow(status)}`
+              + `\n    ${reason}`,
+          }),
+        ),
+      );
+
+    if (status === "🔧" && !hasFix) {
+      yield* report(`Expected a fix, but none of [${docNames.join(", ")}] declares FIX or MOD`);
+    } else if (status === "🟢" && hasFix) {
+      yield* report(`Expected no fix, but at least one of [${docNames.join(", ")}] declares FIX or MOD`);
+    } else if (status === "🔄" && !features.includes("MOD")) {
+      yield* report(`Expected a codemod, but none of [${docNames.join(", ")}] declares MOD`);
+    }
+  }
+
+  return yield* Ref.get(errors);
+});
+
 const program = Effect.gen(function*() {
   yield* Effect.log(ansis.bold("Verifying rules..."));
   yield* Effect.log("");
@@ -716,9 +815,14 @@ const program = Effect.gen(function*() {
   const indexErrors = yield* checkIndex;
   yield* logErrors(indexErrors);
 
+  yield* Effect.log("");
+  const migrationTableErrors = yield* checkMigrationTable;
+  yield* logErrors(migrationTableErrors);
+
   const totalErrors = configErrors.pipe(
     Chunk.appendAll(docsErrors),
     Chunk.appendAll(indexErrors),
+    Chunk.appendAll(migrationTableErrors),
   );
 
   yield* Effect.log("");

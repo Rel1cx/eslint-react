@@ -78,7 +78,6 @@ export const rules: Linter.RulesRecord = {
   "@eslint-react/refs": "off",
   "@eslint-react/set-state-in-render": "off",
   "@eslint-react/static-components": "off",
-  "@eslint-react/unstable-exhaustive-deps": "off",
 
   "@eslint-react/rsc-function-definition": "off",
 

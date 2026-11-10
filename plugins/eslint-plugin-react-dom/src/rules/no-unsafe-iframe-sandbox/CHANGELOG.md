@@ -5,7 +5,11 @@ All notable changes to the `react-dom/no-unsafe-iframe-sandbox` rule will be doc
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [5.30.0-beta.6] - 2026-10-27
+## [5.30.0] - 2026-11-10
+
+### Fixed
+
+- Fixed a false positive where `sandbox` values were matched by substring: `sandbox="not-allow-scripts not-allow-same-origin"` grants neither permission but was reported. Permissions are now matched as whole whitespace-separated tokens.
 
 ### Changed
 

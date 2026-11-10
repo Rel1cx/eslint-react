@@ -35,8 +35,7 @@ The structural value of a direct JSX attribute.
 
 - `boolean`: the attribute has no value (ex: `<input disabled />`).
 - `literal`: the value is a literal.
-- `unknown`: a non-empty expression, normally in an expression container;
-  the expression is not evaluated.
+- `unknown`: a non-empty expression, normally in an expression container; the expression is not evaluated.
 - `element`: the value is a JSX element or fragment.
 - `missing`: no expression, normally an empty expression container
   (`{}` or `{/* comment */}`).

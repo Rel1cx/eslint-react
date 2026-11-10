@@ -6,19 +6,19 @@
 const getCallExpressions: (node: Node) => CallExpression[];
 ```
 
-Get all nested call expressions within an expression-like node, in source order.
+Get all call expressions within a node, in source order.
 
-Function and class bodies are not traversed; statement roots contribute only their
-expression-bearing parts.
+The root is included when it is a call expression. Function and class nodes are not traversed,
+and statement roots contribute only their listed expression-bearing keys.
 
 ## Parameters
 
-| Parameter | Type   | Description                                                |
-| --------- | ------ | ---------------------------------------------------------- |
-| `node`    | `Node` | The expression-like node to collect call expressions from. |
+| Parameter | Type   | Description                                |
+| --------- | ------ | ------------------------------------------ |
+| `node`    | `Node` | The node to collect call expressions from. |
 
 ## Returns
 
 `CallExpression`[]
 
-All nested call expressions.
+All matching call expressions.

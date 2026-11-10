@@ -5,29 +5,12 @@ All notable changes to the `react-dom/no-unknown-property` rule will be document
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [5.30.0-beta.10] - 2026-10-27
+## [5.30.0] - 2026-11-10
 
 ### Changed
 
-- Options are now read directly from `context.options[0] ?? {}` and defaults are captured per property with `??`, replacing the spread copy and `??=` mutation; the `RuleOptions` alias was removed. No change to reported problems.
-
-## [5.30.0-beta.9] - 2026-10-27
-
-### Changed
-
-- Options are now resolved in `create` by copying `context.options[0]` into a mutable options object and applying defaults per property with `??=`, replacing the shared `complete` helper; `meta.defaultOptions: [{}]` now only provides the merge slot. No change to reported problems.
-
-## [5.30.0-beta.7] - 2026-10-27
-
-### Changed
-
-- Rule options and schema now follow the standard tuple/`defaultOptions` pattern, with options resolved via the shared `complete` helper (`complete(context.options[0], defaultOptions[0])`) and the schema declared as a type-annotated constant. No behavior change.
-
-## [5.30.0-beta.6] - 2026-10-27
-
-### Changed
-
-- Attribute-tag, DOM-property, and standard-name lookups are cached per React version and resolved lazily, avoiding unnecessary work at rule creation; valid versions behave the same.
+- Options are now read directly from `context.options[0] ?? {}` and defaults are captured per property with `??`; the `RuleOptions` alias was removed. No change to reported problems.
+- Attribute-tag, DOM-property, and standard-name lookups are cached per React version and resolved lazily, avoiding unnecessary work at rule creation.
 - `isValidHTMLTagInJSX` now uses `isPlainAttribute`, still matching only plain identifier attributes; no behavior change.
 
 ## [5.28.1] - 2026-10-17

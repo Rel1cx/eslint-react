@@ -17,7 +17,7 @@ Creates a predicate that returns `true` only if both predicates are `true`.
 
 **When to use**
 
-Use when you want to combine `Predicate`s with AND, accepting values that
+Use when you want to combine predicates with AND, accepting values that
 satisfy multiple conditions, including refinements that narrow to an
 intersection.
 
@@ -29,11 +29,11 @@ type is an intersection.
 **Example** (Checking both conditions)
 
 ```ts
-import { Predicate } from "effect";
+import { and, hasProperty } from "@local/eff";
 
-const hasAAndB = Predicate.and(
-  Predicate.hasProperty("a"),
-  Predicate.hasProperty("b"),
+const hasAAndB = and(
+  hasProperty("a"),
+  hasProperty("b"),
 );
 
 const input: unknown = JSON.parse(`{"a":1,"b":"ok"}`);

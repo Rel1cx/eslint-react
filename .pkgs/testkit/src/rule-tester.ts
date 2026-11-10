@@ -1,7 +1,8 @@
 import { RuleTester, type RuleTesterConfig } from "@typescript-eslint/rule-tester";
-import ts from "typescript";
 import * as vitest from "vitest";
-import { getFixturesRootDir } from "./fixtures";
+
+import { type TsconfigFixtureName, tsconfigFixtures } from "./fixtures";
+import { type TestLanguageOptionsInput, defineTestLanguageOptions } from "./options";
 
 RuleTester.it = vitest.it;
 RuleTester.itOnly = vitest.it.only;
@@ -10,64 +11,31 @@ RuleTester.describe = vitest.describe;
 RuleTester.describeSkip = vitest.describe.skip;
 RuleTester.afterAll = vitest.afterAll;
 
-export const defaultLanguageOptions = {
-  ecmaVersion: "latest",
-  parserOptions: {
-    ecmaFeatures: { jsx: true },
-    project: false,
-    projectService: false,
-    warnOnUnsupportedTypeScriptVersion: false,
-  },
-  sourceType: "module",
-} as const satisfies RuleTesterConfig["languageOptions"];
-
-export const defaultLanguageOptionsWithTypes = {
-  ecmaVersion: "latest",
-  parserOptions: {
-    ecmaFeatures: { jsx: true },
-    projectService: true,
-    tsconfigRootDir: getFixturesRootDir(),
-    warnOnUnsupportedTypeScriptVersion: false,
-  },
-  sourceType: "module",
-} as const satisfies RuleTesterConfig["languageOptions"];
-
-export const ruleTester = new RuleTester({
-  languageOptions: defaultLanguageOptions,
-});
-
-export const ruleTesterWithTypes = new RuleTester({
-  languageOptions: defaultLanguageOptionsWithTypes,
-});
-
-export function getProjectForJSXEmit(jsxEmit: ts.JsxEmit) {
-  switch (jsxEmit) {
-    case ts.JsxEmit.None:
-    case ts.JsxEmit.ReactJSX:
-    case ts.JsxEmit.ReactJSXDev:
-      return "tsconfig.json";
-    case ts.JsxEmit.React:
-      return "tsconfig.jsx-react.json";
-    case ts.JsxEmit.ReactNative:
-      return "tsconfig.jsx-react-native.json";
-    case ts.JsxEmit.Preserve:
-      return "tsconfig.jsx-preserve.json";
-  }
+/**
+ * The single construction site for `RuleTester` instances. Pass
+ * `types: true` for type-aware rules backed by the project service, or
+ * `types: { tsconfig }` to pin a specific tsconfig (see
+ * `createRuleTesterForTsconfig` for the fixture-keyed convenience).
+ */
+export function createRuleTester(options: TestLanguageOptionsInput = {}): RuleTester {
+  return new RuleTester({
+    languageOptions: defineTestLanguageOptions(options),
+  });
 }
 
 /**
- * Creates a `RuleTester` pinned to the tsconfig for the given JSX emit mode,
- * replacing per-spec hand-rolled `new RuleTester({...})` instances.
+ * Creates a `RuleTester` pinned to a registered tsconfig fixture (e.g.
+ * `"react-classic"` for the classic JSX runtime, `"preact"` for
+ * `jsxImportSource: preact`).
  */
-export function createRuleTesterForJSXEmit(jsxEmit: ts.JsxEmit): RuleTester {
-  return new RuleTester({
-    languageOptions: {
-      ...defaultLanguageOptionsWithTypes,
-      parserOptions: {
-        ...defaultLanguageOptionsWithTypes.parserOptions,
-        project: getProjectForJSXEmit(jsxEmit),
-        projectService: false,
-      },
-    },
-  });
+export function createRuleTesterForTsconfig(name: TsconfigFixtureName): RuleTester {
+  return createRuleTester({ types: { tsconfig: tsconfigFixtures[name] } });
 }
+
+export const ruleTester = createRuleTester();
+
+export const ruleTesterWithTypes = createRuleTester({ types: true });
+
+export const defaultLanguageOptions: RuleTesterConfig["languageOptions"] = defineTestLanguageOptions();
+
+export const defaultLanguageOptionsWithTypes: RuleTesterConfig["languageOptions"] = defineTestLanguageOptions({ types: true });

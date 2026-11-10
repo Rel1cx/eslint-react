@@ -5,6 +5,7 @@ export * from "./is-initialized-from-react-native";
 export * from "./is-provenance-equal";
 export * from "./is-value-equal";
 export * from "./resolve";
+export * from "./resolve-assignment-targets";
 export * from "./resolve-enclosing-assignment-target";
 export * from "./resolve-import-source";
 export * from "./resolve-object-type";

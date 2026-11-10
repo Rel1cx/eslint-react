@@ -20,9 +20,9 @@ each time the predicate is called.
 **Example** (Checking any predicate)
 
 ```ts
-import { Predicate } from "effect";
+import { isNumber, isString, some } from "@local/eff";
 
-const anyCheck = Predicate.some([Predicate.isString, Predicate.isNumber]);
+const anyCheck = some([isString, isNumber]);
 
 anyCheck("ok"); // => true
 ```

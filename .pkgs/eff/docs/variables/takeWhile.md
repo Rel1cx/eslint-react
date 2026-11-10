@@ -27,9 +27,9 @@ Supports refinements for type narrowing. The predicate receives
 **Example** (Taking while condition holds)
 
 ```ts
-import { Array } from "effect";
+import { takeWhile } from "@local/eff";
 
-Array.takeWhile([1, 3, 2, 4, 1, 2], (x) => x < 4); // => [1, 3, 2]
+takeWhile([1, 3, 2, 4, 1, 2], (x) => x < 4); // => [1, 3, 2]
 ```
 
 ## Call Signature
@@ -126,9 +126,7 @@ Array.takeWhile([1, 3, 2, 4, 1, 2], (x) => x < 4); // => [1, 3, 2]
 
 ## See
 
-- take for keeping a fixed number of leading elements
-- [dropWhile](dropWhile.md) for removing the matching prefix and keeping the rest
-- span for splitting the matching prefix from the remaining elements
+[dropWhile](dropWhile.md) for removing the matching prefix and keeping the rest
 
 ## Since
 

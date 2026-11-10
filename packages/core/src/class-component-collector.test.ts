@@ -49,6 +49,18 @@ describe("getClassComponentCollector", () => {
     expect(components[0]?.name).toBeNull();
   });
 
+  // Known failure: the collector initializes methods to an empty array but never populates it.
+  it.fails("should collect the methods exposed by the semantic node", () => {
+    const components = collectComponents(
+      "class A extends Component { componentDidMount() {} render() { return null; } }",
+    );
+    expect(components).toHaveLength(1);
+    expect(components[0]?.methods.map((method) => method.key.type === AST.Identifier ? method.key.name : null)).toEqual([
+      "componentDidMount",
+      "render",
+    ]);
+  });
+
   it("should initialize the semantic fields", () => {
     const components = collectComponents("class Component extends React.Component {}");
     expect(components).toHaveLength(1);

@@ -138,6 +138,13 @@ describe("inferMutableFunctions", () => {
     expect(inferMutableSummaries(code)).toEqual([]);
   });
 
+  it("should skip mutating method calls on values initialized by any allowlisted hook", () => {
+    for (const hook of ["useHistory", "useNavigate", "useNavigation", "useRouter", "useWorld"]) {
+      const code = `function outer() { const value = ${hook}(); const fn = () => { value.push('/'); }; }`;
+      expect(inferMutableSummaries(code)).toEqual([]);
+    }
+  });
+
   it("should not exempt mutating method calls on other call-initialized values", () => {
     const code = "function outer() { const store = makeStore(); const fn = () => { store.set('k', 'v'); }; }";
     expect(inferMutableSummaries(code)).toEqual([
@@ -402,6 +409,21 @@ describe("inferDirectMutations", () => {
       }
     `;
     expect(inferDirectSummaries(code)).toEqual([]);
+  });
+
+  it("should skip mutating method calls on values initialized by any allowlisted hook", () => {
+    for (const hook of ["useHistory", "useNavigate", "useNavigation", "useRouter", "useWorld"]) {
+      const code = tsx`
+        function Component() {
+          const value = ${hook}();
+          const handleClick = () => {
+            value.push("/");
+          };
+          return <div />;
+        }
+      `;
+      expect(inferDirectSummaries(code)).toEqual([]);
+    }
   });
 
   it("should not report mutations of a non-component function's parameters", () => {

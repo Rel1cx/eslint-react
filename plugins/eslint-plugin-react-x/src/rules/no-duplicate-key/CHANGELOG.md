@@ -5,25 +5,21 @@ All notable changes to the `react-x/no-duplicate-key` rule will be documented in
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [5.30.0-beta.8] - 2026-10-27
-
-### Changed
-
-- Reverted the rule to the v5.28.8 implementation, removing the changes from v5.30.0-beta.7.
+## [5.30.1] - 2026-11-10
 
 ### Fixed
 
-- The fast-path text check now matches bare `key` attributes and keys separated from `=` by whitespace (ex: `<div key />`, `<div key = {id} />`), so such elements are no longer silently skipped.
+- In `.map()` callbacks, all statically known keys are now treated as repeating, not only bare string literal attributes: expression-container literals (`key={1}`, `key={"a"}`), static template literals (``key={`a`}``), TS-wrapped literals (`key={"a" as const}`), and bare `key` attributes (`key={true}`) are reported, while `key={null}` and `key={undefined}` remain unreported since React falls back to index keys for them.
 
-## [5.30.0-beta.7] - 2026-10-27
+## [5.30.0] - 2026-11-10
 
 ### Fixed
 
-- Duplicate keys are now tracked per key instead of per group, so a later unique key can no longer clear an earlier duplicate (ex: `[A, A, B]`).
-- Literal keys in `.map()` callbacks are no longer overwritten by later dynamic keys.
-- Braced, numeric, template-literal, and valueless keys are now compared and reported as duplicates.
-- Fixed keys in `.flatMap()` and `Array.from()` callbacks are now reported, sharing iterator callback detection with `no-missing-key`.
-- Elements inside `Children.toArray()` and `Children.map()` calls are no longer reported as duplicates, since React re-assigns the keys of their output.
+- Only keys that provably have a duplicate are now reported: unique siblings in a partially duplicate group (ex: `[A, B, B]`) are no longer reported, and duplicates followed by a unique key (ex: `[A, A, B]`) are now correctly reported.
+- Keys collected through `Children.toArray()` and `Children.map()` are no longer reported, since React re-assigns the keys of their output. Keys nested inside an element passed to these APIs are still reported, since they are not re-assigned.
+- Inside `.map()` callbacks, only elements returned by the callback are checked, so keyed elements passed to other functions, used as prop values, or placed in expression containers are no longer reported.
+- Literal keys in `.map()` callbacks are no longer overwritten by later keys; every returned element with a literal key is now reported.
+- `.map()` calls on array literals with at most one element are no longer reported, since no duplicate can occur.
 - The fast-path text check now matches bare `key` attributes and keys separated from `=` by whitespace (ex: `<div key />`, `<div key = {id} />`), so such elements are no longer silently skipped.
 
 ## [5.14.9] - 2026-07-15

@@ -5,15 +5,22 @@ All notable changes to the `react-web-api/no-leaked-event-listener` rule will be
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [5.30.0-beta.6] - 2026-10-27
+## [5.30.0] - 2026-11-10
 
 ### Fixed
 
+- Listener, event-type, and receiver matching now treats dot access and static computed access as the same property (ex: `handlers.onResize` and `handlers["onResize"]`), including simple template-literal keys, instead of reporting a missing cleanup.
+- Listener, event-type, and receiver matching now compares optional-chained expressions structurally, so `window.addEventListener("resize", handlers?.onResize)` pairs with a matching `removeEventListener("resize", handlers?.onResize)`, and the same applies to optional-chained event types (ex: `config?.type`) and receivers (ex: `(element?.ownerDocument)`).
+- Listener options with string-literal or simple template-literal keys (computed or not, ex: `{ "signal": ... }` or `{ ["capture"]: true }`) are now recognized, so signal-guarded listeners are no longer reported and capture options pair correctly.
+- A bare call whose callee is a function parameter is no longer mistaken for the enclosing function declaration during cleanup pairing; such calls fall back to name matching.
 - Resolving the `signal` option through a cyclic alias chain (ex: `const a = b; const b = a;`) no longer recurses until the stack overflows.
 
 ### Changed
 
+- Reorganized listener analysis into a fact-based `collect` → `origins` → `effect` pipeline with typed violation inference and centralized reporting, without changing diagnostic behavior.
+- Cleanup callee resolution now uses `resolve` from `@eslint-react/var`; listener option lookups were inlined after the shared AST helpers were removed; no behavior change.
 - Listener and event-type matching now uses `isProvenanceEqual` from `@eslint-react/var`, which carries the provenance rules previously built into `isValueEqual`; no behavior change.
+- Expanded layer-specific tests for call collection, origin resolution, violation inference, and helper functions.
 
 ## [5.27.1] - 2026-10-15
 

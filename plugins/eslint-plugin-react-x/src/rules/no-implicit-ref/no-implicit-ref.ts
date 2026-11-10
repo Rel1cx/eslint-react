@@ -36,8 +36,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
     name: "ref",
     // Allow pass-through of React internally defined refs
     isAllowedProp: (fqn) => fqn.endsWith("attributes.ref"),
-    // Allow when the ref property's type is a React ref type alias
-    // e.g. React.Ref, React.LegacyRef, React.RefCallback, React.RefObject
+    // Allow when the ref property's type is a React ref type alias e.g. React.Ref, React.LegacyRef, React.RefCallback, React.RefObject
     isAllowedType: (fqn) => RE_REACT_REF_TYPE.test(fqn),
     // Report implicit ref prop usage when both checkers fail
     onImplicitProp(node) {

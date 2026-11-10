@@ -2,13 +2,13 @@ import type { RuleFunction } from "@eslint-react/kit";
 import type { TSESTree } from "@typescript-eslint/types";
 
 /** Options for {@link jsxFragments}. */
-export type JsxsFragmentsOptions = {
+export type JsxFragmentsOptions = {
   /** The mode to enforce: "syntax" (default, shorthand) or "element" (standard form). */
   mode?: "syntax" | "element";
 };
 
 /** Enforce shorthand or standard form for React fragments. */
-export function jsxFragments(options: JsxsFragmentsOptions = {}): RuleFunction {
+export function jsxFragments(options: JsxFragmentsOptions = {}): RuleFunction {
   const { mode = "syntax" } = options;
   return (context) => {
     // Fast path: skip if the fragment form this mode targets is not present in the file

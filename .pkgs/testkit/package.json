@@ -41,16 +41,16 @@
     "@typescript-eslint/rule-tester": "^8.72.1",
     "@typescript-eslint/types": "^8.72.1",
     "@typescript-eslint/typescript-estree": "^8.72.1",
-    "@typescript-eslint/utils": "^8.72.1"
+    "@typescript-eslint/utils": "^8.72.1",
+    "typescript": "6.0.3"
   },
   "devDependencies": {
     "@local/configs": "workspace:*",
     "@tsconfig/node20": "^20.1.10",
     "@types/node": "^20.19.43",
-    "eslint": "^10.13.0",
-    "tsdown": "^0.23.2",
-    "typescript": "6.0.3",
-    "vitest": "^5.0.5"
+    "eslint": "^10.14.0",
+    "tsdown": "^0.23.7",
+    "vitest": "^5.1.0"
   },
   "engines": {
     "node": ">=20.19.0"

@@ -15,9 +15,9 @@ Use to type a lazy value provider that should not run until called.
 **Example** (Creating a lazy argument)
 
 ```ts
-import { Function } from "effect";
+import { type LazyArg, constant } from "@local/eff";
 
-const constNull: Function.LazyArg<null> = Function.constant(null);
+const constNull: LazyArg<null> = constant(null);
 constNull(); // => null
 ```
 

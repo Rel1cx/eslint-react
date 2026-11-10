@@ -3,11 +3,13 @@ title: FAQ
 description: Frequently asked questions about ESLint React.
 ---
 
+import { Callout } from "fumadocs-ui/components/callout";
+
 ## Why?
 
-**ESLint React supports modern React ecosystems across multiple renderers.** While `eslint-plugin-react` focuses primarily on React DOM, ESLint React is designed to work with alternative renderers like React Native, React Three Fiber, and custom renderers by treating DOM as one of many supported targets.
+**ESLint React supports modern React ecosystems across multiple renderers.** While `eslint-plugin-react` focuses primarily on React DOM, ESLint React is designed to work with alternative renderers like React Native, React Three Fiber, and custom renderers by treating DOM as one of many supported targets rather than the default assumption.
 
-Our solution treats DOM as one of many supported targets rather than the default assumption. This paradigm shift enables:
+This paradigm shift enables:
 
 - **Context-aware linting**: Adapting to different runtime environments
 - **Future-proof architecture**: Compatibility with emerging React platforms
@@ -47,7 +49,7 @@ Currently, it includes the following:
   - [`eslint-plugin-react-web-api`](https://github.com/Rel1cx/eslint-react/tree/main/plugins/eslint-plugin-react-web-api) - Web API interaction rules.
   - [`eslint-plugin-react-naming-convention`](https://github.com/Rel1cx/eslint-react/tree/main/plugins/eslint-plugin-react-naming-convention) - Naming convention rules.
   - [`eslint-plugin-react-debug`](https://github.com/Rel1cx/eslint-react/tree/main/plugins/eslint-plugin-react-debug) - Debugging rules for inspecting React patterns in code.
-  - [`@eslint-react/eslint-plugin`](https://github.com/Rel1cx/eslint-react/tree/main/plugins/eslint-plugin) - A unified plugin that combines the six main individual plugins into one. It does not include `eslint-plugin-react-debug`.
+  - [`@eslint-react/eslint-plugin`](https://github.com/Rel1cx/eslint-react/tree/main/plugins/eslint-plugin) - A unified plugin that combines the six main individual plugins into one. It does not include `eslint-plugin-react-debug`. It also incubates unstable rules under active development (e.g., `unstable-exhaustive-deps`) before they graduate to an individual plugin.
 
 **Documentation**
 
@@ -69,7 +71,7 @@ For users who use the presets we provide (such as `recommended` or `strict`), it
 For users who need more fine-grained control or build and maintain an ESLint configuration for themselves or their organization, it is recommended to use individual plugins. This allows you to freely select plugins and compose rules as needed, without being limited by presets.
 
 <Callout type="warn">
-  The unified plugin (`@eslint-react/eslint-plugin`) contains some historical decisions and internal behaviors that were originally made to be compatible with both [Legacy Config](https://eslint.org/docs/v8.x/use/configure/configuration-files) and [Flat Config](https://eslint.org/docs/v8.x/use/configure/configuration-files-new). Reducing external package dependencies on it is better in the long run.
+  The unified plugin (`@eslint-react/eslint-plugin`) retains some historical decisions for backward compatibility. For example, every `react-x` rule is exposed under both an unprefixed ID (e.g., `@eslint-react/no-missing-key`) and an `x-`-prefixed ID (e.g., `@eslint-react/x-no-missing-key`). If you are building a shareable ESLint configuration, depending on the individual plugins directly is better in the long run.
 </Callout>
 
 ## Is there anything to note about migrating from 'eslint-plugin-react'?
@@ -103,9 +105,11 @@ Additionally, configuring ESLint React and your project settings correctly ensur
   See [Configure Analyzer](/docs/configuration/configure-analyzer) for more details.
 
 - **Leverage Type Information**:
-  - Set up `parserOptions.project` or `parserOptions.projectService` in your ESLint config to enable powerful type-aware rules (like `react-x/no-leaked-conditional-rendering` and `react-x/no-implicit-children`).
+  - Set up `parserOptions.project` or `parserOptions.projectService` in your ESLint config to enable powerful type-aware rules (`react-x/no-implicit-children`, `react-x/no-implicit-key`, `react-x/no-implicit-ref`, `react-x/no-leaked-conditional-rendering`, and `react-x/no-unused-props`).
   - Enable `strictNullChecks` in your `tsconfig.json` or `jsconfig.json` to significantly improve the accuracy of these type-aware rules.
   - Ensure your JSX transform options (`jsx`, `jsxImportSource`, etc.) are properly defined in your TypeScript config so ESLint React can automatically detect them.
+
+  See the [Type Information](/docs/configuration/configure-project-config#type-information) section on the [Configure Project Config](/docs/configuration/configure-project-config) page for more details.
 
 ## What does 90% human-written mean?
 

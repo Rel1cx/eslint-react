@@ -1,6 +1,5 @@
-import { createRuleTesterForJSXEmit, ruleTester } from "@local/testkit";
+import { createRuleTesterForTsconfig, ruleTester } from "@local/testkit";
 import tsx from "dedent";
-import { JsxEmit } from "typescript";
 import rule, { RULE_NAME } from "./no-key-after-spread";
 
 // Default ruleTester tests (auto-detect runtime from tsconfig)
@@ -139,7 +138,7 @@ ruleTester.run(RULE_NAME, rule, {
 });
 
 // Test with classic runtime (from tsconfig) - deoptimization should NOT apply
-const ruleTesterWithJSXClassicRuntime = createRuleTesterForJSXEmit(JsxEmit.React);
+const ruleTesterWithJSXClassicRuntime = createRuleTesterForTsconfig("react-classic");
 
 ruleTesterWithJSXClassicRuntime.run(`${RULE_NAME} (classic runtime)`, rule, {
   invalid: [
@@ -169,7 +168,7 @@ ruleTesterWithJSXClassicRuntime.run(`${RULE_NAME} (classic runtime)`, rule, {
 });
 
 // Test with react-native runtime (from tsconfig) - classic-family emit, deoptimization should NOT apply
-const ruleTesterWithJSXReactNativeRuntime = createRuleTesterForJSXEmit(JsxEmit.ReactNative);
+const ruleTesterWithJSXReactNativeRuntime = createRuleTesterForTsconfig("react-native");
 
 ruleTesterWithJSXReactNativeRuntime.run(`${RULE_NAME} (react-native runtime)`, rule, {
   invalid: [],
@@ -183,7 +182,7 @@ ruleTesterWithJSXReactNativeRuntime.run(`${RULE_NAME} (react-native runtime)`, r
 });
 
 // Test with automatic runtime (from tsconfig) - deoptimization SHOULD apply
-const ruleTesterWithJSXAutomaticRuntime = createRuleTesterForJSXEmit(JsxEmit.ReactJSX);
+const ruleTesterWithJSXAutomaticRuntime = createRuleTesterForTsconfig("react-jsx");
 
 ruleTesterWithJSXAutomaticRuntime.run(`${RULE_NAME} (automatic runtime)`, rule, {
   invalid: [
@@ -229,10 +228,9 @@ ruleTesterWithJSXAutomaticRuntime.run(`${RULE_NAME} (automatic runtime)`, rule, 
       `,
       errors: [{ messageId: "default" }],
     },
-    // An inline object literal spread is not treated differently: the rule
-    // reports 'key' after ANY spread attribute. The "inline object literal"
-    // exception mentioned in the rule's comment describes tsc's emit behavior
-    // (tsc still uses the JSX runtime there), not an exception in this rule
+    // Cross-compiler behavior: tsc emits inline object spreads through the JSX
+    // runtime, but Babel falls back to createElement when 'key' follows any
+    // spread. Keep reporting these forms so the rule remains correct for Babel.
     {
       code: tsx`
         const App = () => {
@@ -241,12 +239,19 @@ ruleTesterWithJSXAutomaticRuntime.run(`${RULE_NAME} (automatic runtime)`, rule, 
       `,
       errors: [{ messageId: "default" }],
     },
-    // A 'key' inside the spread object does not exempt the trailing 'key'
-    // attribute either — the rule only looks at attribute position
+    // A key inside the spread object does not exempt the trailing key attribute
     {
       code: tsx`
         const App = () => {
           return <div {...{ key: 1 }} key="k" />;
+        };
+      `,
+      errors: [{ messageId: "default" }],
+    },
+    {
+      code: tsx`
+        const App = () => {
+          return <div {...{ [key]: value }} key="k" />;
         };
       `,
       errors: [{ messageId: "default" }],

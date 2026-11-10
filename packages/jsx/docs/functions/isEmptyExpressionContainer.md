@@ -6,10 +6,12 @@
 function isEmptyExpressionContainer(node: Node | null | undefined): boolean;
 ```
 
-Check if the node is an empty expression container (`{}`, `{/* comment */}`).
+Check if the node is an empty expression container (`{}`, `{ }`,
+`{/* comment */}`), including multiline and TypeScript directive comments.
 
-An empty `JSXExpressionContainer` holds no expression, so it produces no DOM
-node and is treated as non-rendered content, same as whitespace padding.
+It holds a `JSXEmptyExpression`, so it renders nothing, like whitespace
+padding. A comment attached to a real expression (`{/* comment */} null`) is
+not empty.
 
 ## Parameters
 
@@ -25,5 +27,5 @@ node and is treated as non-rendered content, same as whitespace padding.
 
 ## Remarks
 
-This is a content predicate, not a type guard: a `false` result does not
-mean the node is not a `JSXExpressionContainer`.
+A content predicate, not a type guard: `false` does not mean the node is not
+a `JSXExpressionContainer`.

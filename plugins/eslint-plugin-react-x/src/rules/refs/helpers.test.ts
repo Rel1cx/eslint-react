@@ -54,10 +54,54 @@ describe("isAfterTerminatingNonNullGuard", () => {
     expect(isAllowedAfterGuard("function f() { if (ref.current !== null) { return; foo(); } ref.current = create(); }")).toBe(false);
   });
 
-  it("should not match `try`/`switch`/loop termination, matching the shared predicate", () => {
-    expect(isAllowedAfterGuard("function f() { if (ref.current !== null) { try { return; } finally {} } ref.current = create(); }")).toBe(false);
-    expect(isAllowedAfterGuard("function f() { if (ref.current !== null) { switch (x) { default: return; } } ref.current = create(); }")).toBe(false);
-    expect(isAllowedAfterGuard("function f() { if (ref.current !== null) { while (true) { return; } } ref.current = create(); }")).toBe(false);
+  it("should match `try` termination", () => {
+    expect(isAllowedAfterGuard("function f() { if (ref.current !== null) { try { return; } finally {} } ref.current = create(); }")).toBe(true);
+    expect(
+      isAllowedAfterGuard("function f() { if (ref.current !== null) { try { return; } catch { throw new Error(); } } ref.current = create(); }"),
+    ).toBe(true);
+  });
+
+  it("should not match `try` termination when the catch handler can complete normally", () => {
+    expect(
+      isAllowedAfterGuard("function f() { if (ref.current !== null) { try { return; } catch { foo(); } } ref.current = create(); }"),
+    ).toBe(false);
+  });
+
+  it("should match switch termination when every clause returns and a default exists", () => {
+    expect(isAllowedAfterGuard("function f() { if (ref.current !== null) { switch (x) { default: return; } } ref.current = create(); }")).toBe(true);
+    expect(
+      isAllowedAfterGuard(
+        "function f() { if (ref.current !== null) { switch (x) { case 1: return; case 2: return; default: return; } } ref.current = create(); }",
+      ),
+    ).toBe(true);
+  });
+
+  it("should match loop termination when the body always returns and no jump escapes", () => {
+    expect(isAllowedAfterGuard("function f() { if (ref.current !== null) { while (true) { return; } } ref.current = create(); }")).toBe(true);
+    expect(isAllowedAfterGuard("function f() { if (ref.current !== null) { for (;;) { return; } } ref.current = create(); }")).toBe(true);
+    expect(isAllowedAfterGuard("function f() { if (ref.current !== null) { do { return; } while (x); } ref.current = create(); }")).toBe(true);
+  });
+
+  it("should not match switch/loop termination when a jump can escape", () => {
+    expect(
+      isAllowedAfterGuard(
+        "function f() { if (ref.current !== null) { switch (x) { case 1: if (y) break; return; default: return; } } ref.current = create(); }",
+      ),
+    ).toBe(false);
+    expect(
+      isAllowedAfterGuard("function f() { if (ref.current !== null) { switch (x) { case 1: return; case 2: return; } } ref.current = create(); }"),
+    ).toBe(false);
+    expect(
+      isAllowedAfterGuard("function f() { if (ref.current !== null) { while (true) { if (x) break; return; } } ref.current = create(); }"),
+    ).toBe(false);
+    expect(
+      isAllowedAfterGuard(
+        "function f() { outer: if (ref.current !== null) { while (true) { if (x) break outer; return; } } ref.current = create(); }",
+      ),
+    ).toBe(false);
+    expect(
+      isAllowedAfterGuard("function f() { if (ref.current !== null) { do { if (x) continue; return; } while (y); } ref.current = create(); }"),
+    ).toBe(false);
   });
 
   it("should not match when the terminating branch is the null branch", () => {

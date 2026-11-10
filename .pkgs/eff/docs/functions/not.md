@@ -21,9 +21,9 @@ Returns a new predicate that flips the boolean result.
 **Example** (Negating a predicate)
 
 ```ts
-import { Predicate } from "effect";
+import { isString, not } from "@local/eff";
 
-const isNotString = Predicate.not(Predicate.isString);
+const isNotString = not(isString);
 
 isNotString(1); // => true
 ```
@@ -74,9 +74,9 @@ Returns a new predicate that flips the boolean result.
 **Example** (Negating a predicate)
 
 ```ts
-import { Predicate } from "effect";
+import { isString, not } from "@local/eff";
 
-const isNotString = Predicate.not(Predicate.isString);
+const isNotString = not(isString);
 
 isNotString(1); // => true
 ```

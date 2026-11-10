@@ -82,10 +82,16 @@ describe("getCallExpressions", () => {
     expect(getCallTexts(doCode, doNode)).toEqual(["foo()"]);
   });
 
-  it("should visit only the test of for statements", () => {
+  it("should visit the initializer, test, and update of for statements", () => {
     const code = "for (init(); test(); update()) { body(); }";
     const node = getFirstNodeOfType<TSESTree.ForStatement>(code, AST.ForStatement);
-    expect(getCallTexts(code, node)).toEqual(["test()"]);
+    expect(getCallTexts(code, node)).toEqual(["init()", "test()", "update()"]);
+  });
+
+  it("should visit declaration-form for statement initializers and updates", () => {
+    const code = "for (let i = init(); test(); i = next()) { body(); }";
+    const node = getFirstNodeOfType<TSESTree.ForStatement>(code, AST.ForStatement);
+    expect(getCallTexts(code, node)).toEqual(["init()", "test()", "next()"]);
   });
 
   it("should visit conditional branches", () => {

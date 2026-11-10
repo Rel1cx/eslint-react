@@ -69,8 +69,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         }
         // eslint-disable-next-line prefer-const
         for (let { name, node: component } of fComponents) {
-          // Fall back to the name bound through a wrapping call chain (e.g. `const C = useCallback(() => ..., [])`)
-          // for components the collector could not name
+          // Fall back to the name bound through a wrapping call chain (e.g. `const C = useCallback(() => ..., [])`) for components the collector could not name
           name ??= getWrapperCallBoundName(context, component);
           // Skip anonymous function components and names that don't follow component naming to reduce false positives
           if (name == null || !core.isFunctionComponentNameLoose(name)) continue;

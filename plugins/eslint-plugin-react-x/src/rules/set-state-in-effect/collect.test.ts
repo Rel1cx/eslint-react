@@ -1,3 +1,4 @@
+import type { RegExpLike } from "@eslint-react/shared";
 import { toRegExp } from "@eslint-react/shared";
 import { runCollector } from "@local/testkit";
 import { describe, expect, it } from "vitest";
@@ -6,15 +7,11 @@ import { type SetStateInEffectFacts, createFactCollector } from "./collect";
 
 const NO_ADDITIONAL_HOOKS = { test: () => false };
 
-function collectFacts(
-  code: string,
-  additionalStateHooks: { test: (s: string) => boolean } = NO_ADDITIONAL_HOOKS,
-  additionalEffectHooks: { test: (s: string) => boolean } = NO_ADDITIONAL_HOOKS,
-) {
+function collectFacts(code: string, additionalHooks: [RegExpLike, RegExpLike] = [NO_ADDITIONAL_HOOKS, NO_ADDITIONAL_HOOKS]) {
   return runCollector(
     code,
     () => {
-      const collector = createFactCollector(additionalStateHooks, additionalEffectHooks);
+      const collector = createFactCollector(additionalHooks);
       return { api: collector.facts, visitor: collector.visitor };
     },
     (facts) => facts,
@@ -72,14 +69,14 @@ describe("createFactCollector", () => {
 
   it("collects an additional effect root even without Effect in its name", () => {
     const code = "function C() { useCustom(() => { foo(); }); }";
-    const facts = collectFacts(code, NO_ADDITIONAL_HOOKS, toRegExp("useCustom"));
+    const facts = collectFacts(code, [NO_ADDITIONAL_HOOKS, toRegExp("useCustom")]);
     expect(summarizeRoots(code, facts)).toEqual([
       { effect: "useCustom(() => { foo(); })", setup: "() => { foo(); }" },
     ]);
   });
 
   it("classifies a hook configured as both state and effect as state first", () => {
-    const facts = collectFacts("function C() { useWeird(setup, []); }", toRegExp("useWeird"), toRegExp("useWeird"));
+    const facts = collectFacts("function C() { useWeird(setup, []); }", [toRegExp("useWeird"), toRegExp("useWeird")]);
     expect(facts.calls).toHaveLength(0);
     expect(facts.effectRoots).toHaveLength(0);
   });
@@ -132,5 +129,108 @@ describe("createFactCollector", () => {
     const code = "const C = () => <div ref={setNode} callback={setOther} />;";
     const facts = collectFacts(code);
     expect(facts.jsxRefExprs.map((node) => code.slice(node.range[0], node.range[1]))).toEqual(["setNode"]);
+  });
+
+  it("continues collecting nested calls inside state and effect hook arguments", () => {
+    const code = "function C() { const [s, setS] = useState(initial()); useEffect(setup(), [dep()]); }";
+    const facts = collectFacts(code);
+    expect(summarizeCalls(code, facts)).toEqual([
+      { enclosing: "function C() { const [s, setS] = useState(initial()); useEffect(setup(), [dep()]); }", text: "initial()" },
+      { enclosing: "function C() { const [s, setS] = useState(initial()); useEffect(setup(), [dep()]); }", text: "setup()" },
+      { enclosing: "function C() { const [s, setS] = useState(initial()); useEffect(setup(), [dep()]); }", text: "dep()" },
+    ]);
+    expect(summarizeRoots(code, facts)).toEqual([
+      { effect: "useEffect(setup(), [dep()])", setup: "setup()" },
+    ]);
+  });
+
+  it("restores the outer enclosing function after leaving a nested function", () => {
+    const code = "function C() { useEffect(() => { (() => { inner(); })(); outer(); }, []); }";
+    const facts = collectFacts(code);
+    expect(summarizeCalls(code, facts)).toEqual([
+      { enclosing: "() => { (() => { inner(); })(); outer(); }", text: "(() => { inner(); })()" },
+      { enclosing: "() => { inner(); }", text: "inner()" },
+      { enclosing: "() => { (() => { inner(); })(); outer(); }", text: "outer()" },
+    ]);
+  });
+
+  it("ignores JSX ref attributes without an expression container", () => {
+    const facts = collectFacts('const C = () => <><div ref /><div ref="node" /><div data-ref={setNode} /></>;');
+    expect(facts.jsxRefExprs).toEqual([]);
+  });
+
+  it("attributes a call in an object method to the method", () => {
+    const code = "const o = { m() { foo(); } };";
+    expect(summarizeCalls(code, collectFacts(code))).toEqual([
+      { enclosing: "() { foo(); }", text: "foo()" },
+    ]);
+  });
+
+  it("attributes a call in a class method to the method", () => {
+    const code = "class X { m() { foo(); } }";
+    expect(summarizeCalls(code, collectFacts(code))).toEqual([
+      { enclosing: "() { foo(); }", text: "foo()" },
+    ]);
+  });
+
+  it("attributes a call in a static block to the nearest enclosing function", () => {
+    const code = "function C() { class X { static { foo(); } } }";
+    expect(summarizeCalls(code, collectFacts(code))).toEqual([
+      { enclosing: "function C() { class X { static { foo(); } } }", text: "foo()" },
+    ]);
+  });
+
+  it("does not collect a call in a top-level static block", () => {
+    expect(collectFacts("class X { static { foo(); } }").calls).toHaveLength(0);
+  });
+
+  it("does not collect a call of an additional state hook", () => {
+    const facts = collectFacts("function C() { const [s, setS] = useMyState(0); }", [toRegExp("useMyState"), NO_ADDITIONAL_HOOKS]);
+    expect(facts.calls).toHaveLength(0);
+  });
+
+  it("collects the setter call of an additional state hook as an ordinary call", () => {
+    const code = "function C() { const [s, setS] = useMyState(0); useEffect(() => { setS(1); }, []); }";
+    expect(summarizeCalls(code, collectFacts(code, [toRegExp("useMyState"), NO_ADDITIONAL_HOOKS]))).toEqual([
+      { enclosing: "() => { setS(1); }", text: "setS(1)" },
+    ]);
+  });
+
+  it("ignores JSX attributes with a namespaced name", () => {
+    const facts = collectFacts("const C = () => <div ns:ref={setNode} />;");
+    expect(facts.jsxRefExprs).toEqual([]);
+  });
+
+  it("collects a conditional JSX ref expression as a single entry", () => {
+    const code = "const C = () => <div ref={cond ? setA : setB} />;";
+    const facts = collectFacts(code);
+    expect(facts.jsxRefExprs.map((node) => code.slice(node.range[0], node.range[1]))).toEqual(["cond ? setA : setB"]);
+  });
+
+  it("collects a spread argument as the setup of an effect root", () => {
+    const code = "useEffect(...setups);";
+    expect(summarizeRoots(code, collectFacts(code))).toEqual([
+      { effect: "useEffect(...setups)", setup: "...setups" },
+    ]);
+  });
+
+  it("collects calls inside JSX expression containers of the enclosing function", () => {
+    const code = "function C() { return <div prop={foo()} />; }";
+    expect(summarizeCalls(code, collectFacts(code))).toEqual([
+      { enclosing: "function C() { return <div prop={foo()} />; }", text: "foo()" },
+    ]);
+  });
+
+  it("collects unconfigured hook names ending in Effect", () => {
+    const code = "useCustomEffect(setup); React.useAnythingEffect?.(setup);";
+    expect(summarizeRoots(code, collectFacts(code))).toEqual([
+      { effect: "useCustomEffect(setup)", setup: "setup" },
+      { effect: "React.useAnythingEffect?.(setup)", setup: "setup" },
+    ]);
+  });
+
+  it("does not collect unsupported effect-like names or computed callees", () => {
+    const facts = collectFacts('useEffectEvent(setup); useEffectExtra(setup); React["useEffect"](setup);');
+    expect(facts.effectRoots).toEqual([]);
   });
 });

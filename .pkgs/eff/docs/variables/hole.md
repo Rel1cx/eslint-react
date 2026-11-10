@@ -20,7 +20,7 @@ evaluated at runtime, it throws.
 **Example** (Creating a development placeholder)
 
 ```ts
-import { hole } from "effect";
+import { hole } from "@local/eff";
 
 // Intentionally not called: `hole` throws if the placeholder is evaluated.
 const buildUser = (id: number): { readonly id: number; readonly name: string } => ({

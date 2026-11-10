@@ -93,13 +93,11 @@ export function getRefAccess(node: TSESTree.MemberExpression): RefAccess {
 function isPatternWriteTarget(node: TSESTree.MemberExpression): boolean {
   let child: TSESTree.Node = node;
   let current: TSESTree.Node = node.parent;
-  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
   while (true) {
     switch (current.type) {
       case AST.MemberExpression:
         // The ref access may be the root of a deeper member target, e.g.
-        // `({ a: ref.current.x } = value)`. Only the object position extends
-        // the write target; a computed property (`b[ref.current]`) is a read.
+        // `({ a: ref.current.x } = value)`. Only the object position extends the write target; a computed property (`b[ref.current]`) is a read.
         if (current.object !== child && Extract.unwrap(current.object) !== child) return false;
         break;
       case AST.Property:
@@ -134,7 +132,6 @@ function isPatternWriteTarget(node: TSESTree.MemberExpression): boolean {
 function isNestedRefCurrentWrite(node: TSESTree.MemberExpression): boolean {
   let outer: TSESTree.Node = node;
   let sawNesting = false;
-  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
   while (true) {
     let parent: TSESTree.Node = outer.parent;
     while (Check.isTypeExpression(parent)) parent = parent.parent;

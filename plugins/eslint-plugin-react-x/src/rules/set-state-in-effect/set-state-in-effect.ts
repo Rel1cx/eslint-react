@@ -30,7 +30,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   // Fast path: skip if no effect hook usage is present in the file
   if (!/use\w*Effect/u.test(context.sourceCode.text)) return {};
   const { additionalEffectHooks, additionalStateHooks } = getSettingsFromContext(context);
-  const { facts, visitor } = createFactCollector(additionalStateHooks, additionalEffectHooks);
+  const { facts, visitor } = createFactCollector([additionalStateHooks, additionalEffectHooks]);
   return merge(
     visitor,
     {

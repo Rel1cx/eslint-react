@@ -10,7 +10,7 @@ Checks whether a value is a `string`.
 
 **When to use**
 
-Use when you need a `Predicate` guard to narrow an `unknown` value to a
+Use when you need a type guard to narrow an `unknown` value to a
 string.
 
 **Details**
@@ -20,11 +20,11 @@ Uses `typeof input === "string"`.
 **Example** (Guarding strings)
 
 ```ts
-import { Predicate } from "effect";
+import { isString } from "@local/eff";
 
 const data: unknown = "hi";
 
-if (Predicate.isString(data)) {
+if (isString(data)) {
   data.toUpperCase(); // => "HI"
 }
 ```
@@ -43,7 +43,6 @@ if (Predicate.isString(data)) {
 
 - [isNumber](isNumber.md)
 - [isBoolean](isBoolean.md)
-- Refinement
 
 ## Since
 

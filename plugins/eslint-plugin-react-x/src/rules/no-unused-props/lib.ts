@@ -108,8 +108,7 @@ export function collectUsedPropKeysOfReference(context: RuleContext, usedPropKey
           parent.id,
         );
       }
-      // Handle `const alias = props` by tracking how the alias is used; any
-      // untrackable alias reference (ex: reassignment) still bails out
+      // Handle `const alias = props` by tracking how the alias is used; any untrackable alias reference (ex: reassignment) still bails out
       if (parent.id.type === AST.Identifier) {
         return collectUsedPropKeysOfIdentifier(context, usedPropKeys, parent.id);
       }

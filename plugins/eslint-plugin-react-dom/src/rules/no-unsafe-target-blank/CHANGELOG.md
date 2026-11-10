@@ -5,28 +5,11 @@ All notable changes to the `react-dom/no-unsafe-target-blank` rule will be docum
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [5.30.0-beta.10] - 2026-10-27
+## [5.30.0] - 2026-11-10
 
 ### Changed
 
-- Options are now read directly from `context.options[0] ?? {}` and defaults are captured per property with `??`, replacing the spread copy and `??=` mutation; the `RuleOptions` alias was removed. No change to reported problems.
-
-## [5.30.0-beta.9] - 2026-10-27
-
-### Changed
-
-- Options are now resolved in `create` by copying `context.options[0]` into a mutable options object and applying defaults per property with `??=`, replacing the shared `complete` helper; `meta.defaultOptions: [{}]` now only provides the merge slot. No change to reported problems.
-
-## [5.30.0-beta.7] - 2026-10-27
-
-### Changed
-
-- Rule options and schema now follow the standard tuple/`defaultOptions` pattern, with options resolved via the shared `complete` helper (`complete(context.options[0], defaultOptions[0])`), and `defaultOptions` is no longer exported. No behavior change.
-
-## [5.30.0-beta.6] - 2026-10-27
-
-### Changed
-
+- Options are now read directly from `context.options[0] ?? {}` and defaults are captured per property with `??`; the `RuleOptions` alias was removed. No change to reported problems.
 - Spread props are no longer statically resolved, so `target`, `href`, and `rel` provided through spread attributes are ignored; only direct attributes are checked. Direct `rel` values are read through `getAttributeValueByName` and `getAttributeStaticValue`.
 - The suggestion for a missing `rel` attribute now inserts it after the last JSX attribute, so a spread attribute cannot override the suggested value.
 

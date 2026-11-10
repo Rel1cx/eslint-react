@@ -173,8 +173,7 @@ ruleTester.run(RULE_NAME, rule, {
     // --- Nested arrays and other iteration methods -------------------------------------------
     {
       name: "missing key in nested array returned from map",
-      // A nested array returned from `.map` is reported exactly once
-      // (by the ArrayExpression visitor, not the callback check)
+      // A nested array returned from `.map` is reported exactly once (by the ArrayExpression visitor, not the callback check)
       code: tsx`[1, 2 ,3].map(x => [<App />]);`,
       errors: [{ messageId: "default" }],
     },
@@ -660,8 +659,7 @@ ruleTester.run(RULE_NAME, rule, {
     },
     {
       name: "map inside nested Children.toArray",
-      // Exiting a nested `Children.toArray` must not resume checks
-      // while still inside the outer `Children.toArray`
+      // Exiting a nested `Children.toArray` must not resume checks while still inside the outer `Children.toArray`
       code: tsx`
         import { Children } from "react";
         Children.toArray([Children.toArray([1].map(x => <App />)), [2].map(x => <App />)]);
@@ -670,8 +668,7 @@ ruleTester.run(RULE_NAME, rule, {
     // --- Children.map handling ---------------------------------------------------------------
     {
       name: "elements inside React.Children.map callbacks",
-      // React.Children.map prefixes the returned elements' keys per child,
-      // so the callback result does not need a key of its own
+      // React.Children.map prefixes the returned elements' keys per child, so the callback result does not need a key of its own
       code: tsx`
         React.Children.map(children, (child) => <div>{child}</div>);
       `,
@@ -821,8 +818,7 @@ ruleTester.run(RULE_NAME, rule, {
     },
     {
       name: "JSX returned from IIFE in map callback is not checked",
-      // The callback's return argument is a CallExpression with nothing to
-      // check; the nested arrow's returns belong to a different function
+      // The callback's return argument is a CallExpression with nothing to check; the nested arrow's returns belong to a different function
       code: tsx`[1, 2, 3].map(x => { return (() => <Inner />)(); });`,
     },
     {

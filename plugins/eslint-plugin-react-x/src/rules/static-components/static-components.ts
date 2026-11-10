@@ -3,7 +3,7 @@ import * as core from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, type RuleListener, merge } from "@eslint-react/eslint";
 import type { TSESTree } from "@typescript-eslint/types";
 import { createFactCollector } from "./collect";
-import { inferCreatedComponents } from "./effects";
+import { inferViolations } from "./effects";
 import { createRenderBoundaryChecker } from "./helpers";
 
 export const RULE_NAME = "static-components";
@@ -66,20 +66,18 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         ].map((component) => component.node);
         const isInsideRender = createRenderBoundaryChecker(componentNodes);
 
-        // Report each dynamic component usage, plus a single subordinate
-        // report at the creation site (deduplicated across usages)
+        // Report each dynamic component usage, plus a single subordinate report at the creation site (deduplicated across usages)
         const reportedCreations = new Set<TSESTree.Node>();
-        for (const effect of inferCreatedComponents(context, facts.componentUsages, isInsideRender)) {
+        for (const violation of inferViolations(context, facts.componentUsages, isInsideRender)) {
           context.report({
             messageId: "default",
-            node: effect.node,
+            node: violation.node,
           });
-          if (effect.creationNode == null) continue;
-          if (reportedCreations.has(effect.creationNode)) continue;
-          reportedCreations.add(effect.creationNode);
+          if (reportedCreations.has(violation.creationNode)) continue;
+          reportedCreations.add(violation.creationNode);
           context.report({
             messageId: "created-here",
-            node: effect.creationNode,
+            node: violation.creationNode,
           });
         }
       },

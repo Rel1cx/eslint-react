@@ -56,8 +56,14 @@ export function jsxNoLiterals(options: JsxNoLiteralsOptions = {}): RuleFunction 
           return;
         }
 
-        // Guard: already wrapped in an expression container
-        if (parent.type === "JSXExpressionContainer") return;
+        // Guard: already wrapped in an expression container, unless `noStrings` bans it as a child
+        if (parent.type === "JSXExpressionContainer") {
+          const grandparent = parent.parent;
+          if (noStrings && (grandparent.type === "JSXElement" || grandparent.type === "JSXFragment")) {
+            reportLiteralInChildren(node, text);
+          }
+          return;
+        }
 
         // Case: string literal used as a child of a JSX element or fragment
         if (parent.type === "JSXElement" || parent.type === "JSXFragment") {

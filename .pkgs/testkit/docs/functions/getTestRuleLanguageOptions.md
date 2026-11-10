@@ -4,14 +4,39 @@
 
 ```ts
 function getTestRuleLanguageOptions(options: RuleRunOptions): {
+  ecmaVersion: "latest";
   parser: __module;
-  parserOptions: {
-    ecmaFeatures: {
+  parserOptions:
+    | {
+      disallowAutomaticSingleRunInference: boolean;
+      ecmaFeatures: {
+        jsx: boolean;
+      };
       jsx: boolean;
+      project: false;
+      projectService: false;
+      warnOnUnsupportedTypeScriptVersion: false;
+    }
+    | {
+      ecmaFeatures: {
+        jsx: boolean;
+      };
+      jsx: boolean;
+      projectService: true;
+      tsconfigRootDir: string;
+      warnOnUnsupportedTypeScriptVersion: false;
+    }
+    | {
+      ecmaFeatures: {
+        jsx: boolean;
+      };
+      jsx: boolean;
+      project: string;
+      projectService: false;
+      tsconfigRootDir: string;
+      warnOnUnsupportedTypeScriptVersion: false;
     };
-    jsx: boolean;
-    sourceType?: "commonjs" | "module" | "script";
-  };
+  sourceType: "commonjs" | "module" | "script";
 };
 ```
 
@@ -25,22 +50,44 @@ function getTestRuleLanguageOptions(options: RuleRunOptions): {
 
 ```ts
 {
+  ecmaVersion: "latest";
   parser: __module;
-  parserOptions: {
+  parserOptions:   | {
+     disallowAutomaticSingleRunInference: boolean;
      ecmaFeatures: {
         jsx: boolean;
      };
      jsx: boolean;
-     sourceType?: "commonjs" | "module" | "script";
-  };
+     project: false;
+     projectService: false;
+     warnOnUnsupportedTypeScriptVersion: false;
+   }
+     | {
+     ecmaFeatures: {
+        jsx: boolean;
+     };
+     jsx: boolean;
+     projectService: true;
+     tsconfigRootDir: string;
+     warnOnUnsupportedTypeScriptVersion: false;
+   }
+     | {
+     ecmaFeatures: {
+        jsx: boolean;
+     };
+     jsx: boolean;
+     project: string;
+     projectService: false;
+     tsconfigRootDir: string;
+     warnOnUnsupportedTypeScriptVersion: false;
+   };
+  sourceType: "commonjs" | "module" | "script";
 }
 ```
 
-| Name                             | Type                                                                                                                      | Default value |
-| -------------------------------- | ------------------------------------------------------------------------------------------------------------------------- | ------------- |
-| `parser`                         | `__module`                                                                                                                | `tsParser`    |
-| `parserOptions`                  | \{ `ecmaFeatures`: \{ `jsx`: `boolean`; \}; `jsx`: `boolean`; `sourceType?`: `"commonjs"` \| `"module"` \| `"script"`; \} | -             |
-| `parserOptions.ecmaFeatures`     | \{ `jsx`: `boolean`; \}                                                                                                   | -             |
-| `parserOptions.ecmaFeatures.jsx` | `boolean`                                                                                                                 | -             |
-| `parserOptions.jsx`              | `boolean`                                                                                                                 | -             |
-| `parserOptions.sourceType?`      | `"commonjs"` \| `"module"` \| `"script"`                                                                                  | -             |
+| Name            | Type                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          | Default value |
+| --------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------- |
+| `ecmaVersion`   | `"latest"`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    | `"latest"`    |
+| `parser`        | `__module`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    | `tsParser`    |
+| `parserOptions` | \| \{ `disallowAutomaticSingleRunInference`: `boolean`; `ecmaFeatures`: \{ `jsx`: `boolean`; \}; `jsx`: `boolean`; `project`: `false`; `projectService`: `false`; `warnOnUnsupportedTypeScriptVersion`: `false`; \} \| \{ `ecmaFeatures`: \{ `jsx`: `boolean`; \}; `jsx`: `boolean`; `projectService`: `true`; `tsconfigRootDir`: `string`; `warnOnUnsupportedTypeScriptVersion`: `false`; \} \| \{ `ecmaFeatures`: \{ `jsx`: `boolean`; \}; `jsx`: `boolean`; `project`: `string`; `projectService`: `false`; `tsconfigRootDir`: `string`; `warnOnUnsupportedTypeScriptVersion`: `false`; \} | -             |
+| `sourceType`    | `"commonjs"` \| `"module"` \| `"script"`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      | -             |

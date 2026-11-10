@@ -23,13 +23,13 @@ original value; otherwise it feeds each result into the next function.
 **Example** (Implementing a pipe method)
 
 ```ts
-import { Pipeable } from "effect";
+import { pipeArguments } from "@local/eff";
 
 class NumberBox {
   constructor(readonly value: number) {}
 
   pipe(..._fns: ReadonlyArray<(value: number) => number>): number {
-    return Pipeable.pipeArguments(this.value, arguments) as number;
+    return pipeArguments(this.value, arguments) as number;
   }
 }
 

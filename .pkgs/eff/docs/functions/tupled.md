@@ -15,9 +15,9 @@ Use to adapt a multi-argument function so it accepts one tuple argument.
 **Example** (Converting arguments to a tuple)
 
 ```ts
-import { Function } from "effect";
+import { tupled } from "@local/eff";
 
-const sumTupled = Function.tupled((x: number, y: number): number => x + y);
+const sumTupled = tupled((x: number, y: number): number => x + y);
 
 sumTupled([1, 2]); // => 3
 ```

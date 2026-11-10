@@ -43,6 +43,7 @@ export function getClassComponentCollector(context: RuleContext): getClassCompon
         displayName: null,
         flag: 0n,
         hint: 0n,
+        // Not implemented: class component methods are not collected yet.
         methods: [],
         node,
       },

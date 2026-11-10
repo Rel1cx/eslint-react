@@ -17,9 +17,9 @@ Use to discard the first argument and return the second argument.
 **Example** (Discarding the first argument)
 
 ```ts
-import { Function } from "effect";
+import { SK } from "@local/eff";
 
-Function.SK(0, "hello"); // => "hello"
+SK(0, "hello"); // => "hello"
 ```
 
 ## Type Parameters

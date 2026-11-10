@@ -59,8 +59,7 @@ export default defineConfig(
       reactRefresh.configs.vite(),
     ],
   },
-  // file-based routes export `Route` and keep components local,
-  // which is incompatible with fast refresh export constraints
+  // file-based routes export `Route` and keep components local, which is incompatible with fast refresh export constraints
   {
     files: ["src/routes/**/*.tsx"],
     rules: {

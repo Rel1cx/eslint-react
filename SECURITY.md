@@ -6,8 +6,8 @@ The following versions of ESLint React are currently being supported with securi
 
 | Version | Supported          |
 | ------- | ------------------ |
-| > 1.0.0 | :white_check_mark: |
-| < 1.0.0 | :x:                |
+| 5.x     | :white_check_mark: |
+| < 5.0.0 | :x:                |
 
 ## Reporting a Vulnerability
 

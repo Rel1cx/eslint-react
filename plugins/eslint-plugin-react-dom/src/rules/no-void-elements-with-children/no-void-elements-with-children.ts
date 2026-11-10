@@ -36,8 +36,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         return;
       }
 
-      // Formatting whitespace and empty expression containers are omitted by
-      // the JSX transform, so they do not count as children at runtime.
+      // Formatting whitespace and empty expression containers are omitted by the JSX transform, so they do not count as children at runtime.
       const hasChild = node.children.some(isChildContent);
 
       // Report an error if the void element has children, a 'children' prop, or 'dangerouslySetInnerHTML'

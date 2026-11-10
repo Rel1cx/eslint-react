@@ -27,8 +27,7 @@ export function inferGlobalMutations(context: RuleContext, facts: GlobalsFacts):
 
   for (const write of facts.writes) {
     if (Check.isIdentifier(write.target)) {
-      // Reassigning a local alias changes only the local binding. Alias
-      // provenance matters only when mutating a property of the aliased value.
+      // Reassigning a local alias changes only the local binding. Alias provenance matters only when mutating a property of the aliased value.
       if (!isGlobalVariable(context, write.target)) continue;
       pushEffect(write.enclosingFunction, {
         kind: "global",

@@ -1,11 +1,11 @@
-<p align="center"><img src="https://eslint-react.xyz/logo.svg" alt="logo" width="150" /></p>
+<p align="center"><img src="https://cdn.jsdelivr.net/gh/Rel1cx/eslint-react@main/apps/website/public/logo.svg" alt="logo" width="150" /></p>
 
 <h1 align="center" alt="title">ESLint React</h1>
 
 [![Version](https://img.shields.io/npm/v/eslint-plugin-react-x?style=flat&colorA=111111&colorB=000000)](https://npmx.dev/package/eslint-plugin-react-x)
 [![Downloads](https://img.shields.io/npm/dt/eslint-plugin-react-x.svg?style=flat&colorA=222222&colorB=000000)](https://npmx.dev/package/eslint-plugin-react-x)
 [![License](https://img.shields.io/npm/l/eslint-plugin-react-x?style=flat&colorA=333333&colorB=000000)](https://github.com/Rel1cx/eslint-react/blob/main/LICENSE)
-[![Build with](https://img.shields.io/badge/built_with-tsdown@0.23.2-000000?style=flat)](https://tsdown.dev)
+[![Build with](https://img.shields.io/badge/built_with-tsdown@0.23.7-000000?style=flat)](https://tsdown.dev)
 
 Composable ESLint rules for React and friends.
 
@@ -160,6 +160,10 @@ export default defineConfig(
 
 ### Other
 
+- `all`\
+  Enable all rules that do not require type information.
+- `all-type-checked`\
+  Same as the `all` preset but enables additional rules that require type information.
 - `disable-jsx`\
   Disable rules in the `jsx` preset.
 - `disable-rsc`\
@@ -211,9 +215,7 @@ This project is, and will remain, [90% of its code written by humans](https://es
 A huge thank you to our amazing sponsors who make this project possible.
 
 <p align="center">
-  <a href="https://ko-fi.com/Rel1cx">
-    <img src="https://eslint-react.xyz/sponsors.svg" alt="sponsors" />
-  </a>
+  <img src="https://cdn.jsdelivr.net/gh/Rel1cx/eslint-react@main/apps/website/public/sponsors.svg" alt="sponsors" />
 </p>
 
 ## Contributing

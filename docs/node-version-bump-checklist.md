@@ -1,16 +1,16 @@
 # Node.js Minimum Version Bump Checklist
 
-Checklist for raising the minimum supported Node.js version (e.g. dropping Node 20 support). It reverses the downgrade to `>=20.19.0` and re-enables everything that floor had disabled.
+Checklist for raising the minimum supported Node.js version of the published-floor packages (e.g. dropping Node 20 support). It reverses the downgrade to `>=20.19.0` for those packages and re-enables everything that floor had disabled.
 
 The examples below assume the new floor is Node 22; adjust targets and version strings proportionally for a different floor.
 
-## 1. `engines` Fields (25 packages)
+## 1. `engines` Fields (20 packages)
 
 - [ ] Bump `engines.node` from `>=20.19.0` to the new floor in every published-floor `package.json`:
-  - `.pkgs/{eff,testkit,samples,configs}`, `packages/*` (7), `plugins/*` (8), `examples/*` (6)
+  - `.pkgs/{eff,testkit,samples,configs}`, `packages/*` (7), `plugins/*` (8), `examples/next`
   - **Exclude the root** `package.json` — it is private and follows the toolchain floor (`>=24.21.0`, set by the strictest of tsdown/vitest), not the published floor. Bump it separately when the toolchain requires it.
-  - **Exclude** `examples/react-dom-oxlint` — it stays at `>=22.15.0` on its own track (its lint script requires `module.registerHooks`).
-- [ ] `rg --hidden '"node": ">=20' --glob 'package.json' --glob '!node_modules/' .` — no leftovers (`--hidden` is needed for `.pkgs/`; the root and `examples/react-dom-oxlint` follow their own floors and never match this pattern; `pnpm-lock.yaml` hits are third-party engines and don't count).
+  - **Exclude the other eight examples** — they use Node 24 configs and types with `engines.node` set to `>=24.0.0`; keep them on the example track rather than moving them back to the published floor.
+- [ ] `rg --hidden '"node": ">=20' --glob 'package.json' --glob '!node_modules/' .` — no leftovers (`--hidden` is needed for `.pkgs/`; the root and Node 24 examples follow their own floors and never match this pattern; `pnpm-lock.yaml` hits are third-party engines and don't count).
 
 ## 2. Build Target
 
@@ -19,9 +19,9 @@ The examples below assume the new floor is Node 22; adjust targets and version s
 
 ## 3. Type-Level Guardrails
 
-- [ ] Bump `@types/node` from `^20.19.0` in the 11 packages that pin it (root, `apps/website`, `.pkgs/testkit`, `packages/{core,eslint,kit,shared}`, `plugins/eslint-plugin`, `examples/{next,preact,preact-compat}`). Every package whose code touches Node APIs declares its own pin; the remaining packages still auto-include the type library via `@tsconfig/node20`'s `"types": ["node"]`, resolved from the root `node_modules` copy — so the root pin follows the published floor, not the dev floor, and is part of the guardrail.
-- [ ] Replace `@tsconfig/node20` with the matching base (e.g. `@tsconfig/node22`): 24 tsconfig `extends` entries + 11 `package.json` devDependencies.
-  - **Exclude the root** `tsconfig.json` — it covers dev-side files only (`scripts/`, configs; `packages/*/src` and `plugins/*/src` are excluded) and extends `@tsconfig/node24` to match the dev floor. Note the root `package.json` still declares `@tsconfig/node20` as a devDependency: most workspace tsconfigs extend it without declaring it themselves, resolving the base from the root `node_modules` copy. Keep that provider entry (and add the new base alongside it) when bumping.
+- [ ] Bump `@types/node` from `^20.19.43` in the 21 published-floor packages that pin it (`apps/website`, `.pkgs/{eff,testkit,samples,configs}`, `packages/*`, `plugins/*`, `examples/next`). Every workspace manifest with a Node base config declares its own `@types/node` pin, so none relies on the root `node_modules` copy for this guardrail. The root and the other eight examples already use Node 24 types and are not part of this bump.
+- [ ] Replace `@tsconfig/node20` with the matching base (e.g. `@tsconfig/node22`): 21 tsconfig `extends` entries + 22 `package.json` devDependencies.
+  - **Exclude the root** `tsconfig.json` — it covers dev-side files only (`scripts/`, configs; `packages/*/src` and `plugins/*/src` are excluded) and extends `@tsconfig/node24` to match the dev floor. The root `package.json` also declares `@tsconfig/node20` as a legacy provider entry, although all workspace packages with Node 20 tsconfigs now declare their own base. Keep that entry aligned with the published-floor base while it remains; do not use it to determine the root dev floor.
 - [ ] Run `pnpm install`, then `node --run lint:ts` — new types may deprecate APIs in current use; address each report.
 
 ## 4. Dependency Policy Cleanup (`pnpm-workspace.yaml`)
@@ -58,7 +58,7 @@ With the floor raised, these compatibility forms can be reverted:
 - [ ] `node --run test`
 - [ ] `node --run format:check`
 - [ ] Spot-check a built `dist/index.js` for the new target (no unexpected downleveling).
-- [ ] If a runtime matching the new floor is available (e.g. via a version manager), run `pnpm -F @examples/react-dom run lint` on it as a final check.
+- [ ] If a runtime matching the new floor is available (e.g. via a version manager), run `pnpm -F @examples/next run lint` on it as a final check.
 
 ## Suggested Order
 
