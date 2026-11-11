@@ -26,6 +26,8 @@ export const projects = [
   { owner: "mifi", repo: "lossless-cut" },
   { owner: "mikotoIO", repo: "mikoto" },
   { owner: "mozilla", repo: "pontoon" },
+  { owner: "netdata", repo: "charts" },
+  { owner: "netdata", repo: "netdata-ui" },
   { owner: "Nexus-Mods", repo: "Vortex" },
   { owner: "nodejs", repo: "doc-kit" },
   { owner: "nodejs", repo: "nodejs.org" },
