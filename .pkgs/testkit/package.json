@@ -37,11 +37,11 @@
   },
   "dependencies": {
     "@local/eff": "workspace:*",
-    "@typescript-eslint/parser": "^8.72.1",
-    "@typescript-eslint/rule-tester": "^8.72.1",
-    "@typescript-eslint/types": "^8.72.1",
-    "@typescript-eslint/typescript-estree": "^8.72.1",
-    "@typescript-eslint/utils": "^8.72.1",
+    "@typescript-eslint/parser": "^8.72.2",
+    "@typescript-eslint/rule-tester": "^8.72.2",
+    "@typescript-eslint/types": "^8.72.2",
+    "@typescript-eslint/typescript-estree": "^8.72.2",
+    "@typescript-eslint/utils": "^8.72.2",
     "typescript": "6.0.3"
   },
   "devDependencies": {

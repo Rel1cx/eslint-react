@@ -38,7 +38,7 @@
   },
   "dependencies": {
     "@eslint-react/eslint": "workspace:*",
-    "@typescript-eslint/utils": "^8.72.1",
+    "@typescript-eslint/utils": "^8.72.2",
     "ts-pattern": "^5.9.2",
     "zod": "^4.6.7"
   },

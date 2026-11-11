@@ -24,14 +24,14 @@ overrides:
   # Transitive dependency via ajv 8.20.0 (declares ^3.0.1), fixes CVE-2026-18446 (GHSA-7p8r-x3mc-p8w7)
   fast-uri: "^4.2.3"
   fumadocs-twoslash: "3.3.1"
-  next: "16.4.5"
+  next: "16.4.6"
   postcss: "^8.5.32"
   react-dom: "^19.3.1"
   react: "^19.3.1"
   # Keeps @babel/core's ^6.3.1 range off the 6.x line (no provenance, fails trustPolicy no-downgrade)
   semver: "^7.8.6"
   ts-api-utils: "^2.5.0"
-  typescript-eslint: "^8.72.1"
+  typescript-eslint: "^8.72.2"
   typescript: "6.0.3"
   # Keep a single vite copy in the tree (fumadocs-mdx's peer otherwise stays on an older resolution)
   vite: "^8.3.7"
