@@ -22,12 +22,12 @@ function inferViolationSummaries(code: string) {
         ...collectNodes<TSESTree.FunctionDeclaration>(program, AST.FunctionDeclaration),
         ...collectNodes<TSESTree.ClassDeclaration>(program, AST.ClassDeclaration),
       ].filter((node) => node.id?.name === "Parent");
-      const isInsideRender = createRenderBoundaryChecker(componentNodes);
-      return inferViolations(context, facts.componentUsages, isInsideRender).map((violation) => ({
-        creation: code.slice(violation.creationNode.range[0], violation.creationNode.range[1]),
-        name: violation.name,
-        usage: code.slice(violation.node.range[0], violation.node.range[1]),
-      }));
+      return inferViolations(context, facts.componentUsages, createRenderBoundaryChecker(componentNodes))
+        .map(({ creationNode, node, name }) => ({
+          creation: code.slice(creationNode.range[0], creationNode.range[1]),
+          name,
+          usage: code.slice(node.range[0], node.range[1]),
+        }));
     },
   );
 }
