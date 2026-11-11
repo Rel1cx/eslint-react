@@ -652,6 +652,30 @@ ruleTester.run(RULE_NAME, rule, {
     },
   ],
   valid: [
+    // A local `function fetch() {}` shadows the global fetch, so the bare call is not the web API
+    tsx`
+      import { useEffect } from "react";
+
+      function Component() {
+        function fetch() {}
+        useEffect(() => {
+          fetch();
+        }, []);
+        return <div />;
+      }
+    `,
+    // A `fetch` method on a local object is not the global fetch
+    tsx`
+      import { useEffect } from "react";
+
+      function Component() {
+        const api = { fetch: (url: string) => url };
+        useEffect(() => {
+          api.fetch("/api/user");
+        }, []);
+        return <div />;
+      }
+    `,
     // Basic valid cases
     tsx`
       import { useEffect } from "react";

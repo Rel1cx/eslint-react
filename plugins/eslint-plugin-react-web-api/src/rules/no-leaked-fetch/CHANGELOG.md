@@ -5,6 +5,16 @@ All notable changes to the `react-web-api/no-leaked-fetch` rule will be document
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+### Fixed
+
+- Calls that are not the global `fetch` are no longer checked: a bare `fetch(...)` whose name is bound by an enclosing scope (ex: a local `function fetch() {}`) and member calls on non-global objects (ex: `api.fetch(...)`) are now ignored, while `window.fetch(...)`, `globalThis.fetch(...)`, and `self.fetch(...)` are still recognized.
+
+### Changed
+
+- Aligned the rule's code style with the `react-x` plugin conventions (flat file layout without regions, JSDoc-documented helpers, plain listener keys); no behavior change.
+
 ## [5.30.0] - 2026-11-10
 
 ### Fixed
