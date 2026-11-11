@@ -1,5 +1,13 @@
 # Changelog
 
+## v5.30.2 (2026-11-12)
+
+### 🐞 Fixes
+
+- `react-web-api/no-leaked-fetch`: non-global `fetch` calls are no longer checked: a bare `fetch(...)` whose name is bound by an enclosing scope (ex: a local `function fetch() {}`) and member calls on non-global objects (ex: `api.fetch(...)`) are ignored, while `window.fetch(...)`, `globalThis.fetch(...)`, and `self.fetch(...)` are still recognized. (#2116, closes #2072)
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.30.1...v5.30.2
+
 ## v5.30.1 (2026-11-10)
 
 ### 🐞 Fixes
