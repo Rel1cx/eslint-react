@@ -28,7 +28,7 @@ export type NullCheckBranch = "alternate" | "consequent";
 export type GetNullBranch = (test: TSESTree.Expression) => NullCheckBranch | null;
 
 export function isFunctionExpressionLike(node: TSESTree.Node): node is TSESTree.FunctionExpression | TSESTree.ArrowFunctionExpression {
-  return node.type === AST.FunctionExpression || node.type === AST.ArrowFunctionExpression;
+  return Check.isOneOf([AST.ArrowFunctionExpression, AST.FunctionExpression])(node);
 }
 
 export function isRefLikeName(name: string): boolean {

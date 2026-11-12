@@ -49,14 +49,8 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
    * @returns The report descriptors for the violations found.
    */
   function visitItemExpression(node: TSESTree.Expression): Descriptor[] {
+    if (Check.isTypeOrChainExpression(node)) return visitItemExpression(node.expression);
     switch (node.type) {
-      case AST.ChainExpression:
-      case AST.TSAsExpression:
-      case AST.TSTypeAssertion:
-      case AST.TSNonNullExpression:
-      case AST.TSSatisfiesExpression:
-      case AST.TSInstantiationExpression:
-        return visitItemExpression(node.expression);
       case AST.JSXElement:
         if (hasAttribute(node, "key")) return [];
         // Spread attributes are not resolved and may provide `key`.

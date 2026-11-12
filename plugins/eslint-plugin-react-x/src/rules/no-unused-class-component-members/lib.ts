@@ -1,4 +1,4 @@
-import { type TSESTreeClass, type TSESTreeMethodOrPropertyDefinition } from "@eslint-react/ast";
+import { Check, type TSESTreeClass, type TSESTreeMethodOrPropertyDefinition } from "@eslint-react/ast";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 
 // A set of class members (lifecycle methods and other implicitly-used members like `constructor`, `render`, `state`) that should not be flagged as unused
@@ -57,7 +57,8 @@ export function isPublicMethod(member: TSESTreeMethodOrPropertyDefinition): bool
       return member.accessibility == null || member.accessibility === "public";
     case AST.PropertyDefinition:
       return (member.accessibility == null || member.accessibility === "public")
-        && (member.value?.type === AST.ArrowFunctionExpression || member.value?.type === AST.FunctionExpression);
+        && member.value != null
+        && Check.isOneOf([AST.ArrowFunctionExpression, AST.FunctionExpression])(member.value);
     default:
       return false;
   }

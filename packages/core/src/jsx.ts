@@ -95,15 +95,10 @@ export function isJSXLike(context: RuleContext, node: TSESTree.Node | null, hint
     // Actual JSX nodes are always considered JSX-like.
     if (Check.isJSX(node)) return true;
 
-    switch (node.type) {
-      // Type-level wrappers and chain expressions don't change the runtime value; unwrap them.
-      case AST.TSAsExpression:
-      case AST.TSSatisfiesExpression:
-      case AST.TSTypeAssertion:
-      case AST.TSNonNullExpression:
-      case AST.ChainExpression:
-        return visit(node.expression);
+    // Type-level wrappers and chain expressions don't change the runtime value; unwrap them.
+    if (Check.isTypeOrChainExpression(node)) return visit(node.expression);
 
+    switch (node.type) {
       case AST.AwaitExpression:
         return visit(node.argument);
 

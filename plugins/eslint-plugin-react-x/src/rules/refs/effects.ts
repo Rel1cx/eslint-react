@@ -144,10 +144,11 @@ export function inferRefViolations(
  * call, a constructor call, or a tagged template.
  */
 function getPassSiteCalleeName(node: PassSiteFact["node"]): string | null {
-  const callee = Extract.unwrap(node.type === AST.TaggedTemplateExpression ? node.tag : node.callee);
-  if (Check.isIdentifier(callee)) return callee.name;
-  if (callee.type === AST.MemberExpression && !callee.computed && Check.isIdentifier(callee.property)) {
-    return callee.property.name;
+  if (node.type !== AST.TaggedTemplateExpression) return Extract.getCalleeName(node);
+  const tag = Extract.unwrap(node.tag);
+  if (Check.isIdentifier(tag)) return tag.name;
+  if (tag.type === AST.MemberExpression && !tag.computed && Check.isIdentifier(tag.property)) {
+    return tag.property.name;
   }
   return null;
 }

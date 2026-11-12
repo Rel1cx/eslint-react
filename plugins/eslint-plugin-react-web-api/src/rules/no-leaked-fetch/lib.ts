@@ -37,46 +37,29 @@ export function isGlobalObject(node: TSESTree.Node): boolean {
 }
 
 /**
- * Check whether any enclosing scope binds the given name. This is a syntactic scope-chain walk
- * (no scope manager involved), so a shadowed global (e.g. a local `function fetch() {}`) is never
- * mistaken for the web API
- * @param name The identifier name to look up
- * @param node The node whose enclosing scopes are checked
- * @returns True when an enclosing scope declares the name
- */
-export function isNameBoundInEnclosingScopes(name: string, node: TSESTree.Node): boolean {
-  let current: TSESTree.Node | undefined = node.parent;
-  while (current != null) {
-    if (scopeBindsName(current, name)) return true;
-    current = current.parent;
-  }
-  return false;
-}
-
-/**
  * Check whether a scope-creating node binds the given name
- * @param node The scope boundary node to inspect
  * @param name The identifier name to look up
+ * @param node The scope boundary node to inspect
  * @returns True when the scope declares the name
  */
-function scopeBindsName(node: TSESTree.Node, name: string): boolean {
+export function isNameBoundInScope(name: string, node: TSESTree.Node): boolean {
   switch (node.type) {
     case AST.FunctionDeclaration:
     case AST.ArrowFunctionExpression:
-      return node.params.some((param) => patternBindsName(param, name));
+      return node.params.some((param) => isNameBoundInPattern(name, param));
     case AST.FunctionExpression:
-      return node.id?.name === name || node.params.some((param) => patternBindsName(param, name));
+      return node.id?.name === name || node.params.some((param) => isNameBoundInPattern(name, param));
     case AST.CatchClause:
-      return node.param != null && patternBindsName(node.param, name);
+      return node.param != null && isNameBoundInPattern(name, node.param);
     case AST.BlockStatement:
     case AST.Program:
     case AST.StaticBlock:
-      return node.body.some((statement) => statementBindsName(statement, name));
+      return node.body.some((statement) => isNameBoundInStatement(name, statement));
     case AST.ForStatement:
-      return node.init?.type === AST.VariableDeclaration && statementBindsName(node.init, name);
+      return node.init?.type === AST.VariableDeclaration && isNameBoundInStatement(name, node.init);
     case AST.ForInStatement:
     case AST.ForOfStatement:
-      return node.left.type === AST.VariableDeclaration && statementBindsName(node.left, name);
+      return node.left.type === AST.VariableDeclaration && isNameBoundInStatement(name, node.left);
     default:
       return false;
   }
@@ -84,21 +67,21 @@ function scopeBindsName(node: TSESTree.Node, name: string): boolean {
 
 /**
  * Check whether a statement declares a binding for the given name
- * @param statement The statement to inspect
  * @param name The identifier name to look up
+ * @param statement The statement to inspect
  * @returns True when the statement binds the name
  */
-function statementBindsName(statement: TSESTree.Node, name: string): boolean {
+function isNameBoundInStatement(name: string, statement: TSESTree.Node): boolean {
   switch (statement.type) {
     case AST.FunctionDeclaration:
     case AST.ClassDeclaration:
       return statement.id?.name === name;
     case AST.VariableDeclaration:
-      return statement.declarations.some((declarator) => patternBindsName(declarator.id, name));
+      return statement.declarations.some((declarator) => isNameBoundInPattern(name, declarator.id));
     case AST.ImportDeclaration:
       return statement.specifiers.some((specifier) => specifier.local.name === name);
     case AST.ExportNamedDeclaration:
-      return statement.declaration != null && statementBindsName(statement.declaration, name);
+      return statement.declaration != null && isNameBoundInStatement(name, statement.declaration);
     case AST.ExportDefaultDeclaration:
       return (statement.declaration.type === AST.FunctionDeclaration || statement.declaration.type === AST.ClassDeclaration)
         && statement.declaration.id?.name === name;
@@ -114,28 +97,28 @@ function statementBindsName(statement: TSESTree.Node, name: string): boolean {
 
 /**
  * Check whether a binding pattern binds the given name
- * @param pattern The binding pattern to inspect
  * @param name The identifier name to look up
+ * @param pattern The binding pattern to inspect
  * @returns True when the pattern binds the name
  */
-function patternBindsName(pattern: TSESTree.Node, name: string): boolean {
+function isNameBoundInPattern(name: string, pattern: TSESTree.Node): boolean {
   switch (pattern.type) {
     case AST.Identifier:
       return pattern.name === name;
     case AST.ArrayPattern:
-      return pattern.elements.some((element) => element != null && patternBindsName(element, name));
+      return pattern.elements.some((element) => element != null && isNameBoundInPattern(name, element));
     case AST.ObjectPattern:
       return pattern.properties.some((property) =>
         property.type === AST.RestElement
-          ? patternBindsName(property.argument, name)
-          : patternBindsName(property.value, name)
+          ? isNameBoundInPattern(name, property.argument)
+          : isNameBoundInPattern(name, property.value)
       );
     case AST.AssignmentPattern:
-      return patternBindsName(pattern.left, name);
+      return isNameBoundInPattern(name, pattern.left);
     case AST.RestElement:
-      return patternBindsName(pattern.argument, name);
+      return isNameBoundInPattern(name, pattern.argument);
     case AST.TSParameterProperty:
-      return patternBindsName(pattern.parameter, name);
+      return isNameBoundInPattern(name, pattern.parameter);
     default:
       return false;
   }

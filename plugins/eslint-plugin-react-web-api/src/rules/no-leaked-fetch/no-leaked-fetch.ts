@@ -6,7 +6,7 @@ import { isAssignmentTargetEqual, resolveOrigin } from "@eslint-react/var";
 import { or } from "@local/eff";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import { match } from "ts-pattern";
-import { isGlobalObject, isNameBoundInEnclosingScopes, resolveToObjectExpression } from "./lib";
+import { isGlobalObject, isNameBoundInScope, resolveToObjectExpression } from "./lib";
 
 export const RULE_NAME = "no-leaked-fetch";
 
@@ -139,7 +139,7 @@ function getCallKind(node: TSESTree.CallExpression): CallKind {
   switch (true) {
     // A bare `fetch(...)` is the global fetch only when no enclosing scope binds that name
     // (e.g. a local `function fetch() {}` shadows it)
-    case Check.isIdentifier(callee, "fetch") && !isNameBoundInEnclosingScopes("fetch", node):
+    case Check.isIdentifier(callee, "fetch") && !Traverse.hasParent(node, (n) => isNameBoundInScope("fetch", n)):
       return "fetch";
     // A member access is the global fetch only on a known global object (e.g. `window.fetch(...)`)
     case callee.type === AST.MemberExpression

@@ -3,16 +3,16 @@
 # Function: getCalleeName()
 
 ```ts
-function getCalleeName(node: CallExpression): string | null;
+function getCalleeName(node: CallExpression | NewExpression): string | null;
 ```
 
-Get the name of the callee of a call expression.
+Get the name of the callee of a call or new expression.
 
 ## Parameters
 
-| Parameter | Type             | Description                     |
-| --------- | ---------------- | ------------------------------- |
-| `node`    | `CallExpression` | The call expression to inspect. |
+| Parameter | Type                                | Description                            |
+| --------- | ----------------------------------- | -------------------------------------- |
+| `node`    | `CallExpression` \| `NewExpression` | The call or new expression to inspect. |
 
 ## Returns
 

@@ -1,4 +1,4 @@
-import { Check, Extract } from "@eslint-react/ast";
+import { Check, Extract, Traverse } from "@eslint-react/ast";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 
 // #region Constants
@@ -43,12 +43,7 @@ export const KNOWN_MUTATING_HOOKS = new Set([
 // #region Node Ancestry
 
 export function isNodeWithin(node: TSESTree.Node, ancestor: TSESTree.Node) {
-  let current: TSESTree.Node | undefined = node;
-  while (current != null) {
-    if (current === ancestor) return true;
-    current = current.parent;
-  }
-  return false;
+  return node === ancestor || Traverse.hasParent(node, (n) => n === ancestor);
 }
 
 // #endregion

@@ -67,11 +67,11 @@ export function getFullyQualifiedName(node: TSESTree.Node, getText: (node: TSEST
 }
 
 /**
- * Get the name of the callee of a call expression.
- * @param node The call expression to inspect.
+ * Get the name of the callee of a call or new expression.
+ * @param node The call or new expression to inspect.
  * @returns The callee name (ex: `"useState"`), or `null` for computed member expressions and other unsupported callee forms.
  */
-export function getCalleeName(node: TSESTree.CallExpression): string | null {
+export function getCalleeName(node: TSESTree.CallExpression | TSESTree.NewExpression): string | null {
   const callee = unwrap(node.callee);
   if (Check.isIdentifier(callee)) {
     return callee.name;
