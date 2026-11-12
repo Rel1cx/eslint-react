@@ -15,7 +15,6 @@ export const rules = {
   "@eslint-react/jsx-no-useless-fragment": "warn",
 
   "@eslint-react/dom-no-missing-button-type": "warn",
-  "@eslint-react/dom-no-missing-iframe-sandbox": "warn",
   "@eslint-react/dom-no-unsafe-target-blank": "warn",
 } as const satisfies Linter.RulesRecord;
 
