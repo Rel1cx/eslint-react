@@ -1,8 +1,8 @@
 # Known Issues in eslint-plugin-react-x Rules
 
-Reviewed 2026-11-02 against `main@df5da2a7f`; plugin `5.30.0-beta.22`, all 53 rules. Evidence comes from implementations, tests, docs, per-rule changelogs, the `*.spec.diff.md` IMPL–SPEC comparison reports of the compiler-port rules, and public issues/PRs.
+Reviewed 2026-11-13 against `main@d971eeaae`; plugin `5.30.2`, all 53 rules. Evidence comes from implementations, tests, docs, per-rule changelogs, the `*.spec.diff.md` IMPL–SPEC comparison reports of the compiler-port rules, and public issues/PRs.
 
-**20 findings: 16 current (5 medium, 11 low), 4 resolved groups.** Two directly related open GitHub bugs: [#1760](https://github.com/Rel1cx/eslint-react/issues/1760) (`error-boundaries`) and [#1762](https://github.com/Rel1cx/eslint-react/issues/1762) (`static-components`). [#2005](https://github.com/Rel1cx/eslint-react/issues/2005), [#1924](https://github.com/Rel1cx/eslint-react/issues/1924), [#2025](https://github.com/Rel1cx/eslint-react/issues/2025), [#1763](https://github.com/Rel1cx/eslint-react/issues/1763), [#1765](https://github.com/Rel1cx/eslint-react/issues/1765), [#1674](https://github.com/Rel1cx/eslint-react/issues/1674), and [#1607](https://github.com/Rel1cx/eslint-react/issues/1607) are related feature proposals, not implementation defects.
+**20 findings: 15 current (4 medium, 11 low), 5 resolved groups.** One directly related open GitHub bug: [#1760](https://github.com/Rel1cx/eslint-react/issues/1760) (`error-boundaries`); [#1762](https://github.com/Rel1cx/eslint-react/issues/1762) (`static-components`) was fixed in 5.30.0 (see RX-105). [#2005](https://github.com/Rel1cx/eslint-react/issues/2005), [#1924](https://github.com/Rel1cx/eslint-react/issues/1924), [#2025](https://github.com/Rel1cx/eslint-react/issues/2025), [#1763](https://github.com/Rel1cx/eslint-react/issues/1763), [#1765](https://github.com/Rel1cx/eslint-react/issues/1765), [#1674](https://github.com/Rel1cx/eslint-react/issues/1674), and [#1607](https://github.com/Rel1cx/eslint-react/issues/1607) are related feature proposals, not implementation defects.
 
 ## Current findings
 
@@ -12,13 +12,6 @@ Reviewed 2026-11-02 against `main@df5da2a7f`; plugin `5.30.0-beta.22`, all 53 ru
 - **Rules:** `error-boundaries`
 - **Evidence:** [`error-boundaries.spec.diff.md`](../plugins/eslint-plugin-react-x/src/rules/error-boundaries/error-boundaries.spec.diff.md), open issue [#1760](https://github.com/Rel1cx/eslint-react/issues/1760)
 - **Finding:** The rule checks JSX-like values only from collected component/hook `rets`, while React Compiler's `ValidateNoJSXInTryStatement` flags every `JsxExpression`/`JsxFragment` instruction inside a try block. `try { const el = <div />; return el; } catch {}` is a confirmed false negative and an explicit upstream compiler error case. General parity for `finally`-related control flow is also unverified.
-
-### RX-002: External component wrapped in `useMemo` is reported
-
-- **Severity:** Medium
-- **Rules:** `static-components`
-- **Evidence:** [`static-components.spec.diff.md`](../plugins/eslint-plugin-react-x/src/rules/static-components/static-components.spec.diff.md), open issue [#1762](https://github.com/Rel1cx/eslint-react/issues/1762)
-- **Finding:** Any call result is treated as dynamic: `const Memoized = useMemo(() => Message, []); return <Memoized />` is a false positive because `resolveDynamicValue` stops at the `CallExpression` and never inspects the callback's returned component.
 
 ### RX-003: `use-memo` deviates from the compiler's void-useMemo rules
 
@@ -144,9 +137,15 @@ Reviewed 2026-11-02 against `main@df5da2a7f`; plugin `5.30.0-beta.22`, all 53 ru
 - **Evidence:** Per-rule changelogs
 - **Resolution:** Includes: third-party `Provider` components no longer flagged (#991); autofixes in `no-context-provider`, `no-forward-ref`, and `no-use-context` converted to suggestions after unsafe rewrite bugs (#984, #925, #932, #933, #1560, #1561); `error-boundaries` false positives on non-React code fixed (#1690, #1615); `useCallback`-wrapped nested components reported again (#1927); `getDerivedStateFromError` no longer warned (#531); `foo.bar.map` no longer mistaken for `React.Children.map` (#860); `use-memo` false positives fixed via reference/definition analysis (#1735, #1611); nested `this.state.foo` mutations detected; `Omit` on union props (#1578) and anonymous-callback (#1602) false positives fixed; case-insensitive hook-name detection fixed (#1053); `(process.env as any).NODE_ENV` recognized (#1813); multi-declarator autofix no longer produces invalid syntax; the incorrect `FIX` feature declaration removed from `rules-of-hooks` (#2009); `no-leaked-conditional-rendering` false negatives for empty strings (#853), object left-hand types (#568), and type-expression wrappers (#1068) fixed; `no-unstable-default-props` false negatives for logical/conditional default values fixed; same-kind errors in one component are no longer reported only once (`no-create-ref`); the rule name/message-ID key mismatch fixed (`no-nested-lazy-component-declarations`).
 
+### RX-105: External component wrapped in `useMemo` was reported
+
+- **Rules:** `static-components`
+- **Evidence:** [Rule changelog](../plugins/eslint-plugin-react-x/src/rules/static-components/CHANGELOG.md), [`static-components.spec.diff.md`](../plugins/eslint-plugin-react-x/src/rules/static-components/static-components.spec.diff.md)
+- **Resolution:** Fixed in 5.30.0 (#1762, #2113; previously tracked as RX-002). The memoized value is now traced: `useMemo(() => External, [])` resolves through the factory's return value and `useCallback(External, [])` through the callback, so a memoized reference to a static component is no longer reported. A component actually created inside the factory is still reported.
+
 ## Boundaries
 
-- The compiler-port rules `globals`, `immutability`, `purity`, and `refs` carry a blanket documented caveat: they are experimental and may contain false positives or negatives that have not yet been fully audited; `no-duplicate-key`, `set-state-in-render`, `static-components`, `no-implicit-key`, `no-implicit-ref`, `no-implicit-children`, `no-misused-capture-owner-stack`, `no-unused-state`, and `no-unused-props` are marked experimental and may change or be removed. These are policy statements, not separate defects.
+- The compiler-port rules `globals`, `immutability`, and `refs` carry a blanket documented caveat: they are experimental and may contain false positives or negatives that have not yet been fully audited; `no-duplicate-key`, `set-state-in-render`, `static-components`, `no-implicit-key`, `no-implicit-ref`, `no-implicit-children`, `no-misused-capture-owner-stack`, `no-unused-state`, and `no-unused-props` are marked experimental and may change or be removed. These are policy statements, not separate defects.
 - `exhaustive-deps` and `rules-of-hooks` are verbatim ports of `eslint-plugin-react-hooks` (see the `exhaustive-deps` README: do not edit manually, re-port from upstream). Their inherited TODOs — optional chaining of dependency suggestions, gathering deps for unresolvable values, suggestion quality — are upstream concerns; [#1674](https://github.com/Rel1cx/eslint-react/issues/1674) (known static properties) is a feature proposal on top.
 - Deliberate scoping decisions are not defects: `no-missing-component-display-name`/`no-missing-context-display-name` only target `memo`/`forwardRef`-wrapped components and intentionally skip immediately-invoked curried HOC arrows; `set-state-in-effect` does not report `setState` calls in dependency arrays (they run during render and belong to `set-state-in-render`); `use-state` treats a hole in the setter position (`const [state, , third] = ...`) as a missing setter; `no-unused-props` bails out conservatively on unanalyzable components and array-pattern parameters.
 - Performance fast paths shape coverage: `set-state-in-effect` only analyzes files whose source text contains a `use…Effect` name, so an `additionalEffectHooks` pattern without the `Effect` suffix is inert in files that never mention a `use…Effect` hook (documented); `no-leaked-conditional-rendering` skips files without `&&`.

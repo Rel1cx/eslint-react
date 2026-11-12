@@ -1,8 +1,8 @@
 # Known Issues in eslint-plugin-react-dom Rules
 
-Reviewed 2026-11-02 against `main@6d9159c9b` (the 2026-11-01 working-tree fixes landed as #2103, the import-placement fixes as #2104); plugin `5.30.0-beta.22`, all 16 rules. Evidence comes from implementations, tests, docs, changelogs, and public issues/PRs. Nine temporary RuleTester cases confirmed the source-review findings and were removed after the run.
+Reviewed 2026-11-13 against `main@d971eeaae`; plugin `5.30.2`, all 16 rules. Evidence comes from implementations, tests, docs, changelogs, and public issues/PRs. (First reviewed 2026-11-02 at `main@6d9159c9b`, plugin `5.30.0-beta.22`, when the 2026-11-01 working-tree fixes landed as #2103 and the import-placement fixes as #2104; nine temporary RuleTester cases confirmed the source-review findings and were removed after that run.)
 
-**18 findings: 12 current (7 medium, 5 low), 6 resolved.** No directly related open GitHub bug was found. [#1739](https://github.com/Rel1cx/eslint-react/issues/1739) is a related feature proposal, not an implementation defect.
+**18 findings: 11 current (7 medium, 4 low), 7 resolved.** No directly related open GitHub bug was found. [#1739](https://github.com/Rel1cx/eslint-react/issues/1739) is a related feature proposal, not an implementation defect.
 
 ## Current findings
 
@@ -11,7 +11,7 @@ Reviewed 2026-11-02 against `main@6d9159c9b` (the 2026-11-01 working-tree fixes 
 - **Severity:** Medium
 - **Rules:** `no-render`, `no-hydrate`, `no-use-form-state`
 - **Evidence:** [`add-import-fix`](../plugins/eslint-plugin-react-dom/src/utils/add-import-fix.ts), [`no-render` source](../plugins/eslint-plugin-react-dom/src/rules/no-render/no-render.ts)
-- **Finding:** The shared `addImportFix` helper checks only top-level value imports for name collisions. A same-named non-import top-level binding (e.g. `const createRoot = …` or `function hydrateRoot() {}`) is not detected, so the inserted import still produces a duplicate declaration and breaks the file. And when the name is already bound by a value import from another source, the import is skipped but the call is still rewritten to `createRoot(…)`/`hydrateRoot(…)`/`useActionState(…)`, silently retargeting it to the unrelated binding. The offset-0 insertion (which demoted `"use client"` directives) and duplicate target-import parts of the original finding were fixed by #2104; see DOM-018.
+- **Finding:** The shared `addImportFix` helper checks only top-level value imports for name collisions. A same-named non-import top-level binding (e.g. `const createRoot = …` or `function hydrateRoot() {}`) is not detected, so the inserted import still produces a duplicate declaration and breaks the file; the `no-hydrate` spec records this as a "Known limitation" test. The related retargeting defect — when the name was already bound by a value import from another source, the import was skipped but the call was still rewritten to `createRoot(…)`/`hydrateRoot(…)`/`useActionState(…)`, silently retargeting it to the unrelated binding — was fixed in 5.30.0: `addImportFix` now reports a `conflict` outcome and all three rules suppress the entire fix (this change is not yet recorded in any changelog). The offset-0 insertion (which demoted `"use client"` directives) and duplicate target-import parts of the original finding were fixed by #2104; see DOM-018.
 
 ### DOM-003: Incomplete return-value usage detection
 
@@ -69,13 +69,6 @@ Reviewed 2026-11-02 against `main@6d9159c9b` (the 2026-11-01 working-tree fixes 
 - **Evidence:** [Rule spec](../plugins/eslint-plugin-react-dom/src/rules/no-unsafe-target-blank/no-unsafe-target-blank.spec.ts)
 - **Finding:** The suggestion for an unsafe `rel` replaces the whole attribute instead of adding the required token. For example, `rel="nofollow"` becomes `rel="noreferrer"`, dropping the existing `nofollow` semantics.
 
-### DOM-011: `sandbox` tokens are matched by substring
-
-- **Severity:** Low
-- **Rules:** `no-unsafe-iframe-sandbox`
-- **Evidence:** [Rule source](../plugins/eslint-plugin-react-dom/src/rules/no-unsafe-iframe-sandbox/no-unsafe-iframe-sandbox.ts)
-- **Finding:** `sandbox` permissions are found by substring `includes`, not token parsing. `sandbox="not-allow-scripts not-allow-same-origin"` grants neither permission but is still reported.
-
 ### DOM-012: Legitimate `flushSync` uses are reported
 
 - **Severity:** Low (documented)
@@ -97,6 +90,12 @@ Reviewed 2026-11-02 against `main@6d9159c9b` (the 2026-11-01 working-tree fixes 
 - **Rules:** `no-render`, `no-hydrate`
 - **Evidence:** [`no-render` spec](../plugins/eslint-plugin-react-dom/src/rules/no-render/no-render.spec.ts), [`no-hydrate` spec](../plugins/eslint-plugin-react-dom/src/rules/no-hydrate/no-hydrate.spec.ts)
 - **Resolution:** Autofixes are now limited to standalone expression statements with exactly two non-spread arguments. Calls with additional callbacks, consumed return values, or spread arguments are still reported but require manual migration.
+
+### DOM-011: `sandbox` tokens were matched by substring
+
+- **Rules:** `no-unsafe-iframe-sandbox`
+- **Evidence:** [Rule source](../plugins/eslint-plugin-react-dom/src/rules/no-unsafe-iframe-sandbox/no-unsafe-iframe-sandbox.ts), [Rule changelog](../plugins/eslint-plugin-react-dom/src/rules/no-unsafe-iframe-sandbox/CHANGELOG.md)
+- **Resolution:** `sandbox` permissions were found by substring `includes`, so `sandbox="not-allow-scripts not-allow-same-origin"` granted neither permission but was still reported. Since #2112 (5.30.0), values are split on whitespace and matched as whole tokens.
 
 ### DOM-014: Safe `rel` suggestion placement
 
@@ -133,4 +132,4 @@ Reviewed 2026-11-02 against `main@6d9159c9b` (the 2026-11-01 working-tree fixes 
 - Dynamic-value analysis remains a general boundary: `no-script-url`, `no-string-style-prop`, `no-unsafe-iframe-sandbox`, and `no-unsafe-target-blank` skip conditionals, function results, and interpolated templates that cannot be statically evaluated. `no-missing-button-type` checks only whether a direct `type` attribute exists and deliberately accepts values such as `type={undefined}`.
 - `no-string-style-prop` checks host elements only and does not use the polymorphic resolver. `no-unknown-property` checks lowercase standard HTML/SVG tags only, skipping React components, member components, and customized built-ins with `is`. These are current coverage boundaries, not separate defects.
 - [#1739](https://github.com/Rel1cx/eslint-react/issues/1739) proposes banning product-code construction of `__html` objects while allowing sanitized objects to be received. This is a new-rule request with a different policy from the existing blanket `no-dangerously-set-innerhtml` ban.
-- Historical issues #700, #1163, #1247, #1262, #1789, #1802, #1943, #1954, and #2048, plus recent computed-key and member-component polymorphic fixes, are excluded and retained as regression concerns.
+- Historical issues #700, #1163, #1247, #1262, #1789, #1802, #1943, #1954, #2048, and #2112, plus recent computed-key and member-component polymorphic fixes, are excluded and retained as regression concerns.

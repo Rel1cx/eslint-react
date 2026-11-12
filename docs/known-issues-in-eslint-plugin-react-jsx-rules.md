@@ -1,6 +1,6 @@
 # Known Issues in eslint-plugin-react-jsx Rules
 
-Reviewed 2026-11-02 against `main@27c72f5e0` (the 2026-10-31 working-tree fixes landed as #2102); plugin `5.30.0-beta.21`, all 8 rules. Evidence comes from implementations, tests, docs, changelogs, and public issues/PRs.
+Reviewed 2026-11-13 against `main@d971eeaae`; plugin `5.30.2`, all 8 rules. Originally reviewed 2026-11-02 against `main@27c72f5e0` (the 2026-10-31 working-tree fixes landed as #2102); the re-review confirms all findings still hold. Evidence comes from implementations, tests, docs, changelogs, and public issues/PRs.
 
 **10 findings: 8 current (3 medium, 5 low), 2 resolved.** No directly related open GitHub issue was found. Each finding lists its affected rules and primary evidence.
 
@@ -74,7 +74,7 @@ Reviewed 2026-11-02 against `main@27c72f5e0` (the 2026-10-31 working-tree fixes 
 
 - **Rules:** `no-leaked-semicolon`
 - **Evidence:** [Rule source](../plugins/eslint-plugin-react-jsx/src/rules/no-leaked-semicolon/no-leaked-semicolon.ts)
-- **Resolution:** Same-line semicolons after a JSX child and before the closing tag are detected; standalone text and semicolons between children remain allowed.
+- **Resolution:** Same-line semicolons after a JSX child and before the closing tag are detected; standalone text and semicolons between children remain allowed. Since `5.30.1`, the same-line detection also covers expression containers (ex: `<div>{x};</div>`); semicolons between children (ex: `<div>{x};{y}</div>`) remain allowed.
 
 ## Boundaries
 

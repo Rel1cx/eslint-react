@@ -29,7 +29,7 @@
     ".pkgs/**/*.js"
   ],
   "plugins": [
-    "npm:@dprint/typescript@0.99.2",
+    "npm:@dprint/typescript@0.100.0",
     "npm:@dprint/json@0.26.0",
     "npm:@dprint/markdown@0.29.0",
     "npm:@dprint/toml@0.10.0",
