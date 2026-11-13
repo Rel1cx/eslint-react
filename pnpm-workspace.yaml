@@ -23,7 +23,12 @@ overrides:
   esbuild: "^0.28.2"
   # Transitive dependency via ajv 8.20.0 (declares ^3.0.1), fixes CVE-2026-18446 (GHSA-7p8r-x3mc-p8w7)
   fast-uri: "^4.2.3"
+  # 16.19.0 exports toc/structuredData as functions of page props (runtime outputs), which breaks
+  # `<InlineTOC items={toc}>` in MDX and `toc={page.data.toc}`; fumadocs-mdx 15.6.x opts collections in.
+  fumadocs-core: "16.18.4"
+  fumadocs-mdx: "15.5.3"
   fumadocs-twoslash: "3.3.1"
+  fumadocs-ui: "16.18.4"
   next: "16.4.6"
   postcss: "^8.5.32"
   react-dom: "^19.3.1"

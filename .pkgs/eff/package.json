@@ -38,7 +38,7 @@
   },
   "devDependencies": {
     "@local/configs": "workspace:*",
-    "@tsconfig/node20": "^20.1.10",
+    "@tsconfig/node20": "^20.1.11",
     "@types/node": "^20.19.43",
     "tsdown": "^0.23.7"
   },

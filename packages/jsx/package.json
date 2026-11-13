@@ -45,7 +45,7 @@
     "@local/configs": "workspace:*",
     "@local/eff": "workspace:*",
     "@local/testkit": "workspace:*",
-    "@tsconfig/node20": "^20.1.10",
+    "@tsconfig/node20": "^20.1.11",
     "@types/node": "^20.19.43",
     "eslint": "^10.14.0",
     "tsdown": "^0.23.7",
