@@ -2250,6 +2250,21 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [{ data: { name: "setData" }, messageId: "default" }],
     },
+    {
+      name: "setState destructured from a TypeScript-wrapped useState call",
+      code: tsx`
+        import { useEffect, useState } from "react";
+
+        function Component() {
+          const [data, setData] = useState(0) as any;
+          useEffect(() => {
+            setData(1);
+          }, []);
+          return null;
+        }
+      `,
+      errors: [{ data: { name: "setData" }, messageId: "default" }],
+    },
   ],
   valid: [
     {

@@ -124,14 +124,17 @@ describe("createSetStateResolver", () => {
       expect(fact).toBe(false);
     });
 
-    it("should not match a setter destructured from a TypeScript-wrapped state hook call", () => {
-      const code = "const [data, setData] = useState() as any; setData;";
-      const fact = runInRule(
-        code,
-        (context, program) => createSetStateResolver(context).isSetStateId(findReference(program, "setData")),
-        { filePath: fixturePath("file.ts") },
-      );
-      expect(fact).toBe(false);
+    it("should match a setter destructured from a TypeScript-wrapped state hook call", () => {
+      const check = (code: string, name: string) =>
+        runInRule(
+          code,
+          (context, program) => createSetStateResolver(context).isSetStateId(findReference(program, name)),
+          { filePath: fixturePath("file.ts") },
+        );
+      expect(check("const [data, setData] = useState() as any; setData;", "setData")).toBe(true);
+      expect(check("const [data, setData] = useState()!; setData;", "setData")).toBe(true);
+      expect(check("const [data, setData] = useState() as any; data;", "data")).toBe(false);
+      expect(check("const [data, setData] = foo() as any; setData;", "setData")).toBe(false);
     });
   });
 

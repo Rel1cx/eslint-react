@@ -714,4 +714,9 @@ describe("inferViolations", () => {
       "function A() { const [a, setD] = useState(0); useEffect(() => { setD(1); }, []); } function B() { const [b, setD] = useState(0); useEffect(() => { setD(2); }, []); }";
     expect(inferViolationSummaries(code)).toEqual(["setD", "setD"]);
   });
+
+  it("should report a setter destructured from a TypeScript-wrapped state hook call", () => {
+    const code = "function C() { const [data, setData] = useState(0) as any; useEffect(() => { setData(1); }, []); }";
+    expect(inferViolationsFor(code, { filePath: fixturePath("file.ts") }).map((violation) => violation.name)).toEqual(["setData"]);
+  });
 });
