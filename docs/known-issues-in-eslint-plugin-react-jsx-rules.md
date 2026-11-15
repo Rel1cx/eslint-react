@@ -1,6 +1,6 @@
 # Known Issues in eslint-plugin-react-jsx Rules
 
-Reviewed 2026-11-13 against `main@d971eeaae`; plugin `5.30.2`, all 8 rules. Originally reviewed 2026-11-02 against `main@27c72f5e0` (the 2026-10-31 working-tree fixes landed as #2102); the re-review confirms all findings still hold. Evidence comes from implementations, tests, docs, changelogs, and public issues/PRs.
+Reviewed 2026-11-16 against `main@ba61b9b0c`; plugin `5.30.2`, all 8 rules. Previously reviewed 2026-11-13 against `main@d971eeaae`; the only intervening changes are dependency version bumps in `package.json`, so this re-review confirms all findings still hold. Originally reviewed 2026-11-02 against `main@27c72f5e0` (the 2026-10-31 working-tree fixes landed as #2102). Evidence comes from implementations, tests, docs, changelogs, and public issues/PRs.
 
 **10 findings: 8 current (3 medium, 5 low), 2 resolved.** No directly related open GitHub issue was found. Each finding lists its affected rules and primary evidence.
 

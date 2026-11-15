@@ -1,6 +1,6 @@
 # Known Issues in eslint-plugin-react-dom Rules
 
-Reviewed 2026-11-13 against `main@d971eeaae`; plugin `5.30.2`, all 16 rules. Evidence comes from implementations, tests, docs, changelogs, and public issues/PRs. (First reviewed 2026-11-02 at `main@6d9159c9b`, plugin `5.30.0-beta.22`, when the 2026-11-01 working-tree fixes landed as #2103 and the import-placement fixes as #2104; nine temporary RuleTester cases confirmed the source-review findings and were removed after that run.)
+Reviewed 2026-11-16 against `main@ba61b9b0c`; plugin `5.30.2`, all 16 rules. Evidence comes from implementations, tests, docs, changelogs, and public issues/PRs. The DOM-007 spec outputs (suggestion replaces the value expression with `sandbox=""`) and DOM-010 spec outputs (`rel="nofollow"` becomes `rel="noreferrer"`, or `rel="noopener"` with `allowReferrer`) were re-verified case by case in this pass. No commit since `d971eeaae` touches this plugin's rules, so the previous findings carry over unchanged. (Previously reviewed 2026-11-13 at `main@d971eeaae`; first reviewed 2026-11-02 at `main@6d9159c9b`, plugin `5.30.0-beta.22`, when the 2026-11-01 working-tree fixes landed as #2103 and the import-placement fixes as #2104; nine temporary RuleTester cases confirmed the source-review findings and were removed after that run.)
 
 **18 findings: 11 current (7 medium, 4 low), 7 resolved.** No directly related open GitHub bug was found. [#1739](https://github.com/Rel1cx/eslint-react/issues/1739) is a related feature proposal, not an implementation defect.
 
@@ -45,8 +45,8 @@ Reviewed 2026-11-13 against `main@d971eeaae`; plugin `5.30.2`, all 16 rules. Evi
 
 - **Severity:** Medium (policy)
 - **Rules:** `no-missing-iframe-sandbox`
-- **Evidence:** [Rule spec](../plugins/eslint-plugin-react-dom/src/rules/no-missing-iframe-sandbox/no-missing-iframe-sandbox.spec.ts)
-- **Finding:** The implementation requires a static-string `sandbox`, not merely the explicit attribute described by the docs. Variables that cannot be statically resolved, function results, and interpolated templates are reported even when valid at runtime; a `const` initialized to a static value is resolved through `getStaticValue` and accepted. The suggestion replaces the expression with `sandbox=""`, potentially removing permissions the iframe needs; this migration requires manual review.
+- **Evidence:** [Rule spec](../plugins/eslint-plugin-react-dom/src/rules/no-missing-iframe-sandbox/no-missing-iframe-sandbox.spec.ts), [`getAttributeStaticValue`](../packages/jsx/src/attribute.ts)
+- **Finding:** The implementation requires a static-string `sandbox`, not merely the explicit attribute described by the docs. Variables that cannot be statically resolved, function results, and interpolated templates are reported even when valid at runtime; a `const` initialized to a static value is resolved through `getStaticValue` (via `getAttributeStaticValue`) and accepted. The suggestion replaces the value expression with `sandbox=""`, potentially removing permissions the iframe needs; this migration requires manual review.
 
 ### DOM-008: Limited polymorphic element resolution
 
@@ -67,7 +67,7 @@ Reviewed 2026-11-13 against `main@d971eeaae`; plugin `5.30.2`, all 16 rules. Evi
 - **Severity:** Low
 - **Rules:** `no-unsafe-target-blank`
 - **Evidence:** [Rule spec](../plugins/eslint-plugin-react-dom/src/rules/no-unsafe-target-blank/no-unsafe-target-blank.spec.ts)
-- **Finding:** The suggestion for an unsafe `rel` replaces the whole attribute instead of adding the required token. For example, `rel="nofollow"` becomes `rel="noreferrer"`, dropping the existing `nofollow` semantics.
+- **Finding:** The suggestion for an unsafe `rel` replaces the whole attribute instead of adding the required token. For example, `rel="nofollow"` becomes `rel="noreferrer"` (or `rel="noopener"` with `allowReferrer`), dropping the existing `nofollow` semantics.
 
 ### DOM-012: Legitimate `flushSync` uses are reported
 
