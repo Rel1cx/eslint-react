@@ -4,10 +4,10 @@
 
 - **IMPL**: `set-state-in-effect.ts` + `collect.ts` + `origins.ts` + `effects.ts` + `helpers.ts` (ESLint rule)
 - **SPEC**: `set-state-in-effect.spec.md` (React Compiler `ValidateNoSetStateInEffects`)
-- **Implementation revision**: `main` @ `10f7fc304`
+- **Implementation revision**: `main` @ `b62df948f` (changes since `10f7fc304` are non-behavioral: `createFactCollector` signature refactor, comment style, and test-only additions; rule suite 626/626 green)
 - **React commit**: `e84e14927537821acfa553c9995a655d23bbf755` (re-pin if upstream moved)
-- **React comparison verified**: `2026-10-31`
-- **IMPL description reviewed**: `2026-10-31`
+- **React comparison verified**: `2026-11-16` (pinned validation file byte-identical on `main`; latest `src/Validation` change `a703ca64f9ea`, 2026-10-30)
+- **IMPL description reviewed**: `2026-11-16`
 - **React package**: `compiler/packages/babel-plugin-react-compiler`
 - **Implementation sources/tests**:
   - `set-state-in-effect.ts`
@@ -30,7 +30,7 @@
 
 ## 1. Execution model
 
-React runs `inlineImmediatelyInvokedFunctionExpressions` before `validateNoSetStateInEffects`. The validation walks HIR, propagates a `setStateFunctions` map through `LoadLocal`/`StoreLocal`, summarizes `FunctionExpression`s with `getSetStateCall`, and recognizes the three built-in effect hook types plus `useEffectEvent` explicitly. Since React commit `d083ec1da1e5` (2026-09-22) it additionally runs `computeBlocksStartingAfterAwait` over the effect function's own CFG: a block "starts after await" only when every predecessor path passed an `Await`, and within a block an `Await` instruction flips an `isAfterAwait` flag for subsequent instructions; setState calls reached only after an await are skipped.
+React runs `inlineImmediatelyInvokedFunctionExpressions` before `validateNoSetStateInEffects`. The validation walks HIR, propagates a `setStateFunctions` map through `LoadLocal`/`StoreLocal`, summarizes `FunctionExpression`s with `getSetStateCall`, and recognizes the three built-in effect hook types plus `useEffectEvent` explicitly. Since React commit `d083ec1da1e5` (2026-09-22) it additionally runs `computeBlocksStartingAfterAwait` over the effect function's own CFG when that function is `async`: a block "starts after await" only when every predecessor path passed an `Await`, and within a block an `Await` instruction flips an `isAfterAwait` flag for subsequent instructions; setState calls reached only after an await are skipped.
 
 The IMPL collects explicit effect roots and calls grouped by their directly enclosing function. At `Program:exit`, recursive value resolution maps stable aliases and transparent wrappers to functions or setters, then a worklist follows resolvable synchronous call edges from each root. Ordinary nested callbacks are not flattened into their containing function or hook summary. Recursion is bounded by function identity and ref-call context. Parameters and imports remain unresolved so a prop function cannot attribute the component's render-phase setState to an effect (#1944).
 
