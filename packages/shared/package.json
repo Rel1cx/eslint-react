@@ -48,7 +48,7 @@
     "@tsconfig/node20": "^20.1.11",
     "@types/node": "^20.19.43",
     "@types/picomatch": "^4.0.3",
-    "eslint": "^10.14.0",
+    "eslint": "^10.15.0",
     "tinybench": "6.2.3",
     "tsdown": "^0.23.7",
     "typescript": "6.0.3"

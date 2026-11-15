@@ -30,7 +30,7 @@ overrides:
   fumadocs-twoslash: "3.3.1"
   fumadocs-ui: "16.18.4"
   next: "16.4.6"
-  postcss: "^8.5.32"
+  postcss: "^8.5.33"
   react-dom: "^19.3.1"
   react: "^19.3.1"
   # Keeps @babel/core's ^6.3.1 range off the 6.x line (no provenance, fails trustPolicy no-downgrade)

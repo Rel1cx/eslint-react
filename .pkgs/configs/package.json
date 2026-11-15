@@ -43,7 +43,7 @@
     "@stylistic/eslint-plugin": "^5.10.0",
     "@tsconfig/strictest": "^2.0.9",
     "eslint-plugin-de-morgan": "^2.3.0",
-    "eslint-plugin-jsdoc": "^65.4.5",
+    "eslint-plugin-jsdoc": "^65.4.7",
     "eslint-plugin-perfectionist": "^5.13.0",
     "eslint-plugin-regexp": "^3.3.3",
     "eslint-plugin-unicorn": "^79.0.0",
@@ -52,7 +52,7 @@
   "devDependencies": {
     "@tsconfig/node20": "^20.1.11",
     "@types/node": "^20.19.43",
-    "eslint": "^10.14.0",
+    "eslint": "^10.15.0",
     "tinyglobby": "^0.2.17",
     "tsdown": "^0.23.7",
     "tsl": "^1.0.30",
