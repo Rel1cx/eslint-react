@@ -1,6 +1,6 @@
 # Known Issues in eslint-plugin-react-web-api Rules
 
-Originally reviewed 2026-11-02 against `main@df5da2a7f` (plugin `5.30.0-beta.22`; thirteen temporary RuleTester cases confirmed the source-review findings and were removed after the run). Updated 2026-11-13 against `main@d971eeaae`, plugin `5.30.2`, all 6 rules. Evidence comes from implementations, tests, docs, changelogs, and public issues/PRs.
+Originally reviewed 2026-11-02 against `main@df5da2a7f` (plugin `5.30.0-beta.22`; thirteen temporary RuleTester cases confirmed the source-review findings and were removed after the run). Updated 2026-11-13 against `main@d971eeaae`, plugin `5.30.2`, all 6 rules. Re-verified 2026-11-16 against `main@a6ae51a83` (plugin `5.30.2`; all findings re-confirmed by source review, helper rename from 24a5bf5a2 reflected below). Evidence comes from implementations, tests, docs, changelogs, and public issues/PRs.
 
 **10 findings: all current (7 medium, 3 low).** No directly related open GitHub bugs; the former one, [#2072](https://github.com/Rel1cx/eslint-react/issues/2072) (name-based `fetch` matching), was fixed in 5.30.2 and moved to Resolved findings. Each finding lists its affected rules and primary evidence.
 
@@ -82,7 +82,7 @@ Originally reviewed 2026-11-02 against `main@df5da2a7f` (plugin `5.30.0-beta.22`
 
 - **Rules:** `no-leaked-fetch`
 - **Evidence:** Rule changelog (5.30.2), [#2116](https://github.com/Rel1cx/eslint-react/pull/2116) closing [#2072](https://github.com/Rel1cx/eslint-react/issues/2072), [`lib.ts`](../plugins/eslint-plugin-react-web-api/src/rules/no-leaked-fetch/lib.ts)
-- **Resolution:** Calls that are not the global `fetch` are no longer checked: a bare `fetch(...)` whose name is bound by an enclosing scope (ex: a local `function fetch() {}`) and member calls on non-global objects (ex: `api.fetch(...)`) are ignored (`isNameBoundInEnclosingScopes`), while `window.fetch(...)`, `globalThis.fetch(...)`, and `self.fetch(...)` are still recognized (`isGlobalObject`). The rewrite also resolves aliased options objects (`const opts = { signal }; fetch(url, opts)`) via `resolveToObjectExpression`. The analogous name-only matching in the timer and event-listener rules remains as WAPI-001.
+- **Resolution:** Calls that are not the global `fetch` are no longer checked: a bare `fetch(...)` whose name is bound by an enclosing scope (ex: a local `function fetch() {}`) and member calls on non-global objects (ex: `api.fetch(...)`) are ignored (`isNameBoundInScope`, renamed from `isNameBoundInEnclosingScopes` in 24a5bf5a2), while `window.fetch(...)`, `globalThis.fetch(...)`, and `self.fetch(...)` are still recognized (`isGlobalObject`). The rewrite also resolves aliased options objects (`const opts = { signal }; fetch(url, opts)`) via `resolveToObjectExpression`. The analogous name-only matching in the timer and event-listener rules remains as WAPI-001.
 
 ### Cross-effect same-name variable confusion
 
