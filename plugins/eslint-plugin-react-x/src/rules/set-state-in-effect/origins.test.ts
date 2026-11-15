@@ -123,6 +123,16 @@ describe("createSetStateResolver", () => {
       });
       expect(fact).toBe(false);
     });
+
+    it("should not match a setter destructured from a TypeScript-wrapped state hook call", () => {
+      const code = "const [data, setData] = useState() as any; setData;";
+      const fact = runInRule(
+        code,
+        (context, program) => createSetStateResolver(context).isSetStateId(findReference(program, "setData")),
+        { filePath: fixturePath("file.ts") },
+      );
+      expect(fact).toBe(false);
+    });
   });
 
   describe("isSetStateCall", () => {
@@ -156,6 +166,14 @@ describe("createSetStateResolver", () => {
         return createSetStateResolver(context).isSetStateCall(findCall(context, program, "(setData"));
       });
       expect(fact).toBe(true);
+    });
+
+    it("should not match a call through a member expression callee", () => {
+      const code = "const [data, setData] = useState(); const obj = { setData }; obj.setData(1);";
+      const fact = runInRule(code, (context, program) => {
+        return createSetStateResolver(context).isSetStateCall(findCall(context, program, "obj.setData"));
+      });
+      expect(fact).toBe(false);
     });
   });
 
@@ -310,6 +328,50 @@ describe("createSetStateResolver", () => {
       });
       expect(fact).toEqual([[], []]);
     });
+
+    it("should resolve the resolvable branch of a conditional with an unresolvable alternate", () => {
+      const code = "const [data, setData] = useState(); const f = cond ? setData : foo; f;";
+      const fact = runInRule(code, (context, program) => {
+        const resolver = createSetStateResolver(context);
+        return resolver.resolveValues(findReference(program, "f")).map((target) =>
+          target.kind === "setter" ? resolver.getSetterName(target.node) : target.kind
+        );
+      });
+      expect(fact).toEqual(["setData"]);
+    });
+
+    it("should terminate on a useMemo factory that returns the memoized binding itself", () => {
+      const code = "const f = useMemo(() => f, []); f;";
+      const fact = runInRule(code, (context, program) => createSetStateResolver(context).resolveValues(findReference(program, "f")));
+      expect(fact).toEqual([]);
+    });
+
+    it("should not resolve a binding with multiple definitions", () => {
+      const code = "let f = () => {}; f = () => setData(1); f;";
+      const fact = runInRule(code, (context, program) => createSetStateResolver(context).resolveValues(findReference(program, "f", -1)));
+      expect(fact).toEqual([]);
+    });
+
+    it("should resolve a useMemo factory wrapped in useCallback", () => {
+      const code = "const [data, setData] = useState(); const set = useMemo(useCallback(() => setData, []), []); set;";
+      const fact = runInRule(code, (context, program) => {
+        const resolver = createSetStateResolver(context);
+        return resolver.resolveValues(findReference(program, "set")).map((target) =>
+          target.kind === "setter" ? resolver.getSetterName(target.node) : target.kind
+        );
+      });
+      expect(fact).toEqual(["setData"]);
+    });
+
+    it("should resolve nothing from a literal", () => {
+      const code = "42;";
+      const fact = runInRule(code, (context, program) => {
+        const literal = collectNodes<TSESTree.Literal>(program, AST.Literal)[0];
+        if (literal == null) throw new Error("No literal found");
+        return createSetStateResolver(context).resolveValues(literal);
+      });
+      expect(fact).toEqual([]);
+    });
   });
 
   describe("getRefDerivedParams", () => {
@@ -346,6 +408,16 @@ describe("createSetStateResolver", () => {
     it("should keep the mapping when a recursive call passes a ref-derived value", () => {
       const code = "const ref = useRef(0); const update = (el) => { update(ref.current); };";
       expect(deriveParamNames(code, "update(ref.current)", true)).toEqual(["el"]);
+    });
+
+    it("should not map a spread argument to the parameter at its position", () => {
+      const code = "const ref = useRef(0); const update = (el) => el; update(...[ref.current]);";
+      expect(deriveParamNames(code, "update(...[ref.current])")).toEqual([]);
+    });
+
+    it("should map only the ref-derived argument to the parameter at its index", () => {
+      const code = "const ref = useRef(0); const update = (a, b) => b; update(0, ref.current);";
+      expect(deriveParamNames(code, "update(0, ref.current)")).toEqual(["b"]);
     });
   });
 
@@ -409,6 +481,11 @@ describe("createSetStateResolver", () => {
       const code =
         "function C() { const [element, setElement] = useState(null); const elementRef = setElement; sink(element); return <div ref={elementRef} />; }";
       expect(isStateHeldElement(code)).toBe(true);
+    });
+
+    it("should not match state whose tuple does not come from a state hook", () => {
+      const code = "function C() { const [element, setElement] = useFoo(null); sink(element); return <div ref={setElement} />; }";
+      expect(isStateHeldElement(code)).toBe(false);
     });
   });
 });
@@ -721,6 +798,36 @@ describe("isInitializedFromRef", () => {
     const fact = runInRule(code, (context, program) => isInitializedFromRef(context, findReference(program, "v", -1)));
     expect(fact).toBe(true);
   });
+
+  it("should match a for-of loop variable iterating a ref value", () => {
+    const code = "function f() { const ref = useRef([]); for (const v of ref.current) { sink(v); } }";
+    const fact = runInRule(code, (context, program) => isInitializedFromRef(context, findReference(program, "v")));
+    expect(fact).toBe(true);
+  });
+
+  it("should treat a direct write in an instance class field initializer as visible", () => {
+    const code = "function f() { const ref = useRef(0); let v = 0; class C { field = (v = ref.current); } sink(v); }";
+    const fact = runInRule(code, (context, program) => isInitializedFromRef(context, findReference(program, "v", -1)));
+    expect(fact).toBe(true);
+  });
+
+  it("should match a variable written in a for loop init before the use", () => {
+    const code = "function f() { const ref = useRef(0); let v = 0; for (v = ref.current;;) { sink(v); break; } }";
+    const fact = runInRule(code, (context, program) => isInitializedFromRef(context, findReference(program, "v", -1)));
+    expect(fact).toBe(true);
+  });
+
+  it("should match a this-rooted ref-like member chain in an initializer", () => {
+    const code = "class C { m() { let v = 0; v = this.anchorRef.current; sink(v); } }";
+    const fact = runInRule(code, (context, program) => isInitializedFromRef(context, findReference(program, "v", -1)));
+    expect(fact).toBe(true);
+  });
+
+  it("should not match a catch clause binding", () => {
+    const code = "try { foo(); } catch (v) { sink(v); }";
+    const fact = runInRule(code, (context, program) => isInitializedFromRef(context, findReference(program, "v")));
+    expect(fact).toBe(false);
+  });
 });
 
 describe("isArgumentUsingRefValue", () => {
@@ -884,6 +991,38 @@ describe("isArgumentUsingRefValue", () => {
   it("should match a getter with a ref-derived value on any return path", () => {
     const code = "const ref = useRef(0); function getValue() { if (cond) return 0; return ref.current; } setWidth(getValue());";
     expect(check(code)).toBe(true);
+  });
+
+  it("should not match a ref read in a computed object key", () => {
+    expect(check("const ref = useRef(0); setWidth({ [ref.current]: 1 });")).toBe(false);
+  });
+
+  it("should not match a ref-derived value in a new expression", () => {
+    expect(check("const ref = useRef(0); setWidth(new Foo(ref.current));")).toBe(false);
+  });
+
+  it("should match a ref read in a function nested inside the updater", () => {
+    expect(check("const ref = useRef(0); setWidth(() => () => ref.current);")).toBe(true);
+  });
+
+  it("should match an assignment expression writing a ref value", () => {
+    expect(check("const ref = useRef(0); let v; setWidth(v = ref.current);")).toBe(true);
+  });
+
+  it("should match an update expression on a ref value", () => {
+    expect(check("const ref = useRef(0); setWidth(ref.current++);")).toBe(true);
+  });
+
+  it("should match a value returned by a useCallback-wrapped ref-reading getter", () => {
+    expect(check("const ref = useRef(0); const getValue = useCallback(() => ref.current, []); setWidth(getValue());")).toBe(true);
+  });
+
+  it("should match a block-bodied updater reading a ref", () => {
+    expect(check("const ref = useRef(0); setWidth(() => { return ref.current; });")).toBe(true);
+  });
+
+  it("should not match a this-rooted ref chain in argument mode", () => {
+    expect(check("class C { m() { setWidth(this.ref.current); } }")).toBe(false);
   });
 });
 
@@ -1111,5 +1250,10 @@ describe("isRefGatedContext", () => {
 
   it("should not let a ref guard in a catch block gate statements after the try statement", () => {
     expect(check("function f() { const ref = useRef(0); try { foo(); } catch { if (!ref.current) return; } setData(1); }")).toBe(false);
+  });
+
+  it("should not treat a ref-reading getter call in the test as a gate", () => {
+    expect(check("function f() { const ref = useRef(0); const getValue = () => ref.current; if (getValue()) { setData(1); } }")).toBe(false);
+    expect(check("function f() { const ref = useRef(0); const getValue = () => ref.current; getValue() ? setData(1) : null; }")).toBe(false);
   });
 });

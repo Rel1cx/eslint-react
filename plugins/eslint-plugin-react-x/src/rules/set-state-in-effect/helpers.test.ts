@@ -306,6 +306,15 @@ describe("getImmediateInvocation", () => {
     const fn = getFirstNodeOfType<TSESTree.ArrowFunctionExpression>("(0, () => { sink(); })();", AST.ArrowFunctionExpression);
     expect(getImmediateInvocation(fn)).toBeNull();
   });
+
+  it("should match a TypeScript non-null wrapped invocation", () => {
+    const { fn, expression } = getInvocation(
+      "(() => { sink(); })!();",
+      AST.ArrowFunctionExpression,
+      { filePath: fixturePath("file.ts") },
+    );
+    expect(getImmediateInvocation(fn)).toBe(expression);
+  });
 });
 
 describe("getConditionalBranch", () => {
@@ -359,6 +368,23 @@ describe("getConditionalBranch", () => {
     expect(getConditionalBranch(forInCall)?.type).toBe(AST.BlockStatement);
     expect(getConditionalBranch(forOfCall)?.type).toBe(AST.BlockStatement);
   });
+
+  it("should return the unbraced statement of a single-statement if consequent", () => {
+    const call = getFirstNodeOfType<TSESTree.CallExpression>("if (a) sink();", AST.CallExpression);
+    expect(getConditionalBranch(call)?.type).toBe(AST.ExpressionStatement);
+  });
+
+  it("should return the unbraced statement of a single-statement loop body", () => {
+    const call = getFirstNodeOfType<TSESTree.CallExpression>("while (x) sink();", AST.CallExpression);
+    expect(getConditionalBranch(call)?.type).toBe(AST.ExpressionStatement);
+  });
+
+  it("should not treat a conditional expression test or logical left as a branch", () => {
+    const conditionalCall = getFirstNodeOfType<TSESTree.CallExpression>("sink() ? a : b;", AST.CallExpression);
+    const logicalCall = getFirstNodeOfType<TSESTree.CallExpression>("sink() && b;", AST.CallExpression);
+    expect(getConditionalBranch(conditionalCall)).toBeNull();
+    expect(getConditionalBranch(logicalCall)).toBeNull();
+  });
 });
 
 describe("isRefLikeName", () => {
@@ -397,6 +423,17 @@ describe("getParameterId", () => {
     expect(getParameterId(getParam("({ a }) => a;"))).toBeNull();
     expect(getParameterId(getParam("([a]) => a;"))).toBeNull();
   });
+
+  it("should return null for a TypeScript parameter property", () => {
+    const ctor = getFirstNodeOfType<TSESTree.FunctionExpression>(
+      "class C { constructor(private ref: unknown) {} }",
+      AST.FunctionExpression,
+      { filePath: fixturePath("file.ts") },
+    );
+    const param = ctor.params[0];
+    if (param == null) throw new Error("No parameter found");
+    expect(getParameterId(param)).toBeNull();
+  });
 });
 
 describe("getRefSourceName", () => {
@@ -413,6 +450,14 @@ describe("getRefSourceName", () => {
     expect(getRefSourceName(getFirstExpression("a[b];"))).toBeNull();
     expect(getRefSourceName(getFirstExpression("a();"))).toBeNull();
     expect(getRefSourceName(getFirstExpression("42;"))).toBeNull();
+  });
+
+  it("should return the property name of a this-rooted member expression", () => {
+    expect(getRefSourceName(getFirstExpression("this.x;"))).toBe("x");
+  });
+
+  it("should not unwrap a TypeScript-wrapped member expression", () => {
+    expect(getRefSourceName(getFirstExpression("(a.b as any);", { filePath: fixturePath("file.ts") }))).toBeNull();
   });
 });
 

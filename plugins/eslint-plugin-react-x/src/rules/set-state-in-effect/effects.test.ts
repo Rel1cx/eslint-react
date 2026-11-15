@@ -652,4 +652,66 @@ describe("inferViolations", () => {
     const code = "function C() { const [data, setData] = useState(0); const helper = () => setData(1); useEffect(() => { helper.call(null); }, []); }";
     expect(inferViolationSummaries(code)).toEqual([]);
   });
+
+  it("should not resolve a setup produced by an immediately invoked factory", () => {
+    const code = "function C() { const [data, setData] = useState(0); useEffect((() => () => setData(1))(), []); }";
+    expect(inferViolationSummaries(code)).toEqual([]);
+  });
+
+  it("should not resolve a setup behind a logical expression", () => {
+    const code = "function C() { const [data, setData] = useState(0); function setup() { setData(1); } useEffect(cond && setup, []); }";
+    expect(inferViolationSummaries(code)).toEqual([]);
+  });
+
+  it("should report a setState call reached through an inline useCallback setup", () => {
+    const code = "function C() { const [data, setData] = useState(0); useEffect(useCallback(() => { setData(1); }, [])); }";
+    const violations = inferViolationsFor(code);
+    expect(violations.map((violation) => ({
+      name: violation.name,
+      node: code.slice(violation.node.range[0], violation.node.range[1]),
+    }))).toEqual([{ name: "setData", node: "useCallback(() => { setData(1); }, [])" }]);
+  });
+
+  it("should not report a root setter when the effect call itself is ref-gated", () => {
+    const code = "function C() { const ref = useRef(0); const [data, setData] = useState(0); if (ref.current) { useEffect(setData, []); } }";
+    expect(inferViolationSummaries(code)).toEqual([]);
+  });
+
+  it("should not report a root setter behind a ref-gated early return before the effect", () => {
+    const code = "function C() { const ref = useRef(0); const [data, setData] = useState(0); if (!ref.current) return; useEffect(setData, []); }";
+    expect(inferViolationSummaries(code)).toEqual([]);
+  });
+
+  it("should report every setter a conditional setup may be", () => {
+    const code = "function C() { const [a, setA] = useState(0); const [b, setB] = useState(0); useEffect(cond ? setA : setB, []); }";
+    const violations = inferViolationsFor(code);
+    expect(violations.map((violation) => ({
+      name: violation.name,
+      node: code.slice(violation.node.range[0], violation.node.range[1]),
+    }))).toEqual([
+      { name: "setA", node: "cond ? setA : setB" },
+      { name: "setB", node: "cond ? setA : setB" },
+    ]);
+  });
+
+  it("should report a setState call in a static block evaluated by the setup", () => {
+    const code = "function C() { const [data, setData] = useState(0); useEffect(() => { class X { static { setData(1); } } }, []); }";
+    expect(inferViolationSummaries(code)).toEqual(["setData"]);
+  });
+
+  it("should report a setState call in a parameter default of a helper invoked from the setup", () => {
+    const code = "function C() { const [data, setData] = useState(0); const helper = (x = setData(1)) => x; useEffect(() => { helper(); }, []); }";
+    expect(inferViolationSummaries(code)).toEqual(["setData"]);
+  });
+
+  it("should report a setState call in an effect nested inside another effect's setup", () => {
+    const code = "function C() { const [data, setData] = useState(0); useEffect(() => { useEffect(() => { setData(1); }, []); }, []); }";
+    expect(inferViolationSummaries(code)).toEqual(["setData"]);
+  });
+
+  it("should report same-named setters from different scopes independently", () => {
+    const code =
+      "function A() { const [a, setD] = useState(0); useEffect(() => { setD(1); }, []); } function B() { const [b, setD] = useState(0); useEffect(() => { setD(2); }, []); }";
+    expect(inferViolationSummaries(code)).toEqual(["setD", "setD"]);
+  });
 });
