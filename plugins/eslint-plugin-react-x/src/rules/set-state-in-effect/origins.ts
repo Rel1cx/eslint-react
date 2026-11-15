@@ -79,8 +79,11 @@ export function createSetStateResolver(context: RuleContext, facts: SetStateInEf
 
   function isSetStateId(id: TSESTree.Identifier) {
     const initNode = resolveOrigin(context, id);
-    if (initNode?.type !== AST.CallExpression || !isUseStateCall(initNode)) return false;
-    const initNodeParent = initNode.parent;
+    if (initNode == null) return false;
+    const init = Extract.unwrap(initNode);
+    if (init.type !== AST.CallExpression || !isUseStateCall(init)) return false;
+    let initNodeParent: TSESTree.Node | undefined = init.parent;
+    while (Check.isTypeOrChainExpression(initNodeParent)) initNodeParent = initNodeParent.parent;
     if (!hasProperty(initNodeParent, "id")) return false;
     if (initNodeParent.id?.type !== AST.ArrayPattern) return false;
     return initNodeParent.id.elements.findIndex((e) => e != null && Check.isIdentifier(e, id.name)) === 1;

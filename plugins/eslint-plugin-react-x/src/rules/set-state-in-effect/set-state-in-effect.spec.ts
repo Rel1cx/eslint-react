@@ -2202,6 +2202,69 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [{ messageId: "default" }, { messageId: "default" }],
     },
+    {
+      name: "setState reached through an inline useCallback setup",
+      code: tsx`
+        import { useCallback, useEffect, useState } from "react";
+
+        function Component() {
+          const [data, setData] = useState(0);
+          useEffect(useCallback(() => {
+            setData(1);
+          }, []));
+          return null;
+        }
+      `,
+      errors: [{ data: { name: "setData" }, messageId: "default" }],
+    },
+    {
+      name: "conditional setup reports every candidate setter",
+      code: tsx`
+        import { useEffect, useState } from "react";
+
+        function Component({ cond }) {
+          const [a, setA] = useState(0);
+          const [b, setB] = useState(0);
+          useEffect(cond ? setA : setB, []);
+          return null;
+        }
+      `,
+      errors: [{ messageId: "default" }, { messageId: "default" }],
+    },
+    {
+      name: "setState in a static block evaluated by the setup",
+      code: tsx`
+        import { useEffect, useState } from "react";
+
+        function Component() {
+          const [data, setData] = useState(0);
+          useEffect(() => {
+            class Registry {
+              static {
+                setData(1);
+              }
+            }
+          }, []);
+          return null;
+        }
+      `,
+      errors: [{ data: { name: "setData" }, messageId: "default" }],
+    },
+    {
+      name: "setState destructured from a TypeScript-wrapped useState call",
+      code: tsx`
+        import { useEffect, useState } from "react";
+
+        function Component() {
+          const [data, setData] = useState(0) as any;
+          useEffect(() => {
+            setData(1);
+          }, []);
+          return null;
+        }
+      `,
+      errors: [{ data: { name: "setData" }, messageId: "default" }],
+    },
   ],
   valid: [
     {
@@ -4462,6 +4525,36 @@ ruleTester.run(RULE_NAME, rule, {
             }, []);
             schedule();
           }, []);
+          return null;
+        }
+      `,
+    },
+    {
+      name: "setup behind a logical expression is not resolved",
+      code: tsx`
+        import { useEffect, useState } from "react";
+
+        function Component({ cond }) {
+          const [data, setData] = useState(0);
+          function setup() {
+            setData(1);
+          }
+          useEffect(cond && setup, []);
+          return null;
+        }
+      `,
+    },
+    {
+      name: "effect call gated by a ref condition",
+      code: tsx`
+        import { useEffect, useRef, useState } from "react";
+
+        function Component() {
+          const ref = useRef(0);
+          const [data, setData] = useState(0);
+          if (ref.current) {
+            useEffect(setData, []);
+          }
           return null;
         }
       `,

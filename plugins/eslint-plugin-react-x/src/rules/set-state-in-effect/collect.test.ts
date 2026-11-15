@@ -233,4 +233,27 @@ describe("createFactCollector", () => {
     const facts = collectFacts('useEffectEvent(setup); useEffectExtra(setup); React["useEffect"](setup);');
     expect(facts.effectRoots).toEqual([]);
   });
+
+  it("attributes a call in a parameter default to the enclosing function", () => {
+    const code = "function f(x = foo()) {}";
+    expect(summarizeCalls(code, collectFacts(code))).toEqual([
+      { enclosing: "function f(x = foo()) {}", text: "foo()" },
+    ]);
+  });
+
+  it("attributes a call in a class field initializer to the nearest enclosing function", () => {
+    const code = "function C() { class X { field = foo(); } }";
+    expect(summarizeCalls(code, collectFacts(code))).toEqual([
+      { enclosing: "function C() { class X { field = foo(); } }", text: "foo()" },
+    ]);
+  });
+
+  it("does not treat a tagged template as an effect root", () => {
+    expect(collectFacts("useEffect`setup`;").effectRoots).toHaveLength(0);
+  });
+
+  it("collects an empty JSX ref container as a raw fact", () => {
+    const facts = collectFacts("const C = () => <div ref={} />;");
+    expect(facts.jsxRefExprs.map((node) => node.type)).toEqual(["JSXEmptyExpression"]);
+  });
 });
