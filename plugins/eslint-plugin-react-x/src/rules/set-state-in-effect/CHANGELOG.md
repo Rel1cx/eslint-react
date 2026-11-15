@@ -5,6 +5,12 @@ All notable changes to the `react-x/set-state-in-effect` rule will be documented
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [5.30.3] - 2026-11-16
+
+### Fixed
+
+- Setter bindings are now recognized when the state hook call is wrapped in a TypeScript or chain expression (ex: `const [s, setS] = useState() as any`, `const [s, setS] = useState()!`); previously such setters were not detected, so synchronous calls to them in effects were silently missed. (#2117)
+
 ## [5.30.0] - 2026-11-10
 
 ### Fixed

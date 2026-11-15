@@ -2,6 +2,24 @@
 title: Changelog
 ---
 
+## v5.30.3 (2026-11-16)
+
+### 🐞 Fixes
+
+- `react-x/set-state-in-effect`: setters destructured from a TypeScript- or chain-wrapped `useState` call (ex: `const [s, setS] = useState() as any`, `const [s, setS] = useState()!`) are recognized again, so synchronous calls to such setters in effects are reported. (#2117)
+
+### 📝 Documentation
+
+- Re-verified the known-issues references for `eslint-plugin-react-jsx`, `eslint-plugin-react-dom`, and `eslint-plugin-react-web-api` against the current implementation, and corrected a `react-x` false-negative example.
+- Added netdata projects to the website's community list.
+
+### 🏗️ Internal
+
+- Reused shared AST helpers, renamed the scope-binding helpers to `isNameBoundIn*`, and dropped dead code; no behavioral changes.
+- Bumped dependencies across the workspace, including `eslint` to `10.15.0`, `effect` to `4.1.4`, `vite` to `8.3.8`, and `nx` to `24.0.6`; pinned `fumadocs-core`/`fumadocs-ui` to `16.18.4` and `fumadocs-mdx` to `15.5.3` until an upstream regression in `16.19.0` is fixed.
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.30.2...v5.30.3
+
 ## v5.30.2 (2026-11-12)
 
 ### 🐞 Fixes
