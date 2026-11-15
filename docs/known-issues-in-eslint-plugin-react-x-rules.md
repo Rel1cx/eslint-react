@@ -11,7 +11,7 @@ Reviewed 2026-11-13 against `main@d971eeaae`; plugin `5.30.2`, all 53 rules. Evi
 - **Severity:** Medium
 - **Rules:** `error-boundaries`
 - **Evidence:** [`error-boundaries.spec.diff.md`](../plugins/eslint-plugin-react-x/src/rules/error-boundaries/error-boundaries.spec.diff.md), open issue [#1760](https://github.com/Rel1cx/eslint-react/issues/1760)
-- **Finding:** The rule checks JSX-like values only from collected component/hook `rets`, while React Compiler's `ValidateNoJSXInTryStatement` flags every `JsxExpression`/`JsxFragment` instruction inside a try block. `try { const el = <div />; return el; } catch {}` is a confirmed false negative and an explicit upstream compiler error case. General parity for `finally`-related control flow is also unverified.
+- **Finding:** The rule checks JSX-like values only from collected component/hook `rets`, while React Compiler's `ValidateNoJSXInTryStatement` flags every `JsxExpression`/`JsxFragment` instruction inside a try block. React's upstream fixture `invalid-jsx-in-try-with-catch.js` — `let el; try { el = <div />; } catch { return null; } return el;` — is a confirmed false negative and an explicit upstream compiler error case: the JSX reaches the try through an assignment rather than a declaration, and the `return el` sits outside the try block, so `rets`-based inspection never sees it. (A JSX declared and returned inside the try, `try { const el = <div />; return el; } catch {}`, is caught because `isJSXLike` resolves the identifier back to its JSX initializer.) General parity for `finally`-related control flow is also unverified.
 
 ### RX-003: `use-memo` deviates from the compiler's void-useMemo rules
 
