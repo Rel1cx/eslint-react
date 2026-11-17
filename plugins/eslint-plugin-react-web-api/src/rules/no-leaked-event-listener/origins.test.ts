@@ -99,6 +99,24 @@ describe("getSignalValueExpression", () => {
     expect(fact?.type).toBe(AST.MemberExpression);
   });
 
+  it("should resolve a signal destructured from a variable holding an AbortController", () => {
+    const code = "const c = new AbortController(); const { signal } = c; useSignal(signal);";
+    const fact = runInRule(code, (context, ast) => {
+      const ref = findIdentifierReferences(ast, "signal").at(-1)!;
+      return getSignalValueExpression({ context, node: ref });
+    });
+    expect(fact?.type).toBe(AST.Identifier);
+  });
+
+  it("should return null for a signal destructured from a variable holding another constructor", () => {
+    const code = "const c = new Foo(); const { signal } = c; useSignal(signal);";
+    const fact = runInRule(code, (context, ast) => {
+      const ref = findIdentifierReferences(ast, "signal").at(-1)!;
+      return getSignalValueExpression({ context, node: ref });
+    });
+    expect(fact).toBeNull();
+  });
+
   it("should return null instead of overflowing on a cyclic alias chain", () => {
     const code = "const a = b; const b = a; const signal = a; useSignal(signal);";
     const fact = runInRule(code, (context, ast) => {

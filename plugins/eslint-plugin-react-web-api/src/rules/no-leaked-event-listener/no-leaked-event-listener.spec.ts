@@ -1339,29 +1339,6 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
     },
-    // Pins current behavior: destructuring from an AbortController held in a variable
-    // (`const { signal } = ac`) is not resolved back to the `new AbortController()` origin,
-    // so the signal is not recognized (known limitation, likely a false positive)
-    {
-      code: tsx`
-        import { useEffect } from "react";
-
-        function Example() {
-          useEffect(() => {
-            const handleResize = () => {};
-            const ac = new AbortController();
-            const { signal } = ac;
-            window.addEventListener("resize", handleResize, { signal });
-            return () => ac.abort();
-          }, []);
-        }
-      `,
-      errors: [
-        {
-          messageId: "expected-remove-event-listener-in-cleanup",
-        },
-      ],
-    },
     // Pins current behavior: a default value in the destructuring pattern (`{ signal = fallback }`) is not recognized (known limitation)
     {
       code: tsx`
@@ -2148,6 +2125,32 @@ ruleTester.run(RULE_NAME, rule, {
           window.addEventListener("resize", handleResize, { signal: sig });
           return () => abort();
         }, []);
+      }
+    `,
+    tsx`
+      import { useEffect } from "react";
+
+      function Example() {
+        useEffect(() => {
+          const handleResize = () => {};
+          const ac = new AbortController();
+          const { signal } = ac;
+          window.addEventListener("resize", handleResize, { signal });
+          return () => ac.abort();
+        }, []);
+      }
+    `,
+    tsx`
+      import { useEffect } from "react";
+
+      export function Example() {
+        useEffect(() => {
+          const controller = new AbortController();
+          const { signal } = controller;
+          window.addEventListener("resize", () => {}, { signal });
+          return () => controller.abort();
+        }, []);
+        return null;
       }
     `,
     // Bare calls with a `signal` option are skipped like any other listener
