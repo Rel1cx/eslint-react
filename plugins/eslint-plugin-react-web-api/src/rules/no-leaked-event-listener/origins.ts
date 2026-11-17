@@ -1,6 +1,6 @@
 import { Check, Extract, type TSESTreeFunction } from "@eslint-react/ast";
 import type { RuleContext } from "@eslint-react/eslint";
-import { isInitializedFromReactNative, resolve, resolveOrigin } from "@eslint-react/var";
+import { isInitializedFromReactNative, resolve, resolveOrigin, resolveOriginChain } from "@eslint-react/var";
 import { getOrInsertComputed } from "@local/eff";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import { findVariable, getStaticValue } from "@typescript-eslint/utils/ast-utils";
@@ -99,6 +99,12 @@ function isSignalPropertyBinding(context: RuleContext, node: TSESTree.Identifier
   return false;
 }
 
+function isAbortControllerNew(node: TSESTree.Node | null): boolean {
+  if (node?.type !== AST.NewExpression) return false;
+  const callee = Extract.unwrap(node.callee);
+  return callee.type === AST.Identifier && callee.name === "AbortController";
+}
+
 export function getSignalValueExpression({ context, node }: { context: RuleContext; node: TSESTree.Node | null }): TSESTree.Node | null {
   const seen = new Set<TSESTree.Node>();
   function visit(node: TSESTree.Node | null): TSESTree.Node | null {
@@ -112,9 +118,9 @@ export function getSignalValueExpression({ context, node }: { context: RuleConte
         if (unwrapped != null && Check.isFunction(unwrapped)) {
           return node;
         }
-        if (unwrapped != null && unwrapped.type === AST.NewExpression && isSignalPropertyBinding(context, node)) {
-          const newCallee = Extract.unwrap(unwrapped.callee);
-          if (newCallee.type === AST.Identifier && newCallee.name === "AbortController") {
+        if (unwrapped != null && isSignalPropertyBinding(context, node)) {
+          const origin = unwrapped.type === AST.Identifier ? resolveOriginChain(context, unwrapped) : unwrapped;
+          if (isAbortControllerNew(origin)) {
             return node;
           }
         }
