@@ -1,5 +1,22 @@
 # Changelog
 
+## v5.30.4 (2026-11-18)
+
+### 🐞 Fixes
+
+- `react-web-api/no-leaked-event-listener`: a `signal` destructured from an `AbortController` variable (ex: `const { signal } = controller`) is now recognized, so such listeners are no longer reported. (#2119, closes #2118) Thanks to @anubhavlal07!
+
+### 🏗️ Internal
+
+- Replaced the `pnpm -m` flag with `-r` in the root scripts.
+- Bumped dependencies across the workspace, including `fumadocs-mdx` to `15.6.3`, `fumadocs-typescript` to `5.6.2`, `eslint-plugin-perfectionist` to `5.14.0`, `eslint-plugin-jsdoc` to `65.4.9`, `eslint-plugin-react-refresh` to `0.5.8`, and `@textlint-rule/textlint-rule-pattern` to `2.0.3`.
+
+### New Contributors
+
+- **Anubhav Lal** (@anubhavlal07) made their first contribution in #2119.
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.30.3...v5.30.4
+
 ## v5.30.3 (2026-11-16)
 
 ### 🐞 Fixes
