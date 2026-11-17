@@ -29,12 +29,12 @@
     ".pkgs/**/*.js"
   ],
   "plugins": [
-    "npm:@dprint/typescript@0.100.0",
     "npm:@dprint/json@0.26.0",
     "npm:@dprint/markdown@0.29.0",
     "npm:@dprint/toml@0.10.0",
+    "npm:@dprint/typescript@0.101.0",
     "npm:dprint-plugin-malva@0.16.1",
-    "npm:dprint-plugin-markup@0.27.6",
+    "npm:dprint-plugin-markup@0.28.0",
     "npm:dprint-plugin-yaml@0.6.0"
   ]
 }
