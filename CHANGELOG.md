@@ -1,5 +1,18 @@
 # Changelog
 
+## v5.30.5 (2026-11-19)
+
+### 📝 Documentation
+
+- Added webpack's `eslint-config-webpack` to the website's community projects list.
+
+### 🏗️ Internal
+
+- Website: removed the `fumadocs-core`/`fumadocs-mdx`/`fumadocs-ui` version pins and updated the `InlineTOC` usage in MDX docs to pass `toc(props)`, matching the new fumadocs API.
+- Bumped dependencies across the workspace, including `typescript-eslint` to `8.73.0`, `fumadocs-core` and `fumadocs-ui` to `16.19.4`, `eslint-plugin-jsdoc` to `65.4.11`, `lucide-react` to `1.74.0`, and the dprint plugins `@dprint/typescript` to `0.101.0` and `dprint-plugin-markup` to `0.28.0`.
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.30.4...v5.30.5
+
 ## v5.30.4 (2026-11-18)
 
 ### 🐞 Fixes

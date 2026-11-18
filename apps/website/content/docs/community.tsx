@@ -57,7 +57,6 @@ export const projects = [
   { owner: "toss", repo: "suspensive" },
   { owner: "vadimdemedes", repo: "ink" },
   { owner: "vatger", repo: "atciss" },
-  { owner: "webpack", repo: "eslint-config-webpack" },
   { owner: "xbmc", repo: "kodi-tv" },
   { owner: "yjs", repo: "yjs-inspector" },
 ];
@@ -70,5 +69,6 @@ export const presets = [
   { owner: "sanity-io", repo: "eslint-config-studio" },
   { owner: "SukkaW", repo: "eslint-config-sukka" },
   { owner: "upleveled", repo: "eslint-config-upleveled" },
+  { owner: "webpack", repo: "eslint-config-webpack" },
   { owner: "xojs", repo: "eslint-config-xo-react" },
 ];
