@@ -25,10 +25,10 @@ overrides:
   fast-uri: "^4.2.3"
   # 16.19.0 exports toc/structuredData as functions of page props (runtime outputs), which breaks
   # `<InlineTOC items={toc}>` in MDX and `toc={page.data.toc}`; fumadocs-mdx 15.6.x opts collections in.
-  fumadocs-core: "16.19.3"
+  fumadocs-core: "16.19.4"
   fumadocs-mdx: "15.6.3"
   fumadocs-twoslash: "3.3.1"
-  fumadocs-ui: "16.19.3"
+  fumadocs-ui: "16.19.4"
   next: "16.4.6"
   postcss: "^8.5.33"
   react-dom: "^19.3.1"
@@ -36,7 +36,7 @@ overrides:
   # Keeps @babel/core's ^6.3.1 range off the 6.x line (no provenance, fails trustPolicy no-downgrade)
   semver: "^7.8.6"
   ts-api-utils: "^2.5.0"
-  typescript-eslint: "^8.72.2"
+  typescript-eslint: "^8.73.0"
   typescript: "6.0.3"
   # Keep a single vite copy in the tree (fumadocs-mdx's peer otherwise stays on an older resolution)
   vite: "^8.3.8"
