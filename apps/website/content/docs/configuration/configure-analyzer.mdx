@@ -100,6 +100,16 @@ Example matching `useMyEffect` and `useCustomEffect`:
 additionalEffectHooks: "/^(useMyEffect|useCustomEffect)$/u",
 ```
 
+### `additionalMapFunctions`
+
+A regex pattern for matching custom functions that should be treated as map functions. The first function argument of a call to a matching function (ex: `mapObject(obj, callback)`) is checked like the callback of `map` by rules such as `no-missing-key`. The value should be a valid JavaScript RegExp string with delimiters and flags; a plain string is treated as an exact match.
+
+Example matching `mapObject` and `times`:
+
+```ts
+additionalMapFunctions: "/^(mapObject|times)$/u",
+```
+
 ## Basic Configuration Example
 
 ```ts title="eslint.config.ts"
@@ -130,6 +140,7 @@ export default [
         additionalRefHooks: "/^(useMyRef|useCustomRef)$/u", // Regex pattern for custom hooks treated as ref hooks
         additionalStateHooks: "/^(useMyState|useCustomState)$/u", // Regex pattern for custom hooks treated as state hooks
         additionalEffectHooks: "/^(useMyEffect|useCustomEffect)$/u", // Regex pattern for custom hooks treated as effect hooks
+        additionalMapFunctions: "/^(mapObject|times)$/u", // Regex pattern for custom functions treated as map functions
       },
     },
   },
@@ -167,6 +178,7 @@ export default [
         additionalRefHooks: "/^(useMyRef|useCustomRef)$/u",
         additionalStateHooks: "/^(useMyState|useCustomState)$/u",
         additionalEffectHooks: "/^(useMyEffect|useCustomEffect)$/u",
+        additionalMapFunctions: "/^(mapObject|times)$/u",
       },
     },
   },

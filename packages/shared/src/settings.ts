@@ -58,6 +58,11 @@ export const ESLintReactSettingsSchema = z.object({
    * @example "/^(useMyEffect|useCustomEffect)$/u"
    */
   additionalEffectHooks: z.optional(z.string()),
+  /**
+   * Regex pattern matching custom functions that should be treated as map functions.
+   * @example "/^(mapObject|times)$/u"
+   */
+  additionalMapFunctions: z.optional(z.string()),
 });
 
 /**
@@ -92,6 +97,8 @@ export interface ESLintReactSettingsNormalized {
   additionalStateHooks: RegExpLike;
   /** Regex pattern matching custom hooks that should be treated as effect hooks. */
   additionalEffectHooks: RegExpLike;
+  /** Regex pattern matching custom functions that should be treated as map functions. */
+  additionalMapFunctions: RegExpLike;
 }
 
 /** The default ESLint React settings. */
@@ -161,6 +168,7 @@ export const normalizeSettings = ({
   additionalRefHooks,
   additionalStateHooks,
   additionalEffectHooks,
+  additionalMapFunctions,
   ...rest
 }: ESLintReactSettings) => {
   return {
@@ -174,6 +182,7 @@ export const normalizeSettings = ({
     additionalRefHooks: toRegExp(additionalRefHooks),
     additionalStateHooks: toRegExp(additionalStateHooks),
     additionalEffectHooks: toRegExp(additionalEffectHooks),
+    additionalMapFunctions: toRegExp(additionalMapFunctions),
   } as const satisfies ESLintReactSettingsNormalized;
 };
 

@@ -46,6 +46,14 @@ const properties = {
       </Link>
     ),
   },
+  additionalMapFunctions: {
+    type: "string",
+    description: (
+      <Link href="#additionalmapfunctions">
+        Regex pattern matching custom functions that should be treated as map functions
+      </Link>
+    ),
+  },
 };
 
 export function AnalyzerPropertyTypeTable() {

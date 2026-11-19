@@ -3,6 +3,7 @@ import { Check, Collect, Extract, type TSESTreeFunction, type TSESTreeJSXElement
 import * as core from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, type RuleListener } from "@eslint-react/eslint";
 import { hasAttribute } from "@eslint-react/jsx";
+import { getSettingsFromContext } from "@eslint-react/shared";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import type { ReportDescriptor } from "@typescript-eslint/utils/ts-eslint";
 
@@ -38,6 +39,8 @@ export default createRule<[], MessageID>({
 
 export function create(context: RuleContext<MessageID, []>): RuleListener {
   type Descriptor = ReportDescriptor<MessageID> & { node: TSESTreeJSXElementLike };
+
+  const { additionalMapFunctions } = getSettingsFromContext(context);
 
   // Tracks how many `Children.toArray()` calls we are currently inside of; `Children.toArray()` assigns keys automatically, so checks are skipped there
   let childrenToArrayDepth = 0;
@@ -83,6 +86,18 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
     return Collect.getReturnExpressions(node).flatMap(visitItemExpression);
   }
 
+  /**
+   * Gets the callback of a call to a function matching the `additionalMapFunctions` setting,
+   * which is its first function argument.
+   * @param node The call expression to check.
+   * @returns The callback argument, or `undefined` if the call is not to a matching function.
+   */
+  function getAdditionalMapFunctionCallback(node: TSESTree.CallExpression) {
+    const name = Extract.getCalleeName(node);
+    if (name == null || !additionalMapFunctions.test(name)) return undefined;
+    return node.arguments.find((argument) => Check.isFunction(Extract.unwrap(argument)));
+  }
+
   return {
     ArrayExpression(node) {
       if (childrenToArrayDepth > 0) return;
@@ -101,10 +116,12 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       }
       if (childrenToArrayDepth > 0) return;
       const callee = Extract.unwrap(call.callee);
-      if (callee.type !== AST.MemberExpression || !Check.isIdentifier(callee.property)) return;
-      const position = ITERATOR_CALLBACK_POSITIONS.get(callee.property.name);
-      if (position == null) return;
-      const argument = call.arguments[position];
+      const position = callee.type === AST.MemberExpression && Check.isIdentifier(callee.property)
+        ? ITERATOR_CALLBACK_POSITIONS.get(callee.property.name)
+        : undefined;
+      const argument = position == null
+        ? getAdditionalMapFunctionCallback(call)
+        : call.arguments[position];
       if (argument == null) return;
       const callback = Extract.unwrap(argument);
       if (!Check.isFunction(callback)) return;
