@@ -202,6 +202,78 @@ ruleTester.run(RULE_NAME, rule, {
       code: tsx`Array.from([1, 2 ,3], (x => <App />));`,
       errors: [{ messageId: "default" }],
     },
+    // --- Custom map functions via `additionalMapFunctions` -----------------------------------
+    {
+      name: "missing key in callback of a custom map function",
+      // The callback is the first function argument, wherever it appears
+      code: tsx`mapObject(obj, (value, key) => <App />);`,
+      errors: [{ messageId: "default" }],
+      settings: {
+        "react-x": {
+          additionalMapFunctions: "/^(mapObject|times)$/u",
+        },
+      },
+    },
+    {
+      name: "missing key in callback of a custom map function called as a method",
+      code: tsx`utils.times(3, function(i) { return <App /> });`,
+      errors: [{ messageId: "default" }],
+      settings: {
+        "react-x": {
+          additionalMapFunctions: "/^(mapObject|times)$/u",
+        },
+      },
+    },
+    {
+      name: "missing key in conditional branch returned from custom map function callback",
+      code: tsx`mapObject(obj, (value) => { if (value) return <App />; return <OtherApp key="other" />; });`,
+      errors: [{ messageId: "default" }],
+      settings: {
+        "react-x": {
+          additionalMapFunctions: "/^(mapObject|times)$/u",
+        },
+      },
+    },
+    {
+      name: "fragment shorthand in custom map function callback",
+      code: tsx`times(3, (i) => <><App key={i} /></>);`,
+      errors: [{ messageId: "unexpected-fragment-syntax" }],
+      settings: {
+        "react-x": {
+          additionalMapFunctions: "/^(mapObject|times)$/u",
+        },
+      },
+    },
+    {
+      name: "only the first function argument of a custom map function is checked",
+      code: tsx`mapObject(obj, (value) => <App />, (value) => <OtherApp />);`,
+      errors: [{ messageId: "default" }],
+      settings: {
+        "react-x": {
+          additionalMapFunctions: "/^(mapObject|times)$/u",
+        },
+      },
+    },
+    {
+      name: "missing key in custom map function callback wrapped in a type assertion",
+      code: tsx`mapObject(obj, ((value) => <App />) as Callback);`,
+      errors: [{ messageId: "default" }],
+      settings: {
+        "react-x": {
+          additionalMapFunctions: "/^(mapObject|times)$/u",
+        },
+      },
+    },
+    {
+      name: "missing key in callback of a custom map function matched by a plain string",
+      code: tsx`mapObject(obj, (value) => <App />);`,
+      errors: [{ messageId: "default" }],
+      settings: {
+        "react-x": {
+          additionalMapFunctions: "mapObject",
+        },
+      },
+    },
     // --- Fragments used where keys are required ----------------------------------------------
     {
       name: "fragment in conditional branch in array literal",
@@ -495,6 +567,56 @@ ruleTester.run(RULE_NAME, rule, {
     {
       name: "non-iteration method with JSX callback",
       code: "[1, 2, 3].foo(x => <App />);",
+    },
+    // --- Custom map functions via `additionalMapFunctions` -----------------------------------
+    {
+      name: "keyed element in callback of a custom map function",
+      code: "mapObject(obj, (value, key) => <App key={key} />);",
+      settings: {
+        "react-x": {
+          additionalMapFunctions: "/^(mapObject|times)$/u",
+        },
+      },
+    },
+    {
+      name: "custom map function without the setting",
+      code: "mapObject(obj, (value) => <App />);",
+    },
+    {
+      name: "function not matching additionalMapFunctions",
+      code: "renderObject(obj, (value) => <App />);",
+      settings: {
+        "react-x": {
+          additionalMapFunctions: "/^(mapObject|times)$/u",
+        },
+      },
+    },
+    {
+      name: "custom map function with non-inline callback",
+      code: "mapObject(obj, renderItem);",
+      settings: {
+        "react-x": {
+          additionalMapFunctions: "/^(mapObject|times)$/u",
+        },
+      },
+    },
+    {
+      name: "custom map function inside Children.toArray",
+      code: "React.Children.toArray(mapObject(obj, (value) => <App />));",
+      settings: {
+        "react-x": {
+          additionalMapFunctions: "/^(mapObject|times)$/u",
+        },
+      },
+    },
+    {
+      name: "Children.map is still exempt when additionalMapFunctions matches map",
+      code: "React.Children.map(children, (child) => <div>{child}</div>);",
+      settings: {
+        "react-x": {
+          additionalMapFunctions: "/^map$/u",
+        },
+      },
     },
     // --- Fragments and non-array JSX ---------------------------------------------------------
     {

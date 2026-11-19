@@ -5,6 +5,7 @@
 ```ts
 const getNormalizedSettings: (a: unknown) => {
   additionalEffectHooks: RegExpLike;
+  additionalMapFunctions: RegExpLike;
   additionalRefHooks: RegExpLike;
   additionalStateHooks: RegExpLike;
   compilationMode: "infer" | "annotation" | "syntax" | "all" | "off";
@@ -27,6 +28,7 @@ Get the normalized ESLint React settings, memoized by the input settings value.
 ```ts
 {
   additionalEffectHooks: RegExpLike;
+  additionalMapFunctions: RegExpLike;
   additionalRefHooks: RegExpLike;
   additionalStateHooks: RegExpLike;
   compilationMode: "infer" | "annotation" | "syntax" | "all" | "off";
@@ -38,12 +40,13 @@ Get the normalized ESLint React settings, memoized by the input settings value.
 
 The normalized ESLint React settings.
 
-| Name                    | Type                                                            |
-| ----------------------- | --------------------------------------------------------------- |
-| `additionalEffectHooks` | [`RegExpLike`](../type-aliases/RegExpLike.md)                   |
-| `additionalRefHooks`    | [`RegExpLike`](../type-aliases/RegExpLike.md)                   |
-| `additionalStateHooks`  | [`RegExpLike`](../type-aliases/RegExpLike.md)                   |
-| `compilationMode`       | `"infer"` \| `"annotation"` \| `"syntax"` \| `"all"` \| `"off"` |
-| `importSource`          | `string`                                                        |
-| `polymorphicPropName`   | `string`                                                        |
-| `version`               | `string`                                                        |
+| Name                     | Type                                                            |
+| ------------------------ | --------------------------------------------------------------- |
+| `additionalEffectHooks`  | [`RegExpLike`](../type-aliases/RegExpLike.md)                   |
+| `additionalMapFunctions` | [`RegExpLike`](../type-aliases/RegExpLike.md)                   |
+| `additionalRefHooks`     | [`RegExpLike`](../type-aliases/RegExpLike.md)                   |
+| `additionalStateHooks`   | [`RegExpLike`](../type-aliases/RegExpLike.md)                   |
+| `compilationMode`        | `"infer"` \| `"annotation"` \| `"syntax"` \| `"all"` \| `"off"` |
+| `importSource`           | `string`                                                        |
+| `polymorphicPropName`    | `string`                                                        |
+| `version`                | `string`                                                        |

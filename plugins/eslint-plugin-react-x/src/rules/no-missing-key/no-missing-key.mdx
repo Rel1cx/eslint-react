@@ -33,7 +33,7 @@ React needs keys to identify items in the list. If you don’t specify a key, Re
 
 ### Missing key in list rendering
 
-The rule checks the values produced by iterator callbacks of `map`, `flatMap`, and `Array.from`.
+The rule checks the values produced by iterator callbacks of `map`, `flatMap`, and `Array.from`, and of functions matching the [`additionalMapFunctions`](#shared-settings) setting.
 
 ```tsx
 // 🔴 Problem: When a key is missing, React uses the array index as the default key, which can lead to state mismatch or performance issues
@@ -162,6 +162,22 @@ function Blog({ posts }) {
       <PostBody body={post.body} />
     </Fragment>
   ));
+}
+```
+
+## Options
+
+### Shared Settings
+
+Custom functions that render lists like `map` can be configured via shared ESLint settings under `react-x`. The value should be a JavaScript RegExp string with delimiters and flags; a plain string is treated as an exact match (see [Configure Analyzer](/docs/configuration/configure-analyzer#additionalmapfunctions)). The first function argument of a call to a matching function (ex: `mapObject(obj, callback)`) is checked like the callback of `map`.
+
+```json
+{
+  "settings": {
+    "react-x": {
+      "additionalMapFunctions": "/^(mapObject|times)$/u"
+    }
+  }
 }
 ```
 
