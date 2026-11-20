@@ -5,12 +5,7 @@ full: true
 ---
 
 import { GitHubRepoGrid } from "@/components/GitHubRepoGrid";
-import { Callout } from "fumadocs-ui/components/callout";
 import { InlineTOC } from "fumadocs-ui/components/inline-toc";
-
-<Callout type="warn" title="Under Construction">
-  This page is under construction.
-</Callout>
 
 <InlineTOC items={toc(props)}>Table of Contents</InlineTOC>
 
@@ -20,30 +15,33 @@ The following plugins cover areas not currently addressed by ESLint React and ar
 
 ### JSX Style
 
-<GitHubRepoGrid
-  repos={[
-{ owner: "eslint-stylistic", repo: "eslint-stylistic" },
-{ owner: "azat-io", repo: "eslint-plugin-perfectionist" },
-]}
-/>
+<GitHubRepoGrid repos={[{ owner: "eslint-stylistic", repo: "eslint-stylistic" }, { owner: "azat-io", repo: "eslint-plugin-perfectionist" }]} />
 
-**[ESLint Stylistic](https://eslint.style/rules?filter=jsx#rules)** (`@stylistic/eslint-plugin`) provides **21 JSX-specific rules**, including:
+**[ESLint Stylistic](https://eslint.style/rules?filter=jsx#rules)** (`@stylistic/eslint-plugin`) provides **21 JSX-specific rules**:
 
-| Rule                                                                                              | Description                                              |
-| ------------------------------------------------------------------------------------------------- | -------------------------------------------------------- |
-| [`jsx-closing-bracket-location`](https://eslint.style/rules/default/jsx-closing-bracket-location) | Enforce closing bracket location in JSX                  |
-| [`jsx-closing-tag-location`](https://eslint.style/rules/default/jsx-closing-tag-location)         | Enforce closing tag location for multiline JSX           |
-| [`jsx-curly-brace-presence`](https://eslint.style/rules/default/jsx-curly-brace-presence)         | Disallow unnecessary curly braces around string literals |
-| [`jsx-curly-spacing`](https://eslint.style/rules/default/jsx-curly-spacing)                       | Enforce or disallow spaces inside JSX curly braces       |
-| [`jsx-equals-spacing`](https://eslint.style/rules/default/jsx-equals-spacing)                     | Enforce or disallow spaces around `=` in JSX attributes  |
-| [`jsx-first-prop-new-line`](https://eslint.style/rules/default/jsx-first-prop-new-line)           | Enforce first prop position in multiline JSX             |
-| [`jsx-indent-props`](https://eslint.style/rules/default/jsx-indent-props)                         | Enforce props indentation                                |
-| [`jsx-max-props-per-line`](https://eslint.style/rules/default/jsx-max-props-per-line)             | Limit props per line                                     |
-| [`jsx-pascal-case`](https://eslint.style/rules/default/jsx-pascal-case)                           | Enforce PascalCase for user-defined components           |
-| [`jsx-quotes`](https://eslint.style/rules/default/jsx-quotes)                                     | Enforce single or double quotes in JSX attributes        |
-| [`jsx-self-closing-comp`](https://eslint.style/rules/default/jsx-self-closing-comp)               | Require self-closing for components without children     |
-| [`jsx-tag-spacing`](https://eslint.style/rules/default/jsx-tag-spacing)                           | Enforce whitespace around JSX tags                       |
-| [`jsx-wrap-multilines`](https://eslint.style/rules/default/jsx-wrap-multilines)                   | Require parentheses around multiline JSX                 |
+| Rule                                                                                              | Description                                                                                                    |
+| ------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------- |
+| [`jsx-child-element-spacing`](https://eslint.style/rules/default/jsx-child-element-spacing)       | Enforce or disallow spaces inside of curly braces in JSX attributes and expressions                            |
+| [`jsx-closing-bracket-location`](https://eslint.style/rules/default/jsx-closing-bracket-location) | Enforce closing bracket location in JSX                                                                        |
+| [`jsx-closing-tag-location`](https://eslint.style/rules/default/jsx-closing-tag-location)         | Enforce closing tag location for multiline JSX                                                                 |
+| [`jsx-curly-brace-presence`](https://eslint.style/rules/default/jsx-curly-brace-presence)         | Disallow unnecessary JSX expressions when literals alone are sufficient or enforce JSX expressions on literals |
+| [`jsx-curly-newline`](https://eslint.style/rules/default/jsx-curly-newline)                       | Enforce consistent linebreaks in curly braces in JSX attributes and expressions                                |
+| [`jsx-curly-spacing`](https://eslint.style/rules/default/jsx-curly-spacing)                       | Enforce or disallow spaces inside JSX curly braces                                                             |
+| [`jsx-equals-spacing`](https://eslint.style/rules/default/jsx-equals-spacing)                     | Enforce or disallow spaces around `=` in JSX attributes                                                        |
+| [`jsx-first-prop-new-line`](https://eslint.style/rules/default/jsx-first-prop-new-line)           | Enforce first prop position in multiline JSX                                                                   |
+| [`jsx-function-call-newline`](https://eslint.style/rules/default/jsx-function-call-newline)       | Enforce line breaks before and after JSX elements when they are used as arguments to a function                |
+| [`jsx-indent-props`](https://eslint.style/rules/default/jsx-indent-props)                         | Enforce props indentation                                                                                      |
+| [`jsx-max-props-per-line`](https://eslint.style/rules/default/jsx-max-props-per-line)             | Limit props per line                                                                                           |
+| [`jsx-newline`](https://eslint.style/rules/default/jsx-newline)                                   | Require or prevent a new line after JSX elements and expressions                                               |
+| [`jsx-one-expression-per-line`](https://eslint.style/rules/default/jsx-one-expression-per-line)   | Require one JSX element per line                                                                               |
+| [`jsx-pascal-case`](https://eslint.style/rules/default/jsx-pascal-case)                           | Enforce PascalCase for user-defined components                                                                 |
+| [`jsx-props-style`](https://eslint.style/rules/default/jsx-props-style)                           | Enforce consistent line break styles for JSX props (experimental)                                              |
+| [`jsx-quotes`](https://eslint.style/rules/default/jsx-quotes)                                     | Enforce single or double quotes in JSX attributes                                                              |
+| [`jsx-self-closing-comp`](https://eslint.style/rules/default/jsx-self-closing-comp)               | Disallow extra closing tags for components without children                                                    |
+| [`jsx-shorthand-boolean`](https://eslint.style/rules/default/jsx-shorthand-boolean)               | Enforce shorthand for boolean JSX attributes                                                                   |
+| [`jsx-shorthand-fragment`](https://eslint.style/rules/default/jsx-shorthand-fragment)             | Enforce shorthand fragment syntax                                                                              |
+| [`jsx-tag-spacing`](https://eslint.style/rules/default/jsx-tag-spacing)                           | Enforce whitespace around JSX tags                                                                             |
+| [`jsx-wrap-multilines`](https://eslint.style/rules/default/jsx-wrap-multilines)                   | Disallow missing parentheses around multiline JSX                                                              |
 
 **[`eslint-plugin-perfectionist`](https://github.com/azat-io/eslint-plugin-perfectionist)** by [@azat-io](https://github.com/azat-io) is an ESLint plugin for sorting various data such as objects, imports, types, enums, and JSX props. All rules are automatically fixable.
 
@@ -53,11 +51,7 @@ The following plugins cover areas not currently addressed by ESLint React and ar
 
 ### JSX Accessibility
 
-<GitHubRepoGrid
-  repos={[
-{ owner: "eslint-community", repo: "eslint-plugin-jsx-a11y-x" },
-]}
-/>
+<GitHubRepoGrid repos={[{ owner: "eslint-community", repo: "eslint-plugin-jsx-a11y-x" }]} />
 
 **[`eslint-plugin-jsx-a11y-x`](https://github.com/eslint-community/eslint-plugin-jsx-a11y-x)** by [eslint-community](https://github.com/eslint-community) is a static AST checker for accessibility rules on JSX elements. It is a modern, actively maintained alternative to the classic `eslint-plugin-jsx-a11y`, with first-class support for ESLint Flat Config.
 
@@ -76,11 +70,7 @@ The following plugins cover areas not currently addressed by ESLint React and ar
 
 ### React Refresh
 
-<GitHubRepoGrid
-  repos={[
-{ owner: "ArnaudBarre", repo: "eslint-plugin-react-refresh" },
-]}
-/>
+<GitHubRepoGrid repos={[{ owner: "ArnaudBarre", repo: "eslint-plugin-react-refresh" }]} />
 
 **[`eslint-plugin-react-refresh`](https://github.com/ArnaudBarre/eslint-plugin-react-refresh)** by [@ArnaudBarre](https://github.com/ArnaudBarre) validates that your components can be safely updated with Fast Refresh (hot reloading).
 
@@ -96,11 +86,7 @@ The following plugins cover areas not currently addressed by ESLint React and ar
 
 ### React Import Style
 
-<GitHubRepoGrid
-  repos={[
-{ owner: "marcalexiei", repo: "eslint-plugin-react-import" },
-]}
-/>
+<GitHubRepoGrid repos={[{ owner: "marcalexiei", repo: "eslint-plugin-react-import" }]} />
 
 **[`eslint-plugin-react-import`](https://github.com/marcalexiei/eslint-plugin-react-import)** by [@marcalexiei](https://github.com/marcalexiei) enforces consistent React import patterns across your codebase.
 
