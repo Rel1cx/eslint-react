@@ -13,8 +13,8 @@ export const RULE_FEATURES = [
 
 export type MessageID =
   | "mutating-global"
-  | "mutating-global-array-method"
-  | "mutating-global-property";
+  | "mutating-global-property"
+  | "mutating-global-array-method";
 
 export default createRule<[], MessageID>({
   meta: {
@@ -24,8 +24,8 @@ export default createRule<[], MessageID>({
     },
     messages: {
       "mutating-global": "Do not mutate '{{name}}' during render. Global variables exist outside React's control and make rendering impure.",
-      "mutating-global-array-method": "Do not call '{{method}}()' on '{{name}}' during render. Mutating global arrays during render makes rendering impure.",
       "mutating-global-property": "Do not mutate '{{name}}' during render. Modifying global objects during render makes rendering impure.",
+      "mutating-global-array-method": "Do not call '{{method}}()' on '{{name}}' during render. Mutating global arrays during render makes rendering impure.",
     },
     schema: [],
   },
@@ -54,8 +54,8 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
             data,
             messageId: match<GlobalMutationEffect, MessageID>(effect)
               .with({ kind: "global" }, () => "mutating-global")
-              .with({ kind: "method" }, () => "mutating-global-array-method")
-              .with({ kind: "property" }, () => "mutating-global-property")
+              .with({ kind: "global-property" }, () => "mutating-global-property")
+              .with({ kind: "global-array-method" }, () => "mutating-global-array-method")
               .exhaustive(),
             node: effect.node,
           });

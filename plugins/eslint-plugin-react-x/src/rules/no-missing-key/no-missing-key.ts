@@ -1,5 +1,5 @@
 import { createRule } from "@/utils/create-rule";
-import { Check, Collect, Extract, type TSESTreeFunction, type TSESTreeJSXElementLike } from "@eslint-react/ast";
+import { Check, Collect, Extract, type TSESTreeJSXElementLike } from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, type RuleListener } from "@eslint-react/eslint";
 import { hasAttribute } from "@eslint-react/jsx";
@@ -73,16 +73,6 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
     }
   }
 
-  /**
-   * Checks every value an iterator callback may produce as a list item,
-   * whether from an expression body or from return statements in a block body.
-   * @param node The callback function to check.
-   * @returns The report descriptors for the violations found.
-   */
-  function visitIteratorCallback(node: TSESTreeFunction): Descriptor[] {
-    return Collect.getReturnExpressions(node).flatMap(visitItemExpression);
-  }
-
   return {
     ArrayExpression(node) {
       if (childrenToArrayDepth > 0) return;
@@ -108,7 +98,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       if (argument == null) return;
       const callback = Extract.unwrap(argument);
       if (!Check.isFunction(callback)) return;
-      for (const desc of visitIteratorCallback(callback)) {
+      for (const desc of Collect.getReturnExpressions(callback).flatMap(visitItemExpression)) {
         context.report(desc);
       }
     },

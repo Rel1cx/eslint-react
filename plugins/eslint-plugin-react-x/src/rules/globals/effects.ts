@@ -5,7 +5,7 @@ import type { CallEdgeFact, GlobalsFacts } from "./collect";
 import { isGlobalVariable, resolveGlobalOrigin, resolveToFunction } from "./origins";
 
 export type GlobalMutationEffect = {
-  kind: "global" | "method" | "property";
+  kind: "global" | "global-property" | "global-array-method";
   name: string;
   method: string | null;
   node: TSESTree.Node;
@@ -40,7 +40,7 @@ export function inferGlobalMutations(context: RuleContext, facts: GlobalsFacts):
     const origin = resolveGlobalOrigin(context, write.target.object);
     if (origin == null) continue;
     pushEffect(write.enclosingFunction, {
-      kind: "property",
+      kind: "global-property",
       name: getText(context, write.target),
       method: null,
       node: write.node,
@@ -51,7 +51,7 @@ export function inferGlobalMutations(context: RuleContext, facts: GlobalsFacts):
     const origin = resolveGlobalOrigin(context, call.receiver);
     if (origin == null) continue;
     pushEffect(call.enclosingFunction, {
-      kind: "method",
+      kind: "global-array-method",
       name: origin.name,
       method: call.method,
       node: call.node,
