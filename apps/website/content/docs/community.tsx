@@ -6,6 +6,7 @@ export const projects = [
   { owner: "clash-verge-rev", repo: "clash-verge-rev" },
   { owner: "clientIO", repo: "joint" },
   { owner: "crowi", repo: "crowi" },
+  { owner: "cypress-io", repo: "cypress" },
   { owner: "DimensionDev", repo: "Maskbook" },
   { owner: "electric-sql", repo: "electric" },
   { owner: "electric-sql", repo: "pglite" },
