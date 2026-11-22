@@ -10,15 +10,12 @@ export function getFullyQualifiedNameEx(checker: ts.TypeChecker, symbol: ts.Symb
   let name = symbol.name;
   let parent = symbol.declarations?.at(0)?.parent;
   if (parent == null) return checker.getFullyQualifiedName(symbol);
-  while (parent.kind !== ts.SyntaxKind.SourceFile) {
+  while (!ts.isSourceFile(parent)) {
     switch (true) {
       case ts.isInterfaceDeclaration(parent):
       case ts.isTypeAliasDeclaration(parent):
       case ts.isEnumDeclaration(parent):
       case ts.isModuleDeclaration(parent):
-      case ts.isNamespaceImport(parent):
-      case ts.isNamespaceExport(parent):
-      case ts.isNamespaceExportDeclaration(parent):
         name = `${parent.name.text}.${name}`;
         break;
       case ts.isPropertySignature(parent)
@@ -41,8 +38,9 @@ export function getFullyQualifiedNameEx(checker: ts.TypeChecker, symbol: ts.Symb
         && parent.name != null:
         name = `${parent.name.text}.${name}`;
         break;
-      case ts.isEnumMember(parent):
-        name = `${parent.name.getText()}.${name}`;
+      case ts.isEnumMember(parent)
+        && !ts.isComputedPropertyName(parent.name):
+        name = `${parent.name.text}.${name}`;
         break;
       // Skip unnamed structural type nodes (they don't contribute a name segment)
       case ts.isTypeLiteralNode(parent):
@@ -57,7 +55,7 @@ export function getFullyQualifiedNameEx(checker: ts.TypeChecker, symbol: ts.Symb
     parent = parent.parent;
   }
   // Find the top-level namespace export declaration like `export as namespace preact;`
-  const namespace = parent.getSourceFile().statements.find((n) => ts.isNamespaceExportDeclaration(n))?.name.text;
+  const namespace = parent.statements.find((n) => ts.isNamespaceExportDeclaration(n))?.name.text;
   // If there's no namespace export declaration, return the name as is. Otherwise, prepend the namespace to the name.
   if (namespace == null) return name;
   // Avoid duplicating the namespace when the name is the namespace itself or is already qualified by it.
