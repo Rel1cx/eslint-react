@@ -1,9 +1,9 @@
-[@eslint-react/core](../README.md) / getFullyQualifiedNameEx
+[@eslint-react/core](../README.md) / getFullyQualifiedName
 
-# Function: getFullyQualifiedNameEx()
+# Function: getFullyQualifiedName()
 
 ```ts
-function getFullyQualifiedNameEx(checker: TypeChecker, symbol: Symbol): string;
+function getFullyQualifiedName(checker: TypeChecker, symbol: Symbol): string;
 ```
 
 Get the fully qualified name of a symbol, handling cases that `ts.TypeChecker.getFullyQualifiedName` does not handle (ex: `export as namespace preact`).
@@ -20,3 +20,10 @@ Get the fully qualified name of a symbol, handling cases that `ts.TypeChecker.ge
 `string`
 
 The fully qualified name of the symbol.
+
+## Remarks
+
+Known approximations:
+
+- Symbols declared in a file with `export as namespace X` get the `X.` prefix even when they are not exported; this is deliberate for allow-list matching.
+- For symbols with merged declarations across files, the first declaration determines the source file used for the namespace lookup.

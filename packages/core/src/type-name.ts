@@ -5,22 +5,33 @@ import ts from "typescript";
  * @param checker The TypeScript type checker.
  * @param symbol The symbol to get fully qualified name for.
  * @returns The fully qualified name of the symbol.
+ * @remarks
+ * Known approximations:
+ * - Symbols declared in a file with `export as namespace X` get the `X.` prefix even when they are not exported; this is deliberate for allow-list matching.
+ * - For symbols with merged declarations across files, the first declaration determines the source file used for the namespace lookup.
  */
-export function getFullyQualifiedNameEx(checker: ts.TypeChecker, symbol: ts.Symbol) {
+export function getFullyQualifiedName(checker: ts.TypeChecker, symbol: ts.Symbol) {
   let name = symbol.name;
   let parent = symbol.declarations?.at(0)?.parent;
   if (parent == null) return checker.getFullyQualifiedName(symbol);
-  while (parent.kind !== ts.SyntaxKind.SourceFile) {
+  // Whether the ancestor chain passed through a `declare global { ... }` augmentation
+  let inGlobalAugmentation = false;
+  while (!ts.isSourceFile(parent)) {
     switch (true) {
       case ts.isInterfaceDeclaration(parent):
       case ts.isTypeAliasDeclaration(parent):
       case ts.isEnumDeclaration(parent):
-      case ts.isModuleDeclaration(parent):
-      case ts.isNamespaceImport(parent):
-      case ts.isNamespaceExport(parent):
-      case ts.isNamespaceExportDeclaration(parent):
         name = `${parent.name.text}.${name}`;
         break;
+      case ts.isModuleDeclaration(parent): {
+        // `declare global { ... }` augmentations contribute to the global scope, not to any module namespace
+        if ((parent.flags & ts.NodeFlags.GlobalAugmentation) !== 0) {
+          inGlobalAugmentation = true;
+          break;
+        }
+        name = `${parent.name.text}.${name}`;
+        break;
+      }
       case ts.isPropertySignature(parent)
         && ts.isIdentifier(parent.name):
       case ts.isPropertyDeclaration(parent)
@@ -30,6 +41,8 @@ export function getFullyQualifiedNameEx(checker: ts.TypeChecker, symbol: ts.Symb
       case ts.isMethodSignature(parent)
         && ts.isIdentifier(parent.name):
       case ts.isPropertyAssignment(parent)
+        && ts.isIdentifier(parent.name):
+      case ts.isVariableDeclaration(parent)
         && ts.isIdentifier(parent.name):
         name = `${parent.name.text}.${name}`;
         break;
@@ -41,8 +54,9 @@ export function getFullyQualifiedNameEx(checker: ts.TypeChecker, symbol: ts.Symb
         && parent.name != null:
         name = `${parent.name.text}.${name}`;
         break;
-      case ts.isEnumMember(parent):
-        name = `${parent.name.getText()}.${name}`;
+      case ts.isEnumMember(parent)
+        && !ts.isComputedPropertyName(parent.name):
+        name = `${parent.name.text}.${name}`;
         break;
       // Skip unnamed structural type nodes (they don't contribute a name segment)
       case ts.isTypeLiteralNode(parent):
@@ -57,9 +71,10 @@ export function getFullyQualifiedNameEx(checker: ts.TypeChecker, symbol: ts.Symb
     parent = parent.parent;
   }
   // Find the top-level namespace export declaration like `export as namespace preact;`
-  const namespace = parent.getSourceFile().statements.find((n) => ts.isNamespaceExportDeclaration(n))?.name.text;
+  const namespace = parent.statements.find((n) => ts.isNamespaceExportDeclaration(n))?.name.text;
   // If there's no namespace export declaration, return the name as is. Otherwise, prepend the namespace to the name.
-  if (namespace == null) return name;
+  // Symbols from `declare global { ... }` augmentations live in the global scope, outside the UMD namespace.
+  if (namespace == null || inGlobalAugmentation) return name;
   // Avoid duplicating the namespace when the name is the namespace itself or is already qualified by it.
   if (name === namespace || name.startsWith(`${namespace}.`)) return name;
   return `${namespace}.${name}`;
