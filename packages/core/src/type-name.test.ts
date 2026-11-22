@@ -24,6 +24,8 @@ const bed = createTypeTestBed({
     enum Color { Red }
     declare const p: Props;
     declare const plain: string;
+    const cfg = { deep: { x: 1 } };
+    const f = function named(): { y: string } { return { y: "" } };
   `,
 });
 
@@ -56,6 +58,14 @@ describe("getFullyQualifiedNameEx", () => {
 
   it("should not qualify symbols from 'declare global' blocks in files without a UMD namespace", () => {
     expect(getFullyQualifiedNameEx(bed.checker, bed.getSymbolOf("GlobalThing"))).toBe("GlobalThing");
+  });
+
+  it("should qualify object literal members with their variable declaration name", () => {
+    expect(getFullyQualifiedNameEx(bed.checker, bed.getSymbolOf("x"))).toBe("cfg.deep.x");
+  });
+
+  it("should qualify symbols within named function expressions", () => {
+    expect(getFullyQualifiedNameEx(bed.checker, bed.getSymbolOf("y"))).toBe("f.named.y");
   });
 
   it("should return a plain declaration name as is", () => {

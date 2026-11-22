@@ -38,9 +38,13 @@ export function getFullyQualifiedNameEx(checker: ts.TypeChecker, symbol: ts.Symb
         && ts.isIdentifier(parent.name):
       case ts.isPropertyAssignment(parent)
         && ts.isIdentifier(parent.name):
+      case ts.isVariableDeclaration(parent)
+        && ts.isIdentifier(parent.name):
         name = `${parent.name.text}.${name}`;
         break;
       case ts.isFunctionDeclaration(parent)
+        && parent.name != null:
+      case ts.isFunctionExpression(parent)
         && parent.name != null:
       case ts.isClassExpression(parent)
         && parent.name != null:
