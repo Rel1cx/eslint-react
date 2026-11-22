@@ -16,7 +16,7 @@ export function getFullyQualifiedNameEx(checker: ts.TypeChecker, symbol: ts.Symb
   if (parent == null) return checker.getFullyQualifiedName(symbol);
   // Whether the ancestor chain passed through a `declare global { ... }` augmentation
   let inGlobalAugmentation = false;
-  while (parent != null && !ts.isSourceFile(parent)) {
+  while (!ts.isSourceFile(parent)) {
     switch (true) {
       case ts.isInterfaceDeclaration(parent):
       case ts.isTypeAliasDeclaration(parent):
@@ -70,11 +70,8 @@ export function getFullyQualifiedNameEx(checker: ts.TypeChecker, symbol: ts.Symb
       default:
         break;
     }
-    // `Node.parent` is typed as required but is `undefined` at runtime for detached nodes (ex: synthesized ones)
-    parent = parent.parent as ts.Node | undefined;
+    parent = parent.parent;
   }
-  // The ancestor chain never reached a source file; return the partially built name
-  if (parent == null) return name;
   // Find the top-level namespace export declaration like `export as namespace preact;`
   const namespace = parent.statements.find((n) => ts.isNamespaceExportDeclaration(n))?.name.text;
   // If there's no namespace export declaration, return the name as is. Otherwise, prepend the namespace to the name.
