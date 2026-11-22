@@ -10,7 +10,7 @@ import ts from "typescript";
  * - Symbols declared in a file with `export as namespace X` get the `X.` prefix even when they are not exported; this is deliberate for allow-list matching.
  * - For symbols with merged declarations across files, the first declaration determines the source file used for the namespace lookup.
  */
-export function getFullyQualifiedNameEx(checker: ts.TypeChecker, symbol: ts.Symbol) {
+export function getFullyQualifiedName(checker: ts.TypeChecker, symbol: ts.Symbol) {
   let name = symbol.name;
   let parent = symbol.declarations?.at(0)?.parent;
   if (parent == null) return checker.getFullyQualifiedName(symbol);

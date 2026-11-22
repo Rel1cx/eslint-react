@@ -2,7 +2,7 @@ import { createTypeTestBed } from "@local/testkit";
 import dedent from "dedent";
 import { describe, expect, it } from "vitest";
 
-import { getFullyQualifiedNameEx } from "./type-name";
+import { getFullyQualifiedName } from "./type-name";
 
 const bed = createTypeTestBed({
   "/global.d.ts": dedent`
@@ -29,46 +29,46 @@ const bed = createTypeTestBed({
   `,
 });
 
-describe("getFullyQualifiedNameEx", () => {
+describe("getFullyQualifiedName", () => {
   it("should qualify a property symbol with its interface name", () => {
     const property = bed.getTypeOf("p").getProperty("children");
     if (property == null) throw new Error("No property named 'children' found");
-    expect(getFullyQualifiedNameEx(bed.checker, property)).toBe("Props.children");
+    expect(getFullyQualifiedName(bed.checker, property)).toBe("Props.children");
   });
 
   it("should qualify an enum member with its enum name", () => {
-    expect(getFullyQualifiedNameEx(bed.checker, bed.getSymbolOf("Red"))).toBe("Color.Red");
+    expect(getFullyQualifiedName(bed.checker, bed.getSymbolOf("Red"))).toBe("Color.Red");
   });
 
   it("should prepend the namespace from an 'export as namespace' declaration", () => {
-    expect(getFullyQualifiedNameEx(bed.checker, bed.getSymbolOf("VNode"))).toBe("preact.VNode");
+    expect(getFullyQualifiedName(bed.checker, bed.getSymbolOf("VNode"))).toBe("preact.VNode");
   });
 
   it("should not duplicate the namespace when the name is already qualified by it", () => {
-    expect(getFullyQualifiedNameEx(bed.checker, bed.getSymbolOf("Options"))).toBe("preact.Options");
+    expect(getFullyQualifiedName(bed.checker, bed.getSymbolOf("Options"))).toBe("preact.Options");
   });
 
   it("should not qualify symbols from 'declare global' blocks with the UMD namespace", () => {
-    expect(getFullyQualifiedNameEx(bed.checker, bed.getSymbolOf("GlobalWindow"))).toBe("GlobalWindow");
+    expect(getFullyQualifiedName(bed.checker, bed.getSymbolOf("GlobalWindow"))).toBe("GlobalWindow");
   });
 
   it("should qualify members of interfaces from 'declare global' blocks without the UMD namespace", () => {
-    expect(getFullyQualifiedNameEx(bed.checker, bed.getSymbolOf("__x"))).toBe("GlobalWindow.__x");
+    expect(getFullyQualifiedName(bed.checker, bed.getSymbolOf("__x"))).toBe("GlobalWindow.__x");
   });
 
   it("should not qualify symbols from 'declare global' blocks in files without a UMD namespace", () => {
-    expect(getFullyQualifiedNameEx(bed.checker, bed.getSymbolOf("GlobalThing"))).toBe("GlobalThing");
+    expect(getFullyQualifiedName(bed.checker, bed.getSymbolOf("GlobalThing"))).toBe("GlobalThing");
   });
 
   it("should qualify object literal members with their variable declaration name", () => {
-    expect(getFullyQualifiedNameEx(bed.checker, bed.getSymbolOf("x"))).toBe("cfg.deep.x");
+    expect(getFullyQualifiedName(bed.checker, bed.getSymbolOf("x"))).toBe("cfg.deep.x");
   });
 
   it("should qualify symbols within named function expressions", () => {
-    expect(getFullyQualifiedNameEx(bed.checker, bed.getSymbolOf("y"))).toBe("f.named.y");
+    expect(getFullyQualifiedName(bed.checker, bed.getSymbolOf("y"))).toBe("f.named.y");
   });
 
   it("should return a plain declaration name as is", () => {
-    expect(getFullyQualifiedNameEx(bed.checker, bed.getSymbolOf("plain"))).toBe("plain");
+    expect(getFullyQualifiedName(bed.checker, bed.getSymbolOf("plain"))).toBe("plain");
   });
 });

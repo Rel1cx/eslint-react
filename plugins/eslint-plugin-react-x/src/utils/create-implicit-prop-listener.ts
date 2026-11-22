@@ -30,7 +30,7 @@ export function createImplicitPropListener(context: RuleContext, options: {
   const { name, isAllowedProp, isAllowedType, onImplicitProp } = options;
   const services = ESLintUtils.getParserServices(context, false);
   const checker = services.program.getTypeChecker();
-  const getFqn = (symbol: ts.Symbol) => core.getFullyQualifiedNameEx(checker, symbol).toLowerCase();
+  const getFqn = (symbol: ts.Symbol) => core.getFullyQualifiedName(checker, symbol).toLowerCase();
   return {
     JSXSpreadAttribute(node) {
       for (const type of unionConstituents(getConstrainedTypeAtLocation(services, node.argument))) {
