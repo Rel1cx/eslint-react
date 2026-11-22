@@ -5,6 +5,10 @@ import ts from "typescript";
  * @param checker The TypeScript type checker.
  * @param symbol The symbol to get fully qualified name for.
  * @returns The fully qualified name of the symbol.
+ * @remarks
+ * Known approximations:
+ * - Symbols declared in a file with `export as namespace X` get the `X.` prefix even when they are not exported; this is deliberate for allow-list matching.
+ * - For symbols with merged declarations across files, the first declaration determines the source file used for the namespace lookup.
  */
 export function getFullyQualifiedNameEx(checker: ts.TypeChecker, symbol: ts.Symbol) {
   let name = symbol.name;
