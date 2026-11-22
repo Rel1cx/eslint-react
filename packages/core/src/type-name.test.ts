@@ -25,7 +25,6 @@ const bed = createTypeTestBed({
     declare const p: Props;
     declare const plain: string;
     const cfg = { deep: { x: 1 } };
-    const f = function named(): { y: string } { return { y: "" } };
   `,
 });
 
@@ -62,10 +61,6 @@ describe("getFullyQualifiedName", () => {
 
   it("should qualify object literal members with their variable declaration name", () => {
     expect(getFullyQualifiedName(bed.checker, bed.getSymbolOf("x"))).toBe("cfg.deep.x");
-  });
-
-  it("should qualify symbols within named function expressions", () => {
-    expect(getFullyQualifiedName(bed.checker, bed.getSymbolOf("y"))).toBe("f.named.y");
   });
 
   it("should return a plain declaration name as is", () => {

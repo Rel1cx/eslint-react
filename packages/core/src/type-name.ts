@@ -48,8 +48,6 @@ export function getFullyQualifiedName(checker: ts.TypeChecker, symbol: ts.Symbol
         break;
       case ts.isFunctionDeclaration(parent)
         && parent.name != null:
-      case ts.isFunctionExpression(parent)
-        && parent.name != null:
       case ts.isClassExpression(parent)
         && parent.name != null:
       case ts.isClassDeclaration(parent)
