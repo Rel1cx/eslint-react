@@ -22,6 +22,7 @@ const bed = createTypeTestBed({
   "/fixture.ts": dedent`
     interface Props { children: string }
     enum Color { Red }
+    enum E { A = { prop: 1 } }
     declare const p: Props;
     declare const plain: string;
     const cfg = { deep: { x: 1 } };
@@ -37,6 +38,12 @@ describe("getFullyQualifiedName", () => {
 
   it("should qualify an enum member with its enum name", () => {
     expect(getFullyQualifiedName(bed.checker, bed.getSymbolOf("Red"))).toBe("Color.Red");
+  });
+
+  // Enum initializers must be constant expressions per the checker, but the parser still
+  // accepts nested declarations (ex: object literals), and linting runs on such code too.
+  it("should qualify symbols nested in an enum member initializer", () => {
+    expect(getFullyQualifiedName(bed.checker, bed.getSymbolOf("prop"))).toBe("E.A.prop");
   });
 
   it("should prepend the namespace from an 'export as namespace' declaration", () => {
