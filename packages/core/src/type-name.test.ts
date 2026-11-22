@@ -9,6 +9,15 @@ const bed = createTypeTestBed({
     export as namespace preact;
     export interface VNode {}
     export namespace preact { export interface Options {} }
+    declare global {
+      interface GlobalWindow { __x?: string }
+    }
+  `,
+  "/plain.d.ts": dedent`
+    declare global {
+      interface GlobalThing {}
+    }
+    export {};
   `,
   "/fixture.ts": dedent`
     interface Props { children: string }
@@ -35,6 +44,18 @@ describe("getFullyQualifiedNameEx", () => {
 
   it("should not duplicate the namespace when the name is already qualified by it", () => {
     expect(getFullyQualifiedNameEx(bed.checker, bed.getSymbolOf("Options"))).toBe("preact.Options");
+  });
+
+  it("should not qualify symbols from 'declare global' blocks with the UMD namespace", () => {
+    expect(getFullyQualifiedNameEx(bed.checker, bed.getSymbolOf("GlobalWindow"))).toBe("GlobalWindow");
+  });
+
+  it("should qualify members of interfaces from 'declare global' blocks without the UMD namespace", () => {
+    expect(getFullyQualifiedNameEx(bed.checker, bed.getSymbolOf("__x"))).toBe("GlobalWindow.__x");
+  });
+
+  it("should not qualify symbols from 'declare global' blocks in files without a UMD namespace", () => {
+    expect(getFullyQualifiedNameEx(bed.checker, bed.getSymbolOf("GlobalThing"))).toBe("GlobalThing");
   });
 
   it("should return a plain declaration name as is", () => {
