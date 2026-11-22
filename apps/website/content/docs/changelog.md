@@ -2,6 +2,30 @@
 title: Changelog
 ---
 
+## v5.30.6 (2026-11-22)
+
+### 🐞 Fixes
+
+- Fully qualified name resolution used for allow-list matching no longer prefixes symbols declared in `declare global { ... }` blocks with the file's `export as namespace` namespace (ex: preact's typings), and members of an object literal are now qualified by their variable declaration name, so such props and types match the allow lists correctly. (#2121)
+
+  Affected rules:
+  - `react-x/no-implicit-children`
+  - `react-x/no-implicit-key`
+  - `react-x/no-implicit-ref`
+
+### 📝 Documentation
+
+- Added cypress to the website's community projects list.
+- Refreshed the website's third-party plugins page: removed the "under construction" callout and updated the ESLint Stylistic JSX rule listing.
+
+### 🏗️ Internal
+
+- `@eslint-react/core`: renamed `getFullyQualifiedNameEx` to `getFullyQualifiedName` and expanded its test coverage. (#2121)
+- `react-x/globals` and `react-x/no-missing-key`: minor code cleanups; no behavioral changes.
+- Bumped dependencies across the workspace, including `effect` and `@effect/platform-node` to `4.1.5`, `vitest` to `5.1.1`, `eslint-plugin-jsdoc` to `65.5.0`, `fumadocs-core` and `fumadocs-ui` to `16.19.5`, `fumadocs-mdx` to `15.6.4`, `lucide-react` to `1.77.0`, `@tanstack/react-start` to `1.169.7`, and the `undici` override to `8.13.1`.
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.30.5...v5.30.6
+
 ## v5.30.5 (2026-11-19)
 
 ### 📝 Documentation

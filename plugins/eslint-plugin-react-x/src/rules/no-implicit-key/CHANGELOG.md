@@ -5,6 +5,12 @@ All notable changes to the `react-x/no-implicit-key` rule will be documented in 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [5.30.6] - 2026-11-22
+
+### Fixed
+
+- Fully qualified name resolution used for allow-list matching no longer prefixes symbols declared in `declare global { ... }` blocks with the file's `export as namespace` namespace (ex: preact's typings), so such props and types are matched correctly. (#2121)
+
 ## [5.30.0] - 2026-11-10
 
 ### Changed
