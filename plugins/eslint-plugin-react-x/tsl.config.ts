@@ -55,7 +55,7 @@ const factBasedLayerOrder = defineRule((): Rule<FactBasedLayerData> => ({
       context.data.visit(node.moduleSpecifier);
     },
     SourceFile_exit(context) {
-      for (const diagnostic of context.data.diagnostics.splice(0)) context.report(diagnostic);
+      for (const diagnostic of context.data.diagnostics) context.report(diagnostic);
     },
   },
 }));
