@@ -58,6 +58,7 @@ export const projects = [
   { owner: "toss", repo: "suspensive" },
   { owner: "vadimdemedes", repo: "ink" },
   { owner: "vatger", repo: "atciss" },
+  { owner: "webpack", repo: "webpack" },
   { owner: "xbmc", repo: "kodi-tv" },
   { owner: "yjs", repo: "yjs-inspector" },
 ];
