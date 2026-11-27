@@ -19,6 +19,16 @@ react-dom/no-unknown-property
 
 `🔧` `⚙️`
 
+**Presets**
+
+`dom`
+`recommended`
+`recommended-typescript`
+`recommended-type-checked`
+`strict`
+`strict-typescript`
+`strict-type-checked`
+
 ## Rule Details
 
 In JSX, most DOM properties and attributes should be camel-cased to be consistent with standard JavaScript style. This can be a source of error if you are used to writing plain HTML. The exceptions are `data-*` and `aria-*` attributes, which keep their hyphenated lowercase form, and custom attributes: React also passes through any attribute whose name is lowercase and does not start with `on` (for example `mycustomprop="someValue"`).
