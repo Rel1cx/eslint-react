@@ -8,6 +8,7 @@ export const rules = {
   "@eslint-react/dom-no-find-dom-node": "error",
   "@eslint-react/dom-no-flush-sync": "error",
   "@eslint-react/dom-no-hydrate": "error",
+  "@eslint-react/dom-no-missing-iframe-sandbox": "warn",
   "@eslint-react/dom-no-render": "error",
   "@eslint-react/dom-no-render-return-value": "error",
   "@eslint-react/dom-no-script-url": "warn",
