@@ -181,10 +181,12 @@ export function isArrayPatternElementDefault(node: TSESTree.Node): node is TSEST
  * @returns `true` if the node is an object pattern element default.
  */
 export function isObjectPatternElementDefault(node: TSESTree.Node): node is TSESTree.AssignmentPattern {
+  // An AssignmentPattern property value can only occur in a destructuring
+  // pattern (`{ a = 1 }` is a syntax error in an object expression), so the
+  // grandparent is always an ObjectPattern.
   return node.type === AST.AssignmentPattern
     && node.parent.type === AST.Property
-    && node.parent.value === node
-    && node.parent.parent.type === AST.ObjectPattern;
+    && node.parent.value === node;
 }
 
 // JSX guards

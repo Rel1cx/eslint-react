@@ -43,11 +43,11 @@
     "@stylistic/eslint-plugin": "^5.10.0",
     "@tsconfig/strictest": "^2.0.9",
     "eslint-plugin-de-morgan": "^2.3.0",
-    "eslint-plugin-jsdoc": "^65.5.3",
+    "eslint-plugin-jsdoc": "^65.5.6",
     "eslint-plugin-perfectionist": "^5.14.0",
     "eslint-plugin-regexp": "^3.3.3",
     "eslint-plugin-unicorn": "^79.0.0",
-    "typescript-eslint": "^8.73.0"
+    "typescript-eslint": "^8.74.0"
   },
   "devDependencies": {
     "@tsconfig/node20": "^20.1.11",

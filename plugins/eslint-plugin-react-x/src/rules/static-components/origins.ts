@@ -67,14 +67,7 @@ function resolveValueAtPath(
           ? property.key.value
           : null;
         if (keyName !== head) continue;
-        const { value } = property;
-        // The shared `Property` type also covers destructuring patterns, which
-        // cannot appear in an object expression; only real value expressions are traced
-        if (value.type === AST.ArrayPattern) continue;
-        if (value.type === AST.ObjectPattern) continue;
-        if (value.type === AST.AssignmentPattern) continue;
-        if (value.type === AST.TSEmptyBodyFunctionExpression) continue;
-        return resolveValueAtPath(context, value, rest, isInsideRender, seen);
+        return resolveValueAtPath(context, property.value, rest, isInsideRender, seen);
       }
       return null;
     }

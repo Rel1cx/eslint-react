@@ -38,7 +38,7 @@
   },
   "dependencies": {
     "@eslint-react/eslint": "workspace:*",
-    "@typescript-eslint/utils": "^8.73.0",
+    "@typescript-eslint/utils": "^8.74.0",
     "ts-pattern": "^5.9.2",
     "zod": "^4.6.7"
   },
@@ -49,7 +49,7 @@
     "@types/node": "^20.19.43",
     "@types/picomatch": "^4.0.3",
     "eslint": "^10.15.0",
-    "tinybench": "6.2.4",
+    "tinybench": "6.2.5",
     "tsdown": "^0.23.7",
     "typescript": "6.0.3"
   },

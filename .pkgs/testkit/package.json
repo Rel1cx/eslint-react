@@ -37,11 +37,11 @@
   },
   "dependencies": {
     "@local/eff": "workspace:*",
-    "@typescript-eslint/parser": "^8.73.0",
-    "@typescript-eslint/rule-tester": "^8.73.0",
-    "@typescript-eslint/types": "^8.73.0",
-    "@typescript-eslint/typescript-estree": "^8.73.0",
-    "@typescript-eslint/utils": "^8.73.0",
+    "@typescript-eslint/parser": "^8.74.0",
+    "@typescript-eslint/rule-tester": "^8.74.0",
+    "@typescript-eslint/types": "^8.74.0",
+    "@typescript-eslint/typescript-estree": "^8.74.0",
+    "@typescript-eslint/utils": "^8.74.0",
     "typescript": "6.0.3"
   },
   "devDependencies": {
@@ -50,7 +50,7 @@
     "@types/node": "^20.19.43",
     "eslint": "^10.15.0",
     "tsdown": "^0.23.7",
-    "vitest": "^5.1.1"
+    "vitest": "^5.1.2"
   },
   "engines": {
     "node": ">=20.19.0"
