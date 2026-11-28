@@ -43,6 +43,7 @@ export const projects = [
   { owner: "prosekit", repo: "prosekit" },
   { owner: "rari-build", repo: "rari" },
   { owner: "react-navigation", repo: "react-navigation" },
+  { owner: "reactjs", repo: "react-tabs" },
   { owner: "refined-github", repo: "refined-github" },
   { owner: "remeda", repo: "remeda" },
   { owner: "TanStack", repo: "devtools" },
