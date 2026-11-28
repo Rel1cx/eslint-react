@@ -41,8 +41,8 @@
     "@eslint-react/jsx": "workspace:*",
     "@eslint-react/shared": "workspace:*",
     "@eslint-react/var": "workspace:*",
-    "@typescript-eslint/types": "^8.73.0",
-    "@typescript-eslint/utils": "^8.73.0",
+    "@typescript-eslint/types": "^8.74.0",
+    "@typescript-eslint/utils": "^8.74.0",
     "ts-pattern": "^5.9.2"
   },
   "devDependencies": {
@@ -55,7 +55,7 @@
     "eslint": "^10.15.0",
     "tsdown": "^0.23.7",
     "typescript": "6.0.3",
-    "vitest": "^5.1.1"
+    "vitest": "^5.1.2"
   },
   "peerDependencies": {
     "eslint": "*",
