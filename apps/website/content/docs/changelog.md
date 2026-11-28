@@ -2,6 +2,19 @@
 title: Changelog
 ---
 
+## v5.30.7 (2026-11-28)
+
+### 📝 Documentation
+
+- Added webpack to the website's community projects list.
+
+### 🏗️ Internal
+
+- Removed checks made redundant by `@typescript-eslint/typescript-estree` 8.74.0. (#2122)
+- Bumped dependencies across the workspace, including `typescript-eslint` to `8.74.0`, `effect` and `@effect/platform-node` to `4.1.6`, `vitest` to `5.1.2`, `nx` to `24.1.0`, `@types/react` to `19.3.3`, and pnpm to `12.23.0`.
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.30.6...v5.30.7
+
 ## v5.30.6 (2026-11-22)
 
 ### 🐞 Fixes
